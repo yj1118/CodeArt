@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C0BAC0EB-7068-42AF-ACAC-09DF677CF980}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CodeArt.DomainDriven.DataAccess</RootNamespace>
+    <AssemblyName>CodeArt.DomainDriven.DataAccess</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Dapper, Version=1.50.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.1.50.2\lib\net451\Dapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.TransactSql.ScriptDom, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.ValueTuple, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.3.1\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Cache\Cache.cs" />
+    <Compile Include="Cache\ICache.cs" />
+    <Compile Include="Cache\CacheEntry.cs" />
+    <Compile Include="Cache\MemoryCacheProxy.cs" />
+    <Compile Include="Common\DataContextExtensions.cs" />
+    <Compile Include="Common\PreApplicationStart.cs" />
+    <Compile Include="Common\QueryAdapter.cs" />
+    <Compile Include="Common\SqlDynamicRepository.cs" />
+    <Compile Include="Common\SqlRepository.cs" />
+    <Compile Include="Common\Validator.cs" />
+    <Compile Include="DataAccessConfiguration.cs" />
+    <Compile Include="DataModel\DataModel.cs" />
+    <Compile Include="DataModel\Field\AggregateRootField.cs" />
+    <Compile Include="DataModel\Field\AggregateRootListField.cs" />
+    <Compile Include="DataModel\Field\DataField.cs" />
+    <Compile Include="DataModel\Field\EntityObjectField.cs" />
+    <Compile Include="DataModel\Field\EntityObjectListField.cs" />
+    <Compile Include="DataModel\Field\EntityObjectProField.cs" />
+    <Compile Include="DataModel\Field\EntityObjectProListField.cs" />
+    <Compile Include="DataModel\Field\GeneratedField.cs" />
+    <Compile Include="DataModel\Field\IDataField.cs" />
+    <Compile Include="DataModel\Field\ObjectField.cs" />
+    <Compile Include="DataModel\Field\ValueField.cs" />
+    <Compile Include="DataModel\Field\ValueListField.cs" />
+    <Compile Include="DataModel\Field\ValueObjectField.cs" />
+    <Compile Include="DataModel\Field\ValueObjectListField.cs" />
+    <Compile Include="DataModel\ObjectChain.cs" />
+    <Compile Include="DataModel\TempIndex.cs" />
+    <Compile Include="DataModel\Table\Childs.cs" />
+    <Compile Include="DataModel\Table\Common.cs" />
+    <Compile Include="DataModel\Table\Delete.cs" />
+    <Compile Include="DataModel\Table\Factory.cs" />
+    <Compile Include="DataModel\Table\Insert.cs" />
+    <Compile Include="DataModel\Table\Life.cs" />
+    <Compile Include="DataModel\Table\Query.cs" />
+    <Compile Include="DataModel\Table\Read.cs" />
+    <Compile Include="DataModel\Table\Update.cs" />
+    <Compile Include="DataModel\Util.cs" />
+    <Compile Include="DataPortal\DataPortal.cs" />
+    <Compile Include="DataPortal\DataPortalException.cs" />
+    <Compile Include="DataProxyPro.cs" />
+    <Compile Include="NotSupportDatabaseException.cs" />
+    <Compile Include="DataAccessException.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Query\Direct\CUD\Associated\DecrementAssociated.cs" />
+    <Compile Include="Query\Direct\CUD\DeleteTable.cs" />
+    <Compile Include="Query\Direct\CUD\Associated\SelectAssociated.cs" />
+    <Compile Include="Query\Direct\CUD\Associated\IncrementAssociated.cs" />
+    <Compile Include="Query\Direct\CUD\InsertTable.cs" />
+    <Compile Include="Query\Direct\CUD\UpdateDataVersion.cs" />
+    <Compile Include="Query\Direct\CUD\UpdateTable.cs" />
+    <Compile Include="Query\Direct\GetIdentity.cs" />
+    <Compile Include="Query\Direct\Life\CreateTable.cs" />
+    <Compile Include="Query\Direct\Life\DropTable.cs" />
+    <Compile Include="Query\Direct\SingleTableOperation.cs" />
+    <Compile Include="Query\Expression\ExpressionCache.cs" />
+    <Compile Include="Query\Expression\QueryCount.cs" />
+    <Compile Include="Query\Expression\QueryExpression.cs" />
+    <Compile Include="Query\Direct\GetSlaveIds.cs" />
+    <Compile Include="Query\Expression\QueryObject.cs" />
+    <Compile Include="Query\Expression\QueryPage\ISqlPageTemplate.cs" />
+    <Compile Include="Query\Expression\QueryPage\QueryPage.cs" />
+    <Compile Include="SqlParser\SqlColumns.cs" />
+    <Compile Include="SqlParser\SqlParser.cs" />
+    <Compile Include="SQLServer\SqlInsertBuilder.cs" />
+    <Compile Include="SQLServer\SqlPageBuilder.cs" />
+    <Compile Include="Query\Expression\SqlDefinition\SqlCondition.cs" />
+    <Compile Include="Query\Expression\SqlDefinition\SqlDefinition.cs" />
+    <Compile Include="Query\Expression\SqlDefinition\SqlIn.cs" />
+    <Compile Include="Query\Expression\SqlDefinition\SqlLike.cs" />
+    <Compile Include="Query\IQueryBuilder.cs" />
+    <Compile Include="Query\QueryBuilder.cs" />
+    <Compile Include="SqlContext\DatabaseAgent\DatabaseAgent.cs" />
+    <Compile Include="SqlContext\DatabaseAgent\DatabaseType.cs" />
+    <Compile Include="SqlContext\DatabaseAgent\IDatabaseAgent.cs" />
+    <Compile Include="SqlContext\ISqlConnectionProvider.cs" />
+    <Compile Include="SqlContext\SqlConnectionProvider.cs" />
+    <Compile Include="SqlContext\SqlContext.cs" />
+    <Compile Include="SqlHelper.cs" />
+    <Compile Include="SQLServer\SQLServerAgent.cs" />
+    <Compile Include="SQLServer\Util.cs" />
+    <Compile Include="SQLServer\SqlStatement.cs" />
+    <Compile Include="Query\SqlStatement\SqlUpdateBuilder.cs" />
+    <Compile Include="Query\SqlStatement\SqlStatement.cs" />
+    <Compile Include="Strings.Designer.cs">
+      <DependentUpon>Strings.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CodeArt.DomainDriven\CodeArt.DomainDriven.csproj">
+      <Project>{f62d7792-f4ee-4924-898e-c56309e6dfc2}</Project>
+      <Name>CodeArt.DomainDriven</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CodeArt\CodeArt.csproj">
+      <Project>{d2c9f430-6b47-482a-a49c-a2478d75f95f}</Project>
+      <Name>CodeArt</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Strings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Strings.zh-CN.resx" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
