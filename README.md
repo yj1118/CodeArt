@@ -5,7 +5,8 @@ It divides the entire business application into four hierarchies: the presentati
 For these four levels of CA provides a number of features to meet the needs of developers, one of its characteristics is to help developers completely out of the database design as the center of the project implementation, so that programmers are no longer busy in the data Delete the investigation of boring low-value work, instead focus on the field of system design.
 
 
-- **Documentation**:		[http://bbs.codeart.cn/](http://bbs.codeart.cn/)
+- **Documentation**:		[http://www.cnblogs.com/codeart/category/1027074.html](http://www.cnblogs.com/codeart/category/1027074.html)
+- **BBS**:		[http://bbs.codeart.cn/](http://bbs.codeart.cn/)
 - **QQ group number**:		558084219
 
 
