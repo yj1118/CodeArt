@@ -52,12 +52,20 @@ namespace CodeArt.DomainDriven.DataAccess
             private set;
         }
 
+        private IList<DbFieldType> _dbFieldTypes;
+
         public IEnumerable<DbFieldType> DbFieldTypes
         {
-            get;
-            private set;
+            get
+            {
+                return _dbFieldTypes;
+            }
         }
 
+        public void AddDbFieldType(DbFieldType fieldType)
+        {
+            if (!_dbFieldTypes.Contains(fieldType)) _dbFieldTypes.Add(fieldType);
+        }
 
         public bool IsPrimaryKey
         {
@@ -123,7 +131,7 @@ namespace CodeArt.DomainDriven.DataAccess
         {
             this.Tip = tip;
             this.DbType = dbType;
-            this.DbFieldTypes = dbFieldTypes;
+            _dbFieldTypes = dbFieldTypes.ToList();
             this.Derivatives = new List<DataTable>();
         }
     }

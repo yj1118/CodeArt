@@ -44,7 +44,7 @@ namespace CodeArt.ServiceModel
                     ProcessPOST(context);
                 else
                     ProcessOther(context);
-            });
+            }, true);
         }
 
         private void ProcessPOST(HttpContext context)
@@ -53,7 +53,6 @@ namespace CodeArt.ServiceModel
             DTObject status = null;
             try
             {
-                Symbiosis.Open();
                 var request = GetServiceRequest(context);
                 InitContext(context, request);
                 returnValue = ProcessService(request);
@@ -68,7 +67,6 @@ namespace CodeArt.ServiceModel
             {
                 ServiceResponse response = new ServiceResponse(status, returnValue);
                 SendResponse(context, response);
-                Symbiosis.Close();
             }
         }
 
@@ -116,11 +114,11 @@ namespace CodeArt.ServiceModel
         {
             get
             {
-                return HttpContext.Current.Items["__Current"] as WebServiceHost;
+                return AppSession.GetItem<WebServiceHost>("WebServiceHost");
             }
             private set
             {
-                HttpContext.Current.Items["__Current"] = value;
+                AppSession.SetItem("WebServiceHost", value);
             }
         }
 
@@ -128,11 +126,11 @@ namespace CodeArt.ServiceModel
         {
             get
             {
-                return HttpContext.Current.Items["__Identity"] as DTObject;
+                return AppSession.GetItem<DTObject>("__Identity");
             }
             private set
             {
-                HttpContext.Current.Items["__Identity"] = value;
+                AppSession.SetItem("__Identity", value);
             }
         }
 

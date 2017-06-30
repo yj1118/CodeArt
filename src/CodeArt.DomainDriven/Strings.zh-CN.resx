@@ -126,6 +126,9 @@
   <data name="DynamicObjectLoadError" xml:space="preserve">
     <value>dto数据格式错误，与定义{0}不匹配</value>
   </data>
+  <data name="DynamicTypeRepeated" xml:space="preserve">
+    <value>定义了多个名称为{0}的动态类型</value>
+  </data>
   <data name="EmptyReadOnly" xml:space="preserve">
     <value>空对象 {0} 是只读的</value>
   </data>

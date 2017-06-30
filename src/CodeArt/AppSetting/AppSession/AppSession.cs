@@ -1,7 +1,9 @@
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 
 using CodeArt.Runtime;
+using CodeArt.Log;
 
 namespace CodeArt.AppSetting
 {
@@ -15,22 +17,47 @@ namespace CodeArt.AppSetting
         /// <summary>
         /// 
         /// </summary>
-        public static void Using(Action action)
+        public static void Using(Action action,bool useSymbiosis)
         {
             try
             {
                 Initialize();
+                if (useSymbiosis) Symbiosis.Open();
                 action();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
             finally
             {
+                if (useSymbiosis) Symbiosis.Close();
                 Dispose();
             }
         }
+
+        public static void AsyncUsing(Action action, bool useSymbiosis)
+        {
+            Task.Run(() =>
+            {
+                try
+                {
+                    Initialize();
+                    if (useSymbiosis) Symbiosis.Open();
+                    action();
+                }
+                catch (Exception ex)
+                {
+                    LogWrapper.Default.Fatal(ex);
+                }
+                finally
+                {
+                    if (useSymbiosis) Symbiosis.Close();
+                    Dispose();
+                }
+            });
+        }
+
 
         /// <summary>
         /// 初始化回话

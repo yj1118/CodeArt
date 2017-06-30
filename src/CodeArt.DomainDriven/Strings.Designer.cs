@@ -88,6 +88,15 @@ namespace CodeArt.DomainDriven {
         }
         
         /// <summary>
+        ///   查找类似 Defines multiple dynamic types with the name {0} 的本地化字符串。
+        /// </summary>
+        internal static string DynamicTypeRepeated {
+            get {
+                return ResourceManager.GetString("DynamicTypeRepeated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Empty object {0} are read-only 的本地化字符串。
         /// </summary>
         internal static string EmptyReadOnly {

@@ -56,7 +56,7 @@ namespace CodeArt.Web
 
         public CombineAppSession() { }
 
-        internal static readonly WebAppSession Instance = new WebAppSession();
+        internal static readonly CombineAppSession Instance = new CombineAppSession();
 
 
 

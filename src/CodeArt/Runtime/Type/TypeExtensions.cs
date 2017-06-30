@@ -676,11 +676,19 @@ namespace CodeArt.Runtime
                 if (target.IsInterface)
                     return type.GetInterface(target.FullName, true) != null;
                 if (type.IsSubclassOf(target)) return true;
-                if (target.IsGenericType && target.ContainsGenericParameters && type.IsGenericType)
+                if (target.IsGenericType && target.ContainsGenericParameters)
                 {
-                    var genericTypeDefinition = type.GetGenericTypeDefinition();
-                    if (genericTypeDefinition != type) //有的泛型例如 List<T>的定义就等于其自身
-                        return type.GetGenericTypeDefinition().IsImplementOrEquals(target);
+                    if(type.IsGenericType)
+                    {
+                        var genericTypeDefinition = type.GetGenericTypeDefinition();
+                        if (genericTypeDefinition != type) //有的泛型例如 List<T>的定义就等于其自身
+                            return type.GetGenericTypeDefinition().IsImplementOrEquals(target);
+                    }
+                    else
+                    {
+                        if (type.BaseType != null)
+                            return type.BaseType.IsImplementOrEquals(target);
+                    }
                 }
             }
             return false;

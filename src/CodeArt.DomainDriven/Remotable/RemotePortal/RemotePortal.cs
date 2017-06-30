@@ -139,20 +139,7 @@ namespace CodeArt.DomainDriven
         /// <param name="id"></param>
         internal static void NotifyUpdated(RemoteType type, object id)
         {
-            Task.Run(() =>
-            {
-                AppSession.Using(() =>
-                {
-                    try
-                    {
-                        Implement.NotifyUpdated(type, id, _config.MembershipAddresses);
-                    }
-                    catch(Exception ex)
-                    {
-                        LogWrapper.Default.Fatal(ex);
-                    }
-                });
-            });
+            Implement.NotifyUpdated(type, id, _config.MembershipAddresses);
         }
 
         /// <summary>
@@ -162,10 +149,7 @@ namespace CodeArt.DomainDriven
         /// <param name="id"></param>
         internal static void NotifyDeleted(RemoteType type, object id)
         {
-            Task.Run(() =>
-            {
-                Implement.NotifyDeleted(type, id, _config.MembershipAddresses);
-            });
+            Implement.NotifyDeleted(type, id, _config.MembershipAddresses);
         }
 
         #endregion

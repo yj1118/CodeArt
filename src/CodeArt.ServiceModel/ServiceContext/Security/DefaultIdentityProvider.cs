@@ -7,7 +7,7 @@ using CodeArt.DTO;
 
 namespace CodeArt.ServiceModel
 {
-    internal class DefaultIdentityProvider : IIdentityProvider
+    public class DefaultIdentityProvider : IIdentityProvider
     {
         private static DTObject _identity = DTObject.Create();
 

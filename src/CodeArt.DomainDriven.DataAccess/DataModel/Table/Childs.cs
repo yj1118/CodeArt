@@ -233,7 +233,7 @@ namespace CodeArt.DomainDriven.DataAccess
         private static DataTable CreateEntityObjectProTable(DataTable root, DataTable master, IDataField memberField, Type objectType)
         {
             var fields = new List<IDataField>();
-            fields.Add(GetForeignKey(root, GeneratedFieldType.RootKey, DbFieldType.PrimaryKey));//根编号要放在id之前，方便优化索引性能
+            //fields.Add(GetForeignKey(root, GeneratedFieldType.RootKey, DbFieldType.PrimaryKey));//根编号要放在id之前，方便优化索引性能
             fields.AddRange(DataModel.GetObjectFields(objectType, master.IsSnapshot)); //增加对象定义的领域属性
 
             return DataTable.Create(root,

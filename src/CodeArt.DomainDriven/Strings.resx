@@ -252,4 +252,7 @@
   <data name="UninitializedDomainObject" xml:space="preserve">
     <value>Uninitialized domain object</value>
   </data>
+  <data name="DynamicTypeRepeated" xml:space="preserve">
+    <value>Defines multiple dynamic types with the name {0}</value>
+  </data>
 </root>

@@ -87,7 +87,16 @@
     <Compile Include="Demo\Test\ObjectInheritedTest.cs" />
     <Compile Include="Demo\Test\OtherTest.cs" />
     <Compile Include="Demo\Test\Test.cs" />
+    <Compile Include="Detail\DataVersionTest4.cs" />
+    <Compile Include="Detail\DataVersionTest3.cs" />
     <Compile Include="Detail\DataVersionTest2.cs" />
+    <Compile Include="Detail\DataVersionTestDomainObject\Animal\Animal.cs" />
+    <Compile Include="Detail\DataVersionTestDomainObject\Animal\AnimalExtensions2.cs" />
+    <Compile Include="Detail\DataVersionTestDomainObject\Animal\AnimalRepository.cs" />
+    <Compile Include="Detail\DataVersionTestDomainObject\Animal\AnimalExtensions.cs" />
+    <Compile Include="Detail\DataVersionTestDomainObject\Animal\AnimalColor.cs" />
+    <Compile Include="Detail\DataVersionTestDomainObject\Animal\AnimalWheel.cs" />
+    <Compile Include="Detail\DataVersionTestDomainObject\Car\CarDoor.cs" />
     <Compile Include="Detail\DataVersionTestDomainObject\Car\CarWheel.cs" />
     <Compile Include="Detail\DataVersionTestDomainObject\Car\CarBreak.cs" />
     <Compile Include="Detail\DataVersionTestDomainObject\Car\CarBrand.cs" />
@@ -97,6 +106,7 @@
     <Compile Include="Detail\DataVersionTestDomainObject\CarSlim\CarSlimRepository.cs" />
     <Compile Include="Detail\DataVersionTestDomainObject\CarSlim\CarSlim.cs" />
     <Compile Include="Detail\DataVersionTest1.cs" />
+    <Compile Include="Detail\DataVersionTestDomainObject\Car\CarUser.cs" />
     <Compile Include="DomainProperty\DomainPropertyChangedTest.cs" />
     <Compile Include="DomainObject\DomainObjectValidatorTest.cs" />
     <Compile Include="DomainProperty\DomainPropertyValidatorTest.cs" />

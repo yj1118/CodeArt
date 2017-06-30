@@ -38,6 +38,7 @@ namespace CodeArt.DomainDrivenTest.Detail
             Car car = CreateCar();
 
             var repository = Repository.Create<ICarRepository>();
+            repository.AddEntityPro(car.MainBreak);
             repository.Add(car);
 
             this.Commit();
@@ -393,6 +394,482 @@ namespace CodeArt.DomainDrivenTest.Detail
             CheckCarDataVersion(car.Id, 2);
         }
 
+        [TestMethod]
+        public void CarTest14()
+        {
+            var car = this.Fixture.Get<Car>() as Car;
+            CheckCarDataVersion(car.Id, 1);
+
+            // 修改
+            car.RemoveCarWheel(3);
+
+            UpdateCar(car);
+
+            Car carMemmory = GetCar(car.Id);
+
+            Assert.AreEqual(carMemmory.Wheels.Count(), 1);
+
+            Assert.AreEqual(carMemmory.Wheels.ElementAt(0).TheColor.Name, "红色");
+
+            var carNew = FindCar(car.Id);
+
+            CheckCarDataVersion(car.Id, 2);
+        }
+
+        [TestMethod]
+        public void CarTest15()
+        {
+            var car = this.Fixture.Get<Car>() as Car;
+            CheckCarDataVersion(car.Id, 1);
+
+            Assert.AreEqual(car.Doors.Count(), 0);
+
+            // 修改
+            CarDoor door1 = new CarDoor(1)
+            {
+                Name = "1号门",
+                OrderIndex = 10,
+                TheColor = new WholeColor("绿色", 9, false)
+            };
+
+            CarDoor door2 = new CarDoor(2)
+            {
+                Name = "2号门",
+                OrderIndex = 10,
+                TheColor = new WholeColor("蓝色", 8, true)
+            };
+
+            car.AddCarDoor(door1);
+            car.AddCarDoor(door2);
+
+            UpdateCar(car);
+
+            Car carMemmory = GetCar(car.Id);
+
+            Assert.AreEqual(carMemmory.Doors.Count(), 2);
+            Assert.AreEqual(carMemmory.Doors.ElementAt(1).Name, "2号门");
+            Assert.AreEqual(carMemmory.Doors.ElementAt(1).TheColor.Name, "蓝色");
+
+            var carNew = FindCar(car.Id);
+
+            CheckCarDataVersion(car.Id, 2);
+        }
+
+        [TestMethod]
+        public void CarTest16()
+        {
+            var car = this.Fixture.Get<Car>() as Car;
+            CheckCarDataVersion(car.Id, 1);
+
+            Assert.AreEqual(car.Doors.Count(), 0);
+
+            // 修改
+            CarDoor door1 = new CarDoor(1)
+            {
+                Name = "1号门",
+                OrderIndex = 10,
+                TheColor = new WholeColor("绿色", 9, false)
+            };
+
+            CarDoor door2 = new CarDoor(2)
+            {
+                Name = "2号门",
+                OrderIndex = 10,
+                TheColor = new WholeColor("蓝色", 8, true)
+            };
+
+            car.AddCarDoor(door1);
+            car.AddCarDoor(door2);
+
+            UpdateCar(car);
+
+            Car carMemmory = GetCar(car.Id);
+
+            Assert.AreEqual(carMemmory.Doors.Count(), 2);
+            Assert.AreEqual(carMemmory.Doors.ElementAt(1).Name, "2号门");
+            Assert.AreEqual(carMemmory.Doors.ElementAt(1).TheColor.Name, "蓝色");
+
+            var carNew = FindCar(car.Id);
+
+            CheckCarDataVersion(car.Id, 2);
+
+            car.RemoveCarDoor(1);
+            UpdateCar(car);
+
+            Car carMemmory2 = GetCar(car.Id);
+
+            Assert.AreEqual(carMemmory2.Doors.Count(), 1);
+            Assert.AreEqual(carMemmory.Doors.ElementAt(1).Name, "2号门");
+            Assert.AreEqual(carMemmory2.Doors.ElementAt(0).TheColor.Name, "蓝色");
+
+            carNew = FindCar(car.Id);
+
+            CheckCarDataVersion(car.Id, 3);
+
+        }
+
+        [TestMethod]
+        public void CarTest17()
+        {
+            var car = this.Fixture.Get<Car>() as Car;
+            CheckCarDataVersion(car.Id, 1);
+
+            // 修改
+            car.Wheels.ElementAt(0).Description = "Update theCarWheel1";
+
+            UpdateCar(car);
+
+            Car carMemmory = GetCar(car.Id);
+
+            Assert.AreEqual(carMemmory.Wheels.Count(), 2);
+
+            Assert.AreEqual(carMemmory.Wheels.ElementAt(0).Description, "Update theCarWheel1");
+            Assert.AreEqual(carMemmory.Wheels.ElementAt(0).TheColor.Name, "红色");
+
+            var carNew = FindCar(car.Id);
+
+            CheckCarDataVersion(car.Id, 2);
+        }
+
+        [TestMethod]
+        public void CarTest18()
+        {
+            var car = this.Fixture.Get<Car>() as Car;
+            CheckCarDataVersion(car.Id, 1);
+
+            Assert.AreEqual(car.Doors.Count(), 0);
+
+            // 修改
+            CarDoor door1 = new CarDoor(1)
+            {
+                Name = "1号门",
+                OrderIndex = 10,
+                TheColor = new WholeColor("绿色", 9, false)
+            };
+
+            CarDoor door2 = new CarDoor(2)
+            {
+                Name = "2号门",
+                OrderIndex = 10,
+                TheColor = new WholeColor("蓝色", 8, true)
+            };
+
+            car.AddCarDoor(door1);
+            car.AddCarDoor(door2);
+
+            UpdateCar(car);
+
+            Car carMemmory = GetCar(car.Id);
+
+            Assert.AreEqual(carMemmory.Doors.Count(), 2);
+            Assert.AreEqual(carMemmory.Doors.ElementAt(1).Name, "2号门");
+            Assert.AreEqual(carMemmory.Doors.ElementAt(1).TheColor.Name, "蓝色");
+
+            var carNew = FindCar(car.Id);
+
+            CheckCarDataVersion(car.Id, 2);
+
+            car.Doors.ElementAt(0).Name = "Update 1号门";
+            UpdateCar(car);
+
+            Car carMemmory2 = GetCar(car.Id);
+
+            Assert.AreEqual(carMemmory2.Doors.Count(), 2);
+            Assert.AreEqual(carMemmory2.Doors.ElementAt(0).Name, "Update 1号门");
+            Assert.AreEqual(carMemmory2.Doors.ElementAt(0).TheColor.Name, "绿色");
+
+            carNew = FindCar(car.Id);
+
+            CheckCarDataVersion(car.Id, 3);
+
+        }
+
+        [TestMethod]
+        public void CarTest19()
+        {
+            var car = this.Fixture.Get<Car>() as Car;
+            CheckCarDataVersion(car.Id, 1);
+
+            Assert.AreEqual(car.MainBreak.Description, "MainBreak");
+
+            // 修改
+            car.MainBreak.CreateDate = new DateTime(2017, 6, 2);
+
+            UpdateCar(car);
+
+            Car carMemmory = GetCar(car.Id);
+
+            Assert.AreEqual(car.MainBreak.CreateDate.ToString(), new DateTime(2017, 6, 2).ToString());
+
+            var carNew = FindCar(car.Id);
+
+            CheckCarDataVersion(car.Id, 1);
+
+            CheckCarBreakVersion(car.MainBreak.Id, 2);
+        }
+
+        [TestMethod]
+        public void CarTest20()
+        {
+            var car = this.Fixture.Get<Car>() as Car;
+            CheckCarDataVersion(car.Id, 1);
+
+            Assert.AreEqual(car.MainBreak.Description, "MainBreak");
+
+            // 修改
+            car.MainBreak = new CarBreak(10, car)
+            {
+                Description = "Modify MainBreak",
+                TheColor = new WholeColor("修改主色", 8, true),
+                CreateDate = new DateTime(2017, 6, 10)
+            };
+
+            this.BeginTransaction();
+
+            var repository = Repository.Create<ICarRepository>();
+            repository.AddEntityPro(car.MainBreak);
+            repository.Update(car);
+
+            this.Commit();
+
+            Car carMemmory = GetCar(car.Id);
+
+            Assert.AreEqual(carMemmory.MainBreak.CreateDate.ToString(), new DateTime(2017, 6, 10).ToString());
+            Assert.AreEqual(carMemmory.MainBreak.Description, "Modify MainBreak");
+
+            var carNew = FindCar(car.Id);
+
+            CheckCarDataVersion(car.Id, 2);
+
+            CheckCarBreakVersion(car.MainBreak.Id, 1);
+        }
+
+        [TestMethod]
+        public void CarTest21()
+        {
+            var car = this.Fixture.Get<Car>() as Car;
+            CheckCarDataVersion(car.Id, 1);
+
+            Assert.AreEqual(car.MainBreak.Description, "MainBreak");
+
+            // 修改
+            CarBreak breaker1 = new CarBreak(11, car)
+            {
+                Description = "CarBreak1",
+                TheColor = new WholeColor("红色", 8, true),
+                CreateDate = new DateTime(2017, 6, 1)
+            };
+
+            CarBreak breaker2 = new CarBreak(12, car)
+            {
+                Description = "CarBreak2",
+                TheColor = new WholeColor("蓝色", 8, true),
+                CreateDate = new DateTime(2017, 6, 2)
+            };
+
+            this.BeginTransaction();
+
+            car.AddCarBreak(breaker1);
+            car.AddCarBreak(breaker2);
+
+            var repository = Repository.Create<ICarRepository>();
+            repository.Update(car);
+
+            this.Commit();
+
+            Car carMemmory = GetCar(car.Id);
+
+            Assert.AreEqual(carMemmory.Breaks.Count(), 2);
+            Assert.AreEqual(carMemmory.Breaks.ElementAt(1).Description, "CarBreak2");
+
+            var carNew = FindCar(car.Id);
+
+            CheckCarDataVersion(car.Id, 2);
+        }
+
+        [TestMethod]
+        public void CarTest22()
+        {
+            var car = this.Fixture.Get<Car>() as Car;
+            CheckCarDataVersion(car.Id, 1);
+
+            Assert.AreEqual(car.MainBreak.Description, "MainBreak");
+
+            // 修改
+            CarBreak breaker1 = new CarBreak(11, car)
+            {
+                Description = "CarBreak1",
+                TheColor = new WholeColor("红色", 8, true),
+                CreateDate = new DateTime(2017, 6, 1)
+            };
+
+            CarBreak breaker2 = new CarBreak(12, car)
+            {
+                Description = "CarBreak2",
+                TheColor = new WholeColor("蓝色", 8, true),
+                CreateDate = new DateTime(2017, 6, 2)
+            };
+
+            this.BeginTransaction();
+
+            car.AddCarBreak(breaker1);
+            car.AddCarBreak(breaker2);
+
+            var repository = Repository.Create<ICarRepository>();
+            repository.Update(car);
+
+            this.Commit();
+
+            Car carMemmory = GetCar(car.Id);
+
+            Assert.AreEqual(carMemmory.Breaks.Count(), 2);
+            Assert.AreEqual(carMemmory.Breaks.ElementAt(1).Description, "CarBreak2");
+
+            var carNew = FindCar(car.Id);
+
+            CheckCarDataVersion(car.Id, 2);
+
+            // 第二次修改
+            this.BeginTransaction();
+
+            car.RemoveCarBreak(12);
+
+            repository.Update(car);
+
+            this.Commit();
+
+            Car carMemmory2 = GetCar(car.Id);
+
+            Assert.AreEqual(carMemmory2.Breaks.Count(), 1);
+            Assert.AreEqual(carMemmory2.Breaks.ElementAt(0).Description, "CarBreak1");
+
+            CheckCarDataVersion(car.Id, 3);
+
+        }
+
+        [TestMethod]
+        public void CarTest23()
+        {
+            var car = this.Fixture.Get<Car>() as Car;
+            CheckCarDataVersion(car.Id, 1);
+
+            Assert.AreEqual(car.MainBreak.Description, "MainBreak");
+
+            // 修改
+            CarBreak breaker1 = new CarBreak(11, car)
+            {
+                Description = "CarBreak1",
+                TheColor = new WholeColor("红色", 8, true),
+                CreateDate = new DateTime(2017, 6, 1)
+            };
+
+            CarBreak breaker2 = new CarBreak(12, car)
+            {
+                Description = "CarBreak2",
+                TheColor = new WholeColor("蓝色", 8, true),
+                CreateDate = new DateTime(2017, 6, 2)
+            };
+
+            this.BeginTransaction();
+
+            car.AddCarBreak(breaker1);
+            car.AddCarBreak(breaker2);
+
+            var repository = Repository.Create<ICarRepository>();
+            repository.Update(car);
+
+            this.Commit();
+
+            Car carMemmory = GetCar(car.Id);
+
+            Assert.AreEqual(carMemmory.Breaks.Count(), 2);
+            Assert.AreEqual(carMemmory.Breaks.ElementAt(1).Description, "CarBreak2");
+
+            var carNew = FindCar(car.Id);
+
+            CheckCarDataVersion(car.Id, 2);
+
+            // 第二次修改
+            this.BeginTransaction();
+
+            car.RemoveCarBreak(12);
+
+            repository.Update(car);
+
+            this.Commit();
+
+            Car carMemmory2 = GetCar(car.Id);
+
+            Assert.AreEqual(carMemmory2.Breaks.Count(), 1);
+            Assert.AreEqual(carMemmory2.Breaks.ElementAt(0).Description, "CarBreak1");
+
+            CheckCarDataVersion(car.Id, 3);
+
+        }
+
+        [TestMethod]
+        public void CarTest24()
+        {
+            var car = this.Fixture.Get<Car>() as Car;
+            CheckCarDataVersion(car.Id, 1);
+
+            Assert.AreEqual(car.MainBreak.Description, "MainBreak");
+
+            // 修改
+            CarBreak breaker1 = new CarBreak(11, car)
+            {
+                Description = "CarBreak1",
+                TheColor = new WholeColor("红色", 8, true),
+                CreateDate = new DateTime(2017, 6, 1)
+            };
+
+            CarBreak breaker2 = new CarBreak(12, car)
+            {
+                Description = "CarBreak2",
+                TheColor = new WholeColor("蓝色", 8, true),
+                CreateDate = new DateTime(2017, 6, 2)
+            };
+
+            this.BeginTransaction();
+
+            car.AddCarBreak(breaker1);
+            car.AddCarBreak(breaker2);
+
+            var repository = Repository.Create<ICarRepository>();
+            repository.Update(car);
+
+            this.Commit();
+
+            Car carMemmory = GetCar(car.Id);
+
+            Assert.AreEqual(carMemmory.Breaks.Count(), 2);
+            Assert.AreEqual(carMemmory.Breaks.ElementAt(1).Description, "CarBreak2");
+
+            var carNew = FindCar(car.Id);
+
+            CheckCarDataVersion(car.Id, 2);
+
+            // 只修改高级实体内部
+            this.BeginTransaction();
+
+            breaker1.Description = "update CarBreak1";
+            breaker1.TheColor = new WholeColor("修改红色", 8, true);
+
+            car.UpdateCarBreak(breaker1);
+
+            repository.Update(car);
+
+            this.Commit();
+
+            Car carMemmory2 = GetCar(car.Id);
+
+            Assert.AreEqual(carMemmory2.Breaks.Count(), 2);
+            Assert.AreEqual(carMemmory2.Breaks.ElementAt(0).Description, "update CarBreak1");
+
+            CheckCarDataVersion(car.Id, 2);
+
+        }
+
         #endregion
 
         #region Car测试工具
@@ -450,6 +927,14 @@ namespace CodeArt.DomainDrivenTest.Detail
             car.AddCarWheel(wheel1);
             car.AddCarWheel(wheel2);
 
+            car.MainBreak = new CarBreak(1, car)
+            {
+                Description = "MainBreak",
+                TheColor = new WholeColor("主色", 5, true),
+                CreateDate = new DateTime(2017, 6, 1)
+            };
+
+
             return car;
         }
 
@@ -458,6 +943,7 @@ namespace CodeArt.DomainDrivenTest.Detail
             this.BeginTransaction();
 
             var repository = Repository.Create<ICarRepository>();
+            repository.UpdateEntityPro(car.MainBreak);
             repository.Update(car);
 
             this.Commit();
@@ -486,6 +972,15 @@ namespace CodeArt.DomainDrivenTest.Detail
             DataPortal.Direct<Car>((conn) =>
             {
                 var data = conn.QuerySingle("select * from Car where id=@id", new { Id = id });
+                Assert.AreEqual(data.DataVersion, dataVersion);
+            });
+        }
+
+        private void CheckCarBreakVersion(long id, int dataVersion)
+        {
+            DataPortal.Direct<Car>((conn) =>
+            {
+                var data = conn.QuerySingle("select * from CarBreak where id=@id", new { Id = id });
                 Assert.AreEqual(data.DataVersion, dataVersion);
             });
         }

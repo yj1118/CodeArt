@@ -231,7 +231,7 @@ namespace CodeArt.DomainDrivenTest.Detail
 
         #endregion
 
-        #region 实体对象的集合
+        #region 实体对象的集合--非延时加载
 
         /// <summary>
         /// 引用对象的集合
@@ -272,6 +272,143 @@ namespace CodeArt.DomainDrivenTest.Detail
 
         #endregion
 
+        #region 实体对象的集合--延时加载
+
+        /// <summary>
+        /// 引用对象的集合
+        /// </summary>
+        private static readonly DomainProperty DoorsProperty = DomainProperty.RegisterCollection<CarDoor, Car>("Doors");
+
+        private DomainCollection<CarDoor> _Doors
+        {
+            get
+            {
+                return GetValue<DomainCollection<CarDoor>>(DoorsProperty);
+            }
+            set
+            {
+                SetValue(DoorsProperty, value);
+            }
+        }
+
+        [PropertyRepository(Lazy = true)]
+        public IEnumerable<CarDoor> Doors
+        {
+            get
+            {
+                return _Doors;
+            }
+        }
+
+        public void AddCarDoor(CarDoor door)
+        {
+            _Doors.Add(door);
+
+        }
+
+        public void RemoveCarDoor(int doorId)
+        {
+            var door = _Doors.FirstOrDefault((t) => t.Id == doorId);
+            _Doors.Remove(door);
+        }
+
+        #endregion
+
+        #region 高级实体对象
+
+        /// <summary>
+        /// 高级引用对象
+        /// </summary>
+
+        private static readonly DomainProperty MainBreakProperty = DomainProperty.Register<CarBreak, Car>("MainBreak", CarBreak.Empty);
+
+        [PropertyRepository(Lazy = true)]
+        public CarBreak MainBreak
+        {
+            get
+            {
+                return GetValue<CarBreak>(MainBreakProperty);
+            }
+            set
+            {
+                SetValue(MainBreakProperty, value);
+            }
+        }
+
+        #endregion
+
+        #region 高级实体对象的集合
+
+        /// <summary>
+        /// 高级引用对象的集合
+        /// </summary>
+        private static readonly DomainProperty BreaksProperty = DomainProperty.RegisterCollection<CarBreak, Car>("Breaks");
+
+        private DomainCollection<CarBreak> _Breaks
+        {
+            get
+            {
+                return GetValue<DomainCollection<CarBreak>>(BreaksProperty);
+            }
+            set
+            {
+                SetValue(BreaksProperty, value);
+            }
+        }
+
+        [PropertyRepository(Lazy = true)]
+        public IEnumerable<CarBreak> Breaks
+        {
+            get
+            {
+                return _Breaks;
+            }
+        }
+
+        public void AddCarBreak(CarBreak carbreak)
+        {
+            _Breaks.Add(carbreak);
+
+            var repository = Repository.Create<ICarRepository>();
+            repository.AddEntityPro(carbreak);
+        }
+
+        public void RemoveCarBreak(long breakId)
+        {
+            var carbreak = _Breaks.FirstOrDefault((t) => t.Id == breakId);
+            _Breaks.Remove(carbreak);
+
+            var repository = Repository.Create<ICarRepository>();
+            repository.DeleteEntityPro(carbreak);
+        }
+
+        public void UpdateCarBreak(CarBreak carbreak)
+        {
+            var repository = Repository.Create<ICarRepository>();
+            repository.UpdateEntityPro(carbreak);
+        }
+
+        #endregion
+
+        #region 远程动态对象
+
+        private static readonly DomainProperty OwnerProperty = DomainProperty.RegisterDynamic<CarUser, Car>("Owner");
+
+        [PropertyRepository]
+        public dynamic Owner
+        {
+            get
+            {
+                return GetValue<dynamic>(OwnerProperty);
+            }
+            set
+            {
+                SetValue(OwnerProperty, value);
+            }
+        }
+
+        #endregion
+
         #region 空对象
 
         private class CarEmpty : Car
@@ -291,7 +428,6 @@ namespace CodeArt.DomainDrivenTest.Detail
         public static readonly Car Empty = new CarEmpty();
 
         #endregion
-
 
         public Car(Guid id)
             : base(id)

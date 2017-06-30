@@ -31,30 +31,29 @@ namespace CodeArt.DomainDriven.Extensions
         public void NotifyUpdated(RemoteType remoteType, object id, IEnumerable<string> addresses)
         {
             var serviceName = RemoteServiceName.ObjectUpdated(remoteType);
-            var arg = DTObject.CreateReusable();
-            arg["id"] = id;
-            arg["typeName"] = remoteType.FullName;
-
-            Parallel.ForEach(addresses, (address) =>
-            {
-                AppSession.Using(() =>
-                {
-                    ServiceContext.Invoke(serviceName, arg, address);
-                });
-            });
+            AsyncExecuteService(serviceName, remoteType, id, addresses);
         }
 
         public void NotifyDeleted(RemoteType remoteType, object id, IEnumerable<string> addresses)
         {
             var serviceName = RemoteServiceName.ObjectDeleted(remoteType);
-            var arg = DTObject.CreateReusable();
-            arg["id"] = id;
-            arg["typeName"] = remoteType.FullName;
+            AsyncExecuteService(serviceName, remoteType, id, addresses);
+        }
 
-            Parallel.ForEach(addresses, (address) =>
+        private void AsyncExecuteService(string serviceName, RemoteType remoteType, object id, IEnumerable<string> addresses)
+        {
+            AppSession.AsyncUsing(() =>
             {
-                ServiceContext.Invoke(serviceName, arg, address);
-            });
+                var arg = DTObject.CreateReusable();
+                arg["id"] = id;
+                arg["typeName"] = remoteType.FullName;
+
+                var identity = DefaultIdentityProvider.Instance.GetIdentity();
+                foreach (var address in addresses)
+                {
+                    ServiceContext.Invoke(serviceName, identity, arg, address);
+                }
+            }, true);
         }
 
         public readonly static RemoteServiceImpl Instance = new RemoteServiceImpl();

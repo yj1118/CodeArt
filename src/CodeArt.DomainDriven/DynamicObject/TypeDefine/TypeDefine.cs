@@ -480,7 +480,14 @@ namespace CodeArt.DomainDriven
 
         private void AddDefineIndex(string typeName, TypeDefine define)
         {
-            _defineIndex.AddOrUpdate(typeName, define, (t, d) => d);
+            TypeDefine exist = null;
+            if(_defineIndex.TryGetValue(typeName, out exist))
+            {
+                if (exist.GetType() == define.GetType()) return;
+                throw new DomainDrivenException(string.Format(Strings.DynamicTypeRepeated, typeName));
+            }
+
+            _defineIndex.TryAdd(typeName, define);
         }
 
         #endregion

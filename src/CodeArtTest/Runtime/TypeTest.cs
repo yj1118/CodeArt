@@ -61,13 +61,29 @@ namespace CodeArtTest.Runtime
         {
             var t1 = typeof(BaseType<int, int, int>);
             Assert.IsTrue(t1.IsImplementOrEquals(typeof(BaseType<,,>)));
-        }
 
+            var t2 = typeof(BaseType2<int, int>);
+            Assert.IsTrue(t1.IsImplementOrEquals(typeof(BaseType<,,>)));
+
+            var t3 = typeof(BaseType3);
+            Assert.IsTrue(t3.IsImplementOrEquals(typeof(BaseType<,,>)));
+        }
 
         private class BaseType<T1,T2,T3>
         {
 
         }
+
+        private class BaseType2<T1,T2> : BaseType<T1,T2,int>
+        {
+
+        }
+
+        private class BaseType3 : BaseType<string, int, int>
+        {
+
+        }
+
 
     }
 }

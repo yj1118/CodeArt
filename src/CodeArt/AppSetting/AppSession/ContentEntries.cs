@@ -15,7 +15,7 @@ namespace CodeArt.AppSetting
     {
         public const string Name = "ContentEntries";
 
-        private static Dictionary<string, object> _data = new Dictionary<string, object>();
+        private Dictionary<string, object> _data = new Dictionary<string, object>();
 
         public bool Initialized
         {

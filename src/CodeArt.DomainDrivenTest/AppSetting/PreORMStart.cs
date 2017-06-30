@@ -27,6 +27,7 @@ namespace CodeArt.DomainDrivenTest
 
             Repository.Register<ICarSlimRepository>(SqlCarSlimRepository.Instance);
             Repository.Register<ICarRepository>(SqlCarRepository.Instance);
+            Repository.Register<IAnimalRepository>(SqlAnimalRepository.Instance);
 
         }
 

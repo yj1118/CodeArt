@@ -71,6 +71,13 @@ namespace CodeArt.ServiceModel
             return response.ReturnValue;
         }
 
+        public static DTObject Invoke(string serviceName, DTObject identity, DTObject arg, string address)
+        {
+            ServiceRequest request = new ServiceRequest(serviceName, identity, arg);
+            var response = Send(request, address);
+            return response.ReturnValue;
+        }
+
         #endregion
 
         #region 异步

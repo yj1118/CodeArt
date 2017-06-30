@@ -343,7 +343,9 @@ namespace CodeArt.DomainDriven.DataAccess
             var root = DataTable.Create(objectType, objectFields);
 
             var snapshotObjectFields = GetObjectFields(objectType, true);
-            var snapshot = DataTable.CreateSnapshot(objectType, snapshotObjectFields);
+            var snapshot = DomainObject.IsAggregateRoot(objectType)
+                            ? DataTable.CreateSnapshot(objectType, snapshotObjectFields)
+                            : null;
             return new DataModel(objectType, root, snapshot);
         }
 

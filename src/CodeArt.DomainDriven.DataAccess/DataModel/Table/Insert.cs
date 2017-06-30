@@ -136,8 +136,11 @@ namespace CodeArt.DomainDriven.DataAccess
             }
             else
             {
-                //补充外键
-                data.Add(this.Root.TableIdName, GetObjectId(root));
+                if(this.Type != DataTableType.EntityObjectPro) //EntityObjectPro不用补充外键
+                {
+                    //补充外键
+                    data.Add(this.Root.TableIdName, GetObjectId(root));
+                }
             }
 
             if(!this.IsDerived)

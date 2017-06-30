@@ -362,7 +362,7 @@ namespace CodeArt.DomainDriven.DataAccess
 
             this.IsMultiple = memberField == null ? false : memberField.IsMultiple;
             this.Name = name;
-            this.Fields = tableFields;
+            this.Fields = OrderFields(tableFields);
 
             this.ObjectFields = objectFields;
             this.PropertyTips = GetPropertyTips();
@@ -451,6 +451,41 @@ namespace CodeArt.DomainDriven.DataAccess
             throw new DataAccessException(string.Format(Strings.CreateInheritedTableError, baseType.FullName, this.Type.ToString()));
         }
 
+        /// <summary>
+        ///  我们要保证rootId在第一列，Id在第二列
+        ///  这样不仅符合人们的操作习惯，在建立索引时，也会以rootId作为第一位，提高查询性能
+        /// </summary>
+        /// <param name="fields"></param>
+        /// <returns></returns>
+        private IEnumerable<IDataField> OrderFields(IEnumerable<IDataField> fields)
+        {
+            if(this.Type == DataTableType.EntityObjectPro) //中间表不需要排序，另外，除了EntityObjectPro外，其余对象都已经排序了
+            {
+                var copy = fields.ToList();
+                var id = copy.FirstOrDefault((p) => p.Name == EntityObject.IdPropertyName);
+                if (id != null)
+                {
+                    copy.Remove(id);
+                    copy.Insert(0, id);
+                }
+
+                if (this.Type != DataTableType.AggregateRoot)
+                {
+                    string rootIdName = this.Root.TableIdName;
+                    //除根外，还需要对rootId排序，放在第一位
+                    var rootId = copy.FirstOrDefault((p) => p.Name == rootIdName);
+                    if (rootId != null)
+                    {
+                        copy.Remove(rootId);
+                        copy.Insert(0, rootId);
+                    }
+                    //并且设置为主键
+                    (rootId as ValueField).AddDbFieldType(DbFieldType.PrimaryKey);
+                }
+                return copy;
+            }
+            return fields;
+        }
 
 
         private void InitConnectionName()
@@ -529,12 +564,13 @@ namespace CodeArt.DomainDriven.DataAccess
         internal static DataTable Create(Type objectType, IEnumerable<IDataField> objectFields)
         {
             DataTableType tableType = DataTableType.AggregateRoot;
-            if (objectType.IsImplementOrEquals(typeof(IAggregateRoot)))
+           
+            if (DomainObject.IsAggregateRoot(objectType))
             {
                 tableType = DataTableType.AggregateRoot;
                 return Create(null, null, objectType, false, tableType, objectFields, null);
             }
-            else if (objectType.IsImplementOrEquals(typeof(EntityObjectPro<,,>)))
+            else if (DomainObject.IsEntityObjectPro(objectType))
             {
                 tableType = DataTableType.EntityObjectPro;
                 var rootType = objectType.GetStaticValue("RootType") as Type;//EntityObjectPro.RootType
@@ -555,7 +591,7 @@ namespace CodeArt.DomainDriven.DataAccess
 
         internal static DataTable CreateSnapshot(Type objectType, IEnumerable<IDataField> objectFields)
         {
-            if (!objectType.IsImplementOrEquals(typeof(IAggregateRoot))) throw new SnapshotTargetException();
+            if (!DomainObject.IsAggregateRoot(objectType)) throw new SnapshotTargetException();
             DataTableType tableType = DataTableType.AggregateRoot;
             return Create(null, null, objectType, true, tableType, objectFields, null);
         }
