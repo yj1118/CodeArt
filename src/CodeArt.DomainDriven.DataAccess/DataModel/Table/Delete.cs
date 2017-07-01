@@ -31,7 +31,7 @@ namespace CodeArt.DomainDriven.DataAccess
                 var root = eop?.Root;
 
                 if (root == null || root.IsEmpty())
-                    throw new DomainDrivenException(Strings.PersistentObjectError);
+                    throw new DomainDrivenException(string.Format(Strings.PersistentObjectError, obj.ObjectType.FullName));
 
                 DeleteEntityObjectPro(root, eop);
             }

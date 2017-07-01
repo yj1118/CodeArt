@@ -6,7 +6,7 @@ using System.Text;
 namespace CodeArt.DomainDriven
 {
     /// <summary>
-    /// 领域对象接口，一切领域对象要实现的基本接口
+    /// 领域对象接口，所有领域对象要实现的基本接口
     /// </summary>
     public interface IDomainObject : INotNullObject, IStateObject, ISupportFixedRules
     {

@@ -28,7 +28,7 @@ namespace CodeArt.DomainDriven.DataAccess
                 root = eop?.Root as DomainObject;
             }
             if (root == null || root.IsEmpty())
-                throw new DomainDrivenException(Strings.PersistentObjectError);
+                throw new DomainDrivenException(string.Format(Strings.PersistentObjectError, obj.ObjectType.FullName));
 
             if(UpdateData(root, null, obj))
             {

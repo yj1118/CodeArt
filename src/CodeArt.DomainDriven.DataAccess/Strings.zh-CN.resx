@@ -175,7 +175,7 @@
     <value>翻页查询需要指定排序语句</value>
   </data>
   <data name="PersistentObjectError" xml:space="preserve">
-    <value>直接持久化的对象类型必须为IAggregateRoot或IEntityObjectPro</value>
+    <value>类型{0}错误，直接持久化的对象类型必须为IAggregateRoot或IEntityObjectPro</value>
   </data>
   <data name="PropertyValueRepeated" xml:space="preserve">
     <value>属性 {0} 的值 {1} 重复</value>

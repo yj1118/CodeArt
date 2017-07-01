@@ -322,7 +322,7 @@ namespace CodeArt.DomainDriven {
         }
         
         /// <summary>
-        ///   查找类似 You can only persist IAggregateRoot or IEntityObjectPro objects 的本地化字符串。
+        ///   查找类似 Type {0} error,You can only persist IAggregateRoot or IEntityObjectPro objects 的本地化字符串。
         /// </summary>
         internal static string PersistTargetTypeError {
             get {

@@ -6,7 +6,7 @@ using System.Text;
 namespace CodeArt.DomainDriven
 {
     /// <summary>
-    /// 不能为null对象的接口
+    /// 对象不能null的接口
     /// </summary>
     public interface INotNullObject
     {

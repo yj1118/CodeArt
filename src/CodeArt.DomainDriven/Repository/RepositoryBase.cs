@@ -35,7 +35,7 @@ namespace CodeArt.DomainDriven
             BoundedContext.Execute(BoundedEvent.Added, obj);
         }
 
-        public void AddEntityPro<TMember>(TMember obj) where TMember : class, IEntityObjectPro<TRoot>
+        public void AddEntityPro<TMember>(TMember obj) where TMember : class, IEntityObjectPro
         {
             RegisterRollbackAdd(obj);
             BoundedContext.Execute(BoundedEvent.PreAdd, obj);
@@ -59,8 +59,8 @@ namespace CodeArt.DomainDriven
             }
             else
             {
-                var eop = obj as IEntityObjectPro<TRoot>;
-                if (eop == null) throw new DomainDrivenException(Strings.PersistTargetTypeError);
+                var eop = obj as IEntityObjectPro;
+                if (eop == null) throw new DomainDrivenException(string.Format(Strings.PersistTargetTypeError, obj.GetType().FullName));
                 if (this.OnPrePersist(obj, RepositoryAction.Add))
                 {
                     PersistAddEntityPro(eop);
@@ -71,7 +71,7 @@ namespace CodeArt.DomainDriven
 
         protected abstract void PersistAddRoot(TRoot obj);
 
-        protected virtual void PersistAddEntityPro(IEntityObjectPro<TRoot> eop)
+        protected virtual void PersistAddEntityPro(IEntityObjectPro eop)
         {
             throw new NotImplementedException(this.GetType().FullName + ".PersistAddMember 方法没有实现对" + eop.GetType().FullName + "的仓储");
         }
@@ -101,7 +101,7 @@ namespace CodeArt.DomainDriven
             BoundedContext.Execute(BoundedEvent.Updated, obj);
         }
 
-        public void UpdateEntityPro<TMember>(TMember obj) where TMember : class, IEntityObjectPro<TRoot>
+        public void UpdateEntityPro<TMember>(TMember obj) where TMember : class, IEntityObjectPro
         {
             RegisterRollbackUpdate(obj);
             BoundedContext.Execute(BoundedEvent.PreUpdate, obj);
@@ -125,8 +125,8 @@ namespace CodeArt.DomainDriven
             }
             else
             {
-                var eop = obj as IEntityObjectPro<TRoot>;
-                if (eop == null) throw new DomainDrivenException(Strings.PersistTargetTypeError);
+                var eop = obj as IEntityObjectPro;
+                if (eop == null) throw new DomainDrivenException(string.Format(Strings.PersistTargetTypeError, obj.GetType().FullName));
                 if (this.OnPrePersist(obj, RepositoryAction.Update))
                 {
                     PersistUpdateEntityPro(eop);
@@ -137,7 +137,7 @@ namespace CodeArt.DomainDriven
 
         protected abstract void PersistUpdateRoot(TRoot obj);
 
-        protected virtual void PersistUpdateEntityPro(IEntityObjectPro<TRoot> eop)
+        protected virtual void PersistUpdateEntityPro(IEntityObjectPro eop)
         {
             throw new NotImplementedException(this.GetType().FullName + ".PersistUpdateMember 方法没有实现对" + eop.GetType().FullName + "的仓储");
         }
@@ -167,7 +167,7 @@ namespace CodeArt.DomainDriven
             BoundedContext.Execute(BoundedEvent.Deleted, obj);
         }
 
-        public void DeleteEntityPro<TMember>(TMember obj) where TMember : class, IEntityObjectPro<TRoot>
+        public void DeleteEntityPro<TMember>(TMember obj) where TMember : class, IEntityObjectPro
         {
             RegisterRollbackDelete(obj);
             BoundedContext.Execute(BoundedEvent.PreDelete, obj);
@@ -191,8 +191,8 @@ namespace CodeArt.DomainDriven
             }
             else
             {
-                var eop = obj as IEntityObjectPro<TRoot>;
-                if (eop == null) throw new DomainDrivenException(Strings.PersistTargetTypeError);
+                var eop = obj as IEntityObjectPro;
+                if (eop == null) throw new DomainDrivenException(string.Format(Strings.PersistTargetTypeError, obj.GetType().FullName));
                 if (this.OnPrePersist(obj, RepositoryAction.Delete))
                 {
                     PersistDeleteEntityPro(eop);
@@ -200,9 +200,10 @@ namespace CodeArt.DomainDriven
                 this.OnPersisted(obj, RepositoryAction.Delete);
             }
         }
+
         protected abstract void PersistDeleteRoot(TRoot obj);
 
-        protected virtual void PersistDeleteEntityPro(IEntityObjectPro<TRoot> eop)
+        protected virtual void PersistDeleteEntityPro(IEntityObjectPro eop)
         {
             throw new NotImplementedException(this.GetType().FullName + ".PersistDeleteMember 方法没有实现对" + eop.GetType().FullName + "的仓储");
         }
@@ -243,7 +244,7 @@ namespace CodeArt.DomainDriven
 
         protected abstract TRoot PersistFind(object id, QueryLevel level);
 
-        public T FindEntityPro<T>(object rootId, object id) where T : class, IEntityObjectPro<TRoot>
+        public T FindEntityPro<T>(object rootId, object id) where T : class, IEntityObjectPro
         {
             //对于成员的加载，我们始终都是无锁的模式，只有内聚根的查询才考虑是否加锁
             return DataContext.Current.RegisterQueried<T>(QueryLevel.None, () =>
@@ -252,7 +253,7 @@ namespace CodeArt.DomainDriven
             });
         }
 
-        protected abstract T PersistFindEntityPro<T>(object rootId, object id) where T : class, IEntityObjectPro<TRoot>;
+        protected abstract T PersistFindEntityPro<T>(object rootId, object id) where T : class, IEntityObjectPro;
 
         #endregion
 

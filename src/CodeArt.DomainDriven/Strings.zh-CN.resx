@@ -208,7 +208,7 @@
     <value>类型{0}错误，ObjectExtensionAttribute的第一个参数必须是领域对象类型或者领域对象扩展类</value>
   </data>
   <data name="PersistTargetTypeError" xml:space="preserve">
-    <value>只能持久化IAggregateRoot或者IEntityObjectPro对象</value>
+    <value>类型{0}错误，只能持久化IAggregateRoot或者IEntityObjectPro对象</value>
   </data>
   <data name="PropertyActionObjectExtensionNoStatic" xml:space="preserve">
     <value>方法{0}不满足要求，属性行为在领域对象扩展类上必须为静态的</value>

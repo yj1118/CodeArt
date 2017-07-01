@@ -232,7 +232,7 @@ namespace CodeArt.DomainDriven.DataAccess {
         }
         
         /// <summary>
-        ///   查找类似 Direct persistence of the object type must be IAggregateRoot or IEntityObjectPro 的本地化字符串。
+        ///   查找类似 Type {0} error,Direct persistence of the object type must be IAggregateRoot or IEntityObjectPro 的本地化字符串。
         /// </summary>
         internal static string PersistentObjectError {
             get {

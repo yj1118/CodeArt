@@ -181,7 +181,7 @@
     <value>The list {0} validation error {1}</value>
   </data>
   <data name="PersistTargetTypeError" xml:space="preserve">
-    <value>You can only persist IAggregateRoot or IEntityObjectPro objects</value>
+    <value>Type {0} error,You can only persist IAggregateRoot or IEntityObjectPro objects</value>
   </data>
   <data name="GetUniqueKeyError" xml:space="preserve">
     <value>Unable to compute the unique key for type {0}, which must be IAggregateRoot or IEntityObjectPro</value>

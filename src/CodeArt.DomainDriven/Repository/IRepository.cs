@@ -103,11 +103,11 @@ namespace CodeArt.DomainDriven
 
         #region 内聚边界内的高级实体对象
 
-        void AddEntityPro<T>(T obj) where T : class, IEntityObjectPro<TRoot>;
+        void AddEntityPro<T>(T obj) where T : class, IEntityObjectPro;
 
-        void UpdateEntityPro<T>(T obj) where T : class, IEntityObjectPro<TRoot>;
+        void UpdateEntityPro<T>(T obj) where T : class, IEntityObjectPro;
 
-        void DeleteEntityPro<T>(T obj) where T : class, IEntityObjectPro<TRoot>;
+        void DeleteEntityPro<T>(T obj) where T : class, IEntityObjectPro;
 
         /// <summary>
         /// 除了内聚根外，其余对象都不能带锁查询，高级引用对象也是如此，所以查询高级引用对象是不能带锁级别的
@@ -117,7 +117,7 @@ namespace CodeArt.DomainDriven
         /// <param name="rootId"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        T FindEntityPro<T>(object rootId, object id) where T : class, IEntityObjectPro<TRoot>;
+        T FindEntityPro<T>(object rootId, object id) where T : class, IEntityObjectPro;
 
         #endregion
     }

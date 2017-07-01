@@ -20,7 +20,7 @@ namespace CodeArt.DomainDriven.DataAccess
             DataPortal.Create(obj as DomainObject);
         }
 
-        protected override void PersistAddEntityPro(IEntityObjectPro<TRoot> obj)
+        protected override void PersistAddEntityPro(IEntityObjectPro obj)
         {
             DataPortal.Create(obj as DomainObject);
         }
@@ -31,7 +31,7 @@ namespace CodeArt.DomainDriven.DataAccess
             DataPortal.Update(obj as DomainObject);
         }
 
-        protected override void PersistUpdateEntityPro(IEntityObjectPro<TRoot> obj)
+        protected override void PersistUpdateEntityPro(IEntityObjectPro obj)
         {
             DataPortal.Update(obj as DomainObject);
         }
@@ -41,7 +41,7 @@ namespace CodeArt.DomainDriven.DataAccess
             DataPortal.Delete(obj as DomainObject);
         }
 
-        protected override void PersistDeleteEntityPro(IEntityObjectPro<TRoot> obj)
+        protected override void PersistDeleteEntityPro(IEntityObjectPro obj)
         {
             DataPortal.Delete(obj as DomainObject);
         }

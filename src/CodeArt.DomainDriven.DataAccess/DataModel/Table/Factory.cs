@@ -578,7 +578,7 @@ namespace CodeArt.DomainDriven.DataAccess
                 return Create(root, root, objectType, false, tableType, objectFields, null);
             }
             else
-                throw new DomainDrivenException(Strings.PersistentObjectError);
+                throw new DomainDrivenException(string.Format(Strings.PersistentObjectError, objectType.FullName));
         }
 
 

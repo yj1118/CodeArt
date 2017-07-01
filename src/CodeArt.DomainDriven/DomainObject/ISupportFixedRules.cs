@@ -6,7 +6,7 @@ using System.Text;
 namespace CodeArt.DomainDriven
 {
     /// <summary>
-    /// 具有验证固定规则的能力
+    /// 每个领域对象具有验证固定规则的能力
     /// </summary>
     public interface ISupportFixedRules
     {

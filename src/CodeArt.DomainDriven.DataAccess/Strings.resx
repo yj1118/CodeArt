@@ -175,7 +175,7 @@
     <value>The page query needs to specify a sorting statement</value>
   </data>
   <data name="PersistentObjectError" xml:space="preserve">
-    <value>Direct persistence of the object type must be IAggregateRoot or IEntityObjectPro</value>
+    <value>Type {0} error,Direct persistence of the object type must be IAggregateRoot or IEntityObjectPro</value>
   </data>
   <data name="PropertyValueRepeated" xml:space="preserve">
     <value>property {0} value {1} repeated</value>

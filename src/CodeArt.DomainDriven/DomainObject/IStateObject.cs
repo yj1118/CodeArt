@@ -6,7 +6,7 @@ using System.Text;
 namespace CodeArt.DomainDriven
 {
     /// <summary>
-    /// 状态对象
+    /// 状态对象，我们可以明确的知道领域对象的仓储状态
     /// </summary>
     public interface IStateObject 
     {
