@@ -5,19 +5,19 @@ VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework", "Framework", "{99ECAE38-204D-4947-B45A-6B4F8C963C2E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt", "..\..\CodeArt Framework\CodeArt\CodeArt\CodeArt.csproj", "{D2C9F430-6B47-482A-A49C-A2478D75F95F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt", "..\..\..\src\CodeArt\CodeArt.csproj", "{D2C9F430-6B47-482A-A49C-A2478D75F95F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.DomainDriven", "..\..\CodeArt Framework\CodeArt\CodeArt.DomainDriven\CodeArt.DomainDriven.csproj", "{F62D7792-F4EE-4924-898E-C56309E6DFC2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.DomainDriven", "..\..\..\src\CodeArt.DomainDriven\CodeArt.DomainDriven.csproj", "{F62D7792-F4EE-4924-898E-C56309E6DFC2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.DomainDriven.DataAccess", "..\..\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\CodeArt.DomainDriven.DataAccess.csproj", "{C0BAC0EB-7068-42AF-ACAC-09DF677CF980}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.DomainDriven.DataAccess", "..\..\..\src\CodeArt.DomainDriven.DataAccess\CodeArt.DomainDriven.DataAccess.csproj", "{C0BAC0EB-7068-42AF-ACAC-09DF677CF980}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.DomainDriven.Extensions", "..\..\CodeArt Framework\CodeArt\CodeArt.DomainDriven.Extensions\CodeArt.DomainDriven.Extensions.csproj", "{A45A1E35-6CE5-42C2-8FD3-19CE5B0BD5D6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.DomainDriven.Extensions", "..\..\..\src\CodeArt.DomainDriven.Extensions\CodeArt.DomainDriven.Extensions.csproj", "{A45A1E35-6CE5-42C2-8FD3-19CE5B0BD5D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.ServiceModel", "..\..\CodeArt Framework\CodeArt\CodeArt.ServiceModel\CodeArt.ServiceModel.csproj", "{EA6365F1-C027-416B-B4CC-A94572B5FC19}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.ServiceModel", "..\..\..\src\CodeArt.ServiceModel\CodeArt.ServiceModel.csproj", "{EA6365F1-C027-416B-B4CC-A94572B5FC19}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Subsystems", "Subsystems", "{5F589A1E-007A-4A15-BE6D-EEB69A7DBCFC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountSubsystem", "..\..\Subsystems Framework\AccountSubsystem\AccountSubsystem\AccountSubsystem.csproj", "{F9F4EF44-D894-4B0C-8A6F-AE422D98576C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountSubsystem", "..\..\..\examples\Subsystems\AccountSubsystem\AccountSubsystem\AccountSubsystem.csproj", "{F9F4EF44-D894-4B0C-8A6F-AE422D98576C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortalService.Application", "PortalService.Application\PortalService.Application.csproj", "{10F7C080-CF92-4AF1-B12A-32B55FBDFA34}"
 EndProject
@@ -49,13 +49,13 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "http://portal.services.code
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortalServiceTest", "PortalServiceTest\PortalServiceTest.csproj", "{F9142CEE-15A4-412A-BF43-F6C6BBFF538D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.TestTools", "..\..\CodeArt Framework\CodeArt\CodeArt.TestTools\CodeArt.TestTools.csproj", "{A55DD9DB-5254-4D31-888D-05474318035D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.TestTools", "..\..\..\src\CodeArt.TestTools\CodeArt.TestTools.csproj", "{A55DD9DB-5254-4D31-888D-05474318035D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.TestTools.ServiceModel", "..\..\CodeArt Framework\CodeArt\CodeArt.TestTools.ServiceModel\CodeArt.TestTools.ServiceModel.csproj", "{986A39BB-38B7-4C33-A61E-C635885088F8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.TestTools.ServiceModel", "..\..\..\src\CodeArt.TestTools.ServiceModel\CodeArt.TestTools.ServiceModel.csproj", "{986A39BB-38B7-4C33-A61E-C635885088F8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.Web", "..\..\CodeArt Framework\CodeArt\CodeArt.Web\CodeArt.Web.csproj", "{FC477F23-2BCC-4917-841E-691726EB0894}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.Web", "..\..\..\src\CodeArt.Web\CodeArt.Web.csproj", "{FC477F23-2BCC-4917-841E-691726EB0894}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.ServiceModel.Web", "..\..\CodeArt Framework\CodeArt\CodeArt.ServiceModel.Web\CodeArt.ServiceModel.Web.csproj", "{95CB7257-5CE9-477F-8239-A2B57EAF89AD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.ServiceModel.Web", "..\..\..\src\CodeArt.ServiceModel.Web\CodeArt.ServiceModel.Web.csproj", "{95CB7257-5CE9-477F-8239-A2B57EAF89AD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

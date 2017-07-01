@@ -57,27 +57,27 @@
     <Compile Include="Role\UpdateRole.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\CodeArt.DomainDriven.DataAccess.csproj">
+    <ProjectReference Include="..\..\..\..\src\CodeArt.DomainDriven.DataAccess\CodeArt.DomainDriven.DataAccess.csproj">
       <Project>{c0bac0eb-7068-42af-acac-09df677cf980}</Project>
       <Name>CodeArt.DomainDriven.DataAccess</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\CodeArt Framework\CodeArt\CodeArt.DomainDriven.Extensions\CodeArt.DomainDriven.Extensions.csproj">
+    <ProjectReference Include="..\..\..\..\src\CodeArt.DomainDriven.Extensions\CodeArt.DomainDriven.Extensions.csproj">
       <Project>{a45a1e35-6ce5-42c2-8fd3-19ce5b0bd5d6}</Project>
       <Name>CodeArt.DomainDriven.Extensions</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\CodeArt Framework\CodeArt\CodeArt.DomainDriven\CodeArt.DomainDriven.csproj">
+    <ProjectReference Include="..\..\..\..\src\CodeArt.DomainDriven\CodeArt.DomainDriven.csproj">
       <Project>{f62d7792-f4ee-4924-898e-c56309e6dfc2}</Project>
       <Name>CodeArt.DomainDriven</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\CodeArt Framework\CodeArt\CodeArt.ServiceModel\CodeArt.ServiceModel.csproj">
+    <ProjectReference Include="..\..\..\..\src\CodeArt.ServiceModel\CodeArt.ServiceModel.csproj">
       <Project>{ea6365f1-c027-416b-b4cc-a94572b5fc19}</Project>
       <Name>CodeArt.ServiceModel</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\CodeArt Framework\CodeArt\CodeArt\CodeArt.csproj">
+    <ProjectReference Include="..\..\..\..\src\CodeArt\CodeArt.csproj">
       <Project>{d2c9f430-6b47-482a-a49c-a2478d75f95f}</Project>
       <Name>CodeArt</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Subsystems Framework\AccountSubsystem\AccountSubsystem\AccountSubsystem.csproj">
+    <ProjectReference Include="..\..\..\Subsystems\AccountSubsystem\AccountSubsystem\AccountSubsystem.csproj">
       <Project>{f9f4ef44-d894-4b0c-8a6f-ae422d98576c}</Project>
       <Name>AccountSubsystem</Name>
     </ProjectReference>
