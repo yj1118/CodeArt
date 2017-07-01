@@ -14,14 +14,12 @@ namespace AccountSubsystemTest
         protected override void PreEnterScene()
         {
             //进入场景之前，注册仓储
-            RepositoryFactory.Register<IPermissionRepository, Permission>(SqlPermissionRepository.Instance);
-            DataPortal.Initialize<Permission>();
+            DataPortal.RuntimeBuild();
         }
 
         protected override void LeftScene()
         {
-            DataPortal.Dispose<Permission>();
-            RepositoryFactory.Deregister<IPermissionRepository, Permission>();
+            DataPortal.Dispose();
         }
 
         protected override void EnteredScene()
