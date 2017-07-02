@@ -68,19 +68,19 @@ namespace CodeArt.DomainDriven
         where TRoot : class, IAggregateRoot, IRepositoryable
     {
         /// <summary>
-        /// 将对象添加到持久层中
+        /// 将对象添加到仓储
         /// </summary>
         /// <param name="obj"></param>
         void Add(TRoot obj);
 
         /// <summary>
-        /// 修改对象在持久层中的信息
+        /// 修改对象在仓储中的信息
         /// </summary>
         /// <param name="obj"></param>
         void Update(TRoot obj);
 
         /// <summary>
-        /// 从持久层中删除对象
+        /// 从仓储中删除对象
         /// </summary>
         /// <param name="obj"></param>
         void Delete(TRoot obj);

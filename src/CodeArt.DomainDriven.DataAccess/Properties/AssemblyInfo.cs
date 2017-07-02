@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("CodeArt.DomainDriven.DataAccess")]
-[assembly: AssemblyCopyright("Copyright ©  2017")]
+[assembly: AssemblyCopyright("Copyright ©  2017 武汉入微科技有限公司")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
