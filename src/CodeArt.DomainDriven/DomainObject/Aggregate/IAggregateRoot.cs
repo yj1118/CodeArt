@@ -14,12 +14,6 @@ namespace CodeArt.DomainDriven
     /// </summary>
     public interface IAggregateRoot : IEntityObject
     {
-        /// <summary>
-        /// 内聚根可以具有远程能力
-        /// </summary>
-        RemotableAttribute RemotableTip
-        {
-            get;
-        }
+
     }
 }
