@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{EA6365F1-C027-416B-B4CC-A94572B5FC19}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CodeArt.ServiceModel</RootNamespace>
+    <AssemblyName>CodeArt.ServiceModel</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Configuration\ClientConfig.cs" />
+    <Compile Include="Configuration\ServerConfig.cs" />
+    <Compile Include="Configuration\ServiceModelConfiguration.cs" />
+    <Compile Include="Implement\MockService\ContractEventFactory.cs" />
+    <Compile Include="Implement\MockService\ContractEvent\ChangeResponseCE.cs" />
+    <Compile Include="Implement\MockService\ContractEvent\ChangeResponseCEFactory.cs" />
+    <Compile Include="Implement\MockService\ContractPackage\LocalContractPackage.cs" />
+    <Compile Include="Implement\MockService\ContractPackage\LocalContractPackageFactory.cs" />
+    <Compile Include="Implement\MockService\IContractEvent.cs" />
+    <Compile Include="Implement\MockService\IContractEventFactory.cs" />
+    <Compile Include="Implement\MockService\IContractPackage.cs" />
+    <Compile Include="Implement\MockService\IContractPackageFactory.cs" />
+    <Compile Include="Implement\MockService\MockContract.cs" />
+    <Compile Include="Implement\MockService\ServiceConfiguration.cs" />
+    <Compile Include="Implement\MockService\ServiceProxy.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceContext\DataAnalyzer.cs" />
+    <Compile Include="ServiceContext\DirectTable.cs" />
+    <Compile Include="ServiceContext\ServiceAddressTable.cs" />
+    <Compile Include="ServiceContext\ServiceProxy.cs" />
+    <Compile Include="ServiceContext\IServiceProxy.cs" />
+    <Compile Include="ServiceContext\Protocol\ServiceRequest.cs" />
+    <Compile Include="ServiceContext\Protocol\ServiceResponse.cs" />
+    <Compile Include="ServiceContext\Security\DefaultIdentityProvider.cs" />
+    <Compile Include="ServiceContext\Security\IIdentityProvider.cs" />
+    <Compile Include="ServiceContext\ServiceContext.cs" />
+    <Compile Include="ServiceException.cs" />
+    <Compile Include="ServiceHost\ServiceHostUtil.cs" />
+    <Compile Include="ServiceProvider\IServiceProvider.cs" />
+    <Compile Include="ServiceProvider\IServiceProviderFactory.cs" />
+    <Compile Include="ServiceProvider\AttributeProviderFactory.cs" />
+    <Compile Include="ServiceProvider\ServiceAttribute.cs" />
+    <Compile Include="ServiceProvider\ServiceProvider.cs" />
+    <Compile Include="ServiceProvider\ServiceProviderFactory.cs" />
+    <Compile Include="Strings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceContext\ServiceRouter.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Strings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Strings.zh-CN.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CodeArt\CodeArt.csproj">
+      <Project>{d2c9f430-6b47-482a-a49c-a2478d75f95f}</Project>
+      <Name>CodeArt</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
