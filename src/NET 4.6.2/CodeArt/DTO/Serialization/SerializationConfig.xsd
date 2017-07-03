@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://myspace.com/PoolConfig.xsd" elementFormDefault="qualified" targetNamespace="http://myspace.com/PoolConfig.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:complexType name="PoolConfig">
+		<xs:sequence>
+			<xs:element minOccurs="1" maxOccurs="1" name="FetchOrder" type="tns:PoolFetchOrder" />
+			<xs:element minOccurs="1" maxOccurs="1" name="LoanCapacity" type="xs:int" />
+			<xs:element minOccurs="1" maxOccurs="1" name="PoolCapacity" type="xs:int" />
+			<xs:element minOccurs="1" maxOccurs="1" name="MaxLifespan" type="xs:int" />
+			<xs:element minOccurs="1" maxOccurs="1" name="MaxUses" type="xs:int" />
+			<xs:element minOccurs="1" maxOccurs="1" name="FinalizeLeaks" type="xs:boolean" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="PoolFetchOrder">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Fifo" />
+			<xs:enumeration value="Lifo" />
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

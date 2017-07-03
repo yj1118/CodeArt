@@ -1,0 +1,189 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ArgumentOutOfRange" xml:space="preserve">
+    <value>{0} 超出范围</value>
+  </data>
+  <data name="CannotReturnPoolItem" xml:space="preserve">
+    <value>该项没有被借出，无法交还到池中</value>
+  </data>
+  <data name="DisposePoolItemFailed" xml:space="preserve">
+    <value>抛弃并释放池中的项失败，错误发生在一个 {0} 实例中</value>
+  </data>
+  <data name="NotFoundPoolItem" xml:space="preserve">
+    <value>没有找到 {0} 对应的池中项</value>
+  </data>
+  <data name="NotSupportedPoolFetchOrder" xml:space="preserve">
+    <value>PoolFetchOrder {0} 不被支持</value>
+  </data>
+  <data name="NoTypeDefined" xml:space="preserve">
+    <value>没有定义类型 {0}</value>
+  </data>
+  <data name="PoolItemHaveBeenLent" xml:space="preserve">
+    <value>池中的项已被借出，此错误表示池框架有一个BUG，否则不会发生该错误</value>
+  </data>
+  <data name="RepeatBorrowingPoolItem" xml:space="preserve">
+    <value>该项已被借出，不能再次借出. 这表示 {0} 框架有BUG，请检查原因</value>
+  </data>
+  <data name="TypeMismatch" xml:space="preserve">
+    <value>类型 {0} 不匹配类型 {1}</value>
+  </data>
+  <data name="TypeUnsafeConcurrentAccess" xml:space="preserve">
+    <value>类型 {0} 不是并发访问安全的或没有设置SafeAccessAttribute 特性</value>
+  </data>
+  <data name="OnlySupportedTypes" xml:space="preserve">
+    <value>仅支持类型 {0}</value>
+  </data>
+  <data name="TypeUnAppSessionAccess" xml:space="preserve">
+    <value>类型 {0} 不是基于appSession数据的或没有设置AppSessionAccessAttribute 特性</value>
+  </data>
+  <data name="NoPropertyDefined" xml:space="preserve">
+    <value>属性 {0} 没有定义在类型 {1} 上</value>
+  </data>
+  <data name="InvalidPeriod" xml:space="preserve">
+    <value>无效的定时时间，超出了系统支持范围</value>
+  </data>
+  <data name="UnableStartMediaTimer" xml:space="preserve">
+    <value>不能启动媒体定时器</value>
+  </data>
+  <data name="DTOReadOnly" xml:space="preserve">
+    <value>只读模式下不能进行该操作</value>
+  </data>
+  <data name="PreApplicationStartNoStatic" xml:space="preserve">
+    <value>PreApplicationStartAttribute 调用的方法 {0}.{1}必须是静态的</value>
+  </data>
+  <data name="DTONotSpecifyType" xml:space="preserve">
+    <value>条目{0}没有指定类型信息</value>
+  </data>
+  <data name="DTOListTypeCountError" xml:space="preserve">
+    <value>集合{0}的成员定义只能有1个</value>
+  </data>
+  <data name="NoAppSession" xml:space="preserve">
+    <value>没有设置AppSession的实现，无法使用应用程序回话</value>
+  </data>
+  <data name="FutureResultNotValid" xml:space="preserve">
+    <value>结果不是有效的，因为Future&lt;{0}&gt;实例已经被取消。</value>
+  </data>
+  <data name="FutureCompleteError" xml:space="preserve">
+    <value>在完成方法中，不能指定状态是未完成的（Incomplete）</value>
+  </data>
+  <data name="UnknownErrorOccurred" xml:space="preserve">
+    <value>发生了一个未知的错误</value>
+  </data>
+</root>

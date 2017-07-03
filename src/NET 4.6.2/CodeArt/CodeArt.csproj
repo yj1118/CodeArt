@@ -1,0 +1,295 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D2C9F430-6B47-482A-A49C-A2478D75F95F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CodeArt</RootNamespace>
+    <AssemblyName>CodeArt</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.4.10\lib\net45\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AppSetting\AppSession\AppSession.cs" />
+    <Compile Include="AppSetting\AppSession\ContentEntries.cs" />
+    <Compile Include="AppSetting\AppSession\IAppSession.cs" />
+    <Compile Include="AppSetting\AppSession\AppSessionAccess\AppSessionAccessAttribute.cs" />
+    <Compile Include="AppSetting\AppSession\AppSessionAccess\TypeUnAppSessionAccessException.cs" />
+    <Compile Include="AppSetting\AppInitializer\AppInitializer.cs" />
+    <Compile Include="AppSetting\AppInitializer\PreApplicationStartAttribute.cs" />
+    <Compile Include="AppSetting\AppSession\ThreadSession.cs" />
+    <Compile Include="AppSetting\AppSettingException.cs" />
+    <Compile Include="AppSetting\AppSettingConfig.cs" />
+    <Compile Include="AppSetting\Symbiosis\Symbiosis.cs" />
+    <Compile Include="AppSetting\Symbiosis\SymbioticCollection.cs" />
+    <Compile Include="AppSetting\InterfaceMapper\InterfaceImplementer.cs" />
+    <Compile Include="ArgumentAssert.cs" />
+    <Compile Include="Authentication\AuthenticationException.cs" />
+    <Compile Include="Authentication\Identity.cs" />
+    <Compile Include="Authentication\AuthenticationConfig.cs" />
+    <Compile Include="Configuration\Configuration.cs" />
+    <Compile Include="Concurrent\Extensions.cs" />
+    <Compile Include="Concurrent\Future\Future.cs" />
+    <Compile Include="Concurrent\Future\FutureStatus.cs" />
+    <Compile Include="Concurrent\Future\IFuture.cs" />
+    <Compile Include="Concurrent\Pooling\Util\StringPool.cs" />
+    <Compile Include="Concurrent\Pooling\Util\RegexPool.cs" />
+    <Compile Include="Concurrent\Pooling\Util\ListPool.cs" />
+    <Compile Include="Concurrent\Pooling\Util\ArgsPool.cs" />
+    <Compile Include="Concurrent\Timer\MediaDelayer.cs" />
+    <Compile Include="Concurrent\Timer\MediaTimerMode.cs" />
+    <Compile Include="Concurrent\Timer\MediaTimerBase.cs" />
+    <Compile Include="Concurrent\Timer\MediaTimer.cs" />
+    <Compile Include="Concurrent\Pattern\Eat\Compounds.cs" />
+    <Compile Include="Concurrent\Pattern\Eat\CompoundReplaceMode.cs" />
+    <Compile Include="Concurrent\Pattern\Eat\EatPattern.cs" />
+    <Compile Include="Concurrent\Pattern\Eat\Rubbish.cs" />
+    <Compile Include="Concurrent\Pattern\Eat\Hungry\HungryPattern.cs" />
+    <Compile Include="Concurrent\Pattern\Eat\Hungry\HungryPatternConfig.cs" />
+    <Compile Include="Concurrent\Pattern\Eat\EatPatternConfig.cs" />
+    <Compile Include="Concurrent\Pattern\IntervalAction.cs" />
+    <Compile Include="Concurrent\Pattern\LockAction.cs" />
+    <Compile Include="Concurrent\Pattern\MasterSlave.cs" />
+    <Compile Include="Concurrent\Pattern\Pipeline\AutoResetPipeline.cs" />
+    <Compile Include="Concurrent\Pattern\Pipeline\AutoResetPipelineBase.cs" />
+    <Compile Include="Concurrent\Pattern\Pipeline\AutoResetPipelineTask.cs" />
+    <Compile Include="Concurrent\Pattern\Pipeline\IPipelineAction.cs" />
+    <Compile Include="Concurrent\Pattern\Pipeline\OneByOnePipeline.cs" />
+    <Compile Include="Concurrent\Pattern\Pipeline\OneByOnePipelineBase.cs" />
+    <Compile Include="Concurrent\Pattern\Pipeline\OneByOnePipelineTask.cs" />
+    <Compile Include="Concurrent\Pattern\QueueAction.cs" />
+    <Compile Include="Concurrent\Pattern\Eat\Satiety\SatietyPattern.cs" />
+    <Compile Include="Concurrent\Pattern\Eat\Satiety\SatietyPatternConfig.cs" />
+    <Compile Include="Concurrent\Pattern\SignalDetector\OneOffDetector.cs" />
+    <Compile Include="Concurrent\Pattern\SignalDetector\SignalDetector.cs" />
+    <Compile Include="Concurrent\Pattern\SignalDetector\RepeatedDetector.cs" />
+    <Compile Include="Concurrent\Pooling\FifoContainer.cs" />
+    <Compile Include="Concurrent\Pooling\IPoolContainer.cs" />
+    <Compile Include="Concurrent\Pooling\IPoolItem.cs" />
+    <Compile Include="Concurrent\Pooling\LifoContainer.cs" />
+    <Compile Include="Concurrent\Pooling\Pool.cs" />
+    <Compile Include="Concurrent\Pooling\PoolConfig.cs">
+      <DependentUpon>PoolConfig.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Concurrent\Pooling\PoolFetchOrder.cs" />
+    <Compile Include="Concurrent\Pooling\PoolingException.cs" />
+    <Compile Include="Concurrent\Pooling\PoolItemPhase.cs" />
+    <Compile Include="Concurrent\Pooling\PoolWrapper.cs" />
+    <Compile Include="AppSetting\InterfaceMapper\InterfaceMapper.cs" />
+    <Compile Include="Concurrent\SafeAccess\SafeAccessAttribute.cs" />
+    <Compile Include="Concurrent\SafeAccess\TypeUnsafeAccessException.cs" />
+    <Compile Include="DTO\Deserializer\CodeFormatErrorException.cs" />
+    <Compile Include="DTO\Deserializer\CodeTreeNode.cs" />
+    <Compile Include="DTO\Deserializer\CodeType.cs" />
+    <Compile Include="DTO\Deserializer\DeserializerUtil.cs" />
+    <Compile Include="DTO\Deserializer\EntityDeserializer.cs" />
+    <Compile Include="DTO\DTObjects.cs" />
+    <Compile Include="DTO\DTOException.cs" />
+    <Compile Include="DTO\DTOTypeErrorException.cs" />
+    <Compile Include="DTO\Expression\Transform\AssignExpression.cs" />
+    <Compile Include="DTO\Expression\Transform\RetainExpression.cs" />
+    <Compile Include="DTO\Expression\Transform\RemoveExpression.cs" />
+    <Compile Include="DTO\Expression\Transform\ChangeNameExpression.cs" />
+    <Compile Include="DTO\Expression\Transform\TransformExpressions.cs" />
+    <Compile Include="DTO\Expression\Transform\TransformExpression.cs" />
+    <Compile Include="DTO\PrimitiveValueList.cs" />
+    <Compile Include="DTO\TypeMetadata\EntryCategory.cs" />
+    <Compile Include="DTO\TypeMetadata\ListEntry.cs" />
+    <Compile Include="DTO\TypeMetadata\ObjectEntry.cs" />
+    <Compile Include="DTO\TypeMetadata\ValueEntry.cs" />
+    <Compile Include="DTO\TypeMetadata\TypeEntry.cs" />
+    <Compile Include="DTO\TypeMetadata\TypeIndex.cs" />
+    <Compile Include="DTO\TypeMetadata\TypeMetadata.cs" />
+    <Compile Include="DTO\Serialization\IO\DTOReader.cs" />
+    <Compile Include="DTO\Serialization\IO\DTOWriter.cs" />
+    <Compile Include="DTO\Serialization\SchemaCode\SchemaCodeReader.cs" />
+    <Compile Include="DTO\Serialization\SchemaCode\SchemaCodeWriter.cs" />
+    <Compile Include="DTO\Serialization\SchemaCode\SchemaCodes.cs" />
+    <Compile Include="DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs" />
+    <Compile Include="DTO\Serialization\SchemaCode\DTObjectMapper.cs" />
+    <Compile Include="DTO\Serialization\SchemaCode\IDTObjectMapper.cs" />
+    <Compile Include="DTO\NotFoundDTEntityException.cs" />
+    <Compile Include="DTO\DTOPool.cs" />
+    <Compile Include="DTO\Serialization\Attribute\DTOClassAttribute.cs" />
+    <Compile Include="DTO\Serialization\Attribute\DTOMemberAttribute.cs" />
+    <Compile Include="DTO\Serialization\Attribute\DTOParameterAttribute.cs" />
+    <Compile Include="DTO\Serialization\Attribute\DTOReturnAttribute.cs" />
+    <Compile Include="DTO\Serialization\Attribute\DTOReturnValueAttribute.cs" />
+    <Compile Include="DTO\Serialization\DTObjectDeserializer.cs" />
+    <Compile Include="DTO\Serialization\DTObjectSerializer.cs" />
+    <Compile Include="DTO\Serialization\IDTObjectDeserializer.cs" />
+    <Compile Include="DTO\Serialization\IDTObjectSerializer.cs" />
+    <Compile Include="DTO\Serialization\Markup\MarkupReader.cs" />
+    <Compile Include="DTO\Serialization\Markup\MarkupWriter.cs" />
+    <Compile Include="DTO\Serialization\IO\IDTOReader.cs" />
+    <Compile Include="DTO\Serialization\IO\IDTOWriter.cs" />
+    <Compile Include="DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs" />
+    <Compile Include="DTO\Serialization\SerializationConfig.cs">
+      <DependentUpon>SerializationConfig.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DTO\Serialization\SerializationInfo\MemberSerializationInfoComparator.cs" />
+    <Compile Include="DTO\Serialization\SerializationInfo\Member\ArraySerializationInfo.cs" />
+    <Compile Include="DTO\Serialization\SerializationInfo\Member\CollectionSerializationInfo.cs" />
+    <Compile Include="DTO\Serialization\SerializationInfo\Member\DictionarySerializationInfo.cs" />
+    <Compile Include="DTO\Serialization\SerializationInfo\Member\MemberSerializationInfo.cs" />
+    <Compile Include="DTO\Serialization\SerializationInfo\MethodGenerator\DTODeserializeMethodGenerator.cs" />
+    <Compile Include="DTO\Serialization\SerializationInfo\MethodGenerator\DTOSerializeMethodGenerator.cs" />
+    <Compile Include="DTO\Serialization\SerializationInfo\MethodGenerator\MethodGenerator.cs" />
+    <Compile Include="DTO\Serialization\SerializationInfo\MethodGenerator\SerializationMethodHelper.cs" />
+    <Compile Include="DTO\Serialization\SerializationInfo\SerializationArgs.cs" />
+    <Compile Include="DTO\Serialization\Markup\TypeMakupInfo.cs" />
+    <Compile Include="INullProxy.cs" />
+    <Compile Include="IO\IOUtil.cs" />
+    <Compile Include="Runtime\AssemblyResource.cs" />
+    <Compile Include="Runtime\AssemblyUtil.cs" />
+    <Compile Include="Runtime\DynamicType\Collection.cs" />
+    <Compile Include="Runtime\DynamicType\RuntimeType.cs" />
+    <Compile Include="Runtime\DynamicType\RuntimeFieldInfo.cs" />
+    <Compile Include="Runtime\DynamicType\RuntimePropertyInfo.cs" />
+    <Compile Include="Runtime\IL\DynamicMethod\Core\ICILWriter.cs" />
+    <Compile Include="Runtime\IL\DynamicMethod\Core\ILabel.cs" />
+    <Compile Include="Runtime\IL\DynamicMethod\Core\IVariable.cs" />
+    <Compile Include="Runtime\IL\DynamicMethod\DynamicExtensions.cs" />
+    <Compile Include="Runtime\IL\DynamicMethod\EvaluationStack.cs" />
+    <Compile Include="Runtime\IL\DynamicMethod\IExpression.cs" />
+    <Compile Include="Runtime\IL\DynamicMethod\ItemType.cs" />
+    <Compile Include="Runtime\IL\DynamicMethod\LoadOptions.cs" />
+    <Compile Include="Runtime\IL\DynamicMethod\LogicOperator.cs" />
+    <Compile Include="Runtime\IL\DynamicMethod\MethodGenerator\MethodGenerator.cs" />
+    <Compile Include="Runtime\IL\DynamicMethod\MethodGenerator\MGAssign.cs" />
+    <Compile Include="Runtime\IL\DynamicMethod\MethodGenerator\MGCall.cs" />
+    <Compile Include="Runtime\IL\DynamicMethod\MethodGenerator\MGComputing.cs" />
+    <Compile Include="Runtime\IL\DynamicMethod\MethodGenerator\MGDeclare.cs" />
+    <Compile Include="Runtime\IL\DynamicMethod\MethodGenerator\MGIf.cs" />
+    <Compile Include="Runtime\IL\DynamicMethod\MethodGenerator\MGLoad.cs" />
+    <Compile Include="Runtime\IL\DynamicMethod\MethodGenerator\MGLogic.cs" />
+    <Compile Include="Runtime\IL\DynamicMethod\MethodGenerator\MGLoop.cs" />
+    <Compile Include="Runtime\IL\DynamicMethod\MethodGenerator\MGNewObject.cs" />
+    <Compile Include="Runtime\IL\DynamicMethod\MethodHeader.cs" />
+    <Compile Include="Runtime\IL\DynamicMethod\MSILWriter.cs" />
+    <Compile Include="Runtime\IL\DynamicMethod\StackAssert.cs" />
+    <Compile Include="Runtime\IL\DynamicMethod\StackItem.cs" />
+    <Compile Include="Runtime\IL\DynamicMethod\StackValidationException.cs" />
+    <Compile Include="Runtime\IL\DynamicMethod\Variable\SimpleLocal.cs" />
+    <Compile Include="Runtime\IL\DynamicMethod\Variable\SimpleParameter.cs" />
+    <Compile Include="Runtime\IL\DynamicMethod\Variable\SimpleVariable.cs" />
+    <Compile Include="Runtime\IL\DynamicType\PropertyDefine.cs" />
+    <Compile Include="Runtime\IL\DynamicType\TypeDefine.cs" />
+    <Compile Include="Runtime\IL\DynamicType\TypeGenerator.cs" />
+    <Compile Include="Runtime\Compiler\CodeCompiler.cs" />
+    <Compile Include="Runtime\Compiler\CompileException.cs" />
+    <Compile Include="NoTypeDefinedException.cs" />
+    <Compile Include="NoPropertyDefinedException.cs" />
+    <Compile Include="Util\Algorithm.cs" />
+    <Compile Include="Util\DataUtil.cs" />
+    <Compile Include="Util\DateTimePro.cs" />
+    <Compile Include="Util\EqualsHelper.cs" />
+    <Compile Include="Util\HashCoder.cs" />
+    <Compile Include="Util\MultiDictionary.cs" />
+    <Compile Include="Util\StringSegment.cs" />
+    <Compile Include="DTO\DTObject.cs" />
+    <Compile Include="DTO\Entity\DTEList\DTObjectList.cs" />
+    <Compile Include="DTO\Entity\DTEList\DTEList.cs" />
+    <Compile Include="DTO\Entity\DTEntity.cs" />
+    <Compile Include="DTO\Entity\DTEObject.cs" />
+    <Compile Include="DTO\Entity\DTEValue.cs" />
+    <Compile Include="DTO\Expression\QueryExpression.cs" />
+    <Compile Include="DTO\JSON.cs" />
+    <Compile Include="IO\SegmentReader\SegmentReaderSlim.cs" />
+    <Compile Include="IO\SegmentReader\SegmentReader.cs" />
+    <Compile Include="Runtime\RuntimeUtil.cs" />
+    <Compile Include="Runtime\Type\ConstructorKey.cs" />
+    <Compile Include="Runtime\Type\MethodKey.cs" />
+    <Compile Include="Runtime\Type\MethodParameter.cs" />
+    <Compile Include="Runtime\Type\TypeExtensions.cs" />
+    <Compile Include="Runtime\Type\TypeUtil.cs" />
+    <Compile Include="Util\CharExtensions.cs" />
+    <Compile Include="Util\StringExtensions.cs" />
+    <Compile Include="Util\Extensions.cs" />
+    <Compile Include="IO\ByteBuffer\ByteArray.cs" />
+    <Compile Include="IO\ByteBuffer\ByteArrayPool.cs" />
+    <Compile Include="IO\ByteBuffer\ByteBuffer.cs" />
+    <Compile Include="IO\SegmentSize.cs" />
+    <Compile Include="IO\Extensions.cs" />
+    <Compile Include="Log\ITracker.cs" />
+    <Compile Include="Log\LogWrapper.cs" />
+    <Compile Include="Log\NonLogAttribute.cs" />
+    <Compile Include="Strings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="TypeMismatchException.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util\LazyIndexer.cs" />
+    <Compile Include="Runtime\AttributeUtil.cs" />
+    <Compile Include="Runtime\ObjectSerializer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Strings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Strings.zh-CN.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Concurrent\Pooling\PoolConfig.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DTO\Serialization\SerializationConfig.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
