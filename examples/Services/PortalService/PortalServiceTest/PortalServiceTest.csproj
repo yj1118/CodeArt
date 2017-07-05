@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PortalServiceTest</RootNamespace>
     <AssemblyName>PortalServiceTest</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">15.0</VisualStudioVersion>
@@ -23,6 +23,7 @@
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -59,31 +60,41 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\src\CodeArt.DomainDriven.DataAccess\CodeArt.DomainDriven.DataAccess.csproj">
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\src\NET 4.7\CodeArt.DomainDriven.DataAccess\CodeArt.DomainDriven.DataAccess.csproj">
       <Project>{c0bac0eb-7068-42af-acac-09df677cf980}</Project>
       <Name>CodeArt.DomainDriven.DataAccess</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\src\CodeArt.DomainDriven.Extensions\CodeArt.DomainDriven.Extensions.csproj">
+    <ProjectReference Include="..\..\..\..\src\NET 4.7\CodeArt.DomainDriven.Extensions\CodeArt.DomainDriven.Extensions.csproj">
       <Project>{a45a1e35-6ce5-42c2-8fd3-19ce5b0bd5d6}</Project>
       <Name>CodeArt.DomainDriven.Extensions</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\src\CodeArt.DomainDriven\CodeArt.DomainDriven.csproj">
+    <ProjectReference Include="..\..\..\..\src\NET 4.7\CodeArt.DomainDriven\CodeArt.DomainDriven.csproj">
       <Project>{f62d7792-f4ee-4924-898e-c56309e6dfc2}</Project>
       <Name>CodeArt.DomainDriven</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\src\CodeArt.ServiceModel\CodeArt.ServiceModel.csproj">
+    <ProjectReference Include="..\..\..\..\src\NET 4.7\CodeArt.ServiceModel.Web\CodeArt.ServiceModel.Web.csproj">
+      <Project>{95cb7257-5ce9-477f-8239-a2b57eaf89ad}</Project>
+      <Name>CodeArt.ServiceModel.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\src\NET 4.7\CodeArt.ServiceModel\CodeArt.ServiceModel.csproj">
       <Project>{ea6365f1-c027-416b-b4cc-a94572b5fc19}</Project>
       <Name>CodeArt.ServiceModel</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\src\CodeArt.TestTools.ServiceModel\CodeArt.TestTools.ServiceModel.csproj">
+    <ProjectReference Include="..\..\..\..\src\NET 4.7\CodeArt.TestTools.ServiceModel\CodeArt.TestTools.ServiceModel.csproj">
       <Project>{986a39bb-38b7-4c33-a61e-c635885088f8}</Project>
       <Name>CodeArt.TestTools.ServiceModel</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\src\CodeArt.TestTools\CodeArt.TestTools.csproj">
+    <ProjectReference Include="..\..\..\..\src\NET 4.7\CodeArt.TestTools\CodeArt.TestTools.csproj">
       <Project>{a55dd9db-5254-4d31-888d-05474318035d}</Project>
       <Name>CodeArt.TestTools</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\src\CodeArt\CodeArt.csproj">
+    <ProjectReference Include="..\..\..\..\src\NET 4.7\CodeArt\CodeArt.csproj">
       <Project>{d2c9f430-6b47-482a-a49c-a2478d75f95f}</Project>
       <Name>CodeArt</Name>
     </ProjectReference>
@@ -95,12 +106,6 @@
       <Project>{10f7c080-cf92-4af1-b12a-32b55fbdfa34}</Project>
       <Name>PortalService.Application</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

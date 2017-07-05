@@ -94,9 +94,15 @@ namespace CodeArt.DomainDriven.DataAccess
         /// <param name="obj"></param>
         private void OnDataDelete(object rootId, object id, DomainObject obj)
         {
-            obj.IsSnapshot = true; //有可能别的对象引用了该对象，所以将已删除的对象设置为快照
             //删除缓存
-            Cache.Remove(this.ObjectTip, rootId, id);
+            if (this.Type == DataTableType.AggregateRoot)
+            {
+                Cache.Remove(this.ObjectTip, rootId);
+            }
+            else
+            {
+                Cache.Remove(this.ObjectTip, rootId, id);
+            }
         }
 
         private void ExecuteDeleteData(string rootIdName, object rootId, object id)

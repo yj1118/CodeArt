@@ -48,13 +48,16 @@ namespace CodeArt.DomainDriven.Extensions
 
         #region 辅助方法
 
-        protected void ParseDefineAndId(DTObject arg, out AggregateRootDefine define, out object id)
+        protected void UseDefines(DTObject arg, Action<AggregateRootDefine, object> action)
         {
             var typeName = arg.GetValue<string>("typeName");
-            define = (AggregateRootDefine)RemoteType.GetDefine(typeName);
-
-            var idProperty = DomainProperty.GetProperty(define.MetadataType, EntityObject.IdPropertyName);
-            id = DataUtil.ToValue(arg.GetValue("id"), idProperty.PropertyType);
+            var defines = RemoteType.GetDefines(typeName);
+            foreach (var define in defines)
+            {
+                var idProperty = DomainProperty.GetProperty(define.MetadataType, EntityObject.IdPropertyName);
+                var id = DataUtil.ToValue(arg.GetValue(EntityObject.IdPropertyName), idProperty.PropertyType);
+                action((AggregateRootDefine)define, id);
+            }
         }
 
         #endregion

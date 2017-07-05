@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
 using CodeArt.DomainDriven;
 
@@ -34,15 +32,12 @@ namespace AccountSubsystem
         }
 
 
+        internal static readonly DomainProperty MarkedCodeProperty = DomainProperty.Register<string, Permission>("MarkedCode");
+
         /// <summary>
         /// <para>权限的唯一标示，可以由用户设置</para>
         /// <para>可以通过唯一标示找到权限对象</para>
         /// <para>该属性可以为空</para>
-        /// </summary>
-        internal static readonly DomainProperty MarkedCodeProperty = DomainProperty.Register<string, Permission>("MarkedCode");
-
-        /// <summary>
-        /// 标识码，可以为空
         /// </summary>
         [PropertyRepository()]
         [StringLength(0, 50)]
@@ -68,7 +63,6 @@ namespace AccountSubsystem
                 return !string.IsNullOrEmpty(this.MarkedCode);
             }
         }
-
 
         private static readonly DomainProperty DescriptionProperty = DomainProperty.Register<string, Permission>("Description");
 
@@ -112,7 +106,7 @@ namespace AccountSubsystem
             }
         }
 
-        public static Permission Empty = new PermissionEmpty();
+        public static readonly Permission Empty = new PermissionEmpty();
 
         #endregion
     }

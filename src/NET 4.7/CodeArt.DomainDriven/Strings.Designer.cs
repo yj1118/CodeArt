@@ -79,6 +79,15 @@ namespace CodeArt.DomainDriven {
         }
         
         /// <summary>
+        ///   查找类似 {0} Do not meet the specifications 的本地化字符串。
+        /// </summary>
+        internal static string DoNotMeetSpecifications {
+            get {
+                return ResourceManager.GetString("DoNotMeetSpecifications", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 The dto data is malformed and does not match the definition {0} 的本地化字符串。
         /// </summary>
         internal static string DynamicObjectLoadError {

@@ -35,7 +35,7 @@ namespace AccountSubsystem
                 MarkedCode = this.MarkedCode ?? string.Empty,
                 Description = this.Description ?? string.Empty
             };
-
+            
             var repository = Repository.Create<IPermissionRepository>();
             repository.Add(permission);
 

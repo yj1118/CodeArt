@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>AccountSubsystemTest</RootNamespace>
     <AssemblyName>AccountSubsystemTest</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">15.0</VisualStudioVersion>
@@ -23,6 +23,7 @@
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -61,23 +62,27 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\CodeArt.DomainDriven.DataAccess.csproj">
+    <ProjectReference Include="..\..\..\..\src\NET 4.7\CodeArt.DomainDriven.DataAccess\CodeArt.DomainDriven.DataAccess.csproj">
       <Project>{c0bac0eb-7068-42af-acac-09df677cf980}</Project>
       <Name>CodeArt.DomainDriven.DataAccess</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\CodeArt Framework\CodeArt\CodeArt.DomainDriven\CodeArt.DomainDriven.csproj">
+    <ProjectReference Include="..\..\..\..\src\NET 4.7\CodeArt.DomainDriven.Extensions\CodeArt.DomainDriven.Extensions.csproj">
+      <Project>{a45a1e35-6ce5-42c2-8fd3-19ce5b0bd5d6}</Project>
+      <Name>CodeArt.DomainDriven.Extensions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\src\NET 4.7\CodeArt.DomainDriven\CodeArt.DomainDriven.csproj">
       <Project>{f62d7792-f4ee-4924-898e-c56309e6dfc2}</Project>
       <Name>CodeArt.DomainDriven</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\CodeArt Framework\CodeArt\CodeArt.TestTools.DomainDriven\CodeArt.TestTools.DomainDriven.csproj">
+    <ProjectReference Include="..\..\..\..\src\NET 4.7\CodeArt.TestTools.DomainDriven\CodeArt.TestTools.DomainDriven.csproj">
       <Project>{1c3b068b-6f6d-40ef-902f-6ce455875bce}</Project>
       <Name>CodeArt.TestTools.DomainDriven</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\CodeArt Framework\CodeArt\CodeArt.TestTools\CodeArt.TestTools.csproj">
+    <ProjectReference Include="..\..\..\..\src\NET 4.7\CodeArt.TestTools\CodeArt.TestTools.csproj">
       <Project>{a55dd9db-5254-4d31-888d-05474318035d}</Project>
       <Name>CodeArt.TestTools</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\CodeArt Framework\CodeArt\CodeArt\CodeArt.csproj">
+    <ProjectReference Include="..\..\..\..\src\NET 4.7\CodeArt\CodeArt.csproj">
       <Project>{d2c9f430-6b47-482a-a49c-a2478d75f95f}</Project>
       <Name>CodeArt</Name>
     </ProjectReference>

@@ -44,7 +44,7 @@ namespace CodeArt.Util
         }
 
         /// <summary>
-        /// 如果没有重复项，那么添加value，返回true
+        /// 如果没有重复项，那么添加value，返回true,否则返回false,不添加
         /// </summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
@@ -62,6 +62,18 @@ namespace CodeArt.Util
             return true;
         }
 
+        public bool TryAdd(TKey key, TValue value, IEqualityComparer<TValue> comparer)
+        {
+            List<TValue> list = null;
+            if (!_data.TryGetValue(key, out list))
+            {
+                list = new List<TValue>();
+                _data.Add(key, list);
+            }
+            if (list.Contains(value, comparer)) return false;
+            list.Add(value);
+            return true;
+        }
 
         public bool Remove(TKey key)
         {

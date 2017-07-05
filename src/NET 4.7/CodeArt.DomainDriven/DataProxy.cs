@@ -17,6 +17,10 @@ namespace CodeArt.DomainDriven
 
         }
 
+        public abstract bool IsSnapshot { get; }
+
+        public abstract bool IsFromSnapshot { get; }
+
 
         /// <summary>
         /// 
@@ -92,10 +96,6 @@ namespace CodeArt.DomainDriven
         /// <returns></returns>
         public static DataProxy CreateStorage(DomainObject owner)
         {
-            //默认的代理对象是不共生的，由于Empty对象会作为静态对象使用，
-            //而Empty对象并不依赖于共生，所以这里的DataProxyStorage不是共生的
-            //从整个领域层来说，所有领域对象都不依赖于共生
-            //只是在性能上我们有所考虑，所以在ORM中用共生来处理从数据层中获取的对象
             var proxy = new DataProxyStorage(); 
             proxy.Owner = owner;
             return proxy;
@@ -118,6 +118,11 @@ namespace CodeArt.DomainDriven
             {
                 return null;
             }
+
+            public override bool IsSnapshot => false;
+
+            public override bool IsFromSnapshot => false;
+
         }
 
         //public virtual void Clear()
@@ -136,6 +141,10 @@ namespace CodeArt.DomainDriven
         {
             return null;
         }
+
+        public override bool IsSnapshot => false;
+
+        public override bool IsFromSnapshot => false;
 
         public static readonly DataProxy Instance = new DataProxyEmpty();
     }

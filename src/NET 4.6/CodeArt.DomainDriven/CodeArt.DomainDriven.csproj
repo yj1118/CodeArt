@@ -61,6 +61,8 @@
     <Compile Include="DomainProperty\PropertySet\PropertySetAttribute.cs" />
     <Compile Include="DomainExtension\DerivedClassAttribute.cs" />
     <Compile Include="DomainExtension\ExtendedClassAttribute.cs" />
+    <Compile Include="DomainProperty\PropertyValidator\Specification\SpecificationValidator.cs" />
+    <Compile Include="DomainProperty\PropertyValidator\Specification\SpecificationAttribute.cs" />
     <Compile Include="DynamicObject\Instance\DynamicValueObject.cs" />
     <Compile Include="DynamicObject\Instance\DynamicEntity.cs" />
     <Compile Include="DynamicObject\Instance\DynamicObject.cs" />

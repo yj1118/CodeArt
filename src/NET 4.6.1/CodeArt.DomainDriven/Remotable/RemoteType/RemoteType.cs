@@ -8,6 +8,7 @@ using System.Diagnostics;
 
 using CodeArt.DTO;
 using CodeArt.Runtime;
+using CodeArt.Util;
 
 namespace CodeArt.DomainDriven
 {
@@ -65,18 +66,16 @@ namespace CodeArt.DomainDriven
 
 
         /// <summary>
-        /// 根据远程类型的全称获取本地动态类型的定义
+        /// 根据远程类型的全称获取本地动态类型的定义，本地可以定义多个动态类型
         /// </summary>
         /// <param name="remoteTypeFullName"></param>
         /// <returns></returns>
-        public static TypeDefine GetDefine(string remoteTypeFullName)
+        public static IEnumerable<TypeDefine> GetDefines(string remoteTypeFullName)
         {
-            TypeDefine define = null;
-            if (_defineIndex.TryGetValue(remoteTypeFullName, out define)) return define;
-            throw new DomainDrivenException(string.Format(Strings.NoDyanmicTypeDefineForRemoteType, remoteTypeFullName));
+            return _defineIndex.GetValues(remoteTypeFullName);
         }
 
-        private static ConcurrentDictionary<string, TypeDefine> _defineIndex = new ConcurrentDictionary<string, TypeDefine>();
+        private static MultiDictionary<string, TypeDefine> _defineIndex = new MultiDictionary<string, TypeDefine>(false);
 
         /// <summary>
         /// 
@@ -85,7 +84,23 @@ namespace CodeArt.DomainDriven
         /// <param name="define"></param>
         internal static void AddDefineIndex(string remoteTypeFullName, TypeDefine define)
         {
-            _defineIndex.TryAdd(remoteTypeFullName, define);
+            _defineIndex.TryAdd(remoteTypeFullName, define, TypeDefineComparer.Instance);
+        }
+
+        private class TypeDefineComparer : IEqualityComparer<TypeDefine>
+        {
+            public bool Equals(TypeDefine x, TypeDefine y)
+            {
+                return x.TypeName == y.TypeName;
+            }
+
+            public int GetHashCode(TypeDefine obj)
+            {
+                return obj.TypeName.GetHashCode();
+            }
+
+            public static readonly TypeDefineComparer Instance = new TypeDefineComparer();
+
         }
 
 

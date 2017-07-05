@@ -65,7 +65,7 @@ namespace CodeArt.DomainDriven.DataAccess
 
         public static readonly SqlColumns Empty = new SqlColumns(EmptyArray<string>.Value,
                                                                 EmptyArray<string>.Value,
-                                                                EmptyArray<string>.Value);
+                                                               EmptyArray<string>.Value);
 
         public static readonly SqlColumns All = new SqlColumns(new string[] { "*" },
                                                         EmptyArray<string>.Value,

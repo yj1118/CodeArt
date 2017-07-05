@@ -19,11 +19,10 @@ namespace CodeArt.DomainDriven.Extensions
     {
         protected override DTObject InvokeImpl(DTObject arg)
         {
-            AggregateRootDefine define = null;
-            object id = null;
-            ParseDefineAndId(arg, out define, out id);
-
-            RemotePortal.UpdateObject(define, id);
+            UseDefines(arg, (define, id) =>
+            {
+                RemotePortal.UpdateObject(define, id);
+            });
             return DTObject.Empty;
         }
 

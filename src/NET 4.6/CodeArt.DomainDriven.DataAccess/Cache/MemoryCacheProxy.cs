@@ -66,13 +66,14 @@ namespace CodeArt.DomainDriven.DataAccess
                 policy.SlidingExpiration = tip.SlidingExpiration;
             }
             return policy;
-        }             
+        }
 
 
 
         public CacheEntry Remove(CachePolicy tip, string cacheKey)
         {
-           return (CacheEntry)_cache.Remove(cacheKey);
+            if (tip.NoCache) return null;
+            return _cache.Remove(cacheKey) as CacheEntry;
         }
 
     }

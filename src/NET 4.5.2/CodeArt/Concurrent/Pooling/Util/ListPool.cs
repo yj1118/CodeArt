@@ -30,4 +30,37 @@ namespace CodeArt.Concurrent
         });
 
     }
+
+
+    public static class ListPoolWrapper<T>
+    {
+        public static List<T> Borrow()
+        {
+            return Instance.Borrow();
+        }
+
+        public static void Return(List<T> item)
+        {
+            Instance.Return(item);
+        }
+
+
+        private static readonly PoolWrapper<List<T>> Instance = new PoolWrapper<List<T>>(() =>
+        {
+            return new List<T>();
+        }, (list, phase) =>
+        {
+            if (phase == PoolItemPhase.Returning)
+            {
+                list.Clear();
+            }
+            return true;
+        }, new PoolConfig()
+        {
+            MaxRemainTime = 300 //闲置时间300秒
+        });
+
+    }
+
+
 }

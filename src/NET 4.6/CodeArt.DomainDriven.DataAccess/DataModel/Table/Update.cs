@@ -93,6 +93,8 @@ namespace CodeArt.DomainDriven.DataAccess
         {
             obj.MarkClean(); //修改之后，就干净了
 
+            var id = GetObjectId(obj);
+
             //更新数据版本号
             var target = this.IsDerived ? this.InheritedRoot : this;
             using (var temp = SqlHelper.BorrowData())
@@ -103,10 +105,17 @@ namespace CodeArt.DomainDriven.DataAccess
                     data.Add(target.Root.TableIdName, GetObjectId(root));
                 }
 
-                data.Add(EntityObject.IdPropertyName, GetObjectId(obj));
+                data.Add(EntityObject.IdPropertyName, id);
 
                 //更新版本号
                 SqlHelper.Execute(target.Name, target.SqlUpdateVersion, data);
+
+                //更新代理对象的版本号
+                var dataVersion = target.Type == DataTableType.AggregateRoot
+                                    ? this.GetDataVersion(id)
+                                    : this.GetDataVersion(GetObjectId(root), id);
+
+                (obj.DataProxy as DataProxyPro).OriginalData.Set(GeneratedField.DataVersionName, dataVersion);
             }
         }
 
@@ -153,18 +162,18 @@ namespace CodeArt.DomainDriven.DataAccess
                         }
                     }
                     break;
-                case DomainPropertyType.ValueObject:
-                    {
-                        if (current.IsPropertyChanged(tip.Property))
-                        {
-                            //删除原始数据
-                            DeleteMemberByOriginalData(root, parent, current, tip);
-                            //新增数据
-                            InsertAndCollectValueObject(root, parent, current, tip, data);
-                            return true;
-                        }
-                    }
-                    break;
+                //case DomainPropertyType.ValueObject:
+                //    {
+                //        if (current.IsPropertyChanged(tip.Property))
+                //        {
+                //            //删除原始数据
+                //            DeleteMemberByOriginalData(root, parent, current, tip);
+                //            //新增数据
+                //            InsertAndCollectValueObject(root, parent, current, tip, data);
+                //            return true;
+                //        }
+                //    }
+                //    break;
                 case DomainPropertyType.EntityObjectPro:
                 case DomainPropertyType.AggregateRoot:
                     {
@@ -178,6 +187,7 @@ namespace CodeArt.DomainDriven.DataAccess
                         }
                     }
                     break;
+                case DomainPropertyType.ValueObject: //虽然值对象的成员不会变，但是成员的成员也许会改变
                 case DomainPropertyType.EntityObject:
                     {
                         if (current.IsPropertyChanged(tip.Property))

@@ -167,6 +167,7 @@ namespace CodeArt.DomainDriven.DataAccess
 
         #region 获取条目信息
 
+
         /// <summary>
         /// 获取数据的条目信息，这包括数据必备的编号和版本号
         /// </summary>
@@ -359,6 +360,64 @@ namespace CodeArt.DomainDriven.DataAccess
 
         #endregion
 
+        #region 得到对象版本号
+
+
+        /// <summary>
+        /// 根据对象原始数据获取版本号
+        /// </summary>
+        internal int GetDataVersion(DynamicData originalData)
+        {
+            if(this.Type == DataTableType.AggregateRoot)
+            {
+                var id = originalData.Get(EntityObject.IdPropertyName);
+                return GetDataVersion(id);
+            }
+            else
+            {
+                var rootId = originalData.Get(this.Root.TableIdName);
+                var id = originalData.Get(EntityObject.IdPropertyName);
+                return GetDataVersion(rootId, id);
+            }
+        }
+
+
+        /// <summary>
+        /// 得到对象的版本号
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        private int GetDataVersion(object id)
+        {
+            return GetDataVersionImpl((param) =>
+            {
+                param.Add(EntityObject.IdPropertyName, id);
+            });
+        }
+
+        private int GetDataVersion(object rootId, object id)
+        {
+            return GetDataVersionImpl((param) =>
+            {
+                param.Add(this.Root.TableIdName, rootId);
+                param.Add(EntityObject.IdPropertyName, id);
+            });
+        }
+
+        private int GetDataVersionImpl(Action<DynamicData> fillArg)
+        {
+            var expression = GetObjectByIdExpression(this);
+            var exp = QueryObject.Create(this, expression, QueryLevel.None);
+
+            int dataVersion = 0;
+            UseDataEntry(exp, fillArg, (entry) =>
+            {
+                dataVersion = (int)entry.Get(GeneratedField.DataVersionName);
+            });
+            return dataVersion;
+        }
+
+        #endregion
 
 
         //internal T QuerySingle<T>(IQueryBuilder compiler, Action<DynamicData> fillArg, QueryLevel level)

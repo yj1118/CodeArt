@@ -62,13 +62,31 @@ namespace CodeArt.DomainDriven
         #region 对象快照
 
         /// <summary>
-        /// 对象是否为一个快照
+        /// 对象是否为一个快照，如果该值为true，表示对象已经被仓储删除或者其属性值已被修改
         /// </summary>
         public bool IsSnapshot
         {
-            get;
-            internal set;
+            get
+            {
+                return this.DataProxy.IsSnapshot; //通过数据代理我们得知数据是否为快照
+            }
         }
+
+        /// <summary>
+        /// 表示对象是否来自仓储中的快照区域，请注意该属性与IsSnapshot的区别：
+        /// <para>一个对象有可能从仓储加载后，由于其他线程修改了它在仓储里对应的数据，导致这个对象由非快照状态变为快照</para>
+        /// <para>这时候IsSnapshot为true，IsFromSnapshot为false</para>
+        /// <para>也就是说，IsSnapshot比IsFromSnapshot更加严谨，是一定可以识别对象的快照状态的</para>
+        /// <para>但是IsFromSnapshot的性能要比IsSnapshot好的多，它表示对象被删除后，加入到仓储的快照区域了，当对象再次被加载，它的IsSnapshot和IsFromSnapshot属性都被true</para>
+        /// </summary>
+        public bool IsFromSnapshot
+        {
+            get
+            {
+                return this.DataProxy.IsFromSnapshot; //通过数据代理我们得知数据是否为来自快照区域
+            }
+        }
+
 
         #endregion
 
@@ -273,6 +291,7 @@ namespace CodeArt.DomainDriven
             //如果属性没有被改变，那么我们需要进一步判断属性的成员是否发生改变
             switch (property.DomainPropertyType)
             {
+                case DomainPropertyType.ValueObject:
                 case DomainPropertyType.EntityObject:
                 case DomainPropertyType.EntityObjectPro:
                     {
@@ -280,10 +299,11 @@ namespace CodeArt.DomainDriven
                         if (TryGetValue<DomainObject>(property, ref obj))
                         {
                             //如果加载了，就进一步判断
-                            return obj.IsChanged;
+                            return obj.IsDirty;
                         }
                     }
                     break;
+                case DomainPropertyType.ValueObjectList:
                 case DomainPropertyType.EntityObjectList:
                 case DomainPropertyType.EntityObjectProList:
                     {
@@ -293,13 +313,12 @@ namespace CodeArt.DomainDriven
                             //如果加载了，就进一步判断
                             foreach (DomainObject obj in list)
                             {
-                                if (obj.IsChanged) return true;
+                                if (obj.IsDirty) return true;
                             }
                         }
                     }
                     break;
             }
-            //ValueObject和ValueObjectList 只用根据IsPropertyChanged判断即可，因为他们是值对象，只读的，另外集合也是ObjectCollection，成员发生变化时，会通知属性发生变化
             //AggregateRoot和AggregateRootList 只用根据IsPropertyChanged判断即可，因为他们是外部内聚根对象，是否变脏与本地内聚根没有关系
             return false;
         }
@@ -762,7 +781,7 @@ namespace CodeArt.DomainDriven
             if (this.IsConstructing) return; //构造阶段不处理
 
             if (this.IsEmpty()) throw new DomainDrivenException(string.Format(Strings.EmptyReadOnly, this.ObjectType.FullName));
-            if (this.IsSnapshot) throw new DomainDrivenException(string.Format(Strings.SnapshotReadOnly, this.ObjectType.FullName));
+            if (this.IsFromSnapshot) throw new DomainDrivenException(string.Format(Strings.SnapshotReadOnly, this.ObjectType.FullName));
         }
 
         #region 辅助方法

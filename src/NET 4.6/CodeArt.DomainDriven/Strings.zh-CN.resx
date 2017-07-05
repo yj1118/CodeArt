@@ -123,6 +123,9 @@
   <data name="DomainPropertyRemoved" xml:space="preserve">
     <value>领域属性 {0} 已被移除</value>
   </data>
+  <data name="DoNotMeetSpecifications" xml:space="preserve">
+    <value>{0} 不满足规格</value>
+  </data>
   <data name="DynamicObjectLoadError" xml:space="preserve">
     <value>dto数据格式错误，与定义{0}不匹配</value>
   </data>

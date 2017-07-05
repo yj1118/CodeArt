@@ -27,5 +27,17 @@ namespace CodeArt.DomainDriven
         /// </summary>
         /// <param name="target"></param>
         void Copy(IDataProxy target);
+
+
+        /// <summary>
+        /// 对象是否为一个快照
+        /// </summary>
+        bool IsSnapshot { get; }
+
+        /// <summary>
+        /// 对象是否来自仓储的快照区
+        /// </summary>
+        bool IsFromSnapshot { get; }
+
     }
 }

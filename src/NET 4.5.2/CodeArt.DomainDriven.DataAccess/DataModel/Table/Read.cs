@@ -220,10 +220,6 @@ namespace CodeArt.DomainDriven.DataAccess
                 }
             }
 
-            //如果是从快照表中读取，那么标记对象为快照
-            if (this.IsSnapshot)
-                obj.IsSnapshot = true;
-
             obj.MarkClean(); //对象从数据库中读取，是干净的
         }
 

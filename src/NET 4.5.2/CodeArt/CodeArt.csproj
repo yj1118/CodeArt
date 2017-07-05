@@ -226,8 +226,8 @@
     <Compile Include="Util\Algorithm.cs" />
     <Compile Include="Util\DataUtil.cs" />
     <Compile Include="Util\DateTimePro.cs" />
-    <Compile Include="Util\EqualsHelper.cs" />
     <Compile Include="Util\EmptyArray.cs" />
+    <Compile Include="Util\EqualsHelper.cs" />
     <Compile Include="Util\HashCoder.cs" />
     <Compile Include="Util\MultiDictionary.cs" />
     <Compile Include="Util\StringSegment.cs" />

@@ -255,4 +255,7 @@
   <data name="DynamicTypeRepeated" xml:space="preserve">
     <value>Defines multiple dynamic types with the name {0}</value>
   </data>
+  <data name="DoNotMeetSpecifications" xml:space="preserve">
+    <value>{0} Do not meet the specifications</value>
+  </data>
 </root>
