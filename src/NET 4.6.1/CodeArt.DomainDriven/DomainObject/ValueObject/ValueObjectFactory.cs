@@ -5,6 +5,7 @@ using System.Text;
 
 namespace CodeArt.DomainDriven
 {
+    [Obsolete]
     public abstract class ValueObjectFactory<TObject> : ValueObject
     {
         private static Dictionary<int, TObject> _instance = new Dictionary<int, TObject>();

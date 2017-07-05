@@ -66,6 +66,7 @@
     <Compile Include="Common\SqlRepository.cs" />
     <Compile Include="Common\Validator.cs" />
     <Compile Include="DataAccessConfiguration.cs" />
+    <Compile Include="DataModel\ConstructContext.cs" />
     <Compile Include="DataModel\DataModel.cs" />
     <Compile Include="DataModel\Field\AggregateRootField.cs" />
     <Compile Include="DataModel\Field\AggregateRootListField.cs" />

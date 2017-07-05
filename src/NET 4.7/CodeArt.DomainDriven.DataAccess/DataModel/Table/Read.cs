@@ -97,11 +97,6 @@ namespace CodeArt.DomainDriven.DataAccess
         {
             if (_isDomainCollection(listType))
             {
-                //if (parent == null)
-                //{
-                //    throw new DataAccessException(string.Format(Strings.CreateObjectCollectionError, listType.ResolveName()));
-                //}
-
                 var constructor = _getDomainCollectionConstructor(listType);
                 using (var temp = ArgsPool.Borrow2())
                 {
@@ -142,8 +137,13 @@ namespace CodeArt.DomainDriven.DataAccess
                     //构造对象
                     obj = ConstructObject(this.DynamicType.ObjectType, data);
 
+                    //为了避免死循环，我们先将对象加入到构造上下文中
+                    AddToConstructContext(obj, data);
+
                     //加载属性
                     LoadProperties(this.DynamicType, data, obj);
+
+                    RemoveFromConstructContext(obj);
 
                     //补充信息
                     Supplement(obj, data);
@@ -159,8 +159,13 @@ namespace CodeArt.DomainDriven.DataAccess
                     //构造对象
                     obj = ConstructObject(objectType, data);
 
+                    //为了避免死循环，我们先将对象加入到构造上下文中
+                    AddToConstructContext(obj, data);
+
                     //加载属性
                     LoadProperties(objectType, data, obj);
+
+                    RemoveFromConstructContext(obj);
 
                     //补充信息
                     Supplement(obj, data);
@@ -168,6 +173,26 @@ namespace CodeArt.DomainDriven.DataAccess
             }
             return obj;
         }
+
+        private void AddToConstructContext(DomainObject obj, DynamicData data)
+        {
+            object id = data.Get(EntityObject.IdPropertyName);
+            if (this.Type == DataTableType.AggregateRoot)
+            {
+                ConstructContext.Add(id, obj);
+            }
+            else
+            {
+                object rootId = data.Get(this.Root.TableIdName);
+                ConstructContext.Add(rootId, id, obj);
+            }
+        }
+
+        private void RemoveFromConstructContext(DomainObject obj)
+        {
+            ConstructContext.Remove(obj);
+        }
+
 
         private DomainObject ConstructObject(Type objectType, DynamicData data)
         {
@@ -461,7 +486,8 @@ namespace CodeArt.DomainDriven.DataAccess
                 var objectType = string.IsNullOrEmpty(typeKey) ? tip.PropertyType : DerivedClassAttribute.GetDerivedType(typeKey);
          
                 var child = GetRuntimeTable(this, tip.PropertyName, objectType);
-                return child.CreateObject(objectType, subData);
+                //先尝试中构造上下文中得到
+                return  child.GetObjectFromConstruct(subData) ?? child.CreateObject(objectType, subData);
             }
         }
 

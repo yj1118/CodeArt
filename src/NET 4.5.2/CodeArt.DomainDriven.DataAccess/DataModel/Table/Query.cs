@@ -26,6 +26,9 @@ namespace CodeArt.DomainDriven.DataAccess
         /// <returns></returns>
         internal object QuerySingle(object id, QueryLevel level)
         {
+            var obj = GetObjectFromConstruct(id);
+            if (obj != null) return obj;
+
             var expression = GetObjectByIdExpression(this);
             return QuerySingle(expression, (param) =>
             {
@@ -41,6 +44,9 @@ namespace CodeArt.DomainDriven.DataAccess
         /// <returns></returns>
         internal object QuerySingle(object rootId, object id)
         {
+            var obj = GetObjectFromConstruct(rootId, id);
+            if (obj != null) return obj;
+
             var expression = GetObjectByIdExpression(this);
             return QuerySingle(expression, (param) =>
             {
@@ -48,6 +54,40 @@ namespace CodeArt.DomainDriven.DataAccess
                 param.Add(EntityObject.IdPropertyName, id);
             }, QueryLevel.None);
         }
+
+        #region 从构造上下文中获取对象
+
+        /// <summary>
+        /// 从构造上下文中获取对象
+        /// </summary>
+        /// <returns></returns>
+        private object GetObjectFromConstruct(object id)
+        {
+            return ConstructContext.Get(id);
+        }
+
+        /// <summary>
+        /// 从构造上下文中获取对象
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        private object GetObjectFromConstruct(object rootId, object id)
+        {
+            return ConstructContext.Get(rootId, id);
+        }
+
+        private object GetObjectFromConstruct(DynamicData data)
+        {
+            var id = data.Get(EntityObject.IdPropertyName);
+            if (this.Type == DataTableType.AggregateRoot)
+            {
+                return GetObjectFromConstruct(id);
+            }
+            var rootId = data.Get(this.Root.TableIdName);
+            return GetObjectFromConstruct(rootId, id);
+        }
+
+        #endregion
 
         /// <summary>
         /// 根据表达式查询单条数据

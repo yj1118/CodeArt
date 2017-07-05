@@ -117,5 +117,18 @@ namespace CodeArt.Util
             if (proxy != null) return proxy.IsNull();
             return false;
         }
+
+
+        public static T Remove<T>(this IList<T> list, Func<T, bool> predicate)
+        {
+            var target = list.FirstOrDefault(predicate);
+            if (target != null)
+            {
+                list.Remove(target);
+                return target;
+            }
+            return default(T);
+        }
+
     }
 }
