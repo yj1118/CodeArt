@@ -42,7 +42,6 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.ValueTuple, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.3.1\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
@@ -55,10 +54,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cache\Cache.cs" />
-    <Compile Include="Cache\ICache.cs" />
-    <Compile Include="Cache\CacheEntry.cs" />
-    <Compile Include="Cache\MemoryCacheProxy.cs" />
     <Compile Include="Common\DataContextExtensions.cs" />
     <Compile Include="Common\PreApplicationStart.cs" />
     <Compile Include="Common\QueryAdapter.cs" />
@@ -82,6 +77,7 @@
     <Compile Include="DataModel\Field\ValueListField.cs" />
     <Compile Include="DataModel\Field\ValueObjectField.cs" />
     <Compile Include="DataModel\Field\ValueObjectListField.cs" />
+    <Compile Include="DataModel\LockManager.cs" />
     <Compile Include="DataModel\ObjectChain.cs" />
     <Compile Include="DataModel\TempIndex.cs" />
     <Compile Include="DataModel\Table\Childs.cs" />
@@ -107,6 +103,7 @@
     <Compile Include="Query\Direct\CUD\InsertTable.cs" />
     <Compile Include="Query\Direct\CUD\UpdateDataVersion.cs" />
     <Compile Include="Query\Direct\CUD\UpdateTable.cs" />
+    <Compile Include="Query\Direct\SingleLock.cs" />
     <Compile Include="Query\Direct\GetIdentity.cs" />
     <Compile Include="Query\Direct\Life\CreateTable.cs" />
     <Compile Include="Query\Direct\Life\DropTable.cs" />
@@ -157,7 +154,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

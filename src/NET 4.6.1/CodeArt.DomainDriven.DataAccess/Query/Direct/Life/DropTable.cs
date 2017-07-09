@@ -15,11 +15,12 @@ namespace CodeArt.DomainDriven.DataAccess
     internal class DropTable : QueryBuilder
     {
         private string _sql;
-
+        private string _name;
 
         private DropTable(string tableName)
         {
             _sql = GetSql(tableName);
+            _name = string.Format("create {0}", tableName);
         }
 
         private string GetSql(string tableName)
@@ -33,7 +34,7 @@ namespace CodeArt.DomainDriven.DataAccess
 
         protected override string GetName()
         {
-            return InternalQuery;
+            return _name;
         }
 
 

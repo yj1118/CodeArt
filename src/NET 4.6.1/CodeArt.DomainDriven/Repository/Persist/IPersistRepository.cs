@@ -11,19 +11,19 @@ namespace CodeArt.DomainDriven
         /// 将对象添加到持久层中
         /// </summary>
         /// <param name="obj"></param>
-        void PersistAdd(IRepositoryable obj);
+        void PersistAdd(IAggregateRoot obj);
 
         /// <summary>
         /// 修改对象在持久层中的信息
         /// </summary>
         /// <param name="obj"></param>
-        void PersistUpdate(IRepositoryable obj);
+        void PersistUpdate(IAggregateRoot obj);
 
         /// <summary>
         /// 从持久层中删除对象
         /// </summary>
         /// <param name="obj"></param>
-        void PersistDelete(IRepositoryable obj);
+        void PersistDelete(IAggregateRoot obj);
 
         event RepositoryPersistedEventHandler Persisted;
 

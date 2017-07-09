@@ -34,25 +34,79 @@ namespace CodeArt.DomainDriven
             InitializeTransaction();
             InitializeSchedule();
             InitializeRollback();
+            InitializeMirror();
         }
+
+        #region 镜像
+
+        private List<IAggregateRoot> _mirrors;
+        private bool _lockedMirrors = false;
+
+
+        private void InitializeMirror()
+        {
+            _mirrors = new List<IAggregateRoot>();
+            _lockedMirrors = false;
+        }
+
+        private void DisposeMirror()
+        {
+            _mirrors.Clear();
+        }
+
+        private void AddMirror(IAggregateRoot obj)
+        {
+            if (_isCommiting) throw new DataContextException(Strings.CanNotAddMirror);
+            if (_mirrors.Exists((t) => { return t.UniqueKey == obj.UniqueKey; })) return;
+            _mirrors.Add(obj);
+        }
+
+        private void TryAddMirror<T>(QueryLevel level, T root) where T : IAggregateRoot
+        {
+            if (level == QueryLevel.Mirroring)
+            {
+                AddMirror(root);
+            }
+        }
+
+        private void TryAddMirrors<T>(QueryLevel level, IEnumerable<T> objs) where T : IAggregateRoot
+        {
+            if (level == QueryLevel.Mirroring)
+            {
+                foreach(var obj in objs)
+                {
+                    AddMirror(obj);
+                }
+            }
+        }
+
+        private void LockMirrors()
+        {
+            if (_lockedMirrors) return; //不重复锁定镜像对象
+            LockManager.Lock(_mirrors);
+            _lockedMirrors = true;
+        }
+
+        #endregion
+
 
         #region CUD
 
-        public void RegisterAdded<T>(T item, IPersistRepository repository) where T : IRepositoryable
+        public void RegisterAdded<T>(T item, IPersistRepository repository) where T : IAggregateRoot
         {
             ProcessAction(ScheduledAction.Borrow(item, repository, ScheduledActionType.Create));
             item.SaveState();
             item.MarkClean();//无论是延迟执行，还是立即执行，我们都需要提供统一的状态给领域层使用
         }
 
-        public void RegisterUpdated<T>(T item, IPersistRepository repository) where T : IRepositoryable
+        public void RegisterUpdated<T>(T item, IPersistRepository repository) where T : IAggregateRoot
         {
             ProcessAction(ScheduledAction.Borrow(item, repository, ScheduledActionType.Update));
             item.SaveState();
             item.MarkClean();//无论是延迟执行，还是立即执行，我们都需要提供统一的状态给领域层使用
         }
 
-        public void RegisterDeleted<T>(T item, IPersistRepository repository) where T : IRepositoryable
+        public void RegisterDeleted<T>(T item, IPersistRepository repository) where T : IAggregateRoot
         {
             ProcessAction(ScheduledAction.Borrow(item, repository, ScheduledActionType.Delete));
             item.SaveState();
@@ -71,7 +125,7 @@ namespace CodeArt.DomainDriven
 
         private bool IsLockQuery(QueryLevel level)
         {
-            return level == QueryLevel.HoldSingle || level == QueryLevel.Single || level == QueryLevel.ReadOnly;
+            return level == QueryLevel.HoldSingle || level == QueryLevel.Single || level == QueryLevel.Share;
         }
 
         #endregion
@@ -83,11 +137,11 @@ namespace CodeArt.DomainDriven
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="result"></param>
-        public T RegisterQueried<T>(QueryLevel level, Func<T> persistQuery) where T : IRepositoryable
+        public T RegisterQueried<T>(QueryLevel level, Func<T> persistQuery) where T : IAggregateRoot
         {
             this.OpenLock(level);
             var result = persistQuery();
-            result.MarkClean();//刚查询的结果被注册时，会标记为干净的
+            TryAddMirror(level, result);
             return result;
         }
 
@@ -96,11 +150,11 @@ namespace CodeArt.DomainDriven
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="result"></param>
-        public IEnumerable<T> RegisterQueried<T>(QueryLevel level, Func<IEnumerable<T>> persistQuery) where T : IRepositoryable
+        public IEnumerable<T> RegisterQueried<T>(QueryLevel level, Func<IEnumerable<T>> persistQuery) where T : IAggregateRoot
         {
             this.OpenLock(level);
             var result = persistQuery();
-            foreach (var item in result) item.MarkClean();//刚查询的结果被注册时，会标记为干净的
+            TryAddMirrors(level, result);
             return result;
         }
 
@@ -109,12 +163,12 @@ namespace CodeArt.DomainDriven
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="result"></param>
-        public Page<T> RegisterQueried<T>(QueryLevel level, Func<Page<T>> persistQuery) where T : IRepositoryable
+        public Page<T> RegisterQueried<T>(QueryLevel level, Func<Page<T>> persistQuery) where T : IAggregateRoot
         {
             this.OpenLock(level);
             var page = persistQuery();
             var result = page.Objects;
-            foreach (var item in result) item.MarkClean();//刚查询的结果被注册时，会标记为干净的
+            TryAddMirrors(level, result);
             return page;
         }
 
@@ -268,7 +322,7 @@ namespace CodeArt.DomainDriven
             if (_transactionStatus != TransactionStatus.Timely)
             {
                 if (!this.IsInTransaction)
-                    throw new NotBeginTransactionException("启动TransactionStatus.Timely模式之前，请开启事务（调用BeginTransaction方法）！");
+                    throw new NotBeginTransactionException(Strings.NotOpenTransaction);
 
                 //开启即时事务
                 this._transactionStatus = TransactionStatus.Timely;
@@ -278,6 +332,7 @@ namespace CodeArt.DomainDriven
 
                 if (!_isCommiting)
                 {
+                    //没有之前的队列要执行
                     ExecuteActionQueue();//在提交时更改了事务模式,只有可能是在验证行为时发生，该队列会在稍后立即执行，因此此处不执行队列
                 }
             }
@@ -308,14 +363,14 @@ namespace CodeArt.DomainDriven
         public void Commit()
         {
             if (!this.IsInTransaction)
-                throw new NotBeginTransactionException("没有开启事务，无法提交！");
+                throw new NotBeginTransactionException(Strings.NotOpenTransaction);
             else
             {
                 _transactionCount--;
                 if (_transactionCount == 0)
                 {
                     if (_isCommiting)
-                        throw new RepeatedCommitException("事务已进入提交阶段，不能重复提交！");
+                        throw new RepeatedCommitException(Strings.TransactionRepeatedCommit);
 
                     _isCommiting = true;
 
@@ -353,6 +408,8 @@ namespace CodeArt.DomainDriven
 
         private void ExecuteActionQueue()
         {
+            //执行行为队列之前，我们会对镜像进行锁定
+            LockMirrors();
             foreach (ScheduledAction action in _actions)
             {
                 this.ExecuteAction(action);
@@ -375,6 +432,7 @@ namespace CodeArt.DomainDriven
             DisposeSchedule();
             DisposeRollback();
             DisposeTransaction();
+            DisposeMirror();
         }
 
         public void Dispose()
@@ -408,7 +466,7 @@ namespace CodeArt.DomainDriven
         public void Rollback()
         {
             if (!this.IsInTransaction)
-                throw new NotBeginTransactionException("没有开启事务，无法回滚！");
+                throw new NotBeginTransactionException(Strings.NotOpenTransaction);
             else
             {
                 try
@@ -433,8 +491,7 @@ namespace CodeArt.DomainDriven
 
         #endregion
 
-     
-        #region 基于当前应用程序回话的数据上下文
+        #region 基于当前应用程序会话的数据上下文
 
 
         private const string _sessionKey = "__DataContext.Current";
@@ -537,7 +594,6 @@ namespace CodeArt.DomainDriven
         }
 
         #endregion
-
 
         #region 辅助方法
 

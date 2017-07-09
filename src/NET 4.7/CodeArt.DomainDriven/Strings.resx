@@ -184,7 +184,7 @@
     <value>Type {0} error,You can only persist IAggregateRoot or IEntityObjectPro objects</value>
   </data>
   <data name="GetUniqueKeyError" xml:space="preserve">
-    <value>Unable to compute the unique key for type {0}, which must be IAggregateRoot or IEntityObjectPro</value>
+    <value>Unable to compute the unique key for type {0}, which must be IAggregateRoot </value>
   </data>
   <data name="RepeatedDeclareProperty" xml:space="preserve">
     <value>Type {0} repeatedly defined property {1}</value>
@@ -257,5 +257,29 @@
   </data>
   <data name="DoNotMeetSpecifications" xml:space="preserve">
     <value>{0} Do not meet the specifications</value>
+  </data>
+  <data name="LockLevelError" xml:space="preserve">
+    <value>Lock operation does not allow the use of the QueryLevel.None level</value>
+  </data>
+  <data name="NotImplementedMethod" xml:space="preserve">
+    <value>{0} did not implement {1} method</value>
+  </data>
+  <data name="DataVersionError" xml:space="preserve">
+    <value>Data version error, modified failed,type {0} id {1}</value>
+  </data>
+  <data name="NotOpenTransaction" xml:space="preserve">
+    <value>Did not open the transaction</value>
+  </data>
+  <data name="TransactionRepeatedCommit" xml:space="preserve">
+    <value>The transaction has entered the commit phase and can not be submitted repeatedly!</value>
+  </data>
+  <data name="CanNotAddMirror" xml:space="preserve">
+    <value>You can not add a mirror during transaction commits</value>
+  </data>
+  <data name="NotExistLockManager" xml:space="preserve">
+    <value>The ILockManager implementation is not configured and the object can not be locked</value>
+  </data>
+  <data name="NotEmpty" xml:space="preserve">
+    <value>Property {0} can not be empty</value>
   </data>
 </root>

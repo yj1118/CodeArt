@@ -19,7 +19,7 @@ namespace CodeArt.DomainDriven.DataAccess
         /// <param name="expression"></param>
         /// <param name="level"></param>
         /// <returns></returns>
-        public static T QuerySingle<T>(this IDataContext dataContext, string expression, Action<DynamicData> fillArg, QueryLevel level) where T : class, IRepositoryable
+        public static T QuerySingle<T>(this IDataContext dataContext, string expression, Action<DynamicData> fillArg, QueryLevel level) where T : class, IAggregateRoot
         {
             return dataContext.RegisterQueried<T>(level, () =>
             {
@@ -43,7 +43,7 @@ namespace CodeArt.DomainDriven.DataAccess
         /// <param name="expression"></param>
         /// <param name="level"></param>
         /// <returns></returns>
-        public static IEnumerable<T> Query<T>(this IDataContext dataContext, string expression, Action<DynamicData> fillArg, QueryLevel level) where T : class, IRepositoryable
+        public static IEnumerable<T> Query<T>(this IDataContext dataContext, string expression, Action<DynamicData> fillArg, QueryLevel level) where T : class, IAggregateRoot
         {
             return dataContext.RegisterQueried<T>(level, () =>
             {
@@ -67,7 +67,7 @@ namespace CodeArt.DomainDriven.DataAccess
         /// <param name="expression"></param>
         /// <param name="level"></param>
         /// <returns></returns>
-        public static Page<T> Query<T>(this IDataContext dataContext, string expression, int pageIndex, int pageSize, Action<DynamicData> fillArg) where T : class, IRepositoryable
+        public static Page<T> Query<T>(this IDataContext dataContext, string expression, int pageIndex, int pageSize, Action<DynamicData> fillArg) where T : class, IAggregateRoot
         {
             return dataContext.RegisterQueried<T>(QueryLevel.None, () =>
             {
@@ -92,7 +92,7 @@ namespace CodeArt.DomainDriven.DataAccess
         /// <param name="fillArg"></param>
         /// <param name="level"></param>
         /// <returns></returns>
-        public static int GetCount<T>(this IDataContext dataContext, string expression, Action<DynamicData> fillArg, QueryLevel level) where T : class, IRepositoryable
+        public static int GetCount<T>(this IDataContext dataContext, string expression, Action<DynamicData> fillArg, QueryLevel level) where T : class, IAggregateRoot
         {
             dataContext.OpenLock(level);
             return DataPortal.GetCount<T>(expression, fillArg, level);
@@ -110,7 +110,7 @@ namespace CodeArt.DomainDriven.DataAccess
         /// <typeparam name="T"></typeparam>
         /// <param name="adapterName">适配器的名称，在类型<typeparam name="T"/>下唯一，该名称会用来提高程序性能</param>
         /// <returns></returns>
-        public static QueryAdapter<T> Adapter<T>(this IDataContext dataContext, string adapterName) where T : class, IRepositoryable
+        public static QueryAdapter<T> Adapter<T>(this IDataContext dataContext, string adapterName) where T : class, IAggregateRoot
         {
             return QueryAdapter<T>.Create(adapterName);
         }

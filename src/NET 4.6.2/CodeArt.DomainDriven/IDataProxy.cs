@@ -39,5 +39,10 @@ namespace CodeArt.DomainDriven
         /// </summary>
         bool IsFromSnapshot { get; }
 
+        /// <summary>
+        /// 数据版本号
+        /// </summary>
+        int Version { get; set; }
+
     }
 }

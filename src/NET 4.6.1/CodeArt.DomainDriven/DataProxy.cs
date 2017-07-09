@@ -21,6 +21,7 @@ namespace CodeArt.DomainDriven
 
         public abstract bool IsFromSnapshot { get; }
 
+        public abstract int Version { get; set; }
 
         /// <summary>
         /// 
@@ -32,7 +33,7 @@ namespace CodeArt.DomainDriven
             object data = null;
             if (!_datas.TryGetValue(property.Name, out data))
             {
-                lock(_datas)  //由于引入了缓存机制，我们要保证多线程同时访问一个对象的并发安全
+                lock(_datas)  //由于引入了缓冲池机制，我们要保证多线程同时访问一个对象的并发安全
                 {
                     if (!_datas.TryGetValue(property.Name, out data))
                     {
@@ -123,6 +124,17 @@ namespace CodeArt.DomainDriven
 
             public override bool IsFromSnapshot => false;
 
+            public override int Version
+            {
+                get
+                {
+                    return 0;
+                }
+                set
+                {
+                    throw new NotImplementedException("SetVersion");
+                }
+            }
         }
 
         //public virtual void Clear()
@@ -147,5 +159,17 @@ namespace CodeArt.DomainDriven
         public override bool IsFromSnapshot => false;
 
         public static readonly DataProxy Instance = new DataProxyEmpty();
+
+        public override int Version
+        {
+            get
+            {
+                return 0;
+            }
+            set
+            {
+                throw new NotImplementedException("SetVersion");
+            }
+        }
     }
 }

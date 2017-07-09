@@ -52,7 +52,7 @@ namespace CodeArt.DomainDriven.DataAccess
             {
                 if (this.IsFromSnapshot) return true;
                 //通过对比数据版本号判定数据是否为快照
-                var current = (int)this.OriginalData.Get(GeneratedField.DataVersionName);
+                var current = this.Version;
                 var latest = this.Table.GetDataVersion(this.OriginalData);
                 return current != latest; //当对象已经被删除，对象版本号大于数据库版本号，当对象被修改，当前对象版本号小于数据库版本号
             }
@@ -64,6 +64,18 @@ namespace CodeArt.DomainDriven.DataAccess
             {
                 //如果这个对象来自快照表，那么它就是来自于仓储的快照存储区
                 return this.Table.IsSnapshot;
+            }
+        }
+
+        public override int Version
+        {
+            get
+            {
+                return (int)this.OriginalData.Get(GeneratedField.DataVersionName);
+            }
+            set
+            {
+                this.OriginalData.Set(GeneratedField.DataVersionName, value);
             }
         }
 

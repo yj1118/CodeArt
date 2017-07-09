@@ -18,6 +18,8 @@ namespace CodeArt.DomainDriven.DataAccess
         private static void Initialize()
         {
             Repository.Register<IDynamicRepository>(SqlDynamicRepository.Instance);
+
+            CodeArt.DomainDriven.LockManager.Register(LockManager.Instance);
         }
 
     }

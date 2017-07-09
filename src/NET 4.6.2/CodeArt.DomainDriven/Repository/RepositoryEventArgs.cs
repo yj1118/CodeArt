@@ -11,16 +11,16 @@ namespace CodeArt.DomainDriven
         /// <summary>
         /// 需要执行仓储操作的领域对象
         /// </summary>
-        public IRepositoryable Target { get; private set; }
+        public IAggregateRoot Target { get; private set; }
 
-        public BoundedEvent EventType
+        public DomainEvent EventType
         {
             get;
             private set;
         }
 
 
-        public RepositoryEventArgs(IRepositoryable target, BoundedEvent eventType)
+        public RepositoryEventArgs(IAggregateRoot target, DomainEvent eventType)
         {
             this.Target = target;
             this.EventType = eventType;

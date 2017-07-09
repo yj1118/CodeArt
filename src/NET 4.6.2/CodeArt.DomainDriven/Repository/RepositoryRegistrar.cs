@@ -72,7 +72,6 @@ namespace CodeArt.DomainDriven
             {
                 _singletons.Remove(interfaceType);
             }
-
         }
 
     }

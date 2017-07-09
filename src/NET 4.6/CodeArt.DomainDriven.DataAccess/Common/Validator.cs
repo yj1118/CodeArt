@@ -21,7 +21,7 @@ namespace CodeArt.DomainDriven.DataAccess
         /// <param name="property"></param>
         /// <param name="findByValue">该方法是用仓储根据属性的值加载对象，请指定QueryLevel.HoldSingle锁，来避免并发冲突</param>
         /// <returns></returns>
-        private static bool IsPropertyRepeated<T>(T obj, DomainProperty property, out string value) where T : class, IRepositoryable
+        private static bool IsPropertyRepeated<T>(T obj, DomainProperty property, out string value) where T : class, IAggregateRoot
         {
             value = null;
             if (!obj.IsPropertyDirty(property)) return false;
@@ -51,7 +51,7 @@ namespace CodeArt.DomainDriven.DataAccess
         /// <typeparam name="T"></typeparam>
         /// <param name="obj"></param>
         /// <param name="property"></param>
-        public static void CheckPropertyRepeated<T>(T obj, string propertyName, ValidationResult result) where T : class, IRepositoryable
+        public static void CheckPropertyRepeated<T>(T obj, string propertyName, ValidationResult result) where T : class, IAggregateRoot
         {
             var property = DomainProperty.GetProperty(typeof(T), propertyName);
             CheckPropertyRepeated(obj, property, result);
@@ -63,7 +63,7 @@ namespace CodeArt.DomainDriven.DataAccess
         /// <typeparam name="T"></typeparam>
         /// <param name="obj"></param>
         /// <param name="property"></param>
-        public static void CheckPropertyRepeated<T>(T obj, DomainProperty property, ValidationResult result) where T : class, IRepositoryable
+        public static void CheckPropertyRepeated<T>(T obj, DomainProperty property, ValidationResult result) where T : class, IAggregateRoot
         {
             string propertyValue = null;
             if (IsPropertyRepeated(obj, property, out propertyValue))

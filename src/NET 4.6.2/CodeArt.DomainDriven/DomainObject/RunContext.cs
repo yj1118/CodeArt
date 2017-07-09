@@ -18,12 +18,12 @@ namespace CodeArt.DomainDriven
         /// </summary>
         public bool InCallBack { get; set; }
 
-        public bool Loading { get; set; }
+        public int MethodIndex { get; set; }
 
         public RunContext()
         {
             this.InCallBack = false;
-            this.Loading = false;
+            this.MethodIndex = -1;
         }
     }
 }

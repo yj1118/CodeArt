@@ -98,11 +98,6 @@ namespace CodeArt.DomainDriven.DataAccess
             return this.Root.QuerySingle(id, level) as T;
         }
 
-        public T QuerySingle<T>(object rootId, object id) where T : class, IDomainObject
-        {
-            return this.Root.QuerySingle(rootId, id) as T;
-        }
-
         public T QuerySingle<T>(string expression, Action<DynamicData> fillArg, QueryLevel level) where T : class, IDomainObject
         {
             return this.Root.QuerySingle<T>(expression, fillArg, level);
@@ -295,15 +290,6 @@ namespace CodeArt.DomainDriven.DataAccess
             {
                 //引用了内部实体对象
                 var field = new EntityObjectListField(attribute);
-                var childs = GetObjectFields(elementType, isSnapshot);
-                field.AddChilds(childs);
-
-                result = field;
-                return true;
-            }
-            else if (DomainObject.IsEntityObjectPro(elementType))
-            {
-                var field = new EntityObjectProListField(attribute);
                 var childs = GetObjectFields(elementType, isSnapshot);
                 field.AddChilds(childs);
 

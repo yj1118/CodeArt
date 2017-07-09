@@ -24,11 +24,6 @@ namespace CodeArt.DomainDriven.DataAccess
 
             DomainObject root = null;
             if (this.Type == DataTableType.AggregateRoot) root = obj;
-            else if (this.Type == DataTableType.EntityObjectPro)
-            {
-                var eop = obj as IEntityObjectPro;
-                root = eop?.Root as DomainObject;
-            }
             if (root == null || root.IsEmpty())
                 throw new DomainDrivenException(string.Format(Strings.PersistentObjectError, obj.ObjectType.FullName));
 
@@ -69,11 +64,8 @@ namespace CodeArt.DomainDriven.DataAccess
 
             if (this.Type == DataTableType.AggregateRoot)
             {
-                Cache.Add(this.ObjectTip, GetObjectId(obj), obj);
-            }
-            else
-            {
-                Cache.Add(this.ObjectTip, GetObjectId(root), GetObjectId(obj), obj);
+                var ar = (IAggregateRoot)obj;
+                DomainBuffer.Add(this.ObjectTip.ObjectType, ar.GetIdentity(), ar);
             }
 
             if (this.IsDerived || this.IsDynamic)

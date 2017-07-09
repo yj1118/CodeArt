@@ -42,7 +42,7 @@ namespace CodeArt.DomainDriven.DataAccess
         /// <param name="rootId"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        internal object QuerySingle(object rootId, object id)
+        private object QuerySingle(object rootId, object id)
         {
             var obj = GetObjectFromConstruct(rootId, id);
             if (obj != null) return obj;
@@ -110,16 +110,19 @@ namespace CodeArt.DomainDriven.DataAccess
             object result = null;
             UseDataEntry(exp, fillArg, (entry) =>
             {
-                result = GetObjectFromEntry(entry);
+                result = GetObjectFromEntry(entry, level);
             });
             return result != null ? result : DomainObject.GetEmpty(this.ObjectType);
         }
 
         /// <summary>
-        /// 从条目数据中获取对象，如果存在缓存，那么使用缓存，如果不存在，则在数据库中查询
+        /// 从条目数据中获取对象
+        /// <para>如果加载的对象是聚合根，那么如果存在缓冲区中，那么使用缓冲区的对象，如果不存在，则在数据库中查询并更新缓冲区</para>
+        /// <para>如果加载的是成员对象，那么始终从数据库中查询</para>
+        /// <para>不论是什么类型的对象都可以识别继承类型</para>
         /// </summary>
         /// <returns></returns>
-        private object GetObjectFromEntry(DynamicData entry)
+        private object GetObjectFromEntry(DynamicData entry, QueryLevel level)
         {
             if (this.Type == DataTableType.AggregateRoot)
             {
@@ -127,9 +130,16 @@ namespace CodeArt.DomainDriven.DataAccess
                 int dataVersion = (int)entry.Get(GeneratedField.DataVersionName);
                 string typeKey = (string)entry.Get(GeneratedField.TypeKeyName);
                 var table = string.IsNullOrEmpty(typeKey) ? this : GetDataTable(typeKey);
-                return Cache.GetOrCreate(table.ObjectTip, id, dataVersion, () =>
+
+                if (level.Code == QueryLevel.MirroringCode)
                 {
-                    return table.LoadObject(id, QueryLevel.None); //由于查询条目的时候已经锁了数据，所以此处不用再锁定
+                    //镜像查询会绕过缓冲区
+                    return table.LoadObject(id, QueryLevel.None);
+                }
+
+                return DomainBuffer.GetOrCreate(table.ObjectTip.ObjectType, id, dataVersion, () =>
+                {
+                    return (IAggregateRoot)table.LoadObject(id, QueryLevel.None); //由于查询条目的时候已经锁了数据，所以此处不用再锁定
                 });
             }
             else
@@ -139,10 +149,9 @@ namespace CodeArt.DomainDriven.DataAccess
                 int dataVersion = (int)entry.Get(GeneratedField.DataVersionName);
                 string typeKey = (string)entry.Get(GeneratedField.TypeKeyName);
                 var table = string.IsNullOrEmpty(typeKey) ? this : GetDataTable(typeKey);
-                return Cache.GetOrCreate(table.ObjectTip, rootId, id, dataVersion, () =>
-                {
-                    return table.LoadObject(rootId, id);
-                });
+
+                //非聚合根是不能被加入到缓冲区的
+                return table.LoadObject(rootId, id);
             }
         }
 
@@ -150,7 +159,7 @@ namespace CodeArt.DomainDriven.DataAccess
         {
             expression = GetEntryExpression(expression);
             var exp = QueryObject.Create(this, expression, level);
-            return GetObjectsFromEntries<T>(exp, fillArg);
+            return GetObjectsFromEntries<T>(exp, fillArg, level);
         }
 
         internal Page<T> Query<T>(string expression, int pageIndex, int pageSize, Action<DynamicData> fillArg)
@@ -162,7 +171,7 @@ namespace CodeArt.DomainDriven.DataAccess
                 data.Add("pageIndex", pageIndex);
                 data.Add("pageSize", pageSize);
                 fillArg(data);
-            });
+            }, QueryLevel.None);
             int count = GetCount(expression, fillArg, QueryLevel.None);
             return new Page<T>(pageIndex, pageSize, objects, count);
         }
@@ -189,7 +198,7 @@ namespace CodeArt.DomainDriven.DataAccess
             return count;
         }
 
-        private IEnumerable<T> GetObjectsFromEntries<T>(IQueryBuilder exp, Action<DynamicData> fillArg)
+        private IEnumerable<T> GetObjectsFromEntries<T>(IQueryBuilder exp, Action<DynamicData> fillArg, QueryLevel level)
         {
             var list = Symbiosis.TryMark(ListPool<T>.Instance, () =>
             {
@@ -198,7 +207,7 @@ namespace CodeArt.DomainDriven.DataAccess
 
             UseDataEntries(exp, fillArg, (entry) =>
             {
-                var obj = GetObjectFromEntry(entry);
+                var obj = GetObjectFromEntry(entry, level);
                 list.Add((T)obj);
             });
             return list;
@@ -310,7 +319,7 @@ namespace CodeArt.DomainDriven.DataAccess
         /// <param name="id"></param>
         /// <param name="level"></param>
         /// <returns></returns>
-        private object LoadObject(object id, QueryLevel level)
+        private DomainObject LoadObject(object id, QueryLevel level)
         {
             var expression = GetObjectByIdExpression(this);
             var exp = QueryObject.Create(this, expression, level);
@@ -326,7 +335,7 @@ namespace CodeArt.DomainDriven.DataAccess
         /// <param name="rootId"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        private object LoadObject(object rootId, object id)
+        private DomainObject LoadObject(object rootId, object id)
         {
             var expression = GetObjectByIdExpression(this);
             var exp = QueryObject.Create(this, expression, QueryLevel.None);
@@ -350,7 +359,7 @@ namespace CodeArt.DomainDriven.DataAccess
         //    return ExecuteQueryObject(this.ImplementOrElementType, exp, fillArg);
         //}
 
-        private object ExecuteQueryObject(Type objectType, IQueryBuilder query, Action<DynamicData> fillArg)
+        private DomainObject ExecuteQueryObject(Type objectType, IQueryBuilder query, Action<DynamicData> fillArg)
         {
             using (var temp = SqlHelper.BorrowData())
             {
@@ -447,7 +456,7 @@ namespace CodeArt.DomainDriven.DataAccess
         private int GetDataVersionImpl(Action<DynamicData> fillArg)
         {
             var expression = GetObjectByIdExpression(this);
-            var exp = QueryObject.Create(this, expression, QueryLevel.None);
+            var exp = QueryObject.Create(this, expression, QueryLevel.None); //在领域层主动查看数据编号时，不需要锁；在提交数据时获取数据编号，由于对象已被锁，所以不需要在读取版本号时锁
 
             int dataVersion = 0;
             UseDataEntry(exp, fillArg, (entry) =>

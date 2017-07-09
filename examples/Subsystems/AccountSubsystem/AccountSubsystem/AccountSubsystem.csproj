@@ -77,13 +77,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Strings.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Strings.zh-CN.resx" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\..\..\src\NET 4.7\CodeArt.DomainDriven.DataAccess\CodeArt.DomainDriven.DataAccess.csproj">
       <Project>{c0bac0eb-7068-42af-acac-09df677cf980}</Project>
       <Name>CodeArt.DomainDriven.DataAccess</Name>
@@ -101,5 +94,13 @@
       <Name>CodeArt</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Strings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Strings.zh-CN.resx" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

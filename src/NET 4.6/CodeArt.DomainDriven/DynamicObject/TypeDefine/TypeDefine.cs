@@ -48,7 +48,7 @@ namespace CodeArt.DomainDriven
 
 
         /// <summary>
-        /// 类型定义对应的实例类型（也就是真正需要构建的对象类型）
+        /// 类型定义对应的实例类型（也就是真正需要创建的、实际存在内存中的对象类型）
         /// </summary>
         internal Type ObjectType
         {

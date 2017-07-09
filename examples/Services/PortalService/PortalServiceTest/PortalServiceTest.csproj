@@ -60,12 +60,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\..\..\src\NET 4.7\CodeArt.DomainDriven.DataAccess\CodeArt.DomainDriven.DataAccess.csproj">
       <Project>{c0bac0eb-7068-42af-acac-09df677cf980}</Project>
       <Name>CodeArt.DomainDriven.DataAccess</Name>
@@ -77,10 +71,6 @@
     <ProjectReference Include="..\..\..\..\src\NET 4.7\CodeArt.DomainDriven\CodeArt.DomainDriven.csproj">
       <Project>{f62d7792-f4ee-4924-898e-c56309e6dfc2}</Project>
       <Name>CodeArt.DomainDriven</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\src\NET 4.7\CodeArt.ServiceModel.Web\CodeArt.ServiceModel.Web.csproj">
-      <Project>{95cb7257-5ce9-477f-8239-a2b57eaf89ad}</Project>
-      <Name>CodeArt.ServiceModel.Web</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\src\NET 4.7\CodeArt.ServiceModel\CodeArt.ServiceModel.csproj">
       <Project>{ea6365f1-c027-416b-b4cc-a94572b5fc19}</Project>
@@ -106,6 +96,12 @@
       <Project>{10f7c080-cf92-4af1-b12a-32b55fbdfa34}</Project>
       <Name>PortalService.Application</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

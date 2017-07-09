@@ -17,20 +17,16 @@ namespace CodeArt.DomainDriven
 
         private List<Func<DomainObject, object>> _methods;
 
-        private int _runIndex;
-
         public PropertyGetChain(DomainProperty property)
         {
             _property = property;
             _methods = new List<Func<DomainObject, object>>();
             _methods.Add(LastStep);
-            _runIndex = _methods.Count;
         }
 
         public void AddMethods(IEnumerable<Func<DomainObject, object>> methods)
         {
             _methods.AddRange(methods);
-            _runIndex = _methods.Count;
         }
 
         private object LastStep(DomainObject domainObject)
@@ -38,13 +34,16 @@ namespace CodeArt.DomainDriven
             return domainObject.GetValueLastStep(_property);
         }
 
-        public object Invoke(DomainObject domainObject)
+        public object Invoke(DomainObject domainObject, RunContext ctx)
         {
+            if (ctx.MethodIndex == -1) ctx.MethodIndex = _methods.Count;
+
+
             object value = null;
             try
             {
-                _runIndex--;
-                var method = _methods[_runIndex];
+                ctx.MethodIndex--;
+                var method = _methods[ctx.MethodIndex];
                 value = method(domainObject);
             }
             catch (Exception ex)
@@ -53,7 +52,7 @@ namespace CodeArt.DomainDriven
             }
             finally
             {
-                _runIndex++;
+                ctx.MethodIndex++;
             }
             return value;
         }

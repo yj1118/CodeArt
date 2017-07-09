@@ -19,22 +19,13 @@ namespace CodeArt.DomainDriven.DataAccess
     {
         internal void Delete(DomainObject obj)
         {
-            if (obj == null || obj.IsEmpty()) return;
-
             if (this.Type == DataTableType.AggregateRoot)
             {
                 DeleteRoot(obj);
+                return;
             }
-            else if (this.Type == DataTableType.EntityObjectPro)
-            {
-                var eop = obj as IEntityObjectPro;
-                var root = eop?.Root;
 
-                if (root == null || root.IsEmpty())
-                    throw new DomainDrivenException(string.Format(Strings.PersistentObjectError, obj.ObjectType.FullName));
-
-                DeleteEntityObjectPro(root, eop);
-            }
+            throw new DomainDrivenException(string.Format(Strings.PersistentObjectError, obj.ObjectType.FullName));
         }
 
         ///// <summary>
@@ -94,14 +85,10 @@ namespace CodeArt.DomainDriven.DataAccess
         /// <param name="obj"></param>
         private void OnDataDelete(object rootId, object id, DomainObject obj)
         {
-            //删除缓存
+            //从缓冲区中删除对象
             if (this.Type == DataTableType.AggregateRoot)
             {
-                Cache.Remove(this.ObjectTip, rootId);
-            }
-            else
-            {
-                Cache.Remove(this.ObjectTip, rootId, id);
+                DomainBuffer.Remove(this.ObjectTip.ObjectType, rootId);
             }
         }
 
@@ -127,8 +114,9 @@ namespace CodeArt.DomainDriven.DataAccess
             var ar = obj as IAggregateRoot;
             if (ar == null) throw new DataAccessException(Strings.CanNotDeleteNonAggregateRoot);
 
-            var rootId = ar.GetIdentity();
+            CheckDataVersion(obj);
 
+            var rootId = ar.GetIdentity();
             DeleteData(rootId, rootId);
             OnDataDelete(rootId, rootId, obj);
         }
@@ -154,24 +142,7 @@ namespace CodeArt.DomainDriven.DataAccess
 
         #endregion
 
-        #region 删除高级引用对象
-
-        private void DeleteEntityObjectPro(IAggregateRoot root, IEntityObjectPro eop)
-        {
-            var obj = (DomainObject)eop;
-
-            //删除对象引用的成员
-            DeleteMembers((DomainObject)root, (DomainObject)root, obj);
-            //删除引用了该对象的中间表数据
-            DeleteQuotesBySlave(root, obj);
-
-            //删除自身
-            var rootId = root.GetIdentity();
-            var id = eop.GetIdentity();
-
-            DeleteData(rootId, id);
-            OnDataDelete(rootId, id, obj);
-        }
+        #region 删除成员
 
         /// <summary>
         /// 删除目标对象<paramref name="parent"/>的成员数据
@@ -180,7 +151,7 @@ namespace CodeArt.DomainDriven.DataAccess
         /// <param name="parent"></param>
         private void DeleteMembers(DomainObject root, DomainObject parent, DomainObject current)
         {
-            //AggregateRoot、EntityObjectPro，由程序员手工调用删除
+            //AggregateRoot，由程序员手工调用删除
             var tips = Util.GetPropertyTips(current.GetType());
             foreach (var tip in tips)
             {
@@ -291,8 +262,6 @@ namespace CodeArt.DomainDriven.DataAccess
             }
         }
 
-        #endregion
-
         /// <summary>
         /// 根据当前属性值，删除成员
         /// </summary>
@@ -328,9 +297,6 @@ namespace CodeArt.DomainDriven.DataAccess
                 child.DeleteMember(root, parent, obj);
             }
         }
-
-
-        #region 删除成员
 
         /// <summary>
         /// 删除成员（该方法用于删除 ValueObject,EntityObject等对象）

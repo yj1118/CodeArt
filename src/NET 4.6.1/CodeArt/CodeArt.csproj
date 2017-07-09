@@ -70,6 +70,7 @@
     <Compile Include="Authentication\AuthenticationException.cs" />
     <Compile Include="Authentication\Identity.cs" />
     <Compile Include="Authentication\AuthenticationConfig.cs" />
+    <Compile Include="Concurrent\Pooling\Util\DictionaryPool.cs" />
     <Compile Include="Configuration\Configuration.cs" />
     <Compile Include="Concurrent\Extensions.cs" />
     <Compile Include="Concurrent\Future\Future.cs" />

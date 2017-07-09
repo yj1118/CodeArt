@@ -119,7 +119,7 @@ namespace CodeArt.DomainDriven.DataAccess.SQLServer
             }
             else
             {
-                return string.Format("[{0}] [{1}] {2} NULL,", field.Name, 
+                return string.Format("[{0}] [{1}] {2} NULL,", field.Name,
                                                               Util.GetSqlDbTypeString(field.DbType),
                                                                allowNull ? string.Empty : "NOT");
             }
@@ -276,7 +276,8 @@ namespace CodeArt.DomainDriven.DataAccess.SQLServer
         {
             switch (level.Code)
             {
-                case QueryLevel.ReadOnlyCode: return string.Empty;
+                case QueryLevel.ShareCode: return string.Empty;
+                case QueryLevel.MirroringCode:
                 case QueryLevel.SingleCode: return " with(xlock,rowlock)";
                 case QueryLevel.HoldSingleCode: return " with(xlock,holdlock)";
                 default:
@@ -312,6 +313,14 @@ namespace CodeArt.DomainDriven.DataAccess.SQLServer
             sql.AppendLine("end");
             sql.AppendLine("commit;");
             return sql.ToString();
+        }
+
+        public static string GetSingleLockSql(DataTable table)
+        {
+            return string.Format("select [{0}] from [{1}]{2} where [{0}]=@{0};"
+                            , EntityObject.IdPropertyName
+                            , table.Name
+                            , GetLockCode(QueryLevel.Single));
         }
 
     }

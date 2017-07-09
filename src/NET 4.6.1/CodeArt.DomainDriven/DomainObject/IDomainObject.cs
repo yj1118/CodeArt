@@ -62,6 +62,14 @@ namespace CodeArt.DomainDriven
         /// </summary>
         event DomainPropertyChangedEventHandler PropertyChanged;
 
+        /// <summary>
+        /// 对象的数据版本号
+        /// </summary>
+        int DataVersion
+        {
+            get;
+        }
+
     }
 
 }

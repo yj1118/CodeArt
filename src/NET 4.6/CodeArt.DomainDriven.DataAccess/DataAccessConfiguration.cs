@@ -15,16 +15,9 @@ namespace CodeArt.DomainDriven.DataAccess
     {
         private InterfaceImplementer DbAgentImplementer { get; set; }
 
-        private InterfaceImplementer CacheImplementer { get; set; }
-
         public IDatabaseAgent GetDatabaseAgent()
         {
             return this.DbAgentImplementer?.GetInstance<IDatabaseAgent>();
-        }
-
-        public ICache GetCache()
-        {
-            return this.CacheImplementer?.GetInstance<ICache>();
         }
 
         internal DataAccessConfiguration()
@@ -46,14 +39,6 @@ namespace CodeArt.DomainDriven.DataAccess
                 var imp = InterfaceImplementer.Create(agent);
                 if (imp != null) this.DbAgentImplementer = imp;
             }
-
-            var cache = root.SelectSingleNode("cache");
-            if (cache != null)
-            {
-                var imp = InterfaceImplementer.Create(cache);
-                if (imp != null) this.CacheImplementer = imp;
-            }
-
         }
 
         #region 全局配置

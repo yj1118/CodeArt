@@ -11,16 +11,11 @@ using CodeArt.Util;
 namespace CodeArt.DomainDriven.DataAccess
 {
     public abstract class SqlRepository<TRoot> : Repository<TRoot>
-        where TRoot : class, IAggregateRoot, IRepositoryable
+        where TRoot : class, IAggregateRoot
     {
         #region 增删改
 
         protected override void PersistAddRoot(TRoot obj)
-        {
-            DataPortal.Create(obj as DomainObject);
-        }
-
-        protected override void PersistAddEntityPro(IEntityObjectPro obj)
         {
             DataPortal.Create(obj as DomainObject);
         }
@@ -30,40 +25,17 @@ namespace CodeArt.DomainDriven.DataAccess
         {
             DataPortal.Update(obj as DomainObject);
         }
-
-        protected override void PersistUpdateEntityPro(IEntityObjectPro obj)
-        {
-            DataPortal.Update(obj as DomainObject);
-        }
-
         protected override void PersistDeleteRoot(TRoot obj)
-        {
-            DataPortal.Delete(obj as DomainObject);
-        }
-
-        protected override void PersistDeleteEntityPro(IEntityObjectPro obj)
         {
             DataPortal.Delete(obj as DomainObject);
         }
 
         #endregion
 
-        protected override void PersistLockRoot(TRoot obj, QueryLevel level)
-        {
-            //锁对象，就是以相同的查询级别查询一次，即可锁住
-            DataPortal.QuerySingle<TRoot>(obj.GetIdentity(), level);
-        }
-
         protected override TRoot PersistFind(object id, QueryLevel level)
         {
             return DataPortal.QuerySingle<TRoot>(id, level);
         }
-
-        protected override T PersistFindEntityPro<T>(object rootId, object id)
-        {
-            return DataPortal.QuerySingle<T>(rootId, id);
-        }
-
 
         /// <summary>
         /// 基于对象表达式的查询
@@ -72,7 +44,7 @@ namespace CodeArt.DomainDriven.DataAccess
         /// <param name="expression"></param>
         /// <param name="level"></param>
         /// <returns></returns>
-        protected T QuerySingle<T>(string expression, Action<DynamicData> fillArg, QueryLevel level) where T : class, IRepositoryable
+        protected T QuerySingle<T>(string expression, Action<DynamicData> fillArg, QueryLevel level) where T : class, IAggregateRoot
         {
             return DataContext.Current.QuerySingle<T>(expression, fillArg, level);
         }
@@ -89,7 +61,7 @@ namespace CodeArt.DomainDriven.DataAccess
         /// <param name="expression"></param>
         /// <param name="level"></param>
         /// <returns></returns>
-        public IEnumerable<T> Query<T>(string expression, Action<DynamicData> fillArg, QueryLevel level) where T : class, IRepositoryable
+        public IEnumerable<T> Query<T>(string expression, Action<DynamicData> fillArg, QueryLevel level) where T : class, IAggregateRoot
         {
             return DataContext.Current.Query<T>(expression, fillArg, level);
         }
@@ -106,7 +78,7 @@ namespace CodeArt.DomainDriven.DataAccess
         /// <param name="expression"></param>
         /// <param name="level"></param>
         /// <returns></returns>
-        public Page<T> Query<T>(string expression, int pageIndex, int pageSize, Action<DynamicData> fillArg) where T : class, IRepositoryable
+        public Page<T> Query<T>(string expression, int pageIndex, int pageSize, Action<DynamicData> fillArg) where T : class, IAggregateRoot
         {
             return DataContext.Current.Query<T>(expression, pageIndex, pageSize, fillArg);
         }
@@ -116,7 +88,7 @@ namespace CodeArt.DomainDriven.DataAccess
         //    return DataContext.Current.Query<T>(pageCompiler, countCompiler, pageIndex, pageSize, fillArg);
         //}
 
-        public int GetCount<T>(string expression, Action<DynamicData> fillArg, QueryLevel level) where T : class, IRepositoryable
+        public int GetCount<T>(string expression, Action<DynamicData> fillArg, QueryLevel level) where T : class, IAggregateRoot
         {
             return DataContext.Current.GetCount<T>(expression, fillArg, level);
         }
@@ -132,7 +104,7 @@ namespace CodeArt.DomainDriven.DataAccess
         /// <typeparam name="T"></typeparam>
         /// <param name="adapterName">适配器的名称，在类型<typeparam name="T"/>下唯一，该名称会用来提高程序性能</param>
         /// <returns></returns>
-        public QueryAdapter<T> Adapter<T>(string adapterName) where T : class, IRepositoryable
+        public QueryAdapter<T> Adapter<T>(string adapterName) where T : class, IAggregateRoot
         {
             return DataContext.Current.Adapter<T>(adapterName);
         }

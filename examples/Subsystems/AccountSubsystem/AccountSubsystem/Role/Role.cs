@@ -235,6 +235,12 @@ namespace AccountSubsystem
             {
                 this.OnConstructed();
             }
+
+            public override bool IsEmpty()
+            {
+                return true;
+            }
+
         }
 
         public static readonly Role Empty = new RoleEmpty();

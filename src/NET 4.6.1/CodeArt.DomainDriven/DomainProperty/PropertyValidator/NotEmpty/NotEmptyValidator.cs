@@ -57,7 +57,7 @@ namespace CodeArt.DomainDriven
 
         private void AddError(IDomainProperty property, ValidationResult result)
         {
-            result.AddError(property.Name, "NotEmpty", string.Format(Strings.IsEmpty, property.Name));
+            result.AddError(property.Name, "NotEmpty", string.Format(Strings.NotEmpty, property.Name));
         }
 
         public const string ErrorCode = "NotEmpty";

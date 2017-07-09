@@ -125,7 +125,7 @@ namespace CodeArt.DomainDriven.DataAccess
         /// <param name="objectType"></param>
         /// <param name="data"></param>
         /// <returns></returns>
-        private object CreateObject(Type objectType, DynamicData data)
+        private DomainObject CreateObject(Type objectType, DynamicData data)
         {
             DomainObject obj = null;
 
@@ -134,20 +134,7 @@ namespace CodeArt.DomainDriven.DataAccess
                 if (data.IsEmpty()) obj = (DomainObject)DomainObject.GetEmpty(this.ObjectType);
                 else
                 {
-                    //构造对象
-                    obj = ConstructObject(this.DynamicType.ObjectType, data);
-
-                    //为了避免死循环，我们先将对象加入到构造上下文中
-                    AddToConstructContext(obj, data);
-
-                    //加载属性
-                    LoadProperties(this.DynamicType, data, obj);
-
-                    RemoveFromConstructContext(obj);
-
-                    //补充信息
-                    Supplement(obj, data);
-
+                    obj = CreateObjectImpl(this.DynamicType, this.DynamicType.ObjectType, data);
                     (obj as IDynamicObject).Define = this.DynamicType.Define;
                 }
             }
@@ -156,23 +143,37 @@ namespace CodeArt.DomainDriven.DataAccess
                 if (data.IsEmpty()) obj = (DomainObject)DomainObject.GetEmpty(objectType);
                 else
                 {
-                    //构造对象
-                    obj = ConstructObject(objectType, data);
-
-                    //为了避免死循环，我们先将对象加入到构造上下文中
-                    AddToConstructContext(obj, data);
-
-                    //加载属性
-                    LoadProperties(objectType, data, obj);
-
-                    RemoveFromConstructContext(obj);
-
-                    //补充信息
-                    Supplement(obj, data);
+                    obj = CreateObjectImpl(objectType, objectType, data);
                 }
             }
             return obj;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="defineType">如果是动态领域对象，那么该类型为定义领域属性的类型（也就是定义类型），否则是对象的实际类型</param>
+        /// <param name="objectType">实际存在内存中的实际类型</param>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        private DomainObject CreateObjectImpl(Type defineType, Type objectType, DynamicData data)
+        {
+            //构造对象
+            var obj = ConstructObject(objectType, data);
+
+            //为了避免死循环，我们先将对象加入到构造上下文中
+            AddToConstructContext(obj, data);
+
+            //加载属性
+            LoadProperties(defineType, data, obj);
+
+            RemoveFromConstructContext(obj);
+
+            //补充信息
+            Supplement(obj, data);
+            return obj;
+        }
+
 
         private void AddToConstructContext(DomainObject obj, DynamicData data)
         {

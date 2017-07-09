@@ -78,12 +78,6 @@ namespace CodeArt.DomainDriven
             });
         }
 
-        public override bool IsEmpty()
-        {
-            //默认情况下值对象是非空的
-            return false;
-        }
-
         public static bool operator ==(ValueObject value0, ValueObject value1)
         {
             if ((object)value0 == null && (object)value1 == null) return true;

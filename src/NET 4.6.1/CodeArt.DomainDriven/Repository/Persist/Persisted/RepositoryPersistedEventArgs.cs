@@ -11,7 +11,7 @@ namespace CodeArt.DomainDriven
         /// <summary>
         /// 需要执行仓储操作的领域对象
         /// </summary>
-        public IRepositoryable Target { get; private set; }
+        public IAggregateRoot Target { get; private set; }
 
 
         /// <summary>
@@ -19,7 +19,7 @@ namespace CodeArt.DomainDriven
         /// </summary>
         public RepositoryAction Action { get; private set; }
 
-        public RepositoryPersistedEventArgs(IRepositoryable target, RepositoryAction action)
+        public RepositoryPersistedEventArgs(IAggregateRoot target, RepositoryAction action)
         {
             this.Target = target;
             this.Action = action;

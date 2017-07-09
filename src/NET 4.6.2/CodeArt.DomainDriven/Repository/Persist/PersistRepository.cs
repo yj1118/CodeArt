@@ -11,19 +11,19 @@ namespace CodeArt.DomainDriven
         /// 将对象添加到持久层中
         /// </summary>
         /// <param name="obj"></param>
-        public abstract void PersistAdd(IRepositoryable obj);
+        public abstract void PersistAdd(IAggregateRoot obj);
 
         /// <summary>
         /// 修改对象在持久层中的信息
         /// </summary>
         /// <param name="obj"></param>
-        public abstract void PersistUpdate(IRepositoryable obj);
+        public abstract void PersistUpdate(IAggregateRoot obj);
 
         /// <summary>
         /// 从持久层中删除对象
         /// </summary>
         /// <param name="obj"></param>
-        public abstract void PersistDelete(IRepositoryable obj);
+        public abstract void PersistDelete(IAggregateRoot obj);
 
         #region 事件
 
@@ -36,7 +36,7 @@ namespace CodeArt.DomainDriven
         /// <param name="obj"></param>
         /// <param name="action"></param>
         /// <returns></returns>
-        protected bool OnPrePersist(IRepositoryable obj, RepositoryAction action)
+        protected bool OnPrePersist(IAggregateRoot obj, RepositoryAction action)
         {
             if (this.PrePersist != null)
             {
@@ -49,12 +49,13 @@ namespace CodeArt.DomainDriven
 
 
         public event RepositoryPersistedEventHandler Persisted;
+
         /// <summary>
         /// 执行仓储操作之后
         /// </summary>
         /// <param name="obj"></param>
         /// <param name="action"></param>
-        protected void OnPersisted(IRepositoryable obj, RepositoryAction action)
+        protected void OnPersisted(IAggregateRoot obj, RepositoryAction action)
         {
             if (this.Persisted != null)
             {

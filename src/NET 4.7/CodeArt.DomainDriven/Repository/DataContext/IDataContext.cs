@@ -44,20 +44,11 @@ namespace CodeArt.DomainDriven
 
         #region 工作单元
 
-        void RegisterAdded<T>(T item, IPersistRepository repository) where T : IRepositoryable;
+        void RegisterAdded<T>(T item, IPersistRepository repository) where T : IAggregateRoot;
 
-        void RegisterUpdated<T>(T item, IPersistRepository repository) where T : IRepositoryable;
+        void RegisterUpdated<T>(T item, IPersistRepository repository) where T : IAggregateRoot;
 
-        void RegisterDeleted<T>(T item, IPersistRepository repository) where T : IRepositoryable;
-
-        /// <summary>
-        /// 向数据上下文注册查询，该方法会控制锁和同步查询结果
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="level"></param>
-        /// <param name="persistQuery"></param>
-        /// <returns></returns>
-        T RegisterQueried<T>(QueryLevel level, Func<T> persistQuery) where T : IRepositoryable;
+        void RegisterDeleted<T>(T item, IPersistRepository repository) where T : IAggregateRoot;
 
         /// <summary>
         /// 向数据上下文注册查询，该方法会控制锁和同步查询结果
@@ -66,7 +57,7 @@ namespace CodeArt.DomainDriven
         /// <param name="level"></param>
         /// <param name="persistQuery"></param>
         /// <returns></returns>
-        IEnumerable<T> RegisterQueried<T>(QueryLevel level, Func<IEnumerable<T>> persistQuery) where T : IRepositoryable;
+        T RegisterQueried<T>(QueryLevel level, Func<T> persistQuery) where T : IAggregateRoot;
 
         /// <summary>
         /// 向数据上下文注册查询，该方法会控制锁和同步查询结果
@@ -75,7 +66,16 @@ namespace CodeArt.DomainDriven
         /// <param name="level"></param>
         /// <param name="persistQuery"></param>
         /// <returns></returns>
-        Page<T> RegisterQueried<T>(QueryLevel level, Func<Page<T>> persistQuery) where T : IRepositoryable;
+        IEnumerable<T> RegisterQueried<T>(QueryLevel level, Func<IEnumerable<T>> persistQuery) where T : IAggregateRoot;
+
+        /// <summary>
+        /// 向数据上下文注册查询，该方法会控制锁和同步查询结果
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="level"></param>
+        /// <param name="persistQuery"></param>
+        /// <returns></returns>
+        Page<T> RegisterQueried<T>(QueryLevel level, Func<Page<T>> persistQuery) where T : IAggregateRoot;
 
 
         #endregion

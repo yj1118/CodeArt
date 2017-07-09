@@ -173,7 +173,6 @@ namespace CodeArt.DomainDriven.DataAccess
         private static DataTable CreateValueObjectTable(DataTable root, DataTable master, IDataField memberField, Type objectType)
         {
             var fields = new List<IDataField>();
-            fields.Add(GetForeignKey(root, GeneratedFieldType.RootKey, DbFieldType.PrimaryKey));//根编号要放在最前面，方便优化索引性能
             fields.Add(GeneratedField.CreateValueObjectPrimaryKey(objectType));  //追加主键
             fields.AddRange(DataModel.GetObjectFields(objectType, master.IsSnapshot)); //增加对象定义的领域属性
 
@@ -207,7 +206,6 @@ namespace CodeArt.DomainDriven.DataAccess
             //注意，在内聚模型中，只要是实体对象，那么它就是相对于内聚根的实体对象，而不是所在对象的实体对象
             //因此，所有的实体对象，外键存放的都是内聚根的编号
             var fields = new List<IDataField>();
-            fields.Add(GetForeignKey(root, GeneratedFieldType.RootKey, DbFieldType.PrimaryKey));//根编号要放在id之前，方便优化索引性能
             fields.AddRange(DataModel.GetObjectFields(objectType, master.IsSnapshot)); //增加对象定义的领域属性
             if(!objectType.IsDerived())
             {
@@ -233,7 +231,6 @@ namespace CodeArt.DomainDriven.DataAccess
         private static DataTable CreateEntityObjectProTable(DataTable root, DataTable master, IDataField memberField, Type objectType)
         {
             var fields = new List<IDataField>();
-            //fields.Add(GetForeignKey(root, GeneratedFieldType.RootKey, DbFieldType.PrimaryKey));//根编号要放在id之前，方便优化索引性能
             fields.AddRange(DataModel.GetObjectFields(objectType, master.IsSnapshot)); //增加对象定义的领域属性
 
             return DataTable.Create(root,

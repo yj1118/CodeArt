@@ -70,6 +70,24 @@ namespace CodeArt.DomainDriven {
         }
         
         /// <summary>
+        ///   查找类似 You can not add a mirror during transaction commits 的本地化字符串。
+        /// </summary>
+        internal static string CanNotAddMirror {
+            get {
+                return ResourceManager.GetString("CanNotAddMirror", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Data version error, modified failed,type {0} id {1} 的本地化字符串。
+        /// </summary>
+        internal static string DataVersionError {
+            get {
+                return ResourceManager.GetString("DataVersionError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Domain Property {0} has been removed 的本地化字符串。
         /// </summary>
         internal static string DomainPropertyRemoved {
@@ -115,7 +133,7 @@ namespace CodeArt.DomainDriven {
         }
         
         /// <summary>
-        ///   查找类似 Unable to compute the unique key for type {0}, which must be IAggregateRoot or IEntityObjectPro 的本地化字符串。
+        ///   查找类似 Unable to compute the unique key for type {0}, which must be IAggregateRoot  的本地化字符串。
         /// </summary>
         internal static string GetUniqueKeyError {
             get {
@@ -174,6 +192,15 @@ namespace CodeArt.DomainDriven {
         internal static string ListItemError {
             get {
                 return ResourceManager.GetString("ListItemError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Lock operation does not allow the use of the QueryLevel.None level 的本地化字符串。
+        /// </summary>
+        internal static string LockLevelError {
+            get {
+                return ResourceManager.GetString("LockLevelError", resourceCulture);
             }
         }
         
@@ -277,6 +304,24 @@ namespace CodeArt.DomainDriven {
         }
         
         /// <summary>
+        ///   查找类似 Property {0} can not be empty 的本地化字符串。
+        /// </summary>
+        internal static string NotEmpty {
+            get {
+                return ResourceManager.GetString("NotEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 The ILockManager implementation is not configured and the object can not be locked 的本地化字符串。
+        /// </summary>
+        internal static string NotExistLockManager {
+            get {
+                return ResourceManager.GetString("NotExistLockManager", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Did not find {0} the domain derived class type 的本地化字符串。
         /// </summary>
         internal static string NotFoundDerivedType {
@@ -309,6 +354,24 @@ namespace CodeArt.DomainDriven {
         internal static string NotFoundRepository {
             get {
                 return ResourceManager.GetString("NotFoundRepository", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 {0} did not implement {1} method 的本地化字符串。
+        /// </summary>
+        internal static string NotImplementedMethod {
+            get {
+                return ResourceManager.GetString("NotImplementedMethod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Did not open the transaction 的本地化字符串。
+        /// </summary>
+        internal static string NotOpenTransaction {
+            get {
+                return ResourceManager.GetString("NotOpenTransaction", resourceCulture);
             }
         }
         
@@ -426,6 +489,15 @@ namespace CodeArt.DomainDriven {
         internal static string StringLengthMoreThan {
             get {
                 return ResourceManager.GetString("StringLengthMoreThan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 The transaction has entered the commit phase and can not be submitted repeatedly! 的本地化字符串。
+        /// </summary>
+        internal static string TransactionRepeatedCommit {
+            get {
+                return ResourceManager.GetString("TransactionRepeatedCommit", resourceCulture);
             }
         }
         

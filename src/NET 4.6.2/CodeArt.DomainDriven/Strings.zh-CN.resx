@@ -136,7 +136,7 @@
     <value>空对象 {0} 是只读的</value>
   </data>
   <data name="GetUniqueKeyError" xml:space="preserve">
-    <value>无法计算类型{0}的唯一键，必须是IAggregateRoot或IEntityObjectPro</value>
+    <value>无法计算类型{0}的唯一键，必须是IAggregateRoot</value>
   </data>
   <data name="IncorrectEmailFormat" xml:space="preserve">
     <value>属性 {0} 是不正确的邮箱格式</value>
@@ -260,5 +260,29 @@
   </data>
   <data name="ValueObjectReadOnly" xml:space="preserve">
     <value>ValueObject对象 {0} 是只读的</value>
+  </data>
+  <data name="LockLevelError" xml:space="preserve">
+    <value>锁操作不允许使用 QueryLevel.None 级别</value>
+  </data>
+  <data name="NotImplementedMethod" xml:space="preserve">
+    <value>{0} 没有实现 {1} 的方法</value>
+  </data>
+  <data name="DataVersionErrorByUpdate" xml:space="preserve">
+    <value>版本号错误，修改或删除类型 {0}编号{1}的对象状态失败</value>
+  </data>
+  <data name="NotOpenTransaction" xml:space="preserve">
+    <value>没有开启事务</value>
+  </data>
+  <data name="TransactionRepeatedCommit" xml:space="preserve">
+    <value>事务已进入提交阶段，不能重复提交！</value>
+  </data>
+  <data name="CanNotAddMirror" xml:space="preserve">
+    <value>在事务提交期间无法新增镜像</value>
+  </data>
+  <data name="NotExistLockManager" xml:space="preserve">
+    <value>没有配置 ILockManager 的实现，无法锁定对象</value>
+  </data>
+  <data name="NotEmpty" xml:space="preserve">
+    <value>属性{0}不能为空</value>
   </data>
 </root>

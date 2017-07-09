@@ -14,7 +14,7 @@ namespace CodeArt.DomainDriven.DataAccess
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class QueryAdapter<T>
-        where T : class, IRepositoryable
+        where T : class, IAggregateRoot
     {
         private Dictionary<string, string> _expressionData;
 

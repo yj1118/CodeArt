@@ -362,7 +362,7 @@ namespace CodeArt.DomainDriven.DataAccess
 
             this.IsMultiple = memberField == null ? false : memberField.IsMultiple;
             this.Name = name;
-            this.Fields = OrderFields(tableFields);
+            this.Fields = TidyFields(tableFields);
 
             this.ObjectFields = objectFields;
             this.PropertyTips = GetPropertyTips();
@@ -457,9 +457,21 @@ namespace CodeArt.DomainDriven.DataAccess
         /// </summary>
         /// <param name="fields"></param>
         /// <returns></returns>
-        private IEnumerable<IDataField> OrderFields(IEnumerable<IDataField> fields)
+        private IEnumerable<IDataField> TidyFields(IEnumerable<IDataField> fields)
         {
-            if(this.Type == DataTableType.EntityObjectPro) //中间表不需要排序，另外，除了EntityObjectPro外，其余对象都已经排序了
+            if (this.Type == DataTableType.AggregateRoot || this.Type == DataTableType.Middle) return fields;
+
+            if(this.Type == DataTableType.ValueObject || this.Type == DataTableType.EntityObject)
+            {
+                //需要补充根键，因为我们只有在内部得到了实际的root后才能算出根键
+                var rootKey = GetForeignKey(this.Root, GeneratedFieldType.RootKey, DbFieldType.PrimaryKey);//根编号要放在最前面，方便优化索引性能
+                var temp = new List<IDataField>();
+                temp.Add(rootKey);
+                temp.AddRange(fields);
+                return temp;
+            }
+
+            if (this.Type == DataTableType.EntityObjectPro) //中间表不需要排序，另外，除了EntityObjectPro外，其余对象都已经排序了
             {
                 var copy = fields.ToList();
                 var id = copy.FirstOrDefault((p) => p.Name == EntityObject.IdPropertyName);
@@ -570,15 +582,7 @@ namespace CodeArt.DomainDriven.DataAccess
                 tableType = DataTableType.AggregateRoot;
                 return Create(null, null, objectType, false, tableType, objectFields, null);
             }
-            else if (DomainObject.IsEntityObjectPro(objectType))
-            {
-                tableType = DataTableType.EntityObjectPro;
-                var rootType = objectType.GetStaticValue("RootType") as Type;//EntityObjectPro.RootType
-                var root = DataModel.Create(rootType).Root;
-                return Create(root, root, objectType, false, tableType, objectFields, null);
-            }
-            else
-                throw new DomainDrivenException(string.Format(Strings.PersistentObjectError, objectType.FullName));
+            throw new DomainDrivenException(string.Format(Strings.PersistentObjectError, objectType.FullName));
         }
 
 

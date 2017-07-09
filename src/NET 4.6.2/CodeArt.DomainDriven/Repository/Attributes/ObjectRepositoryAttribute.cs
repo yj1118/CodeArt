@@ -49,70 +49,11 @@ namespace CodeArt.DomainDriven
             set;
         }
 
-        #region 缓存设置
-
-        /// <summary>
-        /// 缓存策略
-        /// </summary>
-        public CachePolicy CachePolicy
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// 指示是否永久缓存
-        /// </summary>
-        public bool NotRemovable
-        {
-            get
-            {
-                return this.CachePolicy.NotRemovable;
-            }
-            set
-            {
-                this.CachePolicy.NotRemovable = value;
-            }
-        }
-
-        /// <summary>
-        /// 指示是否应在给定时段内未访问（单位分钟），就会对它进行是否逐出缓存项。
-        /// </summary>
-        public double SlidingExpiration
-        {
-            get
-            {
-                return this.CachePolicy.SlidingExpiration.TotalMinutes;
-            }
-            set
-            {
-                this.CachePolicy.SlidingExpiration = TimeSpan.FromMinutes(value);
-            }
-        }
-
-        /// <summary>
-        /// 指示项不被缓存
-        /// </summary>
-        public bool NoCache
-        {
-            get
-            {
-                return this.CachePolicy.NoCache;
-            }
-            set
-            {
-                this.CachePolicy.NoCache = value;
-            }
-        }
-
-        #endregion
-
 
         public ObjectRepositoryAttribute(Type repositoryInterfaceType)
         {
             this.RepositoryInterfaceType = repositoryInterfaceType;
             this.SnapshotLifespan = -1;
-            this.CachePolicy = new CachePolicy();
         }
 
 

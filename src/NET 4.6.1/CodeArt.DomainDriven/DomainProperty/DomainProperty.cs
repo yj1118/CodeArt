@@ -104,7 +104,6 @@ namespace CodeArt.DomainDriven
             {
                 var elementType = propertyType.ResolveElementType();
                 if (DomainObject.IsAggregateRoot(elementType)) return DomainPropertyType.AggregateRootList;
-                if (DomainObject.IsEntityObjectPro(elementType)) return DomainPropertyType.EntityObjectProList;
                 if (DomainObject.IsEntityObject(elementType)) return DomainPropertyType.EntityObjectList;
                 if (DomainObject.IsValueObject(elementType)) return DomainPropertyType.ValueObjectList;
                 return DomainPropertyType.PrimitiveList;
@@ -112,7 +111,6 @@ namespace CodeArt.DomainDriven
             else
             {
                 if (DomainObject.IsAggregateRoot(propertyType)) return DomainPropertyType.AggregateRoot;
-                if (DomainObject.IsEntityObjectPro(propertyType)) return DomainPropertyType.EntityObjectPro;
                 if (DomainObject.IsEntityObject(propertyType)) return DomainPropertyType.EntityObject;
                 if (DomainObject.IsValueObject(propertyType)) return DomainPropertyType.ValueObject;
                 return DomainPropertyType.Primitive;
@@ -515,7 +513,6 @@ namespace CodeArt.DomainDriven
 
         #endregion
 
-
         #region 辅助方法
 
         internal T GetAttribute<T>() where T : Attribute
@@ -618,6 +615,16 @@ namespace CodeArt.DomainDriven
 
         public static readonly DomainProperty Exists = new DomainProperty();
 
+
+        #endregion
+
+        #region 运行时编号
+
+        internal readonly Guid RuntimeGetId = Guid.NewGuid();
+
+        internal readonly Guid RuntimeSetId = Guid.NewGuid();
+
+        internal readonly Guid RuntimeChangedId = Guid.NewGuid();
 
         #endregion
 

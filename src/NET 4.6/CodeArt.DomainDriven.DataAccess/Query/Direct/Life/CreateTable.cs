@@ -15,11 +15,13 @@ namespace CodeArt.DomainDriven.DataAccess
     internal class CreateTable : SingleTableOperation
     {
         private string _sql;
+        private string _name;
 
         private CreateTable(DataTable target)
             : base(target)
         {
             _sql = GetSql();
+            _name = string.Format("create {0}", target.Name);
         }
 
         private string GetSql()
@@ -30,6 +32,12 @@ namespace CodeArt.DomainDriven.DataAccess
             }
             return null;
         }
+
+        protected override string GetName()
+        {
+            return _name;
+        }
+
 
         protected override string Process(DynamicData param)
         {

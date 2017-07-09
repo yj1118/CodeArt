@@ -10,6 +10,9 @@ namespace CodeArt.DomainDriven
 {
     internal class RuntimeObjectType : RuntimeType
     {
+        /// <summary>
+        /// 类型定义对应的实例类型（也就是真正需要构建的对象类型）
+        /// </summary>
         public Type ObjectType
         {
             get

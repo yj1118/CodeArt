@@ -361,5 +361,15 @@ namespace CodeArt.DomainDriven.DataAccess
 
 
         #endregion
+
+        private void CheckDataVersion(DomainObject root)
+        {
+            var id = GetObjectId(root);
+            if (root.DataVersion != this.GetDataVersion(id))
+            {
+                throw new DataVersionException(root.ObjectType, id);
+            }
+        }
+
     }
 }

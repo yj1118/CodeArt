@@ -66,10 +66,6 @@
       <Project>{c0bac0eb-7068-42af-acac-09df677cf980}</Project>
       <Name>CodeArt.DomainDriven.DataAccess</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\src\NET 4.7\CodeArt.DomainDriven.Extensions\CodeArt.DomainDriven.Extensions.csproj">
-      <Project>{a45a1e35-6ce5-42c2-8fd3-19ce5b0bd5d6}</Project>
-      <Name>CodeArt.DomainDriven.Extensions</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\src\NET 4.7\CodeArt.DomainDriven\CodeArt.DomainDriven.csproj">
       <Project>{f62d7792-f4ee-4924-898e-c56309e6dfc2}</Project>
       <Name>CodeArt.DomainDriven</Name>

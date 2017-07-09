@@ -22,10 +22,10 @@ namespace CodeArt.DomainDriven
         }
 
         internal const int NoneCode = 1;
-        internal const int ReadOnlyCode = 2;
+        internal const int ShareCode = 2;
         internal const int SingleCode = 3;
         internal const int HoldSingleCode = 4;
-
+        internal const int MirroringCode = 5;
 
         /// <summary>
         /// 无锁
@@ -46,11 +46,16 @@ namespace CodeArt.DomainDriven
         public static readonly QueryLevel HoldSingle = new QueryLevel(HoldSingleCode);
 
         /// <summary>
-        /// 只读锁，当前线程开启此线程后，不会影响其他线程获取只读ReadOnly锁、None
+        /// 共享锁，当前线程开启此线程后，不会影响其他线程获取Share、None
         /// 但是其他线程不能立即获取Single或HoldSingle锁，需要等待只读线程操作完成后才行；
         /// 另外，当其他线程正在Single或者HoldSingle,当前线程也无法获得只读锁，需要等待
         /// </summary>
-        public static readonly QueryLevel ReadOnly = new QueryLevel(ReadOnlyCode);
+        public static readonly QueryLevel Share = new QueryLevel(ShareCode);
+
+        /// <summary>
+        /// 以镜像的形式加载对象，该模式下不会从缓冲区中获取对象而是直接以无锁的模式加载全新的对象
+        /// </summary>
+        public static readonly QueryLevel Mirroring = new QueryLevel(MirroringCode);
 
 
         public static implicit operator int(QueryLevel level)

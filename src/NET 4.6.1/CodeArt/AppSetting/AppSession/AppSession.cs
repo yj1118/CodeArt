@@ -75,8 +75,6 @@ namespace CodeArt.AppSetting
             Current.Dispose();
         }
 
-
-
         public static T GetOrAddItem<T>(string name, Func<T> factory)
         {
             var appSession = Current;

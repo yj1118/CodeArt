@@ -8,12 +8,14 @@ using System.Reflection;
 
 using CodeArt.Util;
 using CodeArt.Runtime;
-using CodeArt.DTO;
+using CodeArt.Concurrent;
+using CodeArt.AppSetting;
 
 
 namespace CodeArt.DomainDriven
 {
     /// <summary>
+    /// <para>我们保证领域对象的读操作是线程安全的</para>
     /// <para>对于领域对象属性是否改变的约定：
     /// 1.如果属性为普通类型（int、string等基础类型）,根据值是否发生了改变来判定属性是否改变
     /// 2.如果属性为值对象类型（ValueObject）,根据ValueObject的值是否发生了改变来判定属性是否改变
@@ -90,8 +92,11 @@ namespace CodeArt.DomainDriven
 
         #endregion
 
-
-        public abstract bool IsEmpty();
+        public virtual bool IsEmpty()
+        {
+            //默认情况下领域对象是非空的
+            return false;
+        }
 
         public bool IsNull()
         {
@@ -392,7 +397,16 @@ namespace CodeArt.DomainDriven
         {
             get
             {
-                if (_dataProxy == null) _dataProxy = CodeArt.DomainDriven.DataProxy.CreateStorage(this);
+                if (_dataProxy == null)
+                {
+                    lock(this)
+                    {
+                        if (_dataProxy == null)
+                        {
+                            _dataProxy = CodeArt.DomainDriven.DataProxy.CreateStorage(this);
+                        }
+                    }
+                }
                 return _dataProxy;
             }
             set
@@ -412,6 +426,14 @@ namespace CodeArt.DomainDriven
         {
             var property = DomainProperty.GetProperty(this.ObjectType, propertyName);
             return this.DataProxy.IsLoaded(property);
+        }
+
+        public int DataVersion
+        {
+            get
+            {
+                return this.DataProxy.Version;
+            }
         }
 
 
@@ -469,12 +491,12 @@ namespace CodeArt.DomainDriven
 
         private Dictionary<Guid, RunContext> _ctxs = new Dictionary<Guid, RunContext>();
 
-        private RunContext GetContext(Guid runId)
+        private RunContext GetRunContext(Guid runId)
         {
             RunContext ctx = null;
             if (!_ctxs.TryGetValue(runId, out ctx))
             {
-                lock(_ctxs)
+                lock (_ctxs)
                 {
                     if (!_ctxs.TryGetValue(runId, out ctx))
                     {
@@ -487,17 +509,46 @@ namespace CodeArt.DomainDriven
         }
 
 
+        private RunContext GetRunContextFromAppSession(Guid runId)
+        {
+            var ctxs = AppSession.GetOrAddItem("RunContext", () =>
+            {
+                var pool = DictionaryPool<Guid, RunContext>.Instance;
+                return Symbiosis.TryMark<Dictionary<Guid, RunContext>>(pool, () =>
+                {
+                    return new Dictionary<Guid, RunContext>();
+                });
+            });
+
+            RunContext ctx = null;
+            if (!ctxs.TryGetValue(runId, out ctx))
+            {
+                lock (ctxs)
+                {
+                    if (!ctxs.TryGetValue(runId, out ctx))
+                    {
+                        ctx = new RunContext();
+                        ctxs.Add(runId, ctx);
+                    }
+                }
+            }
+            return ctx;
+        }
+
+
         #endregion
 
         #region 领域属性
 
         /// <summary>
+        /// 请保证更改对象状态时的并发安全
         /// 该方法虽然是公开的，但是<paramref name="property"/>都是由类内部或者扩展类定义的，
         /// 所以获取值和设置值只能通过常规的属性操作，无法通过该方法
         /// </summary>
         public virtual void SetValue(DomainProperty property, object value)
         {
-            property.SetChain.Invoke(this, value);
+            var ctx = GetRunContext(property.RuntimeSetId);
+            property.SetChain.Invoke(this, value, ctx);
         }
 
         /// <summary>
@@ -565,6 +616,7 @@ namespace CodeArt.DomainDriven
         }
 
         /// <summary>
+        /// 我们保证领域对象的读操作是线程安全的
         /// 该方法虽然是公开的，但是<paramref name="property"/>都是由类内部或者扩展类定义的，
         /// 所以获取值和设置值只能通过常规的属性操作，无法通过该方法
         /// </summary>
@@ -572,24 +624,15 @@ namespace CodeArt.DomainDriven
         /// <returns></returns>
         public virtual object GetValue(DomainProperty property)
         {
-            return property.GetChain.Invoke(this);
+            var ctx = GetRunContextFromAppSession(property.RuntimeGetId);
+            return property.GetChain.Invoke(this, ctx);
         }
 
-        /// <summary>
-        /// GetValue的最后一步
-        /// </summary>
-        /// <param name="property"></param>
-        /// <param name="value"></param>
         internal object GetValueLastStep(DomainProperty property)
         {
-            var ctx = GetContext(property.Id);
-
-            ctx.Loading = true;
-            var value = this.DataProxy.Load(property);
-            ctx.Loading = false;
-
-            return value;
+            return this.DataProxy.Load(property);
         }
+
 
 
         /// <summary>
@@ -600,24 +643,12 @@ namespace CodeArt.DomainDriven
         /// <param name="property"></param>
         public void MarkPropertyChanged(DomainProperty property)
         {
-            if (this.IsPropertyLoading(property)) return;
+            if (!this.IsPropertyLoaded(property)) return;
 
             this.SetPropertyChanged(property);
             var value = this.GetValue(property);
             HandlePropertyChanged(property, value, value);
         }
-
-        /// <summary>
-        /// 检查属性是否正在加载中，长时间的加载一般是由于延迟加载导致的
-        /// </summary>
-        /// <param name="property"></param>
-        /// <returns></returns>
-        public bool IsPropertyLoading(DomainProperty property)
-        {
-            var ctx = GetContext(property.Id);
-            return ctx.Loading;
-        }
-
 
         /// <summary>
         /// 处理属性被改变时的行为
@@ -640,27 +671,24 @@ namespace CodeArt.DomainDriven
 
             if (!property.IsRegisteredChanged && this.PropertyChanged == null) return;
 
-            var ctx = GetContext(property.Id);
+            var ctx = GetRunContext(property.RuntimeChangedId);
 
             if (!ctx.InCallBack)
             {
-                using (var temp = DomainPropertyChangedEventArgs.Borrow(property, newValue, oldValue))
+                var args = new DomainPropertyChangedEventArgs(property, newValue, oldValue);
+                //先进行对象内部回调方法
+                ctx.InCallBack = true;
+                property.ChangedChain.Invoke(this, args);
+                args.NewValue = this.GetValue(property);//同步数据
+                ctx.InCallBack = false;
+
+                //最后执行对象级别挂载的事件
+                if (this.PropertyChanged != null)
                 {
-                    var args = temp.Item;
-                    //先进行对象内部回调方法
                     ctx.InCallBack = true;
-                    property.ChangedChain.Invoke(this, args);
+                    this.PropertyChanged(this, args);
                     args.NewValue = this.GetValue(property);//同步数据
                     ctx.InCallBack = false;
-
-                    //最后执行对象级别挂载的事件
-                    if (this.PropertyChanged != null)
-                    {
-                        ctx.InCallBack = true;
-                        this.PropertyChanged(this, args);
-                        args.NewValue = this.GetValue(property);//同步数据
-                        ctx.InCallBack = false;
-                    }
                 }
             }
         }
@@ -712,7 +740,7 @@ namespace CodeArt.DomainDriven
                 this.Constructed(this, args);
             }
             //执行边界事件
-            BoundedContext.Execute(this.ObjectType, BoundedEvent.Constructed, this);
+            DomainContext.Execute(this.ObjectType, DomainEvent.Constructed, this);
         }
 
         #endregion
@@ -730,7 +758,7 @@ namespace CodeArt.DomainDriven
                 this.Changed(this, args);
             }
             //执行边界事件
-            BoundedContext.Execute(this.ObjectType, BoundedEvent.Changed, this);
+            DomainContext.Execute(this.ObjectType, DomainEvent.Changed, this);
         }
 
         #region 辅助
@@ -738,7 +766,6 @@ namespace CodeArt.DomainDriven
         internal readonly static Type ValueObjectType = typeof(IValueObject);
         internal readonly static Type AggregateRootType = typeof(IAggregateRoot);
         internal readonly static Type EntityObjectType = typeof(IEntityObject);
-        internal readonly static Type EntityObjectProType = typeof(IEntityObjectPro);
         internal readonly static Type DomainObjectType = typeof(IDomainObject);
         internal readonly static Type DynamicObjectType = typeof(IDynamicObject);
 
@@ -759,13 +786,7 @@ namespace CodeArt.DomainDriven
 
         internal static bool IsEntityObject(Type type)
         {
-            return type.IsImplementOrEquals(EntityObjectType)
-                            && !type.IsImplementOrEquals(EntityObjectProType);
-        }
-
-        internal static bool IsEntityObjectPro(Type type)
-        {
-            return type.IsImplementOrEquals(EntityObjectProType);
+            return type.IsImplementOrEquals(EntityObjectType);
         }
 
         internal static bool IsDynamicObject(Type type)

@@ -22,15 +22,11 @@ namespace CodeArt.DomainDriven.DataAccess
 
             DomainObject root = null;
             if (this.Type == DataTableType.AggregateRoot) root = obj;
-            else if (this.Type == DataTableType.EntityObjectPro)
-            {
-                var eop = obj as IEntityObjectPro;
-                root = eop?.Root as DomainObject;
-            }
             if (root == null || root.IsEmpty())
                 throw new DomainDrivenException(string.Format(Strings.PersistentObjectError, obj.ObjectType.FullName));
 
-            if(UpdateData(root, null, obj))
+            CheckDataVersion(root);
+            if (UpdateData(root, null, obj))
             {
                 OnDataUpdate(root, obj);
             }
@@ -115,7 +111,7 @@ namespace CodeArt.DomainDriven.DataAccess
                                     ? this.GetDataVersion(id)
                                     : this.GetDataVersion(GetObjectId(root), id);
 
-                (obj.DataProxy as DataProxyPro).OriginalData.Set(GeneratedField.DataVersionName, dataVersion);
+                obj.DataProxy.Version = dataVersion;
             }
         }
 

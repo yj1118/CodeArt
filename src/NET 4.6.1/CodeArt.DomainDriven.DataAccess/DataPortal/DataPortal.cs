@@ -34,7 +34,7 @@ namespace CodeArt.DomainDriven.DataAccess
             var model = DataModel.Create(objectType);
 
             long id = 0;
-            DataContext.UseTransactionScope(()=>
+            DataContext.UseTransactionScope(() =>
             {
                 id = model.GetIdentity();
             });
@@ -123,20 +123,6 @@ namespace CodeArt.DomainDriven.DataAccess
             var objectType = typeof(T);
             var model = DataModel.Create(objectType);
             return model.QuerySingle<T>(id, level);
-        }
-
-        /// <summary>
-        /// 在数据层中查找指定编号的成员数据，并加载到对象实例中
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="id"></param>
-        /// <param name="level"></param>
-        /// <returns></returns>
-        internal static T QuerySingle<T>(object rootId, object id) where T : class, IEntityObject
-        {
-            var objectType = typeof(T);
-            var model = DataModel.Create(objectType);
-            return model.QuerySingle<T>(rootId, id);
         }
 
 

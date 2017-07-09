@@ -14,6 +14,57 @@ namespace CodeArt.DomainDriven
     /// </summary>
     public interface IAggregateRoot : IEntityObject
     {
+        /// <summary>
+        /// 对象在仓储中的唯一键，这不是领域驱动的概念，是框架为了优化系统性能追加的属性
+        /// 在同样的类型下，该值也可以用于判断唯一性
+        /// </summary>
+        string UniqueKey
+        {
+            get;
+        }
 
+        /// <summary>
+        /// 仓储操作回滚
+        /// </summary>
+        event RepositoryRollbackEventHandler Rollback;
+
+        void OnRollback(object sender, RepositoryRollbackEventArgs e);
+
+
+        event RepositoryEventHandler PreAdd;
+        /// <summary>
+        /// 加入仓储之前
+        /// </summary>
+        void OnPreAdd();
+
+        event RepositoryEventHandler Added;
+        /// <summary>
+        /// 加入仓储之后
+        /// </summary>
+        void OnAdded();
+
+        event RepositoryEventHandler PreUpdate;
+        /// <summary>
+        /// 修改之前
+        /// </summary>
+        void OnPreUpdate();
+
+        event RepositoryEventHandler Updated;
+        /// <summary>
+        /// 修改之后
+        /// </summary>
+        void OnUpdated();
+
+        event RepositoryEventHandler PreDelete;
+        /// <summary>
+        /// 删除之前
+        /// </summary>
+        void OnPreDelete();
+
+        event RepositoryEventHandler Deleted;
+        /// <summary>
+        /// 删除之后
+        /// </summary>
+        void OnDeleted();
     }
 }

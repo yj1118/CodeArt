@@ -17,12 +17,14 @@ namespace CodeArt.DomainDriven
 
         public RemotableConfig RemotableConfig { get; private set; }
 
+        public BufferConfig BufferConfig { get; private set; }
 
 
         internal DomainDrivenConfiguration()
         {
             this.RepositoryConfig = new RepositoryConfig();
             this.RemotableConfig = new RemotableConfig();
+            this.BufferConfig = new BufferConfig();
         }
 
         public object Create(object parent, object configContext, XmlNode section)
@@ -30,6 +32,7 @@ namespace CodeArt.DomainDriven
             DomainDrivenConfiguration config = new DomainDrivenConfiguration();
             config.RepositoryConfig = DeserializeRepositoryConfig(section);
             config.RemotableConfig = DeserializeRemotableConfig(section);
+            config.BufferConfig = DeserializeBufferConfig(section);
             return config;
         }
 
@@ -49,6 +52,17 @@ namespace CodeArt.DomainDriven
             RemotableConfig config = new RemotableConfig();
 
             var section = root.SelectSingleNode("remotable");
+            if (section == null) return config;
+
+            config.LoadFrom(section);
+            return config;
+        }
+
+        private BufferConfig DeserializeBufferConfig(XmlNode root)
+        {
+            BufferConfig config = new BufferConfig();
+
+            var section = root.SelectSingleNode("buffer");
             if (section == null) return config;
 
             config.LoadFrom(section);

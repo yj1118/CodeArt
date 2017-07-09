@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CodeArt.DomainDriven
 {
-    public abstract class EntityObject : DomainObject, IEntityObject, IRepositoryable
+    public abstract class EntityObject : DomainObject, IEntityObject
     {
         /// <summary>
         /// 统一领域对象中的标识符名称，这样在ORM处理等操作中会比较方便
@@ -44,110 +44,6 @@ namespace CodeArt.DomainDriven
         {
             return !(entity0 == entity1);
         }
-
-
-        /// <summary>
-        /// 仓储操作回滚事件
-        /// </summary>
-        public event RepositoryRollbackEventHandler Rollback;
-
-        public virtual void OnRollback(object sender, RepositoryRollbackEventArgs e)
-        {
-            if (this.Rollback != null)
-            {
-                this.Rollback(sender, e);
-            }
-        }
-
-        public event RepositoryEventHandler PreAdd;
-
-        public virtual void OnPreAdd()
-        {
-            if(this.PreAdd !=null)
-            {
-                var e = new RepositoryEventArgs(this, BoundedEvent.PreAdd);
-                this.PreAdd(this, e);
-            }
-        }
-
-        public event RepositoryEventHandler Added;
-        public virtual void OnAdded()
-        {
-            if (this.Added != null)
-            {
-                var e = new RepositoryEventArgs(this, BoundedEvent.Added);
-                this.Added(this, e);
-            }
-            CallOnceRepositoryActions();
-        }
-
-        public event RepositoryEventHandler PreUpdate;
-        public virtual void OnPreUpdate()
-        {
-            if (this.PreUpdate != null)
-            {
-                var e = new RepositoryEventArgs(this, BoundedEvent.PreUpdate);
-                this.PreUpdate(this, e);
-            }
-        }
-
-        public event RepositoryEventHandler Updated;
-        public virtual void OnUpdated()
-        {
-            if (this.Updated != null)
-            {
-                var e = new RepositoryEventArgs(this, BoundedEvent.Updated);
-                this.Updated(this, e);
-            }
-            CallOnceRepositoryActions();
-        }
-
-        public event RepositoryEventHandler PreDelete;
-        public virtual void OnPreDelete()
-        {
-            if (this.PreDelete != null)
-            {
-                var e = new RepositoryEventArgs(this, BoundedEvent.PreDelete);
-                this.PreDelete(this, e);
-            }
-        }
-
-        public event RepositoryEventHandler Deleted;
-        public virtual void OnDeleted()
-        {
-            if (this.Deleted != null)
-            {
-                var e = new RepositoryEventArgs(this, BoundedEvent.Deleted);
-                this.Deleted(this, e);
-            }
-            CallOnceRepositoryActions();
-        }
-
-
-        #region 仓储操作回调
-
-        private List<Action> _onceRepositoryCallbackActions = null;
-
-        /// <summary>
-        /// 在下次执行完该对象的仓储操作后执行<paramref name="action" />动作
-        /// 该动作仅被执行一次
-        /// </summary>
-        /// <param name="action"></param>
-        protected void OnceRepositoryCallback(Action action)
-        {
-            if (_onceRepositoryCallbackActions == null) _onceRepositoryCallbackActions = new List<Action>();
-            _onceRepositoryCallbackActions.Add(action);
-        }
-
-        private void CallOnceRepositoryActions()
-        {
-            if (_onceRepositoryCallbackActions == null) return;
-            foreach (var action in _onceRepositoryCallbackActions) action();
-            _onceRepositoryCallbackActions.Clear(); //执行完后清空行为集合
-        }
-
-
-        #endregion
     }
 
 
@@ -191,11 +87,6 @@ namespace CodeArt.DomainDriven
             {
                 SetValue(IdProperty, value);
             }
-        }
-
-        public override bool IsEmpty()
-        {
-            return this.Id.Equals(default(TIdentity));
         }
 
         public EntityObject(TIdentity id)

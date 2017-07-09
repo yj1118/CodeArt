@@ -10,7 +10,7 @@ namespace CodeArt.DomainDriven
     /// </summary>
     internal class ScheduledAction
     {
-        public IRepositoryable Target
+        public IAggregateRoot Target
         {
             get;
             private set;
@@ -66,7 +66,7 @@ namespace CodeArt.DomainDriven
         private static PoolWrapper<ScheduledAction> _pool;
 
 
-        public static ScheduledAction Borrow(IRepositoryable target, IPersistRepository repository, ScheduledActionType type)
+        public static ScheduledAction Borrow(IAggregateRoot target, IPersistRepository repository, ScheduledActionType type)
         {
             var action = _pool.Borrow();
             action.Target = target;
