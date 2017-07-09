@@ -1,0 +1,48 @@
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\bin\Debug\NLog.config
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\bin\Debug\CodeArt.DomainDriven.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\bin\Debug\CodeArt.DomainDriven.pdb
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\bin\Debug\zh-CN\CodeArt.DomainDriven.resources.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\bin\Debug\CodeArt.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\bin\Debug\NLog.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\bin\Debug\CodeArt.pdb
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\bin\Debug\NLog.xml
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\bin\Debug\zh-CN\CodeArt.resources.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\obj\Debug\CodeArt.DomainDriven.csprojResolveAssemblyReference.cache
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\obj\Debug\CodeArt.DomainDriven.Strings.resources
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\obj\Debug\CodeArt.DomainDriven.Strings.zh-CN.resources
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\obj\Debug\CodeArt.DomainDriven.csproj.GenerateResource.Cache
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\obj\Debug\zh-CN\CodeArt.DomainDriven.resources.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\obj\Debug\CodeArt.DomainDriven.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\obj\Debug\CodeArt.DomainDriven.pdb
+D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.7\CodeArt.DomainDriven\bin\Debug\NLog.config
+D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.7\CodeArt.DomainDriven\bin\Debug\CodeArt.DomainDriven.dll
+D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.7\CodeArt.DomainDriven\bin\Debug\CodeArt.DomainDriven.pdb
+D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.7\CodeArt.DomainDriven\bin\Debug\zh-CN\CodeArt.DomainDriven.resources.dll
+D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.7\CodeArt.DomainDriven\bin\Debug\CodeArt.dll
+D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.7\CodeArt.DomainDriven\bin\Debug\NLog.dll
+D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.7\CodeArt.DomainDriven\bin\Debug\CodeArt.pdb
+D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.7\CodeArt.DomainDriven\bin\Debug\NLog.xml
+D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.7\CodeArt.DomainDriven\bin\Debug\zh-CN\CodeArt.resources.dll
+D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.7\CodeArt.DomainDriven\obj\Debug\CodeArt.DomainDriven.csprojResolveAssemblyReference.cache
+D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.7\CodeArt.DomainDriven\obj\Debug\CodeArt.DomainDriven.Strings.resources
+D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.7\CodeArt.DomainDriven\obj\Debug\CodeArt.DomainDriven.Strings.zh-CN.resources
+D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.7\CodeArt.DomainDriven\obj\Debug\CodeArt.DomainDriven.csproj.GenerateResource.Cache
+D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.7\CodeArt.DomainDriven\obj\Debug\zh-CN\CodeArt.DomainDriven.resources.dll
+D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.7\CodeArt.DomainDriven\obj\Debug\CodeArt.DomainDriven.dll
+D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.7\CodeArt.DomainDriven\obj\Debug\CodeArt.DomainDriven.pdb
+D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.6.2\CodeArt.DomainDriven\bin\Debug\NLog.config
+D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.6.2\CodeArt.DomainDriven\bin\Debug\CodeArt.DomainDriven.dll
+D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.6.2\CodeArt.DomainDriven\bin\Debug\CodeArt.DomainDriven.pdb
+D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.6.2\CodeArt.DomainDriven\bin\Debug\zh-CN\CodeArt.DomainDriven.resources.dll
+D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.6.2\CodeArt.DomainDriven\bin\Debug\CodeArt.dll
+D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.6.2\CodeArt.DomainDriven\bin\Debug\NLog.dll
+D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.6.2\CodeArt.DomainDriven\bin\Debug\CodeArt.pdb
+D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.6.2\CodeArt.DomainDriven\bin\Debug\NLog.xml
+D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.6.2\CodeArt.DomainDriven\bin\Debug\zh-CN\CodeArt.resources.dll
+D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.6.2\CodeArt.DomainDriven\obj\Debug\CodeArt.DomainDriven.csprojResolveAssemblyReference.cache
+D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.6.2\CodeArt.DomainDriven\obj\Debug\CodeArt.DomainDriven.Strings.resources
+D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.6.2\CodeArt.DomainDriven\obj\Debug\CodeArt.DomainDriven.Strings.zh-CN.resources
+D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.6.2\CodeArt.DomainDriven\obj\Debug\CodeArt.DomainDriven.csproj.GenerateResource.Cache
+D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.6.2\CodeArt.DomainDriven\obj\Debug\zh-CN\CodeArt.DomainDriven.resources.dll
+D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.6.2\CodeArt.DomainDriven\obj\Debug\CodeArt.DomainDriven.dll
+D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.6.2\CodeArt.DomainDriven\obj\Debug\CodeArt.DomainDriven.pdb

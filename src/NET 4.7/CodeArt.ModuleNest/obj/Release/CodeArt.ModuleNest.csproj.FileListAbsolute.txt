@@ -1,0 +1,12 @@
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ModuleNest\bin\Release\NLog.config
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ModuleNest\bin\Release\CodeArt.ModuleNest.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ModuleNest\bin\Release\CodeArt.ModuleNest.pdb
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ModuleNest\bin\Release\CodeArt.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ModuleNest\bin\Release\NLog.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ModuleNest\bin\Release\System.ValueTuple.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ModuleNest\bin\Release\CodeArt.pdb
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ModuleNest\bin\Release\NLog.xml
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ModuleNest\bin\Release\zh-CN\CodeArt.resources.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ModuleNest\obj\Release\CodeArt.ModuleNest.csprojResolveAssemblyReference.cache
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ModuleNest\obj\Release\CodeArt.ModuleNest.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ModuleNest\obj\Release\CodeArt.ModuleNest.pdb
