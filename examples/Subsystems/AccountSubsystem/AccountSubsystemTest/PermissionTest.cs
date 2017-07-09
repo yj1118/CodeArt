@@ -36,6 +36,7 @@ namespace AccountSubsystemTest
         {
             var cmd = new CreatePermission("发布文章")
             {
+                MarkedCode="addArticle",
                 Description = "站点编辑人员可以发布文章"
             };
             var permission = cmd.Execute();
@@ -54,7 +55,7 @@ namespace AccountSubsystemTest
         [TestMethod]
         public void Add()
         {
-            var permission = PermissionCommon.FindByName("发布文章", QueryLevel.None);
+            var permission = PermissionCommon.FindByMarkedCode("addArticle", QueryLevel.None);
             Assert.AreEqual("发布文章", permission.Name);
             Assert.AreEqual("站点编辑人员可以发布文章", permission.Description);
         }
@@ -80,7 +81,7 @@ namespace AccountSubsystemTest
             {
                 this.BeginTransaction();
 
-                var permission = PermissionCommon.FindByName("发布文章", QueryLevel.None);
+                var permission = PermissionCommon.FindByMarkedCode("addArticle", QueryLevel.None);
                 Assert.AreEqual("发布文章", permission.Name);
                 Assert.AreEqual("编辑描述", permission.Description);
                 Assert.AreEqual("addArticle", permission.MarkedCode);

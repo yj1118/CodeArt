@@ -13,14 +13,6 @@ namespace AccountSubsystem
     public interface IPermissionRepository : IRepository<Permission>
     {
         /// <summary>
-        /// 根据名称精确查询权限对象
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="level"></param>
-        /// <returns></returns>
-        Permission FindByName(string name, QueryLevel level);
-
-        /// <summary>
         /// 根据唯一标示精确查找权限对象
         /// </summary>
         /// <param name="markedCode"></param>
@@ -43,6 +35,6 @@ namespace AccountSubsystem
         /// <param name="ids"></param>
         /// <param name="level"></param>
         /// <returns></returns>
-        IEnumerable<Permission> FindsBy(IEnumerable<Guid> ids, QueryLevel level);
+        IEnumerable<Permission> FindsBy(IEnumerable<Guid> ids);
     }
 }

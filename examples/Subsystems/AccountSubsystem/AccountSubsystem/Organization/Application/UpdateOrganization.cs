@@ -36,7 +36,7 @@ namespace AccountSubsystem
             if (this.Name != null) org.Name = this.Name;
             if (this.PermissionIds != null)
             {
-                var permissions = PermissionCommon.FindsBy(this.PermissionIds, QueryLevel.None);
+                var permissions = PermissionCommon.FindsBy(this.PermissionIds);
                 org.SetPermissions(permissions);
             }
 

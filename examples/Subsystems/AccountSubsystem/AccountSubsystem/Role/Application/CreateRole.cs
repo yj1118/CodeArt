@@ -77,7 +77,7 @@ namespace AccountSubsystem
             //为角色分配权限，由于权限和角色的关系是松散的，所以我们不必锁定权限对象
             if(_permissionIds != null && _permissionIds.Count() > 0)
             {
-                var permissions = PermissionCommon.FindsBy(_permissionIds, QueryLevel.None);
+                var permissions = PermissionCommon.FindsBy(_permissionIds);
                 role.SetPermissions(permissions);
             }
             return role;

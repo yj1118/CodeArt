@@ -49,7 +49,7 @@ namespace AccountSubsystem
             if (this.Description != null) role.Description = this.Description;
             if (this.PermissionIds != null)
             {
-                var permissions = PermissionCommon.FindsBy(this.PermissionIds, QueryLevel.None);
+                var permissions = PermissionCommon.FindsBy(this.PermissionIds);
                 role.SetPermissions(permissions);
             }
             repository.Update(role);

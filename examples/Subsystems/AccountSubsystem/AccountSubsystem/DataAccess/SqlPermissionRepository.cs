@@ -34,12 +34,12 @@ namespace AccountSubsystem
             });
         }
 
-        public IEnumerable<Permission> FindsBy(IEnumerable<Guid> ids, QueryLevel level)
+        public IEnumerable<Permission> FindsBy(IEnumerable<Guid> ids)
         {
             return DataContext.Current.Query<Permission>("id in @ids", (arg) =>
             {
                 arg.Add("ids", ids);
-            }, level);
+            }, QueryLevel.None);
         }
 
         public static readonly SqlPermissionRepository Instance = new SqlPermissionRepository();

@@ -39,7 +39,6 @@ D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystemTest
 D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystemTest\bin\Debug\Microsoft.SqlServer.TransactSql.ScriptDom.dll
 D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystemTest\bin\Debug\CodeArt.DomainDriven.Extensions.dll
 D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystemTest\bin\Debug\CodeArt.ServiceModel.dll
-D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystemTest\bin\Debug\CodeArt.DomainDriven.DataAccess.dll.config
 D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystemTest\bin\Debug\CodeArt.DomainDriven.Extensions.pdb
 D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystemTest\bin\Debug\CodeArt.ServiceModel.pdb
 D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystemTest\bin\Debug\de\Microsoft.SqlServer.TransactSql.ScriptDom.resources.dll
