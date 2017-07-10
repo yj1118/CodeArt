@@ -73,7 +73,8 @@ namespace CodeArt.Concurrent
 
         public static bool TryUpdate<TKey, TValue>(this ConcurrentDictionary<TKey, TValue> dictionary, TKey key, TValue newValue)
         {
-            if (dictionary.TryGetValue(key, out var oldValue))
+            TValue oldValue = default(TValue);
+            if (dictionary.TryGetValue(key, out oldValue))
             {
                 //运行到此处，如果有其他的线程将key删除了，那么下面的代码会返回false，所以不算bug
                 //因此依然保证了多线程访问是返回正确的结果

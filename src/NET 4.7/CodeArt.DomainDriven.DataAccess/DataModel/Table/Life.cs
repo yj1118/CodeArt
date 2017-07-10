@@ -142,7 +142,8 @@ namespace CodeArt.DomainDriven.DataAccess
         private static DataTable GetBuildtimeIndex(IDataField memberField, string rootTableName, string tableName)
         {
             string key = GetUniqueKey(memberField, rootTableName, tableName);
-            if (_buildtimeIndex.TryGetValue(key, out var table))
+            DataTable table = null;
+            if (_buildtimeIndex.TryGetValue(key, out table))
                 return table;
             return null;
         }

@@ -89,7 +89,8 @@ namespace CodeArt.Concurrent.Pattern.Eat
         /// <param name="action"></param>
         public bool Using(Action<T> action)
         {
-            if(_items.TryDequeue(out var item))
+            T item = default(T);
+            if(_items.TryDequeue(out item))
             {
                 action(item);
                 _rubbish.Add(item);
@@ -100,7 +101,8 @@ namespace CodeArt.Concurrent.Pattern.Eat
 
         public void Dispose()
         {
-            while (_items.TryDequeue(out var item))
+            T item = default(T);
+            while (_items.TryDequeue(out item))
             {
                 Rubbish.DisposeItem(item);
             }

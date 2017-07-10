@@ -30,12 +30,16 @@ namespace CodeArt.DomainDriven
             var root = repository.Find(define, id, QueryLevel.None);
             if (!root.IsEmpty()) return root;
 
+            //从远程获取聚合根对象
+            var remoteRoot = GetRootByRemote(define, id);
+
+            //保存到本地
             DataContext.UseTransactionScope(() =>
             {
                 root = repository.Find(define, id, QueryLevel.HoldSingle);
                 if (root.IsEmpty())
                 {
-                    root = GetRootByRemote(define, id);
+                    root = remoteRoot;
                     AddRoot(repository, define, root);
                 }
             });
@@ -48,7 +52,7 @@ namespace CodeArt.DomainDriven
         /// <param name="define"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        private static DynamicRoot GetRootByRemote(AggregateRootDefine define,object id)
+        private static DynamicRoot GetRootByRemote(AggregateRootDefine define, object id)
         {
             var data = Implement.GetObject(define.RemoteType, id);
             return (DynamicRoot)define.CreateInstance(data);

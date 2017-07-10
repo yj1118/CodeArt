@@ -53,6 +53,8 @@
     <Compile Include="PropertyValidator\List\ListValidator.cs" />
     <Compile Include="PropertyValidator\MobileNumber\CN\CNAttribute.cs" />
     <Compile Include="PropertyValidator\MobileNumber\CN\CNValidator.cs" />
+    <Compile Include="PropertyValidator\StringFormat\StringFormatAttribute.cs" />
+    <Compile Include="PropertyValidator\StringFormat\StringFormatValidator.cs" />
     <Compile Include="Remotable\ServiceProvider\RemoteObjectDeleted.cs" />
     <Compile Include="Remotable\ServiceProvider\RemoteObjectUpdated.cs" />
     <Compile Include="Remotable\ServiceProvider\GetRemotableObject.cs" />

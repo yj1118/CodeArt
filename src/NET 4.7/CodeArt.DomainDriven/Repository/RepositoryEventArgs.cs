@@ -13,14 +13,14 @@ namespace CodeArt.DomainDriven
         /// </summary>
         public IAggregateRoot Target { get; private set; }
 
-        public DomainEvent EventType
+        public StatusEventType EventType
         {
             get;
             private set;
         }
 
 
-        public RepositoryEventArgs(IAggregateRoot target, DomainEvent eventType)
+        public RepositoryEventArgs(IAggregateRoot target, StatusEventType eventType)
         {
             this.Target = target;
             this.EventType = eventType;

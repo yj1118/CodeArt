@@ -7,31 +7,6 @@ namespace CodeArt.DomainDriven
 {
     public interface IRepository
     {
-        ///// <summary>
-        ///// 将对象添加到仓储
-        ///// </summary>
-        ///// <param name="obj"></param>
-        //void Add(IAggregateRoot obj);
-
-        ///// <summary>
-        ///// 修改对象在仓储中的信息
-        ///// </summary>
-        ///// <param name="obj"></param>
-        //void Update(IAggregateRoot obj);
-
-        ///// <summary>
-        ///// 从仓储中删除对象
-        ///// </summary>
-        ///// <param name="obj"></param>
-        //void Delete(IAggregateRoot obj);
-
-        ///// <summary>
-        ///// 锁定对象
-        ///// </summary>
-        ///// <param name="obj"></param>
-        ///// <param name="level">锁定级别</param>
-        //void Lock(IAggregateRoot obj, QueryLevel level);
-
         /// <summary>
         /// 根据编号查找对象
         /// </summary>
@@ -39,7 +14,6 @@ namespace CodeArt.DomainDriven
         /// <param name="level"></param>
         /// <returns></returns>
         IAggregateRoot Find(object id, QueryLevel level);
-
     }
 
 

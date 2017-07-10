@@ -1181,7 +1181,8 @@ namespace CodeArt.DTO
             result = GetValue(binder.Name, false);
 
             var objs = result as DTObjects;
-            if (objs != null && objs.TryGetSingleValues(out var values))
+            PrimitiveValueList values = null;
+            if (objs != null && objs.TryGetSingleValues(out values))
             {
                 result = values;
             }

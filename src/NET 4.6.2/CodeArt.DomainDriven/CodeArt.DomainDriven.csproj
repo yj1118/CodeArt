@@ -54,6 +54,12 @@
     <Compile Include="DomainBuffer\IDomainBuffer.cs" />
     <Compile Include="DomainBuffer\Memory\MemoryBuffer.cs" />
     <Compile Include="DataContextException.cs" />
+    <Compile Include="DomainEvent\IDomainEvent.cs" />
+    <Compile Include="DomainEvent\EventPortal.cs" />
+    <Compile Include="DomainEvent\EventProxy.cs" />
+    <Compile Include="DomainEvent\DomainEvent.cs" />
+    <Compile Include="DomainEvent\DomainEventHandler.cs" />
+    <Compile Include="DomainEvent\IDomainEventHandler.cs" />
     <Compile Include="DomainObject\IDomainCollection.cs" />
     <Compile Include="DomainObject\Aggregate\UniqueKeyCalculator.cs" />
     <Compile Include="DomainObject\ValueObject\ValueObjectFactory.cs" />
@@ -99,10 +105,10 @@
     <Compile Include="DomainObject\Aggregate\AggregateRoot.cs" />
     <Compile Include="Application\Command.cs" />
     <Compile Include="Application\ICommand.cs" />
-    <Compile Include="DomainContext\DomainContext.cs" />
-    <Compile Include="DomainContext\DomainEvent\DomainEventHandler.cs" />
-    <Compile Include="DomainContext\DomainEvent\DomainEvent.cs" />
-    <Compile Include="DomainContext\DomainEvent\DomainEventArgs.cs" />
+    <Compile Include="StatusEvent\StatusEvent.cs" />
+    <Compile Include="StatusEvent\StatusEventHandler.cs" />
+    <Compile Include="StatusEvent\StatusEventType.cs" />
+    <Compile Include="StatusEvent\StatusEventArgs.cs" />
     <Compile Include="Configuration\DomainDrivenConfiguration.cs" />
     <Compile Include="DataProxy.cs" />
     <Compile Include="DomainDrivenException.cs" />

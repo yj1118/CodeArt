@@ -144,8 +144,10 @@ namespace CodeArt.DTO
         public string GetSchemaCode(string memberName, Func<Type> getObjectType)
         {
             if (this.ContainsAll) return string.Empty; //空字符串代表取所有成员
-            if (_codes.TryGetValue(memberName, out var code)) return code;
-            if (_typeCodes.TryGetValue(getObjectType(), out var typeCode)) return typeCode;
+            string code = null;
+            if (_codes.TryGetValue(memberName, out code)) return code;
+            string typeCode = null;
+            if (_typeCodes.TryGetValue(getObjectType(), out typeCode)) return typeCode;
             return null;
         }
 

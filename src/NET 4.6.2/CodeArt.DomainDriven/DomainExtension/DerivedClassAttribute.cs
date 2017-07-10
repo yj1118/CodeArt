@@ -53,7 +53,8 @@ namespace CodeArt.DomainDriven
         public static Type GetDerivedType(string typeKey)
         {
             if (string.IsNullOrEmpty(typeKey)) return null;
-            if (_types.TryGetValue(typeKey, out var type)) return type;
+            Type type = null;
+            if (_types.TryGetValue(typeKey, out type)) return type;
             throw new DomainDrivenException(string.Format(Strings.NotFoundDerivedType, typeKey));
         }
 

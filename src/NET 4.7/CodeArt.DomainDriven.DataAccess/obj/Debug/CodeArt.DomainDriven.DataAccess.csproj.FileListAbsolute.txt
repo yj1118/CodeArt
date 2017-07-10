@@ -37,7 +37,9 @@ D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.7\CodeArt.DomainDriven.D
 D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.7\CodeArt.DomainDriven.DataAccess\bin\Debug\zh-CN\CodeArt.DomainDriven.DataAccess.resources.dll
 D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.7\CodeArt.DomainDriven.DataAccess\bin\Debug\CodeArt.dll
 D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.7\CodeArt.DomainDriven.DataAccess\bin\Debug\CodeArt.DomainDriven.dll
+D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.7\CodeArt.DomainDriven.DataAccess\bin\Debug\Dapper.dll
 D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.7\CodeArt.DomainDriven.DataAccess\bin\Debug\Microsoft.SqlServer.TransactSql.ScriptDom.dll
+D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.7\CodeArt.DomainDriven.DataAccess\bin\Debug\System.ValueTuple.dll
 D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.7\CodeArt.DomainDriven.DataAccess\bin\Debug\NLog.dll
 D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.7\CodeArt.DomainDriven.DataAccess\bin\Debug\CodeArt.DomainDriven.pdb
 D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.7\CodeArt.DomainDriven.DataAccess\bin\Debug\CodeArt.pdb

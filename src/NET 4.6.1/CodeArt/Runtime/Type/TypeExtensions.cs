@@ -706,7 +706,8 @@ namespace CodeArt.Runtime
 
         public static object GetStaticValue(this Type type, string name)
         {
-            if(TryGetStaticValue(type, name,out var value))
+            object value = null;
+            if(TryGetStaticValue(type, name,out value))
             {
                 return value;
             }

@@ -117,10 +117,40 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CanOnlyInclude" xml:space="preserve">
+    <value>{0} 只能包括 {1}</value>
+  </data>
+  <data name="CE" xml:space="preserve">
+    <value>中文、英文字母</value>
+  </data>
+  <data name="CEN" xml:space="preserve">
+    <value>中文、英文字母、数字</value>
+  </data>
+  <data name="CN" xml:space="preserve">
+    <value>中文、数字</value>
+  </data>
+  <data name="DoesNotMeetRule" xml:space="preserve">
+    <value>{0} 不符合规则 {1}</value>
+  </data>
+  <data name="EN" xml:space="preserve">
+    <value>英文字母、数字</value>
+  </data>
   <data name="GetServiceUnexpectedError" xml:space="preserve">
     <value>获得系统服务{0}发生意外的错误</value>
   </data>
   <data name="IdentityFailed" xml:space="preserve">
     <value>身份名{0}认证失败，无法使用远程对象</value>
+  </data>
+  <data name="IncorrectEmailFormat" xml:space="preserve">
+    <value>属性 {0} 是不正确的邮箱格式</value>
+  </data>
+  <data name="IncorrectMobileNumberFormat" xml:space="preserve">
+    <value>{0} 是不正确的手机号码格式</value>
+  </data>
+  <data name="ValueLessThan" xml:space="preserve">
+    <value>{0}数值小于{1}</value>
+  </data>
+  <data name="ValueMoreThan" xml:space="preserve">
+    <value>{0}数值大于{1}</value>
   </data>
 </root>

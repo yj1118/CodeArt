@@ -246,7 +246,8 @@ namespace CodeArt.DomainDriven.DataAccess
 
         private static DataTable GetDataTable(string typeKey)
         {
-            if (_typeTables.TryGetValue(typeKey, out var value)) return value;
+            DataTable value = null;
+            if (_typeTables.TryGetValue(typeKey, out value)) return value;
             throw new DomainDrivenException(string.Format(Strings.NotFoundDerivedType, typeKey));
         }
 

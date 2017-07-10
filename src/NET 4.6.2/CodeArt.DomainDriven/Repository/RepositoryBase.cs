@@ -28,11 +28,11 @@ namespace CodeArt.DomainDriven
         public void Add(TRoot obj)
         {
             RegisterRollbackAdd(obj);
-            DomainContext.Execute(DomainEvent.PreAdd, obj);
+            StatusEvent.Execute(StatusEventType.PreAdd, obj);
             obj.OnPreAdd();
             RegisterAdded(obj);
             obj.OnAdded();
-            DomainContext.Execute(DomainEvent.Added, obj);
+            StatusEvent.Execute(StatusEventType.Added, obj);
         }
 
 
@@ -48,7 +48,6 @@ namespace CodeArt.DomainDriven
                 }
                 this.OnPersisted(obj, RepositoryAction.Add);
             }
-            DomainContext.Execute(DomainEvent.AddCommitted, obj);
         }
 
         protected abstract void PersistAddRoot(TRoot obj);
@@ -71,11 +70,11 @@ namespace CodeArt.DomainDriven
         public void Update(TRoot obj)
         {
             RegisterRollbackUpdate(obj);
-            DomainContext.Execute(DomainEvent.PreUpdate, obj);
+            StatusEvent.Execute(StatusEventType.PreUpdate, obj);
             obj.OnPreUpdate();
             RegisterUpdated(obj);
             obj.OnUpdated();
-            DomainContext.Execute(DomainEvent.Updated, obj);
+            StatusEvent.Execute(StatusEventType.Updated, obj);
         }
 
 
@@ -92,7 +91,6 @@ namespace CodeArt.DomainDriven
                 }
                 this.OnPersisted(obj, RepositoryAction.Update);
             }
-            DomainContext.Execute(DomainEvent.UpdateCommitted, obj);
         }
 
         protected abstract void PersistUpdateRoot(TRoot obj);
@@ -115,11 +113,11 @@ namespace CodeArt.DomainDriven
         public void Delete(TRoot obj)
         {
             RegisterRollbackDelete(obj);
-            DomainContext.Execute(DomainEvent.PreDelete, obj);
+            StatusEvent.Execute(StatusEventType.PreDelete, obj);
             obj.OnPreDelete();
             RegisterDeleted(obj);
             obj.OnDeleted();
-            DomainContext.Execute(DomainEvent.Deleted, obj);
+            StatusEvent.Execute(StatusEventType.Deleted, obj);
         }
 
         public override void PersistDelete(IAggregateRoot obj)
@@ -134,7 +132,6 @@ namespace CodeArt.DomainDriven
                 }
                 this.OnPersisted(obj, RepositoryAction.Delete);
             }
-            DomainContext.Execute(DomainEvent.DeleteCommitted, obj);
         }
 
         protected abstract void PersistDeleteRoot(TRoot obj);

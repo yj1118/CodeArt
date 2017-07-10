@@ -240,7 +240,8 @@ namespace CodeArt.DomainDriven.DataAccess
             var valueObject = obj as ValueObject;
             if (valueObject != null)
             {
-                if (data.TryGetValue(EntityObject.IdPropertyName, out var id))
+                object id = null;
+                if (data.TryGetValue(EntityObject.IdPropertyName, out id))
                 {
                     valueObject.SetId((Guid)id);
                 }
@@ -283,7 +284,8 @@ namespace CodeArt.DomainDriven.DataAccess
         public object ReadPropertyValue(object parent, PropertyRepositoryAttribute tip, ParameterRepositoryAttribute prmTip, DynamicData data)
         {
             //看对应的属性特性中是否定义了加载方法，优先执行自定义方法
-            if (tip.TryLoadData(this.ObjectType, data, out var value))
+            object value = null;
+            if (tip.TryLoadData(this.ObjectType, data, out value))
             {
                 return value;
             }
@@ -341,7 +343,8 @@ namespace CodeArt.DomainDriven.DataAccess
 
         private object ReadValueFromData(PropertyRepositoryAttribute tip, DynamicData data)
         {
-            if (data.TryGetValue(tip.PropertyName, out var value)) return value;
+            object value = null;
+            if (data.TryGetValue(tip.PropertyName, out value)) return value;
             return null;
         }
 
@@ -374,7 +377,8 @@ namespace CodeArt.DomainDriven.DataAccess
 
         private object ReadValueListFromData(PropertyRepositoryAttribute tip, DynamicData data)
         {
-            if (data.TryGetValue(tip.PropertyName, out var value))
+            object value = null;
+            if (data.TryGetValue(tip.PropertyName, out value))
             {
                 return ParseValueList(tip, value);
             }

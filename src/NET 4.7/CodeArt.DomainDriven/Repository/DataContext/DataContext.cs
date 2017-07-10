@@ -52,6 +52,7 @@ namespace CodeArt.DomainDriven
         private void DisposeMirror()
         {
             _mirrors.Clear();
+            _lockedMirrors = false;
         }
 
         private void AddMirror(IAggregateRoot obj)
@@ -88,7 +89,6 @@ namespace CodeArt.DomainDriven
         }
 
         #endregion
-
 
         #region CUD
 
@@ -219,9 +219,68 @@ namespace CodeArt.DomainDriven
                 {
                     manager.Begin();
                     ExecuteAction(action);
+                    //提交事务
+                    RaisePreCommit(action);
                     manager.Commit();
+                    RaiseCommitted(action);
                 }
                 return;
+            }
+        }
+
+
+
+        private void RaisePreCommit(ScheduledAction action)
+        {
+            switch (action.Type)
+            {
+                case ScheduledActionType.Create:
+                    action.Target.OnAddPreCommit();
+                    StatusEvent.Execute(StatusEventType.AddPreCommit, action.Target);
+                    break;
+                case ScheduledActionType.Update:
+                    action.Target.OnUpdatePreCommit();
+                    StatusEvent.Execute(StatusEventType.UpdatePreCommit, action.Target);
+                    break;
+                case ScheduledActionType.Delete:
+                    action.Target.OnDeletePreCommit();
+                    StatusEvent.Execute(StatusEventType.DeletePreCommit, action.Target);
+                    break;
+            }
+        }
+
+        private void RaiseCommitted(ScheduledAction action)
+        {
+            switch (action.Type)
+            {
+                case ScheduledActionType.Create:
+                    action.Target.OnAddCommitted();
+                    StatusEvent.Execute(StatusEventType.AddCommitted, action.Target);
+                    break;
+                case ScheduledActionType.Update:
+                    action.Target.OnUpdateCommitted();
+                    StatusEvent.Execute(StatusEventType.UpdateCommitted, action.Target);
+                    break;
+                case ScheduledActionType.Delete:
+                    action.Target.OnDeleteCommitted();
+                    StatusEvent.Execute(StatusEventType.DeleteCommitted, action.Target);
+                    break;
+            }
+        }
+
+        private void RaisePreCommitQueue()
+        {
+            foreach (var action in _actions)
+            {
+                RaisePreCommit(action);
+            }
+        }
+
+        private void RaiseCommittedQueue()
+        {
+            foreach (var action in _actions)
+            {
+                RaiseCommitted(action);
             }
         }
 
@@ -384,13 +443,21 @@ namespace CodeArt.DomainDriven
                             {
                                 manager.Begin();
                                 ExecuteActionQueue();
+                                RaisePreCommitQueue();
+
                                 manager.Commit();
+
+                                RaiseCommittedQueue();
                             }
                         }
                         else if (_transactionStatus == TransactionStatus.Timely)
                         {
                             ExecuteActionQueue();
+                            RaisePreCommitQueue();
+
                             _timelyManager.Commit();
+
+                            RaiseCommittedQueue();
                         }
                     }
                     catch (Exception ex)

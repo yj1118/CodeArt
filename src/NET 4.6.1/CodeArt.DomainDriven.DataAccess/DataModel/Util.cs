@@ -84,8 +84,8 @@ namespace CodeArt.DomainDriven.DataAccess
             //{
             //    dataType = repositoryValueType.GenericTypeArguments[0];
             //}
-
-            if (_typeMap.TryGetValue(dataType, out var dbType))
+            DbType dbType = default(DbType);
+            if (_typeMap.TryGetValue(dataType, out dbType))
             {
                 return dbType;
             }

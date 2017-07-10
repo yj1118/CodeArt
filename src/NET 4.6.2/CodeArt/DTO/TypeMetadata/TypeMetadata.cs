@@ -49,7 +49,8 @@ namespace CodeArt.DTO
 
         public TypeEntry GetEntry(string typeName)
         {
-            if (this.Index.TryGet(typeName, out var entry)) return entry;
+            TypeEntry entry = null;
+            if (this.Index.TryGet(typeName, out entry)) return entry;
             return null;
         }
 
@@ -137,7 +138,8 @@ namespace CodeArt.DTO
             var valueCode = e.Value.ToString().Trim();
             if (valueCode.Length == 0) throw new DTOException(string.Format(Strings.DTONotSpecifyType, GetPathName(entryName)));
 
-            if (this.Index.TryGet(valueCode, out var target))
+            TypeEntry target = null;
+            if (this.Index.TryGet(valueCode, out target))
             {
                 //valueCode是已有类型的名称
                 var entry = target.Clone();

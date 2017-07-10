@@ -138,12 +138,6 @@
   <data name="GetUniqueKeyError" xml:space="preserve">
     <value>无法计算类型{0}的唯一键，必须是IAggregateRoot</value>
   </data>
-  <data name="IncorrectEmailFormat" xml:space="preserve">
-    <value>属性 {0} 是不正确的邮箱格式</value>
-  </data>
-  <data name="IncorrectMobileNumberFormat" xml:space="preserve">
-    <value>属性 {0} 是不正确的手机号码格式</value>
-  </data>
   <data name="IsEmpty" xml:space="preserve">
     <value>在领域设计中所有对象都不应该为null，错误源：{0}</value>
   </data>
@@ -251,12 +245,6 @@
   </data>
   <data name="UnrecognizedType" xml:space="preserve">
     <value>无法识别动态类型{0}</value>
-  </data>
-  <data name="ValueLessThan" xml:space="preserve">
-    <value>{0}数值小于{1}</value>
-  </data>
-  <data name="ValueMoreThan" xml:space="preserve">
-    <value>{0}数值大于{1}</value>
   </data>
   <data name="ValueObjectReadOnly" xml:space="preserve">
     <value>ValueObject对象 {0} 是只读的</value>

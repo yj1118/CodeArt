@@ -38,10 +38,10 @@ namespace CodeArt.DomainDriven
         /// <param name="rowSchemaCode"></param>
         /// <param name="objs"></param>
         /// <returns></returns>
-        public static DTObject Create<T>(string rowSchemaCode, IList<T> objs)
+        public static DTObject Create<T>(string rowSchemaCode, IEnumerable<T> objs)
         {
             var result = DTObject.CreateReusable();
-            result.SetValue("dataCount", objs.Count);
+            result.SetValue("dataCount", objs.Count());
             result.Push("rows", objs, (obj) =>
             {
                 return DTObject.CreateReusable(rowSchemaCode, obj);

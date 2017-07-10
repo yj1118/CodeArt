@@ -53,7 +53,7 @@ namespace CodeArt.DomainDriven
         {
             if (this.PreAdd != null)
             {
-                var e = new RepositoryEventArgs(this, DomainEvent.PreAdd);
+                var e = new RepositoryEventArgs(this, StatusEventType.PreAdd);
                 this.PreAdd(this, e);
             }
         }
@@ -63,18 +63,30 @@ namespace CodeArt.DomainDriven
         {
             if (this.Added != null)
             {
-                var e = new RepositoryEventArgs(this, DomainEvent.Added);
+                var e = new RepositoryEventArgs(this, StatusEventType.Added);
                 this.Added(this, e);
             }
             CallOnceRepositoryActions();
         }
+
+        public event RepositoryEventHandler AddPreCommit;
+        public virtual void OnAddPreCommit()
+        {
+            if (this.AddPreCommit != null)
+            {
+                var e = new RepositoryEventArgs(this, StatusEventType.AddPreCommit);
+                this.AddPreCommit(this, e);
+            }
+            CallOnceRepositoryActions();
+        }
+
 
         public event RepositoryEventHandler AddCommitted;
         public virtual void OnAddCommitted()
         {
             if (this.AddCommitted != null)
             {
-                var e = new RepositoryEventArgs(this, DomainEvent.AddCommitted);
+                var e = new RepositoryEventArgs(this, StatusEventType.AddCommitted);
                 this.AddCommitted(this, e);
             }
             CallOnceRepositoryActions();
@@ -87,7 +99,7 @@ namespace CodeArt.DomainDriven
         {
             if (this.PreUpdate != null)
             {
-                var e = new RepositoryEventArgs(this, DomainEvent.PreUpdate);
+                var e = new RepositoryEventArgs(this, StatusEventType.PreUpdate);
                 this.PreUpdate(this, e);
             }
         }
@@ -97,18 +109,30 @@ namespace CodeArt.DomainDriven
         {
             if (this.Updated != null)
             {
-                var e = new RepositoryEventArgs(this, DomainEvent.Updated);
+                var e = new RepositoryEventArgs(this, StatusEventType.Updated);
                 this.Updated(this, e);
             }
             CallOnceRepositoryActions();
         }
+
+        public event RepositoryEventHandler UpdatePreCommit;
+        public virtual void OnUpdatePreCommit()
+        {
+            if (this.UpdatePreCommit != null)
+            {
+                var e = new RepositoryEventArgs(this, StatusEventType.UpdatePreCommit);
+                this.UpdatePreCommit(this, e);
+            }
+            CallOnceRepositoryActions();
+        }
+
 
         public event RepositoryEventHandler UpdateCommitted;
         public virtual void OnUpdateCommitted()
         {
             if (this.UpdateCommitted != null)
             {
-                var e = new RepositoryEventArgs(this, DomainEvent.UpdateCommitted);
+                var e = new RepositoryEventArgs(this, StatusEventType.UpdateCommitted);
                 this.UpdateCommitted(this, e);
             }
             CallOnceRepositoryActions();
@@ -120,7 +144,7 @@ namespace CodeArt.DomainDriven
         {
             if (this.PreDelete != null)
             {
-                var e = new RepositoryEventArgs(this, DomainEvent.PreDelete);
+                var e = new RepositoryEventArgs(this, StatusEventType.PreDelete);
                 this.PreDelete(this, e);
             }
         }
@@ -131,8 +155,19 @@ namespace CodeArt.DomainDriven
         {
             if (this.Deleted != null)
             {
-                var e = new RepositoryEventArgs(this, DomainEvent.Deleted);
+                var e = new RepositoryEventArgs(this, StatusEventType.Deleted);
                 this.Deleted(this, e);
+            }
+            CallOnceRepositoryActions();
+        }
+
+        public event RepositoryEventHandler DeletePreCommit;
+        public virtual void OnDeletePreCommit()
+        {
+            if (this.DeletePreCommit != null)
+            {
+                var e = new RepositoryEventArgs(this, StatusEventType.DeletePreCommit);
+                this.DeletePreCommit(this, e);
             }
             CallOnceRepositoryActions();
         }
@@ -145,7 +180,7 @@ namespace CodeArt.DomainDriven
         {
             if (this.DeleteCommitted != null)
             {
-                var e = new RepositoryEventArgs(this, DomainEvent.DeleteCommitted);
+                var e = new RepositoryEventArgs(this, StatusEventType.DeleteCommitted);
                 this.DeleteCommitted(this, e);
             }
             CallOnceRepositoryActions();

@@ -36,7 +36,8 @@ namespace CodeArt.AppSetting
 
         public object Get(string name)
         {
-            if (_data.TryGetValue(name, out var value))
+            object value = null;
+            if (_data.TryGetValue(name, out value))
             {
                 return value;
             }

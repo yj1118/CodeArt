@@ -64,9 +64,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceContext\DataAnalyzer.cs" />
     <Compile Include="ServiceContext\DirectTable.cs" />
-    <Compile Include="ServiceContext\ServiceAddressTable.cs" />
-    <Compile Include="ServiceContext\ServiceProxy.cs" />
     <Compile Include="ServiceContext\IServiceProxy.cs" />
+    <Compile Include="ServiceContext\ServiceProxy.cs" />
+    <Compile Include="ServiceContext\ServiceAddressTable.cs" />
     <Compile Include="ServiceContext\Protocol\ServiceRequest.cs" />
     <Compile Include="ServiceContext\Protocol\ServiceResponse.cs" />
     <Compile Include="ServiceContext\Security\DefaultIdentityProvider.cs" />

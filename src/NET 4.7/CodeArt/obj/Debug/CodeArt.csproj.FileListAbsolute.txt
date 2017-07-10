@@ -15,6 +15,7 @@ D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.7\CodeArt\bin\Debug\NLog
 D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.7\CodeArt\bin\Debug\CodeArt.dll
 D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.7\CodeArt\bin\Debug\CodeArt.pdb
 D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.7\CodeArt\bin\Debug\zh-CN\CodeArt.resources.dll
+D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.7\CodeArt\bin\Debug\NLog.dll
 D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.7\CodeArt\bin\Debug\NLog.xml
 D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.7\CodeArt\obj\Debug\CodeArt.csprojResolveAssemblyReference.cache
 D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.7\CodeArt\obj\Debug\CodeArt.Strings.resources

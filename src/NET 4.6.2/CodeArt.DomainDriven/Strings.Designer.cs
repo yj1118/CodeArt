@@ -142,24 +142,6 @@ namespace CodeArt.DomainDriven {
         }
         
         /// <summary>
-        ///   查找类似 The property {0} is incorrect for the email format 的本地化字符串。
-        /// </summary>
-        internal static string IncorrectEmailFormat {
-            get {
-                return ResourceManager.GetString("IncorrectEmailFormat", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 The property {0} is incorrect for the mobile number format 的本地化字符串。
-        /// </summary>
-        internal static string IncorrectMobileNumberFormat {
-            get {
-                return ResourceManager.GetString("IncorrectMobileNumberFormat", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 In the domain design, all objects should not be null, the source of the error: {0} 的本地化字符串。
         /// </summary>
         internal static string IsEmpty {
@@ -525,24 +507,6 @@ namespace CodeArt.DomainDriven {
         internal static string UnrecognizedType {
             get {
                 return ResourceManager.GetString("UnrecognizedType", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 {0} value less than {1} 的本地化字符串。
-        /// </summary>
-        internal static string ValueLessThan {
-            get {
-                return ResourceManager.GetString("ValueLessThan", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 {0} value more than {1} 的本地化字符串。
-        /// </summary>
-        internal static string ValueMoreThan {
-            get {
-                return ResourceManager.GetString("ValueMoreThan", resourceCulture);
             }
         }
         

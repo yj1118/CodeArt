@@ -143,7 +143,8 @@ namespace CodeArt.Util
         {
             lock (_data)
             {
-                _data.TryRemove(key, out var value);
+                TValue value = default(TValue);
+                _data.TryRemove(key, out value);
             }
         }
 

@@ -24,7 +24,8 @@ namespace CodeArt.TestTools
 
         public T Get<T>(string name, T defaultValue)
         {
-            if (_data.TryGetValue(name, out var value))
+            object value = null;
+            if (_data.TryGetValue(name, out value))
             {
                 return (T)value;
             }

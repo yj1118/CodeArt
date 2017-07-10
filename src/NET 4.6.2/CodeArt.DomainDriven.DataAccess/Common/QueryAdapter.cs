@@ -227,7 +227,8 @@ namespace CodeArt.DomainDriven.DataAccess
         private void UsingExpression(Action<string> action)
         {
             SetComplete();
-            if (_expressionData.TryGetValue(_dbType, out var express))
+            string express = null;
+            if (_expressionData.TryGetValue(_dbType, out express))
             {
                 action(express);
                 return;
@@ -242,9 +243,11 @@ namespace CodeArt.DomainDriven.DataAccess
         private void UsingData(Action<string, Action<DynamicData>> action)
         {
             SetComplete();
-            if (_expressionData.TryGetValue(_dbType, out var express))
+            string express = null;
+            if (_expressionData.TryGetValue(_dbType, out express))
             {
-                if (_fillArgsData.TryGetValue(_dbType, out var fillArg))
+                Action<DynamicData> fillArg = null;
+                if (_fillArgsData.TryGetValue(_dbType, out fillArg))
                 {
                     action(express, fillArg);
                     return;

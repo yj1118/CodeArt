@@ -61,6 +61,60 @@ namespace CodeArt.DomainDriven.Extensions {
         }
         
         /// <summary>
+        ///   查找类似 {0} can only include {1} 的本地化字符串。
+        /// </summary>
+        internal static string CanOnlyInclude {
+            get {
+                return ResourceManager.GetString("CanOnlyInclude", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Chinese, English letters 的本地化字符串。
+        /// </summary>
+        internal static string CE {
+            get {
+                return ResourceManager.GetString("CE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Chinese, English letters, numbers 的本地化字符串。
+        /// </summary>
+        internal static string CEN {
+            get {
+                return ResourceManager.GetString("CEN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Chinese, numbers 的本地化字符串。
+        /// </summary>
+        internal static string CN {
+            get {
+                return ResourceManager.GetString("CN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 {0} does not meet the rules {1} 的本地化字符串。
+        /// </summary>
+        internal static string DoesNotMeetRule {
+            get {
+                return ResourceManager.GetString("DoesNotMeetRule", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 English letters, numbers 的本地化字符串。
+        /// </summary>
+        internal static string EN {
+            get {
+                return ResourceManager.GetString("EN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Obtain an unexpected error in getting system service {0} 的本地化字符串。
         /// </summary>
         internal static string GetServiceUnexpectedError {
@@ -75,6 +129,42 @@ namespace CodeArt.DomainDriven.Extensions {
         internal static string IdentityFailed {
             get {
                 return ResourceManager.GetString("IdentityFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 The property {0} is incorrect for the email format 的本地化字符串。
+        /// </summary>
+        internal static string IncorrectEmailFormat {
+            get {
+                return ResourceManager.GetString("IncorrectEmailFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 {0} is incorrect for the mobile number format 的本地化字符串。
+        /// </summary>
+        internal static string IncorrectMobileNumberFormat {
+            get {
+                return ResourceManager.GetString("IncorrectMobileNumberFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 {0} value less than {1} 的本地化字符串。
+        /// </summary>
+        internal static string ValueLessThan {
+            get {
+                return ResourceManager.GetString("ValueLessThan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 {0} value more than {1} 的本地化字符串。
+        /// </summary>
+        internal static string ValueMoreThan {
+            get {
+                return ResourceManager.GetString("ValueMoreThan", resourceCulture);
             }
         }
     }

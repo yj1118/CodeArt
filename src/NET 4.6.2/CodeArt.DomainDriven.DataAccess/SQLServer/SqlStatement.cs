@@ -277,11 +277,10 @@ namespace CodeArt.DomainDriven.DataAccess.SQLServer
             switch (level.Code)
             {
                 case QueryLevel.ShareCode: return string.Empty;
-                case QueryLevel.MirroringCode:
                 case QueryLevel.SingleCode: return " with(xlock,rowlock)";
                 case QueryLevel.HoldSingleCode: return " with(xlock,holdlock)";
                 default:
-                    return " with(nolock)";
+                    return " with(nolock)"; //None和Mirror 都是无锁模式
             }
         }
 

@@ -1,0 +1,33 @@
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\bin\Debug\NLog.config
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\bin\Debug\CodeArt.ServiceModel.MQ.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\bin\Debug\CodeArt.ServiceModel.MQ.pdb
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\bin\Debug\CodeArt.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\bin\Debug\NLog.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\bin\Debug\CodeArt.pdb
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\bin\Debug\NLog.xml
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\bin\Debug\zh-CN\CodeArt.resources.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\obj\Debug\CodeArt.ServiceModel.MQ.csprojResolveAssemblyReference.cache
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\obj\Debug\CodeArt.ServiceModel.MQ.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\obj\Debug\CodeArt.ServiceModel.MQ.pdb
+D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.7\CodeArt.ServiceModel.MQ\bin\Debug\NLog.config
+D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.7\CodeArt.ServiceModel.MQ\bin\Debug\CodeArt.ServiceModel.MQ.dll
+D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.7\CodeArt.ServiceModel.MQ\bin\Debug\CodeArt.ServiceModel.MQ.pdb
+D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.7\CodeArt.ServiceModel.MQ\bin\Debug\CodeArt.dll
+D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.7\CodeArt.ServiceModel.MQ\bin\Debug\NLog.dll
+D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.7\CodeArt.ServiceModel.MQ\bin\Debug\CodeArt.pdb
+D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.7\CodeArt.ServiceModel.MQ\bin\Debug\NLog.xml
+D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.7\CodeArt.ServiceModel.MQ\bin\Debug\zh-CN\CodeArt.resources.dll
+D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.7\CodeArt.ServiceModel.MQ\obj\Debug\CodeArt.ServiceModel.MQ.csprojResolveAssemblyReference.cache
+D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.7\CodeArt.ServiceModel.MQ\obj\Debug\CodeArt.ServiceModel.MQ.dll
+D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.7\CodeArt.ServiceModel.MQ\obj\Debug\CodeArt.ServiceModel.MQ.pdb
+D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.6.2\CodeArt.ServiceModel.MQ\bin\Debug\NLog.config
+D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.6.2\CodeArt.ServiceModel.MQ\bin\Debug\CodeArt.ServiceModel.MQ.dll
+D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.6.2\CodeArt.ServiceModel.MQ\bin\Debug\CodeArt.ServiceModel.MQ.pdb
+D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.6.2\CodeArt.ServiceModel.MQ\bin\Debug\CodeArt.dll
+D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.6.2\CodeArt.ServiceModel.MQ\bin\Debug\NLog.dll
+D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.6.2\CodeArt.ServiceModel.MQ\bin\Debug\CodeArt.pdb
+D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.6.2\CodeArt.ServiceModel.MQ\bin\Debug\NLog.xml
+D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.6.2\CodeArt.ServiceModel.MQ\bin\Debug\zh-CN\CodeArt.resources.dll
+D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.6.2\CodeArt.ServiceModel.MQ\obj\Debug\CodeArt.ServiceModel.MQ.csprojResolveAssemblyReference.cache
+D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.6.2\CodeArt.ServiceModel.MQ\obj\Debug\CodeArt.ServiceModel.MQ.dll
+D:\Workspace\Release\GitHub\CodeArt Framework\src\NET 4.6.2\CodeArt.ServiceModel.MQ\obj\Debug\CodeArt.ServiceModel.MQ.pdb

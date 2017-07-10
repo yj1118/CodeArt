@@ -66,5 +66,40 @@ namespace CodeArt.DomainDriven
         /// 删除之后
         /// </summary>
         void OnDeleted();
+
+        /// <summary>
+        /// 提交增加操作之前
+        /// </summary>
+        event RepositoryEventHandler AddPreCommit;
+
+        /// <summary>
+        void OnAddPreCommit();
+
+        event RepositoryEventHandler AddCommitted;
+        void OnAddCommitted();
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        event RepositoryEventHandler UpdatePreCommit;
+
+        /// <summary>
+        void OnUpdatePreCommit();
+
+        event RepositoryEventHandler UpdateCommitted;
+        void OnUpdateCommitted();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        event RepositoryEventHandler DeletePreCommit;
+
+        /// <summary>
+        void OnDeletePreCommit();
+
+        event RepositoryEventHandler DeleteCommitted;
+        void OnDeleteCommitted();
+
     }
 }

@@ -390,6 +390,8 @@ namespace CodeArt.DomainDriven
 
         #endregion
 
+        private object _syncObject = new object();
+
         #region 数据代理
 
         private IDataProxy _dataProxy;
@@ -399,7 +401,7 @@ namespace CodeArt.DomainDriven
             {
                 if (_dataProxy == null)
                 {
-                    lock(this)
+                    lock(_syncObject)
                     {
                         if (_dataProxy == null)
                         {
@@ -740,7 +742,7 @@ namespace CodeArt.DomainDriven
                 this.Constructed(this, args);
             }
             //执行边界事件
-            DomainContext.Execute(this.ObjectType, DomainEvent.Constructed, this);
+            StatusEvent.Execute(this.ObjectType, StatusEventType.Constructed, this);
         }
 
         #endregion
@@ -758,7 +760,7 @@ namespace CodeArt.DomainDriven
                 this.Changed(this, args);
             }
             //执行边界事件
-            DomainContext.Execute(this.ObjectType, DomainEvent.Changed, this);
+            StatusEvent.Execute(this.ObjectType, StatusEventType.Changed, this);
         }
 
         #region 辅助
