@@ -1,61 +1,43 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.13
+VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework", "Framework", "{99ECAE38-204D-4947-B45A-6B4F8C963C2E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt", "..\..\..\src\NET 4.7\CodeArt\CodeArt.csproj", "{D2C9F430-6B47-482A-A49C-A2478D75F95F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.DomainDriven", "..\..\..\src\NET 4.7\CodeArt.DomainDriven\CodeArt.DomainDriven.csproj", "{F62D7792-F4EE-4924-898E-C56309E6DFC2}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.DomainDriven.DataAccess", "..\..\..\src\NET 4.7\CodeArt.DomainDriven.DataAccess\CodeArt.DomainDriven.DataAccess.csproj", "{C0BAC0EB-7068-42AF-ACAC-09DF677CF980}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.DomainDriven.Extensions", "..\..\..\src\NET 4.7\CodeArt.DomainDriven.Extensions\CodeArt.DomainDriven.Extensions.csproj", "{A45A1E35-6CE5-42C2-8FD3-19CE5B0BD5D6}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.ServiceModel", "..\..\..\src\NET 4.7\CodeArt.ServiceModel\CodeArt.ServiceModel.csproj", "{EA6365F1-C027-416B-B4CC-A94572B5FC19}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Subsystems", "Subsystems", "{5F589A1E-007A-4A15-BE6D-EEB69A7DBCFC}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountSubsystem", "..\..\Subsystems\AccountSubsystem\AccountSubsystem\AccountSubsystem.csproj", "{F9F4EF44-D894-4B0C-8A6F-AE422D98576C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortalService.Application", "PortalService.Application\PortalService.Application.csproj", "{10F7C080-CF92-4AF1-B12A-32B55FBDFA34}"
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "http://portal.services.codeart.cn", "http://portal.services.codeart.cn", "{F9945899-4DE8-436F-97AC-05C1A79E4692}"
-	ProjectSection(WebsiteProperties) = preProject
-		SccProjectName = "SAK"
-		SccAuxPath = "SAK"
-		SccLocalPath = "SAK"
-		SccProvider = "SAK"
-		UseIISExpress = "false"
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.6.2"
-		ProjectReferences = "{d2c9f430-6b47-482a-a49c-a2478d75f95f}|CodeArt.dll;{ea6365f1-c027-416b-b4cc-a94572b5fc19}|CodeArt.ServiceModel.dll;{10f7c080-cf92-4af1-b12a-32b55fbdfa34}|PortalService.Application.dll;{f62d7792-f4ee-4924-898e-c56309e6dfc2}|CodeArt.DomainDriven.dll;{c0bac0eb-7068-42af-acac-09df677cf980}|CodeArt.DomainDriven.DataAccess.dll;{a45a1e35-6ce5-42c2-8fd3-19ce5b0bd5d6}|CodeArt.DomainDriven.Extensions.dll;{f9f4ef44-d894-4b0c-8a6f-ae422d98576c}|AccountSubsystem.dll;{95cb7257-5ce9-477f-8239-a2b57eaf89ad}|CodeArt.ServiceModel.Web.dll;{FC477F23-2BCC-4917-841E-691726EB0894}|CodeArt.Web.dll;"
-		Debug.AspNetCompiler.VirtualPath = "/portal.services.codeart.cn"
-		Debug.AspNetCompiler.PhysicalPath = "..\..\..\..\..\..\Projects\Services Framework\PortalService\ServiceWeb\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\portal.services.codeart.cn\"
-		Debug.AspNetCompiler.Updateable = "true"
-		Debug.AspNetCompiler.ForceOverwrite = "true"
-		Debug.AspNetCompiler.FixedNames = "false"
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/portal.services.codeart.cn"
-		Release.AspNetCompiler.PhysicalPath = "..\..\..\..\..\..\Projects\Services Framework\PortalService\ServiceWeb\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\portal.services.codeart.cn\"
-		Release.AspNetCompiler.Updateable = "true"
-		Release.AspNetCompiler.ForceOverwrite = "true"
-		Release.AspNetCompiler.FixedNames = "false"
-		Release.AspNetCompiler.Debug = "False"
-		SlnRelativePath = "..\..\..\..\..\..\Projects\Services Framework\PortalService\ServiceWeb\"
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortalServiceTest", "PortalServiceTest\PortalServiceTest.csproj", "{F9142CEE-15A4-412A-BF43-F6C6BBFF538D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.TestTools", "..\..\..\src\NET 4.7\CodeArt.TestTools\CodeArt.TestTools.csproj", "{A55DD9DB-5254-4D31-888D-05474318035D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortalService", "PortalService\PortalService.csproj", "{1E5CEFF5-C803-4632-8E65-85CF3E5CE672}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.TestTools.ServiceModel", "..\..\..\src\NET 4.7\CodeArt.TestTools.ServiceModel\CodeArt.TestTools.ServiceModel.csproj", "{986A39BB-38B7-4C33-A61E-C635885088F8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProtalServiceClientDemo", "ProtalServiceClientDemo\ProtalServiceClientDemo.csproj", "{76BD9F98-6924-4D4C-8FB1-B7264C00CCD8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.Web", "..\..\..\src\NET 4.7\CodeArt.Web\CodeArt.Web.csproj", "{FC477F23-2BCC-4917-841E-691726EB0894}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt", "..\..\..\src\CodeArt\CodeArt.csproj", "{D2C9F430-6B47-482A-A49C-A2478D75F95F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.ServiceModel.Web", "..\..\..\src\NET 4.7\CodeArt.ServiceModel.Web\CodeArt.ServiceModel.Web.csproj", "{95CB7257-5CE9-477F-8239-A2B57EAF89AD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.DomainDriven", "..\..\..\src\CodeArt.DomainDriven\CodeArt.DomainDriven.csproj", "{F62D7792-F4EE-4924-898E-C56309E6DFC2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.DomainDriven.DataAccess", "..\..\..\src\CodeArt.DomainDriven.DataAccess\CodeArt.DomainDriven.DataAccess.csproj", "{C0BAC0EB-7068-42AF-ACAC-09DF677CF980}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.DomainDriven.Extensions", "..\..\..\src\CodeArt.DomainDriven.Extensions\CodeArt.DomainDriven.Extensions.csproj", "{A45A1E35-6CE5-42C2-8FD3-19CE5B0BD5D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.EasyMQ", "..\..\..\src\CodeArt.EasyMQ\CodeArt.EasyMQ.csproj", "{AFB15952-0DFA-4919-9D4B-46C2737654EC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.RabbitMQ", "..\..\..\src\CodeArt.RabbitMQ\CodeArt.RabbitMQ.csproj", "{89C4BA5C-358B-4095-8FD2-0BAE32C2178E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.ServiceModel", "..\..\..\src\CodeArt.ServiceModel\CodeArt.ServiceModel.csproj", "{EA6365F1-C027-416B-B4CC-A94572B5FC19}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.ServiceModel.MQ", "..\..\..\src\CodeArt.ServiceModel.MQ\CodeArt.ServiceModel.MQ.csproj", "{CEBC603E-59AD-4BD7-839D-CCFE7C0841B1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.TestTools", "..\..\..\src\CodeArt.TestTools\CodeArt.TestTools.csproj", "{A55DD9DB-5254-4D31-888D-05474318035D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.TestTools.ServiceModel", "..\..\..\src\CodeArt.TestTools.ServiceModel\CodeArt.TestTools.ServiceModel.csproj", "{986A39BB-38B7-4C33-A61E-C635885088F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.Web", "..\..\..\src\CodeArt.Web\CodeArt.Web.csproj", "{FC477F23-2BCC-4917-841E-691726EB0894}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountSubsystem", "..\..\Subsystems\AccountSubsystem\AccountSubsystem\AccountSubsystem.csproj", "{F9F4EF44-D894-4B0C-8A6F-AE422D98576C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +45,22 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{10F7C080-CF92-4AF1-B12A-32B55FBDFA34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10F7C080-CF92-4AF1-B12A-32B55FBDFA34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10F7C080-CF92-4AF1-B12A-32B55FBDFA34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10F7C080-CF92-4AF1-B12A-32B55FBDFA34}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9142CEE-15A4-412A-BF43-F6C6BBFF538D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9142CEE-15A4-412A-BF43-F6C6BBFF538D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9142CEE-15A4-412A-BF43-F6C6BBFF538D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9142CEE-15A4-412A-BF43-F6C6BBFF538D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E5CEFF5-C803-4632-8E65-85CF3E5CE672}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E5CEFF5-C803-4632-8E65-85CF3E5CE672}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E5CEFF5-C803-4632-8E65-85CF3E5CE672}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E5CEFF5-C803-4632-8E65-85CF3E5CE672}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76BD9F98-6924-4D4C-8FB1-B7264C00CCD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76BD9F98-6924-4D4C-8FB1-B7264C00CCD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76BD9F98-6924-4D4C-8FB1-B7264C00CCD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76BD9F98-6924-4D4C-8FB1-B7264C00CCD8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D2C9F430-6B47-482A-A49C-A2478D75F95F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D2C9F430-6B47-482A-A49C-A2478D75F95F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D2C9F430-6B47-482A-A49C-A2478D75F95F}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -79,26 +77,22 @@ Global
 		{A45A1E35-6CE5-42C2-8FD3-19CE5B0BD5D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A45A1E35-6CE5-42C2-8FD3-19CE5B0BD5D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A45A1E35-6CE5-42C2-8FD3-19CE5B0BD5D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFB15952-0DFA-4919-9D4B-46C2737654EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFB15952-0DFA-4919-9D4B-46C2737654EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFB15952-0DFA-4919-9D4B-46C2737654EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFB15952-0DFA-4919-9D4B-46C2737654EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89C4BA5C-358B-4095-8FD2-0BAE32C2178E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89C4BA5C-358B-4095-8FD2-0BAE32C2178E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89C4BA5C-358B-4095-8FD2-0BAE32C2178E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89C4BA5C-358B-4095-8FD2-0BAE32C2178E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EA6365F1-C027-416B-B4CC-A94572B5FC19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EA6365F1-C027-416B-B4CC-A94572B5FC19}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EA6365F1-C027-416B-B4CC-A94572B5FC19}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EA6365F1-C027-416B-B4CC-A94572B5FC19}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F9F4EF44-D894-4B0C-8A6F-AE422D98576C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F9F4EF44-D894-4B0C-8A6F-AE422D98576C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F9F4EF44-D894-4B0C-8A6F-AE422D98576C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F9F4EF44-D894-4B0C-8A6F-AE422D98576C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{10F7C080-CF92-4AF1-B12A-32B55FBDFA34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{10F7C080-CF92-4AF1-B12A-32B55FBDFA34}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{10F7C080-CF92-4AF1-B12A-32B55FBDFA34}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{10F7C080-CF92-4AF1-B12A-32B55FBDFA34}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F9945899-4DE8-436F-97AC-05C1A79E4692}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F9945899-4DE8-436F-97AC-05C1A79E4692}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F9945899-4DE8-436F-97AC-05C1A79E4692}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{F9945899-4DE8-436F-97AC-05C1A79E4692}.Release|Any CPU.Build.0 = Debug|Any CPU
-		{F9142CEE-15A4-412A-BF43-F6C6BBFF538D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F9142CEE-15A4-412A-BF43-F6C6BBFF538D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F9142CEE-15A4-412A-BF43-F6C6BBFF538D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F9142CEE-15A4-412A-BF43-F6C6BBFF538D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CEBC603E-59AD-4BD7-839D-CCFE7C0841B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEBC603E-59AD-4BD7-839D-CCFE7C0841B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEBC603E-59AD-4BD7-839D-CCFE7C0841B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEBC603E-59AD-4BD7-839D-CCFE7C0841B1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A55DD9DB-5254-4D31-888D-05474318035D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A55DD9DB-5254-4D31-888D-05474318035D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A55DD9DB-5254-4D31-888D-05474318035D}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -111,10 +105,10 @@ Global
 		{FC477F23-2BCC-4917-841E-691726EB0894}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC477F23-2BCC-4917-841E-691726EB0894}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC477F23-2BCC-4917-841E-691726EB0894}.Release|Any CPU.Build.0 = Release|Any CPU
-		{95CB7257-5CE9-477F-8239-A2B57EAF89AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{95CB7257-5CE9-477F-8239-A2B57EAF89AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{95CB7257-5CE9-477F-8239-A2B57EAF89AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{95CB7257-5CE9-477F-8239-A2B57EAF89AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9F4EF44-D894-4B0C-8A6F-AE422D98576C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9F4EF44-D894-4B0C-8A6F-AE422D98576C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9F4EF44-D894-4B0C-8A6F-AE422D98576C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9F4EF44-D894-4B0C-8A6F-AE422D98576C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -124,11 +118,13 @@ Global
 		{F62D7792-F4EE-4924-898E-C56309E6DFC2} = {99ECAE38-204D-4947-B45A-6B4F8C963C2E}
 		{C0BAC0EB-7068-42AF-ACAC-09DF677CF980} = {99ECAE38-204D-4947-B45A-6B4F8C963C2E}
 		{A45A1E35-6CE5-42C2-8FD3-19CE5B0BD5D6} = {99ECAE38-204D-4947-B45A-6B4F8C963C2E}
+		{AFB15952-0DFA-4919-9D4B-46C2737654EC} = {99ECAE38-204D-4947-B45A-6B4F8C963C2E}
+		{89C4BA5C-358B-4095-8FD2-0BAE32C2178E} = {99ECAE38-204D-4947-B45A-6B4F8C963C2E}
 		{EA6365F1-C027-416B-B4CC-A94572B5FC19} = {99ECAE38-204D-4947-B45A-6B4F8C963C2E}
-		{F9F4EF44-D894-4B0C-8A6F-AE422D98576C} = {5F589A1E-007A-4A15-BE6D-EEB69A7DBCFC}
+		{CEBC603E-59AD-4BD7-839D-CCFE7C0841B1} = {99ECAE38-204D-4947-B45A-6B4F8C963C2E}
 		{A55DD9DB-5254-4D31-888D-05474318035D} = {99ECAE38-204D-4947-B45A-6B4F8C963C2E}
 		{986A39BB-38B7-4C33-A61E-C635885088F8} = {99ECAE38-204D-4947-B45A-6B4F8C963C2E}
 		{FC477F23-2BCC-4917-841E-691726EB0894} = {99ECAE38-204D-4947-B45A-6B4F8C963C2E}
-		{95CB7257-5CE9-477F-8239-A2B57EAF89AD} = {99ECAE38-204D-4947-B45A-6B4F8C963C2E}
+		{F9F4EF44-D894-4B0C-8A6F-AE422D98576C} = {5F589A1E-007A-4A15-BE6D-EEB69A7DBCFC}
 	EndGlobalSection
 EndGlobal

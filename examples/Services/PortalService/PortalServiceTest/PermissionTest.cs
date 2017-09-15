@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using CodeArt.TestTools;
 using CodeArt.DTO;
+using CodeArt.DomainDriven.DataAccess;
 
 namespace PortalServiceTest
 {

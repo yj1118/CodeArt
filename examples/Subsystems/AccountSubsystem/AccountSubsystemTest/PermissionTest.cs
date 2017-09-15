@@ -13,7 +13,7 @@ namespace AccountSubsystemTest
     {
         protected override void PreEnterScene()
         {
-            //进入场景之前，注册仓储
+            //进入场景之前
             DataPortal.RuntimeBuild();
         }
 

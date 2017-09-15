@@ -21,10 +21,9 @@ D:\Workspace\Projects\Services Framework\PortalService\PortalServiceTest\bin\Rel
 D:\Workspace\Projects\Services Framework\PortalService\PortalServiceTest\bin\Release\PortalService.Application.dll
 D:\Workspace\Projects\Services Framework\PortalService\PortalServiceTest\bin\Release\Microsoft.SqlServer.TransactSql.ScriptDom.dll
 D:\Workspace\Projects\Services Framework\PortalService\PortalServiceTest\bin\Release\Dapper.dll
-D:\Workspace\Projects\Services Framework\PortalService\PortalServiceTest\bin\Release\System.ValueTuple.dll
+D:\Workspace\Projects\Services Framework\PortalService\PortalServiceTest\bin\Release\CodeArt.EasyMQ.dll
 D:\Workspace\Projects\Services Framework\PortalService\PortalServiceTest\bin\Release\NLog.dll
 D:\Workspace\Projects\Services Framework\PortalService\PortalServiceTest\bin\Release\CodeArt.DomainDriven.DataAccess.pdb
-D:\Workspace\Projects\Services Framework\PortalService\PortalServiceTest\bin\Release\CodeArt.DomainDriven.DataAccess.dll.config
 D:\Workspace\Projects\Services Framework\PortalService\PortalServiceTest\bin\Release\CodeArt.DomainDriven.Extensions.pdb
 D:\Workspace\Projects\Services Framework\PortalService\PortalServiceTest\bin\Release\CodeArt.DomainDriven.pdb
 D:\Workspace\Projects\Services Framework\PortalService\PortalServiceTest\bin\Release\CodeArt.ServiceModel.pdb
@@ -36,6 +35,7 @@ D:\Workspace\Projects\Services Framework\PortalService\PortalServiceTest\bin\Rel
 D:\Workspace\Projects\Services Framework\PortalService\PortalServiceTest\bin\Release\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
 D:\Workspace\Projects\Services Framework\PortalService\PortalServiceTest\bin\Release\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
 D:\Workspace\Projects\Services Framework\PortalService\PortalServiceTest\bin\Release\Dapper.xml
+D:\Workspace\Projects\Services Framework\PortalService\PortalServiceTest\bin\Release\CodeArt.EasyMQ.pdb
 D:\Workspace\Projects\Services Framework\PortalService\PortalServiceTest\bin\Release\NLog.xml
 D:\Workspace\Projects\Services Framework\PortalService\PortalServiceTest\bin\Release\zh-CN\CodeArt.DomainDriven.DataAccess.resources.dll
 D:\Workspace\Projects\Services Framework\PortalService\PortalServiceTest\bin\Release\zh-CN\CodeArt.DomainDriven.Extensions.resources.dll
@@ -54,6 +54,7 @@ D:\Workspace\Projects\Services Framework\PortalService\PortalServiceTest\bin\Rel
 D:\Workspace\Projects\Services Framework\PortalService\PortalServiceTest\bin\Release\ru\Microsoft.SqlServer.TransactSql.ScriptDom.resources.dll
 D:\Workspace\Projects\Services Framework\PortalService\PortalServiceTest\bin\Release\zh-Hans\Microsoft.SqlServer.TransactSql.ScriptDom.resources.dll
 D:\Workspace\Projects\Services Framework\PortalService\PortalServiceTest\bin\Release\zh-Hant\Microsoft.SqlServer.TransactSql.ScriptDom.resources.dll
+D:\Workspace\Projects\Services Framework\PortalService\PortalServiceTest\bin\Release\zh-CN\CodeArt.EasyMQ.resources.dll
 D:\Workspace\Projects\Services Framework\PortalService\PortalServiceTest\obj\Release\PortalServiceTest.csprojResolveAssemblyReference.cache
 D:\Workspace\Projects\Services Framework\PortalService\PortalServiceTest\obj\Release\PortalServiceTest.dll
 D:\Workspace\Projects\Services Framework\PortalService\PortalServiceTest\obj\Release\PortalServiceTest.pdb

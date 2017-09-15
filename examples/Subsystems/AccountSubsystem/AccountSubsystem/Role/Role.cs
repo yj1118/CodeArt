@@ -121,8 +121,7 @@ namespace AccountSubsystem
         /// 角色拥有的权限
         /// </summary>
         [PropertyRepository(Lazy = true)]
-        [NotEmpty()]
-        [List(Max = 100)]
+        [List(Max = 50)]
         public IEnumerable<Permission> Permissions
         {
             get
@@ -207,31 +206,33 @@ namespace AccountSubsystem
             {
                 return GetValue<bool>(IsSystemProperty);
             }
-            set
+            private set
             {
                 SetValue(IsSystemProperty, value);
             }
         }
 
-        public Role(Guid id, Organization organization)
+        public Role(Guid id, Organization organization, bool isSystem)
             : base(id)
         {
             this.Organization = organization;
+            this.IsSystem = isSystem;
             this.OnConstructed();
         }
 
 
         [ConstructorRepository()]
-        public Role(Guid id)
+        public Role(Guid id, bool isSystem)
             : base(id)
         {
+            this.IsSystem = isSystem;
             this.OnConstructed();
         }
 
         private class RoleEmpty : Role
         {
             public RoleEmpty()
-                : base(Guid.Empty)
+                : base(Guid.Empty, false)
             {
                 this.OnConstructed();
             }

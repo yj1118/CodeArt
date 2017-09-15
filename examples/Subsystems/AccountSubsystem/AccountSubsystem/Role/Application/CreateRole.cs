@@ -66,12 +66,11 @@ namespace AccountSubsystem
 
         private Role BuildRole(Organization org)
         {
-            Role role = new Role(Guid.NewGuid(), org)
+            Role role = new Role(Guid.NewGuid(), org,_isSystem)
             {
                 Name = _name ?? string.Empty,
                 Description = this.Description ?? string.Empty,
-                MarkedCode = this.MarkedCode ?? string.Empty,
-                IsSystem = _isSystem
+                MarkedCode = this.MarkedCode ?? string.Empty
             };
 
             //为角色分配权限，由于权限和角色的关系是松散的，所以我们不必锁定权限对象

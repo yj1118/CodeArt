@@ -14,7 +14,7 @@ using CodeArt.DomainDriven;
 namespace PortalService.Application
 {
     [SafeAccess]
-    [Service("GetPermissionPage")]
+    [Service("getPermissionPage")]
     public class GetPermissionPage : ServiceProvider
     {
         protected override DTObject DynamicInvoke(dynamic arg)

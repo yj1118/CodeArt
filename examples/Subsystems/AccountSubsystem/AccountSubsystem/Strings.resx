@@ -123,7 +123,13 @@
   <data name="NotChangeOrganization" xml:space="preserve">
     <value>You can not change the organization to which the role {0} belongs</value>
   </data>
+  <data name="NotDeleteSystemRole" xml:space="preserve">
+    <value>Can not delete system role {0}</value>
+  </data>
   <data name="RoleInOrganizationRepeated" xml:space="preserve">
     <value>The role {0} of the organization is repeated</value>
+  </data>
+  <data name="TwicePasswordDifferent" xml:space="preserve">
+    <value>The password entered twice is different</value>
   </data>
 </root>

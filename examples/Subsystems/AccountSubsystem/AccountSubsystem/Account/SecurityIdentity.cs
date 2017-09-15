@@ -3,36 +3,88 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
+using CodeArt.Util;
 using CodeArt.Runtime;
 using CodeArt.DomainDriven;
 
 namespace AccountSubsystem
 {
-    public class SecurityIdentity : EntityObject
+    [ObjectRepository(typeof(IAccountRepository))]
+    public class SecurityIdentity : EntityObject<SecurityIdentity,Guid>
     {
-        private List<Role> _roles;
+        [PropertyRepository()]
+        [List(Max = 30)]
+        private static readonly DomainProperty RolesProperty = DomainProperty.RegisterCollection<Role, Account>("Roles");
 
-        public SecurityIdentity(IList<Role> roles)
+        /// <summary>
+        /// 为账号分配的角色
+        /// </summary>
+        public IEnumerable<Role> Roles
         {
-            _roles = new List<Role>(roles);
+            get
+            {
+                return RolesImpl;
+            }
+            set
+            {
+                this.RolesImpl = new DomainCollection<Role>(RolesProperty, value);
+            }
         }
 
-        public Role[] GetRoles()
+        private DomainCollection<Role> RolesImpl
         {
-            return _roles.ToArray();
+            get
+            {
+                return GetValue<DomainCollection<Role>>(RolesProperty);
+            }
+            set
+            {
+                SetValue(RolesProperty, value);
+            }
         }
 
-        public bool InRole(Role role)
+
+        public void AssignRole(Role role)
         {
-            return _roles.FirstOrDefault((t) =>
+            if (this.RolesImpl.Contains(role)) return;
+            this.RolesImpl.Add(role);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="roles"></param>
+        /// <param name="isOverride">是否覆盖已有的角色</param>
+        public void AssignRoles(IEnumerable<Role> roles)
+        {
+            foreach (var role in roles)
+            {
+                this.AssignRole(role);
+            }
+        }
+
+        public void RemoveRole(Role role)
+        {
+            this.RolesImpl.Remove(role);
+        }
+
+        [ConstructorRepository()]
+        internal SecurityIdentity(Guid id)
+            : base(id)
+        {
+        }
+
+        public bool In(Role role)
+        {
+            return this.RolesImpl.FirstOrDefault((t) =>
             {
                 return t.Equals(role);
             }) != null;
         }
 
-        public bool InRole(string roleMarkedCode)
+        public bool In(string roleMarkedCode)
         {
-            return _roles.FirstOrDefault((t) =>
+            return this.RolesImpl.FirstOrDefault((t) =>
             {
                 return t.MarkedCode.EqualsIgnoreCase(roleMarkedCode);
             }) != null;
@@ -43,26 +95,26 @@ namespace AccountSubsystem
         /// </summary>
         /// <param name="roleMarkedCodes"></param>
         /// <returns></returns>
-        public bool InRoleAnyOne(params string[] roleMarkedCodes)
+        public bool InAnyOne(params string[] roleMarkedCodes)
         {
             foreach(var markedCode in roleMarkedCodes)
             {
-                if (InRole(markedCode)) return true;
+                if (In(markedCode)) return true;
             }
             return false;
         }
 
-        public bool InPermission(Permission permission)
+        public bool Contains(Permission permission)
         {
-            return _roles.FirstOrDefault((t) =>
+            return this.RolesImpl.FirstOrDefault((t) =>
             {
                 return t.InPermission(permission);
             }) != null;
         }
 
-        public bool InPermission(string permissionMarkedCode)
+        public bool Contains(string permissionMarkedCode)
         {
-            return _roles.FirstOrDefault((t) =>
+            return this.RolesImpl.FirstOrDefault((t) =>
             {
                 return t.InPermission(permissionMarkedCode);
             }) != null;
@@ -73,39 +125,33 @@ namespace AccountSubsystem
         /// </summary>
         /// <param name="roleMarkedCodes"></param>
         /// <returns></returns>
-        public bool InPermissionAnyOne(params string[] permissionMarkedCodes)
+        public bool ContainsAnyOne(params string[] permissionMarkedCodes)
         {
-            return _roles.FirstOrDefault((t) =>
+            return this.RolesImpl.FirstOrDefault((t) =>
             {
                 return t.InPermissionAnyOne(permissionMarkedCodes);
             }) != null;
         }
 
-        public bool Is<T>() where T : class,IIdentityProvider
+        #region 空对象
+
+        private class SecurityIdentityEmpty : SecurityIdentity
         {
-            var proxy = IdentityRegistrar.GetProxy<T>();
-            return InRole(proxy.RoleMC);
+            public SecurityIdentityEmpty()
+                : base(Guid.Empty)
+            {
+                this.OnConstructed();
+            }
+
+            public override bool IsEmpty()
+            {
+                return true;
+            }
         }
 
-        public override bool IsEmpty()
-        {
-            return _roles.Count == 0;
-        }
+        public static readonly SecurityIdentity Empty = new SecurityIdentityEmpty();
 
-        public SecurityIdentity AddRoles(IList<Role> roles)
-        {
-            List<Role> newRoles = _roles.Concat(roles).Distinct().ToList();
-            return new SecurityIdentity(newRoles);
-        }
-
-        public SecurityIdentity RemoveRole(Role role)
-        {
-            if (!InRole(role)) throw new DomainDrivenException("无法移除不存在的角色");
-            _roles.Remove(role);
-            return new SecurityIdentity(_roles);
-        }
-
-        public static readonly SecurityIdentity Empty = new SecurityIdentity(new List<Role>());
+        #endregion
 
     }
 }

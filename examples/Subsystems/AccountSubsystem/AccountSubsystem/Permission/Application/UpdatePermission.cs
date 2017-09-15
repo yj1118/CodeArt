@@ -36,7 +36,7 @@ namespace AccountSubsystem
         protected override Permission ExecuteProcedure()
         {
             IPermissionRepository repository = Repository.Create<IPermissionRepository>();
-            Permission permission = repository.Find(_id, QueryLevel.None);
+            Permission permission = repository.Find(_id, QueryLevel.Single);
 
             if (this.Name != null) permission.Name = this.Name;
             if (this.Description != null) permission.Description = this.Description;

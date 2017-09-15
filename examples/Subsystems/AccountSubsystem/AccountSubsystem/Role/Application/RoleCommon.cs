@@ -23,10 +23,10 @@ namespace AccountSubsystem
             return repository.FindByMarkedCode(markedCode, level);
         }
 
-        public static IEnumerable<Role> FindsBy(IEnumerable<Guid> ids, QueryLevel level)
+        public static IEnumerable<Role> FindsBy(IEnumerable<Guid> ids)
         {
             var repository = Repository.Create<IRoleRepository>();
-            return repository.FindRoles(ids, level);
+            return repository.FindRoles(ids);
         }
 
         public static Page<Role> FindPage(Guid organizationId, string name, int pageIndex, int pageSize)

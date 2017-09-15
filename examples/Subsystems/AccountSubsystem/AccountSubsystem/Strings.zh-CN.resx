@@ -123,7 +123,13 @@
   <data name="NotChangeOrganization" xml:space="preserve">
     <value>不能更改角色 {0} 所属的组织</value>
   </data>
+  <data name="NotDeleteSystemRole" xml:space="preserve">
+    <value>不能删除系统角色{0}</value>
+  </data>
   <data name="RoleInOrganizationRepeated" xml:space="preserve">
     <value>组织下的角色 {0} 重复</value>
+  </data>
+  <data name="TwicePasswordDifferent" xml:space="preserve">
+    <value>两次输入的密码不同</value>
   </data>
 </root>

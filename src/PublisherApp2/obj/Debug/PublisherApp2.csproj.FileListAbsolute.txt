@@ -1,0 +1,44 @@
+D:\Workspace\Projects\CodeArt Framework\CodeArt\PublisherApp2\bin\Debug\NLog.config
+D:\Workspace\Projects\CodeArt Framework\CodeArt\PublisherApp2\bin\Debug\PublisherApp2.exe.config
+D:\Workspace\Projects\CodeArt Framework\CodeArt\PublisherApp2\bin\Debug\PublisherApp2.exe
+D:\Workspace\Projects\CodeArt Framework\CodeArt\PublisherApp2\bin\Debug\PublisherApp2.pdb
+D:\Workspace\Projects\CodeArt Framework\CodeArt\PublisherApp2\bin\Debug\CodeArt.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\PublisherApp2\bin\Debug\CodeArt.EasyMQ.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\PublisherApp2\bin\Debug\CodeArt.RabbitMQ.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\PublisherApp2\bin\Debug\RabbitMQ.Client.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\PublisherApp2\bin\Debug\NLog.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\PublisherApp2\bin\Debug\CodeArt.EasyMQ.pdb
+D:\Workspace\Projects\CodeArt Framework\CodeArt\PublisherApp2\bin\Debug\CodeArt.RabbitMQ.pdb
+D:\Workspace\Projects\CodeArt Framework\CodeArt\PublisherApp2\bin\Debug\CodeArt.pdb
+D:\Workspace\Projects\CodeArt Framework\CodeArt\PublisherApp2\bin\Debug\RabbitMQ.Client.xml
+D:\Workspace\Projects\CodeArt Framework\CodeArt\PublisherApp2\bin\Debug\NLog.xml
+D:\Workspace\Projects\CodeArt Framework\CodeArt\PublisherApp2\bin\Debug\zh-CN\CodeArt.EasyMQ.resources.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\PublisherApp2\bin\Debug\zh-CN\CodeArt.RabbitMQ.resources.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\PublisherApp2\bin\Debug\zh-CN\CodeArt.resources.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\PublisherApp2\obj\Debug\PublisherApp2.csprojResolveAssemblyReference.cache
+D:\Workspace\Projects\CodeArt Framework\CodeArt\PublisherApp2\obj\Debug\PublisherApp2.exe
+D:\Workspace\Projects\CodeArt Framework\CodeArt\PublisherApp2\obj\Debug\PublisherApp2.pdb
+D:\Workspace\Projects\CodeArt Framework\CodeArt\PublisherApp2\bin\Debug\Microsoft.Diagnostics.Tracing.EventSource.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\PublisherApp2\bin\Debug\Microsoft.Diagnostics.Tracing.EventSource.xml
+D:\Workspace\Projects\Temp\CodeArt\PublisherApp2\bin\Debug\NLog.config
+D:\Workspace\Projects\Temp\CodeArt\PublisherApp2\bin\Debug\PublisherApp2.exe.config
+D:\Workspace\Projects\Temp\CodeArt\PublisherApp2\bin\Debug\PublisherApp2.exe
+D:\Workspace\Projects\Temp\CodeArt\PublisherApp2\bin\Debug\PublisherApp2.pdb
+D:\Workspace\Projects\Temp\CodeArt\PublisherApp2\bin\Debug\CodeArt.dll
+D:\Workspace\Projects\Temp\CodeArt\PublisherApp2\bin\Debug\CodeArt.EasyMQ.dll
+D:\Workspace\Projects\Temp\CodeArt\PublisherApp2\bin\Debug\CodeArt.RabbitMQ.dll
+D:\Workspace\Projects\Temp\CodeArt\PublisherApp2\bin\Debug\RabbitMQ.Client.dll
+D:\Workspace\Projects\Temp\CodeArt\PublisherApp2\bin\Debug\NLog.dll
+D:\Workspace\Projects\Temp\CodeArt\PublisherApp2\bin\Debug\Microsoft.Diagnostics.Tracing.EventSource.dll
+D:\Workspace\Projects\Temp\CodeArt\PublisherApp2\bin\Debug\CodeArt.EasyMQ.pdb
+D:\Workspace\Projects\Temp\CodeArt\PublisherApp2\bin\Debug\CodeArt.RabbitMQ.pdb
+D:\Workspace\Projects\Temp\CodeArt\PublisherApp2\bin\Debug\CodeArt.pdb
+D:\Workspace\Projects\Temp\CodeArt\PublisherApp2\bin\Debug\RabbitMQ.Client.xml
+D:\Workspace\Projects\Temp\CodeArt\PublisherApp2\bin\Debug\NLog.xml
+D:\Workspace\Projects\Temp\CodeArt\PublisherApp2\bin\Debug\Microsoft.Diagnostics.Tracing.EventSource.xml
+D:\Workspace\Projects\Temp\CodeArt\PublisherApp2\bin\Debug\zh-CN\CodeArt.EasyMQ.resources.dll
+D:\Workspace\Projects\Temp\CodeArt\PublisherApp2\bin\Debug\zh-CN\CodeArt.RabbitMQ.resources.dll
+D:\Workspace\Projects\Temp\CodeArt\PublisherApp2\bin\Debug\zh-CN\CodeArt.resources.dll
+D:\Workspace\Projects\Temp\CodeArt\PublisherApp2\obj\Debug\PublisherApp2.csprojResolveAssemblyReference.cache
+D:\Workspace\Projects\Temp\CodeArt\PublisherApp2\obj\Debug\PublisherApp2.exe
+D:\Workspace\Projects\Temp\CodeArt\PublisherApp2\obj\Debug\PublisherApp2.pdb

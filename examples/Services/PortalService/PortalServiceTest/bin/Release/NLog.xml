@@ -12584,6 +12584,11 @@
             Initializes a new instance of the <see cref="T:NLog.Layouts.JsonLayout"/> class.
             </summary>
         </member>
+        <member name="M:NLog.Layouts.JsonLayout.InitializeLayout">
+            <summary>
+            Initializes the layout.
+            </summary>
+        </member>
         <member name="M:NLog.Layouts.JsonLayout.RenderFormattedMessage(NLog.LogEventInfo,System.Text.StringBuilder)">
             <summary>
             Formats the log event as a JSON document for writing.

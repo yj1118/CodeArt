@@ -1,0 +1,6 @@
+2017-05-28 21:07:33.5371 FATAL 消息：已关闭 Safe handle；堆栈：   在 System.Threading.WaitHandle.WaitOneNative(SafeHandle waitableSafeHandle, UInt32 millisecondsTimeout, Boolean hasThreadAffinity, Boolean exitContext)
+   在 System.Threading.WaitHandle.InternalWaitOne(SafeHandle waitableSafeHandle, Int64 millisecondsTimeout, Boolean hasThreadAffinity, Boolean exitContext)
+   在 System.Threading.WaitHandle.WaitOne(Int32 millisecondsTimeout, Boolean exitContext)
+   在 System.Threading.WaitHandle.WaitOne()
+   在 CodeArt.Concurrent.MediaDelayer.Sleep(Int32 intervalMilliseconds) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Concurrent\Timer\MediaDelayer.cs:行号 30
+   在 CodeArt.Concurrent.Pattern.IntervalAction.InternalAction() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Concurrent\Pattern\IntervalAction.cs:行号 76

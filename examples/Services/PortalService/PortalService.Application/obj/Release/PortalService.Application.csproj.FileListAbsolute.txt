@@ -6,15 +6,15 @@ D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application
 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\bin\Release\CodeArt.DomainDriven.DataAccess.dll
 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\bin\Release\CodeArt.DomainDriven.dll
 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\bin\Release\CodeArt.DomainDriven.Extensions.dll
+D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\bin\Release\CodeArt.EasyMQ.dll
 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\bin\Release\CodeArt.ServiceModel.dll
 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\bin\Release\Microsoft.SqlServer.TransactSql.ScriptDom.dll
 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\bin\Release\Dapper.dll
-D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\bin\Release\System.ValueTuple.dll
 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\bin\Release\NLog.dll
 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\bin\Release\CodeArt.DomainDriven.DataAccess.pdb
-D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\bin\Release\CodeArt.DomainDriven.DataAccess.dll.config
 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\bin\Release\CodeArt.DomainDriven.Extensions.pdb
 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\bin\Release\CodeArt.DomainDriven.pdb
+D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\bin\Release\CodeArt.EasyMQ.pdb
 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\bin\Release\CodeArt.ServiceModel.pdb
 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\bin\Release\CodeArt.pdb
 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\bin\Release\AccountSubsystem.pdb
@@ -23,6 +23,7 @@ D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application
 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\bin\Release\zh-CN\CodeArt.DomainDriven.DataAccess.resources.dll
 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\bin\Release\zh-CN\CodeArt.DomainDriven.Extensions.resources.dll
 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\bin\Release\zh-CN\CodeArt.DomainDriven.resources.dll
+D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\bin\Release\zh-CN\CodeArt.EasyMQ.resources.dll
 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\bin\Release\zh-CN\CodeArt.ServiceModel.resources.dll
 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\bin\Release\zh-CN\CodeArt.resources.dll
 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\bin\Release\zh-CN\AccountSubsystem.resources.dll

@@ -6,11 +6,25 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CodeArt.TestTools;
 using CodeArt.DTO;
 
+using CodeArt.DomainDriven.DataAccess;
+
 namespace PortalServiceTest
 {
     [TestClass]
     public class RoleTest : ServiceStage
     {
+        protected override void EachTestInitialize()
+        {
+            //DataPortal.RuntimeBuild();
+           // DataPortal.Dispose();
+        }
+
+        protected override void EachTestCleanup()
+        {
+            
+        }
+
+
         [TestMethod]
         public void AddAndDeleteRoleWithNoPermissionNoOrg()
         {

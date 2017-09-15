@@ -84,7 +84,7 @@ namespace AccountSubsystem
         }
 
         /// <summary>
-        /// 判断该组织是否拥有指定的权限集合
+        /// 判断该组织是否拥有指定的权限集合（一个人都不能少）
         /// </summary>
         /// <param name="targets"></param>
         /// <returns></returns>
@@ -159,7 +159,7 @@ namespace AccountSubsystem
 
 
         /// <summary>
-        /// 删除所有角色，当组织被删除之前，会删除所有的角色
+        /// 删除所有角色，当组织被删除之前会删除所有的角色
         /// </summary>
         private void DeleteRoles()
         {
@@ -192,9 +192,6 @@ namespace AccountSubsystem
             //删除组织之前，需要删除该组织下的所有角色
             DeleteRoles();
         }
-
-
-
 
         #region 空对象
 

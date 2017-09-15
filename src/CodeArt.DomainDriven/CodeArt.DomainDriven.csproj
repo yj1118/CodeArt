@@ -1,0 +1,258 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F62D7792-F4EE-4924-898E-C56309E6DFC2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CodeArt.DomainDriven</RootNamespace>
+    <AssemblyName>CodeArt.DomainDriven</AssemblyName>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Application\PreApplicationEnd.cs" />
+    <Compile Include="Command\CommandBase.cs" />
+    <Compile Include="Command\CommandEventHandler.cs" />
+    <Compile Include="Command\CommandEventArgs.cs" />
+    <Compile Include="Command\CommandFailedEventArgs.cs" />
+    <Compile Include="Command\CommandFailedEventHandler.cs" />
+    <Compile Include="Command\EventCommand.cs" />
+    <Compile Include="DomainBuffer\BufferConfig.cs" />
+    <Compile Include="DomainBuffer\BufferEntry.cs" />
+    <Compile Include="DomainBuffer\DomainBuffer.cs" />
+    <Compile Include="DomainBuffer\IDomainBuffer.cs" />
+    <Compile Include="DomainBuffer\Memory\MemoryBuffer.cs" />
+    <Compile Include="DataContextException.cs" />
+    <Compile Include="DomainEvent\EventAttribute.cs" />
+    <Compile Include="DomainEvent\DomainEventException.cs" />
+    <Compile Include="DomainEvent\EventFactory.cs" />
+    <Compile Include="DomainEvent\Host\ReverseEventHandler.cs" />
+    <Compile Include="DomainEvent\Restorer\EventRestoreException.cs" />
+    <Compile Include="DomainEvent\Restorer\EventRestorer.cs" />
+    <Compile Include="DomainEvent\EventUtil.cs" />
+    <Compile Include="DomainEvent\Restorer\LogStatus.cs" />
+    <Compile Include="DomainEvent\Restorer\IEventLogEntryRepository.cs" />
+    <Compile Include="DomainEvent\Restorer\IEventLogRepository.cs" />
+    <Compile Include="DomainEvent\Restorer\EventLogEntry.cs" />
+    <Compile Include="DomainEvent\DomainEvent.cs" />
+    <Compile Include="DomainEvent\EventArgAttribute.cs" />
+    <Compile Include="DomainEvent\IDomainEvent.cs" />
+    <Compile Include="DomainEvent\DomainEventHandler.cs" />
+    <Compile Include="DomainEvent\Host\RaiseResultEvent.cs" />
+    <Compile Include="DomainEvent\Host\RaiseEventHandler.cs" />
+    <Compile Include="DomainEvent\Host\EventHost.cs" />
+    <Compile Include="DomainEvent\Trigger\RaiseEvent.cs" />
+    <Compile Include="DomainEvent\Trigger\EventEntry.cs" />
+    <Compile Include="DomainEvent\Trigger\EventQueue.cs" />
+    <Compile Include="DomainEvent\Trigger\EventTrigger.cs" />
+    <Compile Include="DomainEvent\Trigger\IEventQueueRepository.cs" />
+    <Compile Include="DomainEvent\Trigger\EventStatus.cs" />
+    <Compile Include="DomainEvent\Restorer\EventLog.cs" />
+    <Compile Include="DomainEvent\Trigger\RaiseResultEventHandler.cs" />
+    <Compile Include="DomainObject\IDomainCollection.cs" />
+    <Compile Include="DomainObject\Aggregate\UniqueKeyCalculator.cs" />
+    <Compile Include="DomainObject\ValueObject\ValueObjectFactory.cs" />
+    <Compile Include="DomainProperty\PropertyAccessLevel.cs" />
+    <Compile Include="DomainProperty\PropertyChanged\PropertyChangedChain.cs" />
+    <Compile Include="DomainProperty\PropertyChanged\PropertyChangedAttribute.cs" />
+    <Compile Include="DomainProperty\PropertyActionAttribute.cs" />
+    <Compile Include="DomainProperty\PropertyGet\PropertyGetAttribute.cs" />
+    <Compile Include="DomainProperty\PropertyGet\PropertyGetChain.cs" />
+    <Compile Include="DomainProperty\PropertySet\PropertySetChain.cs" />
+    <Compile Include="DomainProperty\PropertySet\PropertySetAttribute.cs" />
+    <Compile Include="DomainExtension\DerivedClassAttribute.cs" />
+    <Compile Include="DomainExtension\ExtendedClassAttribute.cs" />
+    <Compile Include="DomainProperty\PropertyValidator\Specification\SpecificationValidator.cs" />
+    <Compile Include="DomainProperty\PropertyValidator\Specification\SpecificationAttribute.cs" />
+    <Compile Include="DynamicObject\Instance\DynamicValueObject.cs" />
+    <Compile Include="DynamicObject\Instance\DynamicEntity.cs" />
+    <Compile Include="DynamicObject\Instance\DynamicObject.cs" />
+    <Compile Include="DynamicObject\TypeDefine\EntityObjectDefine.cs" />
+    <Compile Include="DynamicObject\TypeDefine\ValueObjectDefine.cs" />
+    <Compile Include="DynamicObject\TypeDefine\AggregateRootDefine.cs" />
+    <Compile Include="DynamicObject\IDynamicObject.cs" />
+    <Compile Include="DynamicObject\Instance\DynamicRoot.cs" />
+    <Compile Include="DynamicObject\RuntimeObjectType.cs" />
+    <Compile Include="Application\PreApplicationStart.cs" />
+    <Compile Include="DataVersionException.cs" />
+    <Compile Include="Remotable\RemotePortal\Event\RemoteObjectChanged.cs" />
+    <Compile Include="Remotable\RemotePortal\Event\RemoteObjectDeleted.cs" />
+    <Compile Include="Remotable\RemotePortal\Event\RemoteObjectHandler.cs" />
+    <Compile Include="Remotable\RemotePortal\Event\RemoteObjectUpdated.cs" />
+    <Compile Include="Remotable\RemotePortal\GetRemotableObject.cs" />
+    <Compile Include="Remotable\RemotePortal\RemoteService.cs" />
+    <Compile Include="Remotable\RemotableAttribute.cs" />
+    <Compile Include="Remotable\RemotePortal\RemoteServiceName.cs" />
+    <Compile Include="Remotable\RemoteType\RemoteTypeAttribute.cs" />
+    <Compile Include="Remotable\RemoteType\RemoteType.cs" />
+    <Compile Include="Remotable\RemotePortal\RemotePortal.cs" />
+    <Compile Include="DynamicObject\IDynamicRepository.cs" />
+    <Compile Include="DynamicObject\TypeDefine\TypeDefine.cs" />
+    <Compile Include="Emptyable.cs" />
+    <Compile Include="Remotable\RemotableConfig.cs" />
+    <Compile Include="Repository\DataContext\LockManager\LockManager.cs" />
+    <Compile Include="Repository\DataContext\LockManager\ILockManager.cs" />
+    <Compile Include="Repository\DataContext\Rollback\RolledBackEventHandler.cs" />
+    <Compile Include="Repository\DataContext\Rollback\RolledBackEventArgs.cs" />
+    <Compile Include="SnapshotTargetException.cs" />
+    <Compile Include="DomainObject\DomainCollection.cs" />
+    <Compile Include="DomainObject\ObjectValidator\ObjectValidator.cs" />
+    <Compile Include="IsNullException.cs" />
+    <Compile Include="DomainDesignException.cs" />
+    <Compile Include="DomainObject\Aggregate\AggregateRoot.cs" />
+    <Compile Include="Command\Command.cs" />
+    <Compile Include="Command\ICommand.cs" />
+    <Compile Include="StatusEvent\StatusEvent.cs" />
+    <Compile Include="StatusEvent\StatusEventHandler.cs" />
+    <Compile Include="StatusEvent\StatusEventType.cs" />
+    <Compile Include="StatusEvent\StatusEventArgs.cs" />
+    <Compile Include="Configuration\DomainDrivenConfiguration.cs" />
+    <Compile Include="DataProxy.cs" />
+    <Compile Include="DomainDrivenException.cs" />
+    <Compile Include="DomainObject\DomainObject.cs" />
+    <Compile Include="DomainObject\EntityObject\EntityObject.cs" />
+    <Compile Include="DomainObject\ObjectValidator\ObjectValidatorAttribute.cs" />
+    <Compile Include="DomainProperty\PropertyValidator\ASCIIString\ASCIIStringValidator.cs" />
+    <Compile Include="DomainProperty\PropertyValidator\ASCIIString\ASCIIStringAttribute.cs" />
+    <Compile Include="DomainProperty\PropertyValidator\NotEmpty\NotEmptyValidator.cs" />
+    <Compile Include="DomainProperty\PropertyValidator\NotEmpty\NotEmptyAttribute.cs" />
+    <Compile Include="DomainProperty\PropertyValidator\PropertyValidationError.cs" />
+    <Compile Include="FixedRules\FixedRules.cs" />
+    <Compile Include="FixedRules\IFixedRules.cs" />
+    <Compile Include="DomainObject\Aggregate\IAggregateRoot.cs" />
+    <Compile Include="DomainProperty\PropertyValidator\PropertyValidator.cs" />
+    <Compile Include="FixedRules\IObjectValidator.cs" />
+    <Compile Include="FixedRules\IPropertyValidator.cs" />
+    <Compile Include="DomainProperty\PropertyValidator\StringLength\StringLengthAttribute.cs" />
+    <Compile Include="DomainProperty\PropertyValidator\PropertyValidatorAttribute.cs" />
+    <Compile Include="DomainProperty\PropertyValidator\StringLength\StringLengthValidator.cs" />
+    <Compile Include="DomainObject\IDomainObject.cs" />
+    <Compile Include="DomainObject\EntityObject\IEntityObject.cs" />
+    <Compile Include="DomainObject\IStateObject.cs" />
+    <Compile Include="DomainObject\ISupportFixedRules.cs" />
+    <Compile Include="DomainObject\ValueObject\IValueObject.cs" />
+    <Compile Include="DomainObject\ObjectChanged\DomainObjectChangedEventHandler.cs" />
+    <Compile Include="DomainObject\ObjectChanged\DomainObjectConstructedEventArgs.cs" />
+    <Compile Include="DomainObject\ObjectChanged\IDomainObjectChangedEventArgs.cs" />
+    <Compile Include="DomainObject\ObjectConstructed\DomainObjectConstructedEventArgs.cs" />
+    <Compile Include="DomainObject\ObjectConstructed\DomainObjectConstructedEventHandler.cs" />
+    <Compile Include="DomainObject\ObjectConstructed\IDomainObjectConstructedEventArgs.cs" />
+    <Compile Include="DomainObject\RunContext.cs" />
+    <Compile Include="DomainObject\StateMachine.cs" />
+    <Compile Include="DomainObject\ValueObject\ValueObject.cs" />
+    <Compile Include="DomainProperty\DomainProperty.cs" />
+    <Compile Include="DomainProperty\IDomainProperty.cs" />
+    <Compile Include="DomainProperty\PropertyChangedMode.cs" />
+    <Compile Include="DomainProperty\PropertyChanged\DomainPropertyChangedEventArgs.cs" />
+    <Compile Include="DomainProperty\PropertyChanged\DomainPropertyChangedEventHandler.cs" />
+    <Compile Include="DomainProperty\PropertyChanged\IDomainPropertyChangedEventArgs.cs" />
+    <Compile Include="DomainService.cs" />
+    <Compile Include="IDataProxy.cs" />
+    <Compile Include="IDomainService.cs" />
+    <Compile Include="INotNullObject.cs" />
+    <Compile Include="ObjectAssert.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\DynamicData.cs" />
+    <Compile Include="Repository\Attributes\ObjectRepositoryAttribute.cs" />
+    <Compile Include="Repository\Attributes\ParameterRepositoryAttribute.cs" />
+    <Compile Include="Repository\Attributes\ConstructorRepositoryAttribute.cs" />
+    <Compile Include="Repository\Attributes\PropertyRepositoryAttribute.cs" />
+    <Compile Include="Repository\Attributes\RepositoryAttribute.cs" />
+    <Compile Include="Repository\DataContext\ActionTargetIsEmptyException.cs" />
+    <Compile Include="Repository\DataContext\DataContext.cs" />
+    <Compile Include="Repository\DataContext\IDataContext.cs" />
+    <Compile Include="Repository\DataContext\NotBeginTransactionException.cs" />
+    <Compile Include="Repository\DataContext\RepeatedCommitException.cs" />
+    <Compile Include="Repository\DataContext\Rollback\RepositoryRollbackEventArgs.cs" />
+    <Compile Include="Repository\DataContext\Rollback\RepositoryRollbackEventHandler.cs" />
+    <Compile Include="Repository\DataContext\Rollback\RollbackCollection.cs" />
+    <Compile Include="Repository\DataContext\ScheduledAction.cs" />
+    <Compile Include="Repository\DataContext\Transaction\ITransactionManager.cs" />
+    <Compile Include="Repository\DataContext\Transaction\ITransactionManagerFactory.cs" />
+    <Compile Include="Repository\DataContext\Transaction\TransactionManagerFactory.cs" />
+    <Compile Include="Repository\DataContext\Transaction\TransactionScopeManager.cs" />
+    <Compile Include="Repository\DataContext\Transaction\TransactionScopeManagerFactory.cs" />
+    <Compile Include="Repository\DataContext\ValidationException.cs" />
+    <Compile Include="Repository\IRepository.cs" />
+    <Compile Include="Repository\Page.cs" />
+    <Compile Include="Repository\Persist\IPersistRepository.cs" />
+    <Compile Include="Repository\Persist\Persisted\RepositoryPersistedEventArgs.cs" />
+    <Compile Include="Repository\Persist\Persisted\RepositoryPersistedEventHandler.cs" />
+    <Compile Include="Repository\Persist\PersistRepository.cs" />
+    <Compile Include="Repository\Persist\PrePersist\RepositoryPrePersistEventArgs.cs" />
+    <Compile Include="Repository\Persist\PrePersist\RepositoryPrePersistEventHandler.cs" />
+    <Compile Include="Repository\QueryLevel.cs" />
+    <Compile Include="Repository\Repository.cs" />
+    <Compile Include="Repository\RepositoryBase.cs" />
+    <Compile Include="Repository\RepositoryAction.cs" />
+    <Compile Include="Repository\RepositoryConfig.cs" />
+    <Compile Include="Repository\RepositoryEventArgs.cs" />
+    <Compile Include="Repository\RepositoryEventHandler.cs" />
+    <Compile Include="Repository\RepositoryFactory.cs" />
+    <Compile Include="Repository\RepositoryRegistrar.cs" />
+    <Compile Include="FixedRules\ValidationError.cs" />
+    <Compile Include="FixedRules\ValidationResult.cs" />
+    <Compile Include="Strings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CodeArt.EasyMQ\CodeArt.EasyMQ.csproj">
+      <Project>{afb15952-0dfa-4919-9d4b-46c2737654ec}</Project>
+      <Name>CodeArt.EasyMQ</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CodeArt\CodeArt.csproj">
+      <Project>{d2c9f430-6b47-482a-a49c-a2478d75f95f}</Project>
+      <Name>CodeArt</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Strings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Strings.zh-CN.resx" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

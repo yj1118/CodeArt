@@ -79,11 +79,29 @@ namespace AccountSubsystem {
         }
         
         /// <summary>
+        ///   查找类似 Can not delete system role {0} 的本地化字符串。
+        /// </summary>
+        internal static string NotDeleteSystemRole {
+            get {
+                return ResourceManager.GetString("NotDeleteSystemRole", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 The role {0} of the organization is repeated 的本地化字符串。
         /// </summary>
         internal static string RoleInOrganizationRepeated {
             get {
                 return ResourceManager.GetString("RoleInOrganizationRepeated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 The password entered twice is different 的本地化字符串。
+        /// </summary>
+        internal static string TwicePasswordDifferent {
+            get {
+                return ResourceManager.GetString("TwicePasswordDifferent", resourceCulture);
             }
         }
     }

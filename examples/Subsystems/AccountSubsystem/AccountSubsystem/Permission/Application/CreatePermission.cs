@@ -3,7 +3,6 @@ using System.Linq;
 
 using CodeArt;
 using CodeArt.DomainDriven;
-
 namespace AccountSubsystem
 {
     public sealed class CreatePermission : Command<Permission>
@@ -35,7 +34,7 @@ namespace AccountSubsystem
                 MarkedCode = this.MarkedCode ?? string.Empty,
                 Description = this.Description ?? string.Empty
             };
-            
+
             var repository = Repository.Create<IPermissionRepository>();
             repository.Add(permission);
 

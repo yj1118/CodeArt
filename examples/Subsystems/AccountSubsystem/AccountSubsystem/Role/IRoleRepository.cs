@@ -14,6 +14,6 @@ namespace AccountSubsystem
 
         Page<Role> FindPage(Guid organizationId, string name, int pageSize, int pageIndex);
 
-        IEnumerable<Role> FindRoles(IEnumerable<Guid> ids, QueryLevel level);
+        IEnumerable<Role> FindRoles(IEnumerable<Guid> ids);
     }
 }

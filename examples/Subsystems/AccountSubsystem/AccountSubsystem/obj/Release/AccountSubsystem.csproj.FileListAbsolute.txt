@@ -8,16 +8,14 @@ D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystem\bin
 D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystem\bin\Release\CodeArt.DomainDriven.Extensions.dll
 D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystem\bin\Release\Microsoft.SqlServer.TransactSql.ScriptDom.dll
 D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystem\bin\Release\Dapper.dll
-D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystem\bin\Release\CodeArt.ServiceModel.dll
-D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystem\bin\Release\System.ValueTuple.dll
+D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystem\bin\Release\CodeArt.EasyMQ.dll
 D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystem\bin\Release\NLog.dll
 D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystem\bin\Release\CodeArt.DomainDriven.DataAccess.pdb
-D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystem\bin\Release\CodeArt.DomainDriven.DataAccess.dll.config
 D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystem\bin\Release\CodeArt.DomainDriven.Extensions.pdb
 D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystem\bin\Release\CodeArt.DomainDriven.pdb
 D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystem\bin\Release\CodeArt.pdb
 D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystem\bin\Release\Dapper.xml
-D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystem\bin\Release\CodeArt.ServiceModel.pdb
+D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystem\bin\Release\CodeArt.EasyMQ.pdb
 D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystem\bin\Release\NLog.xml
 D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystem\bin\Release\zh-CN\CodeArt.DomainDriven.DataAccess.resources.dll
 D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystem\bin\Release\zh-CN\CodeArt.DomainDriven.Extensions.resources.dll
@@ -33,7 +31,7 @@ D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystem\bin
 D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystem\bin\Release\ru\Microsoft.SqlServer.TransactSql.ScriptDom.resources.dll
 D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystem\bin\Release\zh-Hans\Microsoft.SqlServer.TransactSql.ScriptDom.resources.dll
 D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystem\bin\Release\zh-Hant\Microsoft.SqlServer.TransactSql.ScriptDom.resources.dll
-D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystem\bin\Release\zh-CN\CodeArt.ServiceModel.resources.dll
+D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystem\bin\Release\zh-CN\CodeArt.EasyMQ.resources.dll
 D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystem\obj\Release\AccountSubsystem.csprojResolveAssemblyReference.cache
 D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystem\obj\Release\AccountSubsystem.Strings.resources
 D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystem\obj\Release\AccountSubsystem.Strings.zh-CN.resources

@@ -29,12 +29,12 @@ namespace AccountSubsystem
                                                     });
         }
 
-        public IEnumerable<Role> FindRoles(IEnumerable<Guid> ids, QueryLevel level)
+        public IEnumerable<Role> FindRoles(IEnumerable<Guid> ids)
         {
             return DataContext.Current.Query<Role>("id in @ids", (arg) =>
             {
                 arg.Add("ids", ids);
-            }, level);
+            }, QueryLevel.None);
         }
 
         public static readonly SqlRoleRepository Instance = new SqlRoleRepository();

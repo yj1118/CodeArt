@@ -19,9 +19,7 @@ namespace AccountSubsystemTest
         public static void Initialize()
         {
             Repository.Register<IPermissionRepository>(SqlPermissionRepository.Instance);
-
-            //orm配置
-            SqlContext.RegisterAgent(SQLServerAgent.Instance);
+            Repository.Register<IRoleRepository>(SqlRoleRepository.Instance);
         }
     }
 }

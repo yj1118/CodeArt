@@ -1,0 +1,16 @@
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.EasyMQ\bin\Release\NLog.config
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.EasyMQ\bin\Release\CodeArt.EasyMQ.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.EasyMQ\bin\Release\CodeArt.EasyMQ.pdb
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.EasyMQ\bin\Release\zh-CN\CodeArt.EasyMQ.resources.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.EasyMQ\bin\Release\CodeArt.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.EasyMQ\bin\Release\NLog.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.EasyMQ\bin\Release\CodeArt.pdb
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.EasyMQ\bin\Release\NLog.xml
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.EasyMQ\bin\Release\zh-CN\CodeArt.resources.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.EasyMQ\obj\Release\CodeArt.EasyMQ.csprojResolveAssemblyReference.cache
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.EasyMQ\obj\Release\CodeArt.EasyMQ.Strings.resources
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.EasyMQ\obj\Release\CodeArt.EasyMQ.Strings.zh-CN.resources
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.EasyMQ\obj\Release\CodeArt.EasyMQ.csproj.GenerateResource.Cache
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.EasyMQ\obj\Release\zh-CN\CodeArt.EasyMQ.resources.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.EasyMQ\obj\Release\CodeArt.EasyMQ.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.EasyMQ\obj\Release\CodeArt.EasyMQ.pdb

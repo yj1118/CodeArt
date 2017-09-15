@@ -1,0 +1,828 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>NLog.Web</name>
+    </assembly>
+    <members>
+        <member name="T:NLog.Web.DefaultHttpContextAccessor">
+            <summary>
+            Provides the HttpContext associated with the current request.
+            </summary>
+        </member>
+        <member name="P:NLog.Web.DefaultHttpContextAccessor.HttpContext">
+            <summary>
+            HttpContext of the current request.
+            </summary>
+        </member>
+        <member name="T:NLog.Web.IHttpContextAccessor">
+            <summary>
+            Provides access to the HttpContext
+            </summary>
+        </member>
+        <member name="P:NLog.Web.IHttpContextAccessor.HttpContext">
+            <summary>
+            HttpContext associated with the current request
+            </summary>
+        </member>
+        <member name="T:NLog.Web.LayoutRenderers.AspNetApplicationValueLayoutRenderer">
+            <summary>
+            ASP.NET Application variable.
+            </summary>
+            <remarks>
+            Use this layout renderer to insert the value of the specified variable stored 
+            in the ASP.NET Application dictionary.
+            </remarks>
+            <example>
+            <para>You can set the value of an ASP.NET Application variable by using the following code:</para>
+            <code lang="C#">
+            <![CDATA[
+            HttpContext.Current.Application["myvariable"] = 123;
+            HttpContext.Current.Application["stringvariable"] = "aaa BBB";
+            HttpContext.Current.Application["anothervariable"] = DateTime.Now;
+            ]]>
+            </code>
+            <para>Example usage of ${aspnet-application}:</para>
+            <code lang="NLog Layout Renderer">
+            ${aspnet-application:variable=myvariable} - produces "123"
+            ${aspnet-application:variable=anothervariable} - produces "01/01/2006 00:00:00"
+            ${aspnet-application:variable=anothervariable:culture=pl-PL} - produces "2006-01-01 00:00:00"
+            ${aspnet-application:variable=myvariable:padding=5} - produces "  123"
+            ${aspnet-application:variable=myvariable:padding=-5} - produces "123  "
+            ${aspnet-application:variable=stringvariable:upperCase=true} - produces "AAA BBB"
+            </code>
+            </example>
+        </member>
+        <member name="P:NLog.Web.LayoutRenderers.AspNetApplicationValueLayoutRenderer.Variable">
+            <summary>
+            Gets or sets the variable name.
+            </summary>
+            <docgen category='Rendering Options' order='10' />
+        </member>
+        <member name="M:NLog.Web.LayoutRenderers.AspNetApplicationValueLayoutRenderer.DoAppend(System.Text.StringBuilder,NLog.LogEventInfo)">
+            <summary>
+            Renders the specified ASP.NET Application variable and appends it to the specified <see cref="T:System.Text.StringBuilder" />.
+            </summary>
+            <param name="builder">The <see cref="T:System.Text.StringBuilder"/> to append the rendered data to.</param>
+            <param name="logEvent">Logging event.</param>
+        </member>
+        <member name="T:NLog.Web.LayoutRenderers.AspNetItemValueLayoutRenderer">
+            <summary>
+            ASP.NET Item variable.
+            </summary>
+            <remarks>
+            Use this layout renderer to insert the value of the specified variable stored 
+            in the ASP.NET HttpContext.Current.Items dictionary.
+            </remarks>
+            <example>
+            <para>You can set the value of an ASP.NET Item variable by using the following code:</para>
+            <code lang="C#">
+            <![CDATA[
+            HttpContext.Current.Items["myvariable"] = 123;
+            HttpContext.Current.Items["stringvariable"] = "aaa BBB";
+            HttpContext.Current.Items["anothervariable"] = DateTime.Now;
+            ]]>
+            </code>
+            <para>Example usage of ${aspnet-item}:</para>
+            <code lang="NLog Layout Renderer">
+            ${aspnet-item:variable=myvariable} - produces "123"
+            ${aspnet-item:variable=anothervariable} - produces "01/01/2006 00:00:00"
+            ${aspnet-item:variable=anothervariable:culture=pl-PL} - produces "2006-01-01 00:00:00"
+            ${aspnet-item:variable=myvariable:padding=5} - produces "  123"
+            ${aspnet-item:variable=myvariable:padding=-5} - produces "123  "
+            ${aspnet-item:variable=stringvariable:upperCase=true} - produces "AAA BBB"
+            </code>
+            </example>
+        </member>
+        <member name="M:NLog.Web.LayoutRenderers.AspNetItemValueLayoutRenderer.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:NLog.Web.LayoutRenderers.AspNetItemValueLayoutRenderer" /> class.
+            </summary>
+        </member>
+        <member name="P:NLog.Web.LayoutRenderers.AspNetItemValueLayoutRenderer.Variable">
+            <summary>
+            Gets or sets the item variable name.
+            </summary>
+            <docgen category='Rendering Options' order='10' />
+        </member>
+        <member name="P:NLog.Web.LayoutRenderers.AspNetItemValueLayoutRenderer.EvaluateAsNestedProperties">
+            <summary>
+            Gets or sets whether items with a dot are evaluated as properties or not
+            </summary>
+            <docgen category='Rendering Options' order='10' />
+        </member>
+        <member name="P:NLog.Web.LayoutRenderers.AspNetItemValueLayoutRenderer.Culture">
+            <summary>
+            Gets or sets the culture used for rendering. 
+            </summary>
+            <docgen category='Rendering Options' order='10' />
+        </member>
+        <member name="M:NLog.Web.LayoutRenderers.AspNetItemValueLayoutRenderer.DoAppend(System.Text.StringBuilder,NLog.LogEventInfo)">
+            <summary>
+            Renders the specified ASP.NET Item value and appends it to the specified <see cref="T:System.Text.StringBuilder" />.
+            </summary>
+            <param name="builder">The <see cref="T:System.Text.StringBuilder"/> to append the rendered data to.</param>
+            <param name="logEvent">Logging event.</param>
+        </member>
+        <member name="T:NLog.Web.LayoutRenderers.AspNetLayoutRendererBase">
+            <summary>
+            Base class for ASP.NET layout renderers.
+            </summary>
+        </member>
+        <member name="M:NLog.Web.LayoutRenderers.AspNetLayoutRendererBase.#ctor">
+            <summary>
+            Initializes the <see cref="T:NLog.Web.LayoutRenderers.AspNetLayoutRendererBase"/>.
+            </summary>
+        </member>
+        <member name="P:NLog.Web.LayoutRenderers.AspNetLayoutRendererBase.HttpContextAccessor">
+            <summary>
+            Provides access to the current request HttpContext.
+            </summary>
+        </member>
+        <member name="M:NLog.Web.LayoutRenderers.AspNetLayoutRendererBase.Append(System.Text.StringBuilder,NLog.LogEventInfo)">
+            <summary>
+            Validates that the HttpContext is available and delegates append to subclasses.<see cref="T:System.Text.StringBuilder" />.
+            </summary>
+            <param name="builder">The <see cref="T:System.Text.StringBuilder"/> to append the rendered data to.</param>
+            <param name="logEvent">Logging event.</param>
+        </member>
+        <member name="M:NLog.Web.LayoutRenderers.AspNetLayoutRendererBase.DoAppend(System.Text.StringBuilder,NLog.LogEventInfo)">
+            <summary>
+            Implemented by subclasses to render request information and append it to the specified <see cref="T:System.Text.StringBuilder" />.
+            
+            Won't be called if <see cref="P:NLog.Web.LayoutRenderers.AspNetLayoutRendererBase.HttpContextAccessor"/> of <see cref="P:NLog.Web.IHttpContextAccessor.HttpContext"/> is <c>null</c>.
+            </summary>
+            <param name="builder">The <see cref="T:System.Text.StringBuilder"/> to append the rendered data to.</param>
+            <param name="logEvent">Logging event.</param>
+        </member>
+        <member name="T:NLog.Web.LayoutRenderers.AspNetLayoutMultiValueRendererBase">
+            <summary>
+            Layout renderers for ASP.NET rendering multiple values.
+            </summary>
+        </member>
+        <member name="P:NLog.Web.LayoutRenderers.AspNetLayoutMultiValueRendererBase.ItemSeparator">
+            <summary>
+            Separator between item. Only used for <see cref="F:NLog.Web.Enums.AspNetRequestLayoutOutputFormat.Flat"/>
+            </summary>
+        </member>
+        <member name="P:NLog.Web.LayoutRenderers.AspNetLayoutMultiValueRendererBase.ValueSeparator">
+            <summary>
+            Separator between value and key. Only used for <see cref="F:NLog.Web.Enums.AspNetRequestLayoutOutputFormat.Flat"/>
+            </summary>
+        </member>
+        <member name="P:NLog.Web.LayoutRenderers.AspNetLayoutMultiValueRendererBase.SingleAsArray">
+            <summary>
+            Single item in array? Only used for <see cref="F:NLog.Web.Enums.AspNetRequestLayoutOutputFormat.Json"/>
+            
+            Mutliple items are always in an array.
+            </summary>
+        </member>
+        <member name="P:NLog.Web.LayoutRenderers.AspNetLayoutMultiValueRendererBase.OutputFormat">
+            <summary>
+            Determines how the output is rendered. Possible Value: FLAT, JSON. Default is FLAT.
+            </summary>
+        </member>
+        <member name="M:NLog.Web.LayoutRenderers.AspNetLayoutMultiValueRendererBase.SerializeValues(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.String}},System.Text.StringBuilder)">
+            <summary>
+            Serialize multiple values
+            </summary>
+            <param name="values">The values with key and value.</param>
+            <param name="builder">Add to this builder.</param>
+        </member>
+        <member name="M:NLog.Web.LayoutRenderers.AspNetLayoutMultiValueRendererBase.AppendQuoted(System.Text.StringBuilder,System.String)">
+            <summary>
+            Append the value quoted, escape quotes when needed
+            </summary>
+            <param name="builder"></param>
+            <param name="value"></param>
+        </member>
+        <member name="T:NLog.Web.LayoutRenderers.AspNetMvcControllerRenderer">
+            <summary>
+            ASP.NET MVC Controller Name.
+            </summary>
+            <remarks>
+            Use this layout renderer to render the controller name.
+            </remarks>
+            <example>
+            <code lang="NLog Layout Renderer">
+            ${aspnet-mvc-controller}    
+            </code>
+            </example>
+        </member>
+        <member name="M:NLog.Web.LayoutRenderers.AspNetMvcControllerRenderer.MvcDoAppend(System.Text.StringBuilder,NLog.LogEventInfo,System.Web.HttpContextBase)">
+            <summary>
+            Renders the specified ASP.NET Application variable and appends it to the specified <see cref="T:System.Text.StringBuilder" />.
+            </summary>
+            <param name="builder">The <see cref="T:System.Text.StringBuilder"/> to append the rendered data to.</param>
+            <param name="logEvent">Logging event.</param>
+            <param name="context">The current http context.</param>
+        </member>
+        <member name="T:NLog.Web.LayoutRenderers.AspNetMvcActionRenderer">
+            <summary>
+            ASP.NET MVC Controller Name.
+            </summary>
+            <remarks>
+            Use this layout renderer to render the controller name.
+            </remarks>
+            <example>
+            <code lang="NLog Layout Renderer">
+            ${aspnet-mvc-action}    
+            </code>
+            </example>
+        </member>
+        <member name="M:NLog.Web.LayoutRenderers.AspNetMvcActionRenderer.MvcDoAppend(System.Text.StringBuilder,NLog.LogEventInfo,System.Web.HttpContextBase)">
+            <summary>
+            Renders the specified ASP.NET Application variable and appends it to the specified <see cref="T:System.Text.StringBuilder" />.
+            </summary>
+            <param name="builder">The <see cref="T:System.Text.StringBuilder"/> to append the rendered data to.</param>
+            <param name="logEvent">Logging event.</param>
+            <param name="context">The current http context.</param>
+        </member>
+        <member name="T:NLog.Web.LayoutRenderers.AspNetMvcLayoutRendererBase">
+            <summary>
+            Base Class for ASP.NET MVC Renderer.
+            </summary> 
+        </member>
+        <member name="M:NLog.Web.LayoutRenderers.AspNetMvcLayoutRendererBase.DoAppend(System.Text.StringBuilder,NLog.LogEventInfo)">
+            <summary>
+            Renders the specified ASP.NET Application variable and appends it to the specified <see cref="T:System.Text.StringBuilder" />.
+            </summary>
+            <param name="builder">The <see cref="T:System.Text.StringBuilder"/> to append the rendered data to.</param>
+            <param name="logEvent">Logging event.</param>s        
+        </member>
+        <member name="M:NLog.Web.LayoutRenderers.AspNetMvcLayoutRendererBase.MvcDoAppend(System.Text.StringBuilder,NLog.LogEventInfo,System.Web.HttpContextBase)">
+            <summary>
+            Renders the specified ASP.NET Application variable and appends it to the specified <see cref="T:System.Text.StringBuilder" />.
+            </summary>
+            <param name="builder">The <see cref="T:System.Text.StringBuilder"/> to append the rendered data to.</param>
+            <param name="logEvent">Logging event.</param>
+            <param name="context">The current http context.</param>        
+        </member>
+        <member name="T:NLog.Web.LayoutRenderers.AspNetRequestValueLayoutRenderer">
+            <summary>
+            ASP.NET Request variable.
+            </summary>
+            <remarks>
+            Use this layout renderer to insert the value of the specified parameter of the
+            ASP.NET Request object.
+            </remarks>
+            <example>
+            <para>Example usage of ${aspnet-request}:</para>
+            <code lang="NLog Layout Renderer">
+            ${aspnet-request:item=v}
+            ${aspnet-request:querystring=v}
+            ${aspnet-request:form=v}
+            ${aspnet-request:cookie=v}
+            ${aspnet-request:header=h}
+            ${aspnet-request:serverVariable=v}
+            </code>
+            </example>
+        </member>
+        <member name="P:NLog.Web.LayoutRenderers.AspNetRequestValueLayoutRenderer.Item">
+            <summary>
+            Gets or sets the item name. The QueryString, Form, Cookies, or ServerVariables collection variables having the specified name are rendered.
+            </summary>
+            <docgen category='Rendering Options' order='10' />
+        </member>
+        <member name="P:NLog.Web.LayoutRenderers.AspNetRequestValueLayoutRenderer.QueryString">
+            <summary>
+            Gets or sets the QueryString variable to be rendered.
+            </summary>
+            <docgen category='Rendering Options' order='10' />
+        </member>
+        <member name="P:NLog.Web.LayoutRenderers.AspNetRequestValueLayoutRenderer.Form">
+            <summary>
+            Gets or sets the form variable to be rendered.
+            </summary>
+            <docgen category='Rendering Options' order='10' />
+        </member>
+        <member name="P:NLog.Web.LayoutRenderers.AspNetRequestValueLayoutRenderer.Cookie">
+            <summary>
+            Gets or sets the cookie to be rendered.
+            </summary>
+            <docgen category='Rendering Options' order='10' />
+        </member>
+        <member name="P:NLog.Web.LayoutRenderers.AspNetRequestValueLayoutRenderer.ServerVariable">
+            <summary>
+            Gets or sets the ServerVariables item to be rendered.
+            </summary>
+            <docgen category='Rendering Options' order='10' />
+        </member>
+        <member name="P:NLog.Web.LayoutRenderers.AspNetRequestValueLayoutRenderer.Header">
+            <summary>
+            Gets or sets the Headers item to be rendered.
+            </summary>
+            <docgen category='Rendering Options' order='10' />
+        </member>
+        <member name="M:NLog.Web.LayoutRenderers.AspNetRequestValueLayoutRenderer.DoAppend(System.Text.StringBuilder,NLog.LogEventInfo)">
+            <summary>
+            Renders the specified ASP.NET Request variable and appends it to the specified <see cref="T:System.Text.StringBuilder" />.
+            </summary>
+            <param name="builder">The <see cref="T:System.Text.StringBuilder"/> to append the rendered data to.</param>
+            <param name="logEvent">Logging event.</param>
+        </member>
+        <member name="T:NLog.Web.LayoutRenderers.AspNetRequestIpLayoutRenderer">
+            <summary>
+            Render the request IP for ASP.NET Core
+            </summary>
+            <example>
+            <code lang="NLog Layout Renderer">
+            ${aspnet-request-ip}
+            </code>
+            </example>
+        </member>
+        <member name="M:NLog.Web.LayoutRenderers.AspNetRequestIpLayoutRenderer.DoAppend(System.Text.StringBuilder,NLog.LogEventInfo)">
+            <summary>
+            Render IP
+            </summary>
+        </member>
+        <member name="T:NLog.Web.LayoutRenderers.AspNetSessionIdLayoutRenderer">
+            <summary>
+            ASP.NET Session ID.
+            </summary>
+        </member>
+        <member name="M:NLog.Web.LayoutRenderers.AspNetSessionIdLayoutRenderer.DoAppend(System.Text.StringBuilder,NLog.LogEventInfo)">
+            <summary>
+            Renders the ASP.NET Session ID appends it to the specified <see cref="T:System.Text.StringBuilder" />.
+            </summary>
+            <param name="builder">The <see cref="T:System.Text.StringBuilder"/> to append the rendered data to.</param>
+            <param name="logEvent">Logging event.</param>
+        </member>
+        <member name="T:NLog.Web.LayoutRenderers.AspNetSessionValueLayoutRenderer">
+            <summary>
+            ASP.NET Session variable.
+            </summary>
+            <remarks>
+            Use this layout renderer to insert the value of the specified variable stored 
+            in the ASP.NET Session dictionary.
+            </remarks>
+            <example>
+            <para>You can set the value of an ASP.NET Session variable by using the following code:</para>
+            <code lang="C#">
+            <![CDATA[
+            HttpContext.Current.Session["myvariable"] = 123;
+            HttpContext.Current.Session["stringvariable"] = "aaa BBB";
+            HttpContext.Current.Session["anothervariable"] = DateTime.Now;
+            ]]>
+            </code>
+            <para>Example usage of ${aspnet-session}:</para>
+            <code lang="NLog Layout Renderer">
+            ${aspnet-session:variable=myvariable} - produces "123"
+            ${aspnet-session:variable=anothervariable} - produces "01/01/2006 00:00:00"
+            ${aspnet-session:variable=anothervariable:culture=pl-PL} - produces "2006-01-01 00:00:00"
+            ${aspnet-session:variable=myvariable:padding=5} - produces "  123"
+            ${aspnet-session:variable=myvariable:padding=-5} - produces "123  "
+            ${aspnet-session:variable=stringvariable:upperCase=true} - produces "AAA BBB"
+            </code>
+            </example>
+        </member>
+        <member name="M:NLog.Web.LayoutRenderers.AspNetSessionValueLayoutRenderer.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:NLog.Web.LayoutRenderers.AspNetSessionValueLayoutRenderer" /> class.
+            </summary>
+        </member>
+        <member name="P:NLog.Web.LayoutRenderers.AspNetSessionValueLayoutRenderer.Variable">
+            <summary>
+            Gets or sets the session variable name.
+            </summary>
+            <docgen category='Rendering Options' order='10' />
+        </member>
+        <member name="P:NLog.Web.LayoutRenderers.AspNetSessionValueLayoutRenderer.EvaluateAsNestedProperties">
+            <summary>
+            Gets or sets whether variables with a dot are evaluated as properties or not
+            </summary>
+            <docgen category='Rendering Options' order='10' />
+        </member>
+        <member name="P:NLog.Web.LayoutRenderers.AspNetSessionValueLayoutRenderer.Culture">
+            <summary>
+            Gets or sets the culture used for rendering. 
+            </summary>
+            <docgen category='Rendering Options' order='10' />
+        </member>
+        <member name="M:NLog.Web.LayoutRenderers.AspNetSessionValueLayoutRenderer.DoAppend(System.Text.StringBuilder,NLog.LogEventInfo)">
+            <summary>
+            Renders the specified ASP.NET Session value and appends it to the specified <see cref="T:System.Text.StringBuilder" />.
+            </summary>
+            <param name="builder">The <see cref="T:System.Text.StringBuilder"/> to append the rendered data to.</param>
+            <param name="logEvent">Logging event.</param>
+        </member>
+        <member name="T:NLog.Web.LayoutRenderers.AspNetUserAuthTypeLayoutRenderer">
+            <summary>
+            ASP.NET User variable.
+            </summary>
+        </member>
+        <member name="M:NLog.Web.LayoutRenderers.AspNetUserAuthTypeLayoutRenderer.DoAppend(System.Text.StringBuilder,NLog.LogEventInfo)">
+            <summary>
+            Renders the specified ASP.NET User.Identity.AuthenticationType variable and appends it to the specified <see cref="T:System.Text.StringBuilder" />.
+            </summary>
+            <param name="builder">The <see cref="T:System.Text.StringBuilder"/> to append the rendered data to.</param>
+            <param name="logEvent">Logging event.</param>
+        </member>
+        <member name="T:NLog.Web.LayoutRenderers.AspNetUserIdentityLayoutRenderer">
+            <summary>
+            ASP.NET User variable.
+            </summary>
+        </member>
+        <member name="M:NLog.Web.LayoutRenderers.AspNetUserIdentityLayoutRenderer.DoAppend(System.Text.StringBuilder,NLog.LogEventInfo)">
+            <summary>
+            Renders the specified ASP.NET User.Identity.Name variable and appends it to the specified <see cref="T:System.Text.StringBuilder" />.
+            </summary>
+            <param name="builder">The <see cref="T:System.Text.StringBuilder"/> to append the rendered data to.</param>
+            <param name="logEvent">Logging event.</param>
+        </member>
+        <member name="T:NLog.Web.LayoutRenderers.AssemblyVersionLayoutRenderer">
+            <summary>
+            Overwrite the NLog.LayoutRenderers.AssemblyVersionLayoutRenderer
+            </summary>
+        </member>
+        <member name="P:NLog.Web.LayoutRenderers.AssemblyVersionLayoutRenderer.Name">
+            <summary>
+            The (full) name of the assembly. If <c>null</c>, using the entry assembly.
+            </summary>
+        </member>
+        <member name="M:NLog.Web.LayoutRenderers.AssemblyVersionLayoutRenderer.Append(System.Text.StringBuilder,NLog.LogEventInfo)">
+            <summary>
+            Implemented by subclasses to render request information and append it to the specified <see cref="T:System.Text.StringBuilder" />.
+            
+            Won't be called if <see cref="P:NLog.Web.LayoutRenderers.AspNetLayoutRendererBase.HttpContextAccessor"/> of <see cref="P:NLog.Web.IHttpContextAccessor.HttpContext"/> is <c>null</c>.
+            </summary>
+            <param name="builder">The <see cref="T:System.Text.StringBuilder"/> to append the rendered data to.</param>
+            <param name="logEvent">Logging event.</param>
+        </member>
+        <member name="T:NLog.Web.LayoutRenderers.IISInstanceNameLayoutRenderer">
+            <summary>
+            Rendering site name in IIS. <see cref="P:System.Web.Hosting.HostingEnvironment.SiteName"/>
+            </summary>
+        </member>
+        <member name="M:NLog.Web.LayoutRenderers.IISInstanceNameLayoutRenderer.Append(System.Text.StringBuilder,NLog.LogEventInfo)">
+            <summary>
+            Append to target
+            </summary>
+            <param name="builder">The <see cref="T:System.Text.StringBuilder"/> to append the rendered data to.</param>
+            <param name="logEvent">Logging event.</param>
+        </member>
+        <member name="T:NLog.Web.LayoutRenderers.AspNetRequestReferrerRenderer">
+            <summary>
+            ASP.NET Request Referrer
+            </summary>
+            <example>
+            <para>Example usage of ${aspnet-request-referrer}:</para>
+            <code lang="NLog Layout Renderer">
+            ${aspnet-request-referrer} - Produces - Referrer URL String from the Request.
+            </code>
+            </example>
+        </member>
+        <member name="M:NLog.Web.LayoutRenderers.AspNetRequestReferrerRenderer.DoAppend(System.Text.StringBuilder,NLog.LogEventInfo)">
+            <summary>
+            Renders the Referrer URL from the HttpRequest <see cref="T:System.Text.StringBuilder" />.
+            </summary>
+            <param name="builder">The <see cref="T:System.Text.StringBuilder"/> to append the rendered data to.</param>
+            <param name="logEvent">Logging event.</param>
+        </member>
+        <member name="T:NLog.Web.LayoutRenderers.AspNetRequestUrlRenderer">
+            <summary>
+            ASP.NET Request URL
+            </summary>
+            <para>Example usage of ${aspnet-request-url}:</para>
+            <example>
+            <code lang="NLog Layout Renderer">
+            ${aspnet-request-url:IncludeQueryString=true} - produces http://www.exmaple.com/?t=1
+            ${aspnet-request-url:IncludeQueryString=false} - produces http://www.exmaple.com/
+            ${aspnet-request-url:IncludePort=true} - produces http://www.exmaple.com:80/
+            ${aspnet-request-url:IncludePort=false} - produces http://www.exmaple.com/
+            ${aspnet-request-url:IncludePort=true:IncludeQueryString=true} - produces http://www.exmaple.com:80/?t=1    
+            </code>
+            </example>
+        </member>
+        <member name="P:NLog.Web.LayoutRenderers.AspNetRequestUrlRenderer.IncludeQueryString">
+            <summary>
+            To specify whether to include / exclude the Query string. Default is false.
+            </summary>
+        </member>
+        <member name="P:NLog.Web.LayoutRenderers.AspNetRequestUrlRenderer.IncludePort">
+            <summary>
+            To specify whether to  include /exclude the Port. Default is false.
+            </summary>
+        </member>
+        <member name="P:NLog.Web.LayoutRenderers.AspNetRequestUrlRenderer.IncludeHost">
+            <summary>
+            To specify whether to exclude / include the host. Default is true.
+            </summary>
+        </member>
+        <member name="M:NLog.Web.LayoutRenderers.AspNetRequestUrlRenderer.DoAppend(System.Text.StringBuilder,NLog.LogEventInfo)">
+            <summary>
+            Renders the Request URL from the HttpRequest
+            </summary>
+            <param name="builder">The <see cref="T:System.Text.StringBuilder"/> to append the rendered data to.</param>
+            <param name="logEvent">Logging event.</param>
+        </member>
+        <member name="T:NLog.Web.LayoutRenderers.AspNetRequestUserAgent">
+            <summary>
+            ASP.NET User Agent
+            </summary>
+            <para>Example usage of ${aspnet-request-useragent}:</para>
+            <example>
+            <code lang="NLog Layout Renderer">
+            ${aspnet-request-useragent} - Produces - User Agent String from the Request.
+            </code>
+            </example>
+        </member>
+        <member name="M:NLog.Web.LayoutRenderers.AspNetRequestUserAgent.DoAppend(System.Text.StringBuilder,NLog.LogEventInfo)">
+            <summary>
+            Renders the ASP.NET User Agent
+            </summary>
+            <param name="builder">The <see cref="T:System.Text.StringBuilder"/> to append the rendered data to.</param>
+            <param name="logEvent">Logging event.</param>
+        </member>
+        <member name="T:NLog.Web.LayoutRenderers.AspNetRequestCookieLayoutRenderer">
+            <summary>
+            ASP.NET Request Cookie
+            </summary>
+            <para>Example usage of ${aspnet-request-cookie}</para>
+            <example>
+            <code lang="NLog Layout Renderer">
+            ${aspnet-request-cookie:OutputFormat=Flat}
+            ${aspnet-request-cookie:OutputFormat=Json}
+            </code>
+            </example>
+        </member>
+        <member name="P:NLog.Web.LayoutRenderers.AspNetRequestCookieLayoutRenderer.CookieNames">
+            <summary>
+            List Cookie Key as String to be rendered from Request.
+            </summary>
+        </member>
+        <member name="M:NLog.Web.LayoutRenderers.AspNetRequestCookieLayoutRenderer.DoAppend(System.Text.StringBuilder,NLog.LogEventInfo)">
+            <summary>
+            Renders the ASP.NET Cookie appends it to the specified <see cref="T:System.Text.StringBuilder" />.
+            </summary>
+            <param name="builder">The <see cref="T:System.Text.StringBuilder"/> to append the rendered data to.</param>
+            <param name="logEvent">Logging event.</param>
+        </member>
+        <member name="T:NLog.Web.LayoutRenderers.AspNetRequestHostLayoutRenderer">
+            <summary>
+            ASP.NET host.
+            </summary>
+            <remarks>
+            Use this layout renderer host.
+            </remarks>
+            <example>
+            <code lang="NLog Layout Renderer">
+            ${aspnet-host}    
+            </code>
+            </example>
+        </member>
+        <member name="M:NLog.Web.LayoutRenderers.AspNetRequestHostLayoutRenderer.DoAppend(System.Text.StringBuilder,NLog.LogEventInfo)">
+            <summary>
+            Renders the specified ASP.NET Application variable and appends it to the specified <see cref="T:System.Text.StringBuilder" />.
+            </summary>
+            <param name="builder">The <see cref="T:System.Text.StringBuilder"/> to append the rendered data to.</param>
+            <param name="logEvent">Logging event.</param>
+        </member>
+        <member name="T:NLog.Web.LayoutRenderers.AspNetQueryStringLayoutRenderer">
+            <summary>
+            ASP.NET Request Cookie
+            </summary>
+            <para>Example usage of ${aspnet-request-querystring}:</para>
+            <example>
+            <code lang="NLog Layout Renderer">
+            ${aspnet-request-querystring:OutputFormat=Flat}
+            ${aspnet-request-querystring:OutputFormat=Json}
+            </code>
+            </example>
+        </member>
+        <member name="P:NLog.Web.LayoutRenderers.AspNetQueryStringLayoutRenderer.QueryStringKeys">
+            <summary>
+            List Query Strings' Key to be rendered from Request.
+            If empty, then render all querystrings
+            </summary>
+        </member>
+        <member name="M:NLog.Web.LayoutRenderers.AspNetQueryStringLayoutRenderer.DoAppend(System.Text.StringBuilder,NLog.LogEventInfo)">
+            <summary>
+            Renders the specified ASP.NET Application variable and appends it to the specified <see cref="T:System.Text.StringBuilder" />.
+            </summary>
+            <param name="builder"></param>
+            <param name="logEvent"></param>
+        </member>
+        <member name="T:NLog.Web.LayoutRenderers.AspNetRequestHttpMethodRenderer">
+            <summary>
+            ASP.NET Http Request Method.
+            </summary>
+            <para>Example usage of ${aspnet-request-method}:</para>
+            <example>
+            <code lang="NLog Layout Renderer">
+            ${aspnet-request-method} - Produces - Post.
+            </code>
+            </example>
+        </member>
+        <member name="M:NLog.Web.LayoutRenderers.AspNetRequestHttpMethodRenderer.DoAppend(System.Text.StringBuilder,NLog.LogEventInfo)">
+            <summary>
+            ASP.NET Http Request Method
+            </summary>
+            <param name="builder">The <see cref="T:System.Text.StringBuilder"/> to append the rendered data to.</param>
+            <param name="logEvent">Logging event.</param>
+        </member>
+        <member name="T:NLog.Web.AspNetCore.LayoutRenderers.AspNetUserIsAuthenticatedLayoutRenderer">
+            <summary>
+            Is the user authenticated? 0 = not authenticated, 1 = authenticated
+            
+            ${aspnet-user-isAuthenticated}
+            </summary>
+        </member>
+        <member name="M:NLog.Web.AspNetCore.LayoutRenderers.AspNetUserIsAuthenticatedLayoutRenderer.DoAppend(System.Text.StringBuilder,NLog.LogEventInfo)">
+            <summary>
+            Render 0 or 1
+            </summary>
+            <param name="builder"></param>
+            <param name="logEvent"></param>
+        </member>
+        <member name="T:NLog.Web.Enums.AspNetRequestLayoutOutputFormat">
+            <summary>
+            To control the Renderer Output formatting.
+            </summary>
+        </member>
+        <member name="F:NLog.Web.Enums.AspNetRequestLayoutOutputFormat.Flat">
+            <summary>
+            Use this format for rendering the output value as a flat string.
+            </summary>
+        </member>
+        <member name="F:NLog.Web.Enums.AspNetRequestLayoutOutputFormat.Json">
+            <summary>
+            Use this format for rendering the output value as a json formatted string.
+            </summary>
+        </member>
+        <member name="M:NLog.Web.Internal.PropertyReader.GetValue(System.String,System.Func{System.String,System.Object},System.Boolean)">
+            <summary>
+            Get value of a property
+            </summary>
+            <param name="key">key</param>
+            <param name="getVal">function to get a value with this key</param>
+            <param name="evaluateAsNestedProperties">evaluate <paramref name="key"/> as a nested property path. E.g. A.B is property B inside A.</param>
+            <returns>value</returns>
+        </member>
+        <member name="T:NLog.Web.NLogHttpModule">
+            <summary>
+            ASP.NET HttpModule that enables NLog to hook BeginRequest and EndRequest events easily.
+            </summary>
+        </member>
+        <member name="E:NLog.Web.NLogHttpModule.EndRequest">
+            <summary>
+            Event to be raised at the end of each HTTP Request.
+            </summary>
+        </member>
+        <member name="E:NLog.Web.NLogHttpModule.BeginRequest">
+            <summary>
+            Event to be raised at the beginning of each HTTP Request.
+            </summary>
+        </member>
+        <member name="M:NLog.Web.NLogHttpModule.Init(System.Web.HttpApplication)">
+            <summary>
+            Initializes the HttpModule.
+            </summary>
+            <param name="application">
+            ASP.NET application.
+            </param>
+        </member>
+        <member name="M:NLog.Web.NLogHttpModule.Dispose">
+            <summary>
+            Disposes the module.
+            </summary>
+        </member>
+        <member name="T:NLog.Web.Targets.AspNetTraceTarget">
+            <summary>
+            Writes log messages to the ASP.NET trace.
+            </summary>
+            <seealso href="https://github.com/nlog/nlog/wiki/AspNetTrace-target">Documentation on NLog Wiki</seealso>
+            <remarks>
+            Log entries can then be viewed by navigating to http://server/path/Trace.axd.
+            </remarks>
+        </member>
+        <member name="M:NLog.Web.Targets.AspNetTraceTarget.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:NLog.Targets.TargetWithLayout"/> class.
+            </summary>
+            <remarks>
+            The default value of the layout is: 
+            <code>
+            ${longdate}|${level:uppercase=true}|${logger}|${message}
+            </code>
+            </remarks>
+        </member>
+        <member name="M:NLog.Web.Targets.AspNetTraceTarget.Write(NLog.LogEventInfo)">
+            <summary>
+            Writes the specified logging event to the ASP.NET Trace facility. 
+            If the log level is greater than or equal to <see cref="F:NLog.LogLevel.Warn"/> it uses the
+            System.Web.TraceContext.Warn method, otherwise it uses
+            System.Web.TraceContext.Write method.
+            </summary>
+            <param name="logEvent">The logging event.</param>
+        </member>
+        <member name="T:NLog.Web.Targets.Wrappers.AspNetBufferingTargetWrapper">
+            <summary>
+            Buffers log events for the duration of ASP.NET request and sends them down 
+            to the wrapped target at the end of a request.
+            </summary>
+            <seealso href="https://github.com/nlog/nlog/wiki/AspNetBufferingWrapper-target">Documentation on NLog Wiki</seealso>
+            <remarks>
+            <p>
+            Typically this target is used in cooperation with PostFilteringTargetWrapper
+            to provide verbose logging for failing requests and normal or no logging for
+            successful requests. We need to make the decision of the final filtering rule
+            to apply after all logs for a page have been generated.
+            </p>
+            <p>
+            To use this target, you need to add an entry in the httpModules section of
+            web.config:
+            </p>
+            <code lang="XML">
+            <![CDATA[<?xml version="1.0" ?>
+            <configuration>
+              <system.web>
+                <httpModules>
+                  <add name="NLog" type="NLog.Web.NLogHttpModule, NLog.Extended"/>
+                </httpModules>
+              </system.web>
+            </configuration>
+            ]]>
+            </code>
+            </remarks>
+            <example>
+            <p>To set up the ASP.NET Buffering target wrapper <a href="config.html">configuration file</a>, put
+            the following in <c>web.nlog</c> file in your web application directory (this assumes
+            that PostFilteringWrapper is used to provide the filtering and actual logs go to
+            a file).
+            </p>
+            <code lang="XML" source="examples/targets/Configuration File/ASPNetBufferingWrapper/web.nlog" />
+            <p>
+            This assumes just one target and a single rule. More configuration
+            options are described <a href="config.html">here</a>.
+            </p>
+            <p>
+            To configure the target programmatically, put the following
+            piece of code in your <c>Application_OnStart()</c> handler in Global.asax.cs 
+            or some other place that gets executed at the very beginning of your code:
+            </p>
+            <code lang="C#" source="examples/targets/Configuration API/ASPNetBufferingWrapper/Global.asax.cs" />
+            <p>
+            Fully working C# project can be found in the <c>Examples/Targets/Configuration API/ASPNetBufferingWrapper</c>
+            directory along with usage instructions.
+            </p>
+            </example>
+        </member>
+        <member name="M:NLog.Web.Targets.Wrappers.AspNetBufferingTargetWrapper.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:NLog.Web.Targets.Wrappers.AspNetBufferingTargetWrapper" /> class.
+            </summary>
+        </member>
+        <member name="M:NLog.Web.Targets.Wrappers.AspNetBufferingTargetWrapper.#ctor(NLog.Targets.Target)">
+            <summary>
+            Initializes a new instance of the <see cref="T:NLog.Web.Targets.Wrappers.AspNetBufferingTargetWrapper" /> class.
+            </summary>
+            <param name="wrappedTarget">The wrapped target.</param>
+        </member>
+        <member name="M:NLog.Web.Targets.Wrappers.AspNetBufferingTargetWrapper.#ctor(NLog.Targets.Target,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:NLog.Web.Targets.Wrappers.AspNetBufferingTargetWrapper" /> class.
+            </summary>
+            <param name="wrappedTarget">The wrapped target.</param>
+            <param name="bufferSize">Size of the buffer.</param>
+        </member>
+        <member name="P:NLog.Web.Targets.Wrappers.AspNetBufferingTargetWrapper.BufferSize">
+            <summary>
+            Gets or sets the number of log events to be buffered.
+            </summary>
+            <docgen category='Buffering Options' order='100' />
+        </member>
+        <member name="P:NLog.Web.Targets.Wrappers.AspNetBufferingTargetWrapper.GrowBufferAsNeeded">
+            <summary>
+            Gets or sets a value indicating whether buffer should grow as needed.
+            </summary>
+            <value>A value of <c>true</c> if buffer should grow as needed; otherwise, <c>false</c>.</value>
+            <remarks>
+            Value of <c>true</c> causes the buffer to expand until <see cref="P:NLog.Web.Targets.Wrappers.AspNetBufferingTargetWrapper.BufferGrowLimit"/> is hit,
+            <c>false</c> causes the buffer to never expand and lose the earliest entries in case of overflow.
+            </remarks>
+            <docgen category='Buffering Options' order='100' />
+        </member>
+        <member name="P:NLog.Web.Targets.Wrappers.AspNetBufferingTargetWrapper.BufferGrowLimit">
+            <summary>
+            Gets or sets the maximum number of log events that the buffer can keep.
+            </summary>
+            <docgen category='Buffering Options' order='100' />
+        </member>
+        <member name="M:NLog.Web.Targets.Wrappers.AspNetBufferingTargetWrapper.InitializeTarget">
+            <summary>
+            Initializes the target by hooking up the NLogHttpModule BeginRequest and EndRequest events.
+            </summary>
+        </member>
+        <member name="M:NLog.Web.Targets.Wrappers.AspNetBufferingTargetWrapper.CloseTarget">
+            <summary>
+            Closes the target by flushing pending events in the buffer (if any).
+            </summary>
+        </member>
+        <member name="M:NLog.Web.Targets.Wrappers.AspNetBufferingTargetWrapper.Write(NLog.Common.AsyncLogEventInfo)">
+            <summary>
+            Adds the specified log event to the buffer.
+            </summary>
+            <param name="logEvent">The log event.</param>
+        </member>
+    </members>
+</doc>

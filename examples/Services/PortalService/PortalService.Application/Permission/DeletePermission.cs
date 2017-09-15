@@ -14,7 +14,7 @@ using CodeArt.DomainDriven;
 namespace PortalService.Application
 {
     [SafeAccess]
-    [Service("DeletePermission")]
+    [Service("deletePermission")]
     public class DeletePermission : ServiceProvider
     {
         protected override DTObject DynamicInvoke(dynamic arg)

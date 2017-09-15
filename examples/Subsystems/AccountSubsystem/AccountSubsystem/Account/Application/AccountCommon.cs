@@ -10,28 +10,28 @@ namespace AccountSubsystem
 {
     public static class AccountCommon
     {
-        public static  Account FindById(Guid accountId,QueryLevel level)
+        public static Account FindById(Guid accountId, QueryLevel level)
         {
             Account acc = AccountCommon.FindById(accountId, level);
-            if (acc.IsEmpty()) throw new DomainDrivenException(string.Format("没有找到编号为 {0} 的帐户信息",accountId));
+            if (acc.IsEmpty()) throw new DomainDrivenException(string.Format("没有找到编号为 {0} 的帐户信息", accountId));
             return acc;
         }
 
         internal static Account FindByName(string name, QueryLevel level)
         {
-            var repository = RepositoryFactory.Create<IAccountRepository, Account>();
+            var repository = Repository.Create<IAccountRepository>();
             return repository.FindByName(name, level);
         }
 
         internal static Account FindByEmail(string name, QueryLevel level)
         {
-            var repository = RepositoryFactory.CreateRepository<IAccountRepository, Account>();
+            var repository = Repository.Create<IAccountRepository>();
             return repository.FindByEmail(name, level);
         }
 
         public static Account FindByMobileNumber(string mobileNumber, QueryLevel level)
         {
-            var repository = RepositoryFactory.CreateRepository<IAccountRepository, Account>();
+            var repository = Repository.Create<IAccountRepository>();
             return repository.FindByMobileNumber(mobileNumber, level);
         }
 
@@ -44,22 +44,20 @@ namespace AccountSubsystem
         /// <returns></returns>
         public static Account FindByFlag(string flag, string password, QueryLevel level)
         {
-            var repository = RepositoryFactory.CreateRepository<IAccountRepository, Account>();
+            var repository = Repository.Create<IAccountRepository>();
             return repository.FindByFlag(flag, password, level);
         }
 
         public static IList<Account> FindsByRole(Guid roleId, QueryLevel level)
         {
-            var repository = RepositoryFactory.CreateRepository<IAccountRepository, Account>();
+            var repository = Repository.Create<IAccountRepository>();
             return repository.FindsByRole(roleId, level);
         }
 
-        public static Page<Account> FindPageBy(string name, string email, int pageSize, int pageIndex)
+        public static Page<Account> FindPageBy(string name, string email, int pageIndex, int pageSize)
         {
-            var repository = RepositoryFactory.CreateRepository<IAccountRepository, Account>();
-            IList<Account> list = repository.FindPageBy(name, email, pageSize, pageIndex);
-            int count = repository.GetPageCount(name, email, QueryLevel.None);
-            return new Page<Account>(pageSize, pageIndex, list, count);
+            var repository = Repository.Create<IAccountRepository>();
+            return repository.FindPageBy(name, email, pageIndex, pageSize);
         }
     }
 }

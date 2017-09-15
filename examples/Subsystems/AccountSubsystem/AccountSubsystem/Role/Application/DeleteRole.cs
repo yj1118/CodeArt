@@ -17,9 +17,7 @@ namespace AccountSubsystem
 
         protected override void ExecuteProcedure()
         {
-            var repository = Repository.Create<IRoleRepository>();
-            var role = repository.Find(_id, QueryLevel.Single);
-            repository.Delete(role);
+            RoleService.DeleteGeneral(_id);
         }
     }
 }

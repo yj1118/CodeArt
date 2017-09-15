@@ -69,7 +69,7 @@ namespace PortalServiceTest
 
         public static void DeleteRole(Guid id)
         {
-            LocalServiceUtil.DynamicInvoke("deleteRole", (arg) => { arg.Id = id; });
+            LocalServiceUtil.DynamicInvoke("deleteRolePro", (arg) => { arg.Id = id; });
         }
 
         public static void UpdateRole(Guid id, 

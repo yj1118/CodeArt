@@ -27,7 +27,7 @@ namespace AccountSubsystem
         /// <param name="pageSize"></param>
         /// <param name="pageIndex"></param>
         /// <returns></returns>
-        Page<Permission> FindPageBy(string name, int pageSize, int pageIndex);
+        Page<Permission> FindPageBy(string name, int pageIndex, int pageSize);
 
         /// <summary>
         /// 根据编号得到多个权限对象

@@ -5,7 +5,7 @@ using System.Collections.ObjectModel;
 using CodeArt;
 using CodeArt.Concurrent;
 using CodeArt.DomainDriven;
-using CodeArt.ORM; 
+using CodeArt.DomainDriven.DataAccess; 
 
 namespace AccountSubsystem
 {
@@ -14,7 +14,6 @@ namespace AccountSubsystem
     {
         public AccountSpecification()
         {
-
         }
 
         protected override void Validate(Account obj, ValidationResult result)
