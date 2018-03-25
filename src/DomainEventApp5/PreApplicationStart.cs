@@ -18,7 +18,7 @@ namespace DomainEventApp5
     {
         private static void Initialize()
         {
-            EventHost.SetHosts("NodeEvent5");
+            EventHost.EnableEvent("NodeEvent5");
         }
     }
 }

@@ -306,4 +306,73 @@
   <data name="ContinueWithNotRaising" xml:space="preserve">
     <value>队列{0} 事件{1} 不是 Rasing状态，不能参与Continue操作</value>
   </data>
+  <data name="CanOnlyInclude" xml:space="preserve">
+    <value>{0} 只能包括 {1}</value>
+  </data>
+  <data name="CE" xml:space="preserve">
+    <value>中文、英文字母</value>
+  </data>
+  <data name="CEN" xml:space="preserve">
+    <value>中文、英文字母、数字</value>
+  </data>
+  <data name="CN" xml:space="preserve">
+    <value>中文、数字</value>
+  </data>
+  <data name="DoesNotMeetRule" xml:space="preserve">
+    <value>{0} 不符合规则 {1}</value>
+  </data>
+  <data name="EN" xml:space="preserve">
+    <value>英文字母、数字</value>
+  </data>
+  <data name="GetServiceUnexpectedError" xml:space="preserve">
+    <value>获得系统服务{0}发生意外的错误</value>
+  </data>
+  <data name="IncorrectEmailFormat" xml:space="preserve">
+    <value>属性 {0} 是不正确的邮箱格式</value>
+  </data>
+  <data name="IncorrectMobileNumberFormat" xml:space="preserve">
+    <value>{0} 是不正确的手机号码格式</value>
+  </data>
+  <data name="ValueLessThan" xml:space="preserve">
+    <value>{0}数值小于{1}</value>
+  </data>
+  <data name="ValueMoreThan" xml:space="preserve">
+    <value>{0}数值大于{1}</value>
+  </data>
+  <data name="DomainBufferMirrorNull" xml:space="preserve">
+    <value>DomainBuffer.Mirror为null，无法使用镜像缓冲区</value>
+  </data>
+  <data name="NoObjectById" xml:space="preserve">
+    <value>没有找到编号为{0}的{1}对象</value>
+  </data>
+  <data name="ExecuteError" xml:space="preserve">
+    <value>执行期间出现错误</value>
+  </data>
+  <data name="NotIncludeValue" xml:space="preserve">
+    <value>对象不包括实际值，无法获得可空类型的实际值</value>
+  </data>
+  <data name="HardwareFailureTip" xml:space="preserve">
+    <value>由于断电或硬件故障导致领域事件无法完成</value>
+  </data>
+  <data name="NoDefinitionProperty" xml:space="preserve">
+    <value>在类型{0}中没有找到属性{1}的定义</value>
+  </data>
+  <data name="EventEntryNotExistWithCallbackTip" xml:space="preserve">
+    <value>在队列{0}中，没有找到事件条目{1}，无法完成远程事件执行后的回调结果操作</value>
+  </data>
+  <data name="QueueNotExistWithCallbackTip" xml:space="preserve">
+    <value>队列 {0} 不存在，无法完成远程事件执行后的回调结果操作</value>
+  </data>
+  <data name="EventErrorAndRestored" xml:space="preserve">
+    <value>领域事件执行过程中发生了错误，但是已恢复</value>
+  </data>
+  <data name="AskedToReverseTip" xml:space="preserve">
+    <value>受调用方要求执行领域事件回逆操作</value>
+  </data>
+  <data name="EventErrotTip" xml:space="preserve">
+    <value>领域事件执行过程中发生了错误，并且没有成功恢复，这是一个严重的异常</value>
+  </data>
+  <data name="ExecuteRemoteEventTimeout" xml:space="preserve">
+    <value>执行远程事件{0}超时</value>
+  </data>
 </root>

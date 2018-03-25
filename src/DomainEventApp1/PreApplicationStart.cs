@@ -18,7 +18,7 @@ namespace DomainEventApp1
     {
         private static void Initialize()
         {
-            EventHost.SetHosts("NodeEvent1");
+            EventHost.EnableEvent("NodeEvent1");
         }
     }
 }

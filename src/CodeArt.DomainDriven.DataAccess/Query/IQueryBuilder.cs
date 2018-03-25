@@ -29,6 +29,6 @@ namespace CodeArt.DomainDriven.DataAccess
         /// 构建执行语句，在这个过程中有可能改变param的值
         /// </summary>
         /// <returns></returns>
-        string Build(DynamicData param);
+        string Build(DynamicData param, DataTable table);
     }
 }

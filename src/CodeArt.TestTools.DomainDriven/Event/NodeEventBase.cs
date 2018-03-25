@@ -48,12 +48,12 @@ namespace CodeArt.TestTools.DomainDriven
             return ems;
         }
 
-        public override void Raise()
+        protected override void RaiseImplement()
         {
             var dto = DTObject.CreateReusable(this.Code);
             var raise = (NodeAction)dto.GetValue<byte>("raise", 1);
 
-            switch(raise)
+            switch (raise)
             {
                 case NodeAction.Success:
                     {
@@ -75,9 +75,10 @@ namespace CodeArt.TestTools.DomainDriven
                     }
                     break;
             }
+            return;
         }
 
-        public override void Reverse()
+        protected override void ReverseImplement()
         {
             var dto = DTObject.CreateReusable(this.Code);
             var reverse = (NodeAction)dto.GetValue<byte>("reverse", 1);

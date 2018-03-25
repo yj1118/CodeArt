@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
 
+using CodeArt.AppSetting;
 using CodeArt.Runtime;
 using CodeArt.DTO;
 
@@ -13,6 +14,51 @@ namespace CodeArt.DomainDriven
     [ObjectRepository(typeof(IEventQueueRepository))]
     public class EventQueue : AggregateRoot<EventQueue, Guid>
     {
+        /// <summary>
+        /// 触发该事件队列时系统使用的语言
+        /// </summary>
+        private static readonly DomainProperty LanguageProperty = DomainProperty.Register<string, EventQueue>("Language");
+
+        [PropertyRepository()]
+        public string Language
+        {
+            get
+            {
+                return GetValue<string>(LanguageProperty);
+            }
+            private set
+            {
+                SetValue(LanguageProperty, value);
+            }
+        }
+
+        public new DTObject GetIdentity()
+        {
+            var identity = DTObject.CreateReusable();
+            identity["language"] = this.Language;
+            return identity;
+        }
+
+        /// <summary>
+        /// 该队列是否为子队列，也就是说，是属于某个事件条目调用而产生的队列
+        /// </summary>
+        [PropertyRepository()]
+        private static readonly DomainProperty IsSubqueueProperty = DomainProperty.Register<bool, EventQueue>("IsSubqueue");
+
+        public bool IsSubqueue
+        {
+            get
+            {
+                return GetValue<bool>(IsSubqueueProperty);
+            }
+            private set
+            {
+                SetValue(IsSubqueueProperty, value);
+            }
+        }
+
+        #region 事件条目
+
         /// <summary>
         /// 事件条目
         /// </summary>
@@ -40,7 +86,7 @@ namespace CodeArt.DomainDriven
         }
 
         /// <summary>
-        /// 该队列的事件源
+        /// 该队列的事件源，事件源的编号等于队列编号
         /// </summary>
         public EventEntry Source
         {
@@ -55,35 +101,53 @@ namespace CodeArt.DomainDriven
         {
             //将前置事件转为事件条目
             var entries = new List<EventEntry>();
-            FillEntries(source, entries);
+
+            var idCount = 1; //编号计数
+            //持久化source的参数
+            var argsCode = source.GetArgs().GetCode();
+            //源事件的编号要与队列编号相同;源事件的源事件是空
+            var sourceEntry = new EventEntry(EventEntry.Empty, idCount, source.EventName, this.Id, argsCode);
+            FillPreEntries(source, sourceEntry, entries, ref idCount);
+            entries.Add(sourceEntry); //最后添加事件源的条目
             return new DomainCollection<EventEntry>(EntriesProperty, entries);
         }
 
-        private void FillEntries(DomainEvent source, List<EventEntry> entries)
-        {
-            //将事件源转为条目
-            var argsCode = source.GetArgs().GetCode();
-            var sourceEntry = new EventEntry(this, entries.Count, source.EventName, argsCode);
 
-            //将前置事件转为事件条目
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="owner"></param>
+        /// <param name="ownerEntry"></param>
+        /// <param name="entries"></param>
+        /// <param name="idCount"></param>
+        private void FillPreEntries(DomainEvent source, EventEntry sourceEntry, List<EventEntry> entries, ref int idCount)
+        {
+            const string argsCode = ""; //条目事件的参数在队列没执行的时候，是空的
             foreach (var eventName in source.PreEvents)
             {
                 var local = EventFactory.GetLocalEvent(eventName, DTObject.Empty, false);
                 if (local == null)
                 {
-                    var entry = new EventEntry(this, entries.Count, eventName, sourceEntry, DTObject.EmptyCode);
+                    idCount++;
+                    var entry = new EventEntry(sourceEntry, idCount, eventName, Guid.NewGuid(), argsCode);
                     entries.Add(entry);
                 }
                 else
                 {
-                    FillEntries(local, entries);
+                    //将本地事件转为条目
+                    idCount++;
+                    var localEntry = new EventEntry(sourceEntry, idCount, eventName, Guid.NewGuid(), argsCode);
+                    FillPreEntries(local, localEntry, entries, ref idCount);
+                    entries.Add(localEntry);
                 }
             }
-
-            entries.Add(sourceEntry); //最后添加事件源的条目
         }
 
+        #endregion
 
+        /// <summary>
+        /// 指示队列是否正在运行中，也就是事件条目是否处于执行或者回逆中
+        /// </summary>
         public bool IsRunning
         {
             get
@@ -111,6 +175,7 @@ namespace CodeArt.DomainDriven
             }
         }
 
+
         /// <summary>
         /// 获得一个需要被触发的事件条目
         /// </summary>
@@ -123,22 +188,8 @@ namespace CodeArt.DomainDriven
                 return e.Status == EventStatus.Idle;
             });
             if (idle == null) return EventEntry.Empty;
-            //为闲置的事件条目获取参数
-            SetArgs(idle);
             return idle;
         }
-
-        /// <summary>
-        /// 为事件条目设置参数
-        /// </summary>
-        /// <param name="entry"></param>
-        private static void SetArgs(EventEntry entry)
-        {
-            var source = EventFactory.GetLocalEvent(entry.Source, true);
-            var args = source.GetArgs(entry.EventName);
-            entry.ArgsCode = args.GetCode();
-        }
-
 
 
         public EventEntry GetEntry(int entryId)
@@ -164,18 +215,39 @@ namespace CodeArt.DomainDriven
             return entry == null ? EventEntry.Empty : entry;
         }
 
+        [PropertyRepository()]
+        private static readonly DomainProperty CreateTimeProperty = DomainProperty.Register<DateTime, EventQueue>("CreateTime", (owner) => { return DateTime.Now; });
 
-        public EventQueue(Guid id, DomainEvent source)
+        /// <summary>
+        /// 创建的时间
+        /// </summary>
+        public DateTime CreateTime
+        {
+            get
+            {
+                return GetValue<DateTime>(CreateTimeProperty);
+            }
+            private set
+            {
+                SetValue(CreateTimeProperty, value);
+            }
+        }
+
+
+        public EventQueue(Guid id, DomainEvent source, bool isSubqueue, dynamic identity)
             : base(id)
         {
             this.EntriesImpl = GetEntriesFromSource(source);
+            this.IsSubqueue = isSubqueue;
+            this.Language = identity.Language ?? string.Empty;
             this.OnConstructed();
         }
 
         [ConstructorRepository()]
-        public EventQueue(Guid id)
+        public EventQueue(Guid id,string language)
             : base(id)
         {
+            this.Language = language;
             this.OnConstructed();
         }
 
@@ -184,7 +256,7 @@ namespace CodeArt.DomainDriven
         private class EventQueueEmpty : EventQueue
         {
             public EventQueueEmpty()
-                : base(Guid.Empty)
+                : base(Guid.Empty, string.Empty)
             {
                 this.OnConstructed();
             }
@@ -202,10 +274,10 @@ namespace CodeArt.DomainDriven
 
         #region 静态成员
 
-        internal static EventQueue Create(Guid queueId, DomainEvent source)
+        internal static EventQueue Create(Guid queueId, DomainEvent source, bool isSubqueue, dynamic identity)
         {
             var repository = Repository.Create<IEventQueueRepository>();
-            var queue = new EventQueue(queueId, source);
+            var queue = new EventQueue(queueId, source, isSubqueue, identity);
             repository.Add(queue);
             return queue;
         }
@@ -213,7 +285,26 @@ namespace CodeArt.DomainDriven
         internal static EventQueue Find(Guid queueId)
         {
             var repository = Repository.Create<IEventQueueRepository>();
-            return repository.Find(queueId, QueryLevel.Single);
+            return repository.Find(queueId, QueryLevel.None); //因为已经有事件锁了，所以此处不必锁
+        }
+
+        /// <summary>
+        /// 根据事件编号得到队列编号
+        /// </summary>
+        /// <param name="eventId"></param>
+        /// <returns></returns>
+        internal static EventQueue FindByEventId(Guid eventId)
+        {
+            var repository = Repository.Create<IEventQueueRepository>();
+            return repository.FindByEventId(eventId, QueryLevel.None);
+        }
+
+        internal static void UpdateAndFlush(EventQueue queue)
+        {
+            DataContext.NewScope(() =>
+            {
+                Update(queue);
+            }, true);
         }
 
         internal static void Update(EventQueue queue)
@@ -225,7 +316,7 @@ namespace CodeArt.DomainDriven
         internal static void Delete(Guid queueId)
         {
             var repository = Repository.Create<IEventQueueRepository>();
-            var queue = repository.Find(queueId, QueryLevel.Single);
+            var queue = repository.Find(queueId, QueryLevel.None);
             if (!queue.IsEmpty()) repository.Delete(queue);
         }
 

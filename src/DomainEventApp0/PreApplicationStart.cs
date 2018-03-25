@@ -20,7 +20,7 @@ namespace DomainEventApp0
         {
             DataPortal.Dispose();
 
-            EventHost.SetHosts("NodeEvent0");
+            EventHost.EnableEvent("NodeEvent0");
         }
     }
 }

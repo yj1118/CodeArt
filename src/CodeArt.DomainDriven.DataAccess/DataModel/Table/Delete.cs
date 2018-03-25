@@ -70,18 +70,23 @@ namespace CodeArt.DomainDriven.DataAccess
             }
         }
 
+        private void OnPreDataDelete(DomainObject obj)
+        {
+            this.Mapper.OnPreDelete(obj, this);
+        }
+
         /// <summary>
         /// 该方法用于删除数据后的补充操作
         /// </summary>
         /// <param name="obj"></param>
-        private void OnDataDelete(object rootId, object id, DomainObject obj)
+        private void OnDataDeleted(object rootId, object id, DomainObject obj)
         {
             //从缓冲区中删除对象
             if (this.Type == DataTableType.AggregateRoot)
             {
-                DomainBuffer.Remove(this.ObjectTip.ObjectType, rootId);
+                DomainBuffer.Public.Remove(this.ObjectTip.ObjectType, rootId); //不用考虑mirror，删不删除都不影响
             }
-            this.Mapper.OnDelete(obj);
+            this.Mapper.OnDeleted(obj, this);
         }
 
         private void ExecuteDeleteData(object rootId, object id)
@@ -109,8 +114,13 @@ namespace CodeArt.DomainDriven.DataAccess
             CheckDataVersion(obj);
 
             var rootId = ar.GetIdentity();
-            DeleteData(rootId, rootId);
-            OnDataDelete(rootId, rootId, obj);
+            OnPreDataDelete(obj);
+            if(DeleteData(rootId, rootId))
+            {
+                DeleteMembers(obj, obj, obj);
+                OnDataDeleted(rootId, rootId, obj);
+            }
+            
         }
 
         private string _sqlDelete = null;
@@ -129,7 +139,7 @@ namespace CodeArt.DomainDriven.DataAccess
         private string GetDeleteSql()
         {
             var query = DeleteTable.Create(this);
-            return query.Build(null);
+            return query.Build(null, this);
         }
 
         #endregion
@@ -163,7 +173,7 @@ namespace CodeArt.DomainDriven.DataAccess
                         break;
                     case DomainPropertyType.AggregateRootList:
                         {
-                            //仅删除引用关系（也就是中间表数据）
+                            //仅删除引用关系（也就是中间表数据），由于不需要删除slave根表的数据，因此直接使用该方法更高效，不需要读取实际集合值
                             DeleteQuotesByMaster(root, current);
                         }
                         break;
@@ -219,25 +229,29 @@ namespace CodeArt.DomainDriven.DataAccess
                 var child = GetRuntimeTable(this, propertyName, obj.ObjectType);
                 //删除对象的数据
                 child.DeleteMember(root, current, obj);
-                if (middle == null) middle = child.Middle;
+                if (middle == null) middle = child.Middle; //不论实际的成员是否为继承，中间表始终只有一个，所以记录一次就可以了
             }
             //删除相关中间表的数据（成员对象未必被真的删除，但是引用关系必须被删除，这样对于parent而言，引用关系被删除了）
             if(middle != null) middle.DeleteMiddleByMaster(root, current);
         }
 
-        /// <summary>
-        /// 删除引用了<paramref name="slave"/>数据的中间表数据
-        /// </summary>
-        /// <param name="root"></param>
-        /// <param name="slave"></param>
-        private void DeleteQuotesBySlave(IAggregateRoot root, DomainObject slave)
-        {
-            var quotes = GetQuoteMiddlesBySlave(this);
-            foreach(var quote in quotes)
-            {
-                quote.DeleteMiddleBySlave((DomainObject)root, slave);
-            }
-        }
+        //由于两个原因，我们不会删除根对象后，去反向找哪些表的字段引用了该根对象，
+        //1.领域有空对象的概念，引用的根对象没了后，加载的是空对象
+        //2.不同的子系统物理分布都不一样，表都在不同的数据库里，没有办法也不需要去追踪
+        //因此DeleteQuotesBySlave我们用不上
+        ///// <summary>
+        ///// 删除引用了<paramref name="slave"/>数据的中间表数据
+        ///// </summary>
+        ///// <param name="root"></param>
+        ///// <param name="slave"></param>
+        //private void DeleteQuotesBySlave(DomainObject root, DomainObject slave)
+        //{
+        //    var quotes = GetQuoteMiddlesBySlave(this);
+        //    foreach (var quote in quotes)
+        //    {
+        //        quote.DeleteMiddleBySlave(root, slave);
+        //    }
+        //}
 
         /// <summary>
         /// 删除引用了<paramref name="master"/>数据的中间表数据
@@ -302,10 +316,11 @@ namespace CodeArt.DomainDriven.DataAccess
             var rootId = GetObjectId(root);
             var id = GetObjectId(obj);
 
+            OnPreDataDelete(obj);
             if (DeleteData(rootId, id))
             {
                 DeleteMembers(root, parent, obj);
-                OnDataDelete(rootId, id, obj);
+                OnDataDeleted(rootId, id, obj);
             }
         }
 
@@ -327,30 +342,27 @@ namespace CodeArt.DomainDriven.DataAccess
         {
             //中间表直接删除自身的数据
             var rootId = GetObjectId(root);
-            var slaveIdName = GeneratedField.SlaveIdName;
             var slaveId = slave == null ? null : GetObjectId(slave);
 
-            //if (this.Root.IsEqualsOrDerivedOrInherited(this.Master))
             if (this.Root.IsEqualsOrDerivedOrInherited(this.Master))
             {
                 using (var temp = SqlHelper.BorrowData())
                 {
                     var data = temp.Item;
                     data.Add(GeneratedField.RootIdName, rootId);
-                    data.Add(slaveIdName, slaveId);
+                    data.Add(GeneratedField.SlaveIdName, slaveId);//slaveId有可能为空，因为是根据master删除，但是没有关系，sql会处理slaveId为空的情况
                     SqlHelper.Execute(this.ConnectionName, this.SqlDelete, data);
                 }
             }
             else
             {
-                var masterIdName = GeneratedField.MasterIdName;
                 var masterId = master == null ? null : GetObjectId(master);
                 using (var temp = SqlHelper.BorrowData())
                 {
                     var data = temp.Item;
                     data.Add(GeneratedField.RootIdName, rootId);
-                    data.Add(masterIdName, masterId);
-                    data.Add(slaveIdName, slaveId);
+                    data.Add(GeneratedField.MasterIdName, masterId);
+                    data.Add(GeneratedField.SlaveIdName, slaveId);
                     SqlHelper.Execute(this.ConnectionName, this.SqlDelete, data);
                 }
             }

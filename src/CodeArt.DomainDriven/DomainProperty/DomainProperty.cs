@@ -432,7 +432,14 @@ namespace CodeArt.DomainDriven
         });
 
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="PT">属性的类型</typeparam>
+        /// <typeparam name="OT">所属领域对象的类型</typeparam>
+        /// <param name="name"></param>
+        /// <param name="defaultValue"></param>
+        /// <returns></returns>
         public static DomainProperty Register<PT, OT>(string name, PT defaultValue)
             where OT : DomainObject
         {
@@ -440,8 +447,6 @@ namespace CodeArt.DomainDriven
         }
 
         #endregion
-
-   
 
         #region 注册集合
 

@@ -16,30 +16,30 @@ namespace CodeArt.DomainDriven.DataAccess
     /// </summary>
     internal abstract class ObjectField : DataField
     {
-        private List<IDataField> _childs;
+        //private List<IDataField> _childs;
 
-        public IEnumerable<IDataField> Childs
-        {
-            get
-            {
-                return _childs == null ? Array.Empty<IDataField>().AsEnumerable() : _childs;
-            }
-        }
+        //public IEnumerable<IDataField> Childs
+        //{
+        //    get
+        //    {
+        //        return _childs == null ? Array.Empty<IDataField>().AsEnumerable() : _childs;
+        //    }
+        //}
 
-        public void AddChilds(IEnumerable<IDataField> childs)
-        {
-            foreach (var child in childs)
-            {
-                AddChild(child);
-            }
-        }
+        //public void AddChilds(IEnumerable<IDataField> childs)
+        //{
+        //    foreach (var child in childs)
+        //    {
+        //        AddChild(child);
+        //    }
+        //}
 
-        public void AddChild(IDataField field)
-        {
-            if (_childs == null) _childs = new List<IDataField>();
-            _childs.Add(field);
-            field.ParentMemberField = this;
-        }
+        //private void AddChild(IDataField field)
+        //{
+        //    if (_childs == null) _childs = new List<IDataField>();
+        //    _childs.Add(field);
+        //    field.ParentMemberField = this;
+        //}
 
 
         public ObjectField(PropertyRepositoryAttribute attribute)

@@ -19,5 +19,6 @@ namespace CodeArt.DomainDriven
         /// 领域事件可以被回逆
         /// </summary>
         void Reverse();
+
     }
 }

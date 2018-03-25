@@ -75,21 +75,28 @@ namespace CodeArt.DTO
             switch (methodType)
             {
                 case SerializationMethodType.Serialize:
-                    Type[] typeArgs = new Type[] { typeof(string), type };
-                    method = typeof(IDTOWriter).ResolveMethod("Write", typeArgs);
-                    if ((method == null) && (type.IsPrimitive == false))
+                    if (type.Name.StartsWith("Nullable"))
                     {
-                        //如果不是int、long等基础类型，而有可能是自定义类型，那么用以下代码得到方法
-                        method = typeof(IDTOWriter).ResolveMethod("Write", _writeObjectArgs);
+                        Type[] typeArgs = new Type[] { typeof(string), type };
+                        method = typeof(IDTOWriter).ResolveMethod("Write", typeArgs);
+                    }
+                    else
+                    {
+                        Type[] typeArgs = new Type[] { typeof(string), type };
+                        method = typeof(IDTOWriter).ResolveMethod("Write", typeArgs);
+                        if ((method == null) && (type.IsPrimitive == false))
+                        {
+                            //如果不是int、long等基础类型，而有可能是自定义类型，那么用以下代码得到方法
+                            method = typeof(IDTOWriter).ResolveMethod("Write", _writeObjectArgs);
+                        }
                     }
                     break;
                 case SerializationMethodType.Deserialize:
                     if (type.Name.StartsWith("Nullable"))
                     {
-                        throw new DTOException("目前不支持Nullable值的dto序列化");
-                        //Type[] targs = type.GetGenericArguments();
-                        //string methodName = string.Format("ReadNullable{0}", targs[0].Name);
-                        //method = typeof(IPrimitiveReader).ResolveMethod(methodName, Type.EmptyTypes);
+                        Type[] targs = type.GetGenericArguments();
+                        string methodName = string.Format("ReadNullable{0}", targs[0].Name);
+                        method = typeof(IDTOReader).ResolveMethod(methodName, _readArgs);
                     }
                     else
                     {
@@ -105,6 +112,12 @@ namespace CodeArt.DTO
                     }
                     break;
             }
+
+            if(method == null)
+            {
+                throw new DTOException("没有找到"+ type.ResolveName() + "的dto序列化方法");
+            }
+
             return method;
         }
 

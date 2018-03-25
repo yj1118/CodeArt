@@ -17,7 +17,7 @@ namespace CodeArt.DomainDriven
 
         public IDomainBuffer GetCache()
         {
-            return this.BufferImplementer?.GetInstance<IDomainBuffer>();
+            return this.BufferImplementer?.CreateInstance<IDomainBuffer>();
         }
 
         internal void LoadFrom(XmlNode root)

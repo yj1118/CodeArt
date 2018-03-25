@@ -3,65 +3,23 @@ D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.RabbitMQ\bin\Debug\CodeA
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.RabbitMQ\bin\Debug\CodeArt.RabbitMQ.pdb
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.RabbitMQ\bin\Debug\zh-CN\CodeArt.RabbitMQ.resources.dll
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.RabbitMQ\bin\Debug\CodeArt.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.RabbitMQ\bin\Debug\CodeArt.EasyMQ.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.RabbitMQ\bin\Debug\Microsoft.Diagnostics.Tracing.EventSource.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.RabbitMQ\bin\Debug\RabbitMQ.Client.dll
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.RabbitMQ\bin\Debug\NLog.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.RabbitMQ\bin\Debug\CodeArt.EasyMQ.pdb
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.RabbitMQ\bin\Debug\CodeArt.pdb
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.RabbitMQ\bin\Debug\Microsoft.Diagnostics.Tracing.EventSource.xml
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.RabbitMQ\bin\Debug\RabbitMQ.Client.xml
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.RabbitMQ\bin\Debug\NLog.xml
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.RabbitMQ\bin\Debug\zh-CN\CodeArt.EasyMQ.resources.dll
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.RabbitMQ\bin\Debug\zh-CN\CodeArt.resources.dll
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.RabbitMQ\obj\Debug\CodeArt.RabbitMQ.csprojResolveAssemblyReference.cache
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.RabbitMQ\obj\Debug\CodeArt.RabbitMQ.Strings.resources
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.RabbitMQ\obj\Debug\CodeArt.RabbitMQ.Strings.zh-CN.resources
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.RabbitMQ\obj\Debug\CodeArt.RabbitMQ.csproj.GenerateResource.Cache
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.RabbitMQ\obj\Debug\CodeArt.RabbitMQ.csproj.GenerateResource.cache
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.RabbitMQ\obj\Debug\CodeArt.RabbitMQ.csproj.CoreCompileInputs.cache
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.RabbitMQ\obj\Debug\zh-CN\CodeArt.RabbitMQ.resources.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.RabbitMQ\obj\Debug\CodeArt.RabbitMQ.csproj.CopyComplete
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.RabbitMQ\obj\Debug\CodeArt.RabbitMQ.dll
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.RabbitMQ\obj\Debug\CodeArt.RabbitMQ.pdb
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.RabbitMQ\bin\Debug\CodeArt.EasyMQ.dll
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.RabbitMQ\bin\Debug\CodeArt.EasyMQ.pdb
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.RabbitMQ\bin\Debug\zh-CN\CodeArt.EasyMQ.resources.dll
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.RabbitMQ\bin\Debug\RabbitMQ.Client.dll
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.RabbitMQ\bin\Debug\Microsoft.Diagnostics.Tracing.EventSource.dll
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.RabbitMQ\bin\Debug\Microsoft.Diagnostics.Tracing.EventSource.xml
-D:\Workspace\Projects\Temp\CodeArt\CodeArt.RabbitMQ\bin\Debug\NLog.config
-D:\Workspace\Projects\Temp\CodeArt\CodeArt.RabbitMQ\bin\Debug\CodeArt.RabbitMQ.dll
-D:\Workspace\Projects\Temp\CodeArt\CodeArt.RabbitMQ\bin\Debug\CodeArt.RabbitMQ.pdb
-D:\Workspace\Projects\Temp\CodeArt\CodeArt.RabbitMQ\bin\Debug\zh-CN\CodeArt.RabbitMQ.resources.dll
-D:\Workspace\Projects\Temp\CodeArt\CodeArt.RabbitMQ\bin\Debug\CodeArt.dll
-D:\Workspace\Projects\Temp\CodeArt\CodeArt.RabbitMQ\bin\Debug\CodeArt.EasyMQ.dll
-D:\Workspace\Projects\Temp\CodeArt\CodeArt.RabbitMQ\bin\Debug\Microsoft.Diagnostics.Tracing.EventSource.dll
-D:\Workspace\Projects\Temp\CodeArt\CodeArt.RabbitMQ\bin\Debug\RabbitMQ.Client.dll
-D:\Workspace\Projects\Temp\CodeArt\CodeArt.RabbitMQ\bin\Debug\NLog.dll
-D:\Workspace\Projects\Temp\CodeArt\CodeArt.RabbitMQ\bin\Debug\CodeArt.EasyMQ.pdb
-D:\Workspace\Projects\Temp\CodeArt\CodeArt.RabbitMQ\bin\Debug\CodeArt.pdb
-D:\Workspace\Projects\Temp\CodeArt\CodeArt.RabbitMQ\bin\Debug\Microsoft.Diagnostics.Tracing.EventSource.xml
-D:\Workspace\Projects\Temp\CodeArt\CodeArt.RabbitMQ\bin\Debug\RabbitMQ.Client.xml
-D:\Workspace\Projects\Temp\CodeArt\CodeArt.RabbitMQ\bin\Debug\NLog.xml
-D:\Workspace\Projects\Temp\CodeArt\CodeArt.RabbitMQ\bin\Debug\zh-CN\CodeArt.EasyMQ.resources.dll
-D:\Workspace\Projects\Temp\CodeArt\CodeArt.RabbitMQ\bin\Debug\zh-CN\CodeArt.resources.dll
-D:\Workspace\Projects\Temp\CodeArt\CodeArt.RabbitMQ\obj\Debug\CodeArt.RabbitMQ.csprojResolveAssemblyReference.cache
-D:\Workspace\Projects\Temp\CodeArt\CodeArt.RabbitMQ\obj\Debug\CodeArt.RabbitMQ.Strings.resources
-D:\Workspace\Projects\Temp\CodeArt\CodeArt.RabbitMQ\obj\Debug\CodeArt.RabbitMQ.Strings.zh-CN.resources
-D:\Workspace\Projects\Temp\CodeArt\CodeArt.RabbitMQ\obj\Debug\CodeArt.RabbitMQ.csproj.GenerateResource.Cache
-D:\Workspace\Projects\Temp\CodeArt\CodeArt.RabbitMQ\obj\Debug\zh-CN\CodeArt.RabbitMQ.resources.dll
-D:\Workspace\Projects\Temp\CodeArt\CodeArt.RabbitMQ\obj\Debug\CodeArt.RabbitMQ.dll
-D:\Workspace\Projects\Temp\CodeArt\CodeArt.RabbitMQ\obj\Debug\CodeArt.RabbitMQ.pdb
-D:\Workspace\Release\GitHub\CodeArt Framework\src\CodeArt.RabbitMQ\bin\Debug\NLog.config
-D:\Workspace\Release\GitHub\CodeArt Framework\src\CodeArt.RabbitMQ\bin\Debug\CodeArt.RabbitMQ.dll
-D:\Workspace\Release\GitHub\CodeArt Framework\src\CodeArt.RabbitMQ\bin\Debug\CodeArt.RabbitMQ.pdb
-D:\Workspace\Release\GitHub\CodeArt Framework\src\CodeArt.RabbitMQ\bin\Debug\zh-CN\CodeArt.RabbitMQ.resources.dll
-D:\Workspace\Release\GitHub\CodeArt Framework\src\CodeArt.RabbitMQ\bin\Debug\CodeArt.dll
-D:\Workspace\Release\GitHub\CodeArt Framework\src\CodeArt.RabbitMQ\bin\Debug\CodeArt.EasyMQ.dll
-D:\Workspace\Release\GitHub\CodeArt Framework\src\CodeArt.RabbitMQ\bin\Debug\NLog.dll
-D:\Workspace\Release\GitHub\CodeArt Framework\src\CodeArt.RabbitMQ\bin\Debug\CodeArt.EasyMQ.pdb
-D:\Workspace\Release\GitHub\CodeArt Framework\src\CodeArt.RabbitMQ\bin\Debug\CodeArt.pdb
-D:\Workspace\Release\GitHub\CodeArt Framework\src\CodeArt.RabbitMQ\bin\Debug\Microsoft.Diagnostics.Tracing.EventSource.xml
-D:\Workspace\Release\GitHub\CodeArt Framework\src\CodeArt.RabbitMQ\bin\Debug\RabbitMQ.Client.xml
-D:\Workspace\Release\GitHub\CodeArt Framework\src\CodeArt.RabbitMQ\bin\Debug\NLog.xml
-D:\Workspace\Release\GitHub\CodeArt Framework\src\CodeArt.RabbitMQ\bin\Debug\zh-CN\CodeArt.EasyMQ.resources.dll
-D:\Workspace\Release\GitHub\CodeArt Framework\src\CodeArt.RabbitMQ\bin\Debug\zh-CN\CodeArt.resources.dll
-D:\Workspace\Release\GitHub\CodeArt Framework\src\CodeArt.RabbitMQ\obj\Debug\CodeArt.RabbitMQ.csprojResolveAssemblyReference.cache
-D:\Workspace\Release\GitHub\CodeArt Framework\src\CodeArt.RabbitMQ\obj\Debug\CodeArt.RabbitMQ.Strings.resources
-D:\Workspace\Release\GitHub\CodeArt Framework\src\CodeArt.RabbitMQ\obj\Debug\CodeArt.RabbitMQ.Strings.zh-CN.resources
-D:\Workspace\Release\GitHub\CodeArt Framework\src\CodeArt.RabbitMQ\obj\Debug\CodeArt.RabbitMQ.csproj.GenerateResource.Cache
-D:\Workspace\Release\GitHub\CodeArt Framework\src\CodeArt.RabbitMQ\obj\Debug\zh-CN\CodeArt.RabbitMQ.resources.dll
-D:\Workspace\Release\GitHub\CodeArt Framework\src\CodeArt.RabbitMQ\obj\Debug\CodeArt.RabbitMQ.dll
-D:\Workspace\Release\GitHub\CodeArt Framework\src\CodeArt.RabbitMQ\obj\Debug\CodeArt.RabbitMQ.pdb

@@ -23,6 +23,12 @@ namespace CodeArt.DTO
             _dto.SetValue(name, value);
         }
 
+        public void Write(string name, DateTime? value)
+        {
+            if(value.HasValue) _dto.SetValue(name, value.Value);
+        }
+
+
         public void Write(string name, string value)
         {
             _dto.SetValue(name, value);

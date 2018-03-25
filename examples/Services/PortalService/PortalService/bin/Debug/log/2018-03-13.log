@@ -1,0 +1,145 @@
+2018-03-13 03:39:55.8164 FATAL 消息：
+将字符串转换为 uniqueidentifier 时失败。
+；堆栈：   在 CodeArt.DomainDriven.CommandBase.OnFailed(Exception ex) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Command\CommandBase.cs:行号 47
+   在 CodeArt.DomainDriven.CommandBase.ExecuteImpl(Action action) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Command\CommandBase.cs:行号 28
+   在 CodeArt.DomainDriven.Command.Execute() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Command\Command.cs:行号 14
+   在 PortalService.Application.DeletePermissions.DynamicInvoke(Object arg) 位置 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\Permission\DeletePermissions.cs:行号 23
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(DTObject arg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 19
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 14
+   在 CodeArt.ServiceModel.MQServiceHandler.ProcessService(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 58
+   在 CodeArt.ServiceModel.MQServiceHandler.Process(String method, DTObject args) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 34
+   在 System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   在 System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   在 System.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   在 System.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   在 System.Data.SqlClient.SqlDataReader.Read()
+   在 Dapper.WrappedReader.System.Data.IDataReader.Read()
+   在 CodeArt.DomainDriven.DataAccess.SqlHelper.FillMultipleData(IDataReader reader, List`1 datas) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\SqlHelper.cs:行号 131
+   在 CodeArt.DomainDriven.DataAccess.SqlHelper.Query(String connName, String sql, Object param, List`1 datas) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\SqlHelper.cs:行号 85
+   在 CodeArt.DomainDriven.DataAccess.DataTable.ExecuteQueryEntries(IQueryBuilder query, Action`1 fillArg, List`1 datas) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 316
+   在 CodeArt.DomainDriven.DataAccess.DataTable.UseDataEntries(IQueryBuilder exp, Action`1 fillArg, Action`1 action) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 288
+   在 CodeArt.DomainDriven.DataAccess.DataTable.GetObjectsFromEntries[T](IQueryBuilder exp, Action`1 fillArg, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 244
+   在 CodeArt.DomainDriven.DataAccess.DataTable.Query[T](String expression, Action`1 fillArg, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 172
+   在 CodeArt.DomainDriven.DataAccess.DataModel.Query[T](String expression, Action`1 fillArg, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\DataModel.cs:行号 102
+   在 CodeArt.DomainDriven.DataAccess.DataPortal.Query[T](String expression, Action`1 fillArg, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataPortal\DataPortal.cs:行号 159
+   在 CodeArt.DomainDriven.DataAccess.DataContextExtensions.<>c__DisplayClass1_0`1.<Query>b__0() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\DataContextExtensions.cs:行号 42
+   在 CodeArt.DomainDriven.DataContext.RegisterQueried[T](QueryLevel level, Func`1 persistQuery) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 194
+   在 CodeArt.DomainDriven.DataAccess.DataContextExtensions.Query[T](IDataContext dataContext, String expression, Action`1 fillArg, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\DataContextExtensions.cs:行号 40
+   在 AccountSubsystem.SqlPermissionRepository.FindsBy(IEnumerable`1 ids) 位置 D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystem\Permission\SqlPermissionRepository.cs:行号 67
+   在 AccountSubsystem.DeletePermissions.ExecuteProcedure() 位置 D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystem\Permission\Application\DeletePermissions.cs:行号 22
+   在 CodeArt.DomainDriven.DataContext.Using(DataContext dataContext, Action action, Boolean timely, Boolean newScope) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 698
+
+2018-03-13 03:40:41.8567 FATAL 消息：
+将字符串转换为 uniqueidentifier 时失败。
+；堆栈：   在 CodeArt.DomainDriven.CommandBase.OnFailed(Exception ex) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Command\CommandBase.cs:行号 47
+   在 CodeArt.DomainDriven.CommandBase.ExecuteImpl(Action action) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Command\CommandBase.cs:行号 28
+   在 CodeArt.DomainDriven.Command.Execute() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Command\Command.cs:行号 14
+   在 PortalService.Application.DeletePermissions.DynamicInvoke(Object arg) 位置 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\Permission\DeletePermissions.cs:行号 23
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(DTObject arg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 19
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 14
+   在 CodeArt.ServiceModel.MQServiceHandler.ProcessService(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 58
+   在 CodeArt.ServiceModel.MQServiceHandler.Process(String method, DTObject args) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 34
+   在 System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   在 System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   在 System.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   在 System.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   在 System.Data.SqlClient.SqlDataReader.Read()
+   在 Dapper.WrappedReader.System.Data.IDataReader.Read()
+   在 CodeArt.DomainDriven.DataAccess.SqlHelper.FillMultipleData(IDataReader reader, List`1 datas) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\SqlHelper.cs:行号 131
+   在 CodeArt.DomainDriven.DataAccess.SqlHelper.Query(String connName, String sql, Object param, List`1 datas) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\SqlHelper.cs:行号 85
+   在 CodeArt.DomainDriven.DataAccess.DataTable.ExecuteQueryEntries(IQueryBuilder query, Action`1 fillArg, List`1 datas) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 316
+   在 CodeArt.DomainDriven.DataAccess.DataTable.UseDataEntries(IQueryBuilder exp, Action`1 fillArg, Action`1 action) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 288
+   在 CodeArt.DomainDriven.DataAccess.DataTable.GetObjectsFromEntries[T](IQueryBuilder exp, Action`1 fillArg, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 244
+   在 CodeArt.DomainDriven.DataAccess.DataTable.Query[T](String expression, Action`1 fillArg, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 172
+   在 CodeArt.DomainDriven.DataAccess.DataModel.Query[T](String expression, Action`1 fillArg, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\DataModel.cs:行号 102
+   在 CodeArt.DomainDriven.DataAccess.DataPortal.Query[T](String expression, Action`1 fillArg, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataPortal\DataPortal.cs:行号 159
+   在 CodeArt.DomainDriven.DataAccess.DataContextExtensions.<>c__DisplayClass1_0`1.<Query>b__0() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\DataContextExtensions.cs:行号 42
+   在 CodeArt.DomainDriven.DataContext.RegisterQueried[T](QueryLevel level, Func`1 persistQuery) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 194
+   在 CodeArt.DomainDriven.DataAccess.DataContextExtensions.Query[T](IDataContext dataContext, String expression, Action`1 fillArg, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\DataContextExtensions.cs:行号 40
+   在 AccountSubsystem.SqlPermissionRepository.FindsBy(IEnumerable`1 ids) 位置 D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystem\Permission\SqlPermissionRepository.cs:行号 67
+   在 AccountSubsystem.DeletePermissions.ExecuteProcedure() 位置 D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystem\Permission\Application\DeletePermissions.cs:行号 22
+   在 CodeArt.DomainDriven.DataContext.Using(DataContext dataContext, Action action, Boolean timely, Boolean newScope) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 698
+
+2018-03-13 12:41:49.2489 FATAL 消息：
+属性 Name 的值 dd 重复
+；堆栈：
+2018-03-13 12:44:45.8171 FATAL 消息：
+属性 Name 的值 aa 重复
+；堆栈：
+2018-03-13 12:49:06.2927 FATAL 消息：
+属性 Name 的值 aa 重复
+；堆栈：
+2018-03-13 13:04:48.1921 FATAL 消息：
+属性 Name 的值 dd 重复
+；堆栈：
+2018-03-13 13:04:51.9980 FATAL 消息：
+属性 Name 的值 dd 重复
+；堆栈：
+2018-03-13 19:25:43.2297 FATAL 消息：与“AccountSubsystem.CreateRole.CreateRole(string, System.Collections.Generic.IEnumerable<System.Guid>, bool)”最匹配的重载方法具有一些无效参数；堆栈：   在 CallSite.Target(Closure , CallSite , Type , Object , Object , Object )
+   在 System.Dynamic.UpdateDelegates.UpdateAndExecute4[T0,T1,T2,T3,TRet](CallSite site, T0 arg0, T1 arg1, T2 arg2, T3 arg3)
+   在 PortalService.Application.AddRole.DynamicInvoke(Object arg) 位置 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\Role\AddRole.cs:行号 21
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(DTObject arg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 19
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 14
+   在 CodeArt.ServiceModel.MQServiceHandler.ProcessService(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 58
+   在 CodeArt.ServiceModel.MQServiceHandler.Process(String method, DTObject args) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 34
+2018-03-13 19:29:05.4545 FATAL 消息：与“AccountSubsystem.CreateRole.CreateRole(string, System.Collections.Generic.IEnumerable<System.Guid>, bool)”最匹配的重载方法具有一些无效参数；堆栈：   在 CallSite.Target(Closure , CallSite , Type , Object , Object , Object )
+   在 PortalService.Application.AddRole.DynamicInvoke(Object arg) 位置 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\Role\AddRole.cs:行号 21
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(DTObject arg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 19
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 14
+   在 CodeArt.ServiceModel.MQServiceHandler.ProcessService(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 58
+   在 CodeArt.ServiceModel.MQServiceHandler.Process(String method, DTObject args) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 34
+2018-03-13 19:41:02.3338 FATAL 消息：与“AccountSubsystem.CreateRole.CreateRole(string, System.Collections.Generic.IEnumerable<System.Guid>, bool)”最匹配的重载方法具有一些无效参数；堆栈：   在 CallSite.Target(Closure , CallSite , Type , Object , Object , Object )
+   在 PortalService.Application.AddRole.DynamicInvoke(Object arg) 位置 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\Role\AddRole.cs:行号 21
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(DTObject arg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 19
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 14
+   在 CodeArt.ServiceModel.MQServiceHandler.ProcessService(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 58
+   在 CodeArt.ServiceModel.MQServiceHandler.Process(String method, DTObject args) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 34
+2018-03-13 19:43:49.1021 FATAL 消息：与“AccountSubsystem.CreateRole.CreateRole(string, System.Collections.Generic.IEnumerable<System.Guid>, bool)”最匹配的重载方法具有一些无效参数；堆栈：   在 CallSite.Target(Closure , CallSite , Type , Object , Object , Object )
+   在 PortalService.Application.AddRole.DynamicInvoke(Object arg) 位置 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\Role\AddRole.cs:行号 21
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(DTObject arg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 19
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 14
+   在 CodeArt.ServiceModel.MQServiceHandler.ProcessService(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 58
+   在 CodeArt.ServiceModel.MQServiceHandler.Process(String method, DTObject args) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 34
+2018-03-13 19:43:51.9710 FATAL 消息：与“AccountSubsystem.CreateRole.CreateRole(string, System.Collections.Generic.IEnumerable<System.Guid>, bool)”最匹配的重载方法具有一些无效参数；堆栈：   在 CallSite.Target(Closure , CallSite , Type , Object , Object , Object )
+   在 PortalService.Application.AddRole.DynamicInvoke(Object arg) 位置 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\Role\AddRole.cs:行号 21
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(DTObject arg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 19
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 14
+   在 CodeArt.ServiceModel.MQServiceHandler.ProcessService(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 58
+   在 CodeArt.ServiceModel.MQServiceHandler.Process(String method, DTObject args) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 34
+2018-03-13 19:43:59.8694 FATAL 消息：与“AccountSubsystem.CreateRole.CreateRole(string, System.Collections.Generic.IEnumerable<System.Guid>, bool)”最匹配的重载方法具有一些无效参数；堆栈：   在 CallSite.Target(Closure , CallSite , Type , Object , Object , Object )
+   在 PortalService.Application.AddRole.DynamicInvoke(Object arg) 位置 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\Role\AddRole.cs:行号 21
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(DTObject arg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 19
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 14
+   在 CodeArt.ServiceModel.MQServiceHandler.ProcessService(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 58
+   在 CodeArt.ServiceModel.MQServiceHandler.Process(String method, DTObject args) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 34
+2018-03-13 19:44:03.4382 FATAL 消息：与“AccountSubsystem.CreateRole.CreateRole(string, System.Collections.Generic.IEnumerable<System.Guid>, bool)”最匹配的重载方法具有一些无效参数；堆栈：   在 CallSite.Target(Closure , CallSite , Type , Object , Object , Object )
+   在 PortalService.Application.AddRole.DynamicInvoke(Object arg) 位置 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\Role\AddRole.cs:行号 21
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(DTObject arg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 19
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 14
+   在 CodeArt.ServiceModel.MQServiceHandler.ProcessService(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 58
+   在 CodeArt.ServiceModel.MQServiceHandler.Process(String method, DTObject args) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 34
+2018-03-13 19:45:04.4210 FATAL 消息：无法将 null 转换为“System.Guid”，因为后者是不可以为 null 的值类型；堆栈：   在 CallSite.Target(Closure , CallSite , Object )
+   在 System.Dynamic.UpdateDelegates.UpdateAndExecute1[T0,TRet](CallSite site, T0 arg0)
+   在 PortalService.Application.AddRole.DynamicInvoke(Object arg) 位置 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\Role\AddRole.cs:行号 21
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(DTObject arg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 19
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 14
+   在 CodeArt.ServiceModel.MQServiceHandler.ProcessService(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 58
+   在 CodeArt.ServiceModel.MQServiceHandler.Process(String method, DTObject args) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 34
+2018-03-13 19:53:40.0721 FATAL 消息：“CodeArt.DTO.DTObjects”未包含“OfType”的定义；堆栈：   在 CallSite.Target(Closure , CallSite , Object )
+   在 System.Dynamic.UpdateDelegates.UpdateAndExecute1[T0,TRet](CallSite site, T0 arg0)
+   在 CallSite.Target(Closure , CallSite , Object )
+   在 PortalService.Application.AddRole.DynamicInvoke(Object arg) 位置 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\Role\AddRole.cs:行号 21
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(DTObject arg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 19
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 14
+   在 CodeArt.ServiceModel.MQServiceHandler.ProcessService(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 58
+   在 CodeArt.ServiceModel.MQServiceHandler.Process(String method, DTObject args) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 34
+2018-03-13 19:54:13.7381 FATAL 消息：“CodeArt.DTO.DTObjects”未包含“OfType”的定义；堆栈：   在 CallSite.Target(Closure , CallSite , Object )
+   在 PortalService.Application.AddRole.DynamicInvoke(Object arg) 位置 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\Role\AddRole.cs:行号 21
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(DTObject arg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 19
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 14
+   在 CodeArt.ServiceModel.MQServiceHandler.ProcessService(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 58
+   在 CodeArt.ServiceModel.MQServiceHandler.Process(String method, DTObject args) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 34

@@ -19,7 +19,7 @@ namespace CodeArt {
     // 类通过类似于 ResGen 或 Visual Studio 的工具自动生成的。
     // 若要添加或移除成员，请编辑 .ResX 文件，然后重新运行 ResGen
     // (以 /str 作为命令选项)，或重新生成 VS 项目。
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Strings {
@@ -75,6 +75,15 @@ namespace CodeArt {
         internal static string CannotReturnPoolItem {
             get {
                 return ResourceManager.GetString("CannotReturnPoolItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Compile error 的本地化字符串。
+        /// </summary>
+        internal static string CompileError {
+            get {
+                return ResourceManager.GetString("CompileError", resourceCulture);
             }
         }
         
@@ -151,6 +160,15 @@ namespace CodeArt {
         }
         
         /// <summary>
+        ///   查找类似 {0} node, there is no {1} attribute defined 的本地化字符串。
+        /// </summary>
+        internal static string NodeNoAttribute {
+            get {
+                return ResourceManager.GetString("NodeNoAttribute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 There is no implementation of interface {0} that can not get an instance 的本地化字符串。
         /// </summary>
         internal static string NoInterfaceImpl {
@@ -183,6 +201,15 @@ namespace CodeArt {
         internal static string NotFoundPoolItem {
             get {
                 return ResourceManager.GetString("NotFoundPoolItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 No information for tenant {0} was found 的本地化字符串。
+        /// </summary>
+        internal static string NotFoundTenant {
+            get {
+                return ResourceManager.GetString("NotFoundTenant", resourceCulture);
             }
         }
         
@@ -246,6 +273,15 @@ namespace CodeArt {
         internal static string RepeatBorrowingPoolItem {
             get {
                 return ResourceManager.GetString("RepeatBorrowingPoolItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Transform expression error 的本地化字符串。
+        /// </summary>
+        internal static string TransformExpressionError {
+            get {
+                return ResourceManager.GetString("TransformExpressionError", resourceCulture);
             }
         }
         

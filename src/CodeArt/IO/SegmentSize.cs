@@ -33,7 +33,7 @@ namespace CodeArt.IO
         /// </summary>
         /// <param name="dataLength"></param>
         /// <returns></returns>
-        public static SegmentSize GetAdviceSize(int dataLength)
+        public static SegmentSize GetAdviceSize(long dataLength)
         {
             if (dataLength < Byte128.Value) return Byte128;
 

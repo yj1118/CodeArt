@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using CodeArt.DTO;
 using CodeArt.EasyMQ.Event;
+using CodeArt.Util;
 
 namespace CodeArt.DomainDriven
 {
@@ -64,14 +65,47 @@ namespace CodeArt.DomainDriven
         }
 
         /// <summary>
-        /// 获取前置事件的参数
+        /// 获取事件的参数
         /// </summary>
         /// <param name="preEventName"></param>
-        public DTObject GetArgs(string preEventName)
+        internal DTObject GetArgs(string eventName)
         {
+            if(eventName.EqualsIgnoreCase(this.EventName))
+            {
+                //获取事件自身的数据
+                return this.GetArgs();
+            }
+
             var args = DTObject.CreateReusable();
-            FillArgs(preEventName, args);
+            FillArgs(eventName, args);
             return args;
+        }
+
+        /// <summary>
+        /// 当前事件对应的条目
+        /// </summary>
+        internal EventEntry Entry
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 接受一个事件调用完成后的结果
+        /// </summary>
+        /// <returns></returns>
+        internal void ApplyResult(string eventName, DTObject result)
+        {
+            if (eventName.EqualsIgnoreCase(this.EventName))
+            {
+                //接受自身事件触发的结果
+                this.SetArgs(result);
+            }
+            this.EventCompleted(eventName, result);
+            if(this.Entry != null)
+            {
+                this.Entry.ArgsCode = this.GetArgs().GetCode();
+            }
         }
 
 
@@ -86,11 +120,11 @@ namespace CodeArt.DomainDriven
         }
 
         /// <summary>
-        /// 当前置事件执行完毕之后触发该回调
+        /// 事件执行完毕之后触发该回调
         /// </summary>
         /// <param name="preEventName"></param>
         /// <param name="result"></param>
-        public virtual void Callback(string preEventName, DTObject result)
+        protected virtual void EventCompleted(string eventName, DTObject result)
         {
 
         }
@@ -99,9 +133,68 @@ namespace CodeArt.DomainDriven
         #endregion
 
 
-        public abstract void Raise();
+        public void Raise()
+        {
+            RaiseImplement();
+        }
 
-        public abstract void Reverse();
+        /// <summary>
+        /// 实现执行事件的方法
+        /// </summary>
+        /// <returns>如果领域事件没有返回值，那么返回null</returns>
+        protected abstract void RaiseImplement();
 
+
+        public void Reverse()
+        {
+            ReverseImplement();
+        }
+
+        /// <summary>
+        /// 实现回逆事件的方法
+        /// </summary>
+        protected abstract void ReverseImplement();
+
+
+        #region 全局事件
+
+        /// <summary>
+        /// 领域事件被成功执行完毕的事件
+        /// </summary>
+        internal static event Action<Guid, DomainEvent> Succeeded;
+
+
+        public static void OnSucceeded(Guid queueId, DomainEvent @event)
+        {
+            if (Succeeded != null)
+                Succeeded(queueId, @event);
+        }
+
+        /// <summary>
+        /// 表示领域事件执行失败，但是成功恢复状态（还原到执行领域事件之前的状态）
+        /// </summary>
+        internal static event Action<Guid, EventFailedException> Failed;
+
+
+        public static void OnFailed(Guid queueId, EventFailedException reason)
+        {
+            if (Failed != null)
+                Failed(queueId, reason);
+        }
+
+        /// <summary>
+        /// 表示领域事件执行失败，并且没有成功恢复的事件
+        /// </summary>
+        internal static event Action<Guid, EventErrorException> Error;
+
+
+        public static void OnError(Guid queueId, EventErrorException ex)
+        {
+            if (Error != null)
+                Error(queueId, ex);
+        }
+
+
+        #endregion
     }
 }

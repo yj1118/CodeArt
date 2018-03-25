@@ -345,6 +345,27 @@ namespace CodeArt.DomainDrivenTest.Demo
 
         }
 
+        [TestMethod]
+        public void QueryCollectionProperty()
+        {
+            {
+                var books = DataPortal.Query<Book>("posters.title = @title", (arg) =>
+                {
+                    arg.Add("title", "第1个海报");
+                }, QueryLevel.None);
+
+                Assert.AreEqual(1, books.Count());
+            }
+
+            {
+                var books = DataPortal.Query<Book>("cover.authors.name = @name", (arg) =>
+                {
+                    arg.Add("name", "作者1");
+                }, QueryLevel.None);
+
+                Assert.AreEqual(1, books.Count());
+            }
+        }
 
         #region 断言
 

@@ -1,0 +1,17 @@
+﻿<UserControl x:Class="CodeArt.WPF.Controls.Playstation.LineText"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CodeArt.WPF.Controls.Playstation">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <local:Line Grid.Column="0" Height="2" LineOpacity="{Binding LineOpacity}"></local:Line>
+        <TextBlock Grid.Column="1" Opacity="{Binding TextOpacity}" Style="{DynamicResource TextSM}" Margin="15 0 15 0" FontWeight="Light" Text="{Binding Text}"></TextBlock>
+        <local:Line Grid.Column="2" Height="2" LineOpacity="{Binding LineOpacity}"></local:Line>
+    </Grid>
+</UserControl>

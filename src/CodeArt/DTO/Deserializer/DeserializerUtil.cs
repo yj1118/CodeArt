@@ -23,21 +23,21 @@ namespace CodeArt.DTO
             char startChar = char.MinValue;
             while (pointer < code.Length)
             {
-                char word = code.GetChar(pointer);
+                char current = code.GetChar(pointer);
                 bool isStart = pointer == 0;
                 bool isEnd = pointer == lastIndex;
                 char prevWord = isStart ? char.MinValue : code.GetChar(pointer - 1);
 
                 pointer++;
 
-                if ((word == '"' || word == '\'') && (isStart || prevWord != '\\'))
+                if ((current == '"' || current == '\'') && (isStart || prevWord != '\\'))
                 {
-                    if (startChar == char.MinValue || startChar == word) //需要一一对应
+                    if (startChar == char.MinValue || startChar == current) //需要一一对应
                     {
                         isInString = !isInString;
                         //pass.Append(word);
                         length++;
-                        startChar = isInString ? word : char.MinValue;
+                        startChar = isInString ? current : char.MinValue;
                         continue;
                     }
                 }
@@ -49,10 +49,10 @@ namespace CodeArt.DTO
                 }
                 else
                 {
-                    if (word == '{' || word == '[') level++;
-                    else if (word == '}' || word == ']') level--;
+                    if (current == '{' || current == '[') level++;
+                    else if (current == '}' || current == ']') level--;
 
-                    bool isEndWord = word == key;
+                    bool isEndWord = current == key;
 
                     if ((isEndWord || isEnd) && level == 0)
                     {
@@ -62,7 +62,7 @@ namespace CodeArt.DTO
                             length++;
                         }
                         var pass = new StringSegment(code.Source, code.Offset + startIndex, length);
-                        return new FindingInfo(pointer - 1, pass);
+                        return new FindingInfo(pointer - 1, pass, isEndWord);
                     }
 
                     //pass.Append(word);
@@ -72,7 +72,7 @@ namespace CodeArt.DTO
 
             {
                 var pass = new StringSegment(code.Source, code.Offset + startIndex, length);
-                return new FindingInfo(pointer - 1, pass);
+                return new FindingInfo(pointer - 1, pass, false);
             }
         }
 
@@ -94,13 +94,23 @@ namespace CodeArt.DTO
                 private set;
             }
 
-            public FindingInfo(int keyPosition, StringSegment pass)
+            /// <summary>
+            /// 是否找到了目标字符
+            /// </summary>
+            public bool Finded
+            {
+                get;
+                private set;
+            }
+
+            public FindingInfo(int keyPosition, StringSegment pass, bool finded)
             {
                 this.KeyPosition = keyPosition;
                 this.Pass = pass.Trim();//Trim很重要，可以把{xx:name, xx:name ,xxx:name } 这种格式的无效空格都移除掉
+                this.Finded = finded;
             }
 
-            public static readonly FindingInfo Empty = new FindingInfo(-1, StringSegment.Empty);
+            public static readonly FindingInfo Empty = new FindingInfo(-1, StringSegment.Empty, false);
 
             public bool IsEmpty()
             {

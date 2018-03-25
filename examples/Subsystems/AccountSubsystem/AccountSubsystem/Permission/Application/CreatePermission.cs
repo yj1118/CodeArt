@@ -5,6 +5,9 @@ using CodeArt;
 using CodeArt.DomainDriven;
 namespace AccountSubsystem
 {
+    /// <summary>
+    /// 创建权限
+    /// </summary>
     public sealed class CreatePermission : Command<Permission>
     {
         private string _name;
@@ -21,6 +24,10 @@ namespace AccountSubsystem
             set;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name">权限名称</param>
         public CreatePermission(string name)
         {
             _name = name;

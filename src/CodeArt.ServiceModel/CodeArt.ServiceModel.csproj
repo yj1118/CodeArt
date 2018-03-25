@@ -49,6 +49,7 @@
     <Compile Include="Configuration\ClientConfig.cs" />
     <Compile Include="Configuration\ServerConfig.cs" />
     <Compile Include="Configuration\ServiceModelConfiguration.cs" />
+    <Compile Include="ServiceHost\ServiceHostLanguageProvider.cs" />
     <Compile Include="Implement\MockService\ContractEventFactory.cs" />
     <Compile Include="Implement\MockService\ContractEvent\ChangeResponseCE.cs" />
     <Compile Include="Implement\MockService\ContractEvent\ChangeResponseCEFactory.cs" />
@@ -69,7 +70,6 @@
     <Compile Include="ServiceContext\Protocol\ServiceResponse.cs" />
     <Compile Include="ServiceContext\ServiceContext.cs" />
     <Compile Include="ServiceException.cs" />
-    <Compile Include="ServiceHost\ServiceHost.cs" />
     <Compile Include="ServiceHost\ServiceHostUtil.cs" />
     <Compile Include="ServiceProvider\IServiceProvider.cs" />
     <Compile Include="ServiceProvider\IServiceProviderFactory.cs" />

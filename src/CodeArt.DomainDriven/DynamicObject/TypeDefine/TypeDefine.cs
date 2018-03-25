@@ -40,6 +40,12 @@ namespace CodeArt.DomainDriven
             private set;
         }
 
+        public string MetadataSchemaCode
+        {
+            get;
+            private set;
+        }
+
         internal TypeMetadata Metadata
         {
             get;
@@ -145,6 +151,7 @@ namespace CodeArt.DomainDriven
         {
             this.TypeName = typeName.FirstToUpper();
             this.MetadataCode = metadataCode;
+            this.MetadataSchemaCode = DTObject.Create(metadataCode).GetSchemaCode(false, false);
             this.Metadata = metadata;
             this.DomainInterfaceType = domainInterfaceType;
             this.ObjectType = objectType;

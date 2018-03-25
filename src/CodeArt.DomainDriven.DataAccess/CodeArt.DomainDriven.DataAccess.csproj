@@ -35,16 +35,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Dapper, Version=1.50.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Dapper.1.50.2\lib\net451\Dapper.dll</HintPath>
+    <Reference Include="Dapper, Version=1.50.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\Subsystems Framework\FileSubsystem\packages\Dapper.1.50.4\lib\net451\Dapper.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.SqlServer.TransactSql.ScriptDom, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Transactions" />
-    <Reference Include="System.ValueTuple, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.ValueTuple.4.3.1\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\..\Subsystems Framework\FileSubsystem\packages\System.ValueTuple.4.4.0\lib\net47\System.ValueTuple.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -59,8 +59,21 @@
     <Compile Include="Common\QueryAdapter.cs" />
     <Compile Include="Common\SqlDynamicRepository.cs" />
     <Compile Include="Common\SqlRepository.cs" />
+    <Compile Include="Common\TreeDataMapper.cs" />
     <Compile Include="Common\Validator.cs" />
     <Compile Include="DataAccessConfiguration.cs" />
+    <Compile Include="DataMapper\Fields\FloatField.cs" />
+    <Compile Include="DataMapper\Fields\ShortField.cs" />
+    <Compile Include="DataMapper\Fields\DoubleField.cs" />
+    <Compile Include="DataMapper\Fields\DecimalField.cs" />
+    <Compile Include="DataMapper\Fields\DataTimeField.cs" />
+    <Compile Include="DataMapper\Fields\ByteField.cs" />
+    <Compile Include="DataMapper\Fields\BooleanField.cs" />
+    <Compile Include="DataMapper\Fields\GuidField.cs" />
+    <Compile Include="DomainEvent\SqlEventLockRepository.cs" />
+    <Compile Include="DomainEvent\SqlEventMonitorRepository.cs" />
+    <Compile Include="MapperNotImplementedException.cs" />
+    <Compile Include="DataMapper\DataMapperAttribute.cs" />
     <Compile Include="DataMapper\DataMapperFactory.cs" />
     <Compile Include="DataMapper\DataMapper.cs" />
     <Compile Include="DataMapper\Fields\DbField.cs" />
@@ -124,10 +137,11 @@
     <Compile Include="Query\Expression\QueryObject.cs" />
     <Compile Include="Query\Expression\QueryPage\ISqlPageTemplate.cs" />
     <Compile Include="Query\Expression\QueryPage\QueryPage.cs" />
+    <Compile Include="Query\Expression\SqlDefinition\SqlAny.cs" />
     <Compile Include="SqlParser\SqlColumns.cs" />
     <Compile Include="SqlParser\SqlParser.cs" />
     <Compile Include="SQLServer\SqlInsertBuilder.cs" />
-    <Compile Include="SQLServer\SqlPageBuilder.cs" />
+    <Compile Include="SQLServer\SqlPageTemplate.cs" />
     <Compile Include="Query\Expression\SqlDefinition\SqlCondition.cs" />
     <Compile Include="Query\Expression\SqlDefinition\SqlDefinition.cs" />
     <Compile Include="Query\Expression\SqlDefinition\SqlIn.cs" />
@@ -137,8 +151,6 @@
     <Compile Include="SqlContext\DatabaseAgent\DatabaseAgent.cs" />
     <Compile Include="SqlContext\DatabaseAgent\DatabaseType.cs" />
     <Compile Include="SqlContext\DatabaseAgent\IDatabaseAgent.cs" />
-    <Compile Include="SqlContext\ISqlConnectionProvider.cs" />
-    <Compile Include="SqlContext\SqlConnectionProvider.cs" />
     <Compile Include="SqlContext\SqlContext.cs" />
     <Compile Include="SqlHelper.cs" />
     <Compile Include="SQLServer\SQLServerAgent.cs" />

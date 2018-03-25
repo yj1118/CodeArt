@@ -149,10 +149,17 @@ namespace CodeArt.DomainDriven.DataAccess
             var objectFields = mapper.GetObjectFields(objectType, false);
             var root = DataTable.Create(objectType, objectFields);
 
-            var snapshotObjectFields = mapper.GetObjectFields(objectType, true);
-            var snapshot = DomainObject.IsAggregateRoot(objectType)
-                            ? DataTable.CreateSnapshot(objectType, snapshotObjectFields)
-                            : null;
+
+            DataTable snapshot = null;
+            if (DomainObject.IsAggregateRoot(objectType))
+            {
+                var tip = ObjectRepositoryAttribute.GetTip(objectType, true);
+                if (tip.Snapshot)
+                {
+                    var snapshotObjectFields = mapper.GetObjectFields(objectType, true);
+                    snapshot = DataTable.CreateSnapshot(objectType, snapshotObjectFields);
+                }
+            }
             return new DataModel(objectType, root, snapshot);
         }
 

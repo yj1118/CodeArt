@@ -31,6 +31,9 @@ namespace CodeArt.DomainDriven
             internal set;
         }
 
+        /// <summary>
+        /// 还是否开启了快照
+        /// </summary>
         public bool Snapshot
         {
             get
@@ -60,7 +63,8 @@ namespace CodeArt.DomainDriven
         public static ObjectRepositoryAttribute GetTip(Type objectType, bool checkUp)
         {
             var attr = _getTip(objectType);
-            if (attr == null && checkUp) throw new DomainDrivenException(string.Format(Strings.NotDefinedObjectRepositoryAttribute, objectType.FullName));
+            if (attr == null && checkUp)
+                throw new DomainDrivenException(string.Format(Strings.NotDefinedObjectRepositoryAttribute, objectType.FullName));
             return attr;
         }
 

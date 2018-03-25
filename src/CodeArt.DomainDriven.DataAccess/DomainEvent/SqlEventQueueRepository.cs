@@ -14,6 +14,14 @@ namespace CodeArt.DomainDriven.DataAccess
     {
         private SqlEventQueueRepository() { }
 
+        public EventQueue FindByEventId(Guid eventId, QueryLevel level)
+        {
+            return DataContext.Current.QuerySingle<EventQueue>("entries.eventId=@eventId", (arg) =>
+             {
+                 arg.Add("eventId", eventId);
+             }, level);
+        }
+
         public static readonly SqlEventQueueRepository Instance = new SqlEventQueueRepository();
 
     }

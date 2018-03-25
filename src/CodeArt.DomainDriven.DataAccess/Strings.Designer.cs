@@ -19,7 +19,7 @@ namespace CodeArt.DomainDriven.DataAccess {
     // 类通过类似于 ResGen 或 Visual Studio 的工具自动生成的。
     // 若要添加或移除成员，请编辑 .ResX 文件，然后重新运行 ResGen
     // (以 /str 作为命令选项)，或重新生成 VS 项目。
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Strings {
@@ -160,6 +160,15 @@ namespace CodeArt.DomainDriven.DataAccess {
         }
         
         /// <summary>
+        ///   查找类似 No persistent operation for domain type {0} {1} 的本地化字符串。
+        /// </summary>
+        internal static string NoPersistentOperation {
+            get {
+                return ResourceManager.GetString("NoPersistentOperation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 No query {0} 的本地化字符串。
         /// </summary>
         internal static string NoQuery {
@@ -174,6 +183,15 @@ namespace CodeArt.DomainDriven.DataAccess {
         internal static string NotCorrectSqlSelect {
             get {
                 return ResourceManager.GetString("NotCorrectSqlSelect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Could not find DbField for type {0} 的本地化字符串。
+        /// </summary>
+        internal static string NotFoundDbField {
+            get {
+                return ResourceManager.GetString("NotFoundDbField", resourceCulture);
             }
         }
         
@@ -300,6 +318,15 @@ namespace CodeArt.DomainDriven.DataAccess {
         internal static string UnableLoadExternalObject {
             get {
                 return ResourceManager.GetString("UnableLoadExternalObject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Unrecognized sql function {0} 的本地化字符串。
+        /// </summary>
+        internal static string UnrecognizedSqlFunction {
+            get {
+                return ResourceManager.GetString("UnrecognizedSqlFunction", resourceCulture);
             }
         }
     }

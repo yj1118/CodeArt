@@ -24,7 +24,7 @@ namespace PortalService.Application
                 Name = arg.Name,
                 Description = arg.Description,
                 MarkedCode = arg.MarkedCode,
-                PermissionIds = arg.PermissionIds
+                PermissionIds = arg.PermissionIds?.OfType<Guid>()
             };
             var role = cmd.Execute();
             return DTObject.Empty;

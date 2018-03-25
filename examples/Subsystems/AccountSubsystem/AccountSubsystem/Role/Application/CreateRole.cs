@@ -44,29 +44,14 @@ namespace AccountSubsystem
 
         protected override Role ExecuteProcedure()
         {
-            Organization org = GetOrganization();
-            var role = BuildRole(org);
-
+            var role = BuildRole();
             AddRole(role);
-            UpdateOrganization(org);
-
             return role;
         }
 
-        private Organization GetOrganization()
+        private Role BuildRole()
         {
-            if (this.OrganizationId != Guid.Empty)
-            {
-                var repository = Repository.Create<IOrganizationRepository>();
-                //如果指定了角色所属的组织，那么组织的信息也会被变更，为了防止并发冲突，将组织锁定
-                return repository.Find(this.OrganizationId, QueryLevel.Single);
-            }
-            return Organization.Empty;
-        }
-
-        private Role BuildRole(Organization org)
-        {
-            Role role = new Role(Guid.NewGuid(), org,_isSystem)
+            Role role = new Role(Guid.NewGuid(), _isSystem)
             {
                 Name = _name ?? string.Empty,
                 Description = this.Description ?? string.Empty,
@@ -88,16 +73,5 @@ namespace AccountSubsystem
             var repository = Repository.Create<IRoleRepository>();
             repository.Add(role);
         }
-
-        private void UpdateOrganization(Organization org)
-        {
-            if (!org.IsEmpty())
-            {
-                //更新组织信息
-                var repository = Repository.Create<IOrganizationRepository>();
-                repository.Update(org);
-            }
-        }
-
     }
 }

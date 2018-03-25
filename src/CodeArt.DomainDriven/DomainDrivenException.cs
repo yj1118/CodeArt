@@ -20,6 +20,5 @@ namespace CodeArt.DomainDriven
         : base(message, innerException)
         {
         }
-
     }
 }

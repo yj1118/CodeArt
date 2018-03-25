@@ -13,7 +13,7 @@ using CodeArt.Concurrent;
 
 namespace CodeArt.DomainDriven.DataAccess.SQLServer
 {
-    internal static class Util
+    public static class Util
     {
         public static string GetSqlDbTypeString(DbType dbType)
         {
@@ -42,45 +42,58 @@ namespace CodeArt.DomainDriven.DataAccess.SQLServer
         });
 
 
+        public static string GetSqlDbTypeString(Type type)
+        {
+            return _getSqlDbTypeStringByNetType(type);
+        }
 
-        //private static System.Data.DbType SqlDbType2DbType(System.Data.SqlDbType pSourceType)
-        //{
-        //    SqlParameter paraConver = new SqlParameter();
-        //    paraConver.SqlDbType = pSourceType;
-        //    return paraConver.DbType;
-        //}
+        private static Func<Type, string> _getSqlDbTypeStringByNetType = LazyIndexer.Init<Type, string>((type) =>
+        {
+            var sqlDbType = GetSqlDbType(type);
+            return sqlDbType.ToString().ToLower();
+        });
 
-        //private static string GetDbTypeString(DbType dbType)
-        //{
-        //    switch (dbType)
-        //    {
-        //        case DbType.AnsiString: return "varchar";
-        //        case DbType.Binary: return "varbinary";
-        //        case DbType.Byte: return "tinyint";
-        //        case DbType.Boolean: return "bit";
-        //        case DbType.Currency: return "money";
-        //        case DbType.Date: return "datetime";
-        //        case DbType.DateTime: return "datetime";
-        //        case DbType.Time: return "datetime";
-        //        case DbType.DateTime2: return "datetime2";
-        //        case DbType.DateTimeOffset: return "datetimeoffset";
+        private static SqlDbType GetSqlDbType(Type type)
+        {
+            switch (Type.GetTypeCode(type))
+            {
+                case TypeCode.Boolean:
+                    return SqlDbType.Bit;
+                case TypeCode.Byte:
+                    return SqlDbType.TinyInt;
+                case TypeCode.DateTime:
+                    return SqlDbType.DateTime;
+                case TypeCode.Decimal:
+                    return SqlDbType.Decimal;
+                case TypeCode.Double:
+                    return SqlDbType.Float;
+                case TypeCode.Int16:
+                    return SqlDbType.SmallInt;
+                case TypeCode.Int32:
+                    return SqlDbType.Int;
+                case TypeCode.Int64:
+                    return SqlDbType.BigInt;
+                case TypeCode.SByte:
+                    return SqlDbType.TinyInt;
+                case TypeCode.Single:
+                    return SqlDbType.Real;
+                case TypeCode.String:
+                    return SqlDbType.NVarChar;
+                case TypeCode.UInt16:
+                    return SqlDbType.SmallInt;
+                case TypeCode.UInt32:
+                    return SqlDbType.Int;
+                case TypeCode.UInt64:
+                    return SqlDbType.BigInt;
+                case TypeCode.Object:
+                    {
+                        if (type == typeof(Guid))
+                            return SqlDbType.UniqueIdentifier;
+                        break;
+                    }
+            }
+            throw new DataAccessException(string.Format(Strings.NotSupportDbType, type.Name));
+        }
 
-        //        case DbType.Decimal: return "decimal";
-        //        case DbType.Double: return "float";
-        //        case DbType.Guid: return "uniqueidentifier";
-        //        case DbType.Int16: return "smallInt";
-        //        case DbType.Int32: return "int";
-
-        //        case DbType.Int64: return "bigint";
-        //        case DbType.Object: return "variant";
-        //        case DbType.Single: return "real";
-        //        case DbType.String: return "nvarchar";
-        //        case DbType.AnsiStringFixedLength: return "char";
-        //        case DbType.StringFixedLength: return "nchar";
-        //        case DbType.Xml: return "xml";
-
-        //    }
-        //    throw new DataAccessException(string.Format(Strings.NotSupportDbType, dbType.ToString()));
-        //}
     }
 }

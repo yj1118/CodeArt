@@ -24,4 +24,27 @@ namespace CodeArt.ServiceModel
         }
 
     }
+
+    /// <summary>
+    /// 调用服务返回的结果中出现的错误
+    /// </summary>
+    public class InvokeServiceException : ServiceException
+    {
+        public InvokeServiceException(string message)
+            : base(message)
+        {
+        }
+    }
+
+    /// <summary>
+    /// 调用服务返回的结果中出现的错误
+    /// </summary>
+    public class InvokeServiceUserException : UserUIException
+    {
+        public InvokeServiceUserException(string message)
+            : base(message)
+        {
+        }
+    }
+
 }

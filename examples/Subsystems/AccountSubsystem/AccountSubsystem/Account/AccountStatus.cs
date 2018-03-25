@@ -16,7 +16,7 @@ namespace AccountSubsystem
     public class AccountStatus : EntityObject<AccountStatus,Guid>
     {
         [PropertyRepository()]
-        private static readonly DomainProperty IsEnabledProperty = DomainProperty.Register<bool, AccountStatus>("IsEnabled");
+        private static readonly DomainProperty IsEnabledProperty = DomainProperty.Register<bool, AccountStatus>("IsEnabled", true);
 
         /// <summary>
         /// 是否启用
@@ -34,12 +34,12 @@ namespace AccountSubsystem
         }
 
         [PropertyRepository()]
-        private static readonly DomainProperty CreateTimeProperty = DomainProperty.Register<Emptyable<DateTime>, AccountStatus>("CreateTime");
+        private static readonly DomainProperty CreateTimeProperty = DomainProperty.Register<DateTime, AccountStatus>("CreateTime");
 
         /// <summary>
         /// 账号创建的时间
         /// </summary>
-        public Emptyable<DateTime> CreateTime
+        public DateTime CreateTime
         {
             get
             {
@@ -54,7 +54,7 @@ namespace AccountSubsystem
         /// <summary>
         /// 登录信息
         /// </summary>
-        [PropertyRepository(Lazy = true)]
+        [PropertyRepository()]
         private static readonly DomainProperty LoginInfoProperty = DomainProperty.Register<LoginInfo, AccountStatus>("LoginInfo");
 
         
@@ -79,21 +79,43 @@ namespace AccountSubsystem
             this.LoginInfo = this.LoginInfo.Update(lastIp);
         }
 
-        internal AccountStatus(Guid id, DateTime createTime, LoginInfo loginInfo)
+        internal AccountStatus(Guid id, LoginInfo loginInfo)
             : base(id)
         {
-            this.CreateTime = createTime;
+            this.CreateTime = DateTime.Now;
             this.LoginInfo = loginInfo;
             this.IsEnabled = true;
             this.OnConstructed();
         }
 
         [ConstructorRepository()]
-        internal AccountStatus(Guid id, DateTime createTime)
+        internal AccountStatus(Guid id, DateTime createTime, LoginInfo loginInfo)
             : base(id)
         {
             this.CreateTime = createTime;
+            this.LoginInfo = loginInfo;
             this.OnConstructed();
         }
+
+        #region 空对象
+
+        private class AccountStatusEmpty : AccountStatus
+        {
+            public AccountStatusEmpty()
+                : base(Guid.Empty, LoginInfo.Empty)
+            {
+                this.OnConstructed();
+            }
+
+            public override bool IsEmpty()
+            {
+                return true;
+            }
+        }
+
+        public static readonly AccountStatus Empty = new AccountStatusEmpty();
+
+        #endregion
+
     }
 }

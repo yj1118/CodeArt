@@ -228,13 +228,28 @@ namespace CodeArt.Concurrent
         /// <summary>
         /// 开始工作
         /// </summary>
-        public virtual void Start()
+        public void Start()
         {
-            if(!this.IsComplete) this.Cancel();
+            if (this.IsStarted) return;
+            _Start();
+        }
+
+        protected virtual  void _Start()
+        {
+            if (!this.IsComplete) this.Cancel();
             _state = FutureStatus.Incomplete;
             _error = null;
             _onComplete = null;
             _waiterCount = 0;
+        }
+
+
+        public bool IsStarted
+        {
+            get
+            {
+                return _state == FutureStatus.Incomplete;
+            }
         }
 
         public virtual void Reset()
@@ -328,9 +343,9 @@ namespace CodeArt.Concurrent
         /// <summary>
         /// 开始工作
         /// </summary>
-        public override void Start()
+        protected override void _Start()
         {
-            base.Start();
+            base._Start();
             _result = default(T);
         }
 
@@ -396,7 +411,7 @@ namespace CodeArt.Concurrent
         /// <summary>
         /// 开始工作
         /// </summary>
-        public override void Start()
+        protected override void _Start()
         {
         }
 

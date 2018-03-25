@@ -13,40 +13,6 @@ namespace AccountSubsystem
     [ObjectValidator(typeof(RoleSpecification))]
     public class Role : AggregateRoot<Role, Guid>
     {
-
-        #region 所属的组织
-
-        private static readonly DomainProperty OrganizationProperty = DomainProperty.Register<Organization, Role>("Organization");
-
-        /// <summary>
-        /// 角色隶属的组织，该属于可以为空，意味着角色不属于任何组织
-        /// </summary>
-        [PropertyRepository(Lazy = true)]
-        [PropertyChanged("OnOrganizationChanged")]
-        public Organization Organization
-        {
-            get
-            {
-                return GetValue<Organization>(OrganizationProperty);
-            }
-            private set
-            {
-                SetValue(OrganizationProperty, value);
-            }
-        }
-
-        protected virtual void OnOrganizationChanged(DomainPropertyChangedEventArgs e)
-        {
-            var old = e.OldValue as Organization;
-            if (!old.IsEmpty()) throw new DomainDrivenException(string.Format(Strings.NotChangeOrganization, this.Name));
-            var org = e.NewValue as Organization;
-            if (!org.IsEmpty()) org.AddRole(this);
-        }
-
-
-        #endregion
-
-
         /// <summary>
         /// 角色名称
         /// </summary>
@@ -212,20 +178,38 @@ namespace AccountSubsystem
             }
         }
 
-        public Role(Guid id, Organization organization, bool isSystem)
+        [PropertyRepository()]
+        public static readonly DomainProperty CreateTimeProperty = DomainProperty.Register<DateTime, Role>("CreateTime", (owner) => { return DateTime.Now; });
+
+        /// <summary>
+        /// 创建时间
+        /// </summary>
+        public DateTime CreateTime
+        {
+            get
+            {
+                return GetValue<DateTime>(CreateTimeProperty);
+            }
+            private set
+            {
+                SetValue(CreateTimeProperty, value);
+            }
+        }
+
+        public Role(Guid id, bool isSystem)
             : base(id)
         {
-            this.Organization = organization;
             this.IsSystem = isSystem;
             this.OnConstructed();
         }
 
 
         [ConstructorRepository()]
-        public Role(Guid id, bool isSystem)
+        public Role(Guid id, bool isSystem,DateTime createTime)
             : base(id)
         {
             this.IsSystem = isSystem;
+            this.CreateTime = createTime;
             this.OnConstructed();
         }
 

@@ -102,14 +102,14 @@ namespace CodeArt.DTO
         /// </summary>
         /// <param name="sequential">是否排序输出代码</param>
         /// <returns></returns>
-        public abstract string GetCode(bool sequential);
+        public abstract string GetCode(bool sequential, bool outputKey);
 
         /// <summary>
         /// 获取json格式的代码，不包含值，该代码作为架构代码
         /// </summary>
         /// <param name="sequential">是否排序输出代码</param>
         /// <returns></returns>
-        public abstract string GetSchemaCode(bool sequential);
+        public abstract string GetSchemaCode(bool sequential, bool outputKey);
 
 
         #endregion

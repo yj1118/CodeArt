@@ -1,0 +1,27 @@
+2018-02-21 14:00:34.2067 FATAL 消息：无法打开登录所请求的数据库 "PortalService"。登录失败。
+用户 'sa' 登录失败。；堆栈：   at CodeArt.DomainDriven.CommandBase.OnFailed(Exception ex) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Command\CommandBase.cs:line 47
+   at CodeArt.DomainDriven.CommandBase.ExecuteImpl(Action action) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Command\CommandBase.cs:line 28
+   at CodeArt.DomainDriven.Command`1.Execute() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Command\Command.cs:line 28
+   at PortalService.Application.AddPermission.DynamicInvoke(Object arg) in D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\Permission\AddPermission.cs:line 27
+   at CodeArt.ServiceModel.ServiceProvider.Invoke(DTObject arg) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:line 19
+   at CodeArt.ServiceModel.ServiceProvider.Invoke(ServiceRequest request) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:line 14
+   at CodeArt.ServiceModel.MQServiceHandler.ProcessService(ServiceRequest request) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:line 67
+   at CodeArt.ServiceModel.MQServiceHandler.Process(String method, DTObject args) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:line 34
+2018-02-21 14:01:40.1856 FATAL 消息：无法打开登录所请求的数据库 "PortalService"。登录失败。
+用户 'sa' 登录失败。；堆栈：   at CodeArt.DomainDriven.CommandBase.OnFailed(Exception ex) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Command\CommandBase.cs:line 47
+   at CodeArt.DomainDriven.CommandBase.ExecuteImpl(Action action) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Command\CommandBase.cs:line 28
+   at CodeArt.DomainDriven.Command`1.Execute() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Command\Command.cs:line 28
+   at PortalService.Application.AddPermission.DynamicInvoke(Object arg) in D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\Permission\AddPermission.cs:line 27
+   at CodeArt.ServiceModel.ServiceProvider.Invoke(DTObject arg) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:line 19
+   at CodeArt.ServiceModel.ServiceProvider.Invoke(ServiceRequest request) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:line 14
+   at CodeArt.ServiceModel.MQServiceHandler.ProcessService(ServiceRequest request) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:line 67
+   at CodeArt.ServiceModel.MQServiceHandler.Process(String method, DTObject args) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:line 34
+2018-02-21 14:02:57.5632 FATAL 消息：无法打开登录所请求的数据库 "PortalService"。登录失败。
+用户 'sa' 登录失败。；堆栈：   at CodeArt.DomainDriven.CommandBase.OnFailed(Exception ex) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Command\CommandBase.cs:line 47
+   at CodeArt.DomainDriven.CommandBase.ExecuteImpl(Action action) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Command\CommandBase.cs:line 28
+   at CodeArt.DomainDriven.Command`1.Execute() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Command\Command.cs:line 28
+   at PortalService.Application.AddPermission.DynamicInvoke(Object arg) in D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\Permission\AddPermission.cs:line 27
+   at CodeArt.ServiceModel.ServiceProvider.Invoke(DTObject arg) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:line 19
+   at CodeArt.ServiceModel.ServiceProvider.Invoke(ServiceRequest request) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:line 14
+   at CodeArt.ServiceModel.MQServiceHandler.ProcessService(ServiceRequest request) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:line 67
+   at CodeArt.ServiceModel.MQServiceHandler.Process(String method, DTObject args) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:line 34

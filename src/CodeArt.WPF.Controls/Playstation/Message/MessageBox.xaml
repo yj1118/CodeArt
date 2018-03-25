@@ -1,0 +1,23 @@
+﻿<ps:WorkScene x:Class="CodeArt.WPF.Controls.Playstation.MessageBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:ps="clr-namespace:CodeArt.WPF.Controls.Playstation">
+    <ps:Page x:Name="page" Title="{x:Static ps:Strings.SystemPrompt}" ShowBack="False" >
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="{Binding Converter={x:Static ps:BootstrapWidthConverter.Instance},ConverterParameter=xs:(*0.16)}"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="{Binding Converter={x:Static ps:BootstrapWidthConverter.Instance},ConverterParameter=xs:(*0.16)}"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="200"></RowDefinition>
+            </Grid.RowDefinitions>
+            <ps:Button Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"  SizeType="md"  Width="{Binding Converter={x:Static ps:BootstrapWidthConverter.Instance},ConverterParameter=xs:(*0.13)}" Text="{Binding CancelText}" MouseUp="OnCancel"></ps:Button>
+            <TextBlock Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center"  Style="{StaticResource TextMD}" Text="{Binding Message}" FontWeight="Light"></TextBlock>
+            <ps:Button Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"  SizeType="md"  Width="{Binding Converter={x:Static ps:BootstrapWidthConverter.Instance},ConverterParameter=xs:(*0.39)}" Text="{Binding OKText}"  MouseUp="OnOK"></ps:Button>
+        </Grid>
+    </ps:Page>
+</ps:WorkScene>

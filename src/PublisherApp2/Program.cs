@@ -33,34 +33,21 @@ namespace PublisherApp2
             while (true)
             {
                 count++;
-                var evt = new Event2(count);
-                EventPortal.Publish(evt);
-                Console.WriteLine(string.Format("已发布事件{0},id:{1}", typeof(Event2).Name, count));
+                var evt = GetEvent(count);
+                EventPortal.Publish(EventName, evt);
+                Console.WriteLine(string.Format("已发布事件{0},id:{1}", EventName, count));
                 Thread.Sleep(2000);
             }
         }
 
+        const string EventName = "Event2";
 
-
-        [SafeAccess]
-        private class Event2 : EventBase
+        private static DTObject GetEvent(int id)
         {
-            private int _id;
-
-            public Event2(int id)
-                : base("Event2")
-            {
-                _id = id;
-            }
-
-            public override DTObject GetRemotable()
-            {
-                var dto = DTObject.Create();
-                dto["name"] = this.Name;
-                dto["id"] = _id;
-                return dto;
-            }
-
+            var dto = DTObject.Create();
+            dto["name"] = EventName;
+            dto["id"] = id;
+            return dto;
         }
 
     }

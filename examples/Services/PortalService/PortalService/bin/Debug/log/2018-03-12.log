@@ -1,0 +1,125 @@
+2018-03-12 01:14:38.9027 FATAL 消息：
+属性 MarkedCode 的值 222 重复
+；堆栈：   在 CodeArt.DomainDriven.CommandBase.OnFailed(Exception ex) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Command\CommandBase.cs:行号 47
+   在 CodeArt.DomainDriven.CommandBase.ExecuteImpl(Action action) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Command\CommandBase.cs:行号 28
+   在 CodeArt.DomainDriven.Command`1.Execute() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Command\Command.cs:行号 28
+   在 PortalService.Application.AddPermission.DynamicInvoke(Object arg) 位置 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\Permission\AddPermission.cs:行号 27
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(DTObject arg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 19
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 14
+   在 CodeArt.ServiceModel.MQServiceHandler.ProcessService(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 58
+   在 CodeArt.ServiceModel.MQServiceHandler.Process(String method, DTObject args) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 34
+   在 CodeArt.DomainDriven.DataContext.Commit() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 501
+   在 CodeArt.DomainDriven.DataContext.Using(DataContext dataContext, Action action, Boolean timely, Boolean newScope) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 699
+
+2018-03-12 01:18:48.8105 FATAL 消息：
+属性 MarkedCode 的值 222 重复
+；堆栈：
+2018-03-12 01:20:03.9997 FATAL 消息：
+属性 MarkedCode 的值 222 重复
+；堆栈：
+2018-03-12 01:23:21.2263 FATAL 消息：
+属性 MarkedCode 的值 222 重复
+；堆栈：
+2018-03-12 01:23:29.3542 FATAL 消息：
+属性 MarkedCode 的值 222 重复
+；堆栈：
+2018-03-12 01:23:46.0060 FATAL 消息：
+属性 MarkedCode 的值 222 重复
+；堆栈：
+2018-03-12 01:30:36.6530 FATAL 消息：
+属性 MarkedCode 的值 222 重复
+；堆栈：
+2018-03-12 01:30:44.0729 FATAL 消息：
+属性 MarkedCode 的值 222 重复
+；堆栈：
+2018-03-12 01:32:00.9912 FATAL 消息：
+属性 MarkedCode 的值 222 重复
+；堆栈：
+2018-03-12 01:37:27.7468 FATAL 消息：
+属性 MarkedCode 的值 222 重复
+；堆栈：
+2018-03-12 01:39:48.3378 FATAL 消息：
+属性 MarkedCode 的值 222 重复
+；堆栈：
+2018-03-12 01:42:54.4968 FATAL 消息：
+属性 MarkedCode 的值 222 重复
+；堆栈：
+2018-03-12 01:44:04.3740 FATAL 消息：
+属性 MarkedCode 的值 222 重复
+；堆栈：
+2018-03-12 01:44:29.7311 FATAL 消息：
+属性 MarkedCode 的值 222 重复
+；堆栈：
+2018-03-12 01:44:37.7491 FATAL 消息：
+属性 MarkedCode 的值 222 重复
+；堆栈：
+2018-03-12 01:44:40.4609 FATAL 消息：
+属性 MarkedCode 的值 222 重复
+；堆栈：
+2018-03-12 01:44:46.9753 FATAL 消息：
+属性 MarkedCode 的值 222 重复
+；堆栈：
+2018-03-12 02:37:26.2965 FATAL 消息：与“AccountSubsystem.DeletePermissions.DeletePermissions(System.Collections.Generic.IEnumerable<System.Guid>)”最匹配的重载方法具有一些无效参数；堆栈：   在 CallSite.Target(Closure , CallSite , Type , Object )
+   在 System.Dynamic.UpdateDelegates.UpdateAndExecute2[T0,T1,TRet](CallSite site, T0 arg0, T1 arg1)
+   在 PortalService.Application.DeletePermissions.DynamicInvoke(Object arg) 位置 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\Permission\DeletePermissions.cs:行号 22
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(DTObject arg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 19
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 14
+   在 CodeArt.ServiceModel.MQServiceHandler.ProcessService(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 58
+   在 CodeArt.ServiceModel.MQServiceHandler.Process(String method, DTObject args) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 34
+2018-03-12 02:37:33.4889 FATAL 消息：与“AccountSubsystem.DeletePermissions.DeletePermissions(System.Collections.Generic.IEnumerable<System.Guid>)”最匹配的重载方法具有一些无效参数；堆栈：   在 CallSite.Target(Closure , CallSite , Type , Object )
+   在 PortalService.Application.DeletePermissions.DynamicInvoke(Object arg) 位置 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\Permission\DeletePermissions.cs:行号 22
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(DTObject arg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 19
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 14
+   在 CodeArt.ServiceModel.MQServiceHandler.ProcessService(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 58
+   在 CodeArt.ServiceModel.MQServiceHandler.Process(String method, DTObject args) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 34
+2018-03-12 02:38:03.2960 FATAL 消息：与“AccountSubsystem.DeletePermissions.DeletePermissions(System.Collections.Generic.IEnumerable<System.Guid>)”最匹配的重载方法具有一些无效参数；堆栈：   在 CallSite.Target(Closure , CallSite , Type , Object )
+   在 PortalService.Application.DeletePermissions.DynamicInvoke(Object arg) 位置 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\Permission\DeletePermissions.cs:行号 22
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(DTObject arg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 19
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 14
+   在 CodeArt.ServiceModel.MQServiceHandler.ProcessService(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 58
+   在 CodeArt.ServiceModel.MQServiceHandler.Process(String method, DTObject args) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 34
+2018-03-12 02:43:53.1710 FATAL 消息：
+属性 MarkedCode 的值 123 重复
+；堆栈：
+2018-03-12 02:44:10.0540 FATAL 消息：
+属性 Name 的值 11 重复
+；堆栈：
+2018-03-12 02:44:12.5528 FATAL 消息：
+属性 Name 的值 11 重复
+；堆栈：
+2018-03-12 02:44:18.0194 FATAL 消息：
+属性 Name 的值 11 重复
+；堆栈：
+2018-03-12 02:44:21.7180 FATAL 消息：
+属性 Name 的值 11 重复
+；堆栈：
+2018-03-12 02:44:29.8550 FATAL 消息：
+属性 Name 的值 11 重复
+；堆栈：
+2018-03-12 02:44:34.8160 FATAL 消息：
+属性 Name 的值 123 重复
+；堆栈：
+2018-03-12 02:44:41.5997 FATAL 消息：
+属性 Name 的值 11 重复
+；堆栈：
+2018-03-12 02:44:47.5988 FATAL 消息：
+属性 Name 的值 111 重复
+；堆栈：
+2018-03-12 02:47:07.5994 FATAL 消息：
+属性 Name 的值 11 重复
+；堆栈：
+2018-03-12 02:47:29.4653 FATAL 消息：
+属性 Name 的值 11 重复
+；堆栈：
+2018-03-12 02:51:40.7411 FATAL 消息：
+属性 Name 的值 11 重复
+；堆栈：
+2018-03-12 02:52:28.2973 FATAL 消息：
+属性 Name 的值 11 重复
+；堆栈：
+2018-03-12 02:52:38.6740 FATAL 消息：
+属性 Name 的值 11 重复
+；堆栈：
+2018-03-12 21:42:39.5155 FATAL 消息：
+属性 Name 的值 11 重复
+；堆栈：

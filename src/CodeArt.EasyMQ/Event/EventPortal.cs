@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using CodeArt.Util;
 using CodeArt.AppSetting;
+using CodeArt.DTO;
 
 namespace CodeArt.EasyMQ.Event
 {
@@ -17,11 +18,18 @@ namespace CodeArt.EasyMQ.Event
         /// <summary>
         /// 当事件有订阅时发布事件
         /// </summary>
-        public static void Publish(IEvent @event)
+        /// <param name="name">事件的名称</param>
+        /// <param name="arg">事件参数</param>
+        public static void Publish(string eventName, DTObject arg)
         {
-            _getProxy(@event.Name).Publish(@event);
+            var publisher = CreatePublisher();
+            publisher.Publish(eventName, arg);
         }
 
+        private static IPublisher CreatePublisher()
+        {
+            return GetPublisherFactory().Create();
+        }
 
         /// <summary>
         /// 订阅远程事件
@@ -30,12 +38,23 @@ namespace CodeArt.EasyMQ.Event
         /// <param name="branch"></param>
         public static void Subscribe(string eventName, IEventHandler handler)
         {
-            _getProxy(eventName).Subscribe(handler);
+            var subscriber = CreateSubscriber(eventName);
+            subscriber.AddHandler(handler);
+            subscriber.Accept();
         }
+
+        private static ISubscriber CreateSubscriber(string eventName)
+        {
+            var config = EasyMQConfiguration.Current.EventConfig;
+            var group = config.SubscriberGroup;
+            return GetSubscriberFactory().Create(eventName, group);
+        }
+
 
         public static void Cancel(string eventName)
         {
-            _getProxy(eventName).Cancel();
+            var subscriber = CreateSubscriber(eventName);
+            subscriber.Stop();
         }
 
         /// <summary>
@@ -44,18 +63,9 @@ namespace CodeArt.EasyMQ.Event
         /// <param name="eventName"></param>
         public static void Cleanup(string eventName)
         {
-            _getProxy(eventName).Cleanup();
+            var subscriber = CreateSubscriber(eventName);
+            subscriber.Cleanup();
         }
-
-
-        #region 获取事件对象
-
-        private static Func<string, EventProxy> _getProxy = LazyIndexer.Init<string, EventProxy>((eventName) =>
-        {
-            return new EventProxy(eventName);
-        });
-
-        #endregion
 
         #region 获取和注册工厂
 

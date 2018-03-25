@@ -124,10 +124,10 @@ namespace CodeArt.DTO
 
         #region 代码
 
-        public override string GetCode(bool sequential)
+        public override string GetCode(bool sequential, bool outputKey)
         {
             StringBuilder code = new StringBuilder();
-            if (!string.IsNullOrEmpty(this.Name))
+            if (outputKey && !string.IsNullOrEmpty(this.Name))
                 code.AppendFormat("\"{0}\"", this.Name);
             if (code.Length > 0) code.Append(":");
             code.Append(GetValueCode(sequential));
@@ -137,11 +137,11 @@ namespace CodeArt.DTO
         private string GetValueCode(bool sequential)
         {
             var dto = this.Value as DTObject;
-            if (dto != null) return dto.GetCode(sequential);
+            if (dto != null) return dto.GetCode(sequential, false);
             return JSON.GetCode(this.Value);
         }
 
-        public override string GetSchemaCode(bool sequential)
+        public override string GetSchemaCode(bool sequential, bool outputKey)
         {
             return this.Name;
         }

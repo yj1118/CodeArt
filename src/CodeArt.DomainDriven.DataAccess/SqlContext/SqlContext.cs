@@ -3,21 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using CodeArt.Data;
+
 namespace CodeArt.DomainDriven.DataAccess
 {
     public static class SqlContext
     {
+        /// <summary>
+        /// 为了提供统一的操作方式，所以也有与CodeArt.Data.SqlContext同样的方法
+        /// </summary>
+        /// <returns></returns>
         public static ISqlConnectionProvider GetConnectionProvider()
         {
-            if (_connectionProvider == null) _connectionProvider = SqlConnectionProvider.Instance;
-            return _connectionProvider;
+            return CodeArt.Data.SqlContext.GetConnectionProvider();
         }
 
-        private static ISqlConnectionProvider _connectionProvider;
-
+        /// <summary>
+        /// 为了提供统一的操作方式，所以也有与CodeArt.Data.SqlContext同样的方法
+        /// </summary>
+        /// <param name="connectionProvider"></param>
         public static void RegisterConnectionProvider(ISqlConnectionProvider connectionProvider)
         {
-            _connectionProvider = connectionProvider;
+            CodeArt.Data.SqlContext.RegisterConnectionProvider(connectionProvider);
         }
 
 
@@ -50,32 +57,32 @@ namespace CodeArt.DomainDriven.DataAccess
             return GetAgent().Database;
         }
 
-        #region 数据映射器
+        //#region 数据映射器
 
-        private static Dictionary<Type, IDataMapper> _mappers = new Dictionary<Type, IDataMapper>();
-
-
-        internal static IDataMapper GetMapper(Type objectType)
-        {
-            IDataMapper mapper = null;
-            if (_mappers.TryGetValue(objectType, out mapper)) return mapper;
-            return null;
-        }
-
-        /// <summary>
-        /// 注册项目中会使用到的数据库的代理，不能重复注册
-        /// </summary>
-        /// <param name="agent"></param>
-        public static void RegisterMapper<T>(IDataMapper mapper)
-            where T : IAggregateRoot
-        {
-            var objectType = typeof(T);
-            _mappers.Add(objectType, mapper);
-        }
+        //private static Dictionary<Type, IDataMapper> _mappers = new Dictionary<Type, IDataMapper>();
 
 
+        //internal static IDataMapper GetMapper(Type objectType)
+        //{
+        //    IDataMapper mapper = null;
+        //    if (_mappers.TryGetValue(objectType, out mapper)) return mapper;
+        //    return null;
+        //}
 
-        #endregion
+        ///// <summary>
+        ///// 注册项目中会使用到的数据库的代理，不能重复注册
+        ///// </summary>
+        ///// <param name="agent"></param>
+        //public static void RegisterMapper<T>(IDataMapper mapper)
+        //    where T : IAggregateRoot
+        //{
+        //    var objectType = typeof(T);
+        //    _mappers.Add(objectType, mapper);
+        //}
+
+
+
+        //#endregion
 
 
 

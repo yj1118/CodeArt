@@ -53,23 +53,23 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\src\CodeArt.EasyMQ\CodeArt.EasyMQ.csproj">
+    <ProjectReference Include="..\..\..\CodeArt Framework\CodeArt\CodeArt.EasyMQ\CodeArt.EasyMQ.csproj">
       <Project>{afb15952-0dfa-4919-9d4b-46c2737654ec}</Project>
       <Name>CodeArt.EasyMQ</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\src\CodeArt.RabbitMQ\CodeArt.RabbitMQ.csproj">
+    <ProjectReference Include="..\..\..\CodeArt Framework\CodeArt\CodeArt.RabbitMQ\CodeArt.RabbitMQ.csproj">
       <Project>{89c4ba5c-358b-4095-8fd2-0bae32c2178e}</Project>
       <Name>CodeArt.RabbitMQ</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\src\CodeArt.ServiceModel.MQ\CodeArt.ServiceModel.MQ.csproj">
+    <ProjectReference Include="..\..\..\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\CodeArt.ServiceModel.MQ.csproj">
       <Project>{cebc603e-59ad-4bd7-839d-ccfe7c0841b1}</Project>
       <Name>CodeArt.ServiceModel.MQ</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\src\CodeArt.ServiceModel\CodeArt.ServiceModel.csproj">
+    <ProjectReference Include="..\..\..\CodeArt Framework\CodeArt\CodeArt.ServiceModel\CodeArt.ServiceModel.csproj">
       <Project>{ea6365f1-c027-416b-b4cc-a94572b5fc19}</Project>
       <Name>CodeArt.ServiceModel</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\src\CodeArt\CodeArt.csproj">
+    <ProjectReference Include="..\..\..\CodeArt Framework\CodeArt\CodeArt\CodeArt.csproj">
       <Project>{d2c9f430-6b47-482a-a49c-a2478d75f95f}</Project>
       <Name>CodeArt</Name>
     </ProjectReference>

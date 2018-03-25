@@ -10,15 +10,21 @@ namespace CodeArt.DomainDriven.DataAccess
     {
         IEnumerable<IDataField> GetObjectFields(Type objectType, bool isSnapshot);
 
-        void FillInsertData(DomainObject obj, DynamicData data);
+        //void FillInsertData(DomainObject obj, DynamicData data, DataTable table);
 
-        void OnInsert(DomainObject obj);
+        void OnPreInsert(DomainObject obj, DataTable table);
 
-        void FillUpdateData(DomainObject obj, DynamicData data);
+        void OnInserted(DomainObject obj, DataTable table);
 
-        void OnUpdate(DomainObject obj);
+        //void FillUpdateData(DomainObject obj, DynamicData data, DataTable table);
 
-        void OnDelete(DomainObject obj);
+        void OnPreUpdate(DomainObject obj, DataTable table);
+
+        void OnUpdated(DomainObject obj, DataTable table);
+
+        void OnPreDelete(DomainObject obj, DataTable table);
+
+        void OnDeleted(DomainObject obj, DataTable table);
 
 
         /// <summary>
@@ -27,7 +33,7 @@ namespace CodeArt.DomainDriven.DataAccess
         /// <param name="builder"></param>
         /// <param name="param"></param>
         /// <returns></returns>
-        string Build(QueryBuilder builder, DynamicData param);
+        string Build(QueryBuilder builder, DynamicData param, DataTable table);
 
     }
 }

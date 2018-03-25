@@ -13,14 +13,9 @@ namespace CodeArt.DomainDriven
 {
     public class DynamicEntity : DynamicObject, IEntityObject
     {
+        [ConstructorRepository()]
         public DynamicEntity(TypeDefine define, bool isEmpty)
             : base(define, isEmpty)
-        {
-            this.OnConstructed();
-        }
-
-        [ConstructorRepository()]
-        public DynamicEntity()
         {
             this.OnConstructed();
         }

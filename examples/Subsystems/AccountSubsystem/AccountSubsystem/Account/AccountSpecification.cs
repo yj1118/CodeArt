@@ -46,7 +46,7 @@ namespace AccountSubsystem
 
         private bool IsMobilenumber(string name)
         {
-            return MobileNumber.CNValidator.IsMatch(name);
+            return MobileNumberValidator.IsMatch(name);
         }
     }
 }

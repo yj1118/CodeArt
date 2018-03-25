@@ -64,7 +64,7 @@ namespace CodeArt.DomainDriven.DataAccess
                     arg.Add(EntityObject.IdPropertyName, id);
 
                     var table = DataModel.Create(type).Root;
-                    var sql = SingleLock.Create(table).Build(null);
+                    var sql = SingleLock.Create(table).Build(null, table);
                     SqlHelper.Execute(table.ConnectionName, sql, arg);
                 }
             }

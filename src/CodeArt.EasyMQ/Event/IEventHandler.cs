@@ -15,9 +15,10 @@ namespace CodeArt.EasyMQ.Event
     public interface IEventHandler
     {
         /// <summary>
-        /// 处理远程格式的事件
+        /// 处理事件
         /// </summary>
-        /// <param name="event"></param>
-        void Handle(DTObject @event);
+        /// <param name="eventName"></param>
+        /// <param name="arg"></param>
+        void Handle(string eventName, DTObject arg);
     }
 }

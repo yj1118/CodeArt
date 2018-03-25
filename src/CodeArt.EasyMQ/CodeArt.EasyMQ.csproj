@@ -49,10 +49,7 @@
     <Compile Include="Configuration\EventConfig.cs" />
     <Compile Include="Configuration\EasyMQConfiguration.cs" />
     <Compile Include="Configuration\RPCConfig.cs" />
-    <Compile Include="Event\EventBase.cs" />
     <Compile Include="Event\EventPortal.cs" />
-    <Compile Include="Event\EventProxy.cs" />
-    <Compile Include="Event\IEvent.cs" />
     <Compile Include="Event\IEventHandler.cs" />
     <Compile Include="Event\Publisher\IPublisher.cs" />
     <Compile Include="Event\Publisher\IPublisherFactory.cs" />

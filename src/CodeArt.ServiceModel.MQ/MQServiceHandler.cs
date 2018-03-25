@@ -12,22 +12,25 @@ using CodeArt.Log;
 using CodeArt.Concurrent;
 using CodeArt.EasyMQ.RPC;
 using CodeArt.AppSetting;
+using System.Threading;
+using System.Globalization;
+using CodeArt.Util;
 
 namespace CodeArt.ServiceModel
 {
     [SafeAccess]
-    internal class MQServiceHandler : IRPCHandler
+    public class MQServiceHandler : IRPCHandler
     {
-        private MQServiceHandler() { }
+        protected MQServiceHandler() { }
 
-        public DTObject Process(string method, DTObject args)
+        public DTObject Process(string method, DTObject arg)
         {
             DTObject returnValue = null;
             DTObject status = null;
             try
             {
-                var request = ServiceRequest.Create(args);
-                InitHost(request);
+                var request = ServiceRequest.Create(arg);
+                InitIdentity(request);
                 returnValue = ProcessService(request);
                 status = ServiceHostUtil.Success;
             }
@@ -43,13 +46,13 @@ namespace CodeArt.ServiceModel
             return reponse;
         }
 
-        private void InitHost(ServiceRequest request)
+        private void InitIdentity(ServiceRequest request)
         {
-            ServiceHost.Identity = request.Identity;
+            AppSession.Identity = request.Identity;
         }
 
 
-        private DTObject ProcessService(ServiceRequest request)
+        protected virtual DTObject ProcessService(ServiceRequest request)
         {
             var provider = ServiceProviderFactory.Create(request);
             return provider.Invoke(request);

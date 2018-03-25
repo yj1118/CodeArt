@@ -153,6 +153,7 @@ namespace CodeArt.DomainDriven.DataAccess
 
             foreach (var field in current.Fields)
             {
+                if (field.IsAdditional) continue; //不输出附加字段，有这类需求请自行编码sql语句，因为附加字段的定制化需求统一由数据映射器处理
                 if (field.Tip.Lazy) continue;
 
                 if (tableType == TableType.Derived)
@@ -233,6 +234,7 @@ namespace CodeArt.DomainDriven.DataAccess
 
             foreach (var field in current.Fields)
             {
+                if (field.IsAdditional) continue; //不输出附加字段，有这类需求请自行编码sql语句，因为附加字段的定制化需求统一由数据映射器处理
                 if (field.Tip.Lazy) continue;
 
                 if (tableType == TableType.Derived)
@@ -361,15 +363,13 @@ namespace CodeArt.DomainDriven.DataAccess
         {
             if (!ContainsTable(chainRoot, exp, current)) return;
 
-            var tip = current.MemberPropertyTip;
             var chain = current.GetChainCode(chainRoot);
-
             var childSql = GetDerivedTableSql(current, QueryLevel.None);
-
-            sql.AppendLine();
-
             string masterTableName = string.IsNullOrEmpty(masterChain) ? master.Name : masterChain;
 
+            sql.AppendLine();
+     
+            var tip = current.MemberPropertyTip;
             sql.AppendFormat(" left join ({0}) as {1} on {2}.{3}Id={1}.Id",
                                 childSql, 
                                 SqlStatement.Qualifier(chain), 
@@ -383,20 +383,35 @@ namespace CodeArt.DomainDriven.DataAccess
         private static void FillJoinSqlByNoDerived(DataTable chainRoot, DataTable master, DataTable current, string masterChain, SqlDefinition exp, StringBuilder sql, TempIndex index)
         {
             if (!ContainsTable(chainRoot, exp, current)) return;
-            var tip = current.MemberPropertyTip;
-
             var chain = current.GetChainCode(chainRoot);
-
-            sql.AppendLine();
-
             string masterTableName = string.IsNullOrEmpty(masterChain) ? master.Name : masterChain;
 
-            sql.AppendFormat(" left join {0} as {1} on {2}.{3}Id={1}.Id",
-                                SqlStatement.Qualifier(current.Name),
-                                SqlStatement.Qualifier(chain),
-                                SqlStatement.Qualifier(masterTableName),
-                                tip.PropertyName);
+            sql.AppendLine();
+            if (current.IsMultiple)
+            {
+                var middle = current.Middle;
+                var masterIdName = middle.Root == middle.Master ? GeneratedField.RootIdName : GeneratedField.MasterIdName;
 
+                //中间的查询会多一个{4}.{6}={2}.Id的限定，
+                sql.AppendFormat(" left join {0} on {0}.{1}={2}.Id left join {3} as {4} on {0}.{5}={4}.Id and {4}.{6}={2}.Id",
+                    SqlStatement.Qualifier(middle.Name),
+                    SqlStatement.Qualifier(masterIdName),
+                    SqlStatement.Qualifier(masterTableName),
+                    SqlStatement.Qualifier(current.Name),
+                    SqlStatement.Qualifier(chain),
+                    GeneratedField.SlaveIdName,
+                    GeneratedField.RootIdName);
+            }
+            else
+            {
+                var tip = current.MemberPropertyTip;
+                sql.AppendFormat(" left join {0} as {1} on {2}.{3}Id={1}.Id",
+                    SqlStatement.Qualifier(current.Name),
+                    SqlStatement.Qualifier(chain),
+                    SqlStatement.Qualifier(masterTableName),
+                    tip.PropertyName);
+            }
+            
             FillChildJoinSql(chainRoot, current, exp, sql, index);
         }
 
@@ -411,7 +426,7 @@ namespace CodeArt.DomainDriven.DataAccess
             Common
         }
 
-        private static string GetLockCode(QueryLevel level)
+        public static string GetLockCode(QueryLevel level)
         {
             var agent = SqlContext.GetAgent();
             if (agent.Database == DatabaseType.SQLServer)
@@ -495,7 +510,11 @@ namespace CodeArt.DomainDriven.DataAccess
 
         private static bool ContainsTable(DataTable root, SqlDefinition exp, DataTable target)
         {
-            if (target.IsMultiple) return false; //多表关联的，不连带查询
+            if (target.IsMultiple)
+            {
+                var path = target.GetChainCode(root);
+                return exp.ContainsChain(path);
+            }
             var tip = target.MemberPropertyTip;
 
             if (exp.SpecifiedField)
@@ -529,7 +548,7 @@ namespace CodeArt.DomainDriven.DataAccess
             }
             else
             {
-                sql = string.Format("select {3} from ({0}) as {1} where {2}", tableSql, SqlStatement.Qualifier(table.Name), this.Definition.Condition, this.Definition.GetFieldsSql());
+                sql = string.Format("select {3} from ({0}) as {1} where {2}", tableSql, SqlStatement.Qualifier(table.Name), this.Definition.Condition.Code, this.Definition.GetFieldsSql());
             }
 
             return string.Format("({0}) as {1}", sql, SqlStatement.Qualifier(table.Name));

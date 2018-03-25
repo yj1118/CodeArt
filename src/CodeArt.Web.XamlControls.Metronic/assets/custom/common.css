@@ -1,0 +1,284 @@
+﻿body {
+  font-family: 'Microsoft YaHei UI';
+  font-size:1.3rem;
+}
+
+h4{
+    font-family:'Microsoft YaHei UI';
+    font-size:1.4rem;
+}
+
+h1, h2, h3, h4, h5, h6{
+     font-family:'Microsoft YaHei UI';
+}
+
+p {
+    font-family:'Microsoft YaHei UI';
+    font-size:1.3rem;
+}
+
+.m-brand {
+    width: 280px;
+}
+
+@media (max-width: 992px) {
+    .m-brand {
+        width: 100%;
+    }
+}
+
+/* 左侧菜单 */
+.m-aside-menu .m-menu__nav > .m-menu__item > .m-menu__heading .m-menu__link-icon, .m-aside-menu .m-menu__nav > .m-menu__item > .m-menu__link .m-menu__link-icon {
+    font-size: 1.4rem;
+}
+.m-aside-menu .m-menu__nav > .m-menu__item > .m-menu__heading .m-menu__link-text, .m-aside-menu .m-menu__nav > .m-menu__item > .m-menu__link .m-menu__link-text {
+    font-size: 1.3rem;
+}
+
+.m-aside-menu .m-menu__nav > .m-menu__item .m-menu__submenu .m-menu__item > .m-menu__heading .m-menu__link-text, .m-aside-menu .m-menu__nav > .m-menu__item .m-menu__submenu .m-menu__item > .m-menu__link .m-menu__link-text {
+    font-size: 1.3rem;
+}
+
+.m-aside-menu .m-menu__nav > .m-menu__item .m-menu__submenu .m-menu__item > .m-menu__heading .m-menu__link-icon, .m-aside-menu .m-menu__nav > .m-menu__item .m-menu__submenu .m-menu__item > .m-menu__link .m-menu__link-icon {
+    font-size: 1.4rem;
+}
+
+.m-aside-menu .m-menu__nav > .m-menu__item > .m-menu__heading .m-menu__ver-arrow, .m-aside-menu .m-menu__nav > .m-menu__item > .m-menu__link .m-menu__ver-arrow {
+    font-size: 1rem;
+}
+
+.m-aside-menu .m-menu__nav > .m-menu__item .m-menu__submenu .m-menu__item > .m-menu__heading .m-menu__ver-arrow, .m-aside-menu .m-menu__nav > .m-menu__item .m-menu__submenu .m-menu__item > .m-menu__link .m-menu__ver-arrow {
+    font-size: 1rem;
+}
+
+
+@media (min-width: 993px) {
+    .m-aside-left--minimize .m-aside-menu .m-menu__nav > .m-menu__item.m-menu__item--hover > .m-menu__submenu .m-menu__subnav > .m-menu__item.m-menu__item--parent > .m-menu__link .m-menu__link-text {
+        font-size: 1.3rem;
+    }
+
+    .m-aside-left--minimize .m-aside-menu .m-menu__nav .m-menu__item:not([data-menu-submenu-mode='accordion']).m-menu__item--hover > .m-menu__submenu .m-menu__subnav > .m-menu__item > .m-menu__heading .m-menu__link-text, .m-aside-left--minimize .m-aside-menu .m-menu__nav .m-menu__item:not([data-menu-submenu-mode='accordion']).m-menu__item--hover > .m-menu__submenu .m-menu__subnav > .m-menu__item > .m-menu__link .m-menu__link-text, .m-aside-menu.m-aside-menu--dropdown .m-menu__nav .m-menu__item:not([data-menu-submenu-mode='accordion']).m-menu__item--hover > .m-menu__submenu .m-menu__subnav > .m-menu__item > .m-menu__heading .m-menu__link-text, .m-aside-menu.m-aside-menu--dropdown .m-menu__nav .m-menu__item:not([data-menu-submenu-mode='accordion']).m-menu__item--hover > .m-menu__submenu .m-menu__subnav > .m-menu__item > .m-menu__link .m-menu__link-text {
+        font-size: 1.3rem;
+    }
+}
+
+.m-aside-left {
+    width: 280px;  /*不知道为什么写了该句样式后会引起 checkbox的√不对齐，后面的代码会修复这个问题*/
+}
+
+/*快捷通道和同级菜单*/
+@media (min-width: 993px) {
+    .m-header-menu .m-menu__nav > .m-menu__item > .m-menu__link .m-menu__link-text {
+        font-size: 1.3rem;
+    }
+    .m-header-menu .m-menu__nav > .m-menu__item > .m-menu__link .m-menu__link-icon {
+        font-size: 1.5rem;
+    }
+    .m-header-menu.m-header-menu--skin-light .m-menu__nav > .m-menu__item > .m-menu__link .m-menu__link-icon {
+        color: #676c7b;
+    }
+
+    .m-header-menu .m-menu__nav > .m-menu__item .m-menu__submenu > .m-menu__subnav .m-menu__content .m-menu__heading > .m-menu__link-text {
+        font-size: 1.2rem;
+    }
+    .m-header-menu .m-menu__nav > .m-menu__item .m-menu__submenu > .m-menu__subnav .m-menu__content .m-menu__inner > .m-menu__item > .m-menu__link .m-menu__link-text{
+        font-size:1.1rem;
+    }
+
+    /*同级菜单*/
+    .m-header-menu .m-menu__nav > .m-menu__item .m-menu__submenu > .m-menu__subnav > .m-menu__item > .m-menu__link .m-menu__link-text {
+        font-size: 1.1rem;
+    }
+
+}
+
+@media (max-width: 992px) {
+    .m-header-menu .m-menu__nav > .m-menu__item > .m-menu__link .m-menu__link-text {
+        font-size: 1.3rem;
+    }
+
+    .m-header-menu .m-menu__nav > .m-menu__item > .m-menu__link .m-menu__link-icon {
+        font-size: 1.5rem;
+    }
+
+    .m-aside-header-menu-mobile .m-menu__nav > .m-menu__item .m-menu__submenu .m-menu__item > .m-menu__heading .m-menu__link-text, .m-aside-header-menu-mobile .m-menu__nav > .m-menu__item .m-menu__submenu .m-menu__item > .m-menu__link .m-menu__link-text {
+        font-size: 1.3rem;
+    }
+
+    .m-aside-header-menu-mobile {
+        width: 280px !important;
+    }
+
+    .m-aside-header-menu-mobile .m-menu__nav > .m-menu__item > .m-menu__heading .m-menu__ver-arrow, .m-aside-header-menu-mobile .m-menu__nav > .m-menu__item > .m-menu__link .m-menu__ver-arrow{
+        font-size:1rem;
+    }
+
+    .m-aside-header-menu-mobile .m-menu__nav > .m-menu__item .m-menu__submenu .m-menu__item > .m-menu__heading .m-menu__ver-arrow, .m-aside-header-menu-mobile .m-menu__nav > .m-menu__item .m-menu__submenu .m-menu__item > .m-menu__link .m-menu__ver-arrow {
+        font-size: 1rem;
+    }
+
+    .m-aside-header-menu-mobile--on .m-aside-header-menu-mobile-close {
+        right: 255px;
+    }
+}
+
+/*用户有关的菜单*/
+.m-nav .m-nav__item > .m-nav__link .m-nav__link-text {
+    font-size: 1.1rem;
+}
+
+/*底部*/
+@media (min-width: 993px) {
+    .m-footer--push.m-aside-left--enabled:not(.m-footer--fixed) .m-footer {
+        margin-left: 280px;
+    }
+}
+
+/*修复inline模式下的label汉字换行问题*/
+.m-form .m-form__group.m-form__group--inline > .m-form__label {
+    white-space: nowrap;
+}
+
+@media (min-width: 993px) {
+    /*修正 lg下label文字是左对齐而不是右对齐*/
+    .m-form .m-form__section.m-form__section--label-align-right .m-form__group > label, .m-form.m-form--label-align-right .m-form__group > label {
+        text-align: left;
+    }
+}
+
+@media (min-width: 1200px) {
+    /*修正 xl下label文字是右对齐*/
+    /*.m-form .m-form__section.m-form__section--label-align-right .m-form__group > label, .m-form.m-form--label-align-right .m-form__group > label {
+        text-align: right;
+    }*/
+}
+
+.m-form .m-form__group .form-control-label, .m-form .m-form__group label {
+    font-size: 1.2rem;
+}
+.form-cell{
+    margin-bottom:0px;
+}
+
+.m-form .form-control-feedback {
+    font-size: 0.95rem;
+}
+
+.m-form .m-form__help {
+    font-size: 0.95rem;
+}
+
+.form-group > .form-control-feedback{ /* 修正，当输入组件有后缀或者前缀时，信息提示的位置不正确的bug */
+    padding-left:15px;
+}
+
+/*调整表单在弹出窗口的样式*/
+.modal .m-form.m-form--fit .m-form__content, .m-form.m-form--fit .m-form__heading, .m-form.m-form--fit .m-form__group {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.modal .m-form .m-form__group {
+    margin-bottom:1rem;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.m-form .m-portlet__body {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+/* 修正由于修改了.m-aside-left的宽度导致checkbox的√不居中的问题*/
+.m-radio > span, .m-checkbox > span{
+    width:20px;
+    height:20px;
+}
+
+.m-radio > span:after, .m-checkbox > span:after {
+    margin-left: -3px;
+}
+
+/*datatable*/
+.m-datatable.m-datatable--default > .m-datatable__table > .m-datatable__head .m-datatable__row > .m-datatable__cell, .m-datatable.m-datatable--default > .m-datatable__table > .m-datatable__body .m-datatable__row > .m-datatable__cell, .m-datatable.m-datatable--default > .m-datatable__table > .m-datatable__foot .m-datatable__row > .m-datatable__cell{
+    font-size:1.1rem;
+}
+
+.m-datatable-selectedItems {
+    background: #F7F8FC;
+    border: 4px solid #f7f7fa;
+    padding: 20px;
+    margin-top:30px;
+    display:none;
+}
+
+    .m-datatable-selectedItems ul.list-inline {
+        padding: 0px;
+        margin: 0px;
+    }
+
+        .m-datatable-selectedItems ul.list-inline li {
+            display: inline-block;
+            padding: 0px;
+            margin: 5px;
+        }
+
+
+.modal .c-datatableQuery {
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+}
+
+.modal .m-datatable-selectedItems{
+    padding:5px;
+}
+
+/*modal*/
+.modal .modal-content .modal-header .modal-title {
+    font-size: 1.3rem;
+}
+
+.modal-full {
+    max-width: 98%;
+}
+
+@media (min-width: 992px) {
+    .modal-xl {
+        max-width: 900px;
+    }
+}
+
+@media (min-width: 1156px) {
+    .modal-xl {
+        max-width: 1100px;
+    }
+}
+
+/*select*/
+.bootstrap-select .btn-sm, .btn-group-sm > .btn {
+    font-size:1rem;
+}
+.bootstrap-select.btn-group .dropdown-menu.inner > li > a {
+    font-size: 1.1rem;
+}
+
+/*list*/
+.list .list-actions a{
+    margin:0px 2px;
+}
+
+.list .m-table.m-table--head-bg-brand thead th {
+    font-size: 1.1rem;
+}
+
+.list .table tbody th {
+    font-size: 1.1rem;
+}
+
+.list .table tbody tr:hover {
+    background-color: #eaf2fb;
+}
+
+.list .m-section{
+    margin:0px;
+}

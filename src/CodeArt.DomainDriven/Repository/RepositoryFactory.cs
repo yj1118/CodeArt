@@ -19,7 +19,7 @@ namespace CodeArt.DomainDriven
         public static Type GetRepositoryType(Type repositoryInterfaceType)
         {
             var repository = GetRepositoryTypeImpl(repositoryInterfaceType);
-            if (repository == null) throw new DomainDrivenException("没有找到" + repositoryInterfaceType.FullName + "数据仓储的实现");
+            if (repository == null) throw new DomainDrivenException(string.Format(Strings.NotFoundRepository, repositoryInterfaceType.FullName));
             return repository;
         }
 
@@ -75,12 +75,10 @@ namespace CodeArt.DomainDriven
             object repository = _cache.GetOrCreate(repositoryInterfaceType, (t) =>
             {
                 var repositoryType = GetRepositoryType(repositoryInterfaceType);
-                if (repositoryType == null) throw new DomainDrivenException(string.Format(Strings.NotFoundRepository, repositoryInterfaceType.FullName));
                 return SafeAccessAttribute.CreateSingleton(repositoryType);
             });
             return (IRepository)repository;
         }
-
 
         private static LazyIndexer<Type, object> _cache = new LazyIndexer<Type, object>();
 

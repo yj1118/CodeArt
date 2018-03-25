@@ -52,7 +52,7 @@ namespace CodeArt.RabbitMQ
 
             DTObject dto = DTObject.CreateReusable();
             dto["method"] = method;
-            dto["args"] = arg;
+            dto["arg"] = arg;
 
             var routingKey = RPC.GetServerQueue(method.ToLower()); //将服务器端的方法名称作为路由键，统一转为小写表示不区分大小写
             bus.Publish(string.Empty, routingKey, dto, (properties) =>

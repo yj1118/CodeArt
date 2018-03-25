@@ -17,8 +17,8 @@ namespace CodeArt.EasyMQ.Event
         /// <summary>
         /// 发布远程事件
         /// </summary>
-        /// <param name="event"></param>
         /// <param name="eventName"></param>
-        void Publish(DTObject @event, string eventName);
+        /// <param name="event"></param>
+        void Publish(string eventName, DTObject @event);
     }
 }

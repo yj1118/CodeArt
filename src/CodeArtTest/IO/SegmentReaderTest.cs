@@ -73,9 +73,11 @@ namespace CodeArtTest.IO
 
 
                         index++;
+                        return true;
                     });
                     Assert.AreEqual(index, maxIndex + 1);
                     Assert.AreEqual(ms.Position, ms.Length);
+                    
                 }
             }
         }
@@ -123,6 +125,7 @@ namespace CodeArtTest.IO
                         Assert.IsTrue(target.SequenceEqual(source));
 
                         index++;
+                        return true;
                     });
                     Assert.AreEqual(index, maxIndex + 1);
                     Assert.AreEqual(ms.Position, ms.Length);

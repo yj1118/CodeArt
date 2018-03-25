@@ -358,12 +358,12 @@ namespace CodeArt.DomainDriven.DataAccess
             if(memberField != null) memberField.Table = this;
 
             this.Type = type;
-            InitObjectType(objectType);
 
             this.ChainRoot = chainRoot;
             this.Master = master;
             this.MemberField = memberField;
             this.Root = FindActualRoot(chainRoot);
+            InitObjectType(objectType);
             this.Chain = this.MemberField == null ? ObjectChain.Empty : new ObjectChain(this.MemberField);
             this.IsSnapshot = isSnapshot;
 
@@ -502,9 +502,18 @@ namespace CodeArt.DomainDriven.DataAccess
             {
                 this.ElementType = this.ObjectType.ResolveElementType();
             }
-            else
+            else if(this.Type == DataTableType.AggregateRoot)
             {
                 this.ObjectTip = ObjectRepositoryAttribute.GetTip(this.ObjectType, true);
+            }
+            else
+            {
+                //对于值对象和引用对象，如果没有定义ObjectRepositoryAttribute，那么使用根的ObjectRepositoryAttribute
+                this.ObjectTip = ObjectRepositoryAttribute.GetTip(this.ObjectType, false);
+                if(this.ObjectTip == null)
+                {
+                    this.ObjectTip = this.Root.ObjectTip;
+                }
             }
         }
 

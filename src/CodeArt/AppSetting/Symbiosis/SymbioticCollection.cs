@@ -41,7 +41,14 @@ namespace CodeArt.AppSetting
         {
             foreach(var item in _items)
             {
-                item.Dispose();
+                try
+                {
+                    item.Dispose();
+                }
+                catch(Exception ex)
+                {
+
+                }
             }
             _items.Clear();
         }

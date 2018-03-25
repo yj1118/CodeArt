@@ -20,14 +20,14 @@ namespace AccountSubsystem
         }
 
 
-        public override void Raise()
+        protected override void RaiseImplement()
         {
-            
+            return;
         }
 
-        public override void Reverse()
+        protected override void ReverseImplement()
         {
-           
+            
         }
     }
 }

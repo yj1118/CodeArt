@@ -14,12 +14,12 @@ namespace CodeArt.EasyMQ.Event
     {
         protected EventHandler() { }
 
-        public virtual void Handle(DTObject @event)
+        public virtual void Handle(string eventName, DTObject arg)
         {
-            this.DynamicHandle(@event);
+            this.DynamicHandle(eventName, arg);
         }
 
-        protected virtual void DynamicHandle(dynamic @event)
+        protected virtual void DynamicHandle(string eventName,  dynamic arg)
         {
 
         }

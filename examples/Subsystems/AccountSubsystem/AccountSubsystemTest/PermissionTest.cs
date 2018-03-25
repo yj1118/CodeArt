@@ -51,7 +51,9 @@ namespace AccountSubsystemTest
         }
 
 
-
+        /// <summary>
+        /// 测试增加权限
+        /// </summary>
         [TestMethod]
         public void Add()
         {

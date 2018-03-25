@@ -57,6 +57,7 @@ namespace CodeArt.DomainDriven.DataAccess
             SQLServer.SqlInsertBuilder sql = new SQLServer.SqlInsertBuilder(table.Name);
             foreach (var field in table.Fields)
             {
+                if (field.IsAdditional) continue; //附加字段由数据映射器维护
                 sql.AddField(field.Name);
             }
 

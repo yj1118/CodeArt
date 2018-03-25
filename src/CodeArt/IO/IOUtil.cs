@@ -27,6 +27,31 @@ namespace CodeArt.IO
             }
         }
 
+        /// <summary>
+        /// 获取没有扩展名的文件名称
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        public static string GetNameWithNoExtension(string fileName)
+        {
+            var name = GetName(fileName);
+            var dot = name.LastIndexOf(".");
+            if (dot == -1) return name;
+            return name.Substring(0, dot);
+        }
+
+        /// <summary>
+        /// 获取文件名称，就算名称是全路径也可以获取到
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        public static string GetName(string fileName)
+        {
+            var pos = fileName.LastIndexOf("\\");
+            return pos == -1 ? fileName : fileName.Substring(pos + 1);
+        }
+
+
         public static string GetExtension(string fileName)
         {
             var dot = fileName.LastIndexOf(".");
@@ -45,10 +70,26 @@ namespace CodeArt.IO
             if (!fi.Directory.Exists) fi.Directory.Create();
         }
 
+        public static void CreateDirectory(string path)
+        {
+            if(!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+        }
+
         public static string GetFileDirectory(string fileName)
         {
             FileInfo fi = new FileInfo(fileName);
             return fi.Directory.FullName;
+        }
+
+        public static void CreateFile(string fileName)
+        {
+            using (var fs = new FileStream(fileName, FileMode.Create, FileAccess.Write, FileShare.None))
+            {
+
+            }
         }
 
         #region 删除操作
@@ -92,6 +133,11 @@ namespace CodeArt.IO
             }
         }
 
+        /// <summary>
+        /// 获得路径<paramref name="path"/>下的所有文件，包括子目录的文件
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         public static string[] GetAllFiles(string path)
         {
             List<string> files = new List<string>();
@@ -140,12 +186,15 @@ namespace CodeArt.IO
 
         #endregion
 
+
+
         /// <summary>
         /// 均衡路径
         /// </summary>
-        /// <param name="path"></param>
+        /// <param name="fileName">文件名（不带路径）</param>
+        /// <param name="folder">需要存放的目录，会在此目录下均衡</param>
         /// <returns></returns>
-        public static string BalancedPath(this string fileName,string folder)
+        public static string BalancedPath(this string fileName, string folder)
         {
             MD5 md = new MD5CryptoServiceProvider();
             var code = BitConverter.ToString(md.ComputeHash(new UnicodeEncoding().GetBytes(fileName)));
@@ -159,18 +208,20 @@ namespace CodeArt.IO
         }
 
 
-        public static void WatchFiles(string path, string filter, FileSystemEventHandler handler)
+        public static FileSystemWatcher WatchFiles(string path, string filter, FileSystemEventHandler handler, NotifyFilters notify)
         {
             FileSystemWatcher watcher = new FileSystemWatcher();
             watcher.IncludeSubdirectories = true;
             watcher.Filter = filter;
             watcher.Path = path;
-            watcher.NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.FileName | NotifyFilters.DirectoryName | NotifyFilters.Size;
+            watcher.NotifyFilter = notify;
 
             watcher.Created += handler;
             watcher.Changed += handler;
             watcher.Deleted += handler;
+            watcher.Renamed += (s, e) => { handler(s, new FileSystemEventArgs(e.ChangeType, e.FullPath, e.Name)); };
             watcher.EnableRaisingEvents = true;
+            return watcher;
         }
     }
 }

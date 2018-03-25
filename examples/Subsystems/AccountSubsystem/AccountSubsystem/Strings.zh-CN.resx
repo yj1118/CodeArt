@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AccountDisabled" xml:space="preserve">
+    <value>账号已被禁用</value>
+  </data>
+  <data name="AccountNameOrPasswordWrong" xml:space="preserve">
+    <value>账号名或密码错误</value>
+  </data>
   <data name="InvalidAccountName" xml:space="preserve">
-    <value>账户名 {0} 无效</value>
+    <value>账户名 {0} 无效，不能是Email地址或纯数字</value>
   </data>
   <data name="NotChangeOrganization" xml:space="preserve">
     <value>不能更改角色 {0} 所属的组织</value>

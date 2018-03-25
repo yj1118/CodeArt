@@ -26,6 +26,12 @@ namespace CodeArt.DomainDriven.DataAccess
             set;
         }
 
+        public bool IsAdditional
+        {
+            get;
+            set;
+        }
+
         public string PropertyName
         {
             get
@@ -129,6 +135,7 @@ namespace CodeArt.DomainDriven.DataAccess
 
         public DataField(PropertyRepositoryAttribute tip, DbType dbType, DbFieldType[] dbFieldTypes)
         {
+            this.IsAdditional = false;//默认情况下不是附加字段
             this.Tip = tip;
             this.DbType = dbType;
             _dbFieldTypes = dbFieldTypes.ToList();

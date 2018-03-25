@@ -13,17 +13,11 @@ namespace CodeArt.DomainDriven
     [SafeAccess]
     public class MemoryBuffer : IDomainBuffer
     {
-        private static MemoryCache _buffer;
-
-        static MemoryBuffer()
-        {
-            _buffer = new MemoryCache("MemoryBuffer");
-        }
-
+        private MemoryCache _buffer;
 
         public MemoryBuffer()
         {
-
+            _buffer = new MemoryCache("MemoryBuffer");
         }
 
         /// <summary>
@@ -63,5 +57,12 @@ namespace CodeArt.DomainDriven
             return _buffer.Remove(uniqueKey) as BufferEntry;
         }
 
+        public void Clear()
+        {
+            foreach (var item in _buffer)
+            {
+                _buffer.Remove(item.Key);
+            }
+        }
     }
 }

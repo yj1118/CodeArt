@@ -19,7 +19,7 @@ namespace AccountSubsystem {
     // 类通过类似于 ResGen 或 Visual Studio 的工具自动生成的。
     // 若要添加或移除成员，请编辑 .ResX 文件，然后重新运行 ResGen
     // (以 /str 作为命令选项)，或重新生成 VS 项目。
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Strings {
@@ -61,7 +61,25 @@ namespace AccountSubsystem {
         }
         
         /// <summary>
-        ///   查找类似 account name {0} is invalid 的本地化字符串。
+        ///   查找类似 Account has been disabled 的本地化字符串。
+        /// </summary>
+        internal static string AccountDisabled {
+            get {
+                return ResourceManager.GetString("AccountDisabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Account name or password is wrong 的本地化字符串。
+        /// </summary>
+        internal static string AccountNameOrPasswordWrong {
+            get {
+                return ResourceManager.GetString("AccountNameOrPasswordWrong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Invalid account name {0}, cannot be an email address or a pure number 的本地化字符串。
         /// </summary>
         internal static string InvalidAccountName {
             get {

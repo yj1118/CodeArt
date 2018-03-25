@@ -15,7 +15,7 @@ namespace CodeArt.DomainDriven.DataAccess
     internal static class SqlParser
     {
         /// <summary>
-        /// 分析sql select语句，获得参与查询的列信息
+        /// 分析sql语句，获得参与查询的列信息
         /// </summary>
         /// <param name="sqlSelect"></param>
         public static SqlColumns Parse(string sql)
@@ -88,6 +88,13 @@ namespace CodeArt.DomainDriven.DataAccess
             if (column != null)
             {
                 fields.Add(GetString(column));
+                return;
+            }
+
+            var func = target as FunctionCall;
+            if (func != null)
+            {
+                fields.AddRange(GetFields(func));
                 return;
             }
 
@@ -213,6 +220,39 @@ namespace CodeArt.DomainDriven.DataAccess
             }
 
             return code.ToString();
+        }
+
+        private static IEnumerable<string> GetFields(FunctionCall func)
+        {
+            List<string> fields = new List<string>();
+
+            for (int i = func.FirstTokenIndex; i <= func.LastTokenIndex; i++)
+            {
+                var token = func.ScriptTokenStream[i];
+                if(token.TokenType == TSqlTokenType.Identifier)
+                {
+                    fields.Add(token.Text);
+                }
+            }
+            if (fields.Count == 0) return fields;
+
+            var funcName = fields[0].ToLower();
+            switch(funcName)
+            {
+                case "datediff":
+                    {
+                        var column = fields[2]; //该函数仅提取第3个参数作为列的名称
+                        fields.Clear();
+                        fields.Add(column);
+                    }
+                    break;
+                default:
+                    {
+                        throw new DataAccessException(string.Format(Strings.UnrecognizedSqlFunction, funcName));
+                    }
+            }
+
+            return fields;
         }
 
 

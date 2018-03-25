@@ -60,7 +60,7 @@ namespace CodeArt.TestTools
             {
                 TestContext.WriteLine(ex.GetCompleteMessage());
                 TestContext.WriteLine(ex.GetCompleteStackTrace());
-                throw ex;
+                throw;
             }
         }
 

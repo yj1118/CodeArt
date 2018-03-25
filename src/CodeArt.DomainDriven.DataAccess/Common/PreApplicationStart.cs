@@ -24,6 +24,8 @@ namespace CodeArt.DomainDriven.DataAccess
             Repository.Register<IEventQueueRepository>(SqlEventQueueRepository.Instance);
             Repository.Register<IEventLogRepository>(SqlEventLogRepository.Instance);
             Repository.Register<IEventLogEntryRepository>(SqlEventLogEntryRepository.Instance);
+            Repository.Register<IEventMonitorRepository>(SqlEventMonitorRepository.Instance);
+            Repository.Register<IEventLockRepository>(SqlEventLockRepository.Instance);
 
             CodeArt.DomainDriven.LockManager.Register(LockManager.Instance);
         }

@@ -80,7 +80,8 @@ namespace CodeArt.DTO
             {
                 foreach (var member in typeInfo.MemberInfos)
                 {
-                    if(member.CanWrite)
+                    //只有可以写入并且不是抽象的成员才能从dto中赋值
+                    if (member.CanWrite && !member.IsAbstract)
                     {
                         g.BeginScope();
                         member.GenerateDeserializeIL(g);
@@ -93,7 +94,7 @@ namespace CodeArt.DTO
                 //在函数模式,只有标记了Parameter的成员才会被反序列化到对象实例中
                 foreach (var member in typeInfo.MemberInfos)
                 {
-                    if (member.MemberAttribute.Type == DTOMemberType.Parameter && member.CanWrite)
+                    if (member.MemberAttribute.Type == DTOMemberType.Parameter && member.CanWrite && !member.IsAbstract)
                     {
                         g.BeginScope();
                         member.GenerateDeserializeIL(g);

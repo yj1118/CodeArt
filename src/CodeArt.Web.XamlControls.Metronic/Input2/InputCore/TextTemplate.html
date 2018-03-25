@@ -1,0 +1,12 @@
+﻿<ControlTemplate xmlns="http://schemas.codeart.cn/web/xaml"
+                 xmlns:m="http://schemas.codeart.cn/web/xaml/metronic">
+<div class="{TemplateBinding Class}" style="{TemplateBinding Style}" data-name='coreContainer'>
+    <ContentPresenter Content="{TemplateBinding Before}" />
+    <input type="{TemplateBinding Type}" 
+        class="{TemplateBinding Align,Converter={Static m:InputClassConverter.Instance}}"
+        data-name="input" 
+        placeholder="{TemplateBinding Placeholder}" 
+        id="{TemplateBinding Id,Converter={Static m:InputCoreControlId.Instance}}" />
+    <ContentPresenter Content="{TemplateBinding After}" />
+</div>
+</ControlTemplate>

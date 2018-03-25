@@ -36,10 +36,9 @@ namespace CodeArt.DTO
         /// </summary>
         internal void Clear()
         {
-            _root = null;
+            _root.Reset();
             this.IsReadOnly = false;
         }
-
 
         //internal DTObject(DTEObject root, bool isReadOnly)
         //{
@@ -176,16 +175,9 @@ namespace CodeArt.DTO
             SetValue(string.Empty, value);
         }
 
-        public object GetValue(string findExp)
+        private object GetValue(DTEntity entity)
         {
-            return GetValue(findExp, true);
-        }
-
-        public object GetValue(string findExp, bool throwError)
-        {
-            DTEntity entity = FindEntity(findExp, throwError);
-            if (entity == null) return null;
-            switch(entity.Type)
+            switch (entity.Type)
             {
                 case DTEntityType.Value:
                     {
@@ -209,6 +201,19 @@ namespace CodeArt.DTO
             return null;
         }
 
+
+        public object GetValue(string findExp)
+        {
+            return GetValue(findExp, true);
+        }
+
+        public object GetValue(string findExp, bool throwError)
+        {
+            DTEntity entity = FindEntity(findExp, throwError);
+            if (entity == null) return null;
+            return GetValue(entity);
+        }
+
         public object GetValue(string findExp, object defaultValue)
         {
             var value = GetValue(findExp, false);
@@ -224,6 +229,20 @@ namespace CodeArt.DTO
         public T GetValue<T>(string findExp, bool throwError)
         {
             return DataUtil.ToValue<T>(GetValue(findExp, throwError));
+        }
+
+        /// <summary>
+        /// 由于T GetValue<T>(string findExp, T defaultValue)不适合bool类型
+        /// 因为与T GetValue<T>(string findExp, bool throwError)冲突了
+        /// 所以有该方法
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="findExp"></param>
+        /// <param name="defaultValue"></param>
+        /// <returns></returns>
+        public T GetValueWithDefault<T>(string findExp, T defaultValue)
+        {
+            return GetValue<T>(findExp, defaultValue);
         }
 
         public T GetValue<T>(string findExp, T defaultValue)
@@ -287,6 +306,49 @@ namespace CodeArt.DTO
         public T GetValue<T>(T defaultValue)
         {
             return GetValue<T>(string.Empty, defaultValue);
+        }
+
+        public object[] GetValues(string findExp, bool throwError)
+        {
+            DTEntity[] entities = FindEntities(findExp, throwError);
+            object[] values = new object[entities.Length];
+            for (var i = 0; i < entities.Length; i++)
+            {
+                var entity = entities[i];
+                var value = GetValue(entity);
+                values[i] = value;
+            }
+            return values;
+        }
+
+        public T[] GetValues<T>(string findExp)
+        {
+            DTEntity[] entities = FindEntities(findExp, false);
+            List<T> values = new List<T>();
+            for (var i = 0; i < entities.Length; i++)
+            {
+                var entity = entities[i];
+                var value = GetValue(entity);
+                switch (entity.Type)
+                {
+                    case DTEntityType.Value:
+                        {
+                            values.Add(DataUtil.ToValue<T>(value));
+                        }
+                        break;
+                    case DTEntityType.Object:
+                        {
+                            values.Add((value as DTObject).GetValue<T>());
+                        }
+                        break;
+                    case DTEntityType.List:
+                        {
+                            values.AddRange((value as DTObjects).ToArray<T>());
+                        }
+                        break;
+                }
+            }
+            return values.ToArray();
         }
 
         #endregion
@@ -600,9 +662,24 @@ namespace CodeArt.DTO
             }
         }
 
-        public void SetObject(DTObject obj)
+        /// <summary>
+        /// 用<paramref name="obj"/>的内容替换当前对象
+        /// </summary>
+        /// <param name="obj"></param>
+        public void Replace(DTObject obj)
         {
             SetObject(string.Empty, obj);
+        }
+
+        public DTObject GetOrCreateObject(string findExp)
+        {
+            var obj = GetObject(findExp, false);
+            if(obj == null)
+            {
+                obj = this.IsPinned ? DTObject.Create() : DTObject.CreateReusable();
+                this.SetObject(findExp, obj);
+            }
+            return obj;
         }
 
         public DTObject GetObject(string findExp)
@@ -717,10 +794,28 @@ namespace CodeArt.DTO
 
         #endregion
 
+        /// <summary>
+        /// 获取当前对象直系名称集合
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<string> GetNames()
+        {
+            return _root.GetEntities().Select((e) =>
+            {
+                return e.Name;
+            });
+        }
+
+
         #region 转换
 
         /// <summary>
-        /// 批量变换dto结构
+        /// 批量变换dto结构，语法：
+        /// <para>name=>newName 转换成员名称</para>
+        /// <para>value=newValue 赋值</para>
+        /// <para>!member 移除表达式对应的成员</para>
+        /// <para>~member 保留表达式对应的成员，其余的均移除</para>
+        /// 多个表达式可以用;号连接
         /// </summary>
         /// <param name="express">
         /// findExp=>name;findExp=>name
@@ -775,7 +870,8 @@ namespace CodeArt.DTO
 
         public bool Exist(string findExp)
         {
-            return FindEntity(findExp, false) != null || GetObject(findExp) != null;
+            //return FindEntity(findExp, false) != null || GetObject(findExp, false) != null;
+            return FindEntity(findExp, false) != null;
         }
 
         internal DTEntity FindEntity(string findExp, bool throwError)
@@ -909,25 +1005,38 @@ namespace CodeArt.DTO
 
         public string GetCode()
         {
-            return GetCode(false);
+            return GetCode(false, true);
         }
 
         public string GetCode(bool sequential)
         {
-            return _root.GetCode(sequential);
+            return GetCode(sequential, true);
+        }
+
+        public string GetCode(bool sequential, bool outputKey)
+        {
+            return _root.GetCode(sequential, outputKey);
         }
 
         public string GetSchemaCode()
         {
-            return GetSchemaCode(false);
+            return GetSchemaCode(false, true);
         }
 
-        public string GetSchemaCode(bool sequential)
+        public string GetSchemaCode(bool sequential, bool outputKey)
         {
-            return _root.GetSchemaCode(sequential);
+            return _root.GetSchemaCode(sequential, outputKey);
         }
 
         #endregion
+
+        public dynamic Dynamic
+        {
+            get
+            {
+                return (dynamic)this;
+            }
+        }
 
         /// <summary>
         /// 是否为固定的
@@ -1073,6 +1182,62 @@ namespace CodeArt.DTO
             return this.IsPinned ? this : DTObject.Create(this.GetCode(), this.IsReadOnly);
         }
 
+        #region 检测架构代码包含
+
+        /// <summary>
+        /// 对象是否完全包含代码<paramref name="schemaCode"/>,这表示<paramref name="schemaCode"/>的所有成员都与目标对象一致
+        /// 待测试todo...
+        /// </summary>
+        /// <param name="schemaCode"></param>
+        /// <returns></returns>
+        public bool ContainsSchemaCode(string schemaCode)
+        {
+            var target = DTObject.Create(schemaCode);
+            return ContainsSchemaCode(target);
+        }
+
+        /// <summary>
+        /// 对象是否包含<paramref name="target"/>的架构代码
+        /// </summary>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        internal bool ContainsSchemaCode(DTObject target)
+        {
+            return ContainsSchemaCode(this.GetRoot(), target.GetRoot());
+        }
+
+        private static bool ContainsSchemaCode(DTEObject source, DTEObject target)
+        {
+            var es = target.GetEntities();
+            foreach (var e in es)
+            {
+                var se = source.Find(e.Name);
+                if (se == null) return false; //源中没有找到成员
+
+                var obj = e as DTEObject;
+                if (obj != null)
+                {
+                    //对比子项
+                    var sObj = se as DTEObject;
+                    if (sObj == null) return false; //类型不同
+                    if (!ContainsSchemaCode(sObj, obj)) return false;
+                }
+                else
+                {
+                    var list = e as DTEList;
+                    if (list != null)
+                    {
+                        //对比子项
+                        var sList = se as DTEList;
+                        if (sList == null) return false; //类型不同
+                        if (!list.ItemTemplate.ContainsSchemaCode(sList.ItemTemplate)) return false;
+                    }
+                }
+            }
+            return true;
+        }
+        #endregion
+
 
         #region 对象映射
 
@@ -1175,14 +1340,6 @@ namespace CodeArt.DTO
         public override bool TryGetMember(GetMemberBinder binder, out object result)
         {
             result = GetValue(binder.Name, false);
-
-            var objs = result as DTObjects;
-            PrimitiveValueList values = null;
-            if (objs != null && objs.TryGetSingleValues(out values))
-            {
-                result = values;
-            }
-            //return result != null;
             return true; //无论什么情况下都返回true，表示就算dto没有定义值，也可以获取null
         }
 
@@ -1263,7 +1420,6 @@ namespace CodeArt.DTO
 
         #endregion
 
-
         #region 类型解析
 
         public static TypeMetadata GetMetadata(string metadataCode)
@@ -1273,6 +1429,12 @@ namespace CodeArt.DTO
 
 
         #endregion
+
+        public DTObject AsReadOnly()
+        {
+            var code = this.GetCode();
+            return DTObject.Create(code, true);
+        }
 
         public static readonly Type Type = typeof(DTObject);
 
@@ -1292,7 +1454,7 @@ namespace CodeArt.DTO
 
         public byte[] ToData()
         {
-            return this.GetCode(false).GetBytes(Encoding.UTF8);
+            return this.GetCode(false, true).GetBytes(Encoding.UTF8);
         }
 
         #region 唯一性
@@ -1302,12 +1464,12 @@ namespace CodeArt.DTO
             var target = obj as DTObject;
             if (target == null) return false;
             //sequential为true表示统一了键值对的排序，所以可以直接通过代码来比较是否相等
-            return string.Equals(this.GetCode(true), target.GetCode(true), StringComparison.OrdinalIgnoreCase);
+            return string.Equals(this.GetCode(true, true), target.GetCode(true, true), StringComparison.OrdinalIgnoreCase);
         }
 
         public override int GetHashCode()
         {
-            return this.GetCode(true).GetHashCode();
+            return this.GetCode(true, true).GetHashCode();
         }
 
         public static bool operator ==(DTObject a, DTObject b)

@@ -1,0 +1,21 @@
+﻿<UserControl x:Class="CodeArt.WPF.Controls.Playstation.MessagePage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:ps="clr-namespace:CodeArt.WPF.Controls.Playstation">
+    <ps:Page x:Name="page" Title="{x:Static ps:Strings.SystemPrompt}">
+        <Grid x:Name="main">
+            <ps:ScrollViewerPro>
+                <Grid Width="{Binding ElementName=main,Path=ActualWidth,Converter={x:Static ps:SubtractionConverter.Instance},ConverterParameter=20}">
+                    <TextBlock x:Name="text" 
+                               HorizontalAlignment="Center" VerticalAlignment="Center" 
+                               FontWeight="Light" 
+                               Style="{DynamicResource TextMD}"
+                               LineStackingStrategy="BlockLineHeight"
+                               Text="{Binding Message, Mode=OneWay, RelativeSource={RelativeSource AncestorType=ps:MessagePage, Mode=FindAncestor}}"></TextBlock>
+                </Grid>
+            </ps:ScrollViewerPro>
+        </Grid>
+    </ps:Page>
+</UserControl>

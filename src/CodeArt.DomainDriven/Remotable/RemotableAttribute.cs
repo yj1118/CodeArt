@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using CodeArt.Util;
 using CodeArt.Runtime;
+using CodeArt.DTO;
 
 namespace CodeArt.DomainDriven
 {
@@ -34,7 +35,7 @@ namespace CodeArt.DomainDriven
         }
 
         /// <summary>
-        /// 架构代码，该代码会决定那些属性会参与远程数据的访问
+        /// 架构代码，决定外界可以访问的对象代码，如果代码为空，那么无限制
         /// </summary>
         public string SchemaCode
         {
@@ -62,6 +63,14 @@ namespace CodeArt.DomainDriven
         public RemotableAttribute(string schemaCode)
         {
             this.SchemaCode = schemaCode;
+        }
+
+        /// <summary>
+        /// 表示对象可以远程访问，且不限制访问的数据
+        /// </summary>
+        public RemotableAttribute()
+            :this(string.Empty)
+        {
         }
 
 

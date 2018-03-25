@@ -3,141 +3,284 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using CodeArt.AppSetting;
 using CodeArt.DTO;
 using CodeArt.EasyMQ.Event;
+using CodeArt.Log;
 
 namespace CodeArt.DomainDriven
 {
+    /// <summary>
+    /// 事件恢复器
+    /// </summary>
     internal static class EventRestorer
     {
         /// <summary>
-        /// 初始化与指定队列相关的日志数据
+        /// 使用队列
         /// </summary>
-        /// <param name="queue"></param>
-        public static void Start(EventQueue queue)
+        /// <param name="queueId">队列编号</param>
+        /// <param name="newQueue">是否新建队列</param>
+        /// <param name="action">使用队列完成的任务</param>
+        /// <param name="error">发生错误时的回调</param>
+        public static void UseQueue(Guid queueId,bool newQueue, Action<EventCallback> action, Action<Exception> error = null)
         {
-            EventLog.Create(queue.Id);
-            //写入日志
-            EventLog.Flush(queue.Id, OperationStart, DTObject.Empty);
-        }
+            EventCallback callBack = new EventCallback();
+            Exception exception = null;
+            try
+            {
+                DataContext.NewScope(() =>
+                {
+                    var @lock = newQueue ? EventLock.GetOrCreate(queueId)
+                                      : EventLock.Find(queueId, QueryLevel.Single);//这段代码将入口锁住，所以监视器和队列也间接被锁住了
 
-        /// <summary>
-        /// 写入触发事件条目的日志
-        /// </summary>
-        /// <param name="queue"></param>
-        /// <param name="content"></param>
-        public static void Raise(EventQueue queue, EventEntry entry)
-        {
-            var logId = queue.Id;
-            //写入日志
-            var content = DTObject.CreateReusable();
-            content["entryId"] = entry.Id;
-            EventLog.Flush(logId, OperationRaise, content);
-        }
+                    if (@lock.IsEmpty()) return; //无相关的信息，直接返回（保证幂等性，有可能队列被多次重复处理）
 
-        /// <summary>
-        /// 写入事件被执行完毕的日志
-        /// </summary>
-        /// <param name="queue"></param>
-        /// <param name="entry"></param>
-        public static void End(Guid queueId)
-        {
-            var logId = queueId;
-            //写入日志
-            EventLog.Flush(logId, OperationEnd, DTObject.Empty);
+                    var monitor = newQueue ? EventMonitor.GetOrCreate(queueId)
+                                         : EventMonitor.Find(queueId);
+
+                    if (monitor.IsEmpty()) return;
+                    if (monitor.Interrupted) return; //监视器被中断，那么需要等待恢复，不必执行队列
+
+                    monitor.Interrupted = true;
+                    EventMonitor.UpdateAndFlush(monitor); //主动将监视器设置为中断的，这样后续的操作中如果出错或者中途断电，监视器就是中断的了，可以被恢复
+
+                    action(callBack);
+
+                    if (callBack.HasAction)
+                    {
+                        //执行注册的回调方法
+                        callBack.Execute();
+                    }
+
+                    monitor.Interrupted = false;
+                    EventMonitor.Update(monitor); //修改监视器为不中断的，但是此处不提交，而是跟整体操作一起提交才生效
+
+                }, true);
+
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            if (exception != null)
+            {
+                try
+                {
+                    LogWrapper.Default.Fatal(exception);
+                    //自定义错误处理
+                    if (error != null)
+                        error(exception);
+                }
+                catch (Exception ex)
+                {
+                    //如果自定义错误处理也出错，那么写入日志
+                    LogWrapper.Default.Fatal(ex);
+                }
+
+                //恢复
+                TryRestore(queueId, exception, true);
+            }
         }
 
         #region 恢复
 
-        public static void Restore(Guid queueId, string eventName, Guid eventId, string message)
+
+        private static void Restore(Guid queueId, Exception reason)
         {
             try
             {
-                //先发布失败了的消息
-                EventTrigger.PublishRaiseFailed(queueId, eventName, eventId, message);                                                                   //再恢复
-                EventLog.Restore(queueId, Rollback);
+                EventLog.Restore(queueId, (log,logEntry) =>
+                {
+                    Rollback(log, logEntry, reason);
+                });
             }
             catch (Exception ex)
             {
-                throw new EventRestoreException(string.Format(Strings.RecoveryEventFailed, eventName, queueId), ex);
+                //恢复期间发生了错误
+                var e = new EventRestoreException(string.Format(Strings.RecoveryEventFailed, queueId), ex);
+                //写入日志
+                LogWrapper.Default.Fatal(e);
+                throw e;
             }
         }
 
-
-        private static bool Rollback(EventLogEntry logEntry)
+        private static void Rollback(EventLog log, EventLogEntry logEntry, Exception reason)
         {
-            var queueId = logEntry.Log.Id;
-            if (logEntry.Operation == OperationRaise)
+            var queueId = log.Id;
+            if (logEntry.Operation == EventOperation.Raise)
             {
                 var content = DTObject.CreateReusable(logEntry.ContentCode);
-
                 var entryId = content.GetValue<int>("entryId");
-                var raiseType = content.GetValue<string>("raiseType");
 
-                DataContext.Using(() =>
+                var queue = EventQueue.Find(queueId);
+                if (queue.IsEmpty()) return;
+                var entry = queue.GetEntry(entryId);
+                if (!entry.IsEmpty())
                 {
-                    var queue = EventQueue.Find(queueId);
-                    if (queue.IsEmpty()) return;
-                    var entry = queue.GetEntry(entryId);
-                    if (!entry.IsEmpty())
-                    {
-                        Reverse(entry);
-                    }
-                    EventQueue.Update(queue);
-                }, true);
+                    Reverse(queue, entry);
+                }
+                EventQueue.Update(queue);
+
             }
-            else if (logEntry.Operation == OperationStart)
+            else if (logEntry.Operation == EventOperation.Start)
             {
-                DataContext.Using(() =>
-                {
-                    EventQueue.Delete(queueId);
-                }, true);
+                EventQueue.Delete(queueId);
             }
-
-            return true;
         }
 
-        private static void Reverse(EventEntry entry)
+        private static void Reverse(EventQueue queue, EventEntry entry)
         {
-            if (entry.IsEmpty() || 
-                entry.Status == EventStatus.Reversed)  //已回逆的不用回逆，保证幂等性
+            if (entry.IsEmpty() ||
+                entry.Status == EventStatus.Reversed)//已回逆的不用回逆，保证幂等性 
                 return;
 
+            var args = entry.GetArgs();
             if (entry.IsLocal)
             {
-                if (entry.Status != EventStatus.Raised) return; //没有完成触发的不用回逆
-                ReverseLocalEvent(entry);
+                ReverseLocalEvent(entry, args);
             }
             else
             {
-                ReverseRemoteEvent(entry);
+                var identity = queue.GetIdentity();
+                ReverseRemoteEvent(entry, identity, args);
             }
         }
 
-        private static void ReverseLocalEvent(EventEntry entry)
+        private static void ReverseLocalEvent(EventEntry entry, DTObject args)
         {
-            var local = EventFactory.GetLocalEvent(entry, false);
+            var local = EventFactory.GetLocalEvent(entry, args, true);
             entry.Status = EventStatus.Reversing;
             local.Reverse();
             entry.Status = EventStatus.Reversed;
         }
 
-        private static void ReverseRemoteEvent(EventEntry entry)
+        private static void ReverseRemoteEvent(EventEntry entry, dynamic identity, DTObject args)
         {
             entry.Status = EventStatus.Reversing;
+
+            //调用远程事件时会创建一个接收结果的临时队列，有可能该临时队列没有被删除，所以需要在回逆的时候处理一次
+            EventTrigger.CleanupRemoteEventResult(entry.EventName, entry.EventId);
+
             //发布“回逆事件”的事件
             var reverseEventName = EventUtil.GetReverse(entry.EventName);
-            EventPortal.Publish(new RaiseEvent(reverseEventName, entry.GetRemotable()));
+            EventPortal.Publish(reverseEventName, entry.GetRemotable(identity, args));
             //注意，与“触发事件”不同，我们不需要等待回逆的结果，只用传递回逆的消息即可
-            entry.Status = EventStatus.Raised;
+            entry.Status = EventStatus.Reversed;
         }
 
 
         #endregion
 
-        private const string OperationStart = "Start";
-        private const string OperationRaise = "Raise";
-        private const string OperationEnd = "End";
+        #region 后台恢复（用于机器故障，断电等意外情况）
+
+        /// <summary>
+        /// 后台恢复（用于机器故障，断电等意外情况）
+        /// </summary>
+        public static void RestoreAsync()
+        {
+            Task.Run(()=>
+            {
+                try
+                {
+                    AppSession.Using(() =>
+                    {
+                        while (true)
+                        {
+                            bool need = false;
+                            var monitorIds = EventMonitor.Top10Interrupteds();
+                            if (monitorIds.Count() == 0) break;
+                            Parallel.ForEach(monitorIds, (monitorId) =>
+                            {
+                                var reason = new HardwareFailureException(Strings.HardwareFailureTip);
+                                var success = TryRestore(monitorId, reason, false); //监视器的编号就是队列编号，后台只能读取中断的队列，但是中断有两种情况：1.机器故障导致服务器重启，2.监视器正在运行，所以，这里不会强制处理正在运行的监视器
+                                if (success) need = true; //只要有一个需要恢复，那么就需要继续找新一轮的监视器进行恢复
+                            });
+
+                            if (!need) break;//没有需要恢复的，那么返回
+                        }
+                    }, true);
+                }
+                catch (Exception ex)
+                {
+                    LogWrapper.Default.Fatal(ex);
+                }
+            });
+        }
+
+        /// <summary>
+        /// 有两种情况会恢复：
+        /// 1.调用方主动要求恢复（这一般是因为调用方出了错误，要求被调用的领域事件恢复）,这时候本地的事件队列就算是成功执行完毕的（非中断），也需要恢复
+        /// 2.本地机器故障或业务错误，要求恢复
+        /// </summary>
+        /// <param name="queueId"></param>
+        /// <param name="reason"></param>
+        /// <param name="forceRestore">即使监视器不会中断的，也要回逆，这一般是因为调用方发布的回逆要求</param>
+        /// <returns></returns>
+        public static bool TryRestore(Guid queueId, Exception reason, bool forceRestore)
+        {
+            bool success = false; //是否成功恢复
+            try
+            {
+                DataContext.NewScope(() =>
+                {
+                    var @lock = EventLock.Find(queueId, QueryLevel.Single);//这段代码将入口锁住，所以监视器和队列也间接被锁住了
+                    if (@lock.IsEmpty()) return; //没有锁，那么意味着队列及相关的数据已被恢复了
+
+                    var monitor = EventMonitor.Find(queueId);
+
+                    var queue = EventQueue.Find(queueId);
+                    if (queue.IsEmpty())
+                    {
+                        //队列不存在，要么是队列已被恢复了，要么就是队列还没初始化之前，就被终止了
+                        //删除监视器
+                        if (!monitor.IsEmpty())
+                            EventMonitor.Delete(monitor);
+                        //删除锁
+                        EventLock.Delete(@lock);
+                        success = true;
+                        return;
+                    }
+
+
+                    if (!forceRestore && !monitor.Interrupted)
+                    {
+                        //由于中断的监视器有可能是正在运行中的(正在执行的队列我们会把监视器设置为中断，当队列执行完毕后恢复为非中断)，所以这类监视器运行完毕后，就不再中断了
+                        //所以就不需要恢复
+                        success = false;
+                        return;
+                    }
+
+                    //防止恢复过程中也断电或故障，这里主动设置为中断的
+                    monitor.Interrupted = true;
+                    EventMonitor.UpdateAndFlush(monitor);
+
+                    Restore(queueId, reason);
+
+                    //恢复完毕后，删除监视器
+                    EventMonitor.Delete(monitor);
+                    //删除锁
+                    EventLock.Delete(@lock);
+                }, true);
+
+                DomainEvent.OnFailed(queueId, new EventFailedException(reason));
+                success = true;
+            }
+            catch (EventRestoreException)
+            {
+                //Restore方法已写入日志，就不再写入
+                DomainEvent.OnError(queueId, new EventErrorException(reason));
+                throw;
+            }
+            catch (Exception ex)
+            {
+                LogWrapper.Default.Fatal(ex);
+            }
+            return success;
+        }
+
+
+        #endregion
+
     }
 }

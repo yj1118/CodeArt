@@ -19,14 +19,14 @@ namespace CodeArt.RabbitMQ
     [SafeAccess]
     public class EventPublisher : IPublisher
     {
-        public void Publish(DTObject @event, string eventName)
+        public void Publish(string eventName, DTObject arg)
         {
             using (var temp = RabbitBus.Borrow(Event.Policy))
             {
                 var bus = temp.Item;
                 bus.ExchangeDeclare(Event.Exchange, ExchangeType.Topic);
                 var routingKey = eventName;
-                bus.Publish(Event.Exchange, routingKey, @event);
+                bus.Publish(Event.Exchange, routingKey, arg);
             }
         }
 

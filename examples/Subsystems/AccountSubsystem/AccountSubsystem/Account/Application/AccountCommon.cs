@@ -12,9 +12,8 @@ namespace AccountSubsystem
     {
         public static Account FindById(Guid accountId, QueryLevel level)
         {
-            Account acc = AccountCommon.FindById(accountId, level);
-            if (acc.IsEmpty()) throw new DomainDrivenException(string.Format("没有找到编号为 {0} 的帐户信息", accountId));
-            return acc;
+            var repository = Repository.Create<IAccountRepository>();
+            return repository.Find(accountId, level);
         }
 
         internal static Account FindByName(string name, QueryLevel level)
@@ -48,16 +47,16 @@ namespace AccountSubsystem
             return repository.FindByFlag(flag, password, level);
         }
 
-        public static IList<Account> FindsByRole(Guid roleId, QueryLevel level)
+        public static IEnumerable<Account> FindsByRole(Guid roleId, QueryLevel level)
         {
             var repository = Repository.Create<IAccountRepository>();
             return repository.FindsByRole(roleId, level);
         }
 
-        public static Page<Account> FindPageBy(string name, string email, int pageIndex, int pageSize)
+        public static Page<Account> FindPage(string flag, int pageIndex, int pageSize)
         {
             var repository = Repository.Create<IAccountRepository>();
-            return repository.FindPageBy(name, email, pageIndex, pageSize);
+            return repository.FindPageBy(flag, pageIndex, pageSize);
         }
     }
 }

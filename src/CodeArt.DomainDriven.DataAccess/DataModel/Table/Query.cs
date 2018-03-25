@@ -133,15 +133,18 @@ namespace CodeArt.DomainDriven.DataAccess
 
                 if (level.Code == QueryLevel.MirroringCode)
                 {
-                    //镜像查询会绕过缓冲区
-                    var obj = (IAggregateRoot)table.LoadObject(id, QueryLevel.Mirroring);
+                    //镜像查询会在加入到当前会话中的对象缓冲区，不同的会话有各自的镜像对象，同一个会话的同一个对象的镜像只有一个
+                    var obj = DomainBuffer.Mirror.GetOrCreate(table.ObjectTip.ObjectType, id, dataVersion, () =>
+                    {
+                        return (IAggregateRoot)table.LoadObject(id, QueryLevel.Mirroring); //由于查询条目的时候已经锁了数据，所以此处不用再锁定
+                    });
                     DataContext.Current.AddMirror(obj); //加入镜像
                     return obj;
                 }
 
 
                 {
-                    var obj = DomainBuffer.GetOrCreate(table.ObjectTip.ObjectType, id, dataVersion, () =>
+                    var obj = DomainBuffer.Public.GetOrCreate(table.ObjectTip.ObjectType, id, dataVersion, () =>
                     {
                         return (IAggregateRoot)table.LoadObject(id, QueryLevel.None); //由于查询条目的时候已经锁了数据，所以此处不用再锁定
                     });
@@ -199,7 +202,7 @@ namespace CodeArt.DomainDriven.DataAccess
                 var param = temp.Item;
                 fillArg(param);
 
-                var sql = query.Build(param);
+                var sql = query.Build(param, this);
                 count = SqlHelper.ExecuteScalar<int>(this.ConnectionName, sql, param);
             }
             return count;
@@ -225,7 +228,7 @@ namespace CodeArt.DomainDriven.DataAccess
                 var param = temp.Item;
                 fillArg(param);
 
-                var sql = query.Build(param);
+                var sql = query.Build(param, this);
                 SqlHelper.Execute(this.ConnectionName, sql, param);
             }
         }
@@ -296,7 +299,7 @@ namespace CodeArt.DomainDriven.DataAccess
                 var param = temp.Item;
                 fillArg(param);
 
-                var sql = query.Build(param);//编译表达式获取执行文本
+                var sql = query.Build(param, this);//编译表达式获取执行文本
                 SqlHelper.QueryFirstOrDefault(this.ConnectionName, sql, param, data);
             }
         }
@@ -309,7 +312,7 @@ namespace CodeArt.DomainDriven.DataAccess
                 var param = temp.Item;
                 fillArg(param);
 
-                var sql = query.Build(param);//编译表达式获取执行文本
+                var sql = query.Build(param, this);//编译表达式获取执行文本
                 SqlHelper.Query(this.ConnectionName, sql, param, datas);
             }
         }
@@ -330,6 +333,7 @@ namespace CodeArt.DomainDriven.DataAccess
             return LazyIndexer.Init<string, string>((expression) =>
             {
                 SqlDefinition def = SqlDefinition.Create(expression);
+                if (def.IsCustom) return expression; //如果是自定义查询，那么直接返回表达式，由程序员自行解析
                 var selects = def.Columns.Select;
                 if (selects.Count() == 0 || selects.First() == "*")
                 {
@@ -422,7 +426,7 @@ namespace CodeArt.DomainDriven.DataAccess
                 var param = temp.Item;
                 fillArg(param);
 
-                var sql = query.Build(param);//编译表达式获取执行文本
+                var sql = query.Build(param, this);//编译表达式获取执行文本
                 var data = SqlHelper.QueryFirstOrDefault(this.ConnectionName, sql, param);
                 return CreateObject(objectType, data, level);
             }

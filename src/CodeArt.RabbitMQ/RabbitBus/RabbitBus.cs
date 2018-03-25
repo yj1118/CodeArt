@@ -140,8 +140,16 @@ namespace CodeArt.RabbitMQ
         /// <param name="queue"></param>
         public void QueueDelete(string queue)
         {
+            if (ChannelIsClosed()) //如果连接已关闭，证明该队列已经被删除，不必重复删除
+                return;
             this.Channel.QueueDelete(queue);
         }
+
+        private bool ChannelIsClosed()
+        {
+            return _channel != null && _channel.IsClosed;
+        }
+
 
         #region 发布消息
 
@@ -227,20 +235,21 @@ namespace CodeArt.RabbitMQ
 
             DTObject content = DTObject.CreateReusable(e.Body);
             var message = new Message(content, properties, () =>
-             {
-                 this.Channel.BasicAck(e.DeliveryTag, false);
-             }, (requeue) =>
-             {
-                 this.Channel.BasicReject(e.DeliveryTag, requeue);
-             });
+              {
+                  this.Channel.BasicAck(e.DeliveryTag, false);
+              }, (requeue) =>
+              {
+                  this.Channel.BasicReject(e.DeliveryTag, requeue);
+              });
             _messageHandler.Handle(message);
         }
 
         /// <summary>
+        /// 回收资源，这样会导致取消订阅等操作，回收后再次使用bus,会重新建立连接
         /// RabbitMQ建议客户端线程之间不要共用Channel，
         /// 至少要保证共用Channel的线程发送消息必须是串行的，但是建议尽量共用Connection。
         /// </summary>
-        private void Clear()
+        internal void Clear()
         {
             if (_channel != null)
             {
@@ -282,7 +291,7 @@ namespace CodeArt.RabbitMQ
                 return true;
             }, new PoolConfig()
             {
-                MaxRemainTime = 20 //闲置时间20秒
+                MaxRemainTime = 60 //闲置时间60秒
             });
         });
     }

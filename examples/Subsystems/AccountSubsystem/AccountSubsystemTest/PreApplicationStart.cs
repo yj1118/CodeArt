@@ -20,6 +20,7 @@ namespace AccountSubsystemTest
         {
             Repository.Register<IPermissionRepository>(SqlPermissionRepository.Instance);
             Repository.Register<IRoleRepository>(SqlRoleRepository.Instance);
+            Repository.Register<IAccountRepository>(SqlAccountRepository.Instance);
         }
     }
 }

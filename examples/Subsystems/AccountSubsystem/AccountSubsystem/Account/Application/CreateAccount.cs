@@ -12,7 +12,6 @@ namespace AccountSubsystem
     {
         private string _name;
         private string _password;
-        private string _twicePassword;
         private Guid[] _roleIds;
 
         public string Email
@@ -27,36 +26,35 @@ namespace AccountSubsystem
             set;
         }
 
-        public CreateAccount(string name, string password, string twicePassword, Guid[] roleIds)
+        public bool? IsEnabled
+        {
+            get;
+            set;
+        }
+
+
+        public CreateAccount(string name, string password, Guid[] roleIds)
         {
             _name = name;
             _password = password;
-            _twicePassword = twicePassword;
             _roleIds = roleIds;
         }
 
         protected override Account ExecuteProcedure()
         {
-            if (!ConfirmPassword())
-                throw new DomainDrivenException("两次密码不同！");
-
-            var roles = RoleCommon.FindsBy(_roleIds);
+            var roles = _roleIds != null && _roleIds.Count() > 0 ? RoleCommon.FindsBy(_roleIds) : Array.Empty<Role>();
 
             Account acc = new Account(_name, _password, roles)
             {
                 Email = this.Email ?? string.Empty,
                 MobileNumber = this.MobileNumber ?? string.Empty
             };
+            acc.Status.IsEnabled = this.IsEnabled ?? true;
 
             var repository = Repository.Create<IAccountRepository>();
             repository.Add(acc);
 
             return acc;
-        }
-
-        private bool ConfirmPassword()
-        {
-            return _password.Equals(_twicePassword, StringComparison.Ordinal);
         }
 
 

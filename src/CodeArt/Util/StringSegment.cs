@@ -440,6 +440,8 @@ namespace CodeArt.Util
             return this.Offset == 0 && this.Length == 0;
         }
 
+
+
         public static readonly StringSegment Empty = new StringSegment("empty", 0, 0);
 
         public static implicit operator StringSegment(string value)

@@ -18,7 +18,7 @@ namespace DomainEventApp4
     {
         private static void Initialize()
         {
-            EventHost.SetHosts("NodeEvent4");
+            EventHost.EnableEvent("NodeEvent4");
         }
     }
 }

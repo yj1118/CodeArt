@@ -106,7 +106,7 @@ namespace CodeArt.DomainDriven.DataAccess.SQLServer
 
         private static string GetFieldSql(IDataField field)
         {
-            bool allowNull = field.Tip.IsEmptyable;
+            bool allowNull = field.Tip.IsEmptyable || field.IsAdditional;
 
             if (field.DbType == DbType.String)
             {

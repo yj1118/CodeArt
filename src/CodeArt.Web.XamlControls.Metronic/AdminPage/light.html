@@ -1,0 +1,306 @@
+﻿<ControlTemplate
+        xmlns="http://schemas.codeart.cn/web/xaml"
+        xmlns:m="http://schemas.codeart.cn/web/xaml/metronic">
+<html lang="en" class="no-js">
+<head>
+    <meta charset="UTF-8"/>
+    <title><run Content="{TemplateBinding Title}"></run></title>
+    <link rel="Shortcut Icon" href="{TemplateBinding ShortcutIcon}">
+    <meta name="keywords" content="{TemplateBinding Keywords}" />
+    <meta name="description" content="{TemplateBinding Description}" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <LinkCode ExternalKey="google-fonts.css" Origin="Current" />
+    <LinkCode ExternalKey="metronic:font-awesome.css" Origin="Current" />
+    <LinkCode ExternalKey="metronic:simple-line-icons.css" Origin="Current" />
+    <LinkCode ExternalKey="metronic:bootstrap.css" Origin="Current" />
+    <LinkCode ExternalKey="metronic:uniform.default.css" Origin="Current" />
+    <LinkCode ExternalKey="metronic:bootstrap-switch.css" Origin="Current" />
+    <LinkCode ExternalKey="metronic:fullcalendar.css" Origin="Current" />
+    <LinkCode ExternalKey="metronic:jqvmap.css" Origin="Current" />
+    <LinkCode ExternalKey="metronic:tasks.css" Origin="Current" />
+    <LinkCode ExternalKey="metronic:layout4.css" Origin="Current" />
+    <LinkCode ExternalKey="metronic:todo.css" Origin="Current" />
+    <LinkCode ExternalKey="metronic:layout4-light.css" Origin="Current" />
+    <LinkCode ExternalKey="metronic:layout4-custom.css" Origin="Current" />
+    <LinkCode ExternalKey="metronic:bootstrap-modal-bs3patch.css" Origin="Current" />
+    <LinkCode ExternalKey="metronic:bootstrap-modal.css" Origin="Current" />
+    <style>
+        .body-mask {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            z-index: 99999;
+        }
+
+            .body-mask .page-spinner-bar > div {
+                background: #20c5ad;
+            }
+    </style>
+</head>
+<body class="page-header-fixed page-sidebar-closed-hide-logo page-sidebar-closed-hide-logo">
+<div class="body-mask">
+    <div class="page-spinner-bar"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>
+</div>
+
+<!-- BEGIN HEADER -->
+<div class="page-header navbar navbar-fixed-top">
+    <!-- BEGIN HEADER INNER -->
+    <div class="page-header-inner">
+        <!-- BEGIN LOGO -->
+        <div class="page-logo">
+            <a href="/index.htm" style="{TemplateBinding LogoStyle}">
+                <img x:name="logo" src="{TemplateBinding Logo}" alt="logo" class="logo-default" />
+            </a>
+            <div class="menu-toggler sidebar-toggler">
+                <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
+            </div>
+        </div>
+        <!-- END LOGO -->
+        <!--        <asp:section src="/include/horizontalMenu.html"/>-->
+        <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+        <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+        </a>
+        <!-- END RESPONSIVE MENU TOGGLER -->
+        <!-- BEGIN TOP NAVIGATION MENU -->
+        <div class="page-top">
+            <div class="top-menu">
+            <ul class="nav navbar-nav pull-right">
+                <li class="separator hide">
+				</li>
+                <li class="dropdown dropdown-user">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                        <img name="principalPhoto" class="img-circle" src="{TemplateBinding PrincipalPhoto}" />
+                        <span class="username username-hide-on-mobile">
+                            <run Content="{TemplateBinding PrincipalName}"></run>
+                        </span>
+                        <!--<i class="fa fa-angle-down"></i>-->
+                    </a>
+                    <!--<ul class="dropdown-menu dropdown-menu-default">
+                        <li>
+                            <a href="extra_profile.html">
+                            <i class="icon-user"></i> My Profile </a>
+                        </li>
+                        <li>
+                            <a href="page_calendar.html">
+                            <i class="icon-calendar"></i> My Calendar </a>
+                        </li>
+                        <li>
+                            <a href="inbox.html">
+                            <i class="icon-envelope-open"></i> My Inbox <span class="badge badge-danger">
+                            3 </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="page_todo.html">
+                            <i class="icon-rocket"></i> My Tasks <span class="badge badge-success">
+                            7 </span>
+                            </a>
+                        </li>
+                        <li class="divider">
+                        </li>
+                        <li>
+                            <a href="extra_lock.html">
+                            <i class="icon-lock"></i> Lock Screen </a>
+                        </li>
+                        <li>
+                            <a href="login.html">
+                            <i class="icon-key"></i> Log Out </a>
+                        </li>
+                    </ul>-->
+                </li>
+                <li class="dropdown dropdown-quick-sidebar-toggler">
+                    <a href="/logout.htm" class="dropdown-toggle">
+                        <i class="icon-logout" title="退出"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        </div>
+
+    </div>
+    <!-- END HEADER INNER -->
+</div>
+<!-- END HEADER -->
+<div class="clearfix"></div>
+<div class="page-container">
+<!-- BEGIN SIDEBAR -->
+<div class="page-sidebar-wrapper">
+	<div class="page-sidebar navbar-collapse collapse">
+		<!-- BEGIN SIDEBAR MENU -->
+		<!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
+		<!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
+		<!-- DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode -->
+		<!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+		<!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
+		<!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+		<ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" data-proxy="{give:new $$.databind()}">
+			<!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+			<li class="sidebar-toggler-wrapper">
+				<!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+				<div class="sidebar-toggler">
+				</div>
+				<!-- END SIDEBAR TOGGLER BUTTON -->
+			</li>
+			<!-- DOC: To remove the search box from the sidebar you just need to completely remove the below "sidebar-search-wrapper" LI element -->
+			<!--<li class="sidebar-search-wrapper">
+				<div class="sidebar-search " action="extra_search.html" method="POST">
+					<a href="javascript:;" class="remove">
+					<i class="icon-close"></i>
+					</a>
+					<div class="input-group">
+						<input type="text" class="form-control" placeholder="搜索...">
+						<span class="input-group-btn">
+						<a href="javascript:;" class="btn submit"><i class="icon-magnifier"></i></a>
+						</span>
+					</div>
+				</div>
+			</li>-->
+			<li data-proxy="{loops:'childs',onbind:$$.page.menu.view.firstBind}">
+				<a href="javascript:;">
+				<i class="icon-folder"></i>
+				<span class="title" data-proxy="{binds:{text:'name'}}"></span>
+				<span class="arrow "></span>
+				</a>
+				<ul class="sub-menu">
+					<li data-proxy="{loops:'childs',onbind:$$.page.menu.view.secondBind}">
+						<a href="javascript:;">
+						<i class="icon-docs"></i> 二级 <span class="arrow"></span>
+						</a>
+						<ul class="sub-menu">
+							<li data-proxy="{loops:'childs',onbind:$$.page.menu.view.thirdBind}">
+								<a href="javascript:;">
+								<i class="icon-paper-plane"></i> 三级 <span class="arrow"></span>
+								</a>
+								<ul class="sub-menu">
+									<li data-proxy="{loops:'childs',onbind:$$.page.menu.view.fourthBind}">
+										<a href="#">四级</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+<!--			<li class="heading">
+				<h3 class="uppercase">更多</h3>
+			</li>
+			<li>
+				<a href="javascript:;">
+				<i class="icon-logout"></i>
+				<span class="title">Quick Sidebar</span>
+				<span class="arrow "></span>
+				</a>
+				<ul class="sub-menu">
+					<li>
+						<a href="quick_sidebar_push_content.html">
+						Push Content</a>
+					</li>
+					<li>
+						<a href="quick_sidebar_over_content.html">
+						Over Content</a>
+					</li>
+					<li>
+						<a href="quick_sidebar_over_content_transparent.html">
+						Over Content & Transparent</a>
+					</li>
+					<li>
+						<a href="quick_sidebar_on_boxed_layout.html">
+						Boxed Layout</a>
+					</li>
+				</ul>
+			</li>-->
+		</ul>
+		<!-- END SIDEBAR MENU -->
+	</div>
+</div>
+<!-- END SIDEBAR -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+            <h3 class="page-title" name="pageTitle"><run Content="{TemplateBinding WorkTitle}"></run> <small><run Content="{TemplateBinding WorkDescription}"></run></small></h3>
+            <div class="page-bar" name="pageBar" data-proxy="{give:new $$metronic.pageBar(),'pagebar':true,uiParas:{}}" id="sitePath">
+                <ul class="page-breadcrumb" data-proxy="{give:new $$.databind()}">
+                    <li data-proxy="{loops:'items',display:''}">
+                    <a href="#" target="_self" data-proxy="{binds:{href:'url',text:'text'},onbind:$$metronic.pageBar.onbind}"></a>
+                    </li>
+                </ul>
+            </div>
+            <ContentPresenter Content="{TemplateBinding Body}" />
+        </div>
+    </div>
+</div>
+<!-- BEGIN FOOTER -->
+<div class="page-footer">
+	<div class="page-footer-inner">
+        <run Content="{TemplateBinding Copyright}"></run>
+	</div>
+	<div class="scroll-to-top">
+		<i class="icon-arrow-up"></i>
+	</div>
+</div>
+<!-- END FOOTER -->
+<LinkCode ExternalKey="metronic:jquery.js" Origin="Current" />
+<LinkCode ExternalKey="metronic:jquery-migrate.js" Origin="Current" />
+<!-- IMPORTANT! Load jquery-ui-1.10.3.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+<LinkCode ExternalKey="metronic:jquery-ui.js" Origin="Current" />
+<LinkCode ExternalKey="metronic:bootstrap.js" Origin="Current" />
+<LinkCode ExternalKey="metronic:bootstrap-hover-dropdown.js" Origin="Current" />
+<LinkCode ExternalKey="metronic:jquery.slimscroll.js" Origin="Current" />
+<LinkCode ExternalKey="metronic:jquery.blockui.js" Origin="Current" />
+<LinkCode ExternalKey="metronic:jquery.cokie.js" Origin="Current" />
+<LinkCode ExternalKey="metronic:jquery.uniform.js" Origin="Current" />
+<LinkCode ExternalKey="metronic:bootstrap-switch.js" Origin="Current" />
+<LinkCode ExternalKey="metronic:jquery.vmap.js" Origin="Current" />
+<LinkCode ExternalKey="metronic:jquery.vmap.russia.js" Origin="Current" />
+<LinkCode ExternalKey="metronic:jquery.vmap.world.js" Origin="Current" />
+<LinkCode ExternalKey="metronic:jquery.vmap.germany.js" Origin="Current" />
+<LinkCode ExternalKey="metronic:jquery.vmap.usa.js" Origin="Current" />
+<LinkCode ExternalKey="metronic:jquery.vmap.sampledata.js" Origin="Current" />
+<LinkCode ExternalKey="metronic:jquery.flot.js" Origin="Current" />
+<LinkCode ExternalKey="metronic:jquery.flot.resize.js" Origin="Current" />
+<LinkCode ExternalKey="metronic:jquery.flot.categories.js" Origin="Current" />
+<LinkCode ExternalKey="metronic:jquery.pulsate.js" Origin="Current" />
+<LinkCode ExternalKey="metronic:jquery.easypiechart.js" Origin="Current" />
+<LinkCode ExternalKey="metronic:jquery.sparkline.js" Origin="Current" />
+<LinkCode ExternalKey="metronic:metronic.js" Origin="Current" />
+<LinkCode ExternalKey="metronic:layout.js" Origin="Current" />
+<LinkCode ExternalKey="metronic:layout-quick-sidebar.js" Origin="Current" />
+<LinkCode ExternalKey="metronic:layout-demo.js" Origin="Current" />
+<LinkCode ExternalKey="metronic:bootbox.js" Origin="Current" />
+<LinkCode ExternalKey="jquery.query.js" Origin="Current" />
+<LinkCode ExternalKey="jquery.contextMenu.js" Origin="Current" />
+<LinkCode ExternalKey="jquery.lazyload.js" Origin="Current" />
+
+<LinkCode ExternalKey="codeart.js" Origin="Current" />
+<LinkCode ExternalKey="metronic:common.js" Origin="Current" />
+<LinkCode ExternalKey="metronic:common.xaml.js" Origin="Current" />
+
+
+<!--{!import,Variable.Get("privateJS")}-->
+<script>
+    //$$.page.menu.view.data={:menuCode};
+    $(document).ready(function(){
+        $$.init();
+        $$.page.menu.init();
+        $$.page.bar.init($("#sitePath"),true);
+
+        Metronic.setAssetsPath(adminPage.AssetsPath);
+        bootbox.setDefaults({locale: "zh_CN"});
+        Metronic.init(); // init metronic core componets
+        Layout.init(); // init layout
+        QuickSidebar.init(); // init quick sidebar
+        Demo.init(); // init demo features
+        $$.page.closeMask(function(){
+            $$.page.onready();
+        });
+    });
+</script>
+<m:AdminPageEndCode />
+<LinkCode ExternalKey="metronic:components-rounded.css" Origin="Current" />
+<LinkCode ExternalKey="metronic:plugins.css" Origin="Current" />
+<LinkCode ExternalKey="metronic:css.css" Origin="Current" />
+<LinkCode ExternalKey="metronic:light.css" Origin="Current" />
+</body>
+</html>
+</ControlTemplate>

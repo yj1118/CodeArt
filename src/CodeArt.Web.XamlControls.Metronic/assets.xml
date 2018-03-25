@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<config>
+  <directories>
+    <add name="ion-rangeslider"></add>
+    <add name="malihu-custom-scrollbar-plugin"></add>
+    <add name="font-awesome"></add>
+    <add name="line-awesome"></add>
+    <add name="jquery-ui"></add>
+  </directories>
+  <files>
+    <add name="scripts.bundle.js" />
+    <add name="style.bundle.css" />
+    <add name="vendors.bundle.css" />
+    <add name="vendors.bundle.js" />
+    <add name="flot.bundle.js" />
+    <add name="fullcalendar.bundle.css" />
+    <add name="fullcalendar.bundle.js" />
+    <add name="jquery-ui.bundle.css" />
+    <add name="jquery-ui.bundle.js" />
+    <add name="jqvmap.bundle.css" />
+    <add name="jqvmap.bundle.js" />
+    <add name="common.xaml.js" />
+    <add name="jquery.mousewheel.min.js" />
+  </files>
+</config>

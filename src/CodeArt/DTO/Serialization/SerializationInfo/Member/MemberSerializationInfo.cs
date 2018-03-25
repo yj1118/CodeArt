@@ -119,6 +119,15 @@ namespace CodeArt.DTO
             }
         }
 
+        public bool IsAbstract
+        {
+            get
+            {
+                return _memberInfo.GetFieldOrPropertyType().IsAbstract;
+            }
+        }
+
+
 
         #region 序列化的目标
 

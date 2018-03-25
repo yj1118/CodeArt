@@ -8,5 +8,6 @@ namespace CodeArt.DomainDriven
 {
     public interface IEventQueueRepository : IRepository<EventQueue>
     {
+        EventQueue FindByEventId(Guid eventId, QueryLevel level);
     }
 }

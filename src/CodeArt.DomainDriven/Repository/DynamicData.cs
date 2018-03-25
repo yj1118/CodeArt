@@ -148,11 +148,29 @@ namespace CodeArt.DomainDriven
 
         public object Get(string name)
         {
-            return _data[name];
+            if (_data.TryGetValue(name, out var value)) return value;
+            return null;
         }
 
         public void Add(string name, object value)
         {
+            _data.Add(name, value);
+        }
+
+        /// <summary>
+        /// 尝试添加参数，当<paramref name="value"/>为空时候不添加
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
+        public void TryAdd(string name, string value)
+        {
+            if (string.IsNullOrEmpty(value)) return;
+            _data.Add(name, value);
+        }
+
+        public void TryAdd(string name, Guid value)
+        {
+            if (value == Guid.Empty) return;
             _data.Add(name, value);
         }
 

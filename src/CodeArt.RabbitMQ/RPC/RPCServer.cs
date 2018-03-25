@@ -42,7 +42,7 @@ namespace CodeArt.RabbitMQ
         }
 
 
-        void IMessageHandler.Handle(Message  message)
+        void IMessageHandler.Handle(Message message)
         {
             var bus = _busItem.Item;
 
@@ -52,10 +52,10 @@ namespace CodeArt.RabbitMQ
                 {
                     var content = message.Content;
                     var method = content.GetValue<string>("method");
-                    var args = content.GetObject("args");
+                    var arg = content.GetObject("arg");
 
                     var result = DTObject.CreateReusable();
-                    Process(method, args, result);
+                    Process(method, arg, result);
 
                     var routingKey = message.Properties.ReplyTo; //将客户端的临时队列名称作为路由key
                     bus.Publish(string.Empty, routingKey, result, (replyProps) =>
@@ -77,12 +77,12 @@ namespace CodeArt.RabbitMQ
             }, true);
         }
 
-        private void Process(string method, DTObject args, DTObject result)
+        private void Process(string method, DTObject arg, DTObject result)
         {
             try
             {
                 result["status"] = "success";
-                result["returnValue"] = _handler.Process(method, args);
+                result["returnValue"] = _handler.Process(method, arg);
             }
             catch (Exception ex)
             {

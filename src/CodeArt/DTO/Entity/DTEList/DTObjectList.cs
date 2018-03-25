@@ -79,7 +79,8 @@ namespace CodeArt.DTO
 
         public void Clear()
         {
-            _list.Clear();
+            if(_list != null) //当DTObjectList从池中取出给DTObjects对象使用时，DTObjects和DTObjectList都会被回收，这就会引起DTObjectList二次重置，导致_list为null
+                _list.Clear();
         }
 
         public bool Contains(DTObject item)

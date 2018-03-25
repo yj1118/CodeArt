@@ -35,16 +35,38 @@ namespace CodeArt.DomainDriven.DataAccess
             }
         }
 
+        private List<SqlAny> _anys;
+
+        public IEnumerable<SqlAny> Anys
+        {
+            get
+            {
+                return _anys;
+            }
+        }
+
         public string Code
         {
             get;
             private set;
         }
 
+        /// <summary>
+        /// 探测代码，我们增加了很多自定义语法，这些语法sql引擎不能识别，
+        /// 在探测查询列时，我们需要用sql引擎可以识别的语法，所以需要探测代码，该代码是sql可以识别的
+        /// </summary>
+        public string ProbeCode
+        {
+            get;
+            private set;
+        }
+
+
         public SqlCondition(string code)
         {
             _likes = new List<SqlLike>();
             _ins = new List<SqlIn>();
+            _anys = new List<SqlAny>();
             this.Code = Parse(code);
         }
 
@@ -59,9 +81,15 @@ namespace CodeArt.DomainDriven.DataAccess
             if (string.IsNullOrEmpty(code)) return code;
             code = ParseLike(code);
             code = ParseIn(code);
+            code = ParseAny(code);
             return code;
         }
 
+        /// <summary>
+        /// 解析like写法 like %@name% 转为可以执行的语句
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
         private string ParseLike(string code)
         {
             using (var temp = _likeRegex.Borrow())
@@ -74,25 +102,30 @@ namespace CodeArt.DomainDriven.DataAccess
                     var g = m.Groups[1];
                     int length = g.Value.Length;
 
-                    var exp = g.Value.Trim();
-                    bool before = exp.StartsWith("%");
-                    bool after = exp.EndsWith("%");
-                    exp = exp.Trim('%');
-                    var para = exp.Substring(1);
-                    exp = string.Format(" {0}", exp);//补充一个空格
+                    var newExp = g.Value.Trim();
+                    bool before = newExp.StartsWith("%");
+                    bool after = newExp.EndsWith("%");
+                    newExp = newExp.Trim('%');
+                    var para = newExp.Substring(1);
+                    newExp = string.Format(" {0}", newExp);//补充一个空格
 
                     SqlLike like = new SqlLike(para, before, after);
                     _likes.Add(like);
 
-                    code = code.Insert(g.Index + offset, exp);
-                    code = code.Remove(g.Index + offset + exp.Length, length);
+                    code = code.Insert(g.Index + offset, newExp);
+                    code = code.Remove(g.Index + offset + newExp.Length, length);
 
-                    offset += length - exp.Length; //记录偏移量
+                    offset += newExp.Length - length; //记录偏移量
                 }
             }
             return code;
         }
 
+        /// <summary>
+        /// 解析in写法 id in @ids 转为可以执行的语句
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
         private string ParseIn(string code)
         {
             using (var temp = _inRegex.Borrow())
@@ -105,22 +138,51 @@ namespace CodeArt.DomainDriven.DataAccess
                     var g = m.Groups[1];
                     int length = g.Value.Length;
 
-                    var exp = g.Value.Trim();
-                    var para = exp.Substring(1);
-                    exp = string.Format("(@{0})", para);
+                    var newExp = g.Value.Trim();
+                    var para = newExp.Substring(1);
+                    newExp = string.Format("(@{0})", para);
 
-                    SqlIn sin = new SqlIn(para, exp);
+                    SqlIn sin = new SqlIn(para, newExp);
                     _ins.Add(sin);
 
-                    code = code.Insert(g.Index + offset, exp);
-                    code = code.Remove(g.Index + offset + exp.Length, length);
+                    code = code.Insert(g.Index + offset, newExp);
+                    code = code.Remove(g.Index + offset + newExp.Length, length);
 
-                    offset += length - exp.Length; //记录偏移量
+                    offset += newExp.Length - length; //记录偏移量
                 }
             }
             return code;
         }
 
+        /// <summary>
+        /// 解析任意条件的写法 @name{name like @name} 转为可以执行的语句
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
+        private string ParseAny(string code)
+        {
+            var probeCode = code;
+            using (var temp = _anyRegex.Borrow())
+            {
+                var regex = temp.Item;
+                var ms = regex.Matches(code);
+                foreach (Match m in ms)
+                {
+                    var placeholder = m.Groups[0].Value;
+                    var paraName = m.Groups[1].Value;
+                    var content = m.Groups[2].Value;
+
+                    SqlAny any = new SqlAny(paraName, placeholder, content);
+                    _anys.Add(any);
+
+                    probeCode = probeCode.Replace(placeholder, content);
+                }
+            }
+
+            this.ProbeCode = probeCode;
+
+            return code;
+        }
 
         public override string ToString()
         {
@@ -132,11 +194,21 @@ namespace CodeArt.DomainDriven.DataAccess
         {
             if (this.IsEmpty()) return commandText;
 
+            //先处理any
+            foreach(var any in _anys)
+            {
+                if(param.ContainsKey(any.ParamName))
+                    commandText = commandText.Replace(any.Placeholder, any.Content);
+                else
+                    commandText = commandText.Replace(any.Placeholder, "0=0"); //没有参数表示永远为真，这里不能替换为空文本，因为会出现where 没有条件的BUG，所以为 where 0=0
+            }
+
+
             foreach(var like in _likes)
             {
                 var name = like.ParamName;
                 var value = param.Get(name) as string;
-                if (value == null) throw new DataAccessException(string.Format(Strings.QueryParamTypeError, name));
+                if (value == null) continue; //因为有any语法，所以没有传递参数也正常
 
                 if (like.After && like.Before) param.Set(name, string.Format("%{0}%", value));
                 else if(like.After) param.Set(name, string.Format("{0}%", value));
@@ -147,7 +219,7 @@ namespace CodeArt.DomainDriven.DataAccess
             {
                 var name = sin.ParamName;
                 var values = param.Get(name) as IEnumerable;
-                if (values == null) throw new DataAccessException(string.Format(Strings.QueryParamTypeError, name));
+                if (values == null) continue;  //因为有any语法，所以没有传递参数也正常
                 param.Remove(name);
 
                 using (var temp = StringPool.Borrow())
@@ -180,7 +252,7 @@ namespace CodeArt.DomainDriven.DataAccess
 
         private static RegexPool _inRegex = new RegexPool(@"[ ]+?in[ ]+?(@[\d\w0-9]+)", RegexOptions.IgnoreCase);
 
-
+        private static RegexPool _anyRegex = new RegexPool(@"@([^\<]+)\<([^\>]+)\>", RegexOptions.IgnoreCase);
 
 
         //#region 查询相关

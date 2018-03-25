@@ -144,10 +144,10 @@ namespace CodeArt.DomainDrivenTest.Detail
             var dates = ((string)carNew.DeliveryDates).Split(',');
             Assert.AreEqual(dates.Length, 4);
 
-            Assert.AreEqual(((string)(dates.ElementAt(0))).FromBase64(), "2016/6/1 00:00:00");
-            Assert.AreEqual(((string)(dates.ElementAt(1))).FromBase64(), "2016/6/2 00:00:00");
-            Assert.AreEqual(((string)(dates.ElementAt(2))).FromBase64(), "2016/6/3 00:00:00");
-            Assert.AreEqual(((string)(dates.ElementAt(3))).FromBase64(), "2016/7/1 00:00:00");
+            Assert.AreEqual(DateTime.Parse(dates.ElementAt(0).FromBase64()), DateTime.Parse("2016/6/1 00:00:00"));
+            Assert.AreEqual(DateTime.Parse(dates.ElementAt(1).FromBase64()), DateTime.Parse("2016/6/2 00:00:00"));
+            Assert.AreEqual(DateTime.Parse(dates.ElementAt(2).FromBase64()), DateTime.Parse("2016/6/3 00:00:00"));
+            Assert.AreEqual(DateTime.Parse(dates.ElementAt(3).FromBase64()), DateTime.Parse("2016/7/1 00:00:00"));
 
             CheckCarDataVersion(car.Id, 2);
 
@@ -173,8 +173,8 @@ namespace CodeArt.DomainDrivenTest.Detail
             var dates = ((string)carNew.DeliveryDates).Split(',');
             Assert.AreEqual(dates.Length, 2);
 
-            Assert.AreEqual(((string)(dates.ElementAt(0))).FromBase64(), "2016/6/1 00:00:00");
-            Assert.AreEqual(((string)(dates.ElementAt(1))).FromBase64(), "2016/6/3 00:00:00");
+            Assert.AreEqual(DateTime.Parse(dates.ElementAt(0).FromBase64()), DateTime.Parse("2016/6/1 00:00:00"));
+            Assert.AreEqual(DateTime.Parse(dates.ElementAt(1).FromBase64()), DateTime.Parse("2016/6/3 00:00:00"));
 
             CheckCarDataVersion(car.Id, 2);
         }

@@ -30,6 +30,10 @@ namespace CodeArt.DomainDriven
         /// <summary>
         /// 已回逆
         /// </summary>
-        Reversed = 5
+        Reversed = 5,
+        /// <summary>
+        /// 执行事件超时，这出现在调用远程事件的时候
+        /// </summary>
+        TimedOut = 6
     }
 }

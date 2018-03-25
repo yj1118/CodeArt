@@ -19,7 +19,7 @@ namespace CodeArt.DomainDriven {
     // 类通过类似于 ResGen 或 Visual Studio 的工具自动生成的。
     // 若要添加或移除成员，请编辑 .ResX 文件，然后重新运行 ResGen
     // (以 /str 作为命令选项)，或重新生成 VS 项目。
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Strings {
@@ -61,6 +61,15 @@ namespace CodeArt.DomainDriven {
         }
         
         /// <summary>
+        ///   查找类似 Called by the caller to perform domain event back operations 的本地化字符串。
+        /// </summary>
+        internal static string AskedToReverseTip {
+            get {
+                return ResourceManager.GetString("AskedToReverseTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 The value of BearValue can not be obtained because there is no value 的本地化字符串。
         /// </summary>
         internal static string BearNoValue {
@@ -75,6 +84,42 @@ namespace CodeArt.DomainDriven {
         internal static string CanNotAddMirror {
             get {
                 return ResourceManager.GetString("CanNotAddMirror", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 {0} can only include {1} 的本地化字符串。
+        /// </summary>
+        internal static string CanOnlyInclude {
+            get {
+                return ResourceManager.GetString("CanOnlyInclude", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Chinese, English letters 的本地化字符串。
+        /// </summary>
+        internal static string CE {
+            get {
+                return ResourceManager.GetString("CE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Chinese, English letters, numbers 的本地化字符串。
+        /// </summary>
+        internal static string CEN {
+            get {
+                return ResourceManager.GetString("CEN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Chinese, numbers 的本地化字符串。
+        /// </summary>
+        internal static string CN {
+            get {
+                return ResourceManager.GetString("CN", resourceCulture);
             }
         }
         
@@ -102,6 +147,24 @@ namespace CodeArt.DomainDriven {
         internal static string DataVersionError {
             get {
                 return ResourceManager.GetString("DataVersionError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 {0} does not meet the rules {1} 的本地化字符串。
+        /// </summary>
+        internal static string DoesNotMeetRule {
+            get {
+                return ResourceManager.GetString("DoesNotMeetRule", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 DomainBuffer.Mirror is null, you can not use the mirror buffer 的本地化字符串。
+        /// </summary>
+        internal static string DomainBufferMirrorNull {
+            get {
+                return ResourceManager.GetString("DomainBufferMirrorNull", resourceCulture);
             }
         }
         
@@ -151,6 +214,42 @@ namespace CodeArt.DomainDriven {
         }
         
         /// <summary>
+        ///   查找类似 English letters, numbers 的本地化字符串。
+        /// </summary>
+        internal static string EN {
+            get {
+                return ResourceManager.GetString("EN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 In queue {0}, the event entry {1} was not found and the callback result operation after remote event execution could not be completed 的本地化字符串。
+        /// </summary>
+        internal static string EventEntryNotExistWithCallbackTip {
+            get {
+                return ResourceManager.GetString("EventEntryNotExistWithCallbackTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 An error occurred during the execution of a domain event, but it has been restored 的本地化字符串。
+        /// </summary>
+        internal static string EventErrorAndRestored {
+            get {
+                return ResourceManager.GetString("EventErrorAndRestored", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 An error occurred during the execution of the domain event and there was no successful recovery. This is a serious exception. 的本地化字符串。
+        /// </summary>
+        internal static string EventErrotTip {
+            get {
+                return ResourceManager.GetString("EventErrotTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Event {0} was not triggered 的本地化字符串。
         /// </summary>
         internal static string EventNotTriggered {
@@ -187,11 +286,65 @@ namespace CodeArt.DomainDriven {
         }
         
         /// <summary>
+        ///   查找类似 An error occurred while executing 的本地化字符串。
+        /// </summary>
+        internal static string ExecuteError {
+            get {
+                return ResourceManager.GetString("ExecuteError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Execute remote event {0} timeout 的本地化字符串。
+        /// </summary>
+        internal static string ExecuteRemoteEventTimeout {
+            get {
+                return ResourceManager.GetString("ExecuteRemoteEventTimeout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Obtain an unexpected error in getting system service {0} 的本地化字符串。
+        /// </summary>
+        internal static string GetServiceUnexpectedError {
+            get {
+                return ResourceManager.GetString("GetServiceUnexpectedError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Unable to compute the unique key for type {0}, which must be IAggregateRoot  的本地化字符串。
         /// </summary>
         internal static string GetUniqueKeyError {
             get {
                 return ResourceManager.GetString("GetUniqueKeyError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Field events cannot be completed due to a power failure or hardware failure 的本地化字符串。
+        /// </summary>
+        internal static string HardwareFailureTip {
+            get {
+                return ResourceManager.GetString("HardwareFailureTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 The property {0} is incorrect for the email format 的本地化字符串。
+        /// </summary>
+        internal static string IncorrectEmailFormat {
+            get {
+                return ResourceManager.GetString("IncorrectEmailFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 {0} is incorrect for the mobile number format 的本地化字符串。
+        /// </summary>
+        internal static string IncorrectMobileNumberFormat {
+            get {
+                return ResourceManager.GetString("IncorrectMobileNumberFormat", resourceCulture);
             }
         }
         
@@ -295,6 +448,15 @@ namespace CodeArt.DomainDriven {
         }
         
         /// <summary>
+        ///   查找类似 No definition of property {1} found in type {0} 的本地化字符串。
+        /// </summary>
+        internal static string NoDefinitionProperty {
+            get {
+                return ResourceManager.GetString("NoDefinitionProperty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 No dynamic type definition found for {0} 的本地化字符串。
         /// </summary>
         internal static string NoDyanmicTypeDefine {
@@ -336,6 +498,15 @@ namespace CodeArt.DomainDriven {
         internal static string NoFoundEventTip {
             get {
                 return ResourceManager.GetString("NoFoundEventTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 No {1} object found with id {0} 的本地化字符串。
+        /// </summary>
+        internal static string NoObjectById {
+            get {
+                return ResourceManager.GetString("NoObjectById", resourceCulture);
             }
         }
         
@@ -439,6 +610,15 @@ namespace CodeArt.DomainDriven {
         }
         
         /// <summary>
+        ///   查找类似 The object does not include the actual value and can not get the actual value of the nullable type 的本地化字符串。
+        /// </summary>
+        internal static string NotIncludeValue {
+            get {
+                return ResourceManager.GetString("NotIncludeValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Did not open the transaction 的本地化字符串。
         /// </summary>
         internal static string NotOpenTransaction {
@@ -507,6 +687,15 @@ namespace CodeArt.DomainDriven {
         internal static string PropertyValueRepeated {
             get {
                 return ResourceManager.GetString("PropertyValueRepeated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Queue {0} does not exist and cannot complete callback result operations after remote event execution 的本地化字符串。
+        /// </summary>
+        internal static string QueueNotExistWithCallbackTip {
+            get {
+                return ResourceManager.GetString("QueueNotExistWithCallbackTip", resourceCulture);
             }
         }
         
@@ -606,6 +795,24 @@ namespace CodeArt.DomainDriven {
         internal static string UnrecognizedType {
             get {
                 return ResourceManager.GetString("UnrecognizedType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 {0} value less than {1} 的本地化字符串。
+        /// </summary>
+        internal static string ValueLessThan {
+            get {
+                return ResourceManager.GetString("ValueLessThan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 {0} value more than {1} 的本地化字符串。
+        /// </summary>
+        internal static string ValueMoreThan {
+            get {
+                return ResourceManager.GetString("ValueMoreThan", resourceCulture);
             }
         }
         

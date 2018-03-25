@@ -4,17 +4,21 @@ using System.Collections.Concurrent;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
+
 
 using CodeArt.AppSetting;
 
-[assembly: PreApplicationStart(typeof(CodeArt.Web.PreApplicationStart), "Initialize", PreApplicationStartPriority.Height)]
+
+[assembly: PreApplicationStartMethod(typeof(CodeArt.Web.PreApplicationStart), "Initialize")]
 
 namespace CodeArt.Web
 {
-    internal class PreApplicationStart
+    public class PreApplicationStart
     {
-        private static void Initialize()
+        public static void Initialize()
         {
+            AppInitializer.Initialize();
             AppSession.Register(CombineAppSession.Instance);
         }
     }

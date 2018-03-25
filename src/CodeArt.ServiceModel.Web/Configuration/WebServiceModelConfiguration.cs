@@ -46,6 +46,7 @@ namespace CodeArt.ServiceModel
         #region 当前配置
 
         public static WebServiceModelConfiguration Current;
+
         static WebServiceModelConfiguration()
         {
             Current = ConfigurationManager.GetSection("codeArt.serviceModel.web") as WebServiceModelConfiguration;

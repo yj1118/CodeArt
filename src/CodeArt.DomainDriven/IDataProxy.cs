@@ -28,11 +28,17 @@ namespace CodeArt.DomainDriven
         /// <param name="target"></param>
         void Copy(IDataProxy target);
 
+        void Clear();
 
         /// <summary>
         /// 对象是否为一个快照
         /// </summary>
         bool IsSnapshot { get; }
+
+        /// <summary>
+        /// 对象是否为镜像
+        /// </summary>
+        bool IsMirror { get; }
 
         /// <summary>
         /// 对象是否来自仓储的快照区

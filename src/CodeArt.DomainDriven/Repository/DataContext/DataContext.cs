@@ -68,7 +68,8 @@ namespace CodeArt.DomainDriven
 
         internal void AddMirror(IAggregateRoot obj)
         {
-            if (_isCommiting) throw new DataContextException(Strings.CanNotAddMirror);
+            if (IsCommiting)
+                throw new DataContextException(Strings.CanNotAddMirror);
             if (_mirrors.Exists((t) => { return t.UniqueKey == obj.UniqueKey; })) return;
             _mirrors.Add(obj);
         }
@@ -90,16 +91,20 @@ namespace CodeArt.DomainDriven
             return _mirrors.Exists((t) => { return object.ReferenceEquals(t, obj); });
         }
 
+        internal IEnumerable<IAggregateRoot> GetMirrorObjects()
+        {
+            return _mirrors;
+        }
+
         #endregion
 
-        #region 当前被加载的对象集合（不包括镜像）
+        #region 当前被加载的对象集合（不包括镜像对象）
 
         private List<IAggregateRoot> _buffer;
 
         private void InitializeBuffer()
         {
             _buffer = new List<IAggregateRoot>();
-
         }
 
         private void DisposeBuffer()
@@ -370,7 +375,11 @@ namespace CodeArt.DomainDriven
         /// <summary>
         /// 是否正在执行提交操作
         /// </summary>
-        private bool _isCommiting;
+        public bool IsCommiting
+        {
+            get;
+            private set;
+        }
 
 
 
@@ -379,7 +388,7 @@ namespace CodeArt.DomainDriven
             _transactionStatus = TransactionStatus.None;
             _transactionCount = 0;
             _timelyManager = null;
-            _isCommiting = false;
+            IsCommiting = false;
         }
 
         private void DisposeTransaction()
@@ -391,7 +400,7 @@ namespace CodeArt.DomainDriven
                 _timelyManager.Dispose();
                 _timelyManager = null;
             }
-            _isCommiting = false;
+            IsCommiting = false;
         }
 
         public bool IsInTransaction
@@ -418,7 +427,7 @@ namespace CodeArt.DomainDriven
                 _timelyManager = GetTransactionManager();
                 _timelyManager.Begin();
 
-                if (!_isCommiting)
+                if (!IsCommiting)
                 {
                     //没有之前的队列要执行
                     ExecuteActionQueue();//在提交时更改了事务模式,只有可能是在验证行为时发生，该队列会在稍后立即执行，因此此处不执行队列
@@ -456,10 +465,10 @@ namespace CodeArt.DomainDriven
                 _transactionCount--;
                 if (_transactionCount == 0)
                 {
-                    if (_isCommiting)
+                    if (IsCommiting)
                         throw new RepeatedCommitException(Strings.TransactionRepeatedCommit);
 
-                    _isCommiting = true;
+                    IsCommiting = true;
 
                     try
                     {
@@ -489,12 +498,12 @@ namespace CodeArt.DomainDriven
                     }
                     catch (Exception ex)
                     {
-                        throw ex;
+                        throw;
                     }
                     finally
                     {
                         Clear();
-                        _isCommiting = false;
+                        IsCommiting = false;
                     }
                 }
             }
@@ -689,13 +698,13 @@ namespace CodeArt.DomainDriven
                 action();
                 dataContext.Commit();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 if (dataContext.IsInTransaction)
                 {
                     dataContext.Rollback();
                 }
-                throw ex;
+                throw;
             }
         }
 
@@ -727,9 +736,9 @@ namespace CodeArt.DomainDriven
                     Using(dataContext, action, timely, true);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
             finally
             {

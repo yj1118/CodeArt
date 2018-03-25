@@ -40,7 +40,11 @@ namespace CodeArt.ServiceModel
             if (status.GetValue<string>("status", string.Empty) == "failed")
             {
                 var msg = status.GetValue<string>("message");
-                throw new ServiceException(msg);
+                var userError = status.GetValue<bool>("userError", true);
+                if (userError)
+                    throw new InvokeServiceUserException(msg);
+                else
+                    throw new InvokeServiceException(msg);
             }
         }
 

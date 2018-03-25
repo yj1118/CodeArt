@@ -16,10 +16,27 @@ namespace CodeArt.Runtime
         /// <param name="type"></param>
         /// <param name="defaultAttribute">如果<paramref name="type"/>没有定义特性，那么默认使用<paramref name="defaultAttribute"/>特性</param>
         /// <returns></returns>
+        public static T GetAttribute<T>(Type type, T defaultAttribute, bool inherit) where T : Attribute
+        {
+            object[] attributes = type.GetCustomAttributes(typeof(T), inherit);
+            return attributes.Length > 0 ? attributes[0] as T : defaultAttribute;
+        }
+
+        /// <summary>
+        /// 获取类型定义的指定类型的特性
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="type"></param>
+        /// <param name="defaultAttribute">如果<paramref name="type"/>没有定义特性，那么默认使用<paramref name="defaultAttribute"/>特性</param>
+        /// <returns></returns>
         public static T GetAttribute<T>(Type type, T defaultAttribute) where T : Attribute
         {
-            object[] attributes = type.GetCustomAttributes(typeof(T), true);
-            return attributes.Length > 0 ? attributes[0] as T : defaultAttribute;
+            return GetAttribute<T>(type, defaultAttribute, true);
+        }
+
+        public static T GetAttribute<T>(Type type, bool inherit) where T : Attribute
+        {
+            return GetAttribute<T>(type, null, false);
         }
 
         /// <summary>

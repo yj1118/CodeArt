@@ -18,11 +18,11 @@ namespace PortalService.Application
     {
         protected override DTObject DynamicInvoke(dynamic arg)
         {
-            var cmd = new CreateRole(arg.Name, arg.PermissionIds?.OfType<Guid>(), arg.IsSystem)
+            var cmd = new CreateRole(arg.Name, arg.PermissionIds?.OfType<Guid>(), arg.IsSystem ?? false)
             {
                 Description = arg.Description,
                 MarkedCode = arg.MarkedCode,
-                OrganizationId = arg.OrganizationId
+                OrganizationId = arg.OrganizationId ?? Guid.Empty
             };
 
             var role = cmd.Execute();

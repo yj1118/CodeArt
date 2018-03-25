@@ -91,6 +91,26 @@ namespace CodeArt.IO
 
         #endregion
 
+        #region 1字节池
+
+        /// <summary>
+        /// 4字节池，用于读写数据时，提供临时的4字节空间
+        /// </summary>
+        private static Pool<byte[]> _byte1Pool;
+
+        internal static IPoolItem<byte[]> BrrowByte1()
+        {
+            return _byte1Pool.Borrow();
+        }
+
+        internal static void ReturnByte1(IPoolItem<byte[]> item)
+        {
+            _byte1Pool.Return(item);
+        }
+
+        #endregion;
+
+
         #region 4字节池
 
         /// <summary>
@@ -148,6 +168,14 @@ namespace CodeArt.IO
 
         static ByteBuffer()
         {
+            _byte1Pool = new Pool<byte[]>(() =>
+            {
+                return new byte[1];
+            }, (reader, phase) =>
+            {
+                return true;
+            }, new PoolConfig() { MaxRemainTime = 600 }); //闲置10分钟销毁
+
             _byte4Pool = new Pool<byte[]>(() =>
             {
                 return new byte[4];

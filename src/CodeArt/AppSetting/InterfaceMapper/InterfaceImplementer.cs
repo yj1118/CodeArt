@@ -38,6 +38,20 @@ namespace CodeArt.AppSetting
             if (instance == null) throw new TypeMismatchException(obj.GetType(), instanceType);
             return instance;
         }
+        
+        /// <summary>
+        /// 不论对象是否为单例，都创造新的实例
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public T CreateInstance<T>() where T : class
+        {
+            var instanceType = typeof(T);
+            var obj = CreateInstance();
+            var instance = obj as T;
+            if (instance == null) throw new TypeMismatchException(obj.GetType(), instanceType);
+            return instance;
+        }
 
         private object _syncObject = new object();
         private object _singletonInstance = null;

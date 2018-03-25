@@ -1,0 +1,760 @@
+2018-03-22 01:31:27.4308 FATAL 消息：没有找到名称为db-EventMonitor或 db-default 的连接配置；堆栈：   at CodeArt.Data.SqlConnectionProvider.<>c.<.cctor>b__4_0(String connName) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Data\SqlConnectionProvider.cs:line 29
+   at CodeArt.Util.LazyIndexer.<>c__DisplayClass2_0`2.<Init>b__0(TKey key) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Util\LazyIndexer.cs:line 56
+   at CodeArt.Data.SqlConnectionProvider.GetConnectionString(String connName) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Data\SqlConnectionProvider.cs:line 19
+   at CodeArt.DomainDriven.SqlTenancyConnectionProvider.GetConnectionString(String connName) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.Extensions\SqlSessionConnectionProvider.cs:line 25
+   at CodeArt.DomainDriven.DataAccess.SqlHelper.GetConnectionString(String connName) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\SqlHelper.cs:line 93
+   at CodeArt.DomainDriven.DataAccess.SqlHelper.Execute(String connName, String sql, Object param) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\SqlHelper.cs:line 26
+   at CodeArt.DomainDriven.DataAccess.DataTable.<Build>b__246_0() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Life.cs:line 21
+   at CodeArt.DomainDriven.DataAccess.DataTable.IfUnBuilt(String name, Action action) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Life.cs:line 35
+   at CodeArt.DomainDriven.DataAccess.DataTable.Build() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Life.cs:line 18
+   at CodeArt.DomainDriven.DataAccess.DataTable..ctor(Type objectType, Boolean isSnapshot, DataTable chainRoot, DataTable master, DataTableType type, String name, IEnumerable`1 tableFields, IEnumerable`1 objectFields, IDataField memberField) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Factory.cs:line 384
+   at CodeArt.DomainDriven.DataAccess.DataTable.Create(DataTable root, DataTable master, Type objectType, Boolean isSnapshot, DataTableType tableType, String tableName, IEnumerable`1 objectFields, IDataField memberField) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Factory.cs:line 653
+   at CodeArt.DomainDriven.DataAccess.DataTable.Create(DataTable root, DataTable master, Type objectType, Boolean isSnapshot, DataTableType tableType, IEnumerable`1 objectFields, IDataField memberField) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Factory.cs:line 605
+   at CodeArt.DomainDriven.DataAccess.DataTable.Create(Type objectType, IEnumerable`1 objectFields) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Factory.cs:line 574
+   at CodeArt.DomainDriven.DataAccess.DataModel.CreateNew(Type objectType) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\DataModel.cs:line 150
+   at CodeArt.DomainDriven.DataAccess.DataModel.<>c.<.cctor>b__32_0(Type objectType) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\DataModel.cs:line 137
+   at CodeArt.Util.LazyIndexer.<>c__DisplayClass2_0`2.<Init>b__0(TKey key) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Util\LazyIndexer.cs:line 56
+   at CodeArt.DomainDriven.DataAccess.DataModel.Create(Type objectType) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\DataModel.cs:line 142
+   at CodeArt.DomainDriven.DataAccess.DataPortal.Query[T](String expression, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataPortal\DataPortal.cs:line 158
+   at CodeArt.DomainDriven.DataAccess.DataContextExtensions.<>c__DisplayClass1_0`1.<Query>b__0() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\DataContextExtensions.cs:line 42
+   at CodeArt.DomainDriven.DataContext.RegisterQueried[T](QueryLevel level, Func`1 persistQuery) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:line 194
+   at CodeArt.DomainDriven.DataAccess.DataContextExtensions.Query[T](IDataContext dataContext, String expression, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\DataContextExtensions.cs:line 40
+   at CodeArt.DomainDriven.DataAccess.SqlEventMonitorRepository.Top10Interrupteds(QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DomainEvent\SqlEventMonitorRepository.cs:line 17
+   at CodeArt.DomainDriven.EventMonitor.Top10Interrupteds() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventMonitor.cs:line 139
+   at CodeArt.DomainDriven.EventRestorer.<>c__DisplayClass7_0.<TenancRestorey>b__0() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:line 212
+   at CodeArt.AppSetting.AppSession.Using(Action action, Boolean useSymbiosis) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\AppSetting\AppSession\AppSession.cs:line 31
+   at CodeArt.DomainDriven.EventRestorer.TenancRestorey(Tenancy tenancy) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:line 205
+   at CodeArt.DomainDriven.EventRestorer.<>c.<RestoreAsync>b__6_0() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:line 189
+2018-03-22 01:38:59.9592 FATAL 消息：对象名 'EventMonitor' 无效。；堆栈：   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   at Dapper.SqlMapper.ExecuteReaderWithFlagsFallback(IDbCommand cmd, Boolean wasClosed, CommandBehavior behavior)
+   at Dapper.SqlMapper.ExecuteReaderImpl(IDbConnection cnn, CommandDefinition& command, CommandBehavior commandBehavior, IDbCommand& cmd)
+   at Dapper.SqlMapper.ExecuteReader(IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType)
+   at CodeArt.DomainDriven.DataAccess.SqlHelper.Query(String connName, String sql, Object param, List`1 datas) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\SqlHelper.cs:line 83
+   at CodeArt.DomainDriven.DataAccess.DataTable.ExecuteQueryEntries(IQueryBuilder query, Action`1 fillArg, List`1 datas) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:line 316
+   at CodeArt.DomainDriven.DataAccess.DataTable.UseDataEntries(IQueryBuilder exp, Action`1 fillArg, Action`1 action) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:line 288
+   at CodeArt.DomainDriven.DataAccess.DataTable.GetObjectsFromEntries[T](IQueryBuilder exp, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:line 244
+   at CodeArt.DomainDriven.DataAccess.DataTable.Query[T](String expression, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:line 172
+   at CodeArt.DomainDriven.DataAccess.DataModel.Query[T](String expression, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\DataModel.cs:line 102
+   at CodeArt.DomainDriven.DataAccess.DataPortal.Query[T](String expression, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataPortal\DataPortal.cs:line 159
+   at CodeArt.DomainDriven.DataAccess.DataContextExtensions.<>c__DisplayClass1_0`1.<Query>b__0() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\DataContextExtensions.cs:line 42
+   at CodeArt.DomainDriven.DataContext.RegisterQueried[T](QueryLevel level, Func`1 persistQuery) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:line 194
+   at CodeArt.DomainDriven.DataAccess.DataContextExtensions.Query[T](IDataContext dataContext, String expression, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\DataContextExtensions.cs:line 40
+   at CodeArt.DomainDriven.DataAccess.SqlEventMonitorRepository.Top10Interrupteds(QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DomainEvent\SqlEventMonitorRepository.cs:line 17
+   at CodeArt.DomainDriven.EventMonitor.Top10Interrupteds() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventMonitor.cs:line 139
+   at CodeArt.DomainDriven.EventRestorer.<>c__DisplayClass7_0.<TenancRestorey>b__0() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:line 212
+   at CodeArt.AppSetting.AppSession.Using(Action action, Boolean useSymbiosis) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\AppSetting\AppSession\AppSession.cs:line 31
+   at CodeArt.DomainDriven.EventRestorer.TenancRestorey(Tenancy tenancy) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:line 205
+   at CodeArt.DomainDriven.EventRestorer.<>c.<RestoreAsync>b__6_0() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:line 189
+2018-03-22 01:39:22.4975 FATAL 消息：对象名 'EventMonitor' 无效。；堆栈：   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   at Dapper.SqlMapper.ExecuteReaderWithFlagsFallback(IDbCommand cmd, Boolean wasClosed, CommandBehavior behavior)
+   at Dapper.SqlMapper.ExecuteReaderImpl(IDbConnection cnn, CommandDefinition& command, CommandBehavior commandBehavior, IDbCommand& cmd)
+   at Dapper.SqlMapper.ExecuteReader(IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType)
+   at CodeArt.DomainDriven.DataAccess.SqlHelper.Query(String connName, String sql, Object param, List`1 datas) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\SqlHelper.cs:line 83
+   at CodeArt.DomainDriven.DataAccess.DataTable.ExecuteQueryEntries(IQueryBuilder query, Action`1 fillArg, List`1 datas) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:line 316
+   at CodeArt.DomainDriven.DataAccess.DataTable.UseDataEntries(IQueryBuilder exp, Action`1 fillArg, Action`1 action) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:line 288
+   at CodeArt.DomainDriven.DataAccess.DataTable.GetObjectsFromEntries[T](IQueryBuilder exp, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:line 244
+   at CodeArt.DomainDriven.DataAccess.DataTable.Query[T](String expression, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:line 172
+   at CodeArt.DomainDriven.DataAccess.DataModel.Query[T](String expression, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\DataModel.cs:line 102
+   at CodeArt.DomainDriven.DataAccess.DataPortal.Query[T](String expression, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataPortal\DataPortal.cs:line 159
+   at CodeArt.DomainDriven.DataAccess.DataContextExtensions.<>c__DisplayClass1_0`1.<Query>b__0() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\DataContextExtensions.cs:line 42
+   at CodeArt.DomainDriven.DataContext.RegisterQueried[T](QueryLevel level, Func`1 persistQuery) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:line 194
+   at CodeArt.DomainDriven.DataAccess.DataContextExtensions.Query[T](IDataContext dataContext, String expression, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\DataContextExtensions.cs:line 40
+   at CodeArt.DomainDriven.DataAccess.SqlEventMonitorRepository.Top10Interrupteds(QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DomainEvent\SqlEventMonitorRepository.cs:line 17
+   at CodeArt.DomainDriven.EventMonitor.Top10Interrupteds() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventMonitor.cs:line 139
+   at CodeArt.DomainDriven.EventRestorer.<>c__DisplayClass7_0.<TenancRestorey>b__0() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:line 212
+   at CodeArt.AppSetting.AppSession.Using(Action action, Boolean useSymbiosis) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\AppSetting\AppSession\AppSession.cs:line 31
+   at CodeArt.DomainDriven.EventRestorer.TenancRestorey(Tenancy tenancy) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:line 205
+   at CodeArt.DomainDriven.EventRestorer.<>c.<RestoreAsync>b__6_0() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:line 189
+2018-03-22 01:41:45.4637 FATAL 消息：对象名 'EventMonitor' 无效。；堆栈：   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   at Dapper.SqlMapper.ExecuteReaderWithFlagsFallback(IDbCommand cmd, Boolean wasClosed, CommandBehavior behavior)
+   at Dapper.SqlMapper.ExecuteReaderImpl(IDbConnection cnn, CommandDefinition& command, CommandBehavior commandBehavior, IDbCommand& cmd)
+   at Dapper.SqlMapper.ExecuteReader(IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType)
+   at CodeArt.DomainDriven.DataAccess.SqlHelper.Query(String connName, String sql, Object param, List`1 datas) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\SqlHelper.cs:line 83
+   at CodeArt.DomainDriven.DataAccess.DataTable.ExecuteQueryEntries(IQueryBuilder query, Action`1 fillArg, List`1 datas) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:line 316
+   at CodeArt.DomainDriven.DataAccess.DataTable.UseDataEntries(IQueryBuilder exp, Action`1 fillArg, Action`1 action) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:line 288
+   at CodeArt.DomainDriven.DataAccess.DataTable.GetObjectsFromEntries[T](IQueryBuilder exp, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:line 244
+   at CodeArt.DomainDriven.DataAccess.DataTable.Query[T](String expression, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:line 172
+   at CodeArt.DomainDriven.DataAccess.DataModel.Query[T](String expression, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\DataModel.cs:line 102
+   at CodeArt.DomainDriven.DataAccess.DataPortal.Query[T](String expression, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataPortal\DataPortal.cs:line 159
+   at CodeArt.DomainDriven.DataAccess.DataContextExtensions.<>c__DisplayClass1_0`1.<Query>b__0() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\DataContextExtensions.cs:line 42
+   at CodeArt.DomainDriven.DataContext.RegisterQueried[T](QueryLevel level, Func`1 persistQuery) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:line 194
+   at CodeArt.DomainDriven.DataAccess.DataContextExtensions.Query[T](IDataContext dataContext, String expression, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\DataContextExtensions.cs:line 40
+   at CodeArt.DomainDriven.DataAccess.SqlEventMonitorRepository.Top10Interrupteds(QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DomainEvent\SqlEventMonitorRepository.cs:line 17
+   at CodeArt.DomainDriven.EventMonitor.Top10Interrupteds() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventMonitor.cs:line 139
+   at CodeArt.DomainDriven.EventRestorer.<>c__DisplayClass7_0.<TenancRestorey>b__0() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:line 212
+   at CodeArt.AppSetting.AppSession.Using(Action action, Boolean useSymbiosis) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\AppSetting\AppSession\AppSession.cs:line 31
+   at CodeArt.DomainDriven.EventRestorer.TenancRestorey(Tenancy tenancy) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:line 205
+   at CodeArt.DomainDriven.EventRestorer.<>c.<RestoreAsync>b__6_0() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:line 189
+2018-03-22 02:22:15.0568 FATAL 消息：对象名 'EventMonitor' 无效。；堆栈：   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   at Dapper.SqlMapper.ExecuteReaderWithFlagsFallback(IDbCommand cmd, Boolean wasClosed, CommandBehavior behavior)
+   at Dapper.SqlMapper.ExecuteReaderImpl(IDbConnection cnn, CommandDefinition& command, CommandBehavior commandBehavior, IDbCommand& cmd)
+   at Dapper.SqlMapper.ExecuteReader(IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType)
+   at CodeArt.DomainDriven.DataAccess.SqlHelper.Query(String connName, String sql, Object param, List`1 datas) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\SqlHelper.cs:line 83
+   at CodeArt.DomainDriven.DataAccess.DataTable.ExecuteQueryEntries(IQueryBuilder query, Action`1 fillArg, List`1 datas) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:line 316
+   at CodeArt.DomainDriven.DataAccess.DataTable.UseDataEntries(IQueryBuilder exp, Action`1 fillArg, Action`1 action) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:line 288
+   at CodeArt.DomainDriven.DataAccess.DataTable.GetObjectsFromEntries[T](IQueryBuilder exp, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:line 244
+   at CodeArt.DomainDriven.DataAccess.DataTable.Query[T](String expression, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:line 172
+   at CodeArt.DomainDriven.DataAccess.DataModel.Query[T](String expression, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\DataModel.cs:line 102
+   at CodeArt.DomainDriven.DataAccess.DataPortal.Query[T](String expression, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataPortal\DataPortal.cs:line 159
+   at CodeArt.DomainDriven.DataAccess.DataContextExtensions.<>c__DisplayClass1_0`1.<Query>b__0() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\DataContextExtensions.cs:line 42
+   at CodeArt.DomainDriven.DataContext.RegisterQueried[T](QueryLevel level, Func`1 persistQuery) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:line 194
+   at CodeArt.DomainDriven.DataAccess.DataContextExtensions.Query[T](IDataContext dataContext, String expression, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\DataContextExtensions.cs:line 40
+   at CodeArt.DomainDriven.DataAccess.SqlEventMonitorRepository.Top10Interrupteds(QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DomainEvent\SqlEventMonitorRepository.cs:line 17
+   at CodeArt.DomainDriven.EventMonitor.Top10Interrupteds() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventMonitor.cs:line 139
+   at CodeArt.DomainDriven.EventRestorer.<>c__DisplayClass7_0.<TenancRestorey>b__0() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:line 214
+   at CodeArt.AppSetting.AppSession.Using(Action action, Boolean useSymbiosis) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\AppSetting\AppSession\AppSession.cs:line 31
+   at CodeArt.DomainDriven.EventRestorer.TenancRestorey(Tenancy tenancy) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:line 207
+   at CodeArt.DomainDriven.EventRestorer.<>c.<RestoreAsync>b__6_0() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:line 191
+2018-03-22 03:01:04.8990 FATAL 消息：对象名 'EventMonitor' 无效。；堆栈：   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   at Dapper.SqlMapper.ExecuteReaderWithFlagsFallback(IDbCommand cmd, Boolean wasClosed, CommandBehavior behavior)
+   at Dapper.SqlMapper.ExecuteReaderImpl(IDbConnection cnn, CommandDefinition& command, CommandBehavior commandBehavior, IDbCommand& cmd)
+   at Dapper.SqlMapper.ExecuteReader(IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType)
+   at CodeArt.DomainDriven.DataAccess.SqlHelper.Query(String connName, String sql, Object param, List`1 datas) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\SqlHelper.cs:line 83
+   at CodeArt.DomainDriven.DataAccess.DataTable.ExecuteQueryEntries(IQueryBuilder query, Action`1 fillArg, List`1 datas) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:line 316
+   at CodeArt.DomainDriven.DataAccess.DataTable.UseDataEntries(IQueryBuilder exp, Action`1 fillArg, Action`1 action) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:line 288
+   at CodeArt.DomainDriven.DataAccess.DataTable.GetObjectsFromEntries[T](IQueryBuilder exp, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:line 244
+   at CodeArt.DomainDriven.DataAccess.DataTable.Query[T](String expression, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:line 172
+   at CodeArt.DomainDriven.DataAccess.DataModel.Query[T](String expression, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\DataModel.cs:line 102
+   at CodeArt.DomainDriven.DataAccess.DataPortal.Query[T](String expression, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataPortal\DataPortal.cs:line 159
+   at CodeArt.DomainDriven.DataAccess.DataContextExtensions.<>c__DisplayClass1_0`1.<Query>b__0() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\DataContextExtensions.cs:line 42
+   at CodeArt.DomainDriven.DataContext.RegisterQueried[T](QueryLevel level, Func`1 persistQuery) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:line 194
+   at CodeArt.DomainDriven.DataAccess.DataContextExtensions.Query[T](IDataContext dataContext, String expression, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\DataContextExtensions.cs:line 40
+   at CodeArt.DomainDriven.DataAccess.SqlEventMonitorRepository.Top10Interrupteds(QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DomainEvent\SqlEventMonitorRepository.cs:line 17
+   at CodeArt.DomainDriven.EventMonitor.Top10Interrupteds() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventMonitor.cs:line 139
+   at CodeArt.DomainDriven.EventRestorer.<>c__DisplayClass7_0.<TenancRestorey>b__0() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:line 214
+   at CodeArt.AppSetting.AppSession.Using(Action action, Boolean useSymbiosis) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\AppSetting\AppSession\AppSession.cs:line 31
+   at CodeArt.DomainDriven.EventRestorer.TenancRestorey(Tenancy tenancy) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:line 207
+   at CodeArt.DomainDriven.EventRestorer.<>c.<RestoreAsync>b__6_0() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:line 191
+2018-03-22 03:04:16.9965 FATAL 消息：没有找到名称为db-EventLock或 db-default 的连接配置；堆栈：   在 CodeArt.Data.SqlConnectionProvider.<>c.<.cctor>b__4_0(String connName) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Data\SqlConnectionProvider.cs:行号 29
+   在 CodeArt.Util.LazyIndexer.<>c__DisplayClass2_0`2.<Init>b__0(TKey key) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Util\LazyIndexer.cs:行号 56
+   在 CodeArt.Data.SqlConnectionProvider.GetConnectionString(String connName) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Data\SqlConnectionProvider.cs:行号 19
+   在 CodeArt.DomainDriven.SqlTenancyConnectionProvider.GetConnectionString(String connName) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.Extensions\SqlTenancyConnectionProvider.cs:行号 25
+   在 CodeArt.DomainDriven.DataAccess.SqlHelper.GetConnectionString(String connName) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\SqlHelper.cs:行号 93
+   在 CodeArt.DomainDriven.DataAccess.SqlHelper.Execute(String connName, String sql, Object param) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\SqlHelper.cs:行号 26
+   在 CodeArt.DomainDriven.DataAccess.DataTable.<Build>b__246_0() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Life.cs:行号 21
+   在 CodeArt.DomainDriven.DataAccess.DataTable.IfUnBuilt(String name, Action action) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Life.cs:行号 35
+   在 CodeArt.DomainDriven.DataAccess.DataTable.Build() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Life.cs:行号 18
+   在 CodeArt.DomainDriven.DataAccess.DataTable..ctor(Type objectType, Boolean isSnapshot, DataTable chainRoot, DataTable master, DataTableType type, String name, IEnumerable`1 tableFields, IEnumerable`1 objectFields, IDataField memberField) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Factory.cs:行号 384
+   在 CodeArt.DomainDriven.DataAccess.DataTable.Create(DataTable root, DataTable master, Type objectType, Boolean isSnapshot, DataTableType tableType, String tableName, IEnumerable`1 objectFields, IDataField memberField) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Factory.cs:行号 653
+   在 CodeArt.DomainDriven.DataAccess.DataTable.Create(DataTable root, DataTable master, Type objectType, Boolean isSnapshot, DataTableType tableType, IEnumerable`1 objectFields, IDataField memberField) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Factory.cs:行号 605
+   在 CodeArt.DomainDriven.DataAccess.DataTable.Create(Type objectType, IEnumerable`1 objectFields) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Factory.cs:行号 574
+   在 CodeArt.DomainDriven.DataAccess.DataModel.CreateNew(Type objectType) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\DataModel.cs:行号 150
+   在 CodeArt.DomainDriven.DataAccess.DataModel.<>c.<.cctor>b__32_0(Type objectType) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\DataModel.cs:行号 137
+   在 CodeArt.Util.LazyIndexer.<>c__DisplayClass2_0`2.<Init>b__0(TKey key) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Util\LazyIndexer.cs:行号 56
+   在 CodeArt.DomainDriven.DataAccess.DataModel.Create(Type objectType) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\DataModel.cs:行号 142
+   在 CodeArt.DomainDriven.DataAccess.DataPortal.QuerySingle[T](Object id, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataPortal\DataPortal.cs:行号 128
+   在 CodeArt.DomainDriven.DataAccess.SqlRepository`1.PersistFind(Object id, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\SqlRepository.cs:行号 37
+   在 CodeArt.DomainDriven.Repository`1.<>c__DisplayClass16_0.<Find>b__0() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\RepositoryBase.cs:行号 152
+   在 CodeArt.DomainDriven.DataContext.RegisterQueried[T](QueryLevel level, Func`1 persistQuery) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 183
+   在 CodeArt.DomainDriven.Repository`1.Find(Object id, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\RepositoryBase.cs:行号 150
+   在 CodeArt.DomainDriven.EventLock.Find(Guid queueId, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventLock.cs:行号 76
+   在 CodeArt.DomainDriven.EventLock.<>c__DisplayClass3_0.<GetOrCreate>b__0() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventLock.cs:行号 55
+   在 CodeArt.DomainDriven.DataContext.Using(DataContext dataContext, Action action, Boolean timely, Boolean newScope) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 707
+   在 CodeArt.DomainDriven.DataContext.NewScope(Action action, Boolean timely) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 741
+   在 CodeArt.DomainDriven.EventLock.GetOrCreate(Guid queueId) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventLock.cs:行号 53
+   在 CodeArt.DomainDriven.EventRestorer.<>c__DisplayClass0_0.<UseQueue>b__0() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:行号 32
+   在 CodeArt.DomainDriven.DataContext.Using(DataContext dataContext, Action action, Boolean timely, Boolean newScope) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 707
+   在 CodeArt.DomainDriven.DataContext.NewScope(Action action, Boolean timely) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 741
+   在 CodeArt.DomainDriven.EventRestorer.UseQueue(Guid queueId, Action action, Action`1 error) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:行号 30
+2018-03-22 03:04:17.1222 FATAL 消息：没有找到名称为db-Snapshot_EventLock或 db-default 的连接配置；堆栈：   在 CodeArt.Data.SqlConnectionProvider.<>c.<.cctor>b__4_0(String connName) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Data\SqlConnectionProvider.cs:行号 29
+   在 CodeArt.Util.LazyIndexer.<>c__DisplayClass2_0`2.<Init>b__0(TKey key) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Util\LazyIndexer.cs:行号 56
+   在 CodeArt.Data.SqlConnectionProvider.GetConnectionString(String connName) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Data\SqlConnectionProvider.cs:行号 19
+   在 CodeArt.DomainDriven.SqlTenancyConnectionProvider.GetConnectionString(String connName) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.Extensions\SqlTenancyConnectionProvider.cs:行号 25
+   在 CodeArt.DomainDriven.DataAccess.SqlHelper.GetConnectionString(String connName) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\SqlHelper.cs:行号 93
+   在 CodeArt.DomainDriven.DataAccess.SqlHelper.Execute(String connName, String sql, Object param) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\SqlHelper.cs:行号 26
+   在 CodeArt.DomainDriven.DataAccess.DataTable.<Build>b__246_0() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Life.cs:行号 21
+   在 CodeArt.DomainDriven.DataAccess.DataTable.IfUnBuilt(String name, Action action) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Life.cs:行号 35
+   在 CodeArt.DomainDriven.DataAccess.DataTable.Build() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Life.cs:行号 18
+   在 CodeArt.DomainDriven.DataAccess.DataTable..ctor(Type objectType, Boolean isSnapshot, DataTable chainRoot, DataTable master, DataTableType type, String name, IEnumerable`1 tableFields, IEnumerable`1 objectFields, IDataField memberField) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Factory.cs:行号 384
+   在 CodeArt.DomainDriven.DataAccess.DataTable.Create(DataTable root, DataTable master, Type objectType, Boolean isSnapshot, DataTableType tableType, String tableName, IEnumerable`1 objectFields, IDataField memberField) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Factory.cs:行号 653
+   在 CodeArt.DomainDriven.DataAccess.DataTable.Create(DataTable root, DataTable master, Type objectType, Boolean isSnapshot, DataTableType tableType, IEnumerable`1 objectFields, IDataField memberField) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Factory.cs:行号 605
+   在 CodeArt.DomainDriven.DataAccess.DataTable.CreateSnapshot(Type objectType, IEnumerable`1 objectFields) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Factory.cs:行号 591
+   在 CodeArt.DomainDriven.DataAccess.DataModel.CreateNew(Type objectType) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\DataModel.cs:行号 153
+   在 CodeArt.DomainDriven.DataAccess.DataModel.<>c.<.cctor>b__32_0(Type objectType) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\DataModel.cs:行号 137
+   在 CodeArt.Util.LazyIndexer.<>c__DisplayClass2_0`2.<Init>b__0(TKey key) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Util\LazyIndexer.cs:行号 56
+   在 CodeArt.DomainDriven.DataAccess.DataModel.Create(Type objectType) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\DataModel.cs:行号 142
+   在 CodeArt.DomainDriven.DataAccess.DataPortal.QuerySingle[T](Object id, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataPortal\DataPortal.cs:行号 128
+   在 CodeArt.DomainDriven.DataAccess.SqlRepository`1.PersistFind(Object id, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\SqlRepository.cs:行号 37
+   在 CodeArt.DomainDriven.Repository`1.<>c__DisplayClass16_0.<Find>b__0() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\RepositoryBase.cs:行号 152
+   在 CodeArt.DomainDriven.DataContext.RegisterQueried[T](QueryLevel level, Func`1 persistQuery) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 183
+   在 CodeArt.DomainDriven.Repository`1.Find(Object id, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\RepositoryBase.cs:行号 150
+   在 CodeArt.DomainDriven.EventLock.Find(Guid queueId, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventLock.cs:行号 76
+   在 CodeArt.DomainDriven.EventRestorer.<>c__DisplayClass8_0.<TryRestore>b__0() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:行号 237
+   在 CodeArt.DomainDriven.DataContext.Using(DataContext dataContext, Action action, Boolean timely, Boolean newScope) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 707
+   在 CodeArt.DomainDriven.DataContext.NewScope(Action action, Boolean timely) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 741
+   在 CodeArt.DomainDriven.EventRestorer.TryRestore(Guid queueId, Exception reason) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:行号 235
+2018-03-22 03:05:44.6692 FATAL 消息：对象名 'EventMonitor' 无效。；堆栈：   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   at Dapper.SqlMapper.ExecuteReaderWithFlagsFallback(IDbCommand cmd, Boolean wasClosed, CommandBehavior behavior)
+   at Dapper.SqlMapper.ExecuteReaderImpl(IDbConnection cnn, CommandDefinition& command, CommandBehavior commandBehavior, IDbCommand& cmd)
+   at Dapper.SqlMapper.ExecuteReader(IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType)
+   at CodeArt.DomainDriven.DataAccess.SqlHelper.Query(String connName, String sql, Object param, List`1 datas) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\SqlHelper.cs:line 83
+   at CodeArt.DomainDriven.DataAccess.DataTable.ExecuteQueryEntries(IQueryBuilder query, Action`1 fillArg, List`1 datas) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:line 316
+   at CodeArt.DomainDriven.DataAccess.DataTable.UseDataEntries(IQueryBuilder exp, Action`1 fillArg, Action`1 action) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:line 288
+   at CodeArt.DomainDriven.DataAccess.DataTable.GetObjectsFromEntries[T](IQueryBuilder exp, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:line 244
+   at CodeArt.DomainDriven.DataAccess.DataTable.Query[T](String expression, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:line 172
+   at CodeArt.DomainDriven.DataAccess.DataModel.Query[T](String expression, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\DataModel.cs:line 102
+   at CodeArt.DomainDriven.DataAccess.DataPortal.Query[T](String expression, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataPortal\DataPortal.cs:line 159
+   at CodeArt.DomainDriven.DataAccess.DataContextExtensions.<>c__DisplayClass1_0`1.<Query>b__0() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\DataContextExtensions.cs:line 42
+   at CodeArt.DomainDriven.DataContext.RegisterQueried[T](QueryLevel level, Func`1 persistQuery) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:line 194
+   at CodeArt.DomainDriven.DataAccess.DataContextExtensions.Query[T](IDataContext dataContext, String expression, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\DataContextExtensions.cs:line 40
+   at CodeArt.DomainDriven.DataAccess.SqlEventMonitorRepository.Top10Interrupteds(QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DomainEvent\SqlEventMonitorRepository.cs:line 17
+   at CodeArt.DomainDriven.EventMonitor.Top10Interrupteds() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventMonitor.cs:line 139
+   at CodeArt.DomainDriven.EventRestorer.<>c__DisplayClass7_0.<TenancRestorey>b__0() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:line 214
+   at CodeArt.AppSetting.AppSession.Using(Action action, Boolean useSymbiosis) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\AppSetting\AppSession\AppSession.cs:line 31
+   at CodeArt.DomainDriven.EventRestorer.TenancRestorey(Tenancy tenancy) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:line 207
+   at CodeArt.DomainDriven.EventRestorer.<>c.<RestoreAsync>b__6_0() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:line 191
+2018-03-22 03:12:27.7556 FATAL 消息：对象名 'EventMonitor' 无效。；堆栈：   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   at Dapper.SqlMapper.ExecuteReaderWithFlagsFallback(IDbCommand cmd, Boolean wasClosed, CommandBehavior behavior)
+   at Dapper.SqlMapper.ExecuteReaderImpl(IDbConnection cnn, CommandDefinition& command, CommandBehavior commandBehavior, IDbCommand& cmd)
+   at Dapper.SqlMapper.ExecuteReader(IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType)
+   at CodeArt.DomainDriven.DataAccess.SqlHelper.Query(String connName, String sql, Object param, List`1 datas) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\SqlHelper.cs:line 83
+   at CodeArt.DomainDriven.DataAccess.DataTable.ExecuteQueryEntries(IQueryBuilder query, Action`1 fillArg, List`1 datas) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:line 316
+   at CodeArt.DomainDriven.DataAccess.DataTable.UseDataEntries(IQueryBuilder exp, Action`1 fillArg, Action`1 action) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:line 288
+   at CodeArt.DomainDriven.DataAccess.DataTable.GetObjectsFromEntries[T](IQueryBuilder exp, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:line 244
+   at CodeArt.DomainDriven.DataAccess.DataTable.Query[T](String expression, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:line 172
+   at CodeArt.DomainDriven.DataAccess.DataModel.Query[T](String expression, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\DataModel.cs:line 102
+   at CodeArt.DomainDriven.DataAccess.DataPortal.Query[T](String expression, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataPortal\DataPortal.cs:line 159
+   at CodeArt.DomainDriven.DataAccess.DataContextExtensions.<>c__DisplayClass1_0`1.<Query>b__0() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\DataContextExtensions.cs:line 42
+   at CodeArt.DomainDriven.DataContext.RegisterQueried[T](QueryLevel level, Func`1 persistQuery) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:line 194
+   at CodeArt.DomainDriven.DataAccess.DataContextExtensions.Query[T](IDataContext dataContext, String expression, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\DataContextExtensions.cs:line 40
+   at CodeArt.DomainDriven.DataAccess.SqlEventMonitorRepository.Top10Interrupteds(QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DomainEvent\SqlEventMonitorRepository.cs:line 17
+   at CodeArt.DomainDriven.EventMonitor.Top10Interrupteds() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventMonitor.cs:line 139
+   at CodeArt.DomainDriven.EventRestorer.<>c__DisplayClass7_0.<TenancRestorey>b__0() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:line 214
+   at CodeArt.AppSetting.AppSession.Using(Action action, Boolean useSymbiosis) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\AppSetting\AppSession\AppSession.cs:line 31
+   at CodeArt.DomainDriven.EventRestorer.TenancRestorey(Tenancy tenancy) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:line 207
+   at CodeArt.DomainDriven.EventRestorer.<>c.<RestoreAsync>b__6_0() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:line 191
+2018-03-22 03:13:28.7913 FATAL 消息：对象名 'EventMonitor' 无效。；堆栈：   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   at Dapper.SqlMapper.ExecuteReaderWithFlagsFallback(IDbCommand cmd, Boolean wasClosed, CommandBehavior behavior)
+   at Dapper.SqlMapper.ExecuteReaderImpl(IDbConnection cnn, CommandDefinition& command, CommandBehavior commandBehavior, IDbCommand& cmd)
+   at Dapper.SqlMapper.ExecuteReader(IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType)
+   at CodeArt.DomainDriven.DataAccess.SqlHelper.Query(String connName, String sql, Object param, List`1 datas) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\SqlHelper.cs:line 83
+   at CodeArt.DomainDriven.DataAccess.DataTable.ExecuteQueryEntries(IQueryBuilder query, Action`1 fillArg, List`1 datas) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:line 316
+   at CodeArt.DomainDriven.DataAccess.DataTable.UseDataEntries(IQueryBuilder exp, Action`1 fillArg, Action`1 action) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:line 288
+   at CodeArt.DomainDriven.DataAccess.DataTable.GetObjectsFromEntries[T](IQueryBuilder exp, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:line 244
+   at CodeArt.DomainDriven.DataAccess.DataTable.Query[T](String expression, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:line 172
+   at CodeArt.DomainDriven.DataAccess.DataModel.Query[T](String expression, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\DataModel.cs:line 102
+   at CodeArt.DomainDriven.DataAccess.DataPortal.Query[T](String expression, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataPortal\DataPortal.cs:line 159
+   at CodeArt.DomainDriven.DataAccess.DataContextExtensions.<>c__DisplayClass1_0`1.<Query>b__0() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\DataContextExtensions.cs:line 42
+   at CodeArt.DomainDriven.DataContext.RegisterQueried[T](QueryLevel level, Func`1 persistQuery) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:line 194
+   at CodeArt.DomainDriven.DataAccess.DataContextExtensions.Query[T](IDataContext dataContext, String expression, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\DataContextExtensions.cs:line 40
+   at CodeArt.DomainDriven.DataAccess.SqlEventMonitorRepository.Top10Interrupteds(QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DomainEvent\SqlEventMonitorRepository.cs:line 17
+   at CodeArt.DomainDriven.EventMonitor.Top10Interrupteds() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventMonitor.cs:line 139
+   at CodeArt.DomainDriven.EventRestorer.<>c__DisplayClass7_0.<TenancRestorey>b__0() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:line 214
+   at CodeArt.AppSetting.AppSession.Using(Action action, Boolean useSymbiosis) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\AppSetting\AppSession\AppSession.cs:line 31
+   at CodeArt.DomainDriven.EventRestorer.TenancRestorey(Tenancy tenancy) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:line 207
+   at CodeArt.DomainDriven.EventRestorer.<>c.<RestoreAsync>b__6_0() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:line 191
+2018-03-22 03:17:14.5419 FATAL 消息：对象名 'EventMonitor' 无效。；堆栈：   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   at Dapper.SqlMapper.ExecuteReaderWithFlagsFallback(IDbCommand cmd, Boolean wasClosed, CommandBehavior behavior)
+   at Dapper.SqlMapper.ExecuteReaderImpl(IDbConnection cnn, CommandDefinition& command, CommandBehavior commandBehavior, IDbCommand& cmd)
+   at Dapper.SqlMapper.ExecuteReader(IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType)
+   at CodeArt.DomainDriven.DataAccess.SqlHelper.Query(String connName, String sql, Object param, List`1 datas) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\SqlHelper.cs:line 83
+   at CodeArt.DomainDriven.DataAccess.DataTable.ExecuteQueryEntries(IQueryBuilder query, Action`1 fillArg, List`1 datas) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:line 316
+   at CodeArt.DomainDriven.DataAccess.DataTable.UseDataEntries(IQueryBuilder exp, Action`1 fillArg, Action`1 action) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:line 288
+   at CodeArt.DomainDriven.DataAccess.DataTable.GetObjectsFromEntries[T](IQueryBuilder exp, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:line 244
+   at CodeArt.DomainDriven.DataAccess.DataTable.Query[T](String expression, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:line 172
+   at CodeArt.DomainDriven.DataAccess.DataModel.Query[T](String expression, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\DataModel.cs:line 102
+   at CodeArt.DomainDriven.DataAccess.DataPortal.Query[T](String expression, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataPortal\DataPortal.cs:line 159
+   at CodeArt.DomainDriven.DataAccess.DataContextExtensions.<>c__DisplayClass1_0`1.<Query>b__0() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\DataContextExtensions.cs:line 42
+   at CodeArt.DomainDriven.DataContext.RegisterQueried[T](QueryLevel level, Func`1 persistQuery) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:line 194
+   at CodeArt.DomainDriven.DataAccess.DataContextExtensions.Query[T](IDataContext dataContext, String expression, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\DataContextExtensions.cs:line 40
+   at CodeArt.DomainDriven.DataAccess.SqlEventMonitorRepository.Top10Interrupteds(QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DomainEvent\SqlEventMonitorRepository.cs:line 17
+   at CodeArt.DomainDriven.EventMonitor.Top10Interrupteds() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventMonitor.cs:line 139
+   at CodeArt.DomainDriven.EventRestorer.<>c__DisplayClass7_0.<TenancRestorey>b__0() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:line 214
+   at CodeArt.AppSetting.AppSession.Using(Action action, Boolean useSymbiosis) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\AppSetting\AppSession\AppSession.cs:line 31
+   at CodeArt.DomainDriven.EventRestorer.TenancRestorey(Tenancy tenancy) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:line 207
+   at CodeArt.DomainDriven.EventRestorer.<>c.<RestoreAsync>b__6_0() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:line 191
+2018-03-22 03:25:30.0993 FATAL 消息：对象名 'EventMonitor' 无效。；堆栈：   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   at Dapper.SqlMapper.ExecuteReaderWithFlagsFallback(IDbCommand cmd, Boolean wasClosed, CommandBehavior behavior)
+   at Dapper.SqlMapper.ExecuteReaderImpl(IDbConnection cnn, CommandDefinition& command, CommandBehavior commandBehavior, IDbCommand& cmd)
+   at Dapper.SqlMapper.ExecuteReader(IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType)
+   at CodeArt.DomainDriven.DataAccess.SqlHelper.Query(String connName, String sql, Object param, List`1 datas) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\SqlHelper.cs:line 83
+   at CodeArt.DomainDriven.DataAccess.DataTable.ExecuteQueryEntries(IQueryBuilder query, Action`1 fillArg, List`1 datas) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:line 316
+   at CodeArt.DomainDriven.DataAccess.DataTable.UseDataEntries(IQueryBuilder exp, Action`1 fillArg, Action`1 action) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:line 288
+   at CodeArt.DomainDriven.DataAccess.DataTable.GetObjectsFromEntries[T](IQueryBuilder exp, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:line 244
+   at CodeArt.DomainDriven.DataAccess.DataTable.Query[T](String expression, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:line 172
+   at CodeArt.DomainDriven.DataAccess.DataModel.Query[T](String expression, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\DataModel.cs:line 102
+   at CodeArt.DomainDriven.DataAccess.DataPortal.Query[T](String expression, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataPortal\DataPortal.cs:line 159
+   at CodeArt.DomainDriven.DataAccess.DataContextExtensions.<>c__DisplayClass1_0`1.<Query>b__0() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\DataContextExtensions.cs:line 42
+   at CodeArt.DomainDriven.DataContext.RegisterQueried[T](QueryLevel level, Func`1 persistQuery) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:line 194
+   at CodeArt.DomainDriven.DataAccess.DataContextExtensions.Query[T](IDataContext dataContext, String expression, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\DataContextExtensions.cs:line 40
+   at CodeArt.DomainDriven.DataAccess.SqlEventMonitorRepository.Top10Interrupteds(QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DomainEvent\SqlEventMonitorRepository.cs:line 17
+   at CodeArt.DomainDriven.EventMonitor.Top10Interrupteds() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventMonitor.cs:line 139
+   at CodeArt.DomainDriven.EventRestorer.<>c__DisplayClass7_0.<TenancRestorey>b__0() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:line 214
+   at CodeArt.AppSetting.AppSession.Using(Action action, Boolean useSymbiosis) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\AppSetting\AppSession\AppSession.cs:line 31
+   at CodeArt.DomainDriven.EventRestorer.TenancRestorey(Tenancy tenancy) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:line 207
+   at CodeArt.DomainDriven.EventRestorer.<>c.<RestoreAsync>b__6_0() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:line 191
+2018-03-22 03:46:10.8039 FATAL 消息：对象名 'EventMonitor' 无效。；堆栈：   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   at Dapper.SqlMapper.ExecuteReaderWithFlagsFallback(IDbCommand cmd, Boolean wasClosed, CommandBehavior behavior)
+   at Dapper.SqlMapper.ExecuteReaderImpl(IDbConnection cnn, CommandDefinition& command, CommandBehavior commandBehavior, IDbCommand& cmd)
+   at Dapper.SqlMapper.ExecuteReader(IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType)
+   at CodeArt.DomainDriven.DataAccess.SqlHelper.Query(String connName, String sql, Object param, List`1 datas) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\SqlHelper.cs:line 83
+   at CodeArt.DomainDriven.DataAccess.DataTable.ExecuteQueryEntries(IQueryBuilder query, Action`1 fillArg, List`1 datas) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:line 316
+   at CodeArt.DomainDriven.DataAccess.DataTable.UseDataEntries(IQueryBuilder exp, Action`1 fillArg, Action`1 action) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:line 288
+   at CodeArt.DomainDriven.DataAccess.DataTable.GetObjectsFromEntries[T](IQueryBuilder exp, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:line 244
+   at CodeArt.DomainDriven.DataAccess.DataTable.Query[T](String expression, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:line 172
+   at CodeArt.DomainDriven.DataAccess.DataModel.Query[T](String expression, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\DataModel.cs:line 102
+   at CodeArt.DomainDriven.DataAccess.DataPortal.Query[T](String expression, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataPortal\DataPortal.cs:line 159
+   at CodeArt.DomainDriven.DataAccess.DataContextExtensions.<>c__DisplayClass1_0`1.<Query>b__0() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\DataContextExtensions.cs:line 42
+   at CodeArt.DomainDriven.DataContext.RegisterQueried[T](QueryLevel level, Func`1 persistQuery) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:line 194
+   at CodeArt.DomainDriven.DataAccess.DataContextExtensions.Query[T](IDataContext dataContext, String expression, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\DataContextExtensions.cs:line 40
+   at CodeArt.DomainDriven.DataAccess.SqlEventMonitorRepository.Top10Interrupteds(QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DomainEvent\SqlEventMonitorRepository.cs:line 17
+   at CodeArt.DomainDriven.EventMonitor.Top10Interrupteds() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventMonitor.cs:line 139
+   at CodeArt.DomainDriven.EventRestorer.<>c__DisplayClass7_0.<TenancRestorey>b__0() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:line 214
+   at CodeArt.AppSetting.AppSession.Using(Action action, Boolean useSymbiosis) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\AppSetting\AppSession\AppSession.cs:line 31
+   at CodeArt.DomainDriven.EventRestorer.TenancRestorey(Tenancy tenancy) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:line 207
+   at CodeArt.DomainDriven.EventRestorer.<>c.<RestoreAsync>b__6_0() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:line 191
+2018-03-22 03:46:10.8039 FATAL 消息：对象名 'EventMonitor' 无效。；堆栈：   在 System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   在 System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   在 System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   在 System.Data.SqlClient.SqlDataReader.get_MetaData()
+   在 System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   在 System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   在 System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   在 Dapper.SqlMapper.ExecuteReaderWithFlagsFallback(IDbCommand cmd, Boolean wasClosed, CommandBehavior behavior)
+   在 Dapper.SqlMapper.ExecuteReaderImpl(IDbConnection cnn, CommandDefinition& command, CommandBehavior commandBehavior, IDbCommand& cmd)
+   在 Dapper.SqlMapper.ExecuteReader(IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType)
+   在 CodeArt.DomainDriven.DataAccess.SqlHelper.QueryFirstOrDefault(String connName, String sql, Object param, DynamicData data) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\SqlHelper.cs:行号 70
+   在 CodeArt.DomainDriven.DataAccess.DataTable.ExecuteQueryEntry(IQueryBuilder query, Action`1 fillArg, DynamicData data) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 303
+   在 CodeArt.DomainDriven.DataAccess.DataTable.UseDataEntry(IQueryBuilder exp, Action`1 fillArg, Action`1 action) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 268
+   在 CodeArt.DomainDriven.DataAccess.DataTable.QuerySingle(String expression, Action`1 fillArg, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 111
+   在 CodeArt.DomainDriven.DataAccess.DataTable.QuerySingle(Object id, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 33
+   在 CodeArt.DomainDriven.DataAccess.DataModel.QuerySingle[T](Object id, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\DataModel.cs:行号 92
+   在 CodeArt.DomainDriven.DataAccess.DataPortal.QuerySingle[T](Object id, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataPortal\DataPortal.cs:行号 129
+   在 CodeArt.DomainDriven.DataAccess.SqlRepository`1.PersistFind(Object id, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\SqlRepository.cs:行号 37
+   在 CodeArt.DomainDriven.Repository`1.<>c__DisplayClass16_0.<Find>b__0() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\RepositoryBase.cs:行号 152
+   在 CodeArt.DomainDriven.DataContext.RegisterQueried[T](QueryLevel level, Func`1 persistQuery) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 183
+   在 CodeArt.DomainDriven.Repository`1.Find(Object id, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\RepositoryBase.cs:行号 150
+   在 CodeArt.DomainDriven.EventMonitor.Find(Guid queueId) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventMonitor.cs:行号 109
+   在 CodeArt.DomainDriven.EventMonitor.<>c__DisplayClass11_0.<GetOrCreate>b__0() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventMonitor.cs:行号 88
+   在 CodeArt.DomainDriven.DataContext.Using(DataContext dataContext, Action action, Boolean timely, Boolean newScope) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 707
+   在 CodeArt.DomainDriven.DataContext.NewScope(Action action, Boolean timely) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 741
+   在 CodeArt.DomainDriven.EventMonitor.GetOrCreate(Guid queueId) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventMonitor.cs:行号 86
+   在 CodeArt.DomainDriven.EventRestorer.<>c__DisplayClass0_0.<UseQueue>b__0() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:行号 34
+   在 CodeArt.DomainDriven.DataContext.Using(DataContext dataContext, Action action, Boolean timely, Boolean newScope) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 707
+   在 CodeArt.DomainDriven.DataContext.NewScope(Action action, Boolean timely) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 741
+   在 CodeArt.DomainDriven.EventRestorer.UseQueue(Guid queueId, Action action, Action`1 error) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:行号 30
+2018-03-22 03:46:10.9691 FATAL 消息：对象名 'EventMonitor' 无效。；堆栈：   在 System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   在 System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   在 System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   在 System.Data.SqlClient.SqlDataReader.get_MetaData()
+   在 System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   在 System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   在 System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   在 Dapper.SqlMapper.ExecuteReaderWithFlagsFallback(IDbCommand cmd, Boolean wasClosed, CommandBehavior behavior)
+   在 Dapper.SqlMapper.ExecuteReaderImpl(IDbConnection cnn, CommandDefinition& command, CommandBehavior commandBehavior, IDbCommand& cmd)
+   在 Dapper.SqlMapper.ExecuteReader(IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType)
+   在 CodeArt.DomainDriven.DataAccess.SqlHelper.QueryFirstOrDefault(String connName, String sql, Object param, DynamicData data) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\SqlHelper.cs:行号 70
+   在 CodeArt.DomainDriven.DataAccess.DataTable.ExecuteQueryEntry(IQueryBuilder query, Action`1 fillArg, DynamicData data) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 303
+   在 CodeArt.DomainDriven.DataAccess.DataTable.UseDataEntry(IQueryBuilder exp, Action`1 fillArg, Action`1 action) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 268
+   在 CodeArt.DomainDriven.DataAccess.DataTable.QuerySingle(String expression, Action`1 fillArg, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 111
+   在 CodeArt.DomainDriven.DataAccess.DataTable.QuerySingle(Object id, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 33
+   在 CodeArt.DomainDriven.DataAccess.DataModel.QuerySingle[T](Object id, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\DataModel.cs:行号 92
+   在 CodeArt.DomainDriven.DataAccess.DataPortal.QuerySingle[T](Object id, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataPortal\DataPortal.cs:行号 129
+   在 CodeArt.DomainDriven.DataAccess.SqlRepository`1.PersistFind(Object id, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\SqlRepository.cs:行号 37
+   在 CodeArt.DomainDriven.Repository`1.<>c__DisplayClass16_0.<Find>b__0() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\RepositoryBase.cs:行号 152
+   在 CodeArt.DomainDriven.DataContext.RegisterQueried[T](QueryLevel level, Func`1 persistQuery) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 183
+   在 CodeArt.DomainDriven.Repository`1.Find(Object id, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\RepositoryBase.cs:行号 150
+   在 CodeArt.DomainDriven.EventMonitor.Find(Guid queueId) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventMonitor.cs:行号 109
+   在 CodeArt.DomainDriven.EventRestorer.<>c__DisplayClass8_0.<TryRestore>b__0() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:行号 240
+   在 CodeArt.DomainDriven.DataContext.Using(DataContext dataContext, Action action, Boolean timely, Boolean newScope) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 707
+   在 CodeArt.DomainDriven.DataContext.NewScope(Action action, Boolean timely) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 741
+   在 CodeArt.DomainDriven.EventRestorer.TryRestore(Guid queueId, Exception reason) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:行号 235
+2018-03-22 03:46:48.6477 FATAL 消息：对象名 'EventMonitor' 无效。；堆栈：   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   at Dapper.SqlMapper.ExecuteReaderWithFlagsFallback(IDbCommand cmd, Boolean wasClosed, CommandBehavior behavior)
+   at Dapper.SqlMapper.ExecuteReaderImpl(IDbConnection cnn, CommandDefinition& command, CommandBehavior commandBehavior, IDbCommand& cmd)
+   at Dapper.SqlMapper.ExecuteReader(IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType)
+   at CodeArt.DomainDriven.DataAccess.SqlHelper.Query(String connName, String sql, Object param, List`1 datas) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\SqlHelper.cs:line 83
+   at CodeArt.DomainDriven.DataAccess.DataTable.ExecuteQueryEntries(IQueryBuilder query, Action`1 fillArg, List`1 datas) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:line 316
+   at CodeArt.DomainDriven.DataAccess.DataTable.UseDataEntries(IQueryBuilder exp, Action`1 fillArg, Action`1 action) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:line 288
+   at CodeArt.DomainDriven.DataAccess.DataTable.GetObjectsFromEntries[T](IQueryBuilder exp, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:line 244
+   at CodeArt.DomainDriven.DataAccess.DataTable.Query[T](String expression, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:line 172
+   at CodeArt.DomainDriven.DataAccess.DataModel.Query[T](String expression, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\DataModel.cs:line 102
+   at CodeArt.DomainDriven.DataAccess.DataPortal.Query[T](String expression, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataPortal\DataPortal.cs:line 159
+   at CodeArt.DomainDriven.DataAccess.DataContextExtensions.<>c__DisplayClass1_0`1.<Query>b__0() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\DataContextExtensions.cs:line 42
+   at CodeArt.DomainDriven.DataContext.RegisterQueried[T](QueryLevel level, Func`1 persistQuery) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:line 194
+   at CodeArt.DomainDriven.DataAccess.DataContextExtensions.Query[T](IDataContext dataContext, String expression, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\DataContextExtensions.cs:line 40
+   at CodeArt.DomainDriven.DataAccess.SqlEventMonitorRepository.Top10Interrupteds(QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DomainEvent\SqlEventMonitorRepository.cs:line 17
+   at CodeArt.DomainDriven.EventMonitor.Top10Interrupteds() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventMonitor.cs:line 139
+   at CodeArt.DomainDriven.EventRestorer.<>c__DisplayClass7_0.<TenancRestorey>b__0() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:line 214
+   at CodeArt.AppSetting.AppSession.Using(Action action, Boolean useSymbiosis) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\AppSetting\AppSession\AppSession.cs:line 31
+   at CodeArt.DomainDriven.EventRestorer.TenancRestorey(Tenancy tenancy) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:line 207
+   at CodeArt.DomainDriven.EventRestorer.<>c.<RestoreAsync>b__6_0() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:line 191
+2018-03-22 03:49:48.1010 FATAL 消息：对象名 'EventMonitor' 无效。；堆栈：   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   at Dapper.SqlMapper.ExecuteReaderWithFlagsFallback(IDbCommand cmd, Boolean wasClosed, CommandBehavior behavior)
+   at Dapper.SqlMapper.ExecuteReaderImpl(IDbConnection cnn, CommandDefinition& command, CommandBehavior commandBehavior, IDbCommand& cmd)
+   at Dapper.SqlMapper.ExecuteReader(IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType)
+   at CodeArt.DomainDriven.DataAccess.SqlHelper.Query(String connName, String sql, Object param, List`1 datas) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\SqlHelper.cs:line 83
+   at CodeArt.DomainDriven.DataAccess.DataTable.ExecuteQueryEntries(IQueryBuilder query, Action`1 fillArg, List`1 datas) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:line 316
+   at CodeArt.DomainDriven.DataAccess.DataTable.UseDataEntries(IQueryBuilder exp, Action`1 fillArg, Action`1 action) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:line 288
+   at CodeArt.DomainDriven.DataAccess.DataTable.GetObjectsFromEntries[T](IQueryBuilder exp, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:line 244
+   at CodeArt.DomainDriven.DataAccess.DataTable.Query[T](String expression, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:line 172
+   at CodeArt.DomainDriven.DataAccess.DataModel.Query[T](String expression, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\DataModel.cs:line 102
+   at CodeArt.DomainDriven.DataAccess.DataPortal.Query[T](String expression, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataPortal\DataPortal.cs:line 159
+   at CodeArt.DomainDriven.DataAccess.DataContextExtensions.<>c__DisplayClass1_0`1.<Query>b__0() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\DataContextExtensions.cs:line 42
+   at CodeArt.DomainDriven.DataContext.RegisterQueried[T](QueryLevel level, Func`1 persistQuery) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:line 194
+   at CodeArt.DomainDriven.DataAccess.DataContextExtensions.Query[T](IDataContext dataContext, String expression, Action`1 fillArg, QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\DataContextExtensions.cs:line 40
+   at CodeArt.DomainDriven.DataAccess.SqlEventMonitorRepository.Top10Interrupteds(QueryLevel level) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DomainEvent\SqlEventMonitorRepository.cs:line 17
+   at CodeArt.DomainDriven.EventMonitor.Top10Interrupteds() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventMonitor.cs:line 139
+   at CodeArt.DomainDriven.EventRestorer.<>c__DisplayClass7_0.<TenancRestorey>b__0() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:line 214
+   at CodeArt.AppSetting.AppSession.Using(Action action, Boolean useSymbiosis) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\AppSetting\AppSession\AppSession.cs:line 31
+   at CodeArt.DomainDriven.EventRestorer.TenancRestorey(Tenancy tenancy) in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:line 207
+   at CodeArt.DomainDriven.EventRestorer.<>c.<RestoreAsync>b__6_0() in D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:line 191
+2018-03-22 14:42:11.2015 FATAL 消息：在类型CodeArt.DomainDriven.EventQueue和其继承链上没有找到领域属性identityName的定义；堆栈：   在 CodeArt.DomainDriven.DomainProperty.<>c__DisplayClass105_0.<.cctor>b__4(String propertyName) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainProperty\DomainProperty.cs:行号 292
+   在 CodeArt.Util.LazyIndexer.<>c__DisplayClass2_0`2.<Init>b__0(TKey key) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Util\LazyIndexer.cs:行号 56
+   在 CodeArt.DomainDriven.DomainProperty.GetProperty(Type doType, String propertyName) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainProperty\DomainProperty.cs:行号 282
+   在 CodeArt.DomainDriven.ConstructorRepositoryAttribute.ConstructorParameterInfo.GetPropertyTip() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\Attributes\ConstructorRepositoryAttribute.cs:行号 174
+   在 CodeArt.DomainDriven.ConstructorRepositoryAttribute.ConstructorParameterInfo..ctor(ConstructorRepositoryAttribute constructorTip, ParameterInfo original) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\Attributes\ConstructorRepositoryAttribute.cs:行号 162
+   在 CodeArt.DomainDriven.ConstructorRepositoryAttribute.InitParameters(ConstructorInfo constructor) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\Attributes\ConstructorRepositoryAttribute.cs:行号 78
+   在 CodeArt.DomainDriven.ConstructorRepositoryAttribute.set_Constructor(ConstructorInfo value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\Attributes\ConstructorRepositoryAttribute.cs:行号 33
+   在 CodeArt.DomainDriven.ConstructorRepositoryAttribute.<>c.<.cctor>b__20_0(Type objectType) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\Attributes\ConstructorRepositoryAttribute.cs:行号 228
+   在 CodeArt.Util.LazyIndexer.<>c__DisplayClass2_0`2.<Init>b__0(TKey key) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Util\LazyIndexer.cs:行号 56
+   在 CodeArt.DomainDriven.ConstructorRepositoryAttribute.GetTip(Type objectType) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\Attributes\ConstructorRepositoryAttribute.cs:行号 207
+   在 CodeArt.DomainDriven.DataAccess.DataTable.ConstructObject(Type objectType, DynamicData data, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Read.cs:行号 210
+   在 CodeArt.DomainDriven.DataAccess.DataTable.CreateObjectImpl(Type defineType, Type objectType, DynamicData data, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Read.cs:行号 172
+   在 CodeArt.DomainDriven.DataAccess.DataTable.CreateObject(Type objectType, DynamicData data, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Read.cs:行号 156
+   在 CodeArt.DomainDriven.DataAccess.DataTable.ExecuteQueryObject(Type objectType, IQueryBuilder query, Action`1 fillArg, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 431
+   在 CodeArt.DomainDriven.DataAccess.DataTable.LoadObject(Object id, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 386
+   在 CodeArt.DomainDriven.DataAccess.DataTable.<>c__DisplayClass271_0.<GetObjectFromEntry>b__1() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 149
+   在 CodeArt.DomainDriven.DomainBuffer.GetOrCreateImpl(String uniqueKey, Int32 dataVersion, Func`1 load) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainBuffer\DomainBuffer.cs:行号 89
+   在 CodeArt.DomainDriven.DomainBuffer.GetOrCreate(Type objectType, Object id, Int32 dataVersion, Func`1 load) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainBuffer\DomainBuffer.cs:行号 68
+   在 CodeArt.DomainDriven.DataAccess.DataTable.GetObjectFromEntry(DynamicData entry, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 147
+   在 CodeArt.DomainDriven.DataAccess.DataTable.<>c__DisplayClass270_0.<QuerySingle>b__0(DynamicData entry) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 113
+   在 CodeArt.DomainDriven.DataAccess.DataTable.UseDataEntry(IQueryBuilder exp, Action`1 fillArg, Action`1 action) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 271
+   在 CodeArt.DomainDriven.DataAccess.DataTable.QuerySingle(String expression, Action`1 fillArg, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 111
+   在 CodeArt.DomainDriven.DataAccess.DataTable.QuerySingle(Object id, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 33
+   在 CodeArt.DomainDriven.DataAccess.DataModel.QuerySingle[T](Object id, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\DataModel.cs:行号 92
+   在 CodeArt.DomainDriven.DataAccess.DataPortal.QuerySingle[T](Object id, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataPortal\DataPortal.cs:行号 129
+   在 CodeArt.DomainDriven.DataAccess.SqlRepository`1.PersistFind(Object id, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\SqlRepository.cs:行号 37
+   在 CodeArt.DomainDriven.Repository`1.<>c__DisplayClass16_0.<Find>b__0() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\RepositoryBase.cs:行号 152
+   在 CodeArt.DomainDriven.DataContext.RegisterQueried[T](QueryLevel level, Func`1 persistQuery) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 183
+   在 CodeArt.DomainDriven.Repository`1.Find(Object id, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\RepositoryBase.cs:行号 150
+   在 CodeArt.DomainDriven.EventQueue.Find(Guid queueId) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Trigger\EventQueue.cs:行号 269
+   在 CodeArt.DomainDriven.EventTrigger.<>c__DisplayClass3_0.<Raise>b__0() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Trigger\EventTrigger.cs:行号 64
+   在 CodeArt.DomainDriven.DataContext.Using(DataContext dataContext, Action action, Boolean timely, Boolean newScope) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 707
+   在 CodeArt.DomainDriven.DataContext.NewScope(Action action, Boolean timely) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 741
+   在 CodeArt.DomainDriven.EventTrigger.Raise(Guid queueId) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Trigger\EventTrigger.cs:行号 61
+   在 CodeArt.DomainDriven.EventTrigger.Start(Guid queueId, DomainEvent source, Boolean isSubqueue) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Trigger\EventTrigger.cs:行号 36
+   在 CodeArt.DomainDriven.EventListener.<>c__DisplayClass0_0.<Accept>b__0() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Trigger\EventListener.cs:行号 33
+   在 CodeArt.DomainDriven.EventRestorer.<>c__DisplayClass0_0.<UseQueue>b__0() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:行号 40
+   在 CodeArt.DomainDriven.DataContext.Using(DataContext dataContext, Action action, Boolean timely, Boolean newScope) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 707
+   在 CodeArt.DomainDriven.DataContext.NewScope(Action action, Boolean timely) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 741
+   在 CodeArt.DomainDriven.EventRestorer.UseQueue(Guid queueId, Action action, Action`1 error) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:行号 30
+2018-03-22 14:42:11.5946 FATAL 消息：恢复领域事件失败，事件队列编号da60a523-fad0-42d9-ac1a-205a3414d5cb
+在类型CodeArt.DomainDriven.EventQueue和其继承链上没有找到领域属性identityName的定义
+；堆栈：
+   在 CodeArt.DomainDriven.DomainProperty.<>c__DisplayClass105_0.<.cctor>b__4(String propertyName) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainProperty\DomainProperty.cs:行号 292
+   在 CodeArt.Util.LazyIndexer.<>c__DisplayClass2_0`2.<Init>b__0(TKey key) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Util\LazyIndexer.cs:行号 56
+   在 CodeArt.DomainDriven.DomainProperty.GetProperty(Type doType, String propertyName) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainProperty\DomainProperty.cs:行号 282
+   在 CodeArt.DomainDriven.ConstructorRepositoryAttribute.ConstructorParameterInfo.GetPropertyTip() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\Attributes\ConstructorRepositoryAttribute.cs:行号 174
+   在 CodeArt.DomainDriven.ConstructorRepositoryAttribute.ConstructorParameterInfo..ctor(ConstructorRepositoryAttribute constructorTip, ParameterInfo original) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\Attributes\ConstructorRepositoryAttribute.cs:行号 162
+   在 CodeArt.DomainDriven.ConstructorRepositoryAttribute.InitParameters(ConstructorInfo constructor) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\Attributes\ConstructorRepositoryAttribute.cs:行号 78
+   在 CodeArt.DomainDriven.ConstructorRepositoryAttribute.set_Constructor(ConstructorInfo value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\Attributes\ConstructorRepositoryAttribute.cs:行号 33
+   在 CodeArt.DomainDriven.ConstructorRepositoryAttribute.<>c.<.cctor>b__20_0(Type objectType) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\Attributes\ConstructorRepositoryAttribute.cs:行号 228
+   在 CodeArt.Util.LazyIndexer.<>c__DisplayClass2_0`2.<Init>b__0(TKey key) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Util\LazyIndexer.cs:行号 56
+   在 CodeArt.DomainDriven.ConstructorRepositoryAttribute.GetTip(Type objectType) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\Attributes\ConstructorRepositoryAttribute.cs:行号 207
+   在 CodeArt.DomainDriven.DataAccess.DataTable.ConstructObject(Type objectType, DynamicData data, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Read.cs:行号 210
+   在 CodeArt.DomainDriven.DataAccess.DataTable.CreateObjectImpl(Type defineType, Type objectType, DynamicData data, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Read.cs:行号 172
+   在 CodeArt.DomainDriven.DataAccess.DataTable.CreateObject(Type objectType, DynamicData data, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Read.cs:行号 156
+   在 CodeArt.DomainDriven.DataAccess.DataTable.ExecuteQueryObject(Type objectType, IQueryBuilder query, Action`1 fillArg, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 431
+   在 CodeArt.DomainDriven.DataAccess.DataTable.LoadObject(Object id, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 386
+   在 CodeArt.DomainDriven.DataAccess.DataTable.<>c__DisplayClass271_0.<GetObjectFromEntry>b__1() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 149
+   在 CodeArt.DomainDriven.DomainBuffer.GetOrCreateImpl(String uniqueKey, Int32 dataVersion, Func`1 load) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainBuffer\DomainBuffer.cs:行号 89
+   在 CodeArt.DomainDriven.DomainBuffer.GetOrCreate(Type objectType, Object id, Int32 dataVersion, Func`1 load) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainBuffer\DomainBuffer.cs:行号 68
+   在 CodeArt.DomainDriven.DataAccess.DataTable.GetObjectFromEntry(DynamicData entry, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 147
+   在 CodeArt.DomainDriven.DataAccess.DataTable.<>c__DisplayClass270_0.<QuerySingle>b__0(DynamicData entry) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 113
+   在 CodeArt.DomainDriven.DataAccess.DataTable.UseDataEntry(IQueryBuilder exp, Action`1 fillArg, Action`1 action) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 271
+   在 CodeArt.DomainDriven.DataAccess.DataTable.QuerySingle(String expression, Action`1 fillArg, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 111
+   在 CodeArt.DomainDriven.DataAccess.DataTable.QuerySingle(Object id, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 33
+   在 CodeArt.DomainDriven.DataAccess.DataModel.QuerySingle[T](Object id, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\DataModel.cs:行号 92
+   在 CodeArt.DomainDriven.DataAccess.DataPortal.QuerySingle[T](Object id, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataPortal\DataPortal.cs:行号 129
+   在 CodeArt.DomainDriven.DataAccess.SqlRepository`1.PersistFind(Object id, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\SqlRepository.cs:行号 37
+   在 CodeArt.DomainDriven.Repository`1.<>c__DisplayClass16_0.<Find>b__0() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\RepositoryBase.cs:行号 152
+   在 CodeArt.DomainDriven.DataContext.RegisterQueried[T](QueryLevel level, Func`1 persistQuery) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 183
+   在 CodeArt.DomainDriven.Repository`1.Find(Object id, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\RepositoryBase.cs:行号 150
+   在 CodeArt.DomainDriven.EventQueue.Delete(Guid queueId) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Trigger\EventQueue.cs:行号 300
+   在 CodeArt.DomainDriven.EventRestorer.<>c__DisplayClass2_0.<Rollback>b__0() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:行号 122
+   在 CodeArt.DomainDriven.DataContext.Using(DataContext dataContext, Action action, Boolean timely, Boolean newScope) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 707
+   在 CodeArt.DomainDriven.DataContext.NewScope(Action action, Boolean timely) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 741
+   在 CodeArt.DomainDriven.EventRestorer.Rollback(EventLogEntry logEntry, Exception reason) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:行号 120
+   在 CodeArt.DomainDriven.EventRestorer.<>c__DisplayClass1_0.<Restore>b__0(EventLogEntry logEntry) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:行号 83
+   在 CodeArt.DomainDriven.EventLog.<>c__DisplayClass23_0.<Restore>b__0() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventLog.cs:行号 207
+   在 CodeArt.DomainDriven.DataContext.Using(DataContext dataContext, Action action, Boolean timely, Boolean newScope) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 707
+   在 CodeArt.DomainDriven.DataContext.NewScope(Action action, Boolean timely) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 741
+   在 CodeArt.DomainDriven.EventLog.Restore(Guid logId, Action`1 process) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventLog.cs:行号 197
+   在 CodeArt.DomainDriven.EventRestorer.Restore(Guid queueId, Exception reason) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:行号 81
+
+2018-03-22 14:43:05.9759 FATAL 消息：恢复领域事件失败，事件队列编号da60a523-fad0-42d9-ac1a-205a3414d5cb
+在类型CodeArt.DomainDriven.EventQueue和其继承链上没有找到领域属性identityName的定义
+；堆栈：
+   在 CodeArt.DomainDriven.DomainProperty.<>c__DisplayClass105_0.<.cctor>b__4(String propertyName) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainProperty\DomainProperty.cs:行号 292
+   在 CodeArt.Util.LazyIndexer.<>c__DisplayClass2_0`2.<Init>b__0(TKey key) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Util\LazyIndexer.cs:行号 56
+   在 CodeArt.DomainDriven.DomainProperty.GetProperty(Type doType, String propertyName) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainProperty\DomainProperty.cs:行号 282
+   在 CodeArt.DomainDriven.ConstructorRepositoryAttribute.ConstructorParameterInfo.GetPropertyTip() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\Attributes\ConstructorRepositoryAttribute.cs:行号 174
+   在 CodeArt.DomainDriven.ConstructorRepositoryAttribute.ConstructorParameterInfo..ctor(ConstructorRepositoryAttribute constructorTip, ParameterInfo original) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\Attributes\ConstructorRepositoryAttribute.cs:行号 162
+   在 CodeArt.DomainDriven.ConstructorRepositoryAttribute.InitParameters(ConstructorInfo constructor) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\Attributes\ConstructorRepositoryAttribute.cs:行号 78
+   在 CodeArt.DomainDriven.ConstructorRepositoryAttribute.set_Constructor(ConstructorInfo value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\Attributes\ConstructorRepositoryAttribute.cs:行号 33
+   在 CodeArt.DomainDriven.ConstructorRepositoryAttribute.<>c.<.cctor>b__20_0(Type objectType) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\Attributes\ConstructorRepositoryAttribute.cs:行号 228
+   在 CodeArt.Util.LazyIndexer.<>c__DisplayClass2_0`2.<Init>b__0(TKey key) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Util\LazyIndexer.cs:行号 56
+   在 CodeArt.DomainDriven.ConstructorRepositoryAttribute.GetTip(Type objectType) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\Attributes\ConstructorRepositoryAttribute.cs:行号 207
+   在 CodeArt.DomainDriven.DataAccess.DataTable.ConstructObject(Type objectType, DynamicData data, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Read.cs:行号 210
+   在 CodeArt.DomainDriven.DataAccess.DataTable.CreateObjectImpl(Type defineType, Type objectType, DynamicData data, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Read.cs:行号 172
+   在 CodeArt.DomainDriven.DataAccess.DataTable.CreateObject(Type objectType, DynamicData data, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Read.cs:行号 156
+   在 CodeArt.DomainDriven.DataAccess.DataTable.ExecuteQueryObject(Type objectType, IQueryBuilder query, Action`1 fillArg, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 431
+   在 CodeArt.DomainDriven.DataAccess.DataTable.LoadObject(Object id, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 386
+   在 CodeArt.DomainDriven.DataAccess.DataTable.<>c__DisplayClass271_0.<GetObjectFromEntry>b__1() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 149
+   在 CodeArt.DomainDriven.DomainBuffer.GetOrCreateImpl(String uniqueKey, Int32 dataVersion, Func`1 load) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainBuffer\DomainBuffer.cs:行号 89
+   在 CodeArt.DomainDriven.DomainBuffer.GetOrCreate(Type objectType, Object id, Int32 dataVersion, Func`1 load) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainBuffer\DomainBuffer.cs:行号 68
+   在 CodeArt.DomainDriven.DataAccess.DataTable.GetObjectFromEntry(DynamicData entry, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 147
+   在 CodeArt.DomainDriven.DataAccess.DataTable.<>c__DisplayClass270_0.<QuerySingle>b__0(DynamicData entry) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 113
+   在 CodeArt.DomainDriven.DataAccess.DataTable.UseDataEntry(IQueryBuilder exp, Action`1 fillArg, Action`1 action) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 271
+   在 CodeArt.DomainDriven.DataAccess.DataTable.QuerySingle(String expression, Action`1 fillArg, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 111
+   在 CodeArt.DomainDriven.DataAccess.DataTable.QuerySingle(Object id, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 33
+   在 CodeArt.DomainDriven.DataAccess.DataModel.QuerySingle[T](Object id, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\DataModel.cs:行号 92
+   在 CodeArt.DomainDriven.DataAccess.DataPortal.QuerySingle[T](Object id, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataPortal\DataPortal.cs:行号 129
+   在 CodeArt.DomainDriven.DataAccess.SqlRepository`1.PersistFind(Object id, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\SqlRepository.cs:行号 37
+   在 CodeArt.DomainDriven.Repository`1.<>c__DisplayClass16_0.<Find>b__0() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\RepositoryBase.cs:行号 152
+   在 CodeArt.DomainDriven.DataContext.RegisterQueried[T](QueryLevel level, Func`1 persistQuery) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 183
+   在 CodeArt.DomainDriven.Repository`1.Find(Object id, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\RepositoryBase.cs:行号 150
+   在 CodeArt.DomainDriven.EventQueue.Delete(Guid queueId) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Trigger\EventQueue.cs:行号 300
+   在 CodeArt.DomainDriven.EventRestorer.<>c__DisplayClass2_0.<Rollback>b__0() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:行号 122
+   在 CodeArt.DomainDriven.DataContext.Using(DataContext dataContext, Action action, Boolean timely, Boolean newScope) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 707
+   在 CodeArt.DomainDriven.DataContext.NewScope(Action action, Boolean timely) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 741
+   在 CodeArt.DomainDriven.EventRestorer.Rollback(EventLogEntry logEntry, Exception reason) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:行号 120
+   在 CodeArt.DomainDriven.EventRestorer.<>c__DisplayClass1_0.<Restore>b__0(EventLogEntry logEntry) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:行号 83
+   在 CodeArt.DomainDriven.EventLog.<>c__DisplayClass23_0.<Restore>b__0() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventLog.cs:行号 207
+   在 CodeArt.DomainDriven.DataContext.Using(DataContext dataContext, Action action, Boolean timely, Boolean newScope) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 707
+   在 CodeArt.DomainDriven.DataContext.NewScope(Action action, Boolean timely) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 741
+   在 CodeArt.DomainDriven.EventLog.Restore(Guid logId, Action`1 process) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventLog.cs:行号 197
+   在 CodeArt.DomainDriven.EventRestorer.Restore(Guid queueId, Exception reason) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:行号 81
+
+2018-03-22 14:44:02.8492 FATAL 消息：发生一个或多个错误。
+恢复领域事件失败，事件队列编号da60a523-fad0-42d9-ac1a-205a3414d5cb
+在类型CodeArt.DomainDriven.EventQueue和其继承链上没有找到领域属性identityName的定义
+；堆栈：   在 System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   在 System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   在 System.Threading.Tasks.Task.Wait()
+   在 System.Threading.Tasks.Parallel.PartitionerForEachWorker[TSource,TLocal](Partitioner`1 source, ParallelOptions parallelOptions, Action`1 simpleBody, Action`2 bodyWithState, Action`3 bodyWithStateAndIndex, Func`4 bodyWithStateAndLocal, Func`5 bodyWithEverything, Func`1 localInit, Action`1 localFinally)
+   在 System.Threading.Tasks.Parallel.ForEachWorker[TSource,TLocal](IEnumerable`1 source, ParallelOptions parallelOptions, Action`1 body, Action`2 bodyWithState, Action`3 bodyWithStateAndIndex, Func`4 bodyWithStateAndLocal, Func`5 bodyWithEverything, Func`1 localInit, Action`1 localFinally)
+   在 System.Threading.Tasks.Parallel.ForEach[TSource](IEnumerable`1 source, Action`1 body)
+   在 CodeArt.DomainDriven.EventRestorer.<>c.<RestoreAsync>b__6_1() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:行号 194
+   在 CodeArt.AppSetting.AppSession.Using(Action action, Boolean useSymbiosis) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\AppSetting\AppSession\AppSession.cs:行号 31
+   在 CodeArt.DomainDriven.EventRestorer.<>c.<RestoreAsync>b__6_0() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:行号 187
+   在 CodeArt.DomainDriven.EventRestorer.Restore(Guid queueId, Exception reason) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:行号 92
+   在 CodeArt.DomainDriven.EventRestorer.<>c__DisplayClass7_0.<TryRestore>b__0() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:行号 232
+   在 CodeArt.DomainDriven.DataContext.Using(DataContext dataContext, Action action, Boolean timely, Boolean newScope) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 707
+   在 CodeArt.DomainDriven.DataContext.NewScope(Action action, Boolean timely) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 741
+   在 CodeArt.DomainDriven.EventRestorer.TryRestore(Guid queueId, Exception reason) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:行号 244
+   在 CodeArt.DomainDriven.EventRestorer.<>c__DisplayClass6_0.<RestoreAsync>b__2(Guid monitorId) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:行号 197
+   在 System.Threading.Tasks.Parallel.<>c__DisplayClass42_0`2.<PartitionerForEachWorker>b__1()
+   在 System.Threading.Tasks.Task.InnerInvoke()
+   在 System.Threading.Tasks.Task.InnerInvokeWithArg(Task childTask)
+   在 System.Threading.Tasks.Task.<>c__DisplayClass176_0.<ExecuteSelfReplicating>b__0(Object )
+   在 CodeArt.DomainDriven.DomainProperty.<>c__DisplayClass105_0.<.cctor>b__4(String propertyName) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainProperty\DomainProperty.cs:行号 292
+   在 CodeArt.Util.LazyIndexer.<>c__DisplayClass2_0`2.<Init>b__0(TKey key) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Util\LazyIndexer.cs:行号 56
+   在 CodeArt.DomainDriven.DomainProperty.GetProperty(Type doType, String propertyName) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainProperty\DomainProperty.cs:行号 282
+   在 CodeArt.DomainDriven.ConstructorRepositoryAttribute.ConstructorParameterInfo.GetPropertyTip() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\Attributes\ConstructorRepositoryAttribute.cs:行号 174
+   在 CodeArt.DomainDriven.ConstructorRepositoryAttribute.ConstructorParameterInfo..ctor(ConstructorRepositoryAttribute constructorTip, ParameterInfo original) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\Attributes\ConstructorRepositoryAttribute.cs:行号 162
+   在 CodeArt.DomainDriven.ConstructorRepositoryAttribute.InitParameters(ConstructorInfo constructor) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\Attributes\ConstructorRepositoryAttribute.cs:行号 78
+   在 CodeArt.DomainDriven.ConstructorRepositoryAttribute.set_Constructor(ConstructorInfo value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\Attributes\ConstructorRepositoryAttribute.cs:行号 33
+   在 CodeArt.DomainDriven.ConstructorRepositoryAttribute.<>c.<.cctor>b__20_0(Type objectType) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\Attributes\ConstructorRepositoryAttribute.cs:行号 228
+   在 CodeArt.Util.LazyIndexer.<>c__DisplayClass2_0`2.<Init>b__0(TKey key) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Util\LazyIndexer.cs:行号 56
+   在 CodeArt.DomainDriven.ConstructorRepositoryAttribute.GetTip(Type objectType) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\Attributes\ConstructorRepositoryAttribute.cs:行号 207
+   在 CodeArt.DomainDriven.DataAccess.DataTable.ConstructObject(Type objectType, DynamicData data, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Read.cs:行号 210
+   在 CodeArt.DomainDriven.DataAccess.DataTable.CreateObjectImpl(Type defineType, Type objectType, DynamicData data, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Read.cs:行号 172
+   在 CodeArt.DomainDriven.DataAccess.DataTable.CreateObject(Type objectType, DynamicData data, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Read.cs:行号 156
+   在 CodeArt.DomainDriven.DataAccess.DataTable.ExecuteQueryObject(Type objectType, IQueryBuilder query, Action`1 fillArg, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 431
+   在 CodeArt.DomainDriven.DataAccess.DataTable.LoadObject(Object id, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 386
+   在 CodeArt.DomainDriven.DataAccess.DataTable.<>c__DisplayClass271_0.<GetObjectFromEntry>b__1() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 149
+   在 CodeArt.DomainDriven.DomainBuffer.GetOrCreateImpl(String uniqueKey, Int32 dataVersion, Func`1 load) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainBuffer\DomainBuffer.cs:行号 89
+   在 CodeArt.DomainDriven.DomainBuffer.GetOrCreate(Type objectType, Object id, Int32 dataVersion, Func`1 load) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainBuffer\DomainBuffer.cs:行号 68
+   在 CodeArt.DomainDriven.DataAccess.DataTable.GetObjectFromEntry(DynamicData entry, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 147
+   在 CodeArt.DomainDriven.DataAccess.DataTable.<>c__DisplayClass270_0.<QuerySingle>b__0(DynamicData entry) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 113
+   在 CodeArt.DomainDriven.DataAccess.DataTable.UseDataEntry(IQueryBuilder exp, Action`1 fillArg, Action`1 action) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 271
+   在 CodeArt.DomainDriven.DataAccess.DataTable.QuerySingle(String expression, Action`1 fillArg, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 111
+   在 CodeArt.DomainDriven.DataAccess.DataTable.QuerySingle(Object id, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 33
+   在 CodeArt.DomainDriven.DataAccess.DataModel.QuerySingle[T](Object id, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\DataModel.cs:行号 92
+   在 CodeArt.DomainDriven.DataAccess.DataPortal.QuerySingle[T](Object id, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataPortal\DataPortal.cs:行号 129
+   在 CodeArt.DomainDriven.DataAccess.SqlRepository`1.PersistFind(Object id, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\SqlRepository.cs:行号 37
+   在 CodeArt.DomainDriven.Repository`1.<>c__DisplayClass16_0.<Find>b__0() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\RepositoryBase.cs:行号 152
+   在 CodeArt.DomainDriven.DataContext.RegisterQueried[T](QueryLevel level, Func`1 persistQuery) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 183
+   在 CodeArt.DomainDriven.Repository`1.Find(Object id, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\RepositoryBase.cs:行号 150
+   在 CodeArt.DomainDriven.EventQueue.Delete(Guid queueId) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Trigger\EventQueue.cs:行号 300
+   在 CodeArt.DomainDriven.EventRestorer.<>c__DisplayClass2_0.<Rollback>b__0() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:行号 122
+   在 CodeArt.DomainDriven.DataContext.Using(DataContext dataContext, Action action, Boolean timely, Boolean newScope) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 707
+   在 CodeArt.DomainDriven.DataContext.NewScope(Action action, Boolean timely) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 741
+   在 CodeArt.DomainDriven.EventRestorer.Rollback(EventLogEntry logEntry, Exception reason) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:行号 120
+   在 CodeArt.DomainDriven.EventRestorer.<>c__DisplayClass1_0.<Restore>b__0(EventLogEntry logEntry) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:行号 83
+   在 CodeArt.DomainDriven.EventLog.<>c__DisplayClass23_0.<Restore>b__0() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventLog.cs:行号 207
+   在 CodeArt.DomainDriven.DataContext.Using(DataContext dataContext, Action action, Boolean timely, Boolean newScope) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 707
+   在 CodeArt.DomainDriven.DataContext.NewScope(Action action, Boolean timely) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 741
+   在 CodeArt.DomainDriven.EventLog.Restore(Guid logId, Action`1 process) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventLog.cs:行号 197
+   在 CodeArt.DomainDriven.EventRestorer.Restore(Guid queueId, Exception reason) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\DomainEvent\Restorer\EventRestorer.cs:行号 81
+

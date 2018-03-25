@@ -6,7 +6,6 @@ D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.Web\bin\Rel
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.Web\bin\Release\CodeArt.ServiceModel.dll
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.Web\bin\Release\CodeArt.Web.dll
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.Web\bin\Release\NLog.dll
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.Web\bin\Release\System.ValueTuple.dll
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.Web\bin\Release\CodeArt.ServiceModel.pdb
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.Web\bin\Release\CodeArt.Web.pdb
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.Web\bin\Release\CodeArt.pdb
@@ -17,6 +16,7 @@ D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.Web\obj\Rel
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.Web\obj\Release\CodeArt.ServiceModel.Web.Strings.resources
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.Web\obj\Release\CodeArt.ServiceModel.Web.Strings.zh-CN.resources
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.Web\obj\Release\CodeArt.ServiceModel.Web.csproj.GenerateResource.Cache
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.Web\obj\Release\CodeArt.ServiceModel.Web.csproj.CoreCompileInputs.cache
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.Web\obj\Release\zh-CN\CodeArt.ServiceModel.Web.resources.dll
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.Web\obj\Release\CodeArt.ServiceModel.Web.dll
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.Web\obj\Release\CodeArt.ServiceModel.Web.pdb

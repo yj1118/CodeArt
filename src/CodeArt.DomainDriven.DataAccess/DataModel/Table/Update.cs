@@ -18,18 +18,29 @@ namespace CodeArt.DomainDriven.DataAccess
     {
         internal void Update(DomainObject obj)
         {
-            if (obj == null || obj.IsEmpty() || !obj.IsDirty) return;
+            if (obj == null || obj.IsEmpty()) return;
 
             DomainObject root = null;
             if (this.Type == DataTableType.AggregateRoot) root = obj;
             if (root == null || root.IsEmpty())
                 throw new DomainDrivenException(string.Format(Strings.PersistentObjectError, obj.ObjectType.FullName));
 
-            CheckDataVersion(root);
-            if (UpdateData(root, null, obj))
+            if (obj.IsDirty)
             {
-                OnDataUpdate(root, obj);
+                CheckDataVersion(root);
+                OnPreDataUpdate(obj);
+                if (UpdateData(root, null, obj))
+                {
+                    OnDataUpdated(root, obj);
+                }
             }
+            else
+            {
+                //如果对象不是脏的，但是要求修改，那么有可能是该对象的引用链上的对象发生了变化，所以我们移除该对象的缓冲
+                DomainBuffer.Public.Remove(obj.ObjectType, GetObjectId(obj));
+            }
+
+            
         }
 
         /// <summary>
@@ -51,7 +62,7 @@ namespace CodeArt.DomainDriven.DataAccess
                     if (!isChanged) isChanged = memberIsChanged;
                 }
 
-                this.Mapper.FillUpdateData(obj, data);
+                //this.Mapper.FillUpdateData(obj, data, this);
 
                 if (data.Count > 0)
                 {
@@ -82,12 +93,17 @@ namespace CodeArt.DomainDriven.DataAccess
             return isChanged;
         }
 
+        private void OnPreDataUpdate(DomainObject obj)
+        {
+            this.Mapper.OnPreUpdate(obj, this);
+        }
+
         /// <summary>
         /// 该方法用于修改数据后，更新基表的信息
         /// </summary>
         /// <param name="root"></param>
         /// <param name="obj"></param>
-        private void OnDataUpdate(DomainObject root, DomainObject obj)
+        private void OnDataUpdated(DomainObject root, DomainObject obj)
         {
             obj.MarkClean(); //修改之后，就干净了
 
@@ -115,7 +131,19 @@ namespace CodeArt.DomainDriven.DataAccess
 
                 obj.DataProxy.Version = dataVersion;
             }
-            this.Mapper.OnUpdate(obj);
+
+            if (this.Type == DataTableType.AggregateRoot)
+            {
+                if (obj.IsMirror)
+                {
+                    //镜像被修改了，对应的公共缓冲区中的对象也要被重新加载
+                    DomainBuffer.Public.Remove(obj.ObjectType, id);
+                }
+            }
+
+            
+
+            this.Mapper.OnUpdated(obj, this);
         }
 
 
@@ -124,7 +152,7 @@ namespace CodeArt.DomainDriven.DataAccess
             if (obj == null || obj.IsEmpty() || !obj.IsDirty) return;
             if (UpdateData(root, parent, obj))
             {
-                OnDataUpdate(root, obj);
+                OnDataUpdated(root, obj);
             }
         }
 
@@ -191,6 +219,11 @@ namespace CodeArt.DomainDriven.DataAccess
                         if (current.IsPropertyChanged(tip.Property))
                         {
                             var obj = current.GetValue(tip.Property) as DomainObject;
+                            if(tip.DomainPropertyType == DomainPropertyType.ValueObject)
+                            {
+                                (obj as IValueObject).TrySetId(Guid.NewGuid());
+                            }
+
                             var id = GetObjectId(obj);
                             var field = GetQuoteField(this, tip.PropertyName);
                             data.Add(field.Name, id);  //收集外键
@@ -287,7 +320,7 @@ namespace CodeArt.DomainDriven.DataAccess
         private string GetUpdateSql(DynamicData data)
         {
             var query = UpdateTable.Create(this);
-            return query.Build(data);
+            return query.Build(data, this);
         }
 
         private string _sqlUpdateVersion = null;
@@ -306,7 +339,7 @@ namespace CodeArt.DomainDriven.DataAccess
         private string GetUpdateVersionSql()
         {
             var query = UpdateDataVersion.Create(this);
-            return query.Build(null);
+            return query.Build(null, this);
         }
     }
 }

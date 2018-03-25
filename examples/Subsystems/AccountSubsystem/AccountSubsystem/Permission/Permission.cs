@@ -83,6 +83,24 @@ namespace AccountSubsystem
             }
         }
 
+        [PropertyRepository()]
+        public static readonly DomainProperty CreateTimeProperty = DomainProperty.Register<DateTime, Permission>("CreateTime", (owner) => { return DateTime.Now; });
+
+        /// <summary>
+        /// 创建时间
+        /// </summary>
+        public DateTime CreateTime
+        {
+            get
+            {
+                return GetValue<DateTime>(CreateTimeProperty);
+            }
+            set
+            {
+                SetValue(CreateTimeProperty, value);
+            }
+        }
+
         [ConstructorRepository()]
         public Permission(Guid id)
             : base(id)

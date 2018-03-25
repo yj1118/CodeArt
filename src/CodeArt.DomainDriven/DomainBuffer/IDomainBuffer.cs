@@ -35,5 +35,10 @@ namespace CodeArt.DomainDriven
         /// <param name="uniqueKey"></param>
         BufferEntry Remove(string uniqueKey);
 
+        /// <summary>
+        /// 清空缓冲区
+        /// </summary>
+        void Clear();
+
     }
 }

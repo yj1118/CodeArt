@@ -9,6 +9,9 @@ using CodeArt.Concurrent;
 
 namespace CodeArt.DomainDriven
 {
+    /// <summary>
+    /// 可以为领域对象指定多个类型的固定规则
+    /// </summary>
     [AttributeUsage(AttributeTargets.Class)]
     public class ObjectValidatorAttribute : Attribute
     {

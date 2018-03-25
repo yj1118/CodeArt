@@ -229,7 +229,33 @@ namespace CodeArt.DomainDriven
             return tips;
         });
 
+        /// <summary>
+        /// 获得动态类型的构造函数
+        /// </summary>
+        /// <param name="objectType"></param>
+        /// <returns></returns>
+        public static ConstructorInfo GetDynamicConstructor(Type objectType)
+        {
+            return _getDynamicConstructor(objectType);
+        }
 
 
+        private static Func<Type, ConstructorInfo> _getDynamicConstructor = LazyIndexer.Init<Type, ConstructorInfo>((objectType) =>
+        {
+            const BindingFlags flags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
+
+            var constructors = objectType.GetConstructors(flags);
+            var target = constructors.FirstOrDefault((c) =>
+            {
+                var attr = c.GetCustomAttribute<ConstructorRepositoryAttribute>(true);
+                return attr != null;
+            });
+
+            if (target == null)
+            {
+                throw new DomainDrivenException(string.Format(Strings.NoRepositoryConstructor, objectType.FullName));
+            }
+            return target;
+        });
     }
 }

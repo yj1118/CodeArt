@@ -31,7 +31,7 @@ namespace CodeArt.DomainDriven
         /// <returns></returns>
         public static string GetRaiseResult(string eventName, Guid eventId)
         {
-            return string.Format("{0}RaiseResult - {1}", eventName, eventId);
+            return string.Format("{0}RaiseResult-{1}", eventName, eventId);
         }
 
 
@@ -49,7 +49,5 @@ namespace CodeArt.DomainDriven
         {
             return string.Format("{0}Reverse", eventName);
         });
-
-
     }
 }

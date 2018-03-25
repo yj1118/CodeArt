@@ -178,16 +178,16 @@ namespace CodeArt.DTO
             }
             else
             {
-                int pos = code.IndexOf(':');
+                var info = DeserializerUtil.Find(code, 0, ':');
                 if (parentCodeType == CodeType.Object)
                 {
-                    name = pos == -1 ? code : code.Substring(0, pos).Trim();
-                    value = pos == -1 ? StringSegment.Null : code.Substring(pos + 1).Trim();
+                    name = !info.Finded ? code : code.Substring(0, info.KeyPosition).Trim();
+                    value = !info.Finded ? StringSegment.Null : code.Substring(info.KeyPosition + 1).Trim();
                 }
                 else
                 {
-                    name = pos == -1 ? StringSegment.Null : code.Substring(0, pos).Trim();
-                    value = pos == -1 ? code : code.Substring(pos + 1).Trim();
+                    name = !info.Finded ? StringSegment.Null : code.Substring(0, info.KeyPosition).Trim();
+                    value = !info.Finded ? code : code.Substring(info.KeyPosition + 1).Trim();
                 }
             }
 

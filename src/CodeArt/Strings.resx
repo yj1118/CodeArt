@@ -195,4 +195,16 @@
   <data name="PreApplicationEndNoStatic" xml:space="preserve">
     <value>PreApplicationEndAttribute call method {0}. {1} must be static</value>
   </data>
+  <data name="TransformExpressionError" xml:space="preserve">
+    <value>Transform expression error</value>
+  </data>
+  <data name="NodeNoAttribute" xml:space="preserve">
+    <value>{0} node, there is no {1} attribute defined</value>
+  </data>
+  <data name="CompileError" xml:space="preserve">
+    <value>Compile error</value>
+  </data>
+  <data name="NotFoundTenant" xml:space="preserve">
+    <value>No information for tenant {0} was found</value>
+  </data>
 </root>

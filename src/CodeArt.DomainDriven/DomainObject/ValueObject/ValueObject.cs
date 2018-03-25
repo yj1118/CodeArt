@@ -21,14 +21,14 @@ namespace CodeArt.DomainDriven
         /// 该属性仅在ORM中使用，不要在领域层中出现
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        internal Guid Id
+        public Guid Id
         {
             get;
             private set;
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        internal void SetId(Guid id)
+        public void TrySetId(Guid id)
         {
             if (this.Id == default(Guid))
                 this.Id = id; //如果没有编号，那么值对象需要追加编号，有编号则意味着值对象在数据库中已存在

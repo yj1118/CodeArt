@@ -16,7 +16,6 @@ namespace CodeArt.DomainDriven
         TypeDefine Define
         {
             get;
-            set;
         }
 
         /// <summary>

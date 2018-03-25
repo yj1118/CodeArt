@@ -1,0 +1,32 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:ps="clr-namespace:CodeArt.WPF.Controls.Playstation"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <Style TargetType="{x:Type ps:TipPanel}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ps:TipPanel">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Style="{DynamicResource TextSM}" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{TemplateBinding Message}"></TextBlock>
+                        <ContentPresenter Grid.Row="1" Margin="0 0 0 40" HorizontalAlignment="Center" VerticalAlignment="Center"  Content="{TemplateBinding Command}" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style TargetType="{x:Type ps:TabPanel}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ps:TabPanel">
+                    <Grid x:Name="container">
+
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

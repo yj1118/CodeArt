@@ -17,7 +17,7 @@ namespace CodeArt.DomainDriven.DataAccess
 
         public IEnumerable<EventLogEntry> FindByReverseOrder(Guid logId)
         {
-            return DataContext.Current.Query<EventLogEntry>("log.id=@logId[order by index desc]", (data) =>
+            return DataContext.Current.Query<EventLogEntry>("log.id=@logId[order by orderIndex desc]", (data) =>
             {
                 data["logId"] = logId;
             }, QueryLevel.None);

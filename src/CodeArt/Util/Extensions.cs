@@ -8,6 +8,7 @@ using CodeArt.Log;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Xml;
+using System.Collections;
 
 namespace CodeArt.Util
 {
@@ -27,8 +28,7 @@ namespace CodeArt.Util
         {
             if (ex == null) return string.Empty;
             if (ex.InnerException == null) return ex.Message;
-            StringBuilder message = new StringBuilder(ex.Message);
-            ex = ex.InnerException;
+            StringBuilder message = new StringBuilder();
             while (ex != null)
             {
                 message.AppendLine(ex.Message);
@@ -37,7 +37,7 @@ namespace CodeArt.Util
             return message.ToString();
         }
 
-        public static IList<string> GetMessages(this Exception ex)
+        public static IEnumerable<string> GetMessages(this Exception ex)
         {
             List<string> msgs = new List<string>();
             Exception p = ex;
@@ -51,11 +51,10 @@ namespace CodeArt.Util
 
         public static string GetCompleteStackTrace(this Exception ex)
         {
-            if (ex == null) return string.Empty;
+            if (ex == null || ex is UserUIException) return string.Empty;  //不显示UserUIException的调用栈信息
             if (ex.InnerException == null) return ex.StackTrace;
-            StringBuilder stackTrace = new StringBuilder(ex.StackTrace);
-            ex = ex.InnerException;
-            while (ex != null)
+            StringBuilder stackTrace = new StringBuilder();
+            while (ex != null && !(ex is UserUIException))
             {
                 stackTrace.AppendLine(ex.StackTrace);
                 ex = ex.InnerException;
@@ -63,16 +62,25 @@ namespace CodeArt.Util
             return stackTrace.ToString();
         }
 
-        public static IList<string> GetStackTraces(this Exception ex)
+        public static IEnumerable<string> GetStackTraces(this Exception ex)
         {
+            if (ex == null || ex is UserUIException) return Array.Empty<string>();  //不显示UserUIException的调用栈信息
             List<string> traces = new List<string>();
             Exception p = ex;
-            while (p != null)
+            while (p != null && !(p is UserUIException))
             {
                 traces.Add(p.StackTrace);
                 p = p.InnerException;
             }
             return traces;
+        }
+
+        public static string GetCompleteInfo(this Exception ex)
+        {
+            StringBuilder info = new StringBuilder();
+            info.AppendLine(ex.GetCompleteMessage());
+            info.Append(ex.GetCompleteStackTrace());
+            return info.ToString();
         }
 
         #endregion
@@ -128,6 +136,24 @@ namespace CodeArt.Util
                 return target;
             }
             return default(T);
+        }
+
+        public static int GetCount(this IEnumerable e)
+        {
+            int i = 0;
+            foreach (var t in e) i++;
+            return i;
+        }
+
+        /// <summary>
+        /// 集合是否有成员
+        /// </summary>
+        /// <param name="e"></param>
+        /// <returns></returns>
+        public static bool Exists(this IEnumerable e)
+        {
+            foreach (var t in e) return true;
+            return false;
         }
 
     }

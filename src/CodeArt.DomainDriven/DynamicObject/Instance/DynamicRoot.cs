@@ -13,19 +13,12 @@ namespace CodeArt.DomainDriven
 {
     public class DynamicRoot : DynamicEntity, IAggregateRoot
     {
+        [ConstructorRepository()]
         public DynamicRoot(TypeDefine define, bool isEmpty)
             : base(define, isEmpty)
         {
             this.OnConstructed();
         }
-
-        [ConstructorRepository()]
-        public DynamicRoot()
-        {
-            this.OnConstructed();
-        }
-
-
 
         #region 实现内聚根接口
 

@@ -1,0 +1,26 @@
+2018-03-16 01:11:18.1300 FATAL 消息：无法从用法中推断出方法“CodeArt.DomainDriven.DTObjectPro.Create<T>(string, System.Collections.Generic.IEnumerable<T>)”的类型参数。请尝试显式指定类型参数。；堆栈：   在 CallSite.Target(Closure , CallSite , Type , String , Object )
+   在 System.Dynamic.UpdateDelegates.UpdateAndExecute3[T0,T1,T2,TRet](CallSite site, T0 arg0, T1 arg1, T2 arg2)
+   在 PortalService.Application.GetAccount.DynamicInvoke(Object arg) 位置 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\User\GetAccount.cs:行号 23
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(DTObject arg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 19
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 14
+   在 CodeArt.ServiceModel.MQServiceHandler.ProcessService(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 58
+   在 CodeArt.ServiceModel.MQServiceHandler.Process(String method, DTObject args) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 34
+2018-03-16 01:11:32.1063 FATAL 消息：无法从用法中推断出方法“CodeArt.DomainDriven.DTObjectPro.Create<T>(string, System.Collections.Generic.IEnumerable<T>)”的类型参数。请尝试显式指定类型参数。；堆栈：   在 CallSite.Target(Closure , CallSite , Type , String , Object )
+   在 PortalService.Application.GetAccount.DynamicInvoke(Object arg) 位置 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\User\GetAccount.cs:行号 23
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(DTObject arg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 19
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 14
+   在 CodeArt.ServiceModel.MQServiceHandler.ProcessService(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 58
+   在 CodeArt.ServiceModel.MQServiceHandler.Process(String method, DTObject args) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 34
+2018-03-16 01:13:48.5372 FATAL 消息：无法从用法中推断出方法“CodeArt.DomainDriven.DTObjectPro.Create<T>(string, System.Collections.Generic.IEnumerable<T>)”的类型参数。请尝试显式指定类型参数。；堆栈：   在 CallSite.Target(Closure , CallSite , Type , String , Object )
+   在 System.Dynamic.UpdateDelegates.UpdateAndExecute3[T0,T1,T2,TRet](CallSite site, T0 arg0, T1 arg1, T2 arg2)
+   在 PortalService.Application.GetAccount.DynamicInvoke(Object arg) 位置 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\User\GetAccount.cs:行号 23
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(DTObject arg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 19
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 14
+   在 CodeArt.ServiceModel.MQServiceHandler.ProcessService(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 58
+   在 CodeArt.ServiceModel.MQServiceHandler.Process(String method, DTObject args) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 34
+2018-03-16 01:14:02.8650 FATAL 消息：无法从用法中推断出方法“CodeArt.DomainDriven.DTObjectPro.Create<T>(string, System.Collections.Generic.IEnumerable<T>)”的类型参数。请尝试显式指定类型参数。；堆栈：   在 CallSite.Target(Closure , CallSite , Type , String , Object )
+   在 PortalService.Application.GetAccount.DynamicInvoke(Object arg) 位置 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\User\GetAccount.cs:行号 23
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(DTObject arg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 19
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 14
+   在 CodeArt.ServiceModel.MQServiceHandler.ProcessService(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 58
+   在 CodeArt.ServiceModel.MQServiceHandler.Process(String method, DTObject args) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 34

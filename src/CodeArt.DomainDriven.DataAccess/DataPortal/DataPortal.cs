@@ -64,10 +64,14 @@ namespace CodeArt.DomainDriven.DataAccess
         /// 直接使用数据库连接操作数据库
         /// </summary>
         /// <param name="action"></param>
-        [EditorBrowsable(EditorBrowsableState.Never)]
         public static void Direct<T>(Action<IDbConnection> action) where T : IDomainObject
         {
             var objectType = typeof(T);
+            Direct(objectType, action);
+        }
+
+        public static void Direct(Type objectType, Action<IDbConnection> action)
+        {
             var model = DataModel.Create(objectType);
             var connectionString = SqlHelper.GetConnectionString(model.ConnectionName);
             using (IDbConnection conn = new SqlConnection(connectionString))

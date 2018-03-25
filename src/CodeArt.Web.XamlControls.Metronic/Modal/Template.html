@@ -1,0 +1,29 @@
+﻿<ControlTemplate xmlns="http://schemas.codeart.cn/web/xaml"
+                 xmlns:m="http://schemas.codeart.cn/web/xaml/metronic">
+<div class="modal fade"
+        id="{TemplateBinding Id}" data-backdrop="static"
+        tabindex="-1" role="dialog" aria-hidden="true"
+        data-proxy="{give:new $$metronic.modal(),'modal':true}" data-modal="true">
+    <AttributesPresenter />
+    <div class="{Binding Converter={Static m:ModalDialogClassConverter.Instance}}" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <ContentPresenter Content="{TemplateBinding Title}" />
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">
+                        &times;
+                    </span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <m:ModalBodyPresenter Content="{TemplateBinding Content}" />
+            </div>
+            <div class="modal-footer">
+                <ContentPresenter Content="{TemplateBinding Footer}" />
+            </div>
+        </div>
+    </div>
+</div>
+</ControlTemplate>

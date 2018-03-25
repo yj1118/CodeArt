@@ -8,6 +8,9 @@ using CodeArt.Runtime;
 
 namespace CodeArt.DomainDriven
 {
+    /// <summary>
+    /// 元数据类型，记录了对象拥有的领域属性等数据
+    /// </summary>
     internal class RuntimeObjectType : RuntimeType
     {
         /// <summary>

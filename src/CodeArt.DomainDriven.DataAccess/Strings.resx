@@ -150,11 +150,17 @@
   <data name="NoDbType" xml:space="preserve">
     <value>There is no {0} corresponding database type</value>
   </data>
+  <data name="NoPersistentOperation" xml:space="preserve">
+    <value>No persistent operation for domain type {0} {1}</value>
+  </data>
   <data name="NoQuery" xml:space="preserve">
     <value>No query {0}</value>
   </data>
   <data name="NotCorrectSqlSelect" xml:space="preserve">
     <value>{0} is not the correct sql select query</value>
+  </data>
+  <data name="NotFoundDbField" xml:space="preserve">
+    <value>Could not find DbField for type {0}</value>
   </data>
   <data name="NotFoundDerivedType" xml:space="preserve">
     <value>Did not find the {0} domain of the derived class type corresponding to the data table</value>
@@ -197,5 +203,8 @@
   </data>
   <data name="UnableLoadExternalObject" xml:space="preserve">
     <value>Can not load external images other than cohesive models, please customize the loading method, data path {0}</value>
+  </data>
+  <data name="UnrecognizedSqlFunction" xml:space="preserve">
+    <value>Unrecognized sql function {0}</value>
   </data>
 </root>

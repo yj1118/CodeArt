@@ -5,6 +5,7 @@ using System.IO;
 using System.Web;
 using System.Text;
 
+using CodeArt.Util;
 using CodeArt.Concurrent;
 
 namespace CodeArt.DTO
@@ -30,6 +31,15 @@ namespace CodeArt.DTO
             return _entities.First();
         }
 
+        internal bool Exist(string entityName)
+        {
+            return _entities.FirstOrDefault((t) => t.Name.EqualsIgnoreCase(entityName)) != null;
+        }
+
+        internal DTEntity Find(string entityName)
+        {
+            return _entities.FirstOrDefault((t) => t.Name.EqualsIgnoreCase(entityName));
+        }
 
         internal void SetMembers(List<DTEntity> entities)
         {
@@ -41,6 +51,7 @@ namespace CodeArt.DTO
             //this.OrderMembers();
             Changed();
         }
+
 
         //private void OrderMembers()
         //{
@@ -104,7 +115,6 @@ namespace CodeArt.DTO
         public override void Reset()
         {
             _entities.Clear();
-            _entities = null;
             base.Reset();
         }
 
@@ -260,28 +270,28 @@ namespace CodeArt.DTO
         #region 代码
 
 
-        public override string GetCode(bool sequential)
+        public override string GetCode(bool sequential, bool outputKey)
         {
-            return InternalGetCode(sequential, (member) =>
-            {
-                return member.GetCode(sequential);
-            });
+            return InternalGetCode(sequential, outputKey, (member) =>
+             {
+                 return member.GetCode(sequential, true);
+             });
         }
 
-        public override string GetSchemaCode(bool sequential)
+        public override string GetSchemaCode(bool sequential, bool outputKey)
         {
-            return InternalGetCode(sequential, (member) =>
-            {
-                return member.GetSchemaCode(sequential);
-            });
+            return InternalGetCode(sequential, outputKey, (member) =>
+             {
+                 return member.GetSchemaCode(sequential, true);
+             });
         }
 
-        private string InternalGetCode(bool sequential, Func<DTEntity, string> getMemberCode)
+        private string InternalGetCode(bool sequential, bool outputKey, Func<DTEntity, string> getMemberCode)
         {
             using (var temp = StringPool.Borrow())
             {
                 StringBuilder code = temp.Item;
-                if (!string.IsNullOrEmpty(this.Name))
+                if (outputKey && !string.IsNullOrEmpty(this.Name))
                     code.AppendFormat("\"{0}\"", this.Name);
 
                 if (code.Length > 0) code.Append(":");

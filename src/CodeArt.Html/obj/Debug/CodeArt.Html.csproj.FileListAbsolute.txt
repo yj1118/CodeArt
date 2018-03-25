@@ -1,0 +1,16 @@
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Html\bin\Debug\NLog.config
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Html\bin\Debug\CodeArt.Html.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Html\bin\Debug\CodeArt.Html.pdb
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Html\bin\Debug\CodeArt.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Html\bin\Debug\HtmlAgilityPack.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Html\bin\Debug\NLog.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Html\bin\Debug\CodeArt.pdb
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Html\bin\Debug\HtmlAgilityPack.pdb
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Html\bin\Debug\HtmlAgilityPack.xml
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Html\bin\Debug\NLog.xml
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Html\bin\Debug\zh-CN\CodeArt.resources.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Html\obj\Debug\CodeArt.Html.csproj.CoreCompileInputs.cache
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Html\obj\Debug\CodeArt.Html.csproj.CopyComplete
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Html\obj\Debug\CodeArt.Html.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Html\obj\Debug\CodeArt.Html.pdb
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Html\obj\Debug\CodeArt.Html.csprojResolveAssemblyReference.cache

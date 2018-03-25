@@ -54,7 +54,7 @@ namespace CodeArt.ServiceModel
             try
             {
                 var request = GetServiceRequest(context);
-                InitHost(request);
+                InitIdentity(request);
                 returnValue = ProcessService(request);
                 status = ServiceHostUtil.Success;
             }
@@ -104,9 +104,9 @@ namespace CodeArt.ServiceModel
             }
         }
 
-        private void InitHost(ServiceRequest request)
+        private void InitIdentity(ServiceRequest request)
         {
-            ServiceHost.Identity = request.Identity;
+            AppSession.Identity = request.Identity;
         }
 
         private void ProcessOther(HttpContext context)

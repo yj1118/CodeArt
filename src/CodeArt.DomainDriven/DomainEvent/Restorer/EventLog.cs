@@ -3,15 +3,43 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 using CodeArt.DomainDriven;
 using CodeArt.DTO;
+using CodeArt.AppSetting;
 
 namespace CodeArt.DomainDriven
 {
+    [DebuggerDisplay("Status:{Status},EntryCount:{EntryCount}")]
     [ObjectRepository(typeof(IEventLogRepository))]
     public class EventLog : AggregateRoot<EventLog, Guid>
     {
+        /// <summary>
+        /// 触发该事件队列时系统使用的语言
+        /// </summary>
+        private static readonly DomainProperty LanguageProperty = DomainProperty.Register<string, EventLog>("Language");
+
+        [PropertyRepository()]
+        public string Language
+        {
+            get
+            {
+                return GetValue<string>(LanguageProperty);
+            }
+            private set
+            {
+                SetValue(LanguageProperty, value);
+            }
+        }
+
+        public new DTObject GetIdentity()
+        {
+            var identity = DTObject.CreateReusable();
+            identity["language"] = this.Language;
+            return identity;
+        }
+
         [PropertyRepository()]
         public static readonly DomainProperty StatusProperty = DomainProperty.Register<EventLogStatus, EventLog>("Status", EventLogStatus.Normal);
 
@@ -28,7 +56,7 @@ namespace CodeArt.DomainDriven
         }
 
         [PropertyRepository()]
-        public static readonly DomainProperty EntryCountProperty = DomainProperty.Register<EventLogStatus, EventLog>("EntryCount");
+        public static readonly DomainProperty EntryCountProperty = DomainProperty.Register<int, EventLog>("EntryCount");
 
         /// <summary>
         /// 该日志拥有的条目总数
@@ -46,9 +74,10 @@ namespace CodeArt.DomainDriven
         }
 
         [ConstructorRepository()]
-        public EventLog(Guid id)
+        public EventLog(Guid id, string language)
             : base(id)
         {
+            this.Language = language;
             this.OnConstructed();
         }
 
@@ -57,7 +86,7 @@ namespace CodeArt.DomainDriven
         private class EventLogEmpty : EventLog
         {
             public EventLogEmpty()
-                : base(Guid.Empty)
+                : base(Guid.Empty,string.Empty)
             {
                 this.OnConstructed();
             }
@@ -72,29 +101,54 @@ namespace CodeArt.DomainDriven
 
         #endregion
 
+        #region 写入日志
 
-        #region 静态成员
+        /// <summary>
+        /// 写入并提交触发事件条目的日志
+        /// </summary>
+        /// <param name="queue"></param>
+        /// <param name="content"></param>
+        public static void FlushRaise(EventQueue queue, EventEntry entry)
+        {
+            var logId = queue.Id;
+            //写入日志
+            var content = DTObject.CreateReusable();
+            content["entryId"] = entry.Id;
+            EventLog.WriteAndFlush(logId, EventOperation.Raise, content);
+        }
+
+        /// <summary>
+        /// 写入并提交被执行完毕的日志
+        /// </summary>
+        /// <param name="queue"></param>
+        /// <param name="entry"></param>
+        public static void FlushEnd(Guid queueId)
+        {
+            var logId = queueId;
+            //写入日志
+            EventLog.WriteAndFlush(logId, EventOperation.End, DTObject.Empty);
+        }
+
 
         /// <summary>
         /// 创建日志
         /// </summary>
         /// <param name="logId"></param>
         /// <returns></returns>
-        internal static void Create(Guid logId)
+        public static void Create(EventQueue queue)
         {
-            DataContext.NewScope(() =>
-            {
-                var log = new EventLog(logId);
-                var repository = Repository.Create<IEventLogRepository>();
-                repository.Add(log);
-            }, true);
+            var log = new EventLog(queue.Id, queue.Language);
+            var repository = Repository.Create<IEventLogRepository>();
+            repository.Add(log);
+
+            //日志创建好后，立即追加一条日志内容
+            Write(log, EventOperation.Start, DTObject.Empty);
         }
 
         private static EventLog GetLog(Guid logId)
         {
             var repository = Repository.Create<IEventLogRepository>();
-            var log = repository.Find(logId, QueryLevel.Single);
-            return log;
+            return repository.Find(logId, QueryLevel.Single);
         }
 
         private static void UpdateLog(EventLog log)
@@ -103,64 +157,78 @@ namespace CodeArt.DomainDriven
             repository.Update(log);
         }
 
-
-
         /// <summary>
         /// 向恢复管理器中写入日志内容
         /// </summary>
         /// <param name="logId">日志编号，同一个日志可以写多份内容，可以根据这些内容执行恢复操作</param>
         /// <param name="name">内容名称</param>
         /// <param name="content">内容</param>
-        internal static void Flush(Guid logId, string name, DTObject content)
+        private static void WriteAndFlush(Guid logId, EventOperation operation, DTObject content)
         {
             DataContext.NewScope(() =>
             {
                 var log = GetLog(logId);
-
-                //写入日志条目
-                var index = log.EntryCount;
-                var contentCode = content.GetCode();
-                var entry = new EventLogEntry(log, name, contentCode, index);
-                var repository = Repository.Create<IEventLogEntryRepository>();
-                repository.Add(entry);
-
-                log.EntryCount++;
-                UpdateLog(log);
+                Write(log, operation, content);
             }, true);
         }
 
+        private static void Write(EventLog log, EventOperation operation, DTObject content)
+        {
+            //写入日志条目
+            var index = log.EntryCount;
+            var contentCode = content.IsEmpty() ? "{}" : content.GetCode();
+            var entry = new EventLogEntry(log, operation, contentCode, index);
+            var repository = Repository.Create<IEventLogEntryRepository>();
+            repository.Add(entry);
+
+            log.EntryCount++;
+            UpdateLog(log);
+        }
+
+        #endregion
+
+        #region 静态成员
 
         /// <summary>
         /// 根据写入的日志执行恢复操作
         /// </summary>
         /// <param name="logId"></param>
         /// <param name="process"></param>
-        internal static void Restore(Guid logId, Func<EventLogEntry, bool> process)
+        internal static void Restore(Guid logId, Action<EventLog, EventLogEntry> process)
         {
             DataContext.NewScope(() =>
             {
                 var log = GetLog(logId);
+                if (log.IsEmpty() || log.Status == EventLogStatus.Reversed) return; //表示已经回逆了
+
+                AppSession.Identity = log.GetIdentity(); //初始化会话身份
 
                 var repository = Repository.Create<IEventLogEntryRepository>();
                 var entries = repository.FindByReverseOrder(logId);
 
-                bool completed = true;
-
                 foreach (var entry in entries)
                 {
-                    if (!process(entry))
+                    if (entry.IsReversed) continue;
+                    //为日志条目的回逆创建独立的事务
+                    DataContext.NewScope(() =>
                     {
-                        completed = false;
-                        break;
-                    }
+                        process(log, entry);
+                        entry.IsReversed = true;
+                        EventLogEntry.Update(entry);
+                    }, true);
                 }
 
-                log.Status = completed ? EventLogStatus.Reversed : EventLogStatus.Recovering;
-
+                log.Status = EventLogStatus.Reversed;
                 UpdateLog(log);
             }, true);
         }
 
+        internal static void Delete(Guid queueId)
+        {
+            var repository = Repository.Create<IEventLogRepository>();
+            var log = repository.Find(queueId, QueryLevel.None);
+            if (!log.IsEmpty()) repository.Delete(log);
+        }
 
         #endregion
 

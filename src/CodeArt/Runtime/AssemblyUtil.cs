@@ -101,22 +101,34 @@ namespace CodeArt.Runtime
             var appDirectory = AppDomain.CurrentDomain.BaseDirectory;
             var dlls = Directory.EnumerateFiles(appDirectory, "*.dll", SearchOption.AllDirectories)
                         .Union(Directory.EnumerateFiles(appDirectory, "*.exe", SearchOption.AllDirectories)); //类似控制台程序的exe里也需要加载分析
-            var assemblies = new List<Assembly>();
+            //
             foreach (var fileName in dlls)
             {
                 try
                 {
-                    var assembly = Assembly.LoadFrom(fileName);//不能使用LoadFile，会重复加载程序集，造成BUG,  LoadFrom不会重复加载
-                    if (!IsAnonymouslyHosted(assembly))
-                    {
-                        assemblies.Add(assembly);
-                    }
+                    Assembly.LoadFrom(fileName);
+                    //var assembly = Assembly.LoadFrom(fileName);//不能使用LoadFile，会重复加载程序集，造成BUG,  LoadFrom不会重复加载
+                    //if (!IsAnonymouslyHosted(assembly))
+                    //{
+                    //    assemblies.Add(assembly);
+                    //}
                 }
                 catch
                 {
                     //有可能是非.NET程序集，会加载错误，此处忽略掉
                 }
             }
+
+            var assemblies = new List<Assembly>();
+            var loaded = AppDomain.CurrentDomain.GetAssemblies();
+            foreach (var assembly in loaded)
+            {
+                if (!IsAnonymouslyHosted(assembly))
+                {
+                    assemblies.Add(assembly);
+                }
+            }
+
             return assemblies;
         }
 
@@ -138,6 +150,11 @@ namespace CodeArt.Runtime
                     action(type);
                 }
             }
+        }
+
+        public static Assembly Get(string assemblyName)
+        {
+            return _assemblies.FirstOrDefault((t) => t.GetName().Name == assemblyName);
         }
 
         /// <summary>

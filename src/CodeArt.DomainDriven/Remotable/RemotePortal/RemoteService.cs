@@ -7,32 +7,52 @@ using System.Threading.Tasks;
 using CodeArt.DTO;
 using CodeArt.EasyMQ.Event;
 using CodeArt.EasyMQ.RPC;
+using CodeArt.AppSetting;
+using CodeArt.Util;
 
 namespace CodeArt.DomainDriven
 {
+    /// <summary>
+    /// 远程对象的获取，更新、删除的状态同步，全部与身份有关，同一个身份的数据互通，因此
+    /// 在RPC中获取对象，会提交身份；更新、删除的订阅和发布的事件名称都是以身份名称为后缀的
+    /// </summary>
     internal static class RemoteService
     {
-        public static DTObject GetObject(RemoteType remoteType, object id)
+        public static DTObject GetObject(AggregateRootDefine define, object id)
         {
+            var remoteType = define.RemoteType;
             var methodName = RemoteServiceName.GetObject(remoteType);
             return RPCClient.Invoke(methodName, (arg) =>
             {
                 arg["id"] = id;
                 arg["typeName"] = remoteType.FullName;
+                arg["schemaCode"] = define.MetadataSchemaCode;
+                arg["identity"] = AppContext.Identity; //没有直接使用session的身份是因为有可能服务点只为一个项目（一个身份）而架设
             });
         }
 
 
         public static void NotifyUpdated(RemoteType remoteType, object id)
         {
-            var @event = new RemoteObjectUpdated(remoteType, id);
-            EventPortal.Publish(@event);
+            var arg = CreateEventArg(remoteType, id);
+            var eventName = RemoteObjectUpdated.GetEventName(remoteType);
+            EventPortal.Publish(eventName, arg);
         }
 
         public static void NotifyDeleted(RemoteType remoteType, object id)
         {
-            var @event = new RemoteObjectDeleted(remoteType, id);
-            EventPortal.Publish(@event);
+            var arg = CreateEventArg(remoteType, id);
+            var eventName = RemoteObjectDeleted.GetEventName(remoteType);
+            EventPortal.Publish(eventName, arg);
+        }
+
+        private static DTObject CreateEventArg(RemoteType remoteType, object id)
+        {
+            var arg = DTObject.CreateReusable();
+            arg["identity"] = AppContext.Identity;
+            arg["typeName"] = remoteType.FullName;
+            arg["id"] = id;
+            return arg;
         }
 
         #region 初始化
@@ -47,16 +67,9 @@ namespace CodeArt.DomainDriven
                 RPCServer.Open(methodName, GetRemoteObject.Instance);
             }
 
-            var remoteTypes = RemoteType.GetTypes();
-            foreach (var remoteType in remoteTypes)
-            {
-                //订阅事件
-                RemoteObjectUpdated.Subscribe(remoteType);
-                RemoteObjectDeleted.Subscribe(remoteType);
-            }
+            //订阅事件
+            SubscribeEvents();
         }
-
-        #endregion
 
         internal static void Cleanup()
         {
@@ -67,13 +80,42 @@ namespace CodeArt.DomainDriven
                 RPCServer.Close(methodName);
             }
 
+            //取消订阅
+            CancelEvents();
+        }
+
+        #region 订阅/取消订阅事件
+
+
+        private static void SubscribeEvents()
+        {
             var remoteTypes = RemoteType.GetTypes();
             foreach (var remoteType in remoteTypes)
             {
-                //取消订阅事件
+                RemoteObjectUpdated.Subscribe(remoteType);
+                RemoteObjectDeleted.Subscribe(remoteType);
+            }
+        }
+
+        /// <summary>
+        /// 取消订阅
+        /// </summary>
+        private static void CancelEvents()
+        {
+            var remoteTypes = RemoteType.GetTypes();
+            foreach (var remoteType in remoteTypes)
+            {
+                //取消订阅对象被修改和删除的事件
                 RemoteObjectUpdated.Cancel(remoteType);
                 RemoteObjectDeleted.Cancel(remoteType);
             }
         }
+
+        #endregion
+
+
+
+        #endregion
+
     }
 }

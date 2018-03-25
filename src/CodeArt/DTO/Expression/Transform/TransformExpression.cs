@@ -44,7 +44,7 @@ namespace CodeArt.DTO
                 return new RetainExpression(transformString);
             }
 
-            throw new DTOException("变换表达式错误" + transformString);
+            throw new DTOException(string.Format("{0}{1}", Strings.TransformExpressionError, transformString));
         });
 
         public static TransformExpression Create(string transformString)

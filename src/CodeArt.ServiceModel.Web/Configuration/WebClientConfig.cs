@@ -35,7 +35,6 @@ namespace CodeArt.ServiceModel
             private set;
         }
 
-
         public void LoadFrom(XmlNode root)
         {
             LoadRouter(root);
@@ -65,11 +64,18 @@ namespace CodeArt.ServiceModel
             List<string> addresses = new List<string>(nodes.Count);
             foreach (XmlNode node in nodes)
             {
-                var name = node.GetAttributeValue("name");
+                var names = node.GetAttributeValue("name") ?? node.GetAttributeValue("names");
                 var address = node.GetAttributeValue("address");
-                if (name.IndexOf(":") == -1 && !string.IsNullOrEmpty(defaultNamespace))
-                    name = string.Format("{0}:{1}", defaultNamespace, name);
-                this.Direct.Add(name, address);
+
+                var temps = names.Split(';');
+                foreach(var temp in temps)
+                {
+                    string name = temp;
+                    if (string.IsNullOrEmpty(name)) continue;
+                    if (name.IndexOf(":") == -1 && !string.IsNullOrEmpty(defaultNamespace))
+                        name = string.Format("{0}:{1}", defaultNamespace, name);
+                    this.Direct.Add(name, address);
+                }
             }
         }
 

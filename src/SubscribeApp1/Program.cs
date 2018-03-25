@@ -35,9 +35,9 @@ namespace SubscribeApp
         [SafeAccess]
         private class Handler1 : EventHandler
         {
-            protected override void DynamicHandle(dynamic @event)
+            protected override void DynamicHandle(string eventName, dynamic arg)
             {
-                Console.WriteLine(string.Format("[handler1]name:{0},id:{1}", @event.Name, @event.Id));
+                Console.WriteLine(string.Format("[handler1]name:{0},id:{1}", arg.Name, arg.Id));
             }
         }
 
@@ -45,9 +45,9 @@ namespace SubscribeApp
         [SafeAccess]
         private class Handler2 : EventHandler
         {
-            protected override void DynamicHandle(dynamic @event)
+            protected override void DynamicHandle(string eventName, dynamic arg)
             {
-                Console.WriteLine(string.Format("[handler2]name:{0},id:{1}", @event.Name, @event.Id));
+                Console.WriteLine(string.Format("[handler2]name:{0},id:{1}", arg.Name, arg.Id));
             }
         }
 

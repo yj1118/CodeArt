@@ -12,21 +12,29 @@ namespace CodeArt.DomainDriven.DataAccess
     [SafeAccess]
     public class DataMapper : IDataMapper
     {
-        #region 静态成员
+        public DataMapper()
+        {
 
-        public static readonly DataMapper Instance = new DataMapper();
+        }
 
-        #endregion
+        //public virtual void FillInsertData(DomainObject obj, DynamicData data, DataTable table) { }
 
-        public virtual void FillInsertData(DomainObject obj, DynamicData data) { }
+        public virtual void OnPreInsert(DomainObject obj, DataTable table) { }
 
-        public virtual void OnInsert(DomainObject obj) { }
 
-        public virtual void FillUpdateData(DomainObject obj, DynamicData data) { }
+        public virtual void OnInserted(DomainObject obj, DataTable table) { }
 
-        public void OnUpdate(DomainObject obj) { }
+        //public virtual void FillUpdateData(DomainObject obj, DynamicData data, DataTable table) { }
 
-        public void OnDelete(DomainObject obj) { }
+        public virtual void OnPreUpdate(DomainObject obj, DataTable table) { }
+
+
+        public virtual void OnUpdated(DomainObject obj, DataTable table) { }
+
+        public virtual void OnPreDelete(DomainObject obj, DataTable table) { }
+
+
+        public virtual void OnDeleted(DomainObject obj, DataTable table) { }
 
         #region 获得类型对应的数据字段
 
@@ -50,11 +58,13 @@ namespace CodeArt.DomainDriven.DataAccess
                 if (stringField != null)
                 {
                     var field = GeneratedField.CreateString(objectType, stringField.Name, stringField.MaxLength, stringField.ASCII);
+                    field.IsAdditional = true;
                     fields.Add(field);
                 }
                 else
                 {
                     var field = GeneratedField.Create(objectType, attachedField.ValueType, attachedField.Name);
+                    field.IsAdditional = true;
                     fields.Add(field);
                 }
             }
@@ -118,9 +128,9 @@ namespace CodeArt.DomainDriven.DataAccess
                 case DomainPropertyType.ValueObject:
                     {
                         var field = new ValueObjectField(attribute);
-                        var mapper = DataMapperFactory.Create(propertyType);
-                        var childs = mapper.GetObjectFields(propertyType, isSnapshot);
-                        field.AddChilds(childs);
+                        //var mapper = DataMapperFactory.Create(propertyType);
+                        //var childs = mapper.GetObjectFields(propertyType, isSnapshot);
+                        //field.AddChilds(childs);
 
                         result = field;
                         return true;
@@ -136,9 +146,9 @@ namespace CodeArt.DomainDriven.DataAccess
                     {
                         //引用了内部实体对象
                         var field = new EntityObjectField(attribute);
-                        var mapper = DataMapperFactory.Create(propertyType);
-                        var childs = mapper.GetObjectFields(propertyType, isSnapshot);
-                        field.AddChilds(childs);
+                        //var mapper = DataMapperFactory.Create(propertyType);
+                        //var childs = mapper.GetObjectFields(propertyType, isSnapshot);
+                        //field.AddChilds(childs);
                         result = field;
                         return true;
                     }
@@ -178,9 +188,10 @@ namespace CodeArt.DomainDriven.DataAccess
             {
                 //值对象
                 var field = new ValueObjectListField(attribute);
-                var mapper = DataMapperFactory.Create(elementType);
-                var childs = mapper.GetObjectFields(elementType, isSnapshot);
-                field.AddChilds(childs);
+                //当值对象A引用了值对象A时，会造成死循环
+                //var mapper = DataMapperFactory.Create(elementType);
+                //var childs = mapper.GetObjectFields(elementType, isSnapshot);
+                //field.AddChilds(childs);
 
                 result = field;
                 return true;
@@ -196,9 +207,10 @@ namespace CodeArt.DomainDriven.DataAccess
             {
                 //引用了内部实体对象
                 var field = new EntityObjectListField(attribute);
-                var mapper = DataMapperFactory.Create(elementType);
-                var childs = mapper.GetObjectFields(elementType, isSnapshot);
-                field.AddChilds(childs);
+                //当成员对象A引用了成员对象A时，会造成死循环
+                //var mapper = DataMapperFactory.Create(elementType);
+                //var childs = mapper.GetObjectFields(elementType, isSnapshot);
+                //field.AddChilds(childs);
 
                 result = field;
                 return true;
@@ -218,11 +230,26 @@ namespace CodeArt.DomainDriven.DataAccess
 
         #endregion
 
-
-        public virtual string Build(QueryBuilder builder, DynamicData param)
+        public virtual string Build(QueryBuilder builder, DynamicData param, DataTable table)
         {
             return string.Empty;
         }
+
+        #region 静态成员
+
+        public static readonly DataMapper Instance = new DataMapper();
+
+        /// <summary>
+        /// 关键字段的定义，只要通过关键字段的查询，ORM引擎就可以加载完整的根对象，该属性用于自定义查询的select语句中
+        /// </summary>
+        public static readonly string KeyFields = null;
+
+        static DataMapper()
+        {
+            KeyFields = string.Format("{0},{1},{2}", EntityObject.IdPropertyName, GeneratedField.DataVersionName, GeneratedField.TypeKeyName);
+        }
+
+        #endregion
 
     }
 }

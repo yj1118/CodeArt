@@ -15,7 +15,7 @@ namespace CodeArt.EasyMQ.Event
     {
         public RPCConfig()
         {
-            this.ClientTimeout = 10;
+            this.ClientTimeout = 60;
         }
 
         public InterfaceImplementer ClientFactoryImplementer { get; set; }
@@ -41,7 +41,7 @@ namespace CodeArt.EasyMQ.Event
             var factoryNode = node.SelectSingleNode("factory");
             if (factoryNode != null) this.ClientFactoryImplementer = InterfaceImplementer.Create(factoryNode);
 
-            int clientTimeout = int.Parse(node.GetAttributeValue("timeout", "10")); //默认10秒超时
+            int clientTimeout = int.Parse(node.GetAttributeValue("timeout", "60")); //默认60秒超时
             this.ClientTimeout = clientTimeout;
         }
 

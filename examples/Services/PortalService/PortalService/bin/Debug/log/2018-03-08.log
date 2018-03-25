@@ -1,0 +1,285 @@
+2018-03-08 02:40:47.9786 FATAL 消息：翻页查询需要指定排序语句；堆栈：   在 CodeArt.DomainDriven.DataAccess.QueryPage.CheckUpOrder() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Query\Expression\QueryPage\QueryPage.cs:行号 27
+   在 CodeArt.DomainDriven.DataAccess.QueryPage..ctor(DataTable target, String expression) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Query\Expression\QueryPage\QueryPage.cs:行号 21
+   在 CodeArt.DomainDriven.DataAccess.QueryPage.<>c__DisplayClass8_0.<.cctor>b__1(String expression) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Query\Expression\QueryPage\QueryPage.cs:行号 62
+   在 CodeArt.Util.LazyIndexer.<>c__DisplayClass2_0`2.<Init>b__0(TKey key) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Util\LazyIndexer.cs:行号 56
+   在 CodeArt.DomainDriven.DataAccess.QueryPage.Create(DataTable target, String expression) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Query\Expression\QueryPage\QueryPage.cs:行号 55
+   在 CodeArt.DomainDriven.DataAccess.DataTable.Query[T](String expression, Int32 pageIndex, Int32 pageSize, Action`1 fillArg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 178
+   在 CodeArt.DomainDriven.DataAccess.DataModel.Query[T](String expression, Int32 pageIndex, Int32 pageSize, Action`1 fillArg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\DataModel.cs:行号 108
+   在 CodeArt.DomainDriven.DataAccess.DataPortal.Query[T](String expression, Int32 pageIndex, Int32 pageSize, Action`1 fillArg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataPortal\DataPortal.cs:行号 173
+   在 CodeArt.DomainDriven.DataAccess.DataContextExtensions.<>c__DisplayClass2_0`1.<Query>b__0() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\DataContextExtensions.cs:行号 58
+   在 CodeArt.DomainDriven.DataContext.RegisterQueried[T](QueryLevel level, Func`1 persistQuery) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 205
+   在 CodeArt.DomainDriven.DataAccess.DataContextExtensions.Query[T](IDataContext dataContext, String expression, Int32 pageIndex, Int32 pageSize, Action`1 fillArg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\DataContextExtensions.cs:行号 56
+   在 AccountSubsystem.SqlPermissionRepository.FindPageBy(String name, Int32 pageIndex, Int32 pageSize) 位置 D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystem\Permission\SqlPermissionRepository.cs:行号 59
+   在 AccountSubsystem.PermissionCommon.FindPage(String name, Int32 pageIndex, Int32 pageSize) 位置 D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystem\Permission\Application\PermissionCommon.cs:行号 40
+   在 CallSite.Target(Closure , CallSite , Type , Object , Object , Object )
+   在 System.Dynamic.UpdateDelegates.UpdateAndExecute4[T0,T1,T2,T3,TRet](CallSite site, T0 arg0, T1 arg1, T2 arg2, T3 arg3)
+   在 PortalService.Application.GetPermissionPage.DynamicInvoke(Object arg) 位置 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\Permission\GetPermissionPage.cs:行号 22
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(DTObject arg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 19
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 14
+   在 CodeArt.ServiceModel.MQServiceHandler.ProcessService(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 58
+   在 CodeArt.ServiceModel.MQServiceHandler.Process(String method, DTObject args) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 34
+2018-03-08 13:26:51.9525 FATAL 消息：
+未将对象引用设置到对象的实例。
+；堆栈：   在 CodeArt.DomainDriven.CommandBase.OnFailed(Exception ex) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Command\CommandBase.cs:行号 47
+   在 CodeArt.DomainDriven.CommandBase.ExecuteImpl(Action action) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Command\CommandBase.cs:行号 28
+   在 CodeArt.DomainDriven.Command`1.Execute() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Command\Command.cs:行号 28
+   在 PortalService.Application.Login.DynamicInvoke(Object arg) 位置 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\Identity\Login.cs:行号 24
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(DTObject arg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 19
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 14
+   在 CodeArt.ServiceModel.MQServiceHandler.ProcessService(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 58
+   在 CodeArt.ServiceModel.MQServiceHandler.Process(String method, DTObject args) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 34
+   在 CodeArt.DomainDriven.DataAccess.SqlCondition.Process(String commandText, DynamicData param) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Query\Expression\SqlDefinition\SqlCondition.cs:行号 197
+   在 CodeArt.DomainDriven.DataAccess.SqlDefinition.Process(String commandText, DynamicData param) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Query\Expression\SqlDefinition\SqlDefinition.cs:行号 385
+   在 CodeArt.DomainDriven.DataAccess.QueryExpression.Process(DynamicData param) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Query\Expression\QueryExpression.cs:行号 76
+   在 CodeArt.DomainDriven.DataAccess.QueryBuilder.InternalBuild(DynamicData param) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Query\QueryBuilder.cs:行号 81
+   在 CodeArt.DomainDriven.DataAccess.QueryBuilder.Build(DynamicData param, DataTable table) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Query\QueryBuilder.cs:行号 58
+   在 CodeArt.DomainDriven.DataAccess.DataTable.ExecuteQueryEntry(IQueryBuilder query, Action`1 fillArg, DynamicData data) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 302
+   在 CodeArt.DomainDriven.DataAccess.DataTable.UseDataEntry(IQueryBuilder exp, Action`1 fillArg, Action`1 action) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 268
+   在 CodeArt.DomainDriven.DataAccess.DataTable.QuerySingle(String expression, Action`1 fillArg, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 111
+   在 CodeArt.DomainDriven.DataAccess.DataTable.QuerySingle[T](String expression, Action`1 fillArg, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 102
+   在 CodeArt.DomainDriven.DataAccess.DataModel.QuerySingle[T](String expression, Action`1 fillArg, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\DataModel.cs:行号 97
+   在 CodeArt.DomainDriven.DataAccess.DataPortal.QuerySingle[T](String expression, Action`1 fillArg, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataPortal\DataPortal.cs:行号 144
+   在 CodeArt.DomainDriven.DataAccess.DataContextExtensions.<>c__DisplayClass0_0`1.<QuerySingle>b__0() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\DataContextExtensions.cs:行号 26
+   在 CodeArt.DomainDriven.DataContext.RegisterQueried[T](QueryLevel level, Func`1 persistQuery) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 183
+   在 CodeArt.DomainDriven.DataAccess.DataContextExtensions.QuerySingle[T](IDataContext dataContext, String expression, Action`1 fillArg, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\DataContextExtensions.cs:行号 24
+   在 CodeArt.DomainDriven.DataAccess.SqlRepository`1.QuerySingle[T](String expression, Action`1 fillArg, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\SqlRepository.cs:行号 49
+   在 AccountSubsystem.SqlAccountRepository.FindByFlag(String nameOrEmail, String password, QueryLevel level) 位置 D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystem\Account\SqlAccountRepository.cs:行号 45
+   在 AccountSubsystem.Login.ExecuteProcedure() 位置 D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystem\Account\Application\Login.cs:行号 27
+   在 CodeArt.DomainDriven.Command`1.<>c__DisplayClass0_0.<Execute>b__1() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Command\Command.cs:行号 32
+   在 CodeArt.DomainDriven.DataContext.Using(DataContext dataContext, Action action, Boolean timely, Boolean newScope) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 698
+
+2018-03-08 13:27:51.4340 FATAL 消息：select * from tempTable where @name{name like @name} order by name asc 不是正确的 sql select 查询语句
+{ 附近的语法不正确。
+；堆栈：   在 CodeArt.DomainDriven.DataAccess.SqlParser.CheckUpError(String sql, IList`1 errors) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\SqlParser\SqlParser.cs:行号 64
+   在 CodeArt.DomainDriven.DataAccess.SqlParser.<>c.<.cctor>b__10_0(String sql) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\SqlParser\SqlParser.cs:行号 33
+   在 CodeArt.Util.LazyIndexer.<>c__DisplayClass2_0`2.<Init>b__0(TKey key) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Util\LazyIndexer.cs:行号 56
+   在 CodeArt.DomainDriven.DataAccess.SqlParser.Parse(String sql) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\SqlParser\SqlParser.cs:行号 23
+   在 CodeArt.DomainDriven.DataAccess.SqlDefinition.GetColumns(SqlDefinition define) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Query\Expression\SqlDefinition\SqlDefinition.cs:行号 258
+   在 CodeArt.DomainDriven.DataAccess.SqlDefinition.<>c.<.cctor>b__70_1(String expression) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Query\Expression\SqlDefinition\SqlDefinition.cs:行号 246
+   在 CodeArt.Util.LazyIndexer.<>c__DisplayClass2_0`2.<Init>b__0(TKey key) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Util\LazyIndexer.cs:行号 56
+   在 CodeArt.DomainDriven.DataAccess.SqlDefinition.Create(String expression) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Query\Expression\SqlDefinition\SqlDefinition.cs:行号 218
+   在 CodeArt.DomainDriven.DataAccess.DataTable.<>c__DisplayClass256_1.<.cctor>b__12(String expression) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 335
+   在 CodeArt.Util.LazyIndexer.<>c__DisplayClass2_0`2.<Init>b__0(TKey key) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Util\LazyIndexer.cs:行号 56
+   在 CodeArt.DomainDriven.DataAccess.DataTable.GetEntryExpression(String expression) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 327
+   在 CodeArt.DomainDriven.DataAccess.DataTable.Query[T](String expression, Int32 pageIndex, Int32 pageSize, Action`1 fillArg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 177
+   在 CodeArt.DomainDriven.DataAccess.DataModel.Query[T](String expression, Int32 pageIndex, Int32 pageSize, Action`1 fillArg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\DataModel.cs:行号 108
+   在 CodeArt.DomainDriven.DataAccess.DataPortal.Query[T](String expression, Int32 pageIndex, Int32 pageSize, Action`1 fillArg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataPortal\DataPortal.cs:行号 173
+   在 CodeArt.DomainDriven.DataAccess.DataContextExtensions.<>c__DisplayClass2_0`1.<Query>b__0() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\DataContextExtensions.cs:行号 58
+   在 CodeArt.DomainDriven.DataContext.RegisterQueried[T](QueryLevel level, Func`1 persistQuery) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 205
+   在 CodeArt.DomainDriven.DataAccess.DataContextExtensions.Query[T](IDataContext dataContext, String expression, Int32 pageIndex, Int32 pageSize, Action`1 fillArg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\DataContextExtensions.cs:行号 56
+   在 AccountSubsystem.SqlPermissionRepository.FindPageBy(String name, Int32 pageIndex, Int32 pageSize) 位置 D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystem\Permission\SqlPermissionRepository.cs:行号 59
+   在 AccountSubsystem.PermissionCommon.FindPage(String name, Int32 pageIndex, Int32 pageSize) 位置 D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystem\Permission\Application\PermissionCommon.cs:行号 40
+   在 CallSite.Target(Closure , CallSite , Type , Object , Object , Object )
+   在 System.Dynamic.UpdateDelegates.UpdateAndExecute4[T0,T1,T2,T3,TRet](CallSite site, T0 arg0, T1 arg1, T2 arg2, T3 arg3)
+   在 PortalService.Application.GetPermissionPage.DynamicInvoke(Object arg) 位置 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\Permission\GetPermissionPage.cs:行号 22
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(DTObject arg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 19
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 14
+   在 CodeArt.ServiceModel.MQServiceHandler.ProcessService(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 58
+   在 CodeArt.ServiceModel.MQServiceHandler.Process(String method, DTObject args) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 34
+2018-03-08 13:27:57.8919 FATAL 消息：select * from tempTable where @name{name like @name} order by name asc 不是正确的 sql select 查询语句
+{ 附近的语法不正确。
+；堆栈：   在 CodeArt.DomainDriven.DataAccess.SqlParser.CheckUpError(String sql, IList`1 errors) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\SqlParser\SqlParser.cs:行号 64
+   在 CodeArt.DomainDriven.DataAccess.SqlParser.<>c.<.cctor>b__10_0(String sql) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\SqlParser\SqlParser.cs:行号 33
+   在 CodeArt.Util.LazyIndexer.<>c__DisplayClass2_0`2.<Init>b__0(TKey key) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Util\LazyIndexer.cs:行号 56
+   在 CodeArt.DomainDriven.DataAccess.SqlParser.Parse(String sql) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\SqlParser\SqlParser.cs:行号 23
+   在 CodeArt.DomainDriven.DataAccess.SqlDefinition.GetColumns(SqlDefinition define) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Query\Expression\SqlDefinition\SqlDefinition.cs:行号 258
+   在 CodeArt.DomainDriven.DataAccess.SqlDefinition.<>c.<.cctor>b__70_1(String expression) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Query\Expression\SqlDefinition\SqlDefinition.cs:行号 246
+   在 CodeArt.Util.LazyIndexer.<>c__DisplayClass2_0`2.<Init>b__0(TKey key) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Util\LazyIndexer.cs:行号 56
+   在 CodeArt.DomainDriven.DataAccess.SqlDefinition.Create(String expression) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Query\Expression\SqlDefinition\SqlDefinition.cs:行号 218
+   在 CodeArt.DomainDriven.DataAccess.DataTable.<>c__DisplayClass256_1.<.cctor>b__12(String expression) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 335
+   在 CodeArt.Util.LazyIndexer.<>c__DisplayClass2_0`2.<Init>b__0(TKey key) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Util\LazyIndexer.cs:行号 56
+   在 CodeArt.DomainDriven.DataAccess.DataTable.GetEntryExpression(String expression) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 327
+   在 CodeArt.DomainDriven.DataAccess.DataTable.Query[T](String expression, Int32 pageIndex, Int32 pageSize, Action`1 fillArg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 177
+   在 CodeArt.DomainDriven.DataAccess.DataModel.Query[T](String expression, Int32 pageIndex, Int32 pageSize, Action`1 fillArg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\DataModel.cs:行号 108
+   在 CodeArt.DomainDriven.DataAccess.DataPortal.Query[T](String expression, Int32 pageIndex, Int32 pageSize, Action`1 fillArg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataPortal\DataPortal.cs:行号 173
+   在 CodeArt.DomainDriven.DataAccess.DataContextExtensions.<>c__DisplayClass2_0`1.<Query>b__0() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\DataContextExtensions.cs:行号 58
+   在 CodeArt.DomainDriven.DataContext.RegisterQueried[T](QueryLevel level, Func`1 persistQuery) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 205
+   在 CodeArt.DomainDriven.DataAccess.DataContextExtensions.Query[T](IDataContext dataContext, String expression, Int32 pageIndex, Int32 pageSize, Action`1 fillArg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\DataContextExtensions.cs:行号 56
+   在 AccountSubsystem.SqlPermissionRepository.FindPageBy(String name, Int32 pageIndex, Int32 pageSize) 位置 D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystem\Permission\SqlPermissionRepository.cs:行号 59
+   在 AccountSubsystem.PermissionCommon.FindPage(String name, Int32 pageIndex, Int32 pageSize) 位置 D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystem\Permission\Application\PermissionCommon.cs:行号 40
+   在 CallSite.Target(Closure , CallSite , Type , Object , Object , Object )
+   在 PortalService.Application.GetPermissionPage.DynamicInvoke(Object arg) 位置 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\Permission\GetPermissionPage.cs:行号 22
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(DTObject arg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 19
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 14
+   在 CodeArt.ServiceModel.MQServiceHandler.ProcessService(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 58
+   在 CodeArt.ServiceModel.MQServiceHandler.Process(String method, DTObject args) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 34
+2018-03-08 13:28:33.0275 FATAL 消息：select * from tempTable where @name{name like @name} order by name asc 不是正确的 sql select 查询语句
+{ 附近的语法不正确。
+；堆栈：   在 CodeArt.DomainDriven.DataAccess.SqlParser.CheckUpError(String sql, IList`1 errors) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\SqlParser\SqlParser.cs:行号 64
+   在 CodeArt.DomainDriven.DataAccess.SqlParser.<>c.<.cctor>b__10_0(String sql) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\SqlParser\SqlParser.cs:行号 33
+   在 CodeArt.Util.LazyIndexer.<>c__DisplayClass2_0`2.<Init>b__0(TKey key) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Util\LazyIndexer.cs:行号 56
+   在 CodeArt.DomainDriven.DataAccess.SqlParser.Parse(String sql) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\SqlParser\SqlParser.cs:行号 23
+   在 CodeArt.DomainDriven.DataAccess.SqlDefinition.GetColumns(SqlDefinition define) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Query\Expression\SqlDefinition\SqlDefinition.cs:行号 258
+   在 CodeArt.DomainDriven.DataAccess.SqlDefinition.<>c.<.cctor>b__70_1(String expression) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Query\Expression\SqlDefinition\SqlDefinition.cs:行号 246
+   在 CodeArt.Util.LazyIndexer.<>c__DisplayClass2_0`2.<Init>b__0(TKey key) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Util\LazyIndexer.cs:行号 56
+   在 CodeArt.DomainDriven.DataAccess.SqlDefinition.Create(String expression) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Query\Expression\SqlDefinition\SqlDefinition.cs:行号 218
+   在 CodeArt.DomainDriven.DataAccess.DataTable.<>c__DisplayClass256_1.<.cctor>b__12(String expression) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 335
+   在 CodeArt.Util.LazyIndexer.<>c__DisplayClass2_0`2.<Init>b__0(TKey key) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Util\LazyIndexer.cs:行号 56
+   在 CodeArt.DomainDriven.DataAccess.DataTable.GetEntryExpression(String expression) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 327
+   在 CodeArt.DomainDriven.DataAccess.DataTable.Query[T](String expression, Int32 pageIndex, Int32 pageSize, Action`1 fillArg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 177
+   在 CodeArt.DomainDriven.DataAccess.DataModel.Query[T](String expression, Int32 pageIndex, Int32 pageSize, Action`1 fillArg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\DataModel.cs:行号 108
+   在 CodeArt.DomainDriven.DataAccess.DataPortal.Query[T](String expression, Int32 pageIndex, Int32 pageSize, Action`1 fillArg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataPortal\DataPortal.cs:行号 173
+   在 CodeArt.DomainDriven.DataAccess.DataContextExtensions.<>c__DisplayClass2_0`1.<Query>b__0() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\DataContextExtensions.cs:行号 58
+   在 CodeArt.DomainDriven.DataContext.RegisterQueried[T](QueryLevel level, Func`1 persistQuery) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 205
+   在 CodeArt.DomainDriven.DataAccess.DataContextExtensions.Query[T](IDataContext dataContext, String expression, Int32 pageIndex, Int32 pageSize, Action`1 fillArg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\DataContextExtensions.cs:行号 56
+   在 AccountSubsystem.SqlPermissionRepository.FindPageBy(String name, Int32 pageIndex, Int32 pageSize) 位置 D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystem\Permission\SqlPermissionRepository.cs:行号 59
+   在 AccountSubsystem.PermissionCommon.FindPage(String name, Int32 pageIndex, Int32 pageSize) 位置 D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystem\Permission\Application\PermissionCommon.cs:行号 40
+   在 CallSite.Target(Closure , CallSite , Type , Object , Object , Object )
+   在 PortalService.Application.GetPermissionPage.DynamicInvoke(Object arg) 位置 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\Permission\GetPermissionPage.cs:行号 22
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(DTObject arg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 19
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 14
+   在 CodeArt.ServiceModel.MQServiceHandler.ProcessService(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 58
+   在 CodeArt.ServiceModel.MQServiceHandler.Process(String method, DTObject args) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 34
+2018-03-08 13:29:38.6501 FATAL 消息：select * from tempTable where  order by name asc 不是正确的 sql select 查询语句
+order 附近的语法不正确。
+；堆栈：   在 CodeArt.DomainDriven.DataAccess.SqlParser.CheckUpError(String sql, IList`1 errors) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\SqlParser\SqlParser.cs:行号 64
+   在 CodeArt.DomainDriven.DataAccess.SqlParser.<>c.<.cctor>b__10_0(String sql) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\SqlParser\SqlParser.cs:行号 33
+   在 CodeArt.Util.LazyIndexer.<>c__DisplayClass2_0`2.<Init>b__0(TKey key) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Util\LazyIndexer.cs:行号 56
+   在 CodeArt.DomainDriven.DataAccess.SqlParser.Parse(String sql) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\SqlParser\SqlParser.cs:行号 23
+   在 CodeArt.DomainDriven.DataAccess.SqlDefinition.GetColumns(SqlDefinition define) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Query\Expression\SqlDefinition\SqlDefinition.cs:行号 258
+   在 CodeArt.DomainDriven.DataAccess.SqlDefinition.<>c.<.cctor>b__70_1(String expression) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Query\Expression\SqlDefinition\SqlDefinition.cs:行号 246
+   在 CodeArt.Util.LazyIndexer.<>c__DisplayClass2_0`2.<Init>b__0(TKey key) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Util\LazyIndexer.cs:行号 56
+   在 CodeArt.DomainDriven.DataAccess.SqlDefinition.Create(String expression) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Query\Expression\SqlDefinition\SqlDefinition.cs:行号 218
+   在 CodeArt.DomainDriven.DataAccess.DataTable.<>c__DisplayClass256_1.<.cctor>b__12(String expression) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 335
+   在 CodeArt.Util.LazyIndexer.<>c__DisplayClass2_0`2.<Init>b__0(TKey key) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Util\LazyIndexer.cs:行号 56
+   在 CodeArt.DomainDriven.DataAccess.DataTable.GetEntryExpression(String expression) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 327
+   在 CodeArt.DomainDriven.DataAccess.DataTable.Query[T](String expression, Int32 pageIndex, Int32 pageSize, Action`1 fillArg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 177
+   在 CodeArt.DomainDriven.DataAccess.DataModel.Query[T](String expression, Int32 pageIndex, Int32 pageSize, Action`1 fillArg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\DataModel.cs:行号 108
+   在 CodeArt.DomainDriven.DataAccess.DataPortal.Query[T](String expression, Int32 pageIndex, Int32 pageSize, Action`1 fillArg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataPortal\DataPortal.cs:行号 173
+   在 CodeArt.DomainDriven.DataAccess.DataContextExtensions.<>c__DisplayClass2_0`1.<Query>b__0() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\DataContextExtensions.cs:行号 58
+   在 CodeArt.DomainDriven.DataContext.RegisterQueried[T](QueryLevel level, Func`1 persistQuery) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 205
+   在 CodeArt.DomainDriven.DataAccess.DataContextExtensions.Query[T](IDataContext dataContext, String expression, Int32 pageIndex, Int32 pageSize, Action`1 fillArg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\DataContextExtensions.cs:行号 56
+   在 AccountSubsystem.SqlPermissionRepository.FindPageBy(String name, Int32 pageIndex, Int32 pageSize) 位置 D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystem\Permission\SqlPermissionRepository.cs:行号 59
+   在 AccountSubsystem.PermissionCommon.FindPage(String name, Int32 pageIndex, Int32 pageSize) 位置 D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystem\Permission\Application\PermissionCommon.cs:行号 40
+   在 CallSite.Target(Closure , CallSite , Type , Object , Object , Object )
+   在 System.Dynamic.UpdateDelegates.UpdateAndExecute4[T0,T1,T2,T3,TRet](CallSite site, T0 arg0, T1 arg1, T2 arg2, T3 arg3)
+   在 PortalService.Application.GetPermissionPage.DynamicInvoke(Object arg) 位置 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\Permission\GetPermissionPage.cs:行号 22
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(DTObject arg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 19
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 14
+   在 CodeArt.ServiceModel.MQServiceHandler.ProcessService(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 58
+   在 CodeArt.ServiceModel.MQServiceHandler.Process(String method, DTObject args) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 34
+2018-03-08 13:32:55.7329 FATAL 消息：输入字符串的格式不正确。；堆栈：   在 System.Text.StringBuilder.AppendFormatHelper(IFormatProvider provider, String format, ParamsArray args)
+   在 System.String.FormatHelper(IFormatProvider provider, String format, ParamsArray args)
+   在 System.String.Format(String format, Object[] args)
+   在 CodeArt.DomainDriven.DataAccess.SQLServer.SqlPageTemplate.From(String format, Object[] args) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\SQLServer\SqlPageTemplate.cs:行号 31
+   在 CodeArt.DomainDriven.DataAccess.QueryPage.GetSQLBySQLServer() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Query\Expression\QueryPage\QueryPage.cs:行号 71
+   在 CodeArt.DomainDriven.DataAccess.QueryPage.GetTemplate() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Query\Expression\QueryPage\QueryPage.cs:行号 35
+   在 CodeArt.DomainDriven.DataAccess.QueryPage..ctor(DataTable target, String expression) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Query\Expression\QueryPage\QueryPage.cs:行号 20
+   在 CodeArt.DomainDriven.DataAccess.QueryPage.<>c__DisplayClass8_0.<.cctor>b__1(String expression) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Query\Expression\QueryPage\QueryPage.cs:行号 62
+   在 CodeArt.Util.LazyIndexer.<>c__DisplayClass2_0`2.<Init>b__0(TKey key) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Util\LazyIndexer.cs:行号 56
+   在 CodeArt.DomainDriven.DataAccess.QueryPage.Create(DataTable target, String expression) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Query\Expression\QueryPage\QueryPage.cs:行号 55
+   在 CodeArt.DomainDriven.DataAccess.DataTable.Query[T](String expression, Int32 pageIndex, Int32 pageSize, Action`1 fillArg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 178
+   在 CodeArt.DomainDriven.DataAccess.DataModel.Query[T](String expression, Int32 pageIndex, Int32 pageSize, Action`1 fillArg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\DataModel.cs:行号 108
+   在 CodeArt.DomainDriven.DataAccess.DataPortal.Query[T](String expression, Int32 pageIndex, Int32 pageSize, Action`1 fillArg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataPortal\DataPortal.cs:行号 173
+   在 CodeArt.DomainDriven.DataAccess.DataContextExtensions.<>c__DisplayClass2_0`1.<Query>b__0() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\DataContextExtensions.cs:行号 58
+   在 CodeArt.DomainDriven.DataContext.RegisterQueried[T](QueryLevel level, Func`1 persistQuery) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 205
+   在 CodeArt.DomainDriven.DataAccess.DataContextExtensions.Query[T](IDataContext dataContext, String expression, Int32 pageIndex, Int32 pageSize, Action`1 fillArg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\DataContextExtensions.cs:行号 56
+   在 AccountSubsystem.SqlPermissionRepository.FindPageBy(String name, Int32 pageIndex, Int32 pageSize) 位置 D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystem\Permission\SqlPermissionRepository.cs:行号 59
+   在 AccountSubsystem.PermissionCommon.FindPage(String name, Int32 pageIndex, Int32 pageSize) 位置 D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystem\Permission\Application\PermissionCommon.cs:行号 40
+   在 CallSite.Target(Closure , CallSite , Type , Object , Object , Object )
+   在 System.Dynamic.UpdateDelegates.UpdateAndExecute4[T0,T1,T2,T3,TRet](CallSite site, T0 arg0, T1 arg1, T2 arg2, T3 arg3)
+   在 PortalService.Application.GetPermissionPage.DynamicInvoke(Object arg) 位置 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\Permission\GetPermissionPage.cs:行号 22
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(DTObject arg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 19
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 14
+   在 CodeArt.ServiceModel.MQServiceHandler.ProcessService(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 58
+   在 CodeArt.ServiceModel.MQServiceHandler.Process(String method, DTObject args) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 34
+2018-03-08 13:34:04.1779 FATAL 消息：输入字符串的格式不正确。；堆栈：   在 System.Text.StringBuilder.AppendFormatHelper(IFormatProvider provider, String format, ParamsArray args)
+   在 System.String.FormatHelper(IFormatProvider provider, String format, ParamsArray args)
+   在 System.String.Format(String format, Object[] args)
+   在 CodeArt.DomainDriven.DataAccess.SQLServer.SqlPageTemplate.From(String format, Object[] args) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\SQLServer\SqlPageTemplate.cs:行号 31
+   在 CodeArt.DomainDriven.DataAccess.QueryPage.GetSQLBySQLServer() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Query\Expression\QueryPage\QueryPage.cs:行号 71
+   在 CodeArt.DomainDriven.DataAccess.QueryPage.GetTemplate() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Query\Expression\QueryPage\QueryPage.cs:行号 35
+   在 CodeArt.DomainDriven.DataAccess.QueryPage..ctor(DataTable target, String expression) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Query\Expression\QueryPage\QueryPage.cs:行号 20
+   在 CodeArt.DomainDriven.DataAccess.QueryPage.<>c__DisplayClass8_0.<.cctor>b__1(String expression) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Query\Expression\QueryPage\QueryPage.cs:行号 62
+   在 CodeArt.Util.LazyIndexer.<>c__DisplayClass2_0`2.<Init>b__0(TKey key) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Util\LazyIndexer.cs:行号 56
+   在 CodeArt.DomainDriven.DataAccess.QueryPage.Create(DataTable target, String expression) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Query\Expression\QueryPage\QueryPage.cs:行号 55
+   在 CodeArt.DomainDriven.DataAccess.DataTable.Query[T](String expression, Int32 pageIndex, Int32 pageSize, Action`1 fillArg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 178
+   在 CodeArt.DomainDriven.DataAccess.DataModel.Query[T](String expression, Int32 pageIndex, Int32 pageSize, Action`1 fillArg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\DataModel.cs:行号 108
+   在 CodeArt.DomainDriven.DataAccess.DataPortal.Query[T](String expression, Int32 pageIndex, Int32 pageSize, Action`1 fillArg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataPortal\DataPortal.cs:行号 173
+   在 CodeArt.DomainDriven.DataAccess.DataContextExtensions.<>c__DisplayClass2_0`1.<Query>b__0() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\DataContextExtensions.cs:行号 58
+   在 CodeArt.DomainDriven.DataContext.RegisterQueried[T](QueryLevel level, Func`1 persistQuery) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 205
+   在 CodeArt.DomainDriven.DataAccess.DataContextExtensions.Query[T](IDataContext dataContext, String expression, Int32 pageIndex, Int32 pageSize, Action`1 fillArg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\DataContextExtensions.cs:行号 56
+   在 AccountSubsystem.SqlPermissionRepository.FindPageBy(String name, Int32 pageIndex, Int32 pageSize) 位置 D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystem\Permission\SqlPermissionRepository.cs:行号 59
+   在 AccountSubsystem.PermissionCommon.FindPage(String name, Int32 pageIndex, Int32 pageSize) 位置 D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystem\Permission\Application\PermissionCommon.cs:行号 40
+   在 CallSite.Target(Closure , CallSite , Type , Object , Object , Object )
+   在 PortalService.Application.GetPermissionPage.DynamicInvoke(Object arg) 位置 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\Permission\GetPermissionPage.cs:行号 22
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(DTObject arg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 19
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 14
+   在 CodeArt.ServiceModel.MQServiceHandler.ProcessService(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 58
+   在 CodeArt.ServiceModel.MQServiceHandler.Process(String method, DTObject args) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 34
+2018-03-08 13:34:33.9548 FATAL 消息：输入字符串的格式不正确。；堆栈：   在 System.Text.StringBuilder.AppendFormatHelper(IFormatProvider provider, String format, ParamsArray args)
+   在 System.String.FormatHelper(IFormatProvider provider, String format, ParamsArray args)
+   在 System.String.Format(String format, Object[] args)
+   在 CodeArt.DomainDriven.DataAccess.SQLServer.SqlPageTemplate.From(String format, Object[] args) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\SQLServer\SqlPageTemplate.cs:行号 31
+   在 CodeArt.DomainDriven.DataAccess.QueryPage.GetSQLBySQLServer() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Query\Expression\QueryPage\QueryPage.cs:行号 71
+   在 CodeArt.DomainDriven.DataAccess.QueryPage.GetTemplate() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Query\Expression\QueryPage\QueryPage.cs:行号 35
+   在 CodeArt.DomainDriven.DataAccess.QueryPage..ctor(DataTable target, String expression) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Query\Expression\QueryPage\QueryPage.cs:行号 20
+   在 CodeArt.DomainDriven.DataAccess.QueryPage.<>c__DisplayClass8_0.<.cctor>b__1(String expression) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Query\Expression\QueryPage\QueryPage.cs:行号 62
+   在 CodeArt.Util.LazyIndexer.<>c__DisplayClass2_0`2.<Init>b__0(TKey key) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Util\LazyIndexer.cs:行号 56
+   在 CodeArt.DomainDriven.DataAccess.QueryPage.Create(DataTable target, String expression) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Query\Expression\QueryPage\QueryPage.cs:行号 55
+   在 CodeArt.DomainDriven.DataAccess.DataTable.Query[T](String expression, Int32 pageIndex, Int32 pageSize, Action`1 fillArg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 178
+   在 CodeArt.DomainDriven.DataAccess.DataModel.Query[T](String expression, Int32 pageIndex, Int32 pageSize, Action`1 fillArg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\DataModel.cs:行号 108
+   在 CodeArt.DomainDriven.DataAccess.DataPortal.Query[T](String expression, Int32 pageIndex, Int32 pageSize, Action`1 fillArg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataPortal\DataPortal.cs:行号 173
+   在 CodeArt.DomainDriven.DataAccess.DataContextExtensions.<>c__DisplayClass2_0`1.<Query>b__0() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\DataContextExtensions.cs:行号 58
+   在 CodeArt.DomainDriven.DataContext.RegisterQueried[T](QueryLevel level, Func`1 persistQuery) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 205
+   在 CodeArt.DomainDriven.DataAccess.DataContextExtensions.Query[T](IDataContext dataContext, String expression, Int32 pageIndex, Int32 pageSize, Action`1 fillArg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\DataContextExtensions.cs:行号 56
+   在 AccountSubsystem.SqlPermissionRepository.FindPageBy(String name, Int32 pageIndex, Int32 pageSize) 位置 D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystem\Permission\SqlPermissionRepository.cs:行号 59
+   在 AccountSubsystem.PermissionCommon.FindPage(String name, Int32 pageIndex, Int32 pageSize) 位置 D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystem\Permission\Application\PermissionCommon.cs:行号 40
+   在 CallSite.Target(Closure , CallSite , Type , Object , Object , Object )
+   在 PortalService.Application.GetPermissionPage.DynamicInvoke(Object arg) 位置 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\Permission\GetPermissionPage.cs:行号 22
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(DTObject arg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 19
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 14
+   在 CodeArt.ServiceModel.MQServiceHandler.ProcessService(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 58
+   在 CodeArt.ServiceModel.MQServiceHandler.Process(String method, DTObject args) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 34
+2018-03-08 13:35:50.1198 FATAL 消息：输入字符串的格式不正确。；堆栈：   在 System.Text.StringBuilder.AppendFormatHelper(IFormatProvider provider, String format, ParamsArray args)
+   在 System.String.FormatHelper(IFormatProvider provider, String format, ParamsArray args)
+   在 System.String.Format(String format, Object[] args)
+   在 CodeArt.DomainDriven.DataAccess.SQLServer.SqlPageTemplate.From(String format, Object[] args) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\SQLServer\SqlPageTemplate.cs:行号 31
+   在 CodeArt.DomainDriven.DataAccess.QueryPage.GetSQLBySQLServer() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Query\Expression\QueryPage\QueryPage.cs:行号 71
+   在 CodeArt.DomainDriven.DataAccess.QueryPage.GetTemplate() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Query\Expression\QueryPage\QueryPage.cs:行号 35
+   在 CodeArt.DomainDriven.DataAccess.QueryPage..ctor(DataTable target, String expression) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Query\Expression\QueryPage\QueryPage.cs:行号 20
+   在 CodeArt.DomainDriven.DataAccess.QueryPage.<>c__DisplayClass8_0.<.cctor>b__1(String expression) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Query\Expression\QueryPage\QueryPage.cs:行号 62
+   在 CodeArt.Util.LazyIndexer.<>c__DisplayClass2_0`2.<Init>b__0(TKey key) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Util\LazyIndexer.cs:行号 56
+   在 CodeArt.DomainDriven.DataAccess.QueryPage.Create(DataTable target, String expression) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Query\Expression\QueryPage\QueryPage.cs:行号 55
+   在 CodeArt.DomainDriven.DataAccess.DataTable.Query[T](String expression, Int32 pageIndex, Int32 pageSize, Action`1 fillArg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 178
+   在 CodeArt.DomainDriven.DataAccess.DataModel.Query[T](String expression, Int32 pageIndex, Int32 pageSize, Action`1 fillArg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\DataModel.cs:行号 108
+   在 CodeArt.DomainDriven.DataAccess.DataPortal.Query[T](String expression, Int32 pageIndex, Int32 pageSize, Action`1 fillArg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataPortal\DataPortal.cs:行号 173
+   在 CodeArt.DomainDriven.DataAccess.DataContextExtensions.<>c__DisplayClass2_0`1.<Query>b__0() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\DataContextExtensions.cs:行号 58
+   在 CodeArt.DomainDriven.DataContext.RegisterQueried[T](QueryLevel level, Func`1 persistQuery) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 205
+   在 CodeArt.DomainDriven.DataAccess.DataContextExtensions.Query[T](IDataContext dataContext, String expression, Int32 pageIndex, Int32 pageSize, Action`1 fillArg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\DataContextExtensions.cs:行号 56
+   在 AccountSubsystem.SqlPermissionRepository.FindPageBy(String name, Int32 pageIndex, Int32 pageSize) 位置 D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystem\Permission\SqlPermissionRepository.cs:行号 59
+   在 AccountSubsystem.PermissionCommon.FindPage(String name, Int32 pageIndex, Int32 pageSize) 位置 D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystem\Permission\Application\PermissionCommon.cs:行号 40
+   在 CallSite.Target(Closure , CallSite , Type , Object , Object , Object )
+   在 PortalService.Application.GetPermissionPage.DynamicInvoke(Object arg) 位置 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\Permission\GetPermissionPage.cs:行号 22
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(DTObject arg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 19
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 14
+   在 CodeArt.ServiceModel.MQServiceHandler.ProcessService(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 58
+   在 CodeArt.ServiceModel.MQServiceHandler.Process(String method, DTObject args) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 34
+2018-03-08 13:46:24.6201 FATAL 消息：给定关键字不在字典中。；堆栈：   在 System.Collections.Generic.Dictionary`2.get_Item(TKey key)
+   在 CodeArt.DomainDriven.DynamicData.Get(String name) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DynamicData.cs:行号 151
+   在 CodeArt.DomainDriven.DataAccess.SqlCondition.Process(String commandText, DynamicData param) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Query\Expression\SqlDefinition\SqlCondition.cs:行号 210
+   在 CodeArt.DomainDriven.DataAccess.SqlDefinition.Process(String commandText, DynamicData param) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Query\Expression\SqlDefinition\SqlDefinition.cs:行号 385
+   在 CodeArt.DomainDriven.DataAccess.QueryExpression.Process(DynamicData param) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Query\Expression\QueryExpression.cs:行号 76
+   在 CodeArt.DomainDriven.DataAccess.QueryBuilder.InternalBuild(DynamicData param) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Query\QueryBuilder.cs:行号 81
+   在 CodeArt.DomainDriven.DataAccess.QueryBuilder.Build(DynamicData param, DataTable table) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Query\QueryBuilder.cs:行号 58
+   在 CodeArt.DomainDriven.DataAccess.DataTable.ExecuteQueryEntries(IQueryBuilder query, Action`1 fillArg, List`1 datas) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 315
+   在 CodeArt.DomainDriven.DataAccess.DataTable.UseDataEntries(IQueryBuilder exp, Action`1 fillArg, Action`1 action) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 288
+   在 CodeArt.DomainDriven.DataAccess.DataTable.GetObjectsFromEntries[T](IQueryBuilder exp, Action`1 fillArg, QueryLevel level) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 244
+   在 CodeArt.DomainDriven.DataAccess.DataTable.Query[T](String expression, Int32 pageIndex, Int32 pageSize, Action`1 fillArg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 179
+   在 CodeArt.DomainDriven.DataAccess.DataModel.Query[T](String expression, Int32 pageIndex, Int32 pageSize, Action`1 fillArg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\DataModel.cs:行号 108
+   在 CodeArt.DomainDriven.DataAccess.DataPortal.Query[T](String expression, Int32 pageIndex, Int32 pageSize, Action`1 fillArg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataPortal\DataPortal.cs:行号 173
+   在 CodeArt.DomainDriven.DataAccess.DataContextExtensions.<>c__DisplayClass2_0`1.<Query>b__0() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\DataContextExtensions.cs:行号 58
+   在 CodeArt.DomainDriven.DataContext.RegisterQueried[T](QueryLevel level, Func`1 persistQuery) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 205
+   在 CodeArt.DomainDriven.DataAccess.DataContextExtensions.Query[T](IDataContext dataContext, String expression, Int32 pageIndex, Int32 pageSize, Action`1 fillArg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\DataContextExtensions.cs:行号 56
+   在 AccountSubsystem.SqlPermissionRepository.FindPageBy(String name, Int32 pageIndex, Int32 pageSize) 位置 D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystem\Permission\SqlPermissionRepository.cs:行号 59
+   在 AccountSubsystem.PermissionCommon.FindPage(String name, Int32 pageIndex, Int32 pageSize) 位置 D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystem\Permission\Application\PermissionCommon.cs:行号 40
+   在 CallSite.Target(Closure , CallSite , Type , Object , Object , Object )
+   在 System.Dynamic.UpdateDelegates.UpdateAndExecute4[T0,T1,T2,T3,TRet](CallSite site, T0 arg0, T1 arg1, T2 arg2, T3 arg3)
+   在 PortalService.Application.GetPermissionPage.DynamicInvoke(Object arg) 位置 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\Permission\GetPermissionPage.cs:行号 22
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(DTObject arg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 19
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 14
+   在 CodeArt.ServiceModel.MQServiceHandler.ProcessService(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 58
+   在 CodeArt.ServiceModel.MQServiceHandler.Process(String method, DTObject args) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 34
+2018-03-08 13:59:11.0931 FATAL 消息：
+不能重复创建系统管理员账户
+；堆栈：

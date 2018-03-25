@@ -61,7 +61,7 @@ namespace CodeArt.DomainDriven
         /// 引用对象的标示可以是本地(内聚范围内)唯一也可以是全局唯一
         /// </summary>
         [PropertyRepository(Snapshot = true)]                                               //TObject是子类的类型，EntityObject<TObject, TIdentity>才是当前类的类型
-        private static readonly DomainProperty IdProperty = DomainProperty.Register<TIdentity, EntityObject<TObject, TIdentity>>(IdPropertyName, default(TIdentity));
+        public static readonly DomainProperty IdProperty = DomainProperty.Register<TIdentity, EntityObject<TObject, TIdentity>>(IdPropertyName, default(TIdentity));
 
         //private TIdentity _id;
 

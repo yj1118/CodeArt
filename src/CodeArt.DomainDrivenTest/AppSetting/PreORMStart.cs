@@ -21,6 +21,8 @@ namespace CodeArt.DomainDrivenTest
         {
             SqlContext.RegisterAgent(SQLServerAgent.Instance);
 
+            Repository.Register<IMenuRepository>(SqlMenuRepository.Instance);
+
             Repository.Register<IBookRepository>(SqlBookRepository.Instance);
             Repository.Register<IPhysicalBookRepository>(SqlPhysicalBookRepository.Instance);
             Repository.Register<IBookCategoryRepository>(SqlBookCategoryRepository.Instance);

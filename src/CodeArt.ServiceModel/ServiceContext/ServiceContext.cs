@@ -38,7 +38,7 @@ namespace CodeArt.ServiceModel
 
         public static DTObject Invoke(string serviceName, DTObject arg)
         {
-            return Invoke(serviceName, _defaultIdentity, arg);
+            return Invoke(serviceName, AppContext.LocalIdentity, arg);
         }
 
         public static DTObject Invoke(string serviceName, DTObject identity, Action<DTObject> fillArg)
@@ -70,15 +70,6 @@ namespace CodeArt.ServiceModel
             response.TryCatch();
             return response;
         }
-
-        private static DTObject _defaultIdentity = DTObject.Create();
-
-        static ServiceContext()
-        {
-            _defaultIdentity.SetValue("name", Configuration.Current.Authentication.Identity.Name);
-            _defaultIdentity.SetValue("tokenKey", string.Empty);
-        }
-
 
     }
 }

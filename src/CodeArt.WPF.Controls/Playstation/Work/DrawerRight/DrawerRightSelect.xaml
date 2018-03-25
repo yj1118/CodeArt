@@ -1,0 +1,32 @@
+﻿<ps:List x:Class="CodeArt.WPF.Controls.Playstation.DrawerRightSelect"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+            xmlns:ps="clr-namespace:CodeArt.WPF.Controls.Playstation"
+            HorizontalAlignment="Stretch" 
+            VerticalAlignment="Center" 
+            Margin="0 60 0 60"
+            HorizontalContentAlignment="Stretch">
+    <ps:List.ItemTemplate>
+        <DataTemplate>
+            <ps:RangeText IsFiexdFocus="{Binding Selected,Mode=OneWay}" 
+                        ImageVisibility="{Binding Selected,Mode=OneWay,Converter={x:Static ps:BoolHiddenConverter.Instance}}" 
+                        TextMargin="25 15 25 15"
+                        ImageWidth="22" 
+                        ImageHeight="22" 
+                        ImageSrc="/Playstation/Work/Images/selected.png" 
+                        MinWidth="420"
+                        MaxWidth="800"
+                        Text="{Binding Text,Mode=OneWay}"
+                        FontSize="28"
+                        SubFontSize="20"
+                        SubtextMargin="25 -5 25 15"
+                        Subtext="{Binding SubText,Mode=OneWay}"
+                        SubOpacity="0.7"
+                        Margin="0 0 15 0" 
+                        FontWeight="Light">
+            </ps:RangeText>
+        </DataTemplate>
+    </ps:List.ItemTemplate>
+</ps:List>

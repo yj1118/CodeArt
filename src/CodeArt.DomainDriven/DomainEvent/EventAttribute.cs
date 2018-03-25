@@ -27,13 +27,32 @@ namespace CodeArt.DomainDriven
         }
 
         /// <summary>
+        /// 是否启用，如果为false,那么需要用 EventHost激活才会启用
+        /// </summary>
+        public bool IsEnabled
+        {
+            get;
+            internal set;
+        }
+
+        /// <summary>
+        /// 事件名称
+        /// </summary>
+        /// <param name="name"></param>
+        public EventAttribute(string name)
+            : this(name,true)
+        {
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="name">事件名称</param>
-        /// <param name="startUp">是否自动启动</param>
-        public EventAttribute(string name)
+        /// <param name="isEnabled">是否启用，如果为false,那么需要用 EventHost激活才会启用</param>
+        public EventAttribute(string name,bool isEnabled)
         {
             this.Name = name;
+            this.IsEnabled = isEnabled;
         }
 
         public static IEnumerable<EventAttribute> Tips

@@ -1,0 +1,85 @@
+﻿<ControlTemplate xmlns="http://schemas.codeart.cn/web/xaml" xmlns:m="http://schemas.codeart.cn/web/xaml/metronic">
+<div id="{TemplateBinding Id}" class="{TemplateBinding Class}" 
+    data-proxy="{TemplateBinding ProxyCode}" 
+    name="{TemplateBinding Name}"
+    AttachedAttributes="{TemplateBinding Attributes}"
+    data-diskRootId="{TemplateBinding DiskRootId}">
+   <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="img-container">
+                    <img src="#" class="cropper-img">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="input-group cropper-status">
+                    <label class="input-group-addon">宽度</label>
+                    <input class="form-control cropper-width" readonly="readonly" disabled="disabled" type="text" placeholder="宽度">
+                    <span class="input-group-addon">px</span>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="input-group cropper-status">
+                    <label class="input-group-addon">高度</label>
+                    <input class="form-control cropper-height" readonly="readonly" disabled="disabled" type="text" placeholder="高度">
+                    <span class="input-group-addon">px</span>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="input-group cropper-status">
+                    <label class="input-group-addon">X 坐标</label>
+                    <input class="form-control cropper-x" readonly="readonly" disabled="disabled" type="text" placeholder="X 坐标">
+                    <span class="input-group-addon">px</span>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="input-group cropper-status">
+                    <label class="input-group-addon">Y 坐标</label>
+                    <input class="form-control cropper-y" readonly="readonly" disabled="disabled" type="text" placeholder="Y 坐标">
+                    <span class="input-group-addon">px</span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 docs-buttons">
+                <label class="btn btn-primary btn-upload cropper-btn-upload" for="inputImage" title="选择本地图片">
+                    <input class="sr-only inputImage" name="file" type="file" accept="image/*">
+                    <span class="docs-tooltip">
+                        <span class="docs-tooltip">本地导入</span>
+                    </span>
+                </label>
+                <div class="btn-group btn-group-crop btn-group-disk" style="display:none;">
+                    <button class="btn btn-primary cropper-btn-disk" type="button">
+                        <span class="docs-tooltip">空间导入</span>
+                    </button>
+                </div>
+                <!--<div class="btn-group btn-group-crop">
+                    <button class="btn btn-primary cropper-btn-preview" type="button">
+                        <span class="docs-tooltip">预览</span>
+                    </button>
+                </div>-->
+                <div class="btn-group btn-group-crop">
+                    <button class="btn btn-primary cropper-btn-zoomIn" type="button">
+                        <span class="docs-tooltip">放大</span>
+                    </button>
+                </div>
+                <div class="btn-group btn-group-crop">
+                    <button class="btn btn-primary cropper-btn-zoomOut" type="button">
+                        <span class="docs-tooltip">缩小</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <m:modal data-name="disk-modal" size="full" title="请选择文件">
+        <m:disk id="{TemplateBinding Id,Converter={Static m:CropperDiskIdConverter.Instance}}" data-name="disk" name="disk" rootId="{TemplateBinding DiskRootId}" height="500px"></m:disk>
+        <m:modal.footer>
+            <m:button color="default" data-dismiss="modal">取消关闭</m:button>
+        </m:modal.footer>
+     </m:modal>
+</div>
+<LinkCode ExternalKey="jquery.cropper.js" Origin="Bottom" />
+<LinkCode ExternalKey="metronic:cropper.js" Origin="Bottom" />
+<LinkCode ExternalKey="jquery.cropper.css" Origin="Header" />
+<LinkCode ExternalKey="metronic:cropper.css" Origin="Header" />
+</ControlTemplate>

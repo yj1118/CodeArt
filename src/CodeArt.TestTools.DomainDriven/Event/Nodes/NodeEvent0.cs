@@ -9,7 +9,7 @@ using CodeArt.DTO;
 
 namespace CodeArt.TestTools.DomainDriven
 {
-    [Event("NodeEvent0")]
+    [Event("NodeEvent0",false)]
     public class NodeEvent0 : NodeEventBase
     {
         public NodeEvent0()

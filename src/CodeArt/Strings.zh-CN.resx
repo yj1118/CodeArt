@@ -195,4 +195,16 @@
   <data name="NoSymbiosis" xml:space="preserve">
     <value>没有共生对象，请检查是否开启了共生对象</value>
   </data>
+  <data name="TransformExpressionError" xml:space="preserve">
+    <value>变换表达式错误</value>
+  </data>
+  <data name="NodeNoAttribute" xml:space="preserve">
+    <value>{0}节点中，没有定义{1}属性</value>
+  </data>
+  <data name="CompileError" xml:space="preserve">
+    <value>编译出错</value>
+  </data>
+  <data name="NotFoundTenant" xml:space="preserve">
+    <value>没有找到租户{0}的信息</value>
+  </data>
 </root>

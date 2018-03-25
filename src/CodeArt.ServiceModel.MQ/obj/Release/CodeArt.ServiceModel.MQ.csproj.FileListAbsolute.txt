@@ -17,6 +17,7 @@ D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\obj\Rele
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\obj\Release\CodeArt.ServiceModel.MQ.Strings.resources
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\obj\Release\CodeArt.ServiceModel.MQ.Strings.zh-CN.resources
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\obj\Release\CodeArt.ServiceModel.MQ.csproj.GenerateResource.Cache
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\obj\Release\CodeArt.ServiceModel.MQ.csproj.CoreCompileInputs.cache
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\obj\Release\zh-CN\CodeArt.ServiceModel.MQ.resources.dll
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\obj\Release\CodeArt.ServiceModel.MQ.dll
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\obj\Release\CodeArt.ServiceModel.MQ.pdb

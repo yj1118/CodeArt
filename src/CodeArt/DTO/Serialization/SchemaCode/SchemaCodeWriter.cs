@@ -51,7 +51,14 @@ namespace CodeArt.DTO
 
         public override void Write(string name, object value)
         {
-            if (value.IsNull()) return;
+            if (value.IsNull()) return; //为isNull的成员不输出
+            //是否自定义
+            var serializable = value as IDTOSerializable;
+            if (serializable != null)
+            {
+                serializable.Serialize(_dto, name);
+                return;
+            }
             string schemaCode = _schemaCodes.GetSchemaCode(name, () => value.GetType());
             var dtoValue = DTObjectMapper.Instance.Load(schemaCode, value, _dto.IsPinned);
             _dto.SetObject(name, dtoValue);

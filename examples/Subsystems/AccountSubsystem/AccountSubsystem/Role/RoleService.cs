@@ -13,7 +13,7 @@ namespace AccountSubsystem
         /// <summary>
         /// 删除角色，系统角色也可以被删除
         /// </summary>
-        public static void DeleteSystem(Guid id)
+        public static void Delete(Guid id)
         {
             Delete(id, true);
         }

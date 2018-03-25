@@ -16,6 +16,7 @@ namespace CodeArt.DomainDriven.DataAccess
         private QueryPage(DataTable target, string expression)
             : base(target, expression, QueryLevel.None)
         {
+            if (this.Definition.IsCustom) return; //自定义查询，由程序员自行翻译
             _template = GetTemplate();
             CheckUpOrder();
         }

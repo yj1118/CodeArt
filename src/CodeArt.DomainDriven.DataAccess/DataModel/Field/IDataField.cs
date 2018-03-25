@@ -26,6 +26,17 @@ namespace CodeArt.DomainDriven.DataAccess
         }
 
         /// <summary>
+        /// 字段是否为附加的，这意味着不是从领域对象中分析出来的，而是通过数据映射器手工添加的字段,这类字段一般用于性能优化
+        /// 这类字段不影响对象数据版本号，也不会在领域层中使用（所以不会出现在数据代理DataProxyPro的OriginalData中）
+        /// 附加字段的维护由程序员通过自定义数据映射器负责
+        /// </summary>
+        bool IsAdditional
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// 字段类型
         /// </summary>
         DataFieldType FieldType

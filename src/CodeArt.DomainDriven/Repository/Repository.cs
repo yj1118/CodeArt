@@ -47,6 +47,18 @@ namespace CodeArt.DomainDriven
             return RepositoryFactory.Create(objectTip.RepositoryInterfaceType);
         }
 
+        /// <summary>
+        /// 根据对象类型得到对象使用的存储对象，如果找不到返回null
+        /// </summary>
+        /// <param name="objectType"></param>
+        /// <returns></returns>
+        internal static IRepository CreateWithNoCheckUp(Type objectType)
+        {
+            var objectTip = ObjectRepositoryAttribute.GetTip(objectType, false);
+            if (objectTip == null) return null;
+            return RepositoryFactory.Create(objectTip.RepositoryInterfaceType);
+        }
+
 
         /// <summary>
         /// 得到对象类型对应的仓储上定义的方法
@@ -69,7 +81,7 @@ namespace CodeArt.DomainDriven
         #region 远程对象
 
         /// <summary>
-        /// 查找远程根对象
+        /// 查找远程根对象（使用动态对象须引用Microsoft.CSharp）
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>

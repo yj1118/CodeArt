@@ -128,7 +128,7 @@ namespace CodeArt.DomainDrivenTest.Demo
             }
 
             {
-                var books = DataPortal.Query<PhysicalBook>("Subject like %@subject%[order by id]", 0, 20, (arg) =>
+                var books = DataPortal.Query<PhysicalBook>("Subject like %@subject%[order by id]", 1, 20, (arg) =>
                   {
                       arg.Add("subject", "光");
                   });
@@ -138,7 +138,7 @@ namespace CodeArt.DomainDrivenTest.Demo
             }
 
             {
-                var books = DataPortal.Query<PhysicalBook>("Subject like %@subject%[order by id]", 1, 20, (arg) =>
+                var books = DataPortal.Query<PhysicalBook>("Subject like %@subject%[order by id]", 2, 20, (arg) =>
                 {
                     arg.Add("subject", "光");
                 });

@@ -24,7 +24,7 @@ namespace CodeArt.DomainDriven.DataAccess
         /// <param name="rootId"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        private object ReadOneToMore(ParameterRepositoryAttribute prmTip, DomainObject parent, object rootId, object masterId, QueryLevel level)
+        private object ReadOneToMore(PropertyRepositoryAttribute tip,ParameterRepositoryAttribute prmTip, DomainObject parent, object rootId, object masterId, QueryLevel level)
         {
             using (var temp = SqlHelper.BorrowDatas())
             {
@@ -41,7 +41,7 @@ namespace CodeArt.DomainDriven.DataAccess
                 {
                     implementType = this.Middle.ObjectType; //middle表对应的是属性的基类类型
                 }
-                var list = CreateList(implementType);
+                var list = CreateList(parent, implementType, tip.Property);
                 var elementType = this.Middle.ElementType;
 
                 if (this.Type == DataTableType.AggregateRoot)
@@ -94,16 +94,25 @@ namespace CodeArt.DomainDriven.DataAccess
             }
         }
 
-        private IList CreateList(Type listType)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="parent"></param>
+        /// <param name="listType"></param>
+        /// <param name="property">集合在对象中的属性定义</param>
+        /// <returns></returns>
+        private IList CreateList(DomainObject parent, Type listType, DomainProperty property)
         {
             if (_isDomainCollection(listType))
             {
                 var constructor = _getDomainCollectionConstructor(listType);
-                using (var temp = ArgsPool.Borrow2())
+                using (var temp = ArgsPool.Borrow1())
                 {
                     var args = temp.Item;
-                    args[0] = this.MemberDomainProperty;
-                    return constructor.CreateInstance(args) as IList;
+                    args[0] = property;
+                    var collection = constructor.CreateInstance(args) as IDomainCollection;
+                    collection.Parent = parent;
+                    return collection as IList;
                 }
             }
             return listType.CreateInstance() as IList;
@@ -136,7 +145,6 @@ namespace CodeArt.DomainDriven.DataAccess
                 else
                 {
                     obj = CreateObjectImpl(this.DynamicType, this.DynamicType.ObjectType, data, level);
-                    (obj as IDynamicObject).Define = this.DynamicType.Define;
                 }
             }
             else
@@ -159,9 +167,17 @@ namespace CodeArt.DomainDriven.DataAccess
         /// <returns></returns>
         private DomainObject CreateObjectImpl(Type defineType, Type objectType, DynamicData data, QueryLevel level)
         {
-            //构造对象
-            var obj = ConstructObject(objectType, data, level);
-
+            DomainObject obj = null;
+            if (this.IsDynamic)
+            {
+                //构造对象
+                obj = ConstructDynamicObject(objectType, this.DynamicType.Define);
+            }
+            else
+            {
+                //构造对象
+                obj = ConstructObject(objectType, data, level);
+            }
 
             //为了避免死循环，我们先将对象加入到构造上下文中
             AddToConstructContext(obj, data);
@@ -172,7 +188,7 @@ namespace CodeArt.DomainDriven.DataAccess
             RemoveFromConstructContext(obj);
 
             //补充信息
-            Supplement(obj, data);
+            Supplement(obj, data, level);
             return obj;
         }
 
@@ -205,6 +221,18 @@ namespace CodeArt.DomainDriven.DataAccess
             return (DomainObject)constructor.CreateInstance(args);
         }
 
+        private DomainObject ConstructDynamicObject(Type objectType, TypeDefine define)
+        {
+            var constructor = ConstructorRepositoryAttribute.GetDynamicConstructor(objectType);
+            using (var temp = ArgsPool.Borrow2())
+            {
+                var args = temp.Item;
+                args[0] = define;
+                args[1] = false; //不为空 empty参数
+                return (DomainObject)constructor.CreateInstance(args);
+            }
+        }
+
         /// <summary>
         /// 加载属性
         /// </summary>
@@ -228,36 +256,36 @@ namespace CodeArt.DomainDriven.DataAccess
             }
         }
 
-        private void SetDataProxy(DomainObject obj, DynamicData data)
+        private void SetDataProxy(DomainObject obj, DynamicData data, bool isMirror)
         {
             //设置代理对象
-            obj.DataProxy = new DataProxyPro(data, this);
+            obj.DataProxy = new DataProxyPro(data, this, isMirror);
         }
 
-        private void Supplement(DomainObject obj, DynamicData data)
+        private void Supplement(DomainObject obj, DynamicData data, QueryLevel level)
         {
             //设置代理对象
-            SetDataProxy(obj, data);
+            SetDataProxy(obj, data, level == QueryLevel.Mirroring);
 
-            var valueObject = obj as ValueObject;
+            var valueObject = obj as IValueObject;
             if (valueObject != null)
             {
                 object id = null;
                 if (data.TryGetValue(EntityObject.IdPropertyName, out id))
                 {
-                    valueObject.SetId((Guid)id);
+                    valueObject.TrySetId((Guid)id);
                 }
             }
 
             obj.MarkClean(); //对象从数据库中读取，是干净的
         }
 
-        private object[] CreateArguments(ConstructorRepositoryAttribute tips, DynamicData data, QueryLevel level)
+        private object[] CreateArguments(ConstructorRepositoryAttribute tip, DynamicData data, QueryLevel level)
         {
-            var length = tips.Parameters.Count();
+            var length = tip.Parameters.Count();
             if (length == 0) return Array.Empty<object>();
             object[] args = new object[length];
-            foreach (var prm in tips.Parameters)
+            foreach (var prm in tip.Parameters)
             {
                 var arg = CreateArgument(prm, data, level);
                 args[prm.Index] = arg;
@@ -310,7 +338,7 @@ namespace CodeArt.DomainDriven.DataAccess
                     }
                 case DomainPropertyType.PrimitiveList:
                     {
-                        return ReadPrimitiveList(tip, data);
+                        return ReadPrimitiveList(parent, tip, data);
                     }
                 case DomainPropertyType.AggregateRoot:
                     {
@@ -378,23 +406,23 @@ namespace CodeArt.DomainDriven.DataAccess
 
         #region 读取基础值的集合数据
 
-        private object ReadPrimitiveList(PropertyRepositoryAttribute tip, DynamicData data)
+        private object ReadPrimitiveList(DomainObject parent, PropertyRepositoryAttribute tip, DynamicData data)
         {
-            return tip.Lazy ? ReadValueListByLazy(tip, data) : ReadValueListFromData(tip, data);
+            return tip.Lazy ? ReadValueListByLazy(parent, tip, data) : ReadValueListFromData(parent, tip, data);
         }
 
 
-        private object ReadValueListFromData(PropertyRepositoryAttribute tip, DynamicData data)
+        private object ReadValueListFromData(DomainObject parent, PropertyRepositoryAttribute tip, DynamicData data)
         {
             object value = null;
             if (data.TryGetValue(tip.PropertyName, out value))
             {
-                return ParseValueList(tip, value);
+                return ParseValueList(parent, tip, value);
             }
             return null;
         }
 
-        private object ParseValueList(PropertyRepositoryAttribute tip, object value)
+        private object ParseValueList(DomainObject parent, PropertyRepositoryAttribute tip, object value)
         {
             var propertyType = tip.PropertyType;
             var elementType = propertyType.ResolveElementType();
@@ -423,14 +451,14 @@ namespace CodeArt.DomainDriven.DataAccess
                 });
             }
 
-            var list = CreateList(propertyType);
+            var list = CreateList(parent, propertyType, tip.Property);
             foreach (var t in temp)
                 list.Add(t);
             return list;
         }
 
 
-        private object ReadValueListByLazy(PropertyRepositoryAttribute tip, DynamicData data)
+        private object ReadValueListByLazy(DomainObject parent, PropertyRepositoryAttribute tip, DynamicData data)
         {
             object id = null;
             if (data.TryGetValue(EntityObject.IdPropertyName, out id))
@@ -442,7 +470,7 @@ namespace CodeArt.DomainDriven.DataAccess
                 if (data.TryGetValue(rootIdName, out rootId))
                 {
                     var value = QueryDataScalar(rootId, id, tip.PropertyName);
-                    return ParseValueList(tip, value);
+                    return ParseValueList(parent, tip, value);
                 }
             }
             return null;
@@ -505,7 +533,16 @@ namespace CodeArt.DomainDriven.DataAccess
                 
                 
                 var typeKey = (string)subData.Get(GeneratedField.TypeKeyName);
-                var objectType = string.IsNullOrEmpty(typeKey) ? tip.PropertyType : DerivedClassAttribute.GetDerivedType(typeKey);
+                Type objectType = null;
+                if(this.IsDynamic)
+                {
+                    objectType = tip.PropertyType;
+                }
+                else
+                {
+                    objectType = string.IsNullOrEmpty(typeKey) ? tip.PropertyType : DerivedClassAttribute.GetDerivedType(typeKey);
+                }
+                
          
                 var child = GetRuntimeTable(this, tip.PropertyName, objectType);
                 //先尝试中构造上下文中得到
@@ -571,7 +608,7 @@ namespace CodeArt.DomainDriven.DataAccess
                 data.TryGetValue(EntityObject.IdPropertyName, out masterId);
 
                 var child = GetChildTableByRuntime(this, tip);
-                return child.ReadOneToMore(prmTip, parent, rootId, masterId, level);
+                return child.ReadOneToMore(tip, prmTip, parent, rootId, masterId, level);
             }
             return null;
         }
@@ -660,7 +697,7 @@ namespace CodeArt.DomainDriven.DataAccess
                 }
                 param.Add(EntityObject.IdPropertyName, id);
 
-                var sql = query.Build(param);
+                var sql = query.Build(param, this);
                 return SqlHelper.ExecuteScalar(this.ConnectionName, sql, param);
             }
         }
@@ -686,7 +723,7 @@ namespace CodeArt.DomainDriven.DataAccess
                     param.Add(GeneratedField.MasterIdName, masterId);
                 }
 
-                var sql = query.Build(param);
+                var sql = query.Build(param, this);
                 SqlHelper.Query(this.ConnectionName, sql, param, datas);
             }
         }

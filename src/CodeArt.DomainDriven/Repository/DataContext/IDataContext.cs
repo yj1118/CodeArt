@@ -40,6 +40,11 @@ namespace CodeArt.DomainDriven
         /// </summary>
         bool IsDirty { get; }
 
+        /// <summary>
+        /// 是否正在提交事务
+        /// </summary>
+        bool IsCommiting { get; }
+
         #endregion
 
         #region 工作单元

@@ -1,0 +1,81 @@
+﻿<ps:Input x:Class="CodeArt.WPF.Controls.Playstation.SelectSlim"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:ps="clr-namespace:CodeArt.WPF.Controls.Playstation">
+    <ps:Input.Template>
+        <ControlTemplate TargetType="ps:SelectSlim">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Border Grid.Column="0" Width="{TemplateBinding LabelWidth}" VerticalAlignment="Top" Height="{TemplateBinding MainHeight}">
+                    <TextBlock x:Name="label"
+                                       HorizontalAlignment="Right" 
+                                       VerticalAlignment="Top"
+                                       FontSize="{TemplateBinding LabelFontSize}"
+                                       LineHeight="{TemplateBinding LabelLineHeight}"
+                                       LineStackingStrategy="BlockLineHeight"
+                                       Foreground="#fff"
+                                       Text="{TemplateBinding Label}"
+                                       Visibility="{TemplateBinding Label,Converter={x:Static ps:StringVisibilityConverter.Instance}}">
+                        <TextBlock.Margin>
+                            <MultiBinding Converter="{x:Static ps:LabelMarginConverter.Instance}" Mode="OneWay">
+                                <MultiBinding.Bindings>
+                                    <Binding Path="MainHeight" RelativeSource="{RelativeSource AncestorType=ps:SelectSlim, Mode=FindAncestor}"/>
+                                    <Binding Path="LineHeight" RelativeSource="{RelativeSource Mode=Self}" />
+                                </MultiBinding.Bindings>
+                            </MultiBinding>
+                        </TextBlock.Margin>
+                    </TextBlock>
+                </Border>
+                <ListBox x:Name="list" Grid.Column="1">
+                    <ListBox.Template>
+                        <ControlTemplate>
+                            <WrapPanel IsItemsHost="True" Width="{Binding MainWidth, Mode=OneWay, RelativeSource={RelativeSource AncestorType=ps:SelectSlim, Mode=FindAncestor}}" 
+                                                            Orientation="Horizontal"
+                                                            ItemWidth="{Binding ItemWidth, Mode=OneWay, RelativeSource={RelativeSource AncestorType=ps:SelectSlim, Mode=FindAncestor}}"
+                                                            MinHeight="{Binding MainHeight, Mode=OneWay, RelativeSource={RelativeSource AncestorType=ps:SelectSlim, Mode=FindAncestor}}">
+                            </WrapPanel>
+                        </ControlTemplate>
+                    </ListBox.Template>
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ListBoxItem">
+                                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                 TextBlock.Foreground="{TemplateBinding Foreground}"/>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Padding" Value="0,0,0,0"></Setter>
+                            <Setter Property="Margin" Value="0,0,0,0"></Setter>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Height="{Binding MainHeight, Mode=OneWay, RelativeSource={RelativeSource AncestorType=ps:SelectSlim, Mode=FindAncestor}}"
+                                  MouseUp="Item_MouseUp" Background="Transparent" Margin="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <ps:SelectSign IsRadio="{Binding MaxCount, 
+                                                        Mode=OneWay, 
+                                                        RelativeSource={RelativeSource AncestorType=ps:SelectSlim, Mode=FindAncestor},
+                                                        Converter={x:Static ps:SelectIsRadioConverter.Instance}}" 
+                                               Selected="{Binding IsSelected}" Grid.Row="0" Grid.Column="0" x:Name="sign"
+                                               VerticalAlignment="Center"></ps:SelectSign>
+                                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" Margin="10 0 0 0" Style="{DynamicResource TextSM}" Foreground="#fff" Text="{Binding Text}"></TextBlock>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+        </ControlTemplate>
+    </ps:Input.Template>
+</ps:Input>

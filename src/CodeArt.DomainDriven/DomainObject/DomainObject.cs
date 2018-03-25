@@ -15,7 +15,11 @@ using CodeArt.AppSetting;
 namespace CodeArt.DomainDriven
 {
     /// <summary>
-    /// <para>我们保证领域对象的读操作是线程安全的</para>
+    /// <para>我们保证领域对象的读操作是线程安全的,但是写操作（例如属性赋值等）不是线程安全的，如果需要并发控制请根据业务要求自行编写代码</para>
+    /// <para>虽然写操作不是线程安全的，但是通过带锁查询可以有效的保证多线程安全，这包括以下约定：</para>
+    /// <para>用QueryLevel.None加载的对象，请不要做更改对象状态的操作，仅用于读操作</para>
+    /// <para>用QueryLevel.Single和QueryLevel.HoldSingle加载的对象，由当前线程独占，其他线程不可访问，因此对于当前线程来说可以安全的读写，由于独占可能会引起性能的下降，也可能引起死锁</para>
+    /// <para>用QueryLevel.Mirroring加载的对象属于当前线程独立的对象，与其他线程没有交集，对于当前线程是可以安全的读写，性能较高，当需要在一个事务中处理多个根对象时必须使用该加载方式</para>
     /// <para>对于领域对象属性是否改变的约定：
     /// 1.如果属性为普通类型（int、string等基础类型）,根据值是否发生了改变来判定属性是否改变
     /// 2.如果属性为值对象类型（ValueObject）,根据ValueObject的值是否发生了改变来判定属性是否改变
@@ -28,11 +32,28 @@ namespace CodeArt.DomainDriven
     /// </summary>
     public abstract class DomainObject : System.Dynamic.DynamicObject, IDomainObject, INullProxy
     {
-        internal Type ObjectType
+        /// <summary>
+        /// 领域对象的类型，请注意，在动态领域对象下，该类型是对应的领域对象的类型，而不是DynamicRoot、DynamicValueObject等载体对象
+        /// </summary>
+        public Type ObjectType
+        {
+            get
+            {
+                return GetObjectType();
+            }
+        }
+
+        protected virtual Type GetObjectType()
+        {
+            return this.InstanceType;//默认是实例的类型
+        }
+
+        protected Type InstanceType
         {
             get;
             private set;
         }
+
 
         /// <summary>
         /// 领域对象的继承深度（注意，仅从DomainObject基类开始算起）
@@ -43,18 +64,17 @@ namespace CodeArt.DomainDriven
             private set;
         }
 
-
         public DomainObject()
         {
             this.IsConstructing = true;
-            this.ObjectType = this.GetType();
+            this.InstanceType = this.GetType(); 
             this.TypeDepth = GetTypeDepth();
             this.OnConstructed();
         }
 
         private int GetTypeDepth()
         {
-            var depth = this.ObjectType.GetDepth();
+            var depth = this.InstanceType.GetDepth();
 
             var baseType = typeof(DomainObject).BaseType;
             if (baseType == null) return depth;
@@ -72,6 +92,17 @@ namespace CodeArt.DomainDriven
             get
             {
                 return this.DataProxy.IsSnapshot; //通过数据代理我们得知数据是否为快照
+            }
+        }
+
+        /// <summary>
+        /// 对象是否为一个镜像
+        /// </summary>
+        public bool IsMirror
+        {
+            get
+            {
+                return this.DataProxy.IsMirror;
             }
         }
 
@@ -584,7 +615,8 @@ namespace CodeArt.DomainDriven
             if (isChanged)
             {
                 var collection = value as IDomainCollection;
-                if (collection != null) collection.Parent = this;
+                if (collection != null)
+                    collection.Parent = this;
 
                 this.DataProxy.Save(property, value);
                 HandlePropertyChanged(property, value, oldValue);
@@ -883,7 +915,8 @@ namespace CodeArt.DomainDriven
         private static Func<Type, object> _getObjectEmpty = LazyIndexer.Init<Type, object>((objectType) =>
         {
             var empty = objectType.GetStaticValue("Empty");
-            if (empty == null) throw new DomainDrivenException(string.Format(Strings.NotFoundEmpty, objectType.FullName));
+            if (empty == null)
+                throw new DomainDrivenException(string.Format(Strings.NotFoundEmpty, objectType.FullName));
             return empty;
         });
 

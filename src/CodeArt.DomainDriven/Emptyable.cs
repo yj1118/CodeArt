@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CodeArt.DTO;
 
 namespace CodeArt.DomainDriven
 {
@@ -16,7 +17,7 @@ namespace CodeArt.DomainDriven
     /// 因此我们提供了Emptyable结构，来帮助我们完成值类型数据为Empty的判断
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public struct Emptyable<T> : IEmptyable
+    public struct Emptyable<T> : IEmptyable,IDTOSerializable
         where T : struct
     {
         private T? _value;
@@ -49,6 +50,18 @@ namespace CodeArt.DomainDriven
             _value = value;
         }
 
+        /// <summary>
+        /// 将自身的内容序列化到<paramref name="owner"/>中，
+        /// </summary>
+        /// <param name="owner"></param>
+        /// <param name="name">目标对象作为成员的名称</param>
+        public void Serialize(DTObject owner, string name)
+        {
+            if (this.IsEmpty()) return;
+            owner.SetValue(name, _value.Value);
+        }
+
+
         public override string ToString()
         {
             if (!_value.HasValue) return string.Empty;
@@ -64,6 +77,7 @@ namespace CodeArt.DomainDriven
 
         public static implicit operator T(Emptyable<T> value)
         {
+            if (value.IsEmpty()) throw new InvalidOperationException(Strings.NotIncludeValue);
             return value.Value;
         }
 

@@ -21,6 +21,6 @@ namespace CodeArt.DomainDriven.DataAccess
         /// <param name="builder"></param>
         /// <param name="param"></param>
         /// <returns></returns>
-        string Build(QueryBuilder builder, DynamicData param);
+        string Build(QueryBuilder builder, DynamicData param, DataTable table);
     }
 }

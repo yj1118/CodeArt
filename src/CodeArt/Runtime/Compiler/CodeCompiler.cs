@@ -50,12 +50,12 @@ namespace CodeArt.Runtime
             if (debugMode)
             {
                 _params.IncludeDebugInformation = true; //生成pdb，可以调试
-                this._params.CompilerOptions += "/define:optimize /define:DEBUG=1 ";
+                //this._params.CompilerOptions += "/define:optimize /define:DEBUG=1 ";
             }
             else
             {
                 _params.IncludeDebugInformation = false;
-                _params.CompilerOptions += "/optimize";
+                //_params.CompilerOptions += "/optimize";
             }
             _provider = provider;
         }
@@ -104,7 +104,7 @@ namespace CodeArt.Runtime
             {
                 CompilerErrorCollection errors = result.Errors;
                 StringBuilder message = new StringBuilder();
-                message.AppendLine("编译出错");
+                message.AppendLine(Strings.CompileError);
                 foreach (CompilerError item in errors)
                     message.AppendLine(item.ErrorText);
 

@@ -15,6 +15,8 @@ namespace CodeArt.DomainDriven.DataAccess
     {
         /// <summary>
         /// 从数据库中加载的数据
+        /// 我们并不在数据代理中的原始数据里包含附加字段的值，因为这些值由程序员额外维护，我们不能保证对象缓冲区的对象中包含的数据和附加字段的数据是同步的
+        /// 例如：在树状结构中，批量更改了LR的值，这时候数据缓冲区并不知道
         /// </summary>
         public DynamicData OriginalData
         {
@@ -31,10 +33,11 @@ namespace CodeArt.DomainDriven.DataAccess
             private set;
         }
 
-        public DataProxyPro(DynamicData originalData, DataTable table)
+        public DataProxyPro(DynamicData originalData, DataTable table,bool isMirror)
         {
             this.OriginalData = originalData;
             this.Table = table;
+            _isMirror = isMirror;
         }
 
         protected override object LoadData(DomainProperty property)
@@ -43,10 +46,21 @@ namespace CodeArt.DomainDriven.DataAccess
             //if (tip != null && tip.Lazy)
             if (tip != null)
             {
-                var level = DataContext.Current.IsMirror(this) ? QueryLevel.Mirroring : QueryLevel.None;
+                var level = IsLoadByMirroring() ? QueryLevel.Mirroring : QueryLevel.None;
                 return this.Table.ReadPropertyValue(this.Owner, tip, null, this.OriginalData, level);
             }
             return null;
+        }
+
+        /// <summary>
+        /// 镜像对象的属性加载优先用镜像模式
+        /// 如果处于提交阶段，那么使用无锁模式，在提交阶段加载数据一般是由于验证器的验证操作引起的
+        /// </summary>
+        /// <returns></returns>
+        private bool IsLoadByMirroring()
+        {
+            var context = DataContext.Current;
+            return !context.IsCommiting && this.Owner.IsMirror;
         }
 
         public override bool IsSnapshot
@@ -58,6 +72,16 @@ namespace CodeArt.DomainDriven.DataAccess
                 var current = this.Version;
                 var latest = this.Table.GetDataVersion(this.OriginalData);
                 return current != latest; //当对象已经被删除，对象版本号大于数据库版本号，当对象被修改，当前对象版本号小于数据库版本号
+            }
+        }
+
+        private bool _isMirror;
+
+        public override bool IsMirror
+        {
+            get
+            {
+                return _isMirror;
             }
         }
 

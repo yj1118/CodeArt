@@ -1,0 +1,784 @@
+2018-03-14 00:37:15.5253 FATAL 消息：
+属性 MarkedCode 的值 121 重复
+；堆栈：
+2018-03-14 00:46:43.9838 FATAL 消息：
+必须声明标量变量 "@Id"。
+；堆栈：   在 CodeArt.DomainDriven.CommandBase.OnFailed(Exception ex) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Command\CommandBase.cs:行号 47
+   在 CodeArt.DomainDriven.CommandBase.ExecuteImpl(Action action) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Command\CommandBase.cs:行号 28
+   在 CodeArt.DomainDriven.Command.Execute() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Command\Command.cs:行号 14
+   在 PortalService.Application.DeleteRoles.DynamicInvoke(Object arg) 位置 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\Role\DeleteRoles.cs:行号 23
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(DTObject arg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 19
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 14
+   在 CodeArt.ServiceModel.MQServiceHandler.ProcessService(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 58
+   在 CodeArt.ServiceModel.MQServiceHandler.Process(String method, DTObject args) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 34
+   在 CodeArt.DomainDriven.DataContext.Commit() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 501
+   在 CodeArt.DomainDriven.DataContext.Using(DataContext dataContext, Action action, Boolean timely, Boolean newScope) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 699
+
+2018-03-14 00:47:06.5468 FATAL 消息：
+必须声明标量变量 "@Id"。
+；堆栈：   在 CodeArt.DomainDriven.CommandBase.OnFailed(Exception ex) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Command\CommandBase.cs:行号 47
+   在 CodeArt.DomainDriven.CommandBase.ExecuteImpl(Action action) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Command\CommandBase.cs:行号 28
+   在 CodeArt.DomainDriven.Command.Execute() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Command\Command.cs:行号 14
+   在 PortalService.Application.DeleteRoles.DynamicInvoke(Object arg) 位置 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\Role\DeleteRoles.cs:行号 23
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(DTObject arg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 19
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 14
+   在 CodeArt.ServiceModel.MQServiceHandler.ProcessService(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 58
+   在 CodeArt.ServiceModel.MQServiceHandler.Process(String method, DTObject args) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 34
+   在 CodeArt.DomainDriven.DataContext.Commit() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 501
+   在 CodeArt.DomainDriven.DataContext.Using(DataContext dataContext, Action action, Boolean timely, Boolean newScope) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 699
+
+2018-03-14 19:50:12.4891 FATAL 消息：索引和计数必须引用该字符串内的位置。
+参数名: count；堆栈：   在 System.String.Remove(Int32 startIndex, Int32 count)
+   在 CodeArt.DomainDriven.DataAccess.SqlCondition.ParseLike(String code) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Query\Expression\SqlDefinition\SqlCondition.cs:行号 116
+   在 CodeArt.DomainDriven.DataAccess.SqlCondition.Parse(String code) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Query\Expression\SqlDefinition\SqlCondition.cs:行号 82
+   在 CodeArt.DomainDriven.DataAccess.SqlCondition..ctor(String code) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Query\Expression\SqlDefinition\SqlCondition.cs:行号 70
+   在 CodeArt.DomainDriven.DataAccess.SqlDefinition.<>c.<.cctor>b__70_1(String expression) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Query\Expression\SqlDefinition\SqlDefinition.cs:行号 243
+   在 CodeArt.Util.LazyIndexer.<>c__DisplayClass2_0`2.<Init>b__0(TKey key) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Util\LazyIndexer.cs:行号 56
+   在 CodeArt.DomainDriven.DataAccess.SqlDefinition.Create(String expression) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Query\Expression\SqlDefinition\SqlDefinition.cs:行号 218
+   在 CodeArt.DomainDriven.DataAccess.DataTable.<>c__DisplayClass252_1.<.cctor>b__11(String expression) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 335
+   在 CodeArt.Util.LazyIndexer.<>c__DisplayClass2_0`2.<Init>b__0(TKey key) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Util\LazyIndexer.cs:行号 56
+   在 CodeArt.DomainDriven.DataAccess.DataTable.GetEntryExpression(String expression) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 327
+   在 CodeArt.DomainDriven.DataAccess.DataTable.Query[T](String expression, Int32 pageIndex, Int32 pageSize, Action`1 fillArg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 177
+   在 CodeArt.DomainDriven.DataAccess.DataModel.Query[T](String expression, Int32 pageIndex, Int32 pageSize, Action`1 fillArg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\DataModel.cs:行号 108
+   在 CodeArt.DomainDriven.DataAccess.DataPortal.Query[T](String expression, Int32 pageIndex, Int32 pageSize, Action`1 fillArg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataPortal\DataPortal.cs:行号 173
+   在 CodeArt.DomainDriven.DataAccess.DataContextExtensions.<>c__DisplayClass2_0`1.<Query>b__0() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\DataContextExtensions.cs:行号 58
+   在 CodeArt.DomainDriven.DataContext.RegisterQueried[T](QueryLevel level, Func`1 persistQuery) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 205
+   在 CodeArt.DomainDriven.DataAccess.DataContextExtensions.Query[T](IDataContext dataContext, String expression, Int32 pageIndex, Int32 pageSize, Action`1 fillArg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\DataContextExtensions.cs:行号 56
+   在 CodeArt.DomainDriven.DataAccess.SqlRepository`1.Query[T](String expression, Int32 pageIndex, Int32 pageSize, Action`1 fillArg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\SqlRepository.cs:行号 83
+   在 AccountSubsystem.SqlAccountRepository.FindPageBy(String flag, Int32 pageIndex, Int32 pageSize) 位置 D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystem\Account\SqlAccountRepository.cs:行号 62
+   在 AccountSubsystem.AccountCommon.FindPage(String flag, Int32 pageIndex, Int32 pageSize) 位置 D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystem\Account\Application\AccountCommon.cs:行号 60
+   在 CallSite.Target(Closure , CallSite , Type , Object , Object , Object )
+   在 System.Dynamic.UpdateDelegates.UpdateAndExecute4[T0,T1,T2,T3,TRet](CallSite site, T0 arg0, T1 arg1, T2 arg2, T3 arg3)
+   在 PortalService.Application.GetAccountPage.DynamicInvoke(Object arg) 位置 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\Account\GetAccountPage.cs:行号 22
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(DTObject arg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 19
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 14
+   在 CodeArt.ServiceModel.MQServiceHandler.ProcessService(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 58
+   在 CodeArt.ServiceModel.MQServiceHandler.Process(String method, DTObject args) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 34
+2018-03-14 20:03:35.0357 FATAL 消息：翻页查询需要指定排序语句；堆栈：   在 CodeArt.DomainDriven.DataAccess.QueryPage.CheckUpOrder() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Query\Expression\QueryPage\QueryPage.cs:行号 27
+   在 CodeArt.DomainDriven.DataAccess.QueryPage..ctor(DataTable target, String expression) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Query\Expression\QueryPage\QueryPage.cs:行号 21
+   在 CodeArt.DomainDriven.DataAccess.QueryPage.<>c__DisplayClass8_0.<.cctor>b__1(String expression) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Query\Expression\QueryPage\QueryPage.cs:行号 62
+   在 CodeArt.Util.LazyIndexer.<>c__DisplayClass2_0`2.<Init>b__0(TKey key) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Util\LazyIndexer.cs:行号 56
+   在 CodeArt.DomainDriven.DataAccess.QueryPage.Create(DataTable target, String expression) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Query\Expression\QueryPage\QueryPage.cs:行号 55
+   在 CodeArt.DomainDriven.DataAccess.DataTable.Query[T](String expression, Int32 pageIndex, Int32 pageSize, Action`1 fillArg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 178
+   在 CodeArt.DomainDriven.DataAccess.DataModel.Query[T](String expression, Int32 pageIndex, Int32 pageSize, Action`1 fillArg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\DataModel.cs:行号 108
+   在 CodeArt.DomainDriven.DataAccess.DataPortal.Query[T](String expression, Int32 pageIndex, Int32 pageSize, Action`1 fillArg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataPortal\DataPortal.cs:行号 173
+   在 CodeArt.DomainDriven.DataAccess.DataContextExtensions.<>c__DisplayClass2_0`1.<Query>b__0() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\DataContextExtensions.cs:行号 58
+   在 CodeArt.DomainDriven.DataContext.RegisterQueried[T](QueryLevel level, Func`1 persistQuery) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 205
+   在 CodeArt.DomainDriven.DataAccess.DataContextExtensions.Query[T](IDataContext dataContext, String expression, Int32 pageIndex, Int32 pageSize, Action`1 fillArg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\DataContextExtensions.cs:行号 56
+   在 CodeArt.DomainDriven.DataAccess.SqlRepository`1.Query[T](String expression, Int32 pageIndex, Int32 pageSize, Action`1 fillArg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\SqlRepository.cs:行号 83
+   在 AccountSubsystem.SqlAccountRepository.FindPageBy(String flag, Int32 pageIndex, Int32 pageSize) 位置 D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystem\Account\SqlAccountRepository.cs:行号 62
+   在 AccountSubsystem.AccountCommon.FindPage(String flag, Int32 pageIndex, Int32 pageSize) 位置 D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystem\Account\Application\AccountCommon.cs:行号 60
+   在 CallSite.Target(Closure , CallSite , Type , Object , Object , Object )
+   在 System.Dynamic.UpdateDelegates.UpdateAndExecute4[T0,T1,T2,T3,TRet](CallSite site, T0 arg0, T1 arg1, T2 arg2, T3 arg3)
+   在 PortalService.Application.GetAccountPage.DynamicInvoke(Object arg) 位置 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\Account\GetAccountPage.cs:行号 22
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(DTObject arg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 19
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 14
+   在 CodeArt.ServiceModel.MQServiceHandler.ProcessService(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 58
+   在 CodeArt.ServiceModel.MQServiceHandler.Process(String method, DTObject args) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 34
+2018-03-14 20:03:43.7811 FATAL 消息：翻页查询需要指定排序语句；堆栈：   在 CodeArt.DomainDriven.DataAccess.QueryPage.CheckUpOrder() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Query\Expression\QueryPage\QueryPage.cs:行号 27
+   在 CodeArt.DomainDriven.DataAccess.QueryPage..ctor(DataTable target, String expression) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Query\Expression\QueryPage\QueryPage.cs:行号 21
+   在 CodeArt.DomainDriven.DataAccess.QueryPage.<>c__DisplayClass8_0.<.cctor>b__1(String expression) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Query\Expression\QueryPage\QueryPage.cs:行号 62
+   在 CodeArt.Util.LazyIndexer.<>c__DisplayClass2_0`2.<Init>b__0(TKey key) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Util\LazyIndexer.cs:行号 56
+   在 CodeArt.DomainDriven.DataAccess.QueryPage.Create(DataTable target, String expression) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Query\Expression\QueryPage\QueryPage.cs:行号 55
+   在 CodeArt.DomainDriven.DataAccess.DataTable.Query[T](String expression, Int32 pageIndex, Int32 pageSize, Action`1 fillArg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\Table\Query.cs:行号 178
+   在 CodeArt.DomainDriven.DataAccess.DataModel.Query[T](String expression, Int32 pageIndex, Int32 pageSize, Action`1 fillArg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataModel\DataModel.cs:行号 108
+   在 CodeArt.DomainDriven.DataAccess.DataPortal.Query[T](String expression, Int32 pageIndex, Int32 pageSize, Action`1 fillArg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\DataPortal\DataPortal.cs:行号 173
+   在 CodeArt.DomainDriven.DataAccess.DataContextExtensions.<>c__DisplayClass2_0`1.<Query>b__0() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\DataContextExtensions.cs:行号 58
+   在 CodeArt.DomainDriven.DataContext.RegisterQueried[T](QueryLevel level, Func`1 persistQuery) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\Repository\DataContext\DataContext.cs:行号 205
+   在 CodeArt.DomainDriven.DataAccess.DataContextExtensions.Query[T](IDataContext dataContext, String expression, Int32 pageIndex, Int32 pageSize, Action`1 fillArg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\DataContextExtensions.cs:行号 56
+   在 CodeArt.DomainDriven.DataAccess.SqlRepository`1.Query[T](String expression, Int32 pageIndex, Int32 pageSize, Action`1 fillArg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\Common\SqlRepository.cs:行号 83
+   在 AccountSubsystem.SqlAccountRepository.FindPageBy(String flag, Int32 pageIndex, Int32 pageSize) 位置 D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystem\Account\SqlAccountRepository.cs:行号 62
+   在 AccountSubsystem.AccountCommon.FindPage(String flag, Int32 pageIndex, Int32 pageSize) 位置 D:\Workspace\Projects\Subsystems Framework\AccountSubsystem\AccountSubsystem\Account\Application\AccountCommon.cs:行号 60
+   在 CallSite.Target(Closure , CallSite , Type , Object , Object , Object )
+   在 PortalService.Application.GetAccountPage.DynamicInvoke(Object arg) 位置 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\Account\GetAccountPage.cs:行号 22
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(DTObject arg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 19
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 14
+   在 CodeArt.ServiceModel.MQServiceHandler.ProcessService(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 58
+   在 CodeArt.ServiceModel.MQServiceHandler.Process(String method, DTObject args) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 34
+2018-03-14 20:04:52.8814 FATAL 消息：目前不支持Nullable值的dto序列化；堆栈：   在 CodeArt.DTO.SerializationMethodHelper.GetMethodBySimple(Type type, SerializationMethodType methodType) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\MethodGenerator\SerializationMethodHelper.cs:行号 89
+   在 CodeArt.DTO.SerializationMethodHelper.GetTypeMethod(Type type, SerializationMethodType methodType) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\MethodGenerator\SerializationMethodHelper.cs:行号 134
+   在 CodeArt.DTO.SerializationMethodHelper.Read(MethodGenerator g, String dtoMemberName, Type valueType) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\MethodGenerator\SerializationMethodHelper.cs:行号 267
+   在 CodeArt.DTO.MemberSerializationInfo.<>c__DisplayClass35_0.<GenerateDeserializeIL>b__0() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\Member\MemberSerializationInfo.cs:行号 241
+   在 CodeArt.Runtime.IL.MethodGenerator.Assign(FieldInfo field, Action loadValue) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\MethodGenerator\MGAssign.cs:行号 55
+   在 CodeArt.DTO.MemberSerializationInfo.SetMember(MethodGenerator g, Action loadValue) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\Member\MemberSerializationInfo.cs:行号 257
+   在 CodeArt.DTO.MemberSerializationInfo.GenerateDeserializeIL(MethodGenerator g) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\Member\MemberSerializationInfo.cs:行号 239
+   在 CodeArt.DTO.DTODeserializeMethodGenerator.ReadMembers(MethodGenerator g, TypeSerializationInfo typeInfo) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\MethodGenerator\DTODeserializeMethodGenerator.cs:行号 87
+   在 CodeArt.DTO.DTODeserializeMethodGenerator.GenerateMethod(TypeSerializationInfo typeInfo) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\MethodGenerator\DTODeserializeMethodGenerator.cs:行号 34
+   在 CodeArt.DTO.TypeSerializationInfo.CreateDeserializeMethod() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 172
+   在 CodeArt.DTO.TypeSerializationInfo.Initialize() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 79
+   在 CodeArt.DTO.TypeSchemaCodeInfo..ctor(Type classType, String schemaCode) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 29
+   在 CodeArt.DTO.TypeSchemaCodeInfo.<>c__DisplayClass10_0.<.cctor>b__1(String schemaCode) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 116
+   在 CodeArt.Util.LazyIndexer.<>c__DisplayClass2_0`2.<Init>b__0(TKey key) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Util\LazyIndexer.cs:行号 56
+   在 CodeArt.DTO.TypeSchemaCodeInfo.GetTypeInfo(Type classType, String schemaCode) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 123
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 55
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 56
+   在 DTOSerialize_e1cf6af784db49a8accee43af450bbe2(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 56
+   在 DTOSerialize_25e8b6615b084ca8b6df6a84dfa95c34(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 56
+   在 DTOSerialize_4e99245332a047649b52a04b2f8391f3(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.DTObject.CreateReusable(String schemaCode, Object target) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\DTObject.cs:行号 1113
+   在 CodeArt.DomainDriven.DTObjectPro.<>c__DisplayClass0_0`1.<Create>b__0(T obj) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.Extensions\DTObjectPro.cs:行号 29
+   在 CodeArt.DTO.DTObject.Push[T](String findExp, IEnumerable`1 list, Func`2 factory) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\DTObject.cs:行号 432
+   在 CodeArt.DomainDriven.DTObjectPro.Create[T](String rowSchemaCode, Page`1 page) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.Extensions\DTObjectPro.cs:行号 27
+   在 System.Dynamic.UpdateDelegates.UpdateAndExecute3[T0,T1,T2,TRet](CallSite site, T0 arg0, T1 arg1, T2 arg2)
+   在 PortalService.Application.GetAccountPage.DynamicInvoke(Object arg) 位置 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\Account\GetAccountPage.cs:行号 23
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(DTObject arg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 19
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 14
+   在 CodeArt.ServiceModel.MQServiceHandler.ProcessService(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 58
+   在 CodeArt.ServiceModel.MQServiceHandler.Process(String method, DTObject args) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 34
+2018-03-14 20:16:50.4404 FATAL 消息：未将对象引用设置到对象的实例。；堆栈：   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 56
+   在 DTOSerialize_b16dd1491302419f8ecdae32c930cde6(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 56
+   在 DTOSerialize_a36e8549990d4f3684bb960bee0e231e(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 56
+   在 DTOSerialize_e688575f32b44c63897839619ffa52c9(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 56
+   在 DTOSerialize_86d761070790473f9f049efd40f40801(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.DTObject.CreateReusable(String schemaCode, Object target) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\DTObject.cs:行号 1113
+   在 CodeArt.DomainDriven.DTObjectPro.<>c__DisplayClass0_0`1.<Create>b__0(T obj) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.Extensions\DTObjectPro.cs:行号 29
+   在 CodeArt.DTO.DTObject.Push[T](String findExp, IEnumerable`1 list, Func`2 factory) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\DTObject.cs:行号 432
+   在 CodeArt.DomainDriven.DTObjectPro.Create[T](String rowSchemaCode, Page`1 page) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.Extensions\DTObjectPro.cs:行号 27
+   在 System.Dynamic.UpdateDelegates.UpdateAndExecute3[T0,T1,T2,TRet](CallSite site, T0 arg0, T1 arg1, T2 arg2)
+   在 PortalService.Application.GetAccountPage.DynamicInvoke(Object arg) 位置 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\Account\GetAccountPage.cs:行号 23
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(DTObject arg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 19
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 14
+   在 CodeArt.ServiceModel.MQServiceHandler.ProcessService(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 58
+   在 CodeArt.ServiceModel.MQServiceHandler.Process(String method, DTObject args) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 34
+2018-03-14 20:17:27.0643 FATAL 消息：未将对象引用设置到对象的实例。；堆栈：   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 56
+   在 DTOSerialize_b16dd1491302419f8ecdae32c930cde6(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 56
+   在 DTOSerialize_a36e8549990d4f3684bb960bee0e231e(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 56
+   在 DTOSerialize_e688575f32b44c63897839619ffa52c9(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 56
+   在 DTOSerialize_86d761070790473f9f049efd40f40801(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.DTObject.CreateReusable(String schemaCode, Object target) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\DTObject.cs:行号 1113
+   在 CodeArt.DomainDriven.DTObjectPro.<>c__DisplayClass0_0`1.<Create>b__0(T obj) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.Extensions\DTObjectPro.cs:行号 29
+   在 CodeArt.DTO.DTObject.Push[T](String findExp, IEnumerable`1 list, Func`2 factory) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\DTObject.cs:行号 432
+   在 CodeArt.DomainDriven.DTObjectPro.Create[T](String rowSchemaCode, Page`1 page) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.Extensions\DTObjectPro.cs:行号 27
+   在 PortalService.Application.GetAccountPage.DynamicInvoke(Object arg) 位置 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\Account\GetAccountPage.cs:行号 23
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(DTObject arg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 19
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 14
+   在 CodeArt.ServiceModel.MQServiceHandler.ProcessService(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 58
+   在 CodeArt.ServiceModel.MQServiceHandler.Process(String method, DTObject args) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 34
+2018-03-14 20:18:12.5053 FATAL 消息：未将对象引用设置到对象的实例。；堆栈：   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 56
+   在 DTOSerialize_e2b986b9d0ca4e74ac61ec4a235dcb7f(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 56
+   在 DTOSerialize_2dadac7a344748d7a6f4b9ca90d01229(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 56
+   在 DTOSerialize_491414af355747f2842d5c3a79ab3463(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 56
+   在 DTOSerialize_485470d8e8bd47dd9ec3c6371fe4ce62(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.DTObject.CreateReusable(String schemaCode, Object target) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\DTObject.cs:行号 1113
+   在 CodeArt.DomainDriven.DTObjectPro.<>c__DisplayClass0_0`1.<Create>b__0(T obj) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.Extensions\DTObjectPro.cs:行号 29
+   在 CodeArt.DTO.DTObject.Push[T](String findExp, IEnumerable`1 list, Func`2 factory) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\DTObject.cs:行号 432
+   在 CodeArt.DomainDriven.DTObjectPro.Create[T](String rowSchemaCode, Page`1 page) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.Extensions\DTObjectPro.cs:行号 27
+   在 System.Dynamic.UpdateDelegates.UpdateAndExecute3[T0,T1,T2,TRet](CallSite site, T0 arg0, T1 arg1, T2 arg2)
+   在 PortalService.Application.GetAccountPage.DynamicInvoke(Object arg) 位置 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\Account\GetAccountPage.cs:行号 23
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(DTObject arg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 19
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 14
+   在 CodeArt.ServiceModel.MQServiceHandler.ProcessService(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 58
+   在 CodeArt.ServiceModel.MQServiceHandler.Process(String method, DTObject args) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 34
+2018-03-14 20:18:45.7244 FATAL 消息：未将对象引用设置到对象的实例。；堆栈：   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 56
+   在 DTOSerialize_8f95db9dbb684cb08f08291ae3a96441(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 56
+   在 DTOSerialize_352785a44bd64e6ca4737b0bde1a03d8(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 56
+   在 DTOSerialize_317c9bb3a4954b74a5430f9c8a0f3e51(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 56
+   在 DTOSerialize_24844480efb54055bf97cb2a46caf933(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.DTObject.CreateReusable(String schemaCode, Object target) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\DTObject.cs:行号 1113
+   在 CodeArt.DomainDriven.DTObjectPro.<>c__DisplayClass0_0`1.<Create>b__0(T obj) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.Extensions\DTObjectPro.cs:行号 29
+   在 CodeArt.DTO.DTObject.Push[T](String findExp, IEnumerable`1 list, Func`2 factory) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\DTObject.cs:行号 432
+   在 CodeArt.DomainDriven.DTObjectPro.Create[T](String rowSchemaCode, Page`1 page) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.Extensions\DTObjectPro.cs:行号 27
+   在 System.Dynamic.UpdateDelegates.UpdateAndExecute3[T0,T1,T2,TRet](CallSite site, T0 arg0, T1 arg1, T2 arg2)
+   在 PortalService.Application.GetAccountPage.DynamicInvoke(Object arg) 位置 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\Account\GetAccountPage.cs:行号 23
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(DTObject arg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 19
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 14
+   在 CodeArt.ServiceModel.MQServiceHandler.ProcessService(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 58
+   在 CodeArt.ServiceModel.MQServiceHandler.Process(String method, DTObject args) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 34
+2018-03-14 20:22:01.6775 FATAL 消息：未将对象引用设置到对象的实例。；堆栈：   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 56
+   在 DTOSerialize_3d30ba888c2e4eaaa4afd1396e4ebb7e(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 56
+   在 DTOSerialize_819b759a56994205a0c7a80577de3868(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 56
+   在 DTOSerialize_85124cf877754bdea45f6d2a5c4c3336(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 56
+   在 DTOSerialize_a5cc772f1a374bc19ab3174f06ebc018(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.DTObject.CreateReusable(String schemaCode, Object target) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\DTObject.cs:行号 1113
+   在 CodeArt.DomainDriven.DTObjectPro.<>c__DisplayClass0_0`1.<Create>b__0(T obj) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.Extensions\DTObjectPro.cs:行号 29
+   在 CodeArt.DTO.DTObject.Push[T](String findExp, IEnumerable`1 list, Func`2 factory) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\DTObject.cs:行号 432
+   在 CodeArt.DomainDriven.DTObjectPro.Create[T](String rowSchemaCode, Page`1 page) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.Extensions\DTObjectPro.cs:行号 27
+   在 System.Dynamic.UpdateDelegates.UpdateAndExecute3[T0,T1,T2,TRet](CallSite site, T0 arg0, T1 arg1, T2 arg2)
+   在 PortalService.Application.GetAccountPage.DynamicInvoke(Object arg) 位置 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\Account\GetAccountPage.cs:行号 23
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(DTObject arg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 19
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 14
+   在 CodeArt.ServiceModel.MQServiceHandler.ProcessService(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 58
+   在 CodeArt.ServiceModel.MQServiceHandler.Process(String method, DTObject args) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 34
+2018-03-14 20:24:27.2282 FATAL 消息：未将对象引用设置到对象的实例。；堆栈：   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 56
+   在 DTOSerialize_60dc99174b1e427f92f008327901296c(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 56
+   在 DTOSerialize_eb65406a051d4cf39c87f17f29f79225(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 56
+   在 DTOSerialize_fd2b8b48bb4149428f2f83add146f269(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 56
+   在 DTOSerialize_27a2578fcdf2447cb984501de81993f7(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.DTObject.CreateReusable(String schemaCode, Object target) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\DTObject.cs:行号 1113
+   在 CodeArt.DomainDriven.DTObjectPro.<>c__DisplayClass0_0`1.<Create>b__0(T obj) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.Extensions\DTObjectPro.cs:行号 29
+   在 CodeArt.DTO.DTObject.Push[T](String findExp, IEnumerable`1 list, Func`2 factory) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\DTObject.cs:行号 432
+   在 CodeArt.DomainDriven.DTObjectPro.Create[T](String rowSchemaCode, Page`1 page) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.Extensions\DTObjectPro.cs:行号 27
+   在 System.Dynamic.UpdateDelegates.UpdateAndExecute3[T0,T1,T2,TRet](CallSite site, T0 arg0, T1 arg1, T2 arg2)
+   在 PortalService.Application.GetAccountPage.DynamicInvoke(Object arg) 位置 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\Account\GetAccountPage.cs:行号 23
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(DTObject arg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 19
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 14
+   在 CodeArt.ServiceModel.MQServiceHandler.ProcessService(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 58
+   在 CodeArt.ServiceModel.MQServiceHandler.Process(String method, DTObject args) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 34
+2018-03-14 20:25:34.8831 FATAL 消息：未将对象引用设置到对象的实例。；堆栈：   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 56
+   在 DTOSerialize_60dc99174b1e427f92f008327901296c(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 56
+   在 DTOSerialize_eb65406a051d4cf39c87f17f29f79225(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 56
+   在 DTOSerialize_fd2b8b48bb4149428f2f83add146f269(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 56
+   在 DTOSerialize_27a2578fcdf2447cb984501de81993f7(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.DTObject.CreateReusable(String schemaCode, Object target) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\DTObject.cs:行号 1113
+   在 CodeArt.DomainDriven.DTObjectPro.<>c__DisplayClass0_0`1.<Create>b__0(T obj) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.Extensions\DTObjectPro.cs:行号 29
+   在 CodeArt.DTO.DTObject.Push[T](String findExp, IEnumerable`1 list, Func`2 factory) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\DTObject.cs:行号 432
+   在 CodeArt.DomainDriven.DTObjectPro.Create[T](String rowSchemaCode, Page`1 page) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.Extensions\DTObjectPro.cs:行号 27
+   在 PortalService.Application.GetAccountPage.DynamicInvoke(Object arg) 位置 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\Account\GetAccountPage.cs:行号 23
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(DTObject arg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 19
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 14
+   在 CodeArt.ServiceModel.MQServiceHandler.ProcessService(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 58
+   在 CodeArt.ServiceModel.MQServiceHandler.Process(String method, DTObject args) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 34
+2018-03-14 20:37:20.3657 FATAL 消息：在计算堆栈上发现意外的项 ItemType="Reference" 并且类型 Type="Nullable`1".预期的项是 ItemType="Value" 并且类型可转换为 Type="Nullable`1".；堆栈：   在 CodeArt.Runtime.IL.StackAssert.IsAssignable(StackItem actual, StackItem expected, Boolean permitNull) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\StackAssert.cs:行号 92
+   在 CodeArt.Runtime.IL.MethodGenerator.PopAndValidateParams(MethodBase method) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\MethodGenerator\MethodGenerator.cs:行号 413
+   在 CodeArt.Runtime.IL.MethodGenerator.Call(MethodInfo method) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\MethodGenerator\MGCall.cs:行号 47
+   在 CodeArt.Runtime.IL.MethodGenerator.<>c__DisplayClass75_0.<BeginCall>b__0() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\MethodGenerator\MGCall.cs:行号 25
+   在 CodeArt.Runtime.IL.MethodGenerator.EndCall() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\MethodGenerator\MGCall.cs:行号 33
+   在 CodeArt.Runtime.IL.MethodGenerator.Call(MethodInfo method, Action loadParameters) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\MethodGenerator\MGCall.cs:行号 19
+   在 CodeArt.DTO.SerializationMethodHelper.Write(MethodGenerator g, String dtoMemberName, Type valueType, Action loadValue) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\MethodGenerator\SerializationMethodHelper.cs:行号 186
+   在 CodeArt.DTO.MemberSerializationInfo.GenerateSerializeIL(MethodGenerator g) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\Member\MemberSerializationInfo.cs:行号 207
+   在 CodeArt.DTO.DTOSerializeMethodGenerator.WriteMembers(MethodGenerator g, TypeSerializationInfo typeInfo) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\MethodGenerator\DTOSerializeMethodGenerator.cs:行号 64
+   在 CodeArt.DTO.DTOSerializeMethodGenerator.GenerateMethod(TypeSerializationInfo typeInfo) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\MethodGenerator\DTOSerializeMethodGenerator.cs:行号 33
+   在 CodeArt.DTO.TypeSerializationInfo.CreateSerializeMethod() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 156
+   在 CodeArt.DTO.TypeSerializationInfo.Initialize() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 78
+   在 CodeArt.DTO.TypeSchemaCodeInfo..ctor(Type classType, String schemaCode) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 29
+   在 CodeArt.DTO.TypeSchemaCodeInfo.<>c__DisplayClass10_0.<.cctor>b__1(String schemaCode) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 116
+   在 CodeArt.Util.LazyIndexer.<>c__DisplayClass2_0`2.<Init>b__0(TKey key) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Util\LazyIndexer.cs:行号 56
+   在 CodeArt.DTO.TypeSchemaCodeInfo.GetTypeInfo(Type classType, String schemaCode) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 123
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 55
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 56
+   在 DTOSerialize_a98d000f8fa7455fb2d4cc460071befc(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 56
+   在 DTOSerialize_6272872001334e4ca97c675e653f999a(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 56
+   在 DTOSerialize_84d2d40476a94bfda4a836aea1821a01(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.DTObject.CreateReusable(String schemaCode, Object target) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\DTObject.cs:行号 1113
+   在 CodeArt.DomainDriven.DTObjectPro.<>c__DisplayClass0_0`1.<Create>b__0(T obj) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.Extensions\DTObjectPro.cs:行号 29
+   在 CodeArt.DTO.DTObject.Push[T](String findExp, IEnumerable`1 list, Func`2 factory) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\DTObject.cs:行号 432
+   在 CodeArt.DomainDriven.DTObjectPro.Create[T](String rowSchemaCode, Page`1 page) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.Extensions\DTObjectPro.cs:行号 27
+   在 System.Dynamic.UpdateDelegates.UpdateAndExecute3[T0,T1,T2,TRet](CallSite site, T0 arg0, T1 arg1, T2 arg2)
+   在 PortalService.Application.GetAccountPage.DynamicInvoke(Object arg) 位置 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\Account\GetAccountPage.cs:行号 23
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(DTObject arg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 19
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 14
+   在 CodeArt.ServiceModel.MQServiceHandler.ProcessService(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 58
+   在 CodeArt.ServiceModel.MQServiceHandler.Process(String method, DTObject args) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 34
+2018-03-14 20:38:41.2357 FATAL 消息：在计算堆栈上发现意外的项 ItemType="Reference" 并且类型 Type="Nullable`1".预期的项是 ItemType="Value" 并且类型可转换为 Type="Nullable`1".；堆栈：   在 CodeArt.Runtime.IL.StackAssert.IsAssignable(StackItem actual, StackItem expected, Boolean permitNull) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\StackAssert.cs:行号 92
+   在 CodeArt.Runtime.IL.MethodGenerator.PopAndValidateParams(MethodBase method) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\MethodGenerator\MethodGenerator.cs:行号 413
+   在 CodeArt.Runtime.IL.MethodGenerator.Call(MethodInfo method) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\MethodGenerator\MGCall.cs:行号 47
+   在 CodeArt.Runtime.IL.MethodGenerator.<>c__DisplayClass75_0.<BeginCall>b__0() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\MethodGenerator\MGCall.cs:行号 25
+   在 CodeArt.Runtime.IL.MethodGenerator.EndCall() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\MethodGenerator\MGCall.cs:行号 33
+   在 CodeArt.Runtime.IL.MethodGenerator.Call(MethodInfo method, Action loadParameters) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\MethodGenerator\MGCall.cs:行号 19
+   在 CodeArt.DTO.SerializationMethodHelper.Write(MethodGenerator g, String dtoMemberName, Type valueType, Action loadValue) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\MethodGenerator\SerializationMethodHelper.cs:行号 186
+   在 CodeArt.DTO.MemberSerializationInfo.GenerateSerializeIL(MethodGenerator g) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\Member\MemberSerializationInfo.cs:行号 207
+   在 CodeArt.DTO.DTOSerializeMethodGenerator.WriteMembers(MethodGenerator g, TypeSerializationInfo typeInfo) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\MethodGenerator\DTOSerializeMethodGenerator.cs:行号 64
+   在 CodeArt.DTO.DTOSerializeMethodGenerator.GenerateMethod(TypeSerializationInfo typeInfo) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\MethodGenerator\DTOSerializeMethodGenerator.cs:行号 33
+   在 CodeArt.DTO.TypeSerializationInfo.CreateSerializeMethod() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 156
+   在 CodeArt.DTO.TypeSerializationInfo.Initialize() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 78
+   在 CodeArt.DTO.TypeSchemaCodeInfo..ctor(Type classType, String schemaCode) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 29
+   在 CodeArt.DTO.TypeSchemaCodeInfo.<>c__DisplayClass10_0.<.cctor>b__1(String schemaCode) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 116
+   在 CodeArt.Util.LazyIndexer.<>c__DisplayClass2_0`2.<Init>b__0(TKey key) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Util\LazyIndexer.cs:行号 56
+   在 CodeArt.DTO.TypeSchemaCodeInfo.GetTypeInfo(Type classType, String schemaCode) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 123
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 55
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 56
+   在 DTOSerialize_a98d000f8fa7455fb2d4cc460071befc(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 56
+   在 DTOSerialize_6272872001334e4ca97c675e653f999a(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 56
+   在 DTOSerialize_84d2d40476a94bfda4a836aea1821a01(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.DTObject.CreateReusable(String schemaCode, Object target) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\DTObject.cs:行号 1113
+   在 CodeArt.DomainDriven.DTObjectPro.<>c__DisplayClass0_0`1.<Create>b__0(T obj) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.Extensions\DTObjectPro.cs:行号 29
+   在 CodeArt.DTO.DTObject.Push[T](String findExp, IEnumerable`1 list, Func`2 factory) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\DTObject.cs:行号 432
+   在 CodeArt.DomainDriven.DTObjectPro.Create[T](String rowSchemaCode, Page`1 page) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.Extensions\DTObjectPro.cs:行号 27
+   在 PortalService.Application.GetAccountPage.DynamicInvoke(Object arg) 位置 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\Account\GetAccountPage.cs:行号 23
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(DTObject arg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 19
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 14
+   在 CodeArt.ServiceModel.MQServiceHandler.ProcessService(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 58
+   在 CodeArt.ServiceModel.MQServiceHandler.Process(String method, DTObject args) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 34
+2018-03-14 20:40:04.3194 FATAL 消息：在计算堆栈上发现意外的项 ItemType="Reference" 并且类型 Type="Nullable`1".预期的项是 ItemType="Value" 并且类型可转换为 Type="Nullable`1".；堆栈：   在 CodeArt.Runtime.IL.StackAssert.IsAssignable(StackItem actual, StackItem expected, Boolean permitNull) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\StackAssert.cs:行号 92
+   在 CodeArt.Runtime.IL.MethodGenerator.PopAndValidateParams(MethodBase method) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\MethodGenerator\MethodGenerator.cs:行号 413
+   在 CodeArt.Runtime.IL.MethodGenerator.Call(MethodInfo method) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\MethodGenerator\MGCall.cs:行号 47
+   在 CodeArt.Runtime.IL.MethodGenerator.<>c__DisplayClass75_0.<BeginCall>b__0() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\MethodGenerator\MGCall.cs:行号 25
+   在 CodeArt.Runtime.IL.MethodGenerator.EndCall() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\MethodGenerator\MGCall.cs:行号 33
+   在 CodeArt.Runtime.IL.MethodGenerator.Call(MethodInfo method, Action loadParameters) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\MethodGenerator\MGCall.cs:行号 19
+   在 CodeArt.DTO.SerializationMethodHelper.Write(MethodGenerator g, String dtoMemberName, Type valueType, Action loadValue) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\MethodGenerator\SerializationMethodHelper.cs:行号 186
+   在 CodeArt.DTO.MemberSerializationInfo.GenerateSerializeIL(MethodGenerator g) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\Member\MemberSerializationInfo.cs:行号 207
+   在 CodeArt.DTO.DTOSerializeMethodGenerator.WriteMembers(MethodGenerator g, TypeSerializationInfo typeInfo) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\MethodGenerator\DTOSerializeMethodGenerator.cs:行号 64
+   在 CodeArt.DTO.DTOSerializeMethodGenerator.GenerateMethod(TypeSerializationInfo typeInfo) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\MethodGenerator\DTOSerializeMethodGenerator.cs:行号 33
+   在 CodeArt.DTO.TypeSerializationInfo.CreateSerializeMethod() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 156
+   在 CodeArt.DTO.TypeSerializationInfo.Initialize() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 78
+   在 CodeArt.DTO.TypeSchemaCodeInfo..ctor(Type classType, String schemaCode) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 29
+   在 CodeArt.DTO.TypeSchemaCodeInfo.<>c__DisplayClass10_0.<.cctor>b__1(String schemaCode) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 116
+   在 CodeArt.Util.LazyIndexer.<>c__DisplayClass2_0`2.<Init>b__0(TKey key) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Util\LazyIndexer.cs:行号 56
+   在 CodeArt.DTO.TypeSchemaCodeInfo.GetTypeInfo(Type classType, String schemaCode) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 123
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 55
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 56
+   在 DTOSerialize_a98d000f8fa7455fb2d4cc460071befc(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 56
+   在 DTOSerialize_6272872001334e4ca97c675e653f999a(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 56
+   在 DTOSerialize_84d2d40476a94bfda4a836aea1821a01(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.DTObject.CreateReusable(String schemaCode, Object target) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\DTObject.cs:行号 1113
+   在 CodeArt.DomainDriven.DTObjectPro.<>c__DisplayClass0_0`1.<Create>b__0(T obj) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.Extensions\DTObjectPro.cs:行号 29
+   在 CodeArt.DTO.DTObject.Push[T](String findExp, IEnumerable`1 list, Func`2 factory) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\DTObject.cs:行号 432
+   在 CodeArt.DomainDriven.DTObjectPro.Create[T](String rowSchemaCode, Page`1 page) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.Extensions\DTObjectPro.cs:行号 27
+   在 PortalService.Application.GetAccountPage.DynamicInvoke(Object arg) 位置 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\Account\GetAccountPage.cs:行号 23
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(DTObject arg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 19
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 14
+   在 CodeArt.ServiceModel.MQServiceHandler.ProcessService(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 58
+   在 CodeArt.ServiceModel.MQServiceHandler.Process(String method, DTObject args) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 34
+2018-03-14 20:42:11.7595 FATAL 消息：在计算堆栈上发现意外的项 ItemType="Reference" 并且类型 Type="Nullable`1".预期的项是 ItemType="Value" 并且类型可转换为 Type="Nullable`1".；堆栈：   在 CodeArt.Runtime.IL.StackAssert.IsAssignable(StackItem actual, StackItem expected, Boolean permitNull) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\StackAssert.cs:行号 92
+   在 CodeArt.Runtime.IL.MethodGenerator.PopAndValidateParams(MethodBase method) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\MethodGenerator\MethodGenerator.cs:行号 413
+   在 CodeArt.Runtime.IL.MethodGenerator.Call(MethodInfo method) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\MethodGenerator\MGCall.cs:行号 47
+   在 CodeArt.Runtime.IL.MethodGenerator.<>c__DisplayClass75_0.<BeginCall>b__0() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\MethodGenerator\MGCall.cs:行号 25
+   在 CodeArt.Runtime.IL.MethodGenerator.EndCall() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\MethodGenerator\MGCall.cs:行号 33
+   在 CodeArt.Runtime.IL.MethodGenerator.Call(MethodInfo method, Action loadParameters) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\MethodGenerator\MGCall.cs:行号 19
+   在 CodeArt.DTO.SerializationMethodHelper.Write(MethodGenerator g, String dtoMemberName, Type valueType, Action loadValue) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\MethodGenerator\SerializationMethodHelper.cs:行号 186
+   在 CodeArt.DTO.MemberSerializationInfo.GenerateSerializeIL(MethodGenerator g) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\Member\MemberSerializationInfo.cs:行号 207
+   在 CodeArt.DTO.DTOSerializeMethodGenerator.WriteMembers(MethodGenerator g, TypeSerializationInfo typeInfo) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\MethodGenerator\DTOSerializeMethodGenerator.cs:行号 64
+   在 CodeArt.DTO.DTOSerializeMethodGenerator.GenerateMethod(TypeSerializationInfo typeInfo) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\MethodGenerator\DTOSerializeMethodGenerator.cs:行号 33
+   在 CodeArt.DTO.TypeSerializationInfo.CreateSerializeMethod() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 156
+   在 CodeArt.DTO.TypeSerializationInfo.Initialize() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 78
+   在 CodeArt.DTO.TypeSchemaCodeInfo..ctor(Type classType, String schemaCode) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 29
+   在 CodeArt.DTO.TypeSchemaCodeInfo.<>c__DisplayClass10_0.<.cctor>b__1(String schemaCode) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 116
+   在 CodeArt.Util.LazyIndexer.<>c__DisplayClass2_0`2.<Init>b__0(TKey key) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Util\LazyIndexer.cs:行号 56
+   在 CodeArt.DTO.TypeSchemaCodeInfo.GetTypeInfo(Type classType, String schemaCode) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 123
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 55
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 56
+   在 DTOSerialize_e95f37ddc8c04679aa18aee670180ef1(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 56
+   在 DTOSerialize_6842547c8cc14817b8712143f2136e5e(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 56
+   在 DTOSerialize_cab65f79b1a54d3e9aa6d9f4ab5c575b(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.DTObject.CreateReusable(String schemaCode, Object target) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\DTObject.cs:行号 1113
+   在 CodeArt.DomainDriven.DTObjectPro.<>c__DisplayClass0_0`1.<Create>b__0(T obj) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.Extensions\DTObjectPro.cs:行号 29
+   在 CodeArt.DTO.DTObject.Push[T](String findExp, IEnumerable`1 list, Func`2 factory) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\DTObject.cs:行号 432
+   在 CodeArt.DomainDriven.DTObjectPro.Create[T](String rowSchemaCode, Page`1 page) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.Extensions\DTObjectPro.cs:行号 27
+   在 System.Dynamic.UpdateDelegates.UpdateAndExecute3[T0,T1,T2,TRet](CallSite site, T0 arg0, T1 arg1, T2 arg2)
+   在 PortalService.Application.GetAccountPage.DynamicInvoke(Object arg) 位置 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\Account\GetAccountPage.cs:行号 23
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(DTObject arg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 19
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 14
+   在 CodeArt.ServiceModel.MQServiceHandler.ProcessService(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 58
+   在 CodeArt.ServiceModel.MQServiceHandler.Process(String method, DTObject args) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 34
+2018-03-14 20:42:17.7908 FATAL 消息：在计算堆栈上发现意外的项 ItemType="Reference" 并且类型 Type="Nullable`1".预期的项是 ItemType="Value" 并且类型可转换为 Type="Nullable`1".；堆栈：   在 CodeArt.Runtime.IL.StackAssert.IsAssignable(StackItem actual, StackItem expected, Boolean permitNull) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\StackAssert.cs:行号 92
+   在 CodeArt.Runtime.IL.MethodGenerator.PopAndValidateParams(MethodBase method) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\MethodGenerator\MethodGenerator.cs:行号 413
+   在 CodeArt.Runtime.IL.MethodGenerator.Call(MethodInfo method) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\MethodGenerator\MGCall.cs:行号 47
+   在 CodeArt.Runtime.IL.MethodGenerator.<>c__DisplayClass75_0.<BeginCall>b__0() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\MethodGenerator\MGCall.cs:行号 25
+   在 CodeArt.Runtime.IL.MethodGenerator.EndCall() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\MethodGenerator\MGCall.cs:行号 33
+   在 CodeArt.Runtime.IL.MethodGenerator.Call(MethodInfo method, Action loadParameters) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\MethodGenerator\MGCall.cs:行号 19
+   在 CodeArt.DTO.SerializationMethodHelper.Write(MethodGenerator g, String dtoMemberName, Type valueType, Action loadValue) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\MethodGenerator\SerializationMethodHelper.cs:行号 186
+   在 CodeArt.DTO.MemberSerializationInfo.GenerateSerializeIL(MethodGenerator g) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\Member\MemberSerializationInfo.cs:行号 207
+   在 CodeArt.DTO.DTOSerializeMethodGenerator.WriteMembers(MethodGenerator g, TypeSerializationInfo typeInfo) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\MethodGenerator\DTOSerializeMethodGenerator.cs:行号 64
+   在 CodeArt.DTO.DTOSerializeMethodGenerator.GenerateMethod(TypeSerializationInfo typeInfo) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\MethodGenerator\DTOSerializeMethodGenerator.cs:行号 33
+   在 CodeArt.DTO.TypeSerializationInfo.CreateSerializeMethod() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 156
+   在 CodeArt.DTO.TypeSerializationInfo.Initialize() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 78
+   在 CodeArt.DTO.TypeSchemaCodeInfo..ctor(Type classType, String schemaCode) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 29
+   在 CodeArt.DTO.TypeSchemaCodeInfo.<>c__DisplayClass10_0.<.cctor>b__1(String schemaCode) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 116
+   在 CodeArt.Util.LazyIndexer.<>c__DisplayClass2_0`2.<Init>b__0(TKey key) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Util\LazyIndexer.cs:行号 56
+   在 CodeArt.DTO.TypeSchemaCodeInfo.GetTypeInfo(Type classType, String schemaCode) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 123
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 55
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 56
+   在 DTOSerialize_e95f37ddc8c04679aa18aee670180ef1(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 56
+   在 DTOSerialize_6842547c8cc14817b8712143f2136e5e(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 56
+   在 DTOSerialize_cab65f79b1a54d3e9aa6d9f4ab5c575b(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.DTObject.CreateReusable(String schemaCode, Object target) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\DTObject.cs:行号 1113
+   在 CodeArt.DomainDriven.DTObjectPro.<>c__DisplayClass0_0`1.<Create>b__0(T obj) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.Extensions\DTObjectPro.cs:行号 29
+   在 CodeArt.DTO.DTObject.Push[T](String findExp, IEnumerable`1 list, Func`2 factory) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\DTObject.cs:行号 432
+   在 CodeArt.DomainDriven.DTObjectPro.Create[T](String rowSchemaCode, Page`1 page) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.Extensions\DTObjectPro.cs:行号 27
+   在 PortalService.Application.GetAccountPage.DynamicInvoke(Object arg) 位置 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\Account\GetAccountPage.cs:行号 23
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(DTObject arg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 19
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 14
+   在 CodeArt.ServiceModel.MQServiceHandler.ProcessService(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 58
+   在 CodeArt.ServiceModel.MQServiceHandler.Process(String method, DTObject args) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 34
+2018-03-14 20:42:49.0648 FATAL 消息：在计算堆栈上发现意外的项 ItemType="Reference" 并且类型 Type="Nullable`1".预期的项是 ItemType="Value" 并且类型可转换为 Type="Nullable`1".；堆栈：   在 CodeArt.Runtime.IL.StackAssert.IsAssignable(StackItem actual, StackItem expected, Boolean permitNull) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\StackAssert.cs:行号 92
+   在 CodeArt.Runtime.IL.MethodGenerator.PopAndValidateParams(MethodBase method) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\MethodGenerator\MethodGenerator.cs:行号 413
+   在 CodeArt.Runtime.IL.MethodGenerator.Call(MethodInfo method) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\MethodGenerator\MGCall.cs:行号 47
+   在 CodeArt.Runtime.IL.MethodGenerator.<>c__DisplayClass75_0.<BeginCall>b__0() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\MethodGenerator\MGCall.cs:行号 25
+   在 CodeArt.Runtime.IL.MethodGenerator.EndCall() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\MethodGenerator\MGCall.cs:行号 33
+   在 CodeArt.Runtime.IL.MethodGenerator.Call(MethodInfo method, Action loadParameters) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\MethodGenerator\MGCall.cs:行号 19
+   在 CodeArt.DTO.SerializationMethodHelper.Write(MethodGenerator g, String dtoMemberName, Type valueType, Action loadValue) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\MethodGenerator\SerializationMethodHelper.cs:行号 186
+   在 CodeArt.DTO.MemberSerializationInfo.GenerateSerializeIL(MethodGenerator g) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\Member\MemberSerializationInfo.cs:行号 207
+   在 CodeArt.DTO.DTOSerializeMethodGenerator.WriteMembers(MethodGenerator g, TypeSerializationInfo typeInfo) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\MethodGenerator\DTOSerializeMethodGenerator.cs:行号 64
+   在 CodeArt.DTO.DTOSerializeMethodGenerator.GenerateMethod(TypeSerializationInfo typeInfo) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\MethodGenerator\DTOSerializeMethodGenerator.cs:行号 33
+   在 CodeArt.DTO.TypeSerializationInfo.CreateSerializeMethod() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 156
+   在 CodeArt.DTO.TypeSerializationInfo.Initialize() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 78
+   在 CodeArt.DTO.TypeSchemaCodeInfo..ctor(Type classType, String schemaCode) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 29
+   在 CodeArt.DTO.TypeSchemaCodeInfo.<>c__DisplayClass10_0.<.cctor>b__1(String schemaCode) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 116
+   在 CodeArt.Util.LazyIndexer.<>c__DisplayClass2_0`2.<Init>b__0(TKey key) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Util\LazyIndexer.cs:行号 56
+   在 CodeArt.DTO.TypeSchemaCodeInfo.GetTypeInfo(Type classType, String schemaCode) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 123
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 55
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 56
+   在 DTOSerialize_847c0f44975c480690ad91502cc579bf(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 56
+   在 DTOSerialize_fb839c3615024794ab308e7dca4de171(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 56
+   在 DTOSerialize_622617066f7049018650dcbd2155e77f(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.DTObject.CreateReusable(String schemaCode, Object target) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\DTObject.cs:行号 1113
+   在 CodeArt.DomainDriven.DTObjectPro.<>c__DisplayClass0_0`1.<Create>b__0(T obj) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.Extensions\DTObjectPro.cs:行号 29
+   在 CodeArt.DTO.DTObject.Push[T](String findExp, IEnumerable`1 list, Func`2 factory) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\DTObject.cs:行号 432
+   在 CodeArt.DomainDriven.DTObjectPro.Create[T](String rowSchemaCode, Page`1 page) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.Extensions\DTObjectPro.cs:行号 27
+   在 System.Dynamic.UpdateDelegates.UpdateAndExecute3[T0,T1,T2,TRet](CallSite site, T0 arg0, T1 arg1, T2 arg2)
+   在 PortalService.Application.GetAccountPage.DynamicInvoke(Object arg) 位置 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\Account\GetAccountPage.cs:行号 23
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(DTObject arg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 19
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 14
+   在 CodeArt.ServiceModel.MQServiceHandler.ProcessService(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 58
+   在 CodeArt.ServiceModel.MQServiceHandler.Process(String method, DTObject args) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 34
+2018-03-14 20:43:02.1311 FATAL 消息：在计算堆栈上发现意外的项 ItemType="Reference" 并且类型 Type="Nullable`1".预期的项是 ItemType="Value" 并且类型可转换为 Type="Nullable`1".；堆栈：   在 CodeArt.Runtime.IL.StackAssert.IsAssignable(StackItem actual, StackItem expected, Boolean permitNull) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\StackAssert.cs:行号 92
+   在 CodeArt.Runtime.IL.MethodGenerator.PopAndValidateParams(MethodBase method) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\MethodGenerator\MethodGenerator.cs:行号 413
+   在 CodeArt.Runtime.IL.MethodGenerator.Call(MethodInfo method) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\MethodGenerator\MGCall.cs:行号 47
+   在 CodeArt.Runtime.IL.MethodGenerator.<>c__DisplayClass75_0.<BeginCall>b__0() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\MethodGenerator\MGCall.cs:行号 25
+   在 CodeArt.Runtime.IL.MethodGenerator.EndCall() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\MethodGenerator\MGCall.cs:行号 33
+   在 CodeArt.Runtime.IL.MethodGenerator.Call(MethodInfo method, Action loadParameters) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\MethodGenerator\MGCall.cs:行号 19
+   在 CodeArt.DTO.SerializationMethodHelper.Write(MethodGenerator g, String dtoMemberName, Type valueType, Action loadValue) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\MethodGenerator\SerializationMethodHelper.cs:行号 186
+   在 CodeArt.DTO.MemberSerializationInfo.GenerateSerializeIL(MethodGenerator g) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\Member\MemberSerializationInfo.cs:行号 207
+   在 CodeArt.DTO.DTOSerializeMethodGenerator.WriteMembers(MethodGenerator g, TypeSerializationInfo typeInfo) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\MethodGenerator\DTOSerializeMethodGenerator.cs:行号 64
+   在 CodeArt.DTO.DTOSerializeMethodGenerator.GenerateMethod(TypeSerializationInfo typeInfo) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\MethodGenerator\DTOSerializeMethodGenerator.cs:行号 33
+   在 CodeArt.DTO.TypeSerializationInfo.CreateSerializeMethod() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 156
+   在 CodeArt.DTO.TypeSerializationInfo.Initialize() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 78
+   在 CodeArt.DTO.TypeSchemaCodeInfo..ctor(Type classType, String schemaCode) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 29
+   在 CodeArt.DTO.TypeSchemaCodeInfo.<>c__DisplayClass10_0.<.cctor>b__1(String schemaCode) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 116
+   在 CodeArt.Util.LazyIndexer.<>c__DisplayClass2_0`2.<Init>b__0(TKey key) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Util\LazyIndexer.cs:行号 56
+   在 CodeArt.DTO.TypeSchemaCodeInfo.GetTypeInfo(Type classType, String schemaCode) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 123
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 55
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 56
+   在 DTOSerialize_3b18e1c0b8e64816800a30f5c37404da(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 56
+   在 DTOSerialize_a37f50e172534fcaab58a5b94a65075d(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 56
+   在 DTOSerialize_bdd2390dbe3e4aa3a4df087bb5926d98(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.DTObject.CreateReusable(String schemaCode, Object target) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\DTObject.cs:行号 1113
+   在 CodeArt.DomainDriven.DTObjectPro.<>c__DisplayClass0_0`1.<Create>b__0(T obj) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.Extensions\DTObjectPro.cs:行号 29
+   在 CodeArt.DTO.DTObject.Push[T](String findExp, IEnumerable`1 list, Func`2 factory) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\DTObject.cs:行号 432
+   在 CodeArt.DomainDriven.DTObjectPro.Create[T](String rowSchemaCode, Page`1 page) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.Extensions\DTObjectPro.cs:行号 27
+   在 System.Dynamic.UpdateDelegates.UpdateAndExecute3[T0,T1,T2,TRet](CallSite site, T0 arg0, T1 arg1, T2 arg2)
+   在 PortalService.Application.GetAccountPage.DynamicInvoke(Object arg) 位置 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\Account\GetAccountPage.cs:行号 23
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(DTObject arg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 19
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 14
+   在 CodeArt.ServiceModel.MQServiceHandler.ProcessService(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 58
+   在 CodeArt.ServiceModel.MQServiceHandler.Process(String method, DTObject args) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 34
+2018-03-14 21:08:17.9138 FATAL 消息：在计算堆栈上发现意外的项 ItemType="Reference" 并且类型 Type="Nullable`1".预期的项是 ItemType="Value" 并且类型可转换为 Type="Nullable`1".；堆栈：   在 CodeArt.Runtime.IL.StackAssert.IsAssignable(StackItem actual, StackItem expected, Boolean permitNull) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\StackAssert.cs:行号 92
+   在 CodeArt.Runtime.IL.MethodGenerator.PopAndValidateParams(MethodBase method) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\MethodGenerator\MethodGenerator.cs:行号 413
+   在 CodeArt.Runtime.IL.MethodGenerator.Call(MethodInfo method) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\MethodGenerator\MGCall.cs:行号 47
+   在 CodeArt.Runtime.IL.MethodGenerator.<>c__DisplayClass75_0.<BeginCall>b__0() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\MethodGenerator\MGCall.cs:行号 25
+   在 CodeArt.Runtime.IL.MethodGenerator.EndCall() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\MethodGenerator\MGCall.cs:行号 33
+   在 CodeArt.Runtime.IL.MethodGenerator.Call(MethodInfo method, Action loadParameters) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\MethodGenerator\MGCall.cs:行号 19
+   在 CodeArt.DTO.SerializationMethodHelper.Write(MethodGenerator g, String dtoMemberName, Type valueType, Action loadValue) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\MethodGenerator\SerializationMethodHelper.cs:行号 194
+   在 CodeArt.DTO.MemberSerializationInfo.GenerateSerializeIL(MethodGenerator g) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\Member\MemberSerializationInfo.cs:行号 207
+   在 CodeArt.DTO.DTOSerializeMethodGenerator.WriteMembers(MethodGenerator g, TypeSerializationInfo typeInfo) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\MethodGenerator\DTOSerializeMethodGenerator.cs:行号 64
+   在 CodeArt.DTO.DTOSerializeMethodGenerator.GenerateMethod(TypeSerializationInfo typeInfo) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\MethodGenerator\DTOSerializeMethodGenerator.cs:行号 33
+   在 CodeArt.DTO.TypeSerializationInfo.CreateSerializeMethod() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 156
+   在 CodeArt.DTO.TypeSerializationInfo.Initialize() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 78
+   在 CodeArt.DTO.TypeSchemaCodeInfo..ctor(Type classType, String schemaCode) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 29
+   在 CodeArt.DTO.TypeSchemaCodeInfo.<>c__DisplayClass10_0.<.cctor>b__1(String schemaCode) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 116
+   在 CodeArt.Util.LazyIndexer.<>c__DisplayClass2_0`2.<Init>b__0(TKey key) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Util\LazyIndexer.cs:行号 56
+   在 CodeArt.DTO.TypeSchemaCodeInfo.GetTypeInfo(Type classType, String schemaCode) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 123
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 55
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 63
+   在 DTOSerialize_bed7d06f2cff4a2da155e435b42e92e1(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 63
+   在 DTOSerialize_de20431cfde34f89becab66194edb854(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 63
+   在 DTOSerialize_c2ae82708eb24889a9d9659ddb3d4dfa(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.DTObject.CreateReusable(String schemaCode, Object target) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\DTObject.cs:行号 1113
+   在 CodeArt.DomainDriven.DTObjectPro.<>c__DisplayClass0_0`1.<Create>b__0(T obj) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.Extensions\DTObjectPro.cs:行号 29
+   在 CodeArt.DTO.DTObject.Push[T](String findExp, IEnumerable`1 list, Func`2 factory) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\DTObject.cs:行号 432
+   在 CodeArt.DomainDriven.DTObjectPro.Create[T](String rowSchemaCode, Page`1 page) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.Extensions\DTObjectPro.cs:行号 27
+   在 System.Dynamic.UpdateDelegates.UpdateAndExecute3[T0,T1,T2,TRet](CallSite site, T0 arg0, T1 arg1, T2 arg2)
+   在 PortalService.Application.GetAccountPage.DynamicInvoke(Object arg) 位置 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\Account\GetAccountPage.cs:行号 23
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(DTObject arg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 19
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 14
+   在 CodeArt.ServiceModel.MQServiceHandler.ProcessService(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 58
+   在 CodeArt.ServiceModel.MQServiceHandler.Process(String method, DTObject args) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 34
+2018-03-14 21:08:58.5252 FATAL 消息：在计算堆栈上发现意外的项 ItemType="Reference" 并且类型 Type="Nullable`1".预期的项是 ItemType="Value" 并且类型可转换为 Type="Nullable`1".；堆栈：   在 CodeArt.Runtime.IL.StackAssert.IsAssignable(StackItem actual, StackItem expected, Boolean permitNull) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\StackAssert.cs:行号 92
+   在 CodeArt.Runtime.IL.MethodGenerator.PopAndValidateParams(MethodBase method) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\MethodGenerator\MethodGenerator.cs:行号 413
+   在 CodeArt.Runtime.IL.MethodGenerator.Call(MethodInfo method) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\MethodGenerator\MGCall.cs:行号 47
+   在 CodeArt.Runtime.IL.MethodGenerator.<>c__DisplayClass75_0.<BeginCall>b__0() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\MethodGenerator\MGCall.cs:行号 25
+   在 CodeArt.Runtime.IL.MethodGenerator.EndCall() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\MethodGenerator\MGCall.cs:行号 33
+   在 CodeArt.Runtime.IL.MethodGenerator.Call(MethodInfo method, Action loadParameters) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\MethodGenerator\MGCall.cs:行号 19
+   在 CodeArt.DTO.SerializationMethodHelper.Write(MethodGenerator g, String dtoMemberName, Type valueType, Action loadValue) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\MethodGenerator\SerializationMethodHelper.cs:行号 194
+   在 CodeArt.DTO.MemberSerializationInfo.GenerateSerializeIL(MethodGenerator g) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\Member\MemberSerializationInfo.cs:行号 207
+   在 CodeArt.DTO.DTOSerializeMethodGenerator.WriteMembers(MethodGenerator g, TypeSerializationInfo typeInfo) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\MethodGenerator\DTOSerializeMethodGenerator.cs:行号 64
+   在 CodeArt.DTO.DTOSerializeMethodGenerator.GenerateMethod(TypeSerializationInfo typeInfo) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\MethodGenerator\DTOSerializeMethodGenerator.cs:行号 33
+   在 CodeArt.DTO.TypeSerializationInfo.CreateSerializeMethod() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 156
+   在 CodeArt.DTO.TypeSerializationInfo.Initialize() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 78
+   在 CodeArt.DTO.TypeSchemaCodeInfo..ctor(Type classType, String schemaCode) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 29
+   在 CodeArt.DTO.TypeSchemaCodeInfo.<>c__DisplayClass10_0.<.cctor>b__1(String schemaCode) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 116
+   在 CodeArt.Util.LazyIndexer.<>c__DisplayClass2_0`2.<Init>b__0(TKey key) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Util\LazyIndexer.cs:行号 56
+   在 CodeArt.DTO.TypeSchemaCodeInfo.GetTypeInfo(Type classType, String schemaCode) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 123
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 55
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 63
+   在 DTOSerialize_67342c80e578432c87923fed25ef4ef6(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 63
+   在 DTOSerialize_8a96263e362a4afb8fbdf3af4377ccfe(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 63
+   在 DTOSerialize_ea35edf4da6b41e58e7e1a6f18dea949(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.DTObject.CreateReusable(String schemaCode, Object target) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\DTObject.cs:行号 1113
+   在 CodeArt.DomainDriven.DTObjectPro.<>c__DisplayClass0_0`1.<Create>b__0(T obj) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.Extensions\DTObjectPro.cs:行号 29
+   在 CodeArt.DTO.DTObject.Push[T](String findExp, IEnumerable`1 list, Func`2 factory) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\DTObject.cs:行号 432
+   在 CodeArt.DomainDriven.DTObjectPro.Create[T](String rowSchemaCode, Page`1 page) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.Extensions\DTObjectPro.cs:行号 27
+   在 System.Dynamic.UpdateDelegates.UpdateAndExecute3[T0,T1,T2,TRet](CallSite site, T0 arg0, T1 arg1, T2 arg2)
+   在 PortalService.Application.GetAccountPage.DynamicInvoke(Object arg) 位置 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\Account\GetAccountPage.cs:行号 23
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(DTObject arg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 19
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 14
+   在 CodeArt.ServiceModel.MQServiceHandler.ProcessService(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 58
+   在 CodeArt.ServiceModel.MQServiceHandler.Process(String method, DTObject args) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 34
+2018-03-14 21:11:09.5511 FATAL 消息：在计算堆栈上发现意外的项 ItemType="Reference" 并且类型 Type="Nullable`1".预期的项是 ItemType="Value" 并且类型可转换为 Type="Nullable`1".；堆栈：   在 CodeArt.Runtime.IL.StackAssert.IsAssignable(StackItem actual, StackItem expected, Boolean permitNull) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\StackAssert.cs:行号 92
+   在 CodeArt.Runtime.IL.MethodGenerator.PopAndValidateParams(MethodBase method) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\MethodGenerator\MethodGenerator.cs:行号 413
+   在 CodeArt.Runtime.IL.MethodGenerator.Call(MethodInfo method) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\MethodGenerator\MGCall.cs:行号 47
+   在 CodeArt.Runtime.IL.MethodGenerator.<>c__DisplayClass75_0.<BeginCall>b__0() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\MethodGenerator\MGCall.cs:行号 25
+   在 CodeArt.Runtime.IL.MethodGenerator.EndCall() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\MethodGenerator\MGCall.cs:行号 33
+   在 CodeArt.Runtime.IL.MethodGenerator.Call(MethodInfo method, Action loadParameters) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Runtime\IL\DynamicMethod\MethodGenerator\MGCall.cs:行号 19
+   在 CodeArt.DTO.SerializationMethodHelper.Write(MethodGenerator g, String dtoMemberName, Type valueType, Action loadValue) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\MethodGenerator\SerializationMethodHelper.cs:行号 194
+   在 CodeArt.DTO.MemberSerializationInfo.GenerateSerializeIL(MethodGenerator g) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\Member\MemberSerializationInfo.cs:行号 207
+   在 CodeArt.DTO.DTOSerializeMethodGenerator.WriteMembers(MethodGenerator g, TypeSerializationInfo typeInfo) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\MethodGenerator\DTOSerializeMethodGenerator.cs:行号 64
+   在 CodeArt.DTO.DTOSerializeMethodGenerator.GenerateMethod(TypeSerializationInfo typeInfo) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\MethodGenerator\DTOSerializeMethodGenerator.cs:行号 33
+   在 CodeArt.DTO.TypeSerializationInfo.CreateSerializeMethod() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 156
+   在 CodeArt.DTO.TypeSerializationInfo.Initialize() 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 78
+   在 CodeArt.DTO.TypeSchemaCodeInfo..ctor(Type classType, String schemaCode) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 29
+   在 CodeArt.DTO.TypeSchemaCodeInfo.<>c__DisplayClass10_0.<.cctor>b__1(String schemaCode) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 116
+   在 CodeArt.Util.LazyIndexer.<>c__DisplayClass2_0`2.<Init>b__0(TKey key) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\Util\LazyIndexer.cs:行号 56
+   在 CodeArt.DTO.TypeSchemaCodeInfo.GetTypeInfo(Type classType, String schemaCode) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 123
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 55
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 63
+   在 DTOSerialize_cdbce153c500449abfef3495249bbf09(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 63
+   在 DTOSerialize_d9918b1983574049b16daba081189550(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.SchemaCodeWriter.Write(String name, Object value) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\SchemaCodeWriter.cs:行号 63
+   在 DTOSerialize_ba9a1712490747ed9454ebaaece0b22f(Object , IDTOWriter )
+   在 CodeArt.DTO.TypeSchemaCodeInfo.Serialize(Object instance, DTObject dto) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\TypeSchemaCodeInfo.cs:行号 57
+   在 CodeArt.DTO.TypeSerializationInfo.Serialize(Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SerializationInfo\TypeSerializationInfo.cs:行号 180
+   在 CodeArt.DTO.DTObjectMapper.Load(String schemaCode, Object instance, Boolean isPinned) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\Serialization\SchemaCode\DTObjectMapper.cs:行号 56
+   在 CodeArt.DTO.DTObject.CreateReusable(String schemaCode, Object target) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\DTObject.cs:行号 1113
+   在 CodeArt.DomainDriven.DTObjectPro.<>c__DisplayClass0_0`1.<Create>b__0(T obj) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.Extensions\DTObjectPro.cs:行号 29
+   在 CodeArt.DTO.DTObject.Push[T](String findExp, IEnumerable`1 list, Func`2 factory) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\DTO\DTObject.cs:行号 432
+   在 CodeArt.DomainDriven.DTObjectPro.Create[T](String rowSchemaCode, Page`1 page) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven.Extensions\DTObjectPro.cs:行号 27
+   在 System.Dynamic.UpdateDelegates.UpdateAndExecute3[T0,T1,T2,TRet](CallSite site, T0 arg0, T1 arg1, T2 arg2)
+   在 PortalService.Application.GetAccountPage.DynamicInvoke(Object arg) 位置 D:\Workspace\Projects\Services Framework\PortalService\PortalService.Application\Account\GetAccountPage.cs:行号 23
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(DTObject arg) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 19
+   在 CodeArt.ServiceModel.ServiceProvider.Invoke(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\ServiceProvider\ServiceProvider.cs:行号 14
+   在 CodeArt.ServiceModel.MQServiceHandler.ProcessService(ServiceRequest request) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 58
+   在 CodeArt.ServiceModel.MQServiceHandler.Process(String method, DTObject args) 位置 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\MQServiceHandler.cs:行号 34

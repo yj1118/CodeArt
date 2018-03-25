@@ -102,6 +102,12 @@ namespace CodeArt.DTO
             return _dto.GetValue<Guid>(name, false);
         }
 
+        public DateTime? ReadNullableDateTime(string name)
+        {
+            if (!_dto.Exist(name)) return null;
+            return _dto.GetValue<DateTime>(name);
+        }
+
 
         /// <summary>
         /// 读取数组长度

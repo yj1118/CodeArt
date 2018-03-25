@@ -1,0 +1,219 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:ps="clr-namespace:CodeArt.WPF.Controls.Playstation"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <!-- ps:ScrollViewerPro -->
+    <sys:Double x:Key="ScrollBarSize">5</sys:Double>
+    <!--滚动条滑块两边按钮样式-->
+    <Style x:Key="ScrollBarTrackButton" TargetType="{x:Type RepeatButton}">
+        <Setter Property="Background" Value="Transparent"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RepeatButton}">
+                    <Border Background="Transparent"></Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--滚动条滑块样式-->
+    <Style x:Key="Thumb" TargetType="{x:Type Thumb}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate >
+                    <Grid>
+                        <Border x:Name="Bg" Margin="0" SnapsToDevicePixels="True" Opacity="0.6" Background="#fff"></Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Opacity" Value="1" TargetName="Bg"></Setter>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="0.1" TargetName="Bg"></Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--水平滚滚动条模板-->
+    <ControlTemplate x:Key="HorizontalScrollBar" TargetType="{x:Type ScrollBar}">
+        <Grid x:Name="HorizontalRoot" Height="{TemplateBinding Height}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Border x:Name="BgInner" Grid.Column="0" Margin="0" SnapsToDevicePixels ="True" Opacity="0.2"  Background="#fff"/>
+            <!--中间滑动区域-->
+            <Track x:Name="PART_Track" IsDirectionReversed="False" Grid.Column="0">
+                <!--左滑块-->
+                <Track.DecreaseRepeatButton>
+                    <RepeatButton x:Name="HorizontalLargeDecrease" Command="ScrollBar.PageLeftCommand"
+                                      IsTabStop="False" Interval="50" Style="{StaticResource ScrollBarTrackButton}" />
+                </Track.DecreaseRepeatButton>
+                <!--中间滑块 Margin="1" VerticalAlignment="Center" VerticalContentAlignment="Center" -->
+                <Track.Thumb>
+                    <Thumb Style="{StaticResource Thumb}" />
+                </Track.Thumb>
+                <!--右滑块-->
+                <Track.IncreaseRepeatButton>
+                    <RepeatButton x:Name="HorizontalLargeIncrease" Command="ScrollBar.PageRightCommand"
+                                      IsTabStop="False"  Interval="50" Style="{StaticResource ScrollBarTrackButton}" />
+                </Track.IncreaseRepeatButton>
+            </Track>
+        </Grid>
+    </ControlTemplate>
+
+    <!--垂直滚滚动条模板-->
+    <ControlTemplate x:Key="VerticalScrollBar" TargetType="{x:Type ScrollBar}">
+        <Grid x:Name="VerticalRoot" Height="{TemplateBinding Height}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!--<Border x:Name="Bg" Margin="100 0 0 0" Grid.Column="0" Grid.ColumnSpan="3" CornerRadius="0"  Opacity="0" Background="Transparent"/>-->
+            <!--内部背景-->
+            <Border x:Name="BgInner" Grid.Row="0" Margin="0" SnapsToDevicePixels ="True" Opacity="0.2"  Background="#fff"/>
+            <!--中间滑动区域-->
+            <Track x:Name="PART_Track" IsDirectionReversed="true" Grid.Row="0">
+                <!--上滑块-->
+                <Track.DecreaseRepeatButton>
+                    <RepeatButton x:Name="HorizontalLargeDecrease" Command="ScrollBar.PageUpCommand" 
+                                      IsTabStop="False" Interval="50" Style="{StaticResource ScrollBarTrackButton}" />
+                </Track.DecreaseRepeatButton>
+                <!--中间滑块-->
+                <Track.Thumb>
+                    <Thumb Style="{StaticResource Thumb}" MinHeight="10"/>
+                </Track.Thumb>
+                <!--下滑块-->
+                <Track.IncreaseRepeatButton>
+                    <RepeatButton x:Name="HorizontalLargeIncrease" Command="ScrollBar.PageDownCommand"
+                                      IsTabStop="False" Interval="50" Style="{StaticResource ScrollBarTrackButton}" />
+                </Track.IncreaseRepeatButton>
+            </Track>
+        </Grid>
+    </ControlTemplate>
+
+    <!--ScrollBar样式-->
+    <Style x:Key="DefaultScrollBar" TargetType="{x:Type ScrollBar}">
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="OverridesDefaultStyle" Value="true" />
+        <Style.Triggers>
+            <Trigger Property="Orientation" Value="Horizontal">
+                <Setter Property="Template" Value="{StaticResource HorizontalScrollBar}" />
+                <Setter Property="Height" Value="{StaticResource ScrollBarSize}" />
+            </Trigger>
+            <Trigger Property="Orientation" Value="Vertical">
+                <Setter Property="Template" Value="{StaticResource VerticalScrollBar}" />
+                <Setter Property="Width" Value="{StaticResource ScrollBarSize}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style TargetType="{x:Type ps:ScrollViewerPro}">
+        <Setter Property="PanningMode" Value="Both" />
+        <Setter Property="HorizontalScrollBarVisibility" Value="Auto" />
+        <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ps:ScrollViewerPro}">
+                    <Grid x:Name="container" Background="Transparent">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" x:Name="leftColumn" />
+                            <ColumnDefinition Width="Auto" x:Name="rightColumn" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <ScrollContentPresenter x:Name="PART_ScrollContentPresenter" CanContentScroll="{TemplateBinding CanContentScroll}"
+                                                CanHorizontallyScroll="False" CanVerticallyScroll="False" ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                Content="{TemplateBinding Content}"
+                                                Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2">
+                        </ScrollContentPresenter>
+                        <!--垂直滚动条 -->
+                        <ScrollBar x:Name="PART_VerticalScrollBar" Style="{StaticResource ResourceKey=DefaultScrollBar}" AutomationProperties.AutomationId="VerticalScrollBar"
+                                   ViewportSize="{TemplateBinding ViewportHeight}"
+                                   Cursor="Arrow"  Grid.Row="0" Grid.Column="1" Maximum="{TemplateBinding ScrollableHeight}"
+                                   Minimum="0" Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}"
+                                   Value="{Binding VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}">
+                        </ScrollBar>
+                        <!--水平底部滚动条-->
+                        <ScrollBar x:Name="PART_HorizontalScrollBar" Style="{StaticResource ResourceKey=DefaultScrollBar}" AutomationProperties.AutomationId="HorizontalScrollBar"
+                                   Cursor="Arrow" Grid.Row="1" Grid.Column="0" Maximum="{TemplateBinding ScrollableWidth}"
+                                   Minimum="0" Orientation="Horizontal" 
+                                   Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}"
+                                   Value="{Binding HorizontalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                   ViewportSize="{TemplateBinding ViewportWidth}" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <!-- 当有垂直滚动条且无水平滚动条，并且垂直滚动条没有到达底部时，显示底部渐变效果 -->
+                        <MultiDataTrigger >
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=ComputedHorizontalScrollBarVisibility}" Value="Collapsed" />
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=ComputedVerticalScrollBarVisibility}" Value="Visible" />
+                                <Condition Value="False">
+                                    <Condition.Binding>
+                                        <MultiBinding Converter="{x:Static ps:IsVerticalScrollBarAtBottomConverter.Instance}">
+                                            <Binding RelativeSource="{RelativeSource Self}" Path="VerticalOffset" />
+                                            <Binding RelativeSource="{RelativeSource Self}" />
+                                        </MultiBinding>
+                                    </Condition.Binding>
+                                </Condition>
+                            </MultiDataTrigger.Conditions>
+                            <Setter TargetName="container" Property="OpacityMask">
+                                <Setter.Value>
+                                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                        <GradientStop Color="#ff000000" Offset="0.9"/>
+                                        <GradientStop Color="#00ffffff" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                        </MultiDataTrigger>
+                        <!-- 当有垂直滚动条且无水平滚动条，并且垂直滚动条有偏移时，显示顶部渐变效果 -->
+                        <MultiDataTrigger >
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=ComputedHorizontalScrollBarVisibility}" Value="Collapsed" />
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=ComputedVerticalScrollBarVisibility}" Value="Visible" />
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=VerticalOffset,Converter={x:Static ps:IsGreaterThanZero.Instance}}" Value="True" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter TargetName="container" Property="OpacityMask">
+                                <Setter.Value>
+                                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                        <GradientStop Color="#00ffffff" Offset="0"/>
+                                        <GradientStop Color="#ff000000" Offset="0.1"/>
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                        </MultiDataTrigger>
+                        <!-- 当有垂直滚动条且无水平滚动条，并且垂直滚动条没有到达底部也没有达到顶部时，显示底部和顶部渐变效果 -->
+                        <MultiDataTrigger >
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=ComputedHorizontalScrollBarVisibility}" Value="Collapsed" />
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=ComputedVerticalScrollBarVisibility}" Value="Visible" />
+                                <Condition Value="False">
+                                    <Condition.Binding>
+                                        <MultiBinding Converter="{x:Static ps:IsVerticalScrollBarAtBottomConverter.Instance}">
+                                            <Binding RelativeSource="{RelativeSource Self}" Path="VerticalOffset" />
+                                            <Binding RelativeSource="{RelativeSource Self}" />
+                                        </MultiBinding>
+                                    </Condition.Binding>
+                                </Condition>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=VerticalOffset,Converter={x:Static ps:IsGreaterThanZero.Instance}}" Value="True" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter TargetName="container" Property="OpacityMask">
+                                <Setter.Value>
+                                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                        <GradientStop Color="#00ffffff" Offset="0"/>
+                                        <GradientStop Color="#ff000000" Offset="0.1"/>
+                                        <GradientStop Color="#ff000000" Offset="0.9"/>
+                                        <GradientStop Color="#00ffffff" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                        </MultiDataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

@@ -25,7 +25,12 @@ namespace CodeArt.IO
             _buffer = new byte[_bufferSize];
         }
 
-        public void Read(Stream target,Action<Segment> handle)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="target"></param>
+        /// <param name="handle">返回true表示继续处理下一个块，返回false表示中断处理</param>
+        public void Read(Stream target, Func<Segment, bool> handle)
         {
             this.Clear();
             _target = target;
@@ -34,7 +39,7 @@ namespace CodeArt.IO
             {
                 current = Read();
                 if (current.IsEmpty()) break;
-                handle(current);
+                if (!handle(current)) break;
             }
         }
 

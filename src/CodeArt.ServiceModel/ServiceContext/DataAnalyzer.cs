@@ -38,34 +38,67 @@ namespace CodeArt.ServiceModel
             var identityData = Map(request.Identity);
             var argData = Map(request.Argument);
 
-            target.Write(namespaceData.Length);
-            target.Write(namespaceData);
-            target.Write(nameData.Length);
-            target.Write(nameData);
-            target.Write(identityData.Length);
-            target.Write(identityData);
-            target.Write(argData.Length);
-            target.Write(argData);
+            if(ServiceModelConfiguration.Current.Client.EnabledOldVersion)
+            {
+                target.Write(nameData.Length);
+                target.Write(nameData);
+                target.Write(identityData.Length);
+                target.Write(identityData);
+                target.Write(argData.Length);
+                target.Write(argData);
+            }
+            else
+            {
+                target.Write(namespaceData.Length);
+                target.Write(namespaceData);
+                target.Write(nameData.Length);
+                target.Write(nameData);
+                target.Write(identityData.Length);
+                target.Write(identityData);
+                target.Write(argData.Length);
+                target.Write(argData);
+            }
         }
 
         public static ServiceRequest DeserializeRequest(ByteArray source)
         {
-            //读取
-            var namespaceDataLength = source.ReadInt32();
-            var namespaceData = source.ReadBytes(namespaceDataLength);
-            var nameDataLength = source.ReadInt32();
-            var nameData = source.ReadBytes(nameDataLength);
-            var identityDataLength = source.ReadInt32();
-            var identityData = source.ReadBytes(identityDataLength);
-            var argDataLength = source.ReadInt32();
-            var argData = source.ReadBytes(argDataLength);
+            if (ServiceModelConfiguration.Current.Client.EnabledOldVersion)
+            {
+                //读取
+                var nameDataLength = source.ReadInt32();
+                var nameData = source.ReadBytes(nameDataLength);
+                var identityDataLength = source.ReadInt32();
+                var identityData = source.ReadBytes(identityDataLength);
+                var argDataLength = source.ReadInt32();
+                var argData = source.ReadBytes(argDataLength);
 
-            var ns = namespaceData.GetString(Encoding.UTF8);
-            var name = nameData.GetString(Encoding.UTF8);
-            var identity = Map(identityData);
-            var arg = Map(argData);
+                var name = nameData.GetString(Encoding.UTF8);
+                var identity = Map(identityData);
+                var arg = Map(argData);
 
-            return new ServiceRequest(ns, name, identity, arg);
+                return new ServiceRequest(string.Empty, name, identity, arg);
+            }
+            else
+            {
+                //读取
+                var namespaceDataLength = source.ReadInt32();
+                var namespaceData = source.ReadBytes(namespaceDataLength);
+                var nameDataLength = source.ReadInt32();
+                var nameData = source.ReadBytes(nameDataLength);
+                var identityDataLength = source.ReadInt32();
+                var identityData = source.ReadBytes(identityDataLength);
+                var argDataLength = source.ReadInt32();
+                var argData = source.ReadBytes(argDataLength);
+
+                var ns = namespaceData.GetString(Encoding.UTF8);
+                var name = nameData.GetString(Encoding.UTF8);
+                var identity = Map(identityData);
+                var arg = Map(argData);
+
+                return new ServiceRequest(ns, name, identity, arg);
+            }
+
+            
         }
 
         public static void SerializeResponse(ServiceResponse response, ByteArray target)

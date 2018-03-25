@@ -110,7 +110,15 @@ namespace CodeArt.Concurrent.Pattern
                         if (_dispose) return;
                         while (Interlocked.Read(ref _workTimes) > 0)
                         {
-                            _action();
+                            try
+                            {
+                                _action();
+                            }
+                            catch(Exception e)
+                            {
+                                //用户行为造成的异常不影响整个通道的使用
+                                _catchException(e);
+                            }
                             Interlocked.Decrement(ref _workTimes);
                             //每执行一次，就可以允许一次
                             if (_maxConcurrent > 0)

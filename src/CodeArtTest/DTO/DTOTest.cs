@@ -202,5 +202,18 @@ namespace CodeArtTest.DTO
 
             public User(int id, string name) { _id = id; _name = name; }
         }
+
+
+
+        [TestMethod]
+        public void CreateSocketMessageDTO()
+        {
+            DTObject dto = DTObject.CreateReusable("{\"RCN\":\"ControlBigScreenCapability\",\"REN\":\"PlayEvent\",\"MT\":7,\"Ds\":[\"[::ffff:192.168.0.13]:59714\"]}");
+            var ds = dto.GetList("Ds");
+            var code = dto.GetCode();
+
+            Assert.AreEqual("[::ffff:192.168.0.13]:59714", ds[0].GetValue());
+        }
+
     }
 }

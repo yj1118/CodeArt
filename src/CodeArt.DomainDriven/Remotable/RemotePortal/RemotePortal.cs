@@ -53,7 +53,7 @@ namespace CodeArt.DomainDriven
         /// <returns></returns>
         private static DynamicRoot GetRootByRemote(AggregateRootDefine define, object id)
         {
-            var data = RemoteService.GetObject(define.RemoteType, id);
+            var data = RemoteService.GetObject(define, id);
             return (DynamicRoot)define.CreateInstance(data);
         }
 
@@ -156,8 +156,6 @@ namespace CodeArt.DomainDriven
         }
 
         #endregion
-
-     
 
         private static RemotableConfig _config;
 

@@ -22,7 +22,12 @@ namespace CodeArt.DomainDriven
         public TypeDefine Define
         {
             get;
-            set;
+            private set;
+        }
+
+        protected override Type GetObjectType()
+        {
+            return this.Define.MetadataType;
         }
 
         private bool _isEmpty;
@@ -241,6 +246,7 @@ namespace CodeArt.DomainDriven
         {
             var propertyName = binder.Name;
             var property = this.Define.GetProperty(propertyName);
+            if (property == null) throw new DomainDrivenException(string.Format(Strings.NoDefinitionProperty, this.Define.TypeName, propertyName));
             result = GetValue(property);
             return true;
         }
@@ -255,6 +261,7 @@ namespace CodeArt.DomainDriven
         {
             var propertyName = binder.Name;
             var property = this.Define.GetProperty(propertyName);
+            if (property == null) throw new DomainDrivenException(string.Format(Strings.NoDefinitionProperty, this.Define.TypeName, propertyName));
             SetValue(property, value);
             return true;
         }

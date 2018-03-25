@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 
@@ -12,5 +13,17 @@ namespace CodeArt.DomainDriven
     /// </summary>
     public interface IValueObject : IDomainObject
     {
+        /// <summary>
+        /// 由于ORM存储中间表时需要用到编号，所以我们提供了该属性
+        /// 该属性仅在ORM中使用，不要在领域层中出现
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        Guid Id
+        {
+            get;
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        void TrySetId(Guid id);
     }
 }

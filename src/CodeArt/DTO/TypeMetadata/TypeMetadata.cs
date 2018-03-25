@@ -154,14 +154,14 @@ namespace CodeArt.DTO
                 var typeName = temp[0]; //第一项作为类型名
                 temp.RemoveAt(0);
                 var descriptions = temp;
-                return new ValueEntry(this, entryName, typeName, e.GetCode(false), descriptions);
+                return new ValueEntry(this, entryName, typeName, e.GetCode(false, true), descriptions);
             }
         }
 
         private TypeEntry CreateEntry(DTEObject e)
         {
             var name = e.Name; //条目名称
-            var metadataCode = e.GetCode(false);
+            var metadataCode = e.GetCode(false, true);
             string typeName = GetPathName(name);
             return new ObjectEntry(this, name, typeName, metadataCode);
         }
@@ -192,7 +192,7 @@ namespace CodeArt.DTO
             {
                 var code = temp.Item;
                 code.Append("{item:");
-                code.Append(item.GetCode(false));
+                code.Append(item.GetCode(false, true));
                 code.Append("}");
                 return code.ToString();
             }

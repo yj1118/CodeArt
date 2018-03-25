@@ -28,7 +28,7 @@ namespace CodeArt.Concurrent
         /// <param name="type"></param>
         public static void CheckUp(Type type)
         {
-            var access = AttributeUtil.GetAttribute<SafeAccessAttribute>(type);
+            var access = AttributeUtil.GetAttribute<SafeAccessAttribute>(type, false);
             if (access == null)
                 throw new TypeUnsafeAccessException(type);
         }
@@ -52,7 +52,7 @@ namespace CodeArt.Concurrent
         private static Func<Type, object> _getSingleInstance = LazyIndexer.Init<Type, object>((objType) =>
         {
             CheckUp(objType);
-            return Activator.CreateInstance(objType);
+            return Activator.CreateInstance(objType, true); //设置true，表示就算是私有的构造函数也能匹配
         });
 
         /// <summary>
@@ -105,9 +105,14 @@ namespace CodeArt.Concurrent
                 obj = _getSingleInstance(objType) as T;
             }
             else
-                obj = Activator.CreateInstance(objType) as T;
+                obj = Activator.CreateInstance(objType, true) as T;//设置true，表示就算是私有的构造函数也能匹配
             if (obj == null) throw new TypeMismatchException(objType, typeof(T));
             return obj;
+        }
+
+        public static object CreateInstance(Type objType)
+        {
+            return CreateInstance<object>(objType);
         }
 
         /// <summary>
@@ -127,7 +132,7 @@ namespace CodeArt.Concurrent
                 obj = _getSingleInstance(objType);
             }
             else
-                obj = Activator.CreateInstance(objType);
+                obj = Activator.CreateInstance(objType, true);//设置true，表示就算是私有的构造函数也能匹配
             return (T)obj;
         }
 

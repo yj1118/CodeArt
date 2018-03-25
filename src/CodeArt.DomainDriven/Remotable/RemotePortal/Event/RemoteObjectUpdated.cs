@@ -9,14 +9,9 @@ using CodeArt.EasyMQ.Event;
 
 namespace CodeArt.DomainDriven
 {
-    internal sealed class RemoteObjectUpdated : RemoteObjectChanged
+    internal static class RemoteObjectUpdated
     {
-        public RemoteObjectUpdated(RemoteType remoteType, object id)
-            : base(GetEventName(remoteType), remoteType, id)
-        {
-        }
-
-        private static string GetEventName(RemoteType remoteType)
+        public static string GetEventName(RemoteType remoteType)
         {
             return string.Format("{0}Updated", remoteType.FullName);
         }
@@ -36,10 +31,8 @@ namespace CodeArt.DomainDriven
         [SafeAccess]
         private class RemoteObjectUpdatedHandler : RemoteObjectHandler
         {
-            public override void Handle(DTObject @event)
+            protected override void Handle(DTObject arg)
             {
-                var arg = @event;
-
                 UseDefines(arg, (define, id) =>
                 {
                     RemotePortal.UpdateObject(define, id);

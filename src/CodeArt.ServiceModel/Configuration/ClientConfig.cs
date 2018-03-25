@@ -34,11 +34,23 @@ namespace CodeArt.ServiceModel
             return this.ProxyImplementer != null ? this.ProxyImplementer.GetInstance<IServiceProxy>() : null;
         }
 
-     
+        /// <summary>
+        /// 启用老版本模式，该设置主要用于兼容老的服务提供者，老版本不支持服务的命名空间
+        /// </summary>
+        public bool EnabledOldVersion
+        {
+            get;
+            private set;
+        }
+
+
+
         public void LoadFrom(XmlNode root)
         {
             LoadServices(root);
             LoadProxy(root);
+
+            this.EnabledOldVersion = root.GetAttributeValue("EnabledOldVersion", null) != null;
         }
 
         private void LoadServices(XmlNode root)

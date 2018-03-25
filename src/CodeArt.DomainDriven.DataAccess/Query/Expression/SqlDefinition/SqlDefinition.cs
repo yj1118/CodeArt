@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
+using System.Text;
 
 using CodeArt.DomainDriven;
 using CodeArt.Util;
+
 
 namespace CodeArt.DomainDriven.DataAccess
 {
@@ -26,9 +29,30 @@ namespace CodeArt.DomainDriven.DataAccess
             private set;
         }
 
+        /// <summary>
+        /// 在查询中需要输出的字段名集合
+        /// </summary>
+        public string OutputFileds
+        {
+            get;
+            private set;
+        }
+
         public string GetFieldsSql()
         {
-            return string.IsNullOrEmpty(this.SelectFields) ? "*" : this.SelectFields;
+            if(this.OutputFileds == null)
+            {
+                if (string.IsNullOrEmpty(this.SelectFields)) this.OutputFileds = "*";
+                else
+                {
+                    //where涉及到的字段内置到GetObjectSql中，所以不必考虑
+                    List<string> temp = new List<string>();
+                    temp.AddRange(this.Columns.Select);
+                    temp.AddRange(this.Columns.Order);
+                    this.OutputFileds = string.Join(",", temp.Distinct(StringComparer.OrdinalIgnoreCase));
+                }
+            }
+            return this.OutputFileds;
         }
 
 
@@ -75,6 +99,17 @@ namespace CodeArt.DomainDriven.DataAccess
             private set;
         }
 
+        /// <summary>
+        /// 是否为自定义sql，这表示由程序员自己翻译执行的sql语句
+        /// </summary>
+        public bool IsCustom
+        {
+            get
+            {
+                return !string.IsNullOrEmpty(this.Key);
+            }
+        }
+
         public bool IsNativeSql
         {
             get;
@@ -86,7 +121,6 @@ namespace CodeArt.DomainDriven.DataAccess
             get;
             private set;
         }
-
 
         private SqlDefinition()
         {
@@ -214,16 +248,15 @@ namespace CodeArt.DomainDriven.DataAccess
             return define;
         });
 
+
         private static SqlColumns GetColumns(SqlDefinition define)
         {
-            var mockSql = string.Format("select {0} from tempTable {1} {2}", 
-                                                                            define.GetFieldsSql(),
-                                                                            define.Condition.IsEmpty() ? string.Empty : string.Format("where {0}", define.Condition.Code),
+            var mockSql = string.Format("select {0} from tempTable {1} {2}",
+                                                                            string.IsNullOrEmpty(define.SelectFields) ? "*" : define.SelectFields,
+                                                                            define.Condition.IsEmpty() ? string.Empty : string.Format("where {0}", define.Condition.ProbeCode),
                                                                             define.Order);
             return SqlParser.Parse(mockSql);
         }
-
-
 
         /// <summary>
         /// 预处理

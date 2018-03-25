@@ -16,6 +16,7 @@ namespace CodeArt.DomainDriven.DataAccess
         private QueryCount(DataTable target, string expression, QueryLevel level)
             : base(target, expression, level)
         {
+            if (this.Definition.IsCustom) return;
             _sql = string.Format("select count({0}) from {1}", EntityObject.IdPropertyName, this.GetObjectSql());
         }
 

@@ -1,0 +1,18 @@
+﻿<ControlTemplate 
+    xmlns="http://schemas.codeart.cn/web/xaml"
+    xmlns:m="http://schemas.codeart.cn/web/xaml/metronic">
+<form class="{TemplateBinding Class,Converter={Static AppendClassConverter.Instance},ConverterParameter=m-form m-form--state m-form--fit m-form--label-align-right}"
+     data-proxy="{give:new $$metronic.form()}"
+     id="{TemplateBinding Id}">
+    <AttributesPresenter />
+    <div class="m-portlet__body">
+        <m:alert hide="true" close="true"></m:alert>
+        <ContentPresenter Content="{TemplateBinding Content}" />
+    </div>
+    <div class="m-portlet__foot m-portlet__foot--fit" Visibility="{TemplateBinding Actions,Converter={Static ListCountCollapsedConverter.Instance}}">
+        <div class="m-form__actions">
+            <ContentPresenter Content="{TemplateBinding Actions}" />
+        </div>
+    </div>
+</form>
+</ControlTemplate>

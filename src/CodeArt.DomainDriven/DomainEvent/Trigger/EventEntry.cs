@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,33 +13,15 @@ namespace CodeArt.DomainDriven
     /// <summary>
     /// 每一个事件条目的执行和回逆都需要满足幂等性
     /// </summary>
+    [DebuggerDisplay("EventName:{EventName},EventId:{EventId}")]
     [ObjectRepository(typeof(IEventQueueRepository))]
     public class EventEntry : EntityObject<EventEntry, int>
     {
         /// <summary>
-        /// 条目所属的队列
+        /// 得到该事件条目的事件源
         /// </summary>
         [NotEmpty]
         [PropertyRepository(Lazy = true)]
-        internal static readonly DomainProperty QueueProperty = DomainProperty.Register<EventQueue, EventEntry>("Queue");
-
-        public EventQueue Queue
-        {
-            get
-            {
-                return GetValue<EventQueue>(QueueProperty);
-            }
-            private set
-            {
-                SetValue(QueueProperty, value);
-            }
-        }
-
-        /// <summary>
-        /// 得到该事件条目所属的事件源（注意，事件条目的事件源不一定是事件队列的事件源，因为事件队列中的每个事件有可能是本地事件）
-        /// </summary>
-        [NotEmpty]
-        //[PropertyRepository(Lazy = true)]
         internal static readonly DomainProperty SourceProperty = DomainProperty.Register<EventEntry, EventEntry>("Source");
 
         public EventEntry Source
@@ -50,6 +33,29 @@ namespace CodeArt.DomainDriven
             private set
             {
                 SetValue(SourceProperty, value);
+            }
+        }
+
+        /// <summary>
+        /// 获取该事件条目属于的事件源的事件实例
+        /// </summary>
+        /// <returns></returns>
+        public DomainEvent GetSourceEvent()
+        {
+            if (this.IsRootSource)
+            {
+                //根事件源
+                var args = DTObject.CreateReusable(this.ArgsCode);
+                var @event = EventFactory.GetLocalEvent(this.EventName, args, true);
+                @event.Entry = this;
+                return @event;
+            }
+            else
+            {
+                var args = this.Source.GetArgs();
+                var @event = EventFactory.GetLocalEvent(this.Source.EventName, args, true);
+                @event.Entry = this.Source;
+                return @event;
             }
         }
 
@@ -99,6 +105,17 @@ namespace CodeArt.DomainDriven
             }
         }
 
+        /// <summary>
+        /// 该条目是根事件源
+        /// </summary>
+        public bool IsRootSource
+        {
+            get
+            {
+                return this.Source.IsEmpty();
+            }
+        }
+
 
         /// <summary>
         /// 事件状态
@@ -120,97 +137,104 @@ namespace CodeArt.DomainDriven
         }
 
         /// <summary>
-        /// 事件的参数
+        /// 条目存储的参数，只有本地事件的条目才存储数据
         /// </summary>
         [PropertyRepository()]
         private static readonly DomainProperty ArgsCodeProperty = DomainProperty.Register<string, EventEntry>("ArgsCode");
 
+        /// <summary>
+        /// 队列存储的参数，该参数是基于事件源的，也就是事件源的数据
+        /// </summary>
         public string ArgsCode
         {
             get
             {
                 return GetValue<string>(ArgsCodeProperty);
             }
-            internal set
+            set
             {
                 SetValue(ArgsCodeProperty, value);
             }
         }
 
         /// <summary>
+        /// 获得事件条目的参数
+        /// </summary>
+        /// <returns></returns>
+        public DTObject GetArgs()
+        {
+            if (this.Source.IsEmpty())
+            {
+                //根条目
+                return DTObject.CreateReusable(this.ArgsCode);
+            }
+            else if (this.IsLocal)
+            {
+                if (string.IsNullOrEmpty(this.ArgsCode))
+                {
+                    //对于本地事件，如果参数代码为空，表示还没有初始化过，要初始化
+                    var source = this.GetSourceEvent();
+                    var args = source.GetArgs(this.EventName);
+                    this.ArgsCode = args.GetCode(); //保存代码
+                    return args;
+                }
+                else
+                    return DTObject.CreateReusable(this.ArgsCode); //如果已经有代码，那么直接使用
+            }
+            else
+            {
+                //远程事件，直接从源事件中得到参数
+                var source = this.GetSourceEvent();
+                return source.GetArgs(this.EventName);
+            }
+            //a
+            //b c d
+
+            //c
+            //c1 c2
+
+            //b c1 c2 c d a
+        }
+
+
+        /// <summary>
         /// 获得事件的远程格式
         /// </summary>
         /// <returns></returns>
-        public DTObject GetRemotable()
+        internal DTObject GetRemotable(DTObject identity, DTObject args)
         {
             //并没有将本地队列的编号和条目状态传递出去
-            var args = GetArgs();
             var e = DTObject.CreateReusable();
-            e.SetValue("queueId", this.Queue.Id);
             e.SetValue("eventId", this.EventId);
             e.SetValue("eventName", this.EventName);
             e.SetObject("args", args);
+            e.SetObject("identity", identity);
             return e;
         }
 
-        public const string QueueId = "queueId";
-
-        public DTObject GetArgs()
+        internal static EventKey GetEventKey(DTObject @event)
         {
-            return DTObject.CreateReusable(this.ArgsCode);
+            var eventId = @event.GetValue<Guid>("eventId");
+            var eventName = @event.GetValue<string>("eventName");
+            return new EventKey(eventId, eventName);
         }
 
-
         /// <summary>
-        /// 当事件条目被执行后，触发该回调方法
+        /// 
         /// </summary>
-        /// <param name="result"></param>
-        internal void Callback(DTObject result)
-        {
-            this.ArgsCode = result.GetCode();
-            //回调
-            var entrySource = EventFactory.GetLocalEvent(this.Source, true);
-            entrySource.Callback(this.EventName, result);
-            this.Source.ArgsCode = entrySource.GetArgs().GetCode(); //此处需要测试在更新queue的时候，是否能更新,todo
-        }
-
-
-        /// <summary>
-        /// 该构造函数创建的是远程事件
-        /// </summary>
-        /// <param name="queue"></param>
+        /// <param name="EventEntry"></param>
         /// <param name="id"></param>
         /// <param name="eventName"></param>
         /// <param name="source"></param>
         /// <param name="argsCode"></param>
-        internal EventEntry(EventQueue queue, int id, string eventName, EventEntry source, string argsCode)
+        internal EventEntry(EventEntry source, int id, string eventName, Guid eventId, string argsCode)
             : base(id)
         {
-            this.Queue = queue;
             this.Source = source;
-            this.EventName = eventName;
-            this.EventId = Guid.NewGuid();
-            this.Status = EventStatus.Idle;
             this.ArgsCode = argsCode;
-            this.OnConstructed();
-        }
-
-        /// <summary>
-        /// 该构造函数创建的是本地事件
-        /// </summary>
-        /// <param name="queue"></param>
-        /// <param name="id"></param>
-        /// <param name="eventName"></param>
-        /// <param name="argsCode"></param>
-        internal EventEntry(EventQueue queue, int id, string eventName, string argsCode)
-            : base(id)
-        {
-            this.Queue = queue;
-            this.Source = this; //本地事件的事件源是自己
             this.EventName = eventName;
-            this.EventId = Guid.NewGuid();
+            this.EventId = eventId;
             this.Status = EventStatus.Idle;
-            this.ArgsCode = argsCode;
             this.OnConstructed();
         }
 
@@ -242,7 +266,6 @@ namespace CodeArt.DomainDriven
         public static readonly EventEntry Empty = new EventEntryEmpty();
 
         #endregion
-
 
     }
 }

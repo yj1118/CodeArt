@@ -100,6 +100,16 @@ goto start;
             Write(buffer, 0, buffer.Length);
         }
 
+        public void Write(byte value)
+        {
+            using (var temp = ByteBuffer.BrrowByte1())
+            {
+                var bytes = temp.Item;
+                bytes[0] = value;
+                Write(bytes);
+            }
+        }
+
         /// <summary>
         /// 请用该方法写入整型，不会产生4字节临时数组
         /// </summary>
@@ -112,6 +122,13 @@ goto start;
                 value.GetBytes(bytes, 0);
                 Write(bytes);
             }
+        }
+
+        public void Write(long value)
+        {
+            var bytes = BitConverter.GetBytes(value);
+            this.Write(bytes.Length);
+            this.Write(bytes);
         }
 
         /// <summary>
@@ -132,6 +149,16 @@ goto start;
             {
                 Write(value);
             }
+        }
+
+        public void Write(Guid value)
+        {
+            Write(value.ToByteArray());
+        }
+
+        public void Write(DateTime value)
+        {
+            Write(value.ToBinary());
         }
 
         /// <summary>
@@ -389,6 +416,16 @@ goto start;
             return bytes;
         }
 
+        public byte ReadByte()
+        {
+            using (var temp = ByteBuffer.BrrowByte1())
+            {
+                var bytes = temp.Item;
+                ReadBytes(bytes, 0, 1);
+                return bytes[0];
+            }
+        }
+
         public int ReadInt32()
         {
             int value = 0;
@@ -399,6 +436,13 @@ goto start;
                 value = bytes.ToInt();
             }
             return value;
+        }
+
+        public long ReadInt64()
+        {
+            var length = ReadInt32();
+            var bytes = ReadBytes(length);
+            return BitConverter.ToInt64(bytes, 0);
         }
 
         /// <summary>
@@ -421,6 +465,18 @@ goto start;
                 values[i] = ReadString();
             }
             return values;
+        }
+
+        public Guid ReadGuid()
+        {
+            var bytes = this.ReadBytes(16);
+            return new Guid(bytes);
+        }
+
+        public DateTime ReadDateTime()
+        {
+            var dateData = this.ReadInt64();
+            return DateTime.FromBinary(dateData);
         }
 
         /// <summary>

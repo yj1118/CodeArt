@@ -1,0 +1,36 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:ps="clr-namespace:CodeArt.WPF.Controls.Playstation">
+    <Style TargetType="{x:Type ps:Button}">
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ps:Button">
+                    <Grid>
+                        <Border x:Name="border">
+                            <Border.BorderBrush>
+                                <SolidColorBrush x:Name="borderBrush" Color="#fff" Opacity="0.5"></SolidColorBrush>
+                            </Border.BorderBrush>
+                        </Border>
+                        <Border x:Name="background" Background="#fff" Opacity="0.05"></Border>
+                        <TextBlock x:Name="content" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#fff" Text="{TemplateBinding Text}" FontSize="25"></TextBlock>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type ps:ButtonMenu}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ps:ButtonMenu">
+                    <StackPanel Orientation="Vertical" Background="Transparent">
+                        <Image Width="60" Height="60" Margin="0 0 0 0" Source="/CodeArt.WPF.Controls;component/Playstation/Button/ButtonMenu/menu.png"></Image>
+                        <TextBlock x:Name="tip" Visibility="Collapsed" Margin="0 10 0 0" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="#fff" Text="{TemplateBinding Text}" FontSize="25"></TextBlock>
+                    </StackPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

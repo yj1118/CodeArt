@@ -13,12 +13,12 @@ namespace AccountSubsystem
         /// <summary>
         /// 最后一次登录时使用的IP地址
         /// </summary>
-        private static readonly DomainProperty LastIPProperty = DomainProperty.Register<string, Account>("LastIP");
+        [PropertyRepository]
+        private static readonly DomainProperty LastIPProperty = DomainProperty.Register<string, LoginInfo>("LastIP");
 
         /// <summary>
         /// 登录时使用的IP地址
         /// </summary>
-        [PropertyRepository]
         public string LastIP
         {
             get
@@ -31,13 +31,12 @@ namespace AccountSubsystem
             }
         }
 
-
-        private static readonly DomainProperty LastTimeProperty = DomainProperty.Register<Emptyable<DateTime>, Account>("LastTime");
+        [PropertyRepository]
+        private static readonly DomainProperty LastTimeProperty = DomainProperty.Register<Emptyable<DateTime>, LoginInfo>("LastTime");
 
         /// <summary>
         /// 最后一次登录时间
         /// </summary>
-        [PropertyRepository]
         public Emptyable<DateTime> LastTime
         {
             get
@@ -54,12 +53,12 @@ namespace AccountSubsystem
         /// <summary>
         /// 总登录次数
         /// </summary>
-        private static readonly DomainProperty TotalProperty = DomainProperty.Register<int, Permission>("Total");
+        [PropertyRepository]
+        private static readonly DomainProperty TotalProperty = DomainProperty.Register<int, LoginInfo>("Total");
 
         /// <summary>
         /// 总登录次数
         /// </summary>
-        [PropertyRepository]
         public int Total
         {
             get
@@ -83,7 +82,7 @@ namespace AccountSubsystem
         }
 
         [ConstructorRepository()]
-        public LoginInfo(string lastIP, DateTime lastTime, int total)
+        public LoginInfo(string lastIP, Emptyable<DateTime> lastTime, int total)
         {
             this.LastIP = lastIP;
             this.LastTime = lastTime;
@@ -98,6 +97,7 @@ namespace AccountSubsystem
             public LoginInfoEmpty()
                 : base(string.Empty, Emptyable<DateTime>.CreateEmpty(), 0)
             {
+                this.OnConstructed();
             }
 
             public override bool IsEmpty()

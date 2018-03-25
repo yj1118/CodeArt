@@ -8,7 +8,7 @@ using CodeArt.DomainDriven;
 
 namespace CodeArt.TestTools.DomainDriven
 {
-    [Event("NodeEvent3")]
+    [Event("NodeEvent3", false)]
     public class NodeEvent3 : NodeEventBase
     {
     }

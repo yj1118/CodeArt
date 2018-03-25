@@ -4,6 +4,7 @@ using System.Runtime;
 using System.IO;
 
 using CodeArt.Runtime;
+using System.Collections;
 
 namespace CodeArt.Util
 {
@@ -15,8 +16,6 @@ namespace CodeArt.Util
             return (T)ToValue(value, valueType);
         }
 
-
-
         public static object ToValue(object value, Type valueType)
         {
             if (value == null) return GetDefaultValue(valueType);
@@ -24,6 +23,10 @@ namespace CodeArt.Util
             {
                 if (value is Guid) return (Guid)value;
                 return Guid.Parse(value.ToString());
+            }
+            if(valueType == typeof(string))
+            {
+                if (value is Guid) return value.ToString();
             }
             return Convert.ChangeType(value, valueType);
         }
@@ -163,6 +166,24 @@ namespace CodeArt.Util
                 default:
                     return null;
             }
+        }
+
+        public static bool IsEmpty(this IEnumerable items)
+        {
+            if (items == null) return true;
+            foreach (var item in items)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public static string PercentageText(this double value)
+        {
+            var result = string.Format("{0:F}", ((double)value) * 100);
+            if (result.EndsWith(".00")) result = result.Substring(0, result.Length - 3);
+            else if (result.EndsWith(".0")) result = result.Substring(0, result.Length - 2);
+            return string.Format("{0}%", result);
         }
 
 

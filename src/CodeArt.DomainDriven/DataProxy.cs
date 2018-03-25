@@ -14,8 +14,8 @@ namespace CodeArt.DomainDriven
     /// 我们将领域数据分为两部分存放
     /// 一部分是聚合模型内部的成员、另外一部分是引用的聚合根
     /// 由于每个聚合根对象都在领域缓冲区，那么当一个聚合根对象由于失效离开了领域缓冲区，而另外一个在缓冲区内聚合根还持有它的引用
-    /// 这时候就会造成不一致性，因此，引用聚合根的数据我们放在appSession里，这样同一线程可以重复使用外部聚合根，而不同的线程
-    /// 会在本线程第一次使用外部聚合根时尝试再次加载聚合根，保证一致性
+    /// 这时候就会造成不一致性，因此，引用聚合根的数据我们放在appSession里，这样同一线程可以重复使用外部聚合根,如果需要知道聚合根是否失效可以通过IsSnapshot判断
+    /// 而不同的线程会在本线程第一次使用外部聚合根时尝试再次加载聚合根，保证一致性
     /// </summary>
     public abstract class DataProxy : IDataProxy
     {
@@ -32,17 +32,29 @@ namespace CodeArt.DomainDriven
 
         public DataProxy()
         {
-            this.UniqueKey = Guid.NewGuid().ToString();
+            this.UniqueKey = Guid.NewGuid().ToString(); //这里可以保证就算在同一个线程里，同一个编号但不同实例的领域对象的数据代理是不一样的
             _appSessionDatasKey = string.Format("{0}DataProxyDatas", this.UniqueKey);
         }
 
         public abstract bool IsSnapshot { get; }
+
+        public abstract bool IsMirror { get; }
 
         public abstract bool IsFromSnapshot { get; }
 
         public abstract int Version { get; set; }
 
         public abstract void SyncVersion();
+
+        /// <summary>
+        /// 因为数据代理可能包含一些线程公共资源，这些资源在对象过期后可以及时清除，腾出内存空间
+        /// 数据代理中AppSession就是典型的例子
+        /// </summary>
+        public void Clear()
+        {
+            _shareDatas.Clear();
+            ClearDatasFromAppSession();
+        }
 
         /// <summary>
         /// 共享数据，所有线程对该实例的操作共享此数据
@@ -60,6 +72,12 @@ namespace CodeArt.DomainDriven
                     return new Dictionary<string, object>();
                 });
             });
+        }
+
+        private void ClearDatasFromAppSession()
+        {
+            var data = GetDatasFromAppSession();
+            data.Clear();
         }
 
         /// <summary>
@@ -168,7 +186,7 @@ namespace CodeArt.DomainDriven
 
         public bool IsLoaded(DomainProperty property)
         {
-            return _shareDatas.ContainsKey(property.Name);
+            return _shareDatas.ContainsKey(property.Name) || GetDatasFromAppSession().ContainsKey(property.Name);
         }
 
         /// <summary>
@@ -202,6 +220,8 @@ namespace CodeArt.DomainDriven
             }
 
             public override bool IsSnapshot => false;
+
+            public override bool IsMirror => false;
 
             public override bool IsFromSnapshot => false;
 
@@ -242,6 +262,8 @@ namespace CodeArt.DomainDriven
         }
 
         public override bool IsSnapshot => false;
+
+        public override bool IsMirror => false;
 
         public override bool IsFromSnapshot => false;
 

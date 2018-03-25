@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 
 using CodeArt.Runtime;
 using CodeArt.Log;
+using CodeArt.DTO;
 
 namespace CodeArt.AppSetting
 {
@@ -25,9 +26,9 @@ namespace CodeArt.AppSetting
                 if (useSymbiosis) Symbiosis.Open();
                 action();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
             finally
             {
@@ -66,6 +67,7 @@ namespace CodeArt.AppSetting
         {
             Current.Initialize();
         }
+
 
         /// <summary>
         /// 清理当前回话数据
@@ -158,5 +160,45 @@ namespace CodeArt.AppSetting
             AppSessionAccessAttribute.CheckUp(appSession);
             _sessionByRegister = appSession;
         }
+
+        #region 会话级别的身份和语言
+
+        /// <summary>
+        /// 当前应用程序会话使用的身份
+        /// </summary>
+        public static DTObject Identity
+        {
+            get
+            {
+                return AppSession.GetItem("SessionIdentity") as DTObject;
+            }
+            set
+            {
+                AppSession.SetItem("SessionIdentity", value);
+                CodeArt.Language.Init(); //初始化语言选项，因为身份可能含有语言信息，所以需要初始化
+                if (IdentityChanged != null)
+                    IdentityChanged(value);
+            }
+        }
+
+        /// <summary>
+        /// 当会话的身份发生改变时触发
+        /// </summary>
+        public static event Action<DTObject> IdentityChanged;
+
+
+        /// <summary>
+        /// 当前应用程序会话使用的语言
+        /// </summary>
+        public static string Language
+        {
+            get
+            {
+                return Identity == null ? string.Empty : Identity.GetValue<string>("name", string.Empty);
+            }
+        }
+
+
+        #endregion
     }
 }

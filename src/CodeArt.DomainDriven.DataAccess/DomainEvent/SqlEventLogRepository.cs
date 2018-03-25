@@ -15,6 +15,5 @@ namespace CodeArt.DomainDriven.DataAccess
         private SqlEventLogRepository() { }
 
         public static readonly SqlEventLogRepository Instance = new SqlEventLogRepository();
-
     }
 }

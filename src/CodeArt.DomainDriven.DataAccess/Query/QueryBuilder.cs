@@ -48,12 +48,12 @@ namespace CodeArt.DomainDriven.DataAccess
         /// 构建查询，获取执行的文本，在这个过程中有可能改变param的值
         /// </summary>
         /// <returns></returns>
-        public string Build(DynamicData param)
+        public string Build(DynamicData param, DataTable table)
         {
             //尝试用代理来构建
-            var sql = AgentBuild(param);
+            var sql = AgentBuild(param, table);
             if (!string.IsNullOrEmpty(sql)) return sql;
-            if(this.IsUser) throw new DataAccessException(string.Format(Strings.NoQuery, this.Name));
+            if (this.IsUser) throw new DataAccessException(string.Format(Strings.NoQuery, this.Name));
             //通过内部构建
             return InternalBuild(param);
         }
@@ -64,10 +64,10 @@ namespace CodeArt.DomainDriven.DataAccess
         /// <param name="connName"></param>
         /// <param name="param"></param>
         /// <returns></returns>
-        private string AgentBuild(DynamicData param)
+        private string AgentBuild(DynamicData param, DataTable table)
         {
             var agent = SqlContext.GetAgent();
-            return agent.Build(this, param);
+            return agent.Build(this, param, table);
         }
 
         /// <summary>

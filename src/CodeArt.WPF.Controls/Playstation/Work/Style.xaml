@@ -1,0 +1,139 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:ps="clr-namespace:CodeArt.WPF.Controls.Playstation"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <Style TargetType="{x:Type ps:Work}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ps:Work">
+                    <Grid>
+                        <Grid x:Name="container"></Grid>
+                        <ps:TitleBar x:Name="titleBar"
+                                     Title="{TemplateBinding Title}"
+                                     Logo="{TemplateBinding Logo}"
+                                     Visibility="{TemplateBinding ShowTitleBar,Converter={x:Static ps:BoolCollapsedConverter.Instance}}" 
+                                     ShowClose="{TemplateBinding ShowClose}" ShowKeyboard="{TemplateBinding ShowKeyboard}"
+                                     VerticalAlignment="Top" HorizontalAlignment="Stretch"></ps:TitleBar>
+                        <ps:DrawerTip Panel.ZIndex="20" x:Name="tip" ImageBackground="{TemplateBinding TipImageColor}" Visibility="Collapsed"></ps:DrawerTip>
+                        <ps:DrawerLeft Panel.ZIndex="10" x:Name="left" Visibility="Collapsed"></ps:DrawerLeft>
+                        <ps:DrawerRight Panel.ZIndex="10" x:Name="right" Visibility="Collapsed"></ps:DrawerRight>
+                        <ps:DrawerBottom Panel.ZIndex="10" x:Name="bottom" Visibility="Collapsed"></ps:DrawerBottom>
+                        <Grid Panel.ZIndex="5" x:Name="mask" Background="#000" Visibility="Collapsed" />
+                        <Grid Panel.ZIndex="100" x:Name="obstruction" Background="#fff" Opacity="0" Visibility="Collapsed" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style TargetType="{x:Type ps:DrawerLeft}">
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ps:DrawerLeft">
+                    <Grid Name="container">
+                        <Border BorderThickness="0 0 4 0" Padding="0 0 25 0" Background="#041d60" HorizontalAlignment="Left" VerticalAlignment="Stretch">
+                            <Border.Effect>
+                                <DropShadowEffect Color="#000" Direction="0" ShadowDepth="2" Opacity="0.2" />
+                            </Border.Effect>
+                            <Border.BorderBrush>
+                                <LinearGradientBrush
+                                 StartPoint="0,0.5"
+                                 EndPoint="1,0.5">
+                                    <GradientStop Color="#01154e" Offset="0"/>
+                                    <GradientStop Color="#041d50" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.BorderBrush>
+                            <StackPanel>
+                                <ContentPresenter Content="{TemplateBinding Value}"></ContentPresenter>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style TargetType="{x:Type ps:DrawerRight}">
+        <Setter Property="HorizontalAlignment" Value="Right" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ps:DrawerRight}">
+                    <Grid>
+                        <Grid.Background>
+                            <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
+                                <GradientStop Color="#ff000000" Offset="0"/>
+                                <GradientStop Color="#aa020818" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Grid.Background>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="90" />
+                        </Grid.ColumnDefinitions>
+                        <ps:Line Width="2" VerticalAlignment="Stretch" HorizontalAlignment="Left" Margin="2 0 0 0"></ps:Line>
+                        <Grid Grid.Column="1" x:Name="container"></Grid>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style TargetType="{x:Type ps:DrawerBottom}">
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="VerticalAlignment" Value="Bottom" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ps:DrawerBottom">
+                    <Grid>
+                        <Grid.Background>
+                            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                <GradientStop Color="#ff000000" Offset="0"/>
+                                <GradientStop Color="#aa020818" Offset="1.5"/>
+                            </LinearGradientBrush>
+                        </Grid.Background>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <ps:Line Height="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0 1 0 0"></ps:Line>
+                        <Grid Grid.Row="1" x:Name="container"></Grid>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style TargetType="{x:Type ps:DrawerTip}">
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="Margin" Value="0 135 0 0" />
+        <Setter Property="Height" Value="100" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ps:DrawerTip">
+                    <Grid Background="#f1f1f1">
+                        <Grid.Effect>
+                            <DropShadowEffect Color="Black" BlurRadius="30" Direction="310" Opacity="0.7"></DropShadowEffect>
+                        </Grid.Effect>
+                        <Border Margin="1" BorderThickness="1">
+                            <Border.BorderBrush>
+                                <SolidColorBrush Color="#fff"></SolidColorBrush>
+                            </Border.BorderBrush>
+                            <StackPanel Orientation="Horizontal">
+                                <Grid HorizontalAlignment="Left" Margin="100 0 0 0" VerticalAlignment="Center" Background="{TemplateBinding ImageBackground}" Width="65" Height="65">
+                                    <ps:ImagePro VerticalAlignment="Center" HorizontalAlignment="Center" Source="{TemplateBinding ImageSrc}"  Width="50" Height="50"></ps:ImagePro>
+                                </Grid>
+                                <TextBlock MaxWidth="{TemplateBinding TextMaxWidth}" 
+                                           Style="{DynamicResource TextSM}" 
+                                           Margin="20 0 50 0" 
+                                           HorizontalAlignment="Left" 
+                                           Foreground="#212121"
+                                           VerticalAlignment="Center" 
+                                           Text="{TemplateBinding Content}"></TextBlock>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

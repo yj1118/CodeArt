@@ -15,13 +15,16 @@ using CodeArt.Concurrent;
 
 namespace CodeArt.DTO
 {
-    internal static class JSON
+    public static class JSON
     {
         public static string WriteValue(object value)
         {
-            StringBuilder sb = new StringBuilder();
-            WriteValue(sb, value);
-            return sb.ToString();
+            using (var temp = StringPool.Borrow())
+            {
+                var sb = temp.Item;
+                WriteValue(sb, value);
+                return sb.ToString();
+            }
         }
 
         public static void WriteValue(StringBuilder sb, object value)

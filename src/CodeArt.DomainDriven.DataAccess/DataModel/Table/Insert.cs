@@ -27,8 +27,9 @@ namespace CodeArt.DomainDriven.DataAccess
             if (root == null || root.IsEmpty())
                 throw new DomainDrivenException(string.Format(Strings.PersistentObjectError, obj.ObjectType.FullName));
 
+            OnPreDataInsert(obj);
             var data = InsertData(root, null, obj);
-            OnDataInsert(root, obj, data);
+            OnDataInserted(root, obj, data);
         }
 
         /// <summary>
@@ -52,20 +53,26 @@ namespace CodeArt.DomainDriven.DataAccess
             return data;
         }
 
+        private void OnPreDataInsert(DomainObject obj)
+        {
+            this.Mapper.OnPreInsert(obj, this);
+        }
+
+
         /// <summary>
         /// 该方法用于保存数据后，更新基表的信息
         /// </summary>
         /// <param name="root"></param>
         /// <param name="obj"></param>
-        private void OnDataInsert(DomainObject root, DomainObject obj, DynamicData objData)
+        private void OnDataInserted(DomainObject root, DomainObject obj, DynamicData objData)
         {
-            SetDataProxy(obj, objData);//对于保存的对象，我们依然要同步数据代理
+            SetDataProxy(obj, objData, false);//对于保存的对象，我们依然要同步数据代理
             obj.MarkClean();
 
             if (this.Type == DataTableType.AggregateRoot)
             {
                 var ar = (IAggregateRoot)obj;
-                DomainBuffer.Add(this.ObjectTip.ObjectType, ar.GetIdentity(), ar);
+                DomainBuffer.Public.Add(this.ObjectTip.ObjectType, ar.GetIdentity(), ar);
             }
 
             if (this.IsDerived || this.IsDynamic)
@@ -92,7 +99,7 @@ namespace CodeArt.DomainDriven.DataAccess
                 }
             }
 
-            this.Mapper.OnInsert(obj);
+            this.Mapper.OnInserted(obj, this);
         }
 
         private DynamicData GetInsertData(DomainObject root, DomainObject parent, DomainObject obj)
@@ -134,7 +141,7 @@ namespace CodeArt.DomainDriven.DataAccess
                 data.Add(GeneratedField.RootIdName, GetObjectId(root));
             }
 
-            this.Mapper.FillInsertData(obj, data);
+            //this.Mapper.FillInsertData(obj, data, this);
 
 
             if (!this.IsDerived)
@@ -162,8 +169,9 @@ namespace CodeArt.DomainDriven.DataAccess
 
             if (existObject.IsNull())
             {
+                OnPreDataInsert(obj);
                 var data = InsertData(root, parent, obj);
-                OnDataInsert(root, obj, data);
+                OnDataInserted(root, obj, data);
             }
             else
             {
@@ -298,7 +306,7 @@ namespace CodeArt.DomainDriven.DataAccess
         private void InsertAndCollectValueObject(DomainObject root, DomainObject parent, DomainObject current, PropertyRepositoryAttribute tip, DynamicData data)
         {
             var field = GetQuoteField(this, tip.PropertyName);
-            var obj = current.GetValue(tip.Property) as ValueObject;
+            var obj = current.GetValue(tip.Property) as DomainObject;
 
             if (obj.IsEmpty())
             {
@@ -306,7 +314,7 @@ namespace CodeArt.DomainDriven.DataAccess
             }
             else
             {
-                obj.SetId(Guid.NewGuid());
+                (obj as IValueObject).TrySetId(Guid.NewGuid());
                 var id = GetObjectId(obj);
                 data.Add(field.Name, id);
 
@@ -327,7 +335,7 @@ namespace CodeArt.DomainDriven.DataAccess
                 if (child.Type == DataTableType.ValueObject)
                 {
                     //我们需要为ValueObject补充编号
-                    (obj as ValueObject).SetId(Guid.NewGuid());
+                    (obj as IValueObject).TrySetId(Guid.NewGuid());
                 }
                 child.InsertMember(root, current, obj);
                 if (middle == null) middle = child.Middle;
@@ -352,7 +360,7 @@ namespace CodeArt.DomainDriven.DataAccess
         private string GetInsertSql()
         {
             var query = InsertTable.Create(this);
-            return query.Build(null);
+            return query.Build(null, this);
         }
 
     }

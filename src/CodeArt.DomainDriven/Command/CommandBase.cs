@@ -25,7 +25,8 @@ namespace CodeArt.DomainDriven
             }
             catch (Exception ex)
             {
-                OnFailed(ex);
+                if (OnFailed(ex))
+                    throw;
             }
             finally
             {
@@ -34,7 +35,7 @@ namespace CodeArt.DomainDriven
             }
         }
 
-        private void OnFailed(Exception ex)
+        private bool OnFailed(Exception ex)
         {
             bool throwError = true;
             if (this.Failed != null)
@@ -43,8 +44,7 @@ namespace CodeArt.DomainDriven
                 this.Failed(this, e);
                 throwError = e.ThrowError;
             }
-            if (throwError)
-                throw ex;
+            return throwError;
         }
 
         private void OnSucceeded()

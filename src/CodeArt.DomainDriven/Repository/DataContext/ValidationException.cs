@@ -11,19 +11,18 @@ using CodeArt.Log;
 namespace CodeArt.DomainDriven
 {
     [NonLog]
-    public class ValidationException : DomainDrivenException
+    public class ValidationException : BusinessException
     {
-        private ValidationResult _result;
-
         public ValidationResult Result
         {
-            get { return _result; }
+            get;
+            private set;
         }
 
         public ValidationException(ValidationResult result)
             : base(result.Message)
         {
-            _result = result;
+            this.Result = result;
         }
 
     }

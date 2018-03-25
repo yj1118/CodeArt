@@ -17,8 +17,12 @@ namespace CodeArt.DomainDriven.DataAccess
         {
             IfUnBuilt(this.Name, () =>
             {
-                var sql = CreateTable.Create(this).Build(null);
-                SqlHelper.Execute(this.ConnectionName, sql);
+                //开启独立事务，这样创建表的操作就和后续的增删改查没有冲突了，不会造成死锁
+                DataContext.UseTransactionScope(() =>
+                {
+                    var sql = CreateTable.Create(this).Build(null, this);
+                    SqlHelper.Execute(this.ConnectionName, sql);
+                });
             });
             AddRuntimeIndex(this);
         }
@@ -42,14 +46,18 @@ namespace CodeArt.DomainDriven.DataAccess
         internal static void RuntimeBuild()
         {
             _built.Clear();
-            foreach (var index in _runtimeIndexs)
+            //开启独立事务，这样创建表的操作就和后续的增删改查没有冲突了，不会造成死锁
+            DataContext.UseTransactionScope(() =>
             {
-                IfUnBuilt(index.Name, () =>
+                foreach (var index in _runtimeIndexs)
                 {
-                    var sql = CreateTable.Create(index).Build(null);
-                    SqlHelper.Execute(index.ConnectionName, sql);
-                });
-            }
+                    IfUnBuilt(index.Name, () =>
+                    {
+                        var sql = CreateTable.Create(index).Build(null, index);
+                        SqlHelper.Execute(index.ConnectionName, sql);
+                    });
+                }
+            });
         }
 
 
@@ -58,11 +66,14 @@ namespace CodeArt.DomainDriven.DataAccess
         /// </summary>
         internal static void Drop()
         {
-            foreach (var tableName in _indexs)
+            DataContext.UseTransactionScope(() =>
             {
-                var sql = DropTable.Create(tableName).Build(null);
-                SqlHelper.Execute(tableName, sql);
-            }
+                foreach (var tableName in _indexs)
+                {
+                    var sql = DropTable.Create(tableName).Build(null, null);
+                    SqlHelper.Execute(tableName, sql);
+                }
+            });
             _built.Clear();
         }
 

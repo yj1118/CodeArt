@@ -19,11 +19,13 @@ namespace CodeArt.DomainDriven.DataAccess
         private QueryObject(DataTable target, string expression, QueryLevel level)
             : base(target, expression, level)
         {
+            if (this.Definition.IsCustom) return; //自定义查询，由程序员自行翻译
             _sql = GetSql();
         }
 
         private string GetSql()
         {
+            if (this.Definition.IsCustom) return string.Empty;//自定义查询，由程序员自行解析
             switch (SqlContext.GetDbType())
             {
                 case DatabaseType.SQLServer: return GetSqlBySQLServer();

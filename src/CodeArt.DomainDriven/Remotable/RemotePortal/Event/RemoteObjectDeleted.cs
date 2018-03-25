@@ -9,14 +9,9 @@ using CodeArt.Concurrent;
 
 namespace CodeArt.DomainDriven
 {
-    public sealed class RemoteObjectDeleted : RemoteObjectChanged
+    public static class RemoteObjectDeleted
     {
-        public RemoteObjectDeleted(RemoteType remoteType, object id)
-            : base(GetEventName(remoteType), remoteType, id)
-        {
-        }
-
-        private static string GetEventName(RemoteType remoteType)
+        public static string GetEventName(RemoteType remoteType)
         {
             return string.Format("{0}Deleted", remoteType.FullName);
         }
@@ -37,10 +32,8 @@ namespace CodeArt.DomainDriven
         [SafeAccess]
         internal class RemoteObjectDeletedHandler : RemoteObjectHandler
         {
-            public override void Handle(DTObject @event)
+            protected override void Handle(DTObject arg)
             {
-                var arg = @event;
-
                 UseDefines(arg, (define, id) =>
                 {
                     RemotePortal.DeleteObject(define, id);

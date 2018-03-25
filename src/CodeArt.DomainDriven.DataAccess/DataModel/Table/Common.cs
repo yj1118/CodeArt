@@ -35,7 +35,7 @@ namespace CodeArt.DomainDriven.DataAccess
         internal long GetIdentity()
         {
             var query = GetIncrementIdentity.Create(this);
-            var sql = query.Build(null);
+            var sql = query.Build(null, this);
             return SqlHelper.ExecuteScalar<long>(this.ConnectionName, sql);
         }
 
@@ -93,7 +93,7 @@ namespace CodeArt.DomainDriven.DataAccess
             var eo = obj as IEntityObject;
             if (eo != null) return eo.GetIdentity();
 
-            var vo = obj as ValueObject;
+            var vo = obj as IValueObject;
             if (vo != null) return vo.Id; //生成的编号
 
             throw new DataAccessException(string.Format(Strings.UnableGetId, obj.GetType().ResolveName()));
@@ -111,46 +111,44 @@ namespace CodeArt.DomainDriven.DataAccess
 
         #region 得到所有引用了该表的中间表信息
 
-        /// <summary>
-        /// 得到所有引用了目标表的中间表信息（目标表作为slave存在于中间表中）
-        /// </summary>
-        /// <param name="table"></param>
-        /// <param name="propertyName"></param>
-        /// <returns></returns>
-        private static IEnumerable<DataTable> GetQuoteMiddlesBySlave(DataTable table)
-        {
-            return _getQuoteMiddlesBySlave(table);
-        }
+        ///// <summary>
+        ///// 得到所有引用了目标表的中间表信息（目标表作为slave存在于中间表中）
+        ///// </summary>
+        ///// <param name="table"></param>
+        ///// <param name="propertyName"></param>
+        ///// <returns></returns>
+        //private static IEnumerable<DataTable> GetQuoteMiddlesBySlave(DataTable table)
+        //{
+        //    return _getQuoteMiddlesBySlave(table);
+        //}
 
-        private static Func<DataTable, IEnumerable<DataTable>> _getQuoteMiddlesBySlave
-                                        = LazyIndexer.Init<DataTable, IEnumerable<DataTable>>((target) =>
-                                        {
-                                            var root = target.Root;
-                                            List<DataTable> tables = new List<DataTable>();
-                                            using (var temp = TempIndex.Borrow())
-                                            {
-                                                var index = temp.Item;
-                                                FillQuoteMiddlesBySlave(target, root, tables, index);
-                                            }
-                                            return tables;
-                                        });
+        //private static Func<DataTable, IEnumerable<DataTable>> _getQuoteMiddlesBySlave
+        //                                = LazyIndexer.Init<DataTable, IEnumerable<DataTable>>((target) =>
+        //                                {
+        //                                    var root = target.Root;
+        //                                    List<DataTable> tables = new List<DataTable>();
+        //                                    using (var temp = TempIndex.Borrow())
+        //                                    {
+        //                                        var index = temp.Item;
+        //                                        FillQuoteMiddlesBySlave(target, root, tables, index);
+        //                                    }
+        //                                    return tables;
+        //                                });
 
-        private static void FillQuoteMiddlesBySlave(DataTable target, DataTable current, List<DataTable> result, TempIndex index)
-        {
-            foreach (var child in current.BuildtimeChilds)
-            {
-                if (!index.TryAdd(child)) continue; //尝试添加索引失败，证明已经处理，这通常是由于循环引用导致的死循环，用临时索引可以避免该问题
+        //private static void FillQuoteMiddlesBySlave(DataTable target, DataTable current, List<DataTable> result, TempIndex index)
+        //{
+        //    foreach (var child in current.BuildtimeChilds)
+        //    {
+        //        if (!index.TryAdd(child)) continue; //尝试添加索引失败，证明已经处理，这通常是由于循环引用导致的死循环，用临时索引可以避免该问题
 
-                if (child.Type == DataTableType.Middle)
-                {
-                    if (child.Slave.Name.EqualsIgnoreCase(target.Name))
-                    {
-                        result.Add(child);
-                    }
-                }
-                FillQuoteMiddlesBySlave(target, child, result, index);
-            }
-        }
+        //        if (child.Middle != null
+        //            && child.Middle.Slave.Name.EqualsIgnoreCase(target.Name))
+        //        {
+        //            result.Add(child.Middle);
+        //        }
+        //        FillQuoteMiddlesBySlave(target, child, result, index);
+        //    }
+        //}
 
 
         /// <summary>
@@ -182,13 +180,10 @@ namespace CodeArt.DomainDriven.DataAccess
             foreach (var child in current.BuildtimeChilds)
             {
                 if (!index.TryAdd(child)) continue; //尝试添加索引失败，证明已经处理，这通常是由于循环引用导致的死循环，用临时索引可以避免该问题
-
-                if (child.Type == DataTableType.Middle)
+                if(child.Middle != null 
+                    && child.Middle.Master.Name.EqualsIgnoreCase(target.Name))
                 {
-                    if (child.Master.Name.EqualsIgnoreCase(target.Name))
-                    {
-                        result.Add(child);
-                    }
+                    result.Add(child.Middle);
                 }
                 FillQuoteMiddlesByMaster(target, child, result, index);
             }
@@ -317,7 +312,7 @@ namespace CodeArt.DomainDriven.DataAccess
         private string GetIncrementAssociatedSql()
         {
             var query = DataAccess.IncrementAssociated.Create(this);
-            return query.Build(null);
+            return query.Build(null, this);
         }
 
 
@@ -337,7 +332,7 @@ namespace CodeArt.DomainDriven.DataAccess
         private string GetDecrementAssociatedSql()
         {
             var query = DataAccess.DecrementAssociated.Create(this);
-            return query.Build(null);
+            return query.Build(null, this);
         }
 
 
@@ -357,7 +352,7 @@ namespace CodeArt.DomainDriven.DataAccess
         private string GetSelectAssociatedSql()
         {
             var query = DataAccess.SelectAssociated.Create(this);
-            return query.Build(null);
+            return query.Build(null, this);
         }
 
 

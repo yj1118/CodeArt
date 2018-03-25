@@ -141,6 +141,12 @@ namespace CodeArt.DTO
         /// <returns></returns>
         Guid ReadGuid(string name);
 
+
+        DateTime? ReadNullableDateTime(string name);
+
+
+
+
         /// <summary>
         /// 读取数组长度
         /// </summary>

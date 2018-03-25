@@ -50,36 +50,31 @@
     <Compile Include="Account\AccountSpecification.cs" />
     <Compile Include="Account\AccountStatus.cs" />
     <Compile Include="Account\Application\AccountCommon.cs" />
+    <Compile Include="Account\Application\DeleteAccount.cs" />
     <Compile Include="Account\Application\CreateAccount.cs" />
+    <Compile Include="Account\Application\Login.cs" />
+    <Compile Include="Account\Application\LoginFailException.cs" />
+    <Compile Include="Account\Application\UpdateAccount.cs" />
     <Compile Include="Account\Event\CreateAccountEvent.cs" />
     <Compile Include="Account\LoginInfo.cs" />
-    <Compile Include="Account\IAccountRepository.cs" />
-    <Compile Include="Account\SecurityIdentity.cs" />
-    <Compile Include="Organization\Application\CreateOrganization.cs" />
-    <Compile Include="Organization\Application\DeleteOrganization.cs" />
-    <Compile Include="Organization\Application\OrganizationCommon.cs" />
-    <Compile Include="Organization\Application\UpdateOrganization.cs" />
-    <Compile Include="Organization\Organization.cs" />
-    <Compile Include="Organization\IOrganizationRepository.cs" />
-    <Compile Include="DataAccess\SqlOrganizationRepository.cs" />
-    <Compile Include="Organization\OrganizationSpecification.cs" />
+    <Compile Include="Account\SqlAccountRepository.cs" />
     <Compile Include="Permission\Application\CreatePermission.cs" />
+    <Compile Include="Permission\Application\DeletePermissions.cs" />
     <Compile Include="Permission\Application\DeletePermission.cs" />
     <Compile Include="Permission\Application\PermissionCommon.cs" />
     <Compile Include="Permission\Application\UpdatePermission.cs" />
     <Compile Include="Permission\Permission.cs" />
     <Compile Include="Permission\PermissionSpecification.cs" />
-    <Compile Include="Permission\IPermissionRepository.cs" />
-    <Compile Include="DataAccess\SqlPermissionRepository.cs" />
+    <Compile Include="Permission\SqlPermissionRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Role\Application\CreateRole.cs" />
+    <Compile Include="Role\Application\DeleteRoles.cs" />
     <Compile Include="Role\Application\DeleteRolePro.cs" />
     <Compile Include="Role\Application\DeleteRole.cs" />
     <Compile Include="Role\Application\RoleCommon.cs" />
     <Compile Include="Role\Application\UpdateRole.cs" />
-    <Compile Include="Role\Event\CreateRoleEvent.cs" />
-    <Compile Include="Role\IRoleRepository.cs" />
-    <Compile Include="DataAccess\SqlRoleRepository.cs" />
+    <Compile Include="Role\Event\GetOrCreateRoleEvent.cs" />
+    <Compile Include="Role\SqlRoleRepository.cs" />
     <Compile Include="Role\Role.cs" />
     <Compile Include="Role\RoleService.cs" />
     <Compile Include="Role\RoleSpecification.cs" />
@@ -90,33 +85,26 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\CodeArt.DomainDriven.DataAccess.csproj">
+      <Project>{c0bac0eb-7068-42af-acac-09df677cf980}</Project>
+      <Name>CodeArt.DomainDriven.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\CodeArt Framework\CodeArt\CodeArt.DomainDriven\CodeArt.DomainDriven.csproj">
+      <Project>{f62d7792-f4ee-4924-898e-c56309e6dfc2}</Project>
+      <Name>CodeArt.DomainDriven</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\CodeArt Framework\CodeArt\CodeArt\CodeArt.csproj">
+      <Project>{d2c9f430-6b47-482a-a49c-a2478d75f95f}</Project>
+      <Name>CodeArt</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <EmbeddedResource Include="Strings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Strings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Strings.zh-CN.resx" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\src\CodeArt.DomainDriven.DataAccess\CodeArt.DomainDriven.DataAccess.csproj">
-      <Project>{c0bac0eb-7068-42af-acac-09df677cf980}</Project>
-      <Name>CodeArt.DomainDriven.DataAccess</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\src\CodeArt.DomainDriven.Extensions\CodeArt.DomainDriven.Extensions.csproj">
-      <Project>{a45a1e35-6ce5-42c2-8fd3-19ce5b0bd5d6}</Project>
-      <Name>CodeArt.DomainDriven.Extensions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\src\CodeArt.DomainDriven\CodeArt.DomainDriven.csproj">
-      <Project>{f62d7792-f4ee-4924-898e-c56309e6dfc2}</Project>
-      <Name>CodeArt.DomainDriven</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\src\CodeArt.EasyMQ\CodeArt.EasyMQ.csproj">
-      <Project>{afb15952-0dfa-4919-9d4b-46c2737654ec}</Project>
-      <Name>CodeArt.EasyMQ</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\src\CodeArt\CodeArt.csproj">
-      <Project>{d2c9f430-6b47-482a-a49c-a2478d75f95f}</Project>
-      <Name>CodeArt</Name>
-    </ProjectReference>
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

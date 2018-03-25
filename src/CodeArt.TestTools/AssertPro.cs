@@ -27,6 +27,29 @@ namespace CodeArt.TestTools
             }
         }
 
+        /// <summary>
+        /// 测试委托会引发异常T
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="action"></param>
+        public static void ThrowsException<T>(Action action) where T : Exception
+        {
+            bool throws = false;
+            try
+            {
+                action();
+            }
+            catch (T)
+            {
+                throws = true;
+            }
+
+            if(!throws)
+            {
+                Assert.Fail(string.Format(Strings.NoException, typeof(T).FullName));
+            }
+        }
+
         public static void AreEqual<T>(IEnumerable<T> a, IEnumerable<T> b) where T : struct
         {
             var al = a.ToList();

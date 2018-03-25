@@ -75,6 +75,34 @@ namespace CodeArt.Util
             return true;
         }
 
+        /// <summary>
+        /// 集合<paramref name="values"/>中的重复项不会被添加，非重复项被添加，如果没有任何重复项，返回true,否则返回false
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="values"></param>
+        /// <returns></returns>
+        public bool TryAdd(TKey key, IEnumerable<TValue> values)
+        {
+            List<TValue> list = null;
+            if (!_data.TryGetValue(key, out list))
+            {
+                list = new List<TValue>();
+                _data.Add(key, list);
+            }
+
+            bool contains = false;
+            foreach(var value in values)
+            {
+                if (list.Contains(value))
+                {
+                    contains = true;
+                    continue;
+                }
+                list.Add(value);
+            }
+            return contains;
+        }
+
         public bool Remove(TKey key)
         {
             return _data.Remove(key);
@@ -92,6 +120,22 @@ namespace CodeArt.Util
         {
             return _data.ContainsKey(key);
         }
+
+        /// <summary>
+        /// 判断是否含有<paramref name="key"/>，且<paramref name="key"/>下含有值<paramref name="value"/>
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public bool Contains(TKey key, TValue value)
+        {
+            if(TryGetValue(key,out var list))
+            {
+                return list.Contains(value);
+            }
+            return false;
+        }
+
 
         public bool RemoveValue(TKey key, TValue value)
         {
@@ -170,6 +214,23 @@ namespace CodeArt.Util
             }
             return default(TValue);
         }
+
+        /// <summary>
+        /// 针对所有的values找值
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
+        public TValue GetValue(Func<TValue, bool> predicate)
+        {
+            foreach(var p in _data)
+            {
+                var temp = p.Value;
+                var value = temp.FirstOrDefault(predicate);
+                if (value != null) return value;
+            }
+            return default(TValue);
+        }
+
 
         public IList<TValue> GetValues(TKey key, Func<TValue, bool> predicate)
         {

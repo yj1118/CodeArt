@@ -257,17 +257,17 @@ namespace CodeArt.DTO
 
         #region 代码
 
-        public override string GetCode(bool sequential)
+        public override string GetCode(bool sequential, bool outputKey)
         {
             StringBuilder code = new StringBuilder();
-            if (!string.IsNullOrEmpty(this.Name))
+            if (outputKey && !string.IsNullOrEmpty(this.Name))
                 code.AppendFormat("\"{0}\"", this.Name);
 
             if (code.Length > 0) code.Append(":");
             code.Append("[");
             foreach (DTObject item in Items)
             {
-                var itemCode = item.GetCode(sequential);
+                var itemCode = item.GetCode(sequential, false);
                 code.Append(itemCode);
                 code.Append(",");
             }
@@ -276,15 +276,15 @@ namespace CodeArt.DTO
             return code.ToString();
         }
 
-        public override string GetSchemaCode(bool sequential)
+        public override string GetSchemaCode(bool sequential, bool outputKey)
         {
             StringBuilder code = new StringBuilder();
-            if (!string.IsNullOrEmpty(this.Name))
+            if (outputKey && !string.IsNullOrEmpty(this.Name))
                 code.AppendFormat("\"{0}\"", this.Name);
 
             if (code.Length > 0) code.Append(":");
             code.Append("[");
-            code.Append(this.ItemTemplate.GetSchemaCode(sequential));
+            code.Append(this.ItemTemplate.GetSchemaCode(sequential, false));
             code.Append("]");
             return code.ToString();
         }

@@ -23,45 +23,24 @@ namespace CodeArt.DomainDriven
         {
         }
 
-        public override void Handle(DTObject @event)
+        protected override void Handle(DTObject arg)
         {
             try
             {
-                EventTrigger.Accept(@event);
+                EventListener.Accept(arg);
             }
-            catch (EventRestoreException ex)
+            catch (EventRestoreException)
             {
                 //如果抛出的恢复事件发生的异常，那么意味着发生了很严重的错误
                 //此时我们要抛出异常，告诉消息队列不要回复ack,让管理员去处理
-                LogWrapper.Default.Fatal(ex);
-                throw ex;
+                throw;
             }
             catch (Exception ex)
             {
-                //先写入日志
+                //其他类型的错误写入日志，不抛出异常
                 LogWrapper.Default.Fatal(ex);
-                PublishRaiseFailed(@event, ex);
             }
         }
-
-        private void PublishRaiseFailed(DTObject @event, Exception ex)
-        {
-            //不抛出异常，消息不会被再次处理
-            try
-            {
-                var queueId = @event.GetValue<Guid>(EventEntry.QueueId);
-                var eventId = @event.GetValue<Guid>(EventEntry.EventIdProperty.Name);
-                var eventName = @event.GetValue<string>(EventEntry.EventNameProperty.Name);
-
-                EventTrigger.PublishRaiseFailed(queueId, eventName, eventId, ex.Message);
-            }
-            catch (Exception e)
-            {
-                //如果发布错误也出错，那么记录日志
-                LogWrapper.Default.Fatal(e);
-            }
-        }
-
 
         public static readonly RaiseEventHandler Instance = new RaiseEventHandler();
 

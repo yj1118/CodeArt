@@ -1,66 +1,24 @@
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\bin\Debug\NLog.config
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\bin\Debug\CodeArt.ServiceModel.MQ.dll
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\bin\Debug\CodeArt.ServiceModel.MQ.pdb
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\bin\Debug\zh-CN\CodeArt.ServiceModel.MQ.resources.dll
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\bin\Debug\CodeArt.dll
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\bin\Debug\NLog.dll
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\bin\Debug\CodeArt.pdb
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\bin\Debug\NLog.xml
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\bin\Debug\zh-CN\CodeArt.resources.dll
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\obj\Debug\CodeArt.ServiceModel.MQ.csprojResolveAssemblyReference.cache
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\obj\Debug\CodeArt.ServiceModel.MQ.dll
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\obj\Debug\CodeArt.ServiceModel.MQ.pdb
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\bin\Debug\CodeArt.EasyMQ.dll
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\bin\Debug\CodeArt.ServiceModel.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\bin\Debug\NLog.dll
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\bin\Debug\CodeArt.EasyMQ.pdb
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\bin\Debug\CodeArt.ServiceModel.pdb
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\bin\Debug\CodeArt.pdb
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\bin\Debug\NLog.xml
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\bin\Debug\zh-CN\CodeArt.EasyMQ.resources.dll
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\bin\Debug\zh-CN\CodeArt.ServiceModel.resources.dll
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\bin\Debug\zh-CN\CodeArt.ServiceModel.MQ.resources.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\bin\Debug\zh-CN\CodeArt.resources.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\obj\Debug\CodeArt.ServiceModel.MQ.csprojResolveAssemblyReference.cache
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\obj\Debug\CodeArt.ServiceModel.MQ.Strings.resources
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\obj\Debug\CodeArt.ServiceModel.MQ.Strings.zh-CN.resources
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\obj\Debug\CodeArt.ServiceModel.MQ.csproj.GenerateResource.Cache
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\obj\Debug\CodeArt.ServiceModel.MQ.csproj.GenerateResource.cache
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\obj\Debug\CodeArt.ServiceModel.MQ.csproj.CoreCompileInputs.cache
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\obj\Debug\zh-CN\CodeArt.ServiceModel.MQ.resources.dll
-D:\Workspace\Projects\Temp\CodeArt\CodeArt.ServiceModel.MQ\bin\Debug\NLog.config
-D:\Workspace\Projects\Temp\CodeArt\CodeArt.ServiceModel.MQ\bin\Debug\CodeArt.ServiceModel.MQ.dll
-D:\Workspace\Projects\Temp\CodeArt\CodeArt.ServiceModel.MQ\bin\Debug\CodeArt.ServiceModel.MQ.pdb
-D:\Workspace\Projects\Temp\CodeArt\CodeArt.ServiceModel.MQ\bin\Debug\zh-CN\CodeArt.ServiceModel.MQ.resources.dll
-D:\Workspace\Projects\Temp\CodeArt\CodeArt.ServiceModel.MQ\bin\Debug\CodeArt.dll
-D:\Workspace\Projects\Temp\CodeArt\CodeArt.ServiceModel.MQ\bin\Debug\CodeArt.EasyMQ.dll
-D:\Workspace\Projects\Temp\CodeArt\CodeArt.ServiceModel.MQ\bin\Debug\CodeArt.ServiceModel.dll
-D:\Workspace\Projects\Temp\CodeArt\CodeArt.ServiceModel.MQ\bin\Debug\NLog.dll
-D:\Workspace\Projects\Temp\CodeArt\CodeArt.ServiceModel.MQ\bin\Debug\CodeArt.EasyMQ.pdb
-D:\Workspace\Projects\Temp\CodeArt\CodeArt.ServiceModel.MQ\bin\Debug\CodeArt.ServiceModel.pdb
-D:\Workspace\Projects\Temp\CodeArt\CodeArt.ServiceModel.MQ\bin\Debug\CodeArt.pdb
-D:\Workspace\Projects\Temp\CodeArt\CodeArt.ServiceModel.MQ\bin\Debug\NLog.xml
-D:\Workspace\Projects\Temp\CodeArt\CodeArt.ServiceModel.MQ\bin\Debug\zh-CN\CodeArt.EasyMQ.resources.dll
-D:\Workspace\Projects\Temp\CodeArt\CodeArt.ServiceModel.MQ\bin\Debug\zh-CN\CodeArt.ServiceModel.resources.dll
-D:\Workspace\Projects\Temp\CodeArt\CodeArt.ServiceModel.MQ\bin\Debug\zh-CN\CodeArt.resources.dll
-D:\Workspace\Projects\Temp\CodeArt\CodeArt.ServiceModel.MQ\obj\Debug\CodeArt.ServiceModel.MQ.csprojResolveAssemblyReference.cache
-D:\Workspace\Projects\Temp\CodeArt\CodeArt.ServiceModel.MQ\obj\Debug\CodeArt.ServiceModel.MQ.Strings.resources
-D:\Workspace\Projects\Temp\CodeArt\CodeArt.ServiceModel.MQ\obj\Debug\CodeArt.ServiceModel.MQ.Strings.zh-CN.resources
-D:\Workspace\Projects\Temp\CodeArt\CodeArt.ServiceModel.MQ\obj\Debug\CodeArt.ServiceModel.MQ.csproj.GenerateResource.Cache
-D:\Workspace\Projects\Temp\CodeArt\CodeArt.ServiceModel.MQ\obj\Debug\zh-CN\CodeArt.ServiceModel.MQ.resources.dll
-D:\Workspace\Projects\Temp\CodeArt\CodeArt.ServiceModel.MQ\obj\Debug\CodeArt.ServiceModel.MQ.dll
-D:\Workspace\Projects\Temp\CodeArt\CodeArt.ServiceModel.MQ\obj\Debug\CodeArt.ServiceModel.MQ.pdb
-D:\Workspace\Release\GitHub\CodeArt Framework\src\CodeArt.ServiceModel.MQ\bin\Debug\NLog.config
-D:\Workspace\Release\GitHub\CodeArt Framework\src\CodeArt.ServiceModel.MQ\bin\Debug\CodeArt.ServiceModel.MQ.dll
-D:\Workspace\Release\GitHub\CodeArt Framework\src\CodeArt.ServiceModel.MQ\bin\Debug\CodeArt.ServiceModel.MQ.pdb
-D:\Workspace\Release\GitHub\CodeArt Framework\src\CodeArt.ServiceModel.MQ\bin\Debug\zh-CN\CodeArt.ServiceModel.MQ.resources.dll
-D:\Workspace\Release\GitHub\CodeArt Framework\src\CodeArt.ServiceModel.MQ\bin\Debug\CodeArt.dll
-D:\Workspace\Release\GitHub\CodeArt Framework\src\CodeArt.ServiceModel.MQ\bin\Debug\CodeArt.EasyMQ.dll
-D:\Workspace\Release\GitHub\CodeArt Framework\src\CodeArt.ServiceModel.MQ\bin\Debug\CodeArt.ServiceModel.dll
-D:\Workspace\Release\GitHub\CodeArt Framework\src\CodeArt.ServiceModel.MQ\bin\Debug\NLog.dll
-D:\Workspace\Release\GitHub\CodeArt Framework\src\CodeArt.ServiceModel.MQ\bin\Debug\CodeArt.EasyMQ.pdb
-D:\Workspace\Release\GitHub\CodeArt Framework\src\CodeArt.ServiceModel.MQ\bin\Debug\CodeArt.ServiceModel.pdb
-D:\Workspace\Release\GitHub\CodeArt Framework\src\CodeArt.ServiceModel.MQ\bin\Debug\CodeArt.pdb
-D:\Workspace\Release\GitHub\CodeArt Framework\src\CodeArt.ServiceModel.MQ\bin\Debug\NLog.xml
-D:\Workspace\Release\GitHub\CodeArt Framework\src\CodeArt.ServiceModel.MQ\bin\Debug\zh-CN\CodeArt.EasyMQ.resources.dll
-D:\Workspace\Release\GitHub\CodeArt Framework\src\CodeArt.ServiceModel.MQ\bin\Debug\zh-CN\CodeArt.ServiceModel.resources.dll
-D:\Workspace\Release\GitHub\CodeArt Framework\src\CodeArt.ServiceModel.MQ\bin\Debug\zh-CN\CodeArt.resources.dll
-D:\Workspace\Release\GitHub\CodeArt Framework\src\CodeArt.ServiceModel.MQ\obj\Debug\CodeArt.ServiceModel.MQ.csprojResolveAssemblyReference.cache
-D:\Workspace\Release\GitHub\CodeArt Framework\src\CodeArt.ServiceModel.MQ\obj\Debug\CodeArt.ServiceModel.MQ.Strings.resources
-D:\Workspace\Release\GitHub\CodeArt Framework\src\CodeArt.ServiceModel.MQ\obj\Debug\CodeArt.ServiceModel.MQ.Strings.zh-CN.resources
-D:\Workspace\Release\GitHub\CodeArt Framework\src\CodeArt.ServiceModel.MQ\obj\Debug\CodeArt.ServiceModel.MQ.csproj.GenerateResource.Cache
-D:\Workspace\Release\GitHub\CodeArt Framework\src\CodeArt.ServiceModel.MQ\obj\Debug\zh-CN\CodeArt.ServiceModel.MQ.resources.dll
-D:\Workspace\Release\GitHub\CodeArt Framework\src\CodeArt.ServiceModel.MQ\obj\Debug\CodeArt.ServiceModel.MQ.dll
-D:\Workspace\Release\GitHub\CodeArt Framework\src\CodeArt.ServiceModel.MQ\obj\Debug\CodeArt.ServiceModel.MQ.pdb
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\obj\Debug\CodeArt.ServiceModel.MQ.csproj.CopyComplete
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\obj\Debug\CodeArt.ServiceModel.MQ.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\obj\Debug\CodeArt.ServiceModel.MQ.pdb

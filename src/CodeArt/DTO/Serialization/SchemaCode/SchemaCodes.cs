@@ -75,7 +75,7 @@ namespace CodeArt.DTO
         {
             if (DataUtil.IsPrimitiveType(objectType))
             {
-                _codes.Add(entity.Name, entity.GetSchemaCode(false));
+                _codes.Add(entity.Name, entity.GetSchemaCode(false, true));
                 return;
             }
 
@@ -83,7 +83,7 @@ namespace CodeArt.DTO
             if (objectType.IsList())
             {
                 var elementType = objectType.ResolveElementType();
-                var sc = entity.GetSchemaCode(false);
+                var sc = entity.GetSchemaCode(false, true);
                 var pos = sc.IndexOf(":");
                 if (pos > -1)
                 {
@@ -110,7 +110,7 @@ namespace CodeArt.DTO
             else
             {
                 //Object的处理
-                var sc = entity.GetSchemaCode(false);
+                var sc = entity.GetSchemaCode(false, true);
                 var pos = sc.IndexOf(":");
                 if (pos > -1)
                 {

@@ -150,11 +150,17 @@
   <data name="NoDbType" xml:space="preserve">
     <value>没有 {0} 对应的数据库类型</value>
   </data>
+  <data name="NoPersistentOperation" xml:space="preserve">
+    <value>没有实现领域类型{0}的持久操作{1}</value>
+  </data>
   <data name="NoQuery" xml:space="preserve">
     <value>没有实现查询{0}</value>
   </data>
   <data name="NotCorrectSqlSelect" xml:space="preserve">
     <value>{0} 不是正确的 sql select 查询语句</value>
+  </data>
+  <data name="NotFoundDbField" xml:space="preserve">
+    <value>找不到类型{0}对应的DbField</value>
   </data>
   <data name="NotFoundDerivedType" xml:space="preserve">
     <value>没有找到{0}的领域派生类类型对应的数据表</value>
@@ -197,5 +203,8 @@
   </data>
   <data name="UnableLoadExternalObject" xml:space="preserve">
     <value>无法加载内聚模型以外的外部象，请自定义加载方法，数据路径 {0}</value>
+  </data>
+  <data name="UnrecognizedSqlFunction" xml:space="preserve">
+    <value>未识别的sql函数{0}</value>
   </data>
 </root>

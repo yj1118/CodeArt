@@ -1,0 +1,97 @@
+﻿<ControlTemplate
+        xmlns="http://schemas.codeart.cn/web/xaml"
+        xmlns:m="http://schemas.codeart.cn/web/xaml/metronic"
+        xmlns:ms="http://schemas.codeart.cn/web/xaml/metronic/sealed">
+
+
+<div id="{TemplateBinding Id}" class="profile-content" 
+    name="{TemplateBinding Name}"
+    data-accId="{TemplateBinding AccountId}"
+    data-securityLevel="{TemplateBinding Level}"
+    data-proxy="{give:new $$metronic.user.security()}">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="portlet light ">
+                <div class="portlet-title">
+                    <div class="caption caption-md">
+                        <i class="icon-bar-chart theme-font hide"></i>
+                        <span class="caption-subject font-blue-madison bold uppercase">您当前的账号安全程度</span>
+                        <ms:progressbar class="progbar-level"></ms:progressbar>
+                        <span class="caption-subject font-blue-madison bold uppercase security-level">安全级别 <font class="font-levelname" color="#f00"></font></span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="tab-content">
+                        <div class="tab-pane active">
+                            <div>
+                                <ul class="feeds">
+                                    <ContentPresenter Content="{TemplateBinding Options}" />
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+ <m:modal id="{TemplateBinding Id,Convert,Converter={Static m:UserSecurityPasswordModalIdConverter.Instance}}"  size="lg" autoclose="false" bodyClass="modal-body form">
+    <bootform  type="horizontal" class="form-row-seperated" view="passwordForm" id="{TemplateBinding Id,Convert,Converter={Static m:UserSecurityPasswordFormIdConverter.Instance}}">
+
+        <ms:input type="password" name="oldPassword" placeholder="请填写原密码" min="6" max="16" required="true">
+            <label xs="12" sm="3">原密码</label>
+            <core xs="12" sm="8"></core>
+            <help sm="8" sm-offset="3" ></help>
+        </ms:input>
+
+        <ms:input type="password" name="newPassword" placeholder="请填写新密码" min="6" max="16" required="true">
+            <label xs="12" sm="3">新密码</label>
+            <core xs="12" sm="8"></core>
+            <help sm="8" sm-offset="3" ></help>
+        </ms:input>
+
+        <ms:input type="password" name="confirmPassword" min="6" max="16" required="true" placeholder="请填写确认密码" class="last" >
+            <label xs="12" sm="3">确认密码</label>
+            <core xs="12" sm="8"></core> 
+            <help sm="8" sm-offset="3" ></help>
+        </ms:input>
+
+    </bootform>
+    <m:modal.footer>
+        <m:button color="blue"  name="btnPasswordSubmit" Click="PasswordSubmit" view="passwordForm"><m:Icon src="check"></m:Icon>提交保存</m:button>
+        <m:button color="default" data-dismiss="modal">关闭</m:button>
+    </m:modal.footer>
+</m:modal>
+
+<m:modal id="{TemplateBinding Id,Convert,Converter={Static m:UserSecurityMobileModalIdConverter.Instance}}" autoclose="false" size="lg" bodyClass="modal-body form">
+
+    <bootform type="horizontal" class="form-row-seperated" view="mobileForm"  id="{TemplateBinding Id,Convert,Converter={Static m:UserSecurityMobileFormIdConverter.Instance}}">
+
+        <ms:input type="text" name="mobileNumber" class="mobileModel-mobile" placeholder="请输入您的手机号码" min="11" max="11" required="true" view="vc">
+            <label xs="12" sm="3">手机号码</label>
+            <core xs="12" sm="8"></core>
+            <help sm="8" sm-offset="3"></help>
+        </ms:input>
+
+        <ms:input type="text"  name="smsVC"  label="短信验证码" placeholder="请输入您接收到的6位短信验证码" min="6" max="6" width="163px" required="true" class="last">
+            <label xs="12" sm="3">短信验证码</label>
+            <core xs="12" sm="8"><after><button class="btn green btn-mobileModel-getVC" style="height:34px;">获取验证码</button></after></core>
+            <help sm="8" sm-offset="3"></help>
+        </ms:input>
+
+    </bootform>
+    <m:modal.footer>
+        <m:button color="blue"  name="btnMobileSubmit" Click="MobileSubmit" view="mobileForm"><m:Icon src="check"></m:Icon>提交保存</m:button>
+
+        <m:button color="default" data-dismiss="modal">关闭</m:button>
+    </m:modal.footer>
+</m:modal>
+
+<LinkCode ExternalKey="metronic:profile.css" Origin="Header" />
+<LinkCode ExternalKey="metronic:user.css" Origin="Header" />
+<LinkCode ExternalKey="metronic:user.js" Origin="Bottom" />
+
+</ControlTemplate>

@@ -25,6 +25,16 @@ namespace CodeArt.ModuleNest
 
     public abstract class ModuleHandlerBase : ModuleHandlerBase<DTObject, DTObject>
     {
+        public override DTObject Process(DTObject request)
+        {
+            return DynamicInvoke((dynamic)request);
+        }
+
+        protected virtual DTObject DynamicInvoke(dynamic arg)
+        {
+            return DTObject.Empty;
+        }
+
     }
 
 }

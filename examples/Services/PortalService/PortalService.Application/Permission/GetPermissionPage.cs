@@ -20,7 +20,7 @@ namespace PortalService.Application
         protected override DTObject DynamicInvoke(dynamic arg)
         {
             var page = PermissionCommon.FindPage(arg.Name, arg.PageIndex, arg.PageSize);
-            return DTObjectPro.Create("{id,name}", page);
+            return DTObjectPro.Create("{id,name,markedCode,description}", page);
         }
     }
 }

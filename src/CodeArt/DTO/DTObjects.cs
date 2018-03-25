@@ -19,11 +19,11 @@ namespace CodeArt.DTO
             _list = items;
         }
 
-        internal DTObjects()
+        public DTObjects()
         {
         }
 
-        internal DTObjects(List<DTObject> items)
+        public DTObjects(IList<DTObject> items)
         {
             SetList(items);
         }
@@ -100,6 +100,12 @@ namespace CodeArt.DTO
             return data;
         }
 
+        public IEnumerable<T> OfType<T>()
+        {
+            return ToArray<T>();
+        }
+
+
         public T[] ToArray<T>(Func<DTObject, T> func)
         {
             T[] data = new T[_list.Count];
@@ -116,7 +122,7 @@ namespace CodeArt.DTO
             code.Append("[");
             foreach (DTObject item in _list)
             {
-                code.Append(item.GetCode(sequential));
+                code.Append(item.GetCode(sequential, false));
                 code.Append(",");
             }
             if (_list.Count > 0) code.Length--;
@@ -124,32 +130,44 @@ namespace CodeArt.DTO
             return code.ToString();
         }
 
+        /// <summary>
+        /// 将数组转为一个对象(可回收的)，数组作为对象的成员
+        /// </summary>
+        /// <param name="memberName">成员名称</param>
+        /// <returns></returns>
+        public DTObject ToReusableObject(string memberName)
+        {
+            var obj = DTObject.CreateReusable();
+            obj.SetList(memberName, _list);
+            return obj;
+        }
+
         #endregion
 
-        /// <summary>
-        /// 集合项是否为单值的
-        /// </summary>
-        /// <returns></returns>
-        public bool ItemIsSingleValue()
-        {
-            return this.Count > 0 && this[0].IsSingleValue;
-        }
+        ///// <summary>
+        ///// 集合项是否为单值的
+        ///// </summary>
+        ///// <returns></returns>
+        //public bool ItemIsSingleValue()
+        //{
+        //    return this.Count > 0 && this[0].IsSingleValue;
+        //}
 
-        /// <summary>
-        /// 尝试将集合转换为单值集合
-        /// </summary>
-        /// <param name="values"></param>
-        /// <returns></returns>
-        public bool TryGetSingleValues(out PrimitiveValueList values)
-        {
-            values = null;
-            if (ItemIsSingleValue())
-            {
-                values = new PrimitiveValueList(this.Select((v) => v.GetValue()));
-                return true;
-            }
-            return false;
-        }
+        ///// <summary>
+        ///// 尝试将集合转换为单值集合
+        ///// </summary>
+        ///// <param name="values"></param>
+        ///// <returns></returns>
+        //public bool TryGetSingleValues(out PrimitiveValueList values)
+        //{
+        //    values = null;
+        //    if (ItemIsSingleValue())
+        //    {
+        //        values = new PrimitiveValueList(this.Select((v) => v.GetValue()));
+        //        return true;
+        //    }
+        //    return false;
+        //}
 
 
         public readonly static DTObjects Empty = new DTObjects(DTOPool.CreateObjects(true));
