@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -45,8 +46,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="File\AddFile.cs" />
+    <Compile Include="File\DeleteFile.cs" />
+    <Compile Include="File\GetRootDirectory.cs" />
+    <Compile Include="File\GetFile.cs" />
+    <Compile Include="SMS\ISMSSender.cs" />
+    <Compile Include="SMS\SendSMS.cs" />
+    <Compile Include="SMS\SMSSenderProvider.cs" />
+    <Compile Include="SMS\WinicSender.cs" />
     <Compile Include="User\AddUser.cs" />
     <Compile Include="User\DeleteUsers.cs" />
+    <Compile Include="User\GetUserPage.cs" />
+    <Compile Include="User\GetUser.cs" />
     <Compile Include="User\GetAccount.cs" />
     <Compile Include="User\GetAccountPage.cs" />
     <Compile Include="Identity\Login.cs" />
@@ -66,6 +77,8 @@
     <Compile Include="Role\GetRolePage.cs" />
     <Compile Include="Role\GetRole.cs" />
     <Compile Include="Role\UpdateRole.cs" />
+    <Compile Include="User\UpdatePassword.cs" />
+    <Compile Include="User\UpdateUser.cs" />
     <Compile Include="User\UpdateAccount.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -92,6 +105,10 @@
     <ProjectReference Include="..\..\..\CodeArt Framework\CodeArt\CodeArt.ServiceModel\CodeArt.ServiceModel.csproj">
       <Project>{ea6365f1-c027-416b-b4cc-a94572b5fc19}</Project>
       <Name>CodeArt.ServiceModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\CodeArt Framework\CodeArt\CodeArt.Web\CodeArt.Web.csproj">
+      <Project>{fc477f23-2bcc-4917-841e-691726eb0894}</Project>
+      <Name>CodeArt.Web</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\CodeArt Framework\CodeArt\CodeArt\CodeArt.csproj">
       <Project>{d2c9f430-6b47-482a-a49c-a2478d75f95f}</Project>

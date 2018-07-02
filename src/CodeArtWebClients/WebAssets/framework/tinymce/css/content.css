@@ -1,0 +1,14 @@
+.mce-content-body{
+    font-size:14px;
+}
+
+.sourceCode{
+    border:1px solid #ccc;
+    background:#f8f8f8;
+    color:#222;
+    padding:15px;
+}
+
+.sourceCode *{
+    margin:0px;
+}

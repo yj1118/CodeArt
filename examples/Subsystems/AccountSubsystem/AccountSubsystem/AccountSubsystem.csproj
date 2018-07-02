@@ -53,9 +53,10 @@
     <Compile Include="Account\Application\DeleteAccount.cs" />
     <Compile Include="Account\Application\CreateAccount.cs" />
     <Compile Include="Account\Application\Login.cs" />
+    <Compile Include="Account\Application\UpdatePasswordFailException.cs" />
     <Compile Include="Account\Application\LoginFailException.cs" />
+    <Compile Include="Account\Application\UpdatePassword.cs" />
     <Compile Include="Account\Application\UpdateAccount.cs" />
-    <Compile Include="Account\Event\CreateAccountEvent.cs" />
     <Compile Include="Account\LoginInfo.cs" />
     <Compile Include="Account\SqlAccountRepository.cs" />
     <Compile Include="Permission\Application\CreatePermission.cs" />

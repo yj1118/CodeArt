@@ -20,8 +20,7 @@ namespace PortalService.Application
         protected override DTObject DynamicInvoke(dynamic arg)
         {
             var page = AccountCommon.FindPage(arg.Flag, arg.PageIndex, arg.PageSize);
-            var result = DTObjectPro.Create("{id,name,email,status:{loginInfo:{lastTime,lastIp,total},isEnabled}}", page);
-            return result;
+            return DTObjectPro.Create("{id,name,email,status:{loginInfo:{lastTime,lastIp,total},isEnabled}}", page);
         }
     }
 }

@@ -1,0 +1,16 @@
+﻿<ControlTemplate xmlns="http://schemas.codeart.cn/web/xaml"
+                 xmlns:m="http://schemas.codeart.cn/web/xaml/metronic">
+<ControlTemplate.Directories>
+    <AssetDirectory AssemblyName="CodeArt.Web.XamlControls.Metronic">
+        <AssetPackage Path="/assets"></AssetPackage>
+    </AssetDirectory>
+</ControlTemplate.Directories>
+<div class="chart"
+     id="{TemplateBinding Id}"
+     data-proxy="{give:new $$metronic.chart()}"
+     data-chart="true"
+     style="{TemplateBinding Height,Converter={Static m:ChartStyleConverter.Instance}}">
+</div>
+<LinkCode Key="/assets/custom/chart/echarts.min.js" Origin="Bottom" />
+<LinkCode Key="/assets/custom/chart/common.js" Origin="Bottom" />
+</ControlTemplate>

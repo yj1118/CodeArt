@@ -1,0 +1,306 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2026
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework", "Framework", "{6C89ADC7-820F-4F3C-96C8-47D28B40BFF8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt", "..\CodeArt\CodeArt\CodeArt.csproj", "{D2C9F430-6B47-482A-A49C-A2478D75F95F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.Web", "..\CodeArt\CodeArt.Web\CodeArt.Web.csproj", "{FC477F23-2BCC-4917-841E-691726EB0894}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.Web.WebPages", "..\CodeArt\CodeArt.Web.WebPages\CodeArt.Web.WebPages.csproj", "{1D237E7F-2E78-400A-BDB2-A3223EF26C0D}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "http://assets.codeart.cn", "http://assets.codeart.cn", "{96E5800A-E681-4FB6-B7C7-23301BAEF52C}"
+	ProjectSection(WebsiteProperties) = preProject
+		SccProjectName = "SAK"
+		SccAuxPath = "SAK"
+		SccLocalPath = "SAK"
+		SccProvider = "SAK"
+		UseIISExpress = "false"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		ProjectReferences = "{d2c9f430-6b47-482a-a49c-a2478d75f95f}|CodeArt.dll;{fc477f23-2bcc-4917-841e-691726eb0894}|CodeArt.Web.dll;{f134c1d9-472f-4f47-af9e-7ed079fa455e}|CodeArt.Html.dll;{1d237e7f-2e78-400a-bdb2-a3223ef26c0d}|CodeArt.Web.WebPages.dll;{21489bc9-1efc-4a37-a513-0bfbc8d3012c}|CodeArt.Web.WebPages.Static.dll;"
+		Debug.AspNetCompiler.VirtualPath = "/assets.codeart.cn"
+		Debug.AspNetCompiler.PhysicalPath = "..\..\..\..\Work\CloudApplication\CloudClient\CloudClient.WebClient\WebAssets\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\assets.codeart.cn\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/assets.codeart.cn"
+		Release.AspNetCompiler.PhysicalPath = "..\..\..\..\Work\CloudApplication\CloudClient\CloudClient.WebClient\WebAssets\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\assets.codeart.cn\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		SlnRelativePath = "..\..\..\..\Work\CloudApplication\CloudClient\CloudClient.WebClient\WebAssets\"
+	EndProjectSection
+	ProjectSection(WebsiteProperties) = preProject
+		SccProjectName = "SAK"
+		SccAuxPath = "SAK"
+		SccLocalPath = "SAK"
+		SccProvider = "SAK"
+		UseIISExpress = "false"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		ProjectReferences = "{d2c9f430-6b47-482a-a49c-a2478d75f95f}|CodeArt.dll;{fc477f23-2bcc-4917-841e-691726eb0894}|CodeArt.Web.dll;{f134c1d9-472f-4f47-af9e-7ed079fa455e}|CodeArt.Html.dll;{1d237e7f-2e78-400a-bdb2-a3223ef26c0d}|CodeArt.Web.WebPages.dll;{21489bc9-1efc-4a37-a513-0bfbc8d3012c}|CodeArt.Web.WebPages.Static.dll;"
+		Debug.AspNetCompiler.VirtualPath = "/assets.codeart.cn"
+		Debug.AspNetCompiler.PhysicalPath = "..\..\..\..\Work\CloudApplication\CloudClient\CloudClient.WebClient\WebAssets\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\assets.codeart.cn\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/assets.codeart.cn"
+		Release.AspNetCompiler.PhysicalPath = "..\..\..\..\Work\CloudApplication\CloudClient\CloudClient.WebClient\WebAssets\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\assets.codeart.cn\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		SlnRelativePath = "..\..\..\..\Work\CloudApplication\CloudClient\CloudClient.WebClient\WebAssets\"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.Html", "..\CodeArt\CodeArt.Html\CodeArt.Html.csproj", "{F134C1D9-472F-4F47-AF9E-7ED079FA455E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.Web.WebPages.Static", "..\CodeArt\CodeArt.Web.WebPages.Static\CodeArt.Web.WebPages.Static.csproj", "{21489BC9-1EFC-4A37-A513-0BFBC8D3012C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Module", "Module", "{D9B75D37-B21F-46D1-AF76-0A966759DC50}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module.WebUI", "Module.WebUI\Module.WebUI.csproj", "{6E751267-8DF4-4626-8F17-8B42E6CD09AE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.ServiceModel", "..\CodeArt\CodeArt.ServiceModel\CodeArt.ServiceModel.csproj", "{EA6365F1-C027-416B-B4CC-A94572B5FC19}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module.WebUI.Xaml", "Module.WebUI.Xaml\Module.WebUI.Xaml.csproj", "{E8F78035-CEE8-4AA9-B0D0-9AEFDB11E2FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.Web.WebPages.Xaml", "..\CodeArt\CodeArt.Web.WebPages.Xaml\CodeArt.Web.WebPages.Xaml.csproj", "{68B7EBB5-5B78-4016-A34B-266523702D59}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module.File", "Module.File\Module.File.csproj", "{61C1E6FC-AC16-40CF-ABE8-A45E5A38EFC3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.Drawing", "..\CodeArt\CodeArt.Drawing\CodeArt.Drawing.csproj", "{FF92CA53-50D3-4565-BB53-21E08F9EA313}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.Web.XamlControls.Metronic", "..\CodeArt\CodeArt.Web.XamlControls.Metronic\CodeArt.Web.XamlControls.Metronic.csproj", "{2E5DE8D2-6C26-4D15-8491-82B931258EA5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.ModuleNest", "..\CodeArt\CodeArt.ModuleNest\CodeArt.ModuleNest.csproj", "{B3E36145-C4AC-4FB2-9232-B31D11C42646}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module.QuestionAnswer", "Module.QuestionAnswer\Module.QuestionAnswer.csproj", "{40354F58-0621-425D-A3AA-E7CAE325DEFA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D2C9F430-6B47-482A-A49C-A2478D75F95F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2C9F430-6B47-482A-A49C-A2478D75F95F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2C9F430-6B47-482A-A49C-A2478D75F95F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D2C9F430-6B47-482A-A49C-A2478D75F95F}.Debug|x86.Build.0 = Debug|Any CPU
+		{D2C9F430-6B47-482A-A49C-A2478D75F95F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2C9F430-6B47-482A-A49C-A2478D75F95F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2C9F430-6B47-482A-A49C-A2478D75F95F}.Release|x86.ActiveCfg = Release|Any CPU
+		{D2C9F430-6B47-482A-A49C-A2478D75F95F}.Release|x86.Build.0 = Release|Any CPU
+		{FC477F23-2BCC-4917-841E-691726EB0894}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC477F23-2BCC-4917-841E-691726EB0894}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC477F23-2BCC-4917-841E-691726EB0894}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FC477F23-2BCC-4917-841E-691726EB0894}.Debug|x86.Build.0 = Debug|Any CPU
+		{FC477F23-2BCC-4917-841E-691726EB0894}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC477F23-2BCC-4917-841E-691726EB0894}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC477F23-2BCC-4917-841E-691726EB0894}.Release|x86.ActiveCfg = Release|Any CPU
+		{FC477F23-2BCC-4917-841E-691726EB0894}.Release|x86.Build.0 = Release|Any CPU
+		{1D237E7F-2E78-400A-BDB2-A3223EF26C0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D237E7F-2E78-400A-BDB2-A3223EF26C0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D237E7F-2E78-400A-BDB2-A3223EF26C0D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1D237E7F-2E78-400A-BDB2-A3223EF26C0D}.Debug|x86.Build.0 = Debug|Any CPU
+		{1D237E7F-2E78-400A-BDB2-A3223EF26C0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D237E7F-2E78-400A-BDB2-A3223EF26C0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D237E7F-2E78-400A-BDB2-A3223EF26C0D}.Release|x86.ActiveCfg = Release|Any CPU
+		{1D237E7F-2E78-400A-BDB2-A3223EF26C0D}.Release|x86.Build.0 = Release|Any CPU
+		{96E5800A-E681-4FB6-B7C7-23301BAEF52C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96E5800A-E681-4FB6-B7C7-23301BAEF52C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96E5800A-E681-4FB6-B7C7-23301BAEF52C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{96E5800A-E681-4FB6-B7C7-23301BAEF52C}.Debug|x86.Build.0 = Debug|Any CPU
+		{96E5800A-E681-4FB6-B7C7-23301BAEF52C}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{96E5800A-E681-4FB6-B7C7-23301BAEF52C}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{96E5800A-E681-4FB6-B7C7-23301BAEF52C}.Release|x86.ActiveCfg = Debug|Any CPU
+		{96E5800A-E681-4FB6-B7C7-23301BAEF52C}.Release|x86.Build.0 = Debug|Any CPU
+		{F134C1D9-472F-4F47-AF9E-7ED079FA455E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F134C1D9-472F-4F47-AF9E-7ED079FA455E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F134C1D9-472F-4F47-AF9E-7ED079FA455E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F134C1D9-472F-4F47-AF9E-7ED079FA455E}.Debug|x86.Build.0 = Debug|Any CPU
+		{F134C1D9-472F-4F47-AF9E-7ED079FA455E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F134C1D9-472F-4F47-AF9E-7ED079FA455E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F134C1D9-472F-4F47-AF9E-7ED079FA455E}.Release|x86.ActiveCfg = Release|Any CPU
+		{F134C1D9-472F-4F47-AF9E-7ED079FA455E}.Release|x86.Build.0 = Release|Any CPU
+		{21489BC9-1EFC-4A37-A513-0BFBC8D3012C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21489BC9-1EFC-4A37-A513-0BFBC8D3012C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21489BC9-1EFC-4A37-A513-0BFBC8D3012C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{21489BC9-1EFC-4A37-A513-0BFBC8D3012C}.Debug|x86.Build.0 = Debug|Any CPU
+		{21489BC9-1EFC-4A37-A513-0BFBC8D3012C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21489BC9-1EFC-4A37-A513-0BFBC8D3012C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21489BC9-1EFC-4A37-A513-0BFBC8D3012C}.Release|x86.ActiveCfg = Release|Any CPU
+		{21489BC9-1EFC-4A37-A513-0BFBC8D3012C}.Release|x86.Build.0 = Release|Any CPU
+		{6E751267-8DF4-4626-8F17-8B42E6CD09AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E751267-8DF4-4626-8F17-8B42E6CD09AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E751267-8DF4-4626-8F17-8B42E6CD09AE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6E751267-8DF4-4626-8F17-8B42E6CD09AE}.Debug|x86.Build.0 = Debug|Any CPU
+		{6E751267-8DF4-4626-8F17-8B42E6CD09AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E751267-8DF4-4626-8F17-8B42E6CD09AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E751267-8DF4-4626-8F17-8B42E6CD09AE}.Release|x86.ActiveCfg = Release|Any CPU
+		{6E751267-8DF4-4626-8F17-8B42E6CD09AE}.Release|x86.Build.0 = Release|Any CPU
+		{EA6365F1-C027-416B-B4CC-A94572B5FC19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA6365F1-C027-416B-B4CC-A94572B5FC19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA6365F1-C027-416B-B4CC-A94572B5FC19}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{EA6365F1-C027-416B-B4CC-A94572B5FC19}.Debug|x86.Build.0 = Debug|Any CPU
+		{EA6365F1-C027-416B-B4CC-A94572B5FC19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA6365F1-C027-416B-B4CC-A94572B5FC19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA6365F1-C027-416B-B4CC-A94572B5FC19}.Release|x86.ActiveCfg = Release|Any CPU
+		{EA6365F1-C027-416B-B4CC-A94572B5FC19}.Release|x86.Build.0 = Release|Any CPU
+		{E8F78035-CEE8-4AA9-B0D0-9AEFDB11E2FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8F78035-CEE8-4AA9-B0D0-9AEFDB11E2FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8F78035-CEE8-4AA9-B0D0-9AEFDB11E2FC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E8F78035-CEE8-4AA9-B0D0-9AEFDB11E2FC}.Debug|x86.Build.0 = Debug|Any CPU
+		{E8F78035-CEE8-4AA9-B0D0-9AEFDB11E2FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8F78035-CEE8-4AA9-B0D0-9AEFDB11E2FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8F78035-CEE8-4AA9-B0D0-9AEFDB11E2FC}.Release|x86.ActiveCfg = Release|Any CPU
+		{E8F78035-CEE8-4AA9-B0D0-9AEFDB11E2FC}.Release|x86.Build.0 = Release|Any CPU
+		{68B7EBB5-5B78-4016-A34B-266523702D59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68B7EBB5-5B78-4016-A34B-266523702D59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68B7EBB5-5B78-4016-A34B-266523702D59}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{68B7EBB5-5B78-4016-A34B-266523702D59}.Debug|x86.Build.0 = Debug|Any CPU
+		{68B7EBB5-5B78-4016-A34B-266523702D59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68B7EBB5-5B78-4016-A34B-266523702D59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68B7EBB5-5B78-4016-A34B-266523702D59}.Release|x86.ActiveCfg = Release|Any CPU
+		{68B7EBB5-5B78-4016-A34B-266523702D59}.Release|x86.Build.0 = Release|Any CPU
+		{61C1E6FC-AC16-40CF-ABE8-A45E5A38EFC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61C1E6FC-AC16-40CF-ABE8-A45E5A38EFC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61C1E6FC-AC16-40CF-ABE8-A45E5A38EFC3}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{61C1E6FC-AC16-40CF-ABE8-A45E5A38EFC3}.Debug|x86.Build.0 = Debug|Any CPU
+		{61C1E6FC-AC16-40CF-ABE8-A45E5A38EFC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61C1E6FC-AC16-40CF-ABE8-A45E5A38EFC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61C1E6FC-AC16-40CF-ABE8-A45E5A38EFC3}.Release|x86.ActiveCfg = Release|Any CPU
+		{61C1E6FC-AC16-40CF-ABE8-A45E5A38EFC3}.Release|x86.Build.0 = Release|Any CPU
+		{FF92CA53-50D3-4565-BB53-21E08F9EA313}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF92CA53-50D3-4565-BB53-21E08F9EA313}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF92CA53-50D3-4565-BB53-21E08F9EA313}.Debug|x86.ActiveCfg = Debug|x86
+		{FF92CA53-50D3-4565-BB53-21E08F9EA313}.Debug|x86.Build.0 = Debug|x86
+		{FF92CA53-50D3-4565-BB53-21E08F9EA313}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF92CA53-50D3-4565-BB53-21E08F9EA313}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF92CA53-50D3-4565-BB53-21E08F9EA313}.Release|x86.ActiveCfg = Release|x86
+		{FF92CA53-50D3-4565-BB53-21E08F9EA313}.Release|x86.Build.0 = Release|x86
+		{2E5DE8D2-6C26-4D15-8491-82B931258EA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E5DE8D2-6C26-4D15-8491-82B931258EA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E5DE8D2-6C26-4D15-8491-82B931258EA5}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2E5DE8D2-6C26-4D15-8491-82B931258EA5}.Debug|x86.Build.0 = Debug|Any CPU
+		{2E5DE8D2-6C26-4D15-8491-82B931258EA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E5DE8D2-6C26-4D15-8491-82B931258EA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E5DE8D2-6C26-4D15-8491-82B931258EA5}.Release|x86.ActiveCfg = Release|Any CPU
+		{2E5DE8D2-6C26-4D15-8491-82B931258EA5}.Release|x86.Build.0 = Release|Any CPU
+		{B3E36145-C4AC-4FB2-9232-B31D11C42646}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3E36145-C4AC-4FB2-9232-B31D11C42646}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3E36145-C4AC-4FB2-9232-B31D11C42646}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B3E36145-C4AC-4FB2-9232-B31D11C42646}.Debug|x86.Build.0 = Debug|Any CPU
+		{B3E36145-C4AC-4FB2-9232-B31D11C42646}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3E36145-C4AC-4FB2-9232-B31D11C42646}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3E36145-C4AC-4FB2-9232-B31D11C42646}.Release|x86.ActiveCfg = Release|Any CPU
+		{B3E36145-C4AC-4FB2-9232-B31D11C42646}.Release|x86.Build.0 = Release|Any CPU
+		{40354F58-0621-425D-A3AA-E7CAE325DEFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40354F58-0621-425D-A3AA-E7CAE325DEFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40354F58-0621-425D-A3AA-E7CAE325DEFA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{40354F58-0621-425D-A3AA-E7CAE325DEFA}.Debug|x86.Build.0 = Debug|Any CPU
+		{40354F58-0621-425D-A3AA-E7CAE325DEFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40354F58-0621-425D-A3AA-E7CAE325DEFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40354F58-0621-425D-A3AA-E7CAE325DEFA}.Release|x86.ActiveCfg = Release|Any CPU
+		{40354F58-0621-425D-A3AA-E7CAE325DEFA}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D2C9F430-6B47-482A-A49C-A2478D75F95F} = {6C89ADC7-820F-4F3C-96C8-47D28B40BFF8}
+		{FC477F23-2BCC-4917-841E-691726EB0894} = {6C89ADC7-820F-4F3C-96C8-47D28B40BFF8}
+		{1D237E7F-2E78-400A-BDB2-A3223EF26C0D} = {6C89ADC7-820F-4F3C-96C8-47D28B40BFF8}
+		{F134C1D9-472F-4F47-AF9E-7ED079FA455E} = {6C89ADC7-820F-4F3C-96C8-47D28B40BFF8}
+		{21489BC9-1EFC-4A37-A513-0BFBC8D3012C} = {6C89ADC7-820F-4F3C-96C8-47D28B40BFF8}
+		{6E751267-8DF4-4626-8F17-8B42E6CD09AE} = {D9B75D37-B21F-46D1-AF76-0A966759DC50}
+		{EA6365F1-C027-416B-B4CC-A94572B5FC19} = {6C89ADC7-820F-4F3C-96C8-47D28B40BFF8}
+		{E8F78035-CEE8-4AA9-B0D0-9AEFDB11E2FC} = {D9B75D37-B21F-46D1-AF76-0A966759DC50}
+		{68B7EBB5-5B78-4016-A34B-266523702D59} = {6C89ADC7-820F-4F3C-96C8-47D28B40BFF8}
+		{61C1E6FC-AC16-40CF-ABE8-A45E5A38EFC3} = {D9B75D37-B21F-46D1-AF76-0A966759DC50}
+		{FF92CA53-50D3-4565-BB53-21E08F9EA313} = {6C89ADC7-820F-4F3C-96C8-47D28B40BFF8}
+		{2E5DE8D2-6C26-4D15-8491-82B931258EA5} = {6C89ADC7-820F-4F3C-96C8-47D28B40BFF8}
+		{B3E36145-C4AC-4FB2-9232-B31D11C42646} = {6C89ADC7-820F-4F3C-96C8-47D28B40BFF8}
+		{40354F58-0621-425D-A3AA-E7CAE325DEFA} = {D9B75D37-B21F-46D1-AF76-0A966759DC50}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9D7D9A32-029C-4F24-B418-A555720DB3D3}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 16
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://120.27.140.63:8080/tfs/workspace
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = ..\\CodeArt\\CodeArt\\CodeArt.csproj
+		SccProjectTopLevelParentUniqueName1 = CodeArtWebClients.sln
+		SccProjectName1 = ../CodeArt/CodeArt
+		SccLocalPath1 = ..\\CodeArt\\CodeArt
+		SccProjectUniqueName2 = ..\\CodeArt\\CodeArt.Web\\CodeArt.Web.csproj
+		SccProjectTopLevelParentUniqueName2 = CodeArtWebClients.sln
+		SccProjectName2 = ../CodeArt/CodeArt.Web
+		SccLocalPath2 = ..\\CodeArt\\CodeArt.Web
+		SccProjectUniqueName3 = ..\\CodeArt\\CodeArt.Web.WebPages\\CodeArt.Web.WebPages.csproj
+		SccProjectTopLevelParentUniqueName3 = CodeArtWebClients.sln
+		SccProjectName3 = ../CodeArt/CodeArt.Web.WebPages
+		SccLocalPath3 = ..\\CodeArt\\CodeArt.Web.WebPages
+		SccWebProject4 = true
+		SccProjectUniqueName4 = http://assets.codeart.cn
+		SccProjectName4 = WebAssets
+		SccLocalPath4 = WebAssets
+		SccProjectEnlistmentChoice4 = 2
+		SccProjectUniqueName5 = ..\\CodeArt\\CodeArt.Html\\CodeArt.Html.csproj
+		SccProjectTopLevelParentUniqueName5 = CodeArtWebClients.sln
+		SccProjectName5 = ../CodeArt/CodeArt.Html
+		SccLocalPath5 = ..\\CodeArt\\CodeArt.Html
+		SccProjectUniqueName6 = ..\\CodeArt\\CodeArt.Web.WebPages.Static\\CodeArt.Web.WebPages.Static.csproj
+		SccProjectTopLevelParentUniqueName6 = CodeArtWebClients.sln
+		SccProjectName6 = ../CodeArt/CodeArt.Web.WebPages.Static
+		SccLocalPath6 = ..\\CodeArt\\CodeArt.Web.WebPages.Static
+		SccProjectUniqueName7 = Module.WebUI\\Module.WebUI.csproj
+		SccProjectTopLevelParentUniqueName7 = CodeArtWebClients.sln
+		SccProjectName7 = Module.WebUI
+		SccLocalPath7 = Module.WebUI
+		SccProjectUniqueName8 = ..\\CodeArt\\CodeArt.ServiceModel\\CodeArt.ServiceModel.csproj
+		SccProjectTopLevelParentUniqueName8 = CodeArtWebClients.sln
+		SccProjectName8 = ../CodeArt/CodeArt.ServiceModel
+		SccLocalPath8 = ..\\CodeArt\\CodeArt.ServiceModel
+		SccProjectUniqueName9 = Module.WebUI.Xaml\\Module.WebUI.Xaml.csproj
+		SccProjectTopLevelParentUniqueName9 = CodeArtWebClients.sln
+		SccProjectName9 = Module.WebUI.Xaml
+		SccLocalPath9 = Module.WebUI.Xaml
+		SccProjectUniqueName10 = ..\\CodeArt\\CodeArt.Web.WebPages.Xaml\\CodeArt.Web.WebPages.Xaml.csproj
+		SccProjectTopLevelParentUniqueName10 = CodeArtWebClients.sln
+		SccProjectName10 = ../CodeArt/CodeArt.Web.WebPages.Xaml
+		SccLocalPath10 = ..\\CodeArt\\CodeArt.Web.WebPages.Xaml
+		SccProjectUniqueName11 = Module.File\\Module.File.csproj
+		SccProjectTopLevelParentUniqueName11 = CodeArtWebClients.sln
+		SccProjectName11 = Module.File
+		SccLocalPath11 = Module.File
+		SccProjectUniqueName12 = ..\\CodeArt\\CodeArt.Drawing\\CodeArt.Drawing.csproj
+		SccProjectTopLevelParentUniqueName12 = CodeArtWebClients.sln
+		SccProjectName12 = ../CodeArt/CodeArt.Drawing
+		SccLocalPath12 = ..\\CodeArt\\CodeArt.Drawing
+		SccProjectUniqueName13 = ..\\CodeArt\\CodeArt.Web.XamlControls.Metronic\\CodeArt.Web.XamlControls.Metronic.csproj
+		SccProjectTopLevelParentUniqueName13 = CodeArtWebClients.sln
+		SccProjectName13 = ../CodeArt/CodeArt.Web.XamlControls.Metronic
+		SccLocalPath13 = ..\\CodeArt\\CodeArt.Web.XamlControls.Metronic
+		SccProjectUniqueName14 = ..\\CodeArt\\CodeArt.ModuleNest\\CodeArt.ModuleNest.csproj
+		SccProjectTopLevelParentUniqueName14 = CodeArtWebClients.sln
+		SccProjectName14 = ../CodeArt/CodeArt.ModuleNest
+		SccLocalPath14 = ..\\CodeArt\\CodeArt.ModuleNest
+		SccProjectUniqueName15 = Module.QuestionAnswer\\Module.QuestionAnswer.csproj
+		SccProjectTopLevelParentUniqueName15 = CodeArtWebClients.sln
+		SccProjectName15 = Module.QuestionAnswer
+		SccLocalPath15 = Module.QuestionAnswer
+	EndGlobalSection
+EndGlobal

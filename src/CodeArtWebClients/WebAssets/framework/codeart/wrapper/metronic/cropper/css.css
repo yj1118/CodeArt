@@ -1,0 +1,232 @@
+.cropper .docs-alert {
+  display: none;
+  position: fixed;
+  top: 20px;
+  left: 0;
+  right: 0;
+  height: 0;
+  text-align: center;
+  opacity: 0.9;
+}
+
+.cropper .docs-alert .message {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 2px;
+  background-color: #aaa;
+  color: #fff;
+}
+
+.cropper .docs-alert .primary {
+  background-color: #0074d9;
+}
+
+.cropper .docs-alert .success {
+  background-color: #2ecc40;
+}
+
+.cropper .docs-alert .info {
+  background-color: #39cccc;
+}
+
+.cropper .docs-alert .warning {
+  background-color: #ff851b;
+}
+
+.cropper .docs-alert .danger {
+  background-color: #ff4136;
+}
+
+/* Button
+ * -------------------------------------------------------------------------- */
+
+.cropper .btn-primary {
+  border-color: #003973; /* hsb(210, 100%, 45%) */
+  background-color: #00468c; /* hsb(210, 100%, 55%) */
+}
+
+.cropper .btn-primary:hover,
+.cropper .btn-primary:focus,
+.cropper .btn-primary:active,
+.cropper .btn-primary.active,
+.cropper .btn-primary.active:focus,
+.cropper .btn-primary.active:hover {
+  border-color: #00264d; /* hsb(208, 100%, 10%) */
+  background-color: #003366; /* hsb(208, 100%, 40%) */
+}
+
+
+
+/* Content */
+
+.cropper .img-container,
+.cropper .img-preview {
+  background-color: #f7f7f7;
+  overflow: hidden;
+  width: 100%;
+  text-align: center;
+  float:left;
+}
+
+.cropper .img-container {
+  min-height: 200px;
+  max-height: 466px;
+  margin-top:15px;
+  margin-bottom: 10px;
+}
+
+.cropper .cropper-status{
+    margin-bottom:10px;
+}
+
+
+.cropper .cropper-status input[disabled], .cropper .cropper-status input[readonly] {
+  cursor:default;
+  background-color: #fff;
+}
+
+@media (min-width: 768px) {
+  .cropper .img-container {
+    min-height: 466px;
+  }
+}
+
+.cropper .img-container > img {
+  max-width: 100%;
+}
+
+.cropper .docs-preview {
+  margin-right: -15px;
+  margin-bottom: 10px;
+}
+
+.cropper .img-preview {
+  float: left;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.cropper .img-preview > img {
+  max-width: 100%;
+}
+
+.cropper .preview-lg {
+  width: 263px;
+  height: 148px;
+}
+
+.cropper .preview-md {
+  width: 139px;
+  height: 78px;
+}
+
+.cropper .preview-sm {
+  width: 69px;
+  height: 39px;
+}
+
+.cropper .preview-xs {
+  width: 35px;
+  height: 20px;
+  margin-right: 0;
+}
+
+.cropper .docs-data > .input-group {
+  margin-bottom: 10px;
+}
+
+.cropper .docs-data > .input-group > label {
+  min-width: 80px;
+}
+
+.cropper .docs-data > .input-group > span {
+  min-width: 50px;
+}
+
+.cropper .docs-buttons > .btn,
+.cropper .docs-buttons > .btn-group,
+.cropper .docs-buttons > .form-control {
+  margin-right: 5px;
+  margin-bottom: 10px;
+}
+
+.cropper .docs-toggles > .btn,
+.cropper .docs-toggles > .btn-group,
+.cropper .docs-toggles > .dropdown {
+  margin-bottom: 10px;
+}
+
+.cropper .docs-tooltip {
+  display: block;
+  margin: -6px -12px;
+  padding: 6px 12px;
+}
+
+.cropper .docs-tooltip > .icon {
+  margin: 0 -3px;
+  vertical-align: top;
+}
+
+.cropper .tooltip-inner {
+  white-space: normal;
+}
+
+.cropper .btn-upload .tooltip-inner {
+  white-space: nowrap;
+}
+
+@media (max-width: 400px) {
+  .cropper .btn-group-crop {
+    margin-right: -15px!important;
+  }
+
+  .cropper .btn-group-crop > .btn {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  .cropper .btn-group-crop .docs-tooltip {
+    margin-left: -5px;
+    margin-right: -5px;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+}
+
+.cropper .docs-options {
+    width: 120px;
+    display: inline-block;
+    top: -3px;
+}
+
+.cropper .docs-options .dropdown-menu {
+  width: 100%;
+  min-width:initial;
+}
+
+.cropper .docs-options .dropdown-menu > li {
+  padding: 3px 20px;
+padding-left:10px;
+}
+
+.cropper .docs-options .dropdown-menu > li:hover {
+  background-color: #f7f7f7;
+}
+
+.cropper .docs-options .dropdown-menu > li > label {
+  display: block;
+  padding-left:10px;
+}
+
+.cropper .docs-cropped .modal-body {
+  text-align: center;
+}
+
+.cropper .docs-cropped .modal-body > img,
+.cropper .docs-cropped .modal-body > canvas {
+  max-width: 100%;
+}
+
+.cropper-img{
+    display:none;
+}

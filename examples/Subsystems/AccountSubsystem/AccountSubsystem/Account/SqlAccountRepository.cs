@@ -12,7 +12,7 @@ namespace AccountSubsystem
         Account FindByName(string name, QueryLevel level);
         Account FindByEmail(string email, QueryLevel level);
         Account FindByMobileNumber(string mobileNumber, QueryLevel level);
-        Account FindByFlag(string nameOrEmail, string password, QueryLevel level);
+        Account FindByFlag(string nameOrEmail, QueryLevel level);
 
         IEnumerable<Account> FindsByRole(Guid roleId, QueryLevel level);
 
@@ -40,12 +40,11 @@ namespace AccountSubsystem
             }, level);
         }
 
-        public Account FindByFlag(string nameOrEmail, string password, QueryLevel level)
+        public Account FindByFlag(string nameOrEmail, QueryLevel level)
         {
-            return this.QuerySingle<Account>("(email=@flag or name=@flag) and password=@password", (arg) =>
+            return this.QuerySingle<Account>("email=@flag or name=@flag", (arg) =>
             {
                 arg.Add("flag", nameOrEmail);
-                arg.Add("password", password);
             }, level);
         }
 

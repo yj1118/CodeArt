@@ -1,0 +1,106 @@
+﻿<ControlTemplate xmlns="http://schemas.codeart.cn/web/xaml"
+                 xmlns:m="http://schemas.codeart.cn/web/xaml/metronic"
+                 xmlns:ui="http://schemas.codeart.cn/web/xaml/ui">
+    <ControlTemplate.Directories>
+        <AssetDirectory AssemblyName="Module.WebUI.Xaml">
+            <AssetString keys="SystemRole,RegularRole"></AssetString>
+        </AssetDirectory>
+    </ControlTemplate.Directories>
+    <m:Page title="{TemplateBinding Title}"
+            xamlStyle="{TemplateBinding XamlStyle}">
+        <m:Alert class="m--margin-bottom-30" air="true" icon="flaticon-exclamation m--font-primary">
+            <run content="{Static ui:Strings.RoleTip}" />
+        </m:Alert>
+        <m:Portlet title="{Static ui:Strings.SiteRoleList}" icon="flaticon-signs">
+            <m:DataTable id="list" name="list" view="deletes">
+                <m:DataTable.Header>
+                    <m:DataTableQuery>
+                        <m:TextBox layout="cell" placeholder="{Static ui:Strings.RoleName}" query-field="name">
+                            <m:TextBox.Prepend>
+                                <span class="input-group-text">
+                                    <i class="la la-search"></i>
+                                </span>
+                            </m:TextBox.Prepend>
+                            <m:TextBox.Append>
+                                <button class="btn btn-primary" type="button" name="search" Click="OnSearch">
+                                    <run content="{Static ui:Strings.Search}" />
+                                </button>
+                            </m:TextBox.Append>
+                        </m:TextBox>
+                    </m:DataTableQuery>
+                </m:DataTable.Header>
+                <m:DataTable.Columns>
+                    <m:DataTableColumn field="Id" selector="true"></m:DataTableColumn>
+                    <m:DataTableColumn field="Name" textField="true" title="{Static ui:Strings.RoleName}" sortable="false" textAlign="left" width="200"></m:DataTableColumn>
+                    <m:DataTableColumn field="IsSystem" title="{Static ui:Strings.RoleType}" sortable="false" textAlign="center" width="150" getTemplate="roleTypeTemplate"></m:DataTableColumn>
+                    <m:DataTableColumn field="MarkedCode" title="{Static ui:Strings.IdentificationCode}" sortable="false" textAlign="center" width="200"></m:DataTableColumn>
+                    <m:DataTableColumn field="Description" title="{Static ui:Strings.Remark}" sortable="false" textAlign="left" responsive="{visible: 'lg'}"></m:DataTableColumn>
+                    <m:DataTableColumn title="{Static ui:Strings.Operation}" width="100" sortable="false" textAlign="center">
+                        <m:button icon="la la-edit" color="accent" hover="accent" shape="pill" title="{Static ui:Strings.Modify}" name="edit" view="self" Click="OnEdit"></m:button>
+                    </m:DataTableColumn>
+                </m:DataTable.Columns>
+            </m:DataTable>
+        </m:Portlet>
+        <m:Portlet air="false">
+            <m:button text="{Static ui:Strings.AddRoles}" name="add" color="focus" air="true" icon="flaticon-plus" Click="OnAdd"></m:button>
+            <m:button text="{Static ui:Strings.BatchDeletion}" name="deletes" color="danger" air="true" icon="flaticon-cancel" class="m--margin-left-15" view="deletes" Click="OnDeletes"></m:button>
+        </m:Portlet>
+        <m:Modal id="addDialog" size="lg" title="{Static ui:Strings.AddRoles}">
+            <m:form view="add" id="formAdd">
+                <m:TextBox layout="Wrap" label="{Static ui:Strings.RoleName}" required="true" minlength="2" maxlength="25" field="name" />
+                <m:TextBox layout="Wrap" label="{Static ui:Strings.IdentificationCode}" field="markedCode" maxlength="50" />
+                <m:Select layout="Wrap" label="{Static ui:Strings.AssignPermissions}" field="permissions" multiple="true" modal="fdsDialog" />
+                <m:TextBox layout="Wrap" label="{Static ui:Strings.Remark}" field="description" maxlength="200" rows="3" />
+            </m:form>
+            <m:Modal.Footer>
+                <m:button color="primary" name="submitAdd" icon="flaticon-interface" text="{Static ui:Strings.ConfirmSubmission}" Click="OnSubmitAdd" view="add"></m:button>
+                <m:button color="secondary" text="{Static ui:Strings.Close}" data-dismiss="modal"></m:button>
+            </m:Modal.Footer>
+        </m:Modal>
+        <m:Modal id="editDialog" size="lg" title="{Static ui:Strings.ModifyRole}">
+            <m:form view="edit" id="formEdit">
+                <m:TextBox layout="Hidden" field="id" />
+                <m:TextBox layout="Wrap" label="{Static ui:Strings.RoleName}" required="true" minlength="2" maxlength="25" field="name" />
+                <m:TextBox layout="Wrap" label="{Static ui:Strings.IdentificationCode}" field="markedCode" maxlength="50" />
+                <m:Select layout="Wrap" label="{Static ui:Strings.AssignPermissions}" field="permissions" multiple="true" modal="fdsDialog" />
+                <m:TextBox layout="Wrap" label="{Static ui:Strings.Remark}" field="description" maxlength="200" rows="3" />
+            </m:form>
+            <m:Modal.Footer>
+                <m:button color="primary" name="submitEdit" icon="flaticon-interface" text="{Static ui:Strings.ConfirmSubmission}" Click="OnSubmitEdit" view="edit"></m:button>
+                <m:button color="secondary" text="{Static ui:Strings.Close}" data-dismiss="modal"></m:button>
+            </m:Modal.Footer>
+        </m:Modal>
+        <m:Modal id="fdsDialog" size="xl">
+            <m:DataTable id="fds" name="fds">
+                <m:DataTable.Header>
+                    <m:DataTableQuery>
+                        <m:TextBox layout="cell" placeholder="{Static ui:Strings.FunctionName}" query-field="name">
+                            <m:TextBox.Append>
+                                <button class="btn btn-primary" type="button" name="fdSearch" Click="OnFdSearch">
+                                    <run content="{Static ui:Strings.Search}" />
+                                </button>
+                            </m:TextBox.Append>
+                        </m:TextBox>
+                    </m:DataTableQuery>
+                </m:DataTable.Header>
+                <m:DataTable.Columns>
+                    <m:DataTableColumn field="Id" selector="true"></m:DataTableColumn>
+                    <m:DataTableColumn field="Name" textField="true" title="{Static ui:Strings.FunctionName}" sortable="false" textAlign="left"></m:DataTableColumn>
+                    <m:DataTableColumn field="MarkedCode" title="{Static ui:Strings.IdentificationCode}" sortable="false" textAlign="center" width="200"></m:DataTableColumn>
+                </m:DataTable.Columns>
+            </m:DataTable>
+            <m:Modal.Footer>
+                <!-- 标记了 data-select-ok 那么select组件就会在按钮点击时，将table中对应的value和text提取到select中 -->
+                <m:button color="primary" icon="flaticon-plus" text="{Static ui:Strings.ConfirmChoice}" data-select-ok="{value:'id',text:'name'}"></m:button>
+                <m:button color="secondary" text="{Static ui:Strings.Close}" data-dismiss="modal"></m:button>
+            </m:Modal.Footer>
+        </m:Modal>
+        <RawCode Origin="Bottom">
+            <script>
+                function roleTypeTemplate(row, index, datatable) {
+                    return row.IsSystem ? $$strings.SystemRole : $$strings.RegularRole;
+                }
+            </script>
+        </RawCode>
+    </m:Page>
+</ControlTemplate>

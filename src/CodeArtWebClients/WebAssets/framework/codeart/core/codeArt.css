@@ -1,0 +1,35 @@
+/*#region pageTitle */
+
+.ca-pageTitle {
+    background-color: #d51e1e;
+    height: 54px;
+    position: relative;
+}
+
+    .ca-pageTitle h3 {
+        color: #fff;
+        line-height: 54px;
+        margin: 0;
+        width: 100%;
+        display: block;
+        text-align: center;
+        font-size: 18px;
+    }
+
+    .ca-pageTitle a {
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 54px;
+    }
+
+        .ca-pageTitle a:before {
+            color: #fff;
+            font-size: 40px;
+            position: absolute;
+            top: 6px;
+            left: 17px;
+        }
+
+/*#endregion */

@@ -24,8 +24,9 @@ namespace AccountSubsystem
         protected override Account ExecuteProcedure()
         {
             var repository = Repository.Create<IAccountRepository>();
-            Account ac = repository.FindByFlag(_flag, _password, QueryLevel.Mirroring);
+            Account ac = repository.FindByFlag(_flag, QueryLevel.Mirroring);
             if (ac.IsEmpty()) throw new LoginFailException(Strings.AccountNameOrPasswordWrong);
+            if(!ac.ValidatePassword(_password)) throw new LoginFailException(Strings.AccountNameOrPasswordWrong);
             if (!ac.Status.IsEnabled) throw new LoginFailException(Strings.AccountDisabled);
             ac.Status.UpdateLogin(_ip);
             repository.Update(ac);

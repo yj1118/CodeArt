@@ -1,0 +1,161 @@
+﻿<ControlTemplate xmlns="http://schemas.codeart.cn/web/xaml"
+                 xmlns:m="http://schemas.codeart.cn/web/xaml/metronic"
+                 xmlns:ui="http://schemas.codeart.cn/web/xaml/ui">
+<ControlTemplate.Directories>
+    <AssetDirectory AssemblyName="Module.WebUI.Xaml">
+        <AssetPackage Path="/Pages/MyProfile/images"></AssetPackage>
+    </AssetDirectory>
+</ControlTemplate.Directories>
+<m:Page title="{TemplateBinding Title}"
+        xamlStyle="{TemplateBinding XamlStyle}">
+    <div class="m-content">
+        <div class="row">
+            <div class="col-xl-3 col-lg-4">
+                <div class="m-portlet">
+                    <div class="m-portlet__body">
+                        <div id="card" class="m-card-profile" data-proxy="{give:new $$.databind()}">
+                            <div class="m-card-profile__title m--hide">
+                                <run content="{Static ui:Strings.MyProfile}" />
+                            </div>
+                            <div class="m-card-profile__pic">
+                                <div class="m-card-profile__pic-wrapper">
+                                    <img src="#" alt="" data-proxy="{binds:{src:'PhotoUrl'}}" />
+                                </div>
+                            </div>
+                            <div class="m-card-profile__details">
+                                <span class="m-card-profile__name" data-proxy="{binds:{text:'Name'}}">
+                                </span>
+                                <a href="javascript:undefined;" class="m-card-profile__email m-link" data-proxy="{binds:{text:'email'}}">
+                                </a>
+                            </div>
+                        </div>
+                        <ul class="m-nav m-nav--hover-bg m-portlet-fit--sides">
+                            <li class="m-nav__separator m-nav__separator--fit"></li>
+                            <li class="m-nav__section m--hide">
+                                <span class="m-nav__section-text">
+                                    Section
+                                </span>
+                            </li>
+                            <li class="m-nav__item">
+                                <a href="javascript:undefined;" class="m-nav__link" data-tab-index="0">
+                                    <i class="m-nav__link-icon flaticon-profile-1"></i>
+                                    <span class="m-nav__link-title">
+                                        <span class="m-nav__link-wrap">
+                                            <span class="m-nav__link-text">
+                                                <run content="{Static ui:Strings.PersonalInformation}" />
+                                            </span>
+                                        </span>
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="m-nav__item">
+                                <a href="javascript:undefined;" class="m-nav__link" data-tab-index="1">
+                                    <i class="m-nav__link-icon flaticon-share"></i>
+                                    <span class="m-nav__link-text">
+                                        <run content="{Static ui:Strings.ChangeLoginPassword}" />
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-9 col-lg-8">
+                <div class="m-portlet m-portlet--full-height m-portlet--tabs  ">
+                    <div class="m-portlet__head">
+                        <div class="m-portlet__head-tools">
+                            <ul class="nav nav-tabs m-tabs m-tabs-line   m-tabs-line--left m-tabs-line--primary" role="tablist" id="tabs">
+                                <li class="nav-item m-tabs__item">
+                                    <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_user_profile_tab_1" role="tab">
+                                        <run content="{Static ui:Strings.PersonalInformation}" />
+                                    </a>
+                                </li>
+                                <li class="nav-item m-tabs__item">
+                                    <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_user_profile_tab_2" role="tab">
+                                        <run content="{Static ui:Strings.ChangeLoginPassword}" />
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="m_user_profile_tab_1">
+                            <m:form view="base" id="baseForm" class="m-form--label-align-right m--margin-top-40 m--margin-left-30 m--margin-right-30">
+                                <m:FormSection class="m--margin-top-0">
+                                    <m:FormSectionRow>
+                                        <m:TextBox layout="Inline" label="{Static ui:Strings.Name}" required="true" minlength="2" maxlength="25" field="name" />
+                                    </m:FormSectionRow>
+                                </m:FormSection>
+                                <m:FormSection>
+                                    <m:FormSectionRow>
+                                        <m:Radio layout="Inline" label="{Static ui:Strings.Gender}" required="true" field="sex">
+                                            <m:Radio.Options>
+                                                <m:option value="1" text="{Static ui:Strings.Male}"></m:option>
+                                                <m:option value="2" text="{Static ui:Strings.Female}"></m:option>
+                                            </m:Radio.Options>
+                                        </m:Radio>
+                                    </m:FormSectionRow>
+                                </m:FormSection>
+                                <m:FormSectionRow>
+                                    <m:Dropzone xamlStyle="{StaticResource upload}" layout="Inline" label="{Static ui:Strings.Photo}" field="photo"
+                                                maxFileSize="2" maxFiles="1" acceptedFiles="image/*" help="{Static ui:Strings.PhotoRequirements}">
+                                        <m:Dropzone.Headers>
+                                            <m:DropzoneHeader Key="directoryId" Value="{Binding DirectoryId}"></m:DropzoneHeader>
+                                        </m:Dropzone.Headers>
+                                    </m:Dropzone>
+                                </m:FormSectionRow>
+                                <m:FormSection>
+                                    <m:FormSectionRow>
+                                        <m:TextBox layout="Inline" label="{Static ui:Strings.TelephoneNumber}" maxlength="25" field="mobileNumber" />
+                                    </m:FormSectionRow>
+                                </m:FormSection>
+                                <m:FormSection>
+                                    <m:FormSectionRow>
+                                        <m:TextBox layout="Inline" label="{Static ui:Strings.Email}" field="email" type="email" maxlength="300" />
+                                    </m:FormSectionRow>
+                                </m:FormSection>
+                                <m:form.Actions>
+                                    <m:button class="offset-xl-3" text="{Static ui:Strings.ConfirmSubmission}" name="baseSubmit" color="primary" air="true" icon="flaticon-interface" Click="OnBaseSubmit" view="base"></m:button>
+                                </m:form.Actions>
+                            </m:form>
+                        </div>
+                        <div class="tab-pane " id="m_user_profile_tab_2">
+                            <m:form view="account" id="accountForm" class="m-form--label-align-right m--margin-top-40 m--margin-left-30 m--margin-right-30">
+                                <m:FormSection title="{Static ui:Strings.InformationAuthentication}" class="m--margin-top-0">
+                                    <m:FormSectionRow>
+                                        <m:TextBox layout="Inline" label="{Static ui:Strings.LoginName}" required="true" minlength="2" maxlength="25" field="name" help="{Static ui:Strings.LoginNameTip}" />
+                                    </m:FormSectionRow>
+                                    <m:FormSectionRow>
+                                        <m:TextBox layout="Inline" class="m--margin-top-20" label="{Static ui:Strings.OriginalPassword}" required="true" minlength="2" maxlength="25" field="oldPassword" type="password" help="{Static ui:Strings.PasswordTip}" />
+                                    </m:FormSectionRow>
+                                </m:FormSection>
+                                <m:FormSection  title="{Static ui:Strings.ChangePassword}">
+                                    <m:FormSectionRow>
+                                        <m:TextBox layout="Inline" label="{Static ui:Strings.NewPassword}" required="true" minlength="2" maxlength="25" field="newPassword" type="password" />
+                                    </m:FormSectionRow>
+                                    <m:FormSectionRow>
+                                        <m:TextBox layout="Inline" class="m--margin-top-20" label="{Static ui:Strings.ConfirmPassword}" required="true" minlength="2" maxlength="25" field="rpassword" type="password" />
+                                    </m:FormSectionRow>
+                                </m:FormSection>
+                                <m:form.Actions>
+                                    <m:button class="offset-xl-3" text="{Static ui:Strings.ConfirmSubmission}" name="accountSubmit" color="primary" air="true" icon="flaticon-interface" Click="OnAccountSubmit" view="account"></m:button>
+                                </m:form.Actions>
+                            </m:form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <RawCode Origin="Bottom">
+        <script>
+            $(document).ready(function () {
+                $("a[data-tab-index]").on("click.tab", function (e) {
+                    var index = parseInt($(e.currentTarget).attr("data-tab-index"));
+                    $($("#tabs .nav-link")[index]).trigger("click");
+                });
+            });
+        </script>
+    </RawCode>
+</m:Page>
+</ControlTemplate>

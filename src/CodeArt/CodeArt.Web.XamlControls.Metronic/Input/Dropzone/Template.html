@@ -1,0 +1,93 @@
+﻿<ControlTemplate xmlns="http://schemas.codeart.cn/web/xaml"
+                 xmlns:m="http://schemas.codeart.cn/web/xaml/metronic">
+<ControlTemplate.Directories>
+    <AssetDirectory AssemblyName="CodeArt.Web.XamlControls.Metronic">
+        <AssetString keys="DictMaxFilesExceeded,DictResponseError,DictInvalidFileType,DictFallbackMessage,DictFileTooBig
+                           ,DictCancelUpload,DictRemoveFile,DictCancelUploadConfirmation"></AssetString>
+    </AssetDirectory>
+</ControlTemplate.Directories>
+<div Visibility="{TemplateBinding Layout,Converter={Static m:LayoutCollapsedConverter.Instance},ConverterParameter=Inline}" 
+     class="{TemplateBinding Class,Converter={Static AppendClassConverter.Instance},ConverterParameter=form-group m-form__group row}" 
+     data-proxy="{give:new $$metronic.dropzone()}" 
+     data-rule="{Binding Converter={Static m:DropzoneRuleCodeConverter.Instance}}" 
+     id="{TemplateBinding Id}"
+     data-field="{TemplateBinding Field}"
+     data-max="{TemplateBinding MaxFiles}"
+     data-size="{TemplateBinding MaxFileSize}"
+     data-acceptedFiles="{TemplateBinding AcceptedFiles}"
+     data-uploadUrl="{TemplateBinding UploadUrl}"
+     data-loadThumbnailUrl ="{TemplateBinding LoadThumbnailUrl}"
+     data-headers="{Binding Converter={Static m:DropzoneHeadersCodeConverter.Instance}}">
+    <AttributesPresenter />
+    <label class="col-form-label col-xl-2 col-sm-12 offset-xl-1">
+        <run content="{Binding Converter={Static m:LabelConverter.Instance}}" />
+	</label>
+    <div data-core-container="true" class="col-xl-8 col-sm-12">
+        <div class="m-dropzone dropzone dz-clickable">
+            <div class="m-dropzone__msg dz-message needsclick">
+                <h3 class="m-dropzone__msg-title">
+                    <run content="{Static m:Strings.UploadTip}" />
+                </h3>
+                <span class="m-dropzone__msg-desc">
+                    <run content="{TemplateBinding Help}" />
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<div Visibility="{TemplateBinding Layout,Converter={Static m:LayoutCollapsedConverter.Instance},ConverterParameter=Wrap}" 
+     class="{TemplateBinding Class,Converter={Static AppendClassConverter.Instance},ConverterParameter=form-group m-form__group}" 
+     data-proxy="{give:new $$metronic.dropzone()}" 
+     data-rule="{Binding Converter={Static m:DropzoneRuleCodeConverter.Instance}}" 
+     id="{TemplateBinding Id}"
+     data-field="{TemplateBinding Field}"
+     data-max="{TemplateBinding MaxFiles}"
+     data-size="{TemplateBinding MaxFileSize}"
+     data-acceptedFiles="{TemplateBinding AcceptedFiles}"
+     data-uploadUrl="{TemplateBinding UploadUrl}"
+     data-loadThumbnailUrl ="{TemplateBinding LoadThumbnailUrl}"
+     data-headers="{Binding Converter={Static m:DropzoneHeadersCodeConverter.Instance}}">
+    <AttributesPresenter />
+    <label class="col-form-label col-sm-12">
+        <run content="{Binding Converter={Static m:LabelConverter.Instance}}" />
+    </label>
+    <div data-core-container="true" class="col-sm-12">
+        <div class="m-dropzone dropzone dz-clickable">
+            <div class="m-dropzone__msg dz-message needsclick">
+                <h3 class="m-dropzone__msg-title">
+                    <run content="{Static m:Strings.UploadTip}" />
+                </h3>
+                <span class="m-dropzone__msg-desc">
+                    <run content="{TemplateBinding Help}" />
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<div Visibility="{TemplateBinding Layout,Converter={Static m:LayoutCollapsedConverter.Instance},ConverterParameter=Cell}" 
+     class="{TemplateBinding Class,Converter={Static AppendClassConverter.Instance},ConverterParameter=form-group no-gutters form-cell}" 
+     data-proxy="{give:new $$metronic.dropzone()}" 
+     data-rule="{Binding Converter={Static m:DropzoneRuleCodeConverter.Instance}}" 
+     id="{TemplateBinding Id}"
+     data-field="{TemplateBinding Field}"
+     data-max="{TemplateBinding MaxFiles}"
+     data-size="{TemplateBinding MaxFileSize}"
+     data-acceptedFiles="{TemplateBinding AcceptedFiles}"
+     data-uploadUrl="{TemplateBinding UploadUrl}"
+     data-loadThumbnailUrl ="{TemplateBinding LoadThumbnailUrl}"
+     data-headers="{Binding Converter={Static m:DropzoneHeadersCodeConverter.Instance}}">
+    <AttributesPresenter />
+    <div data-core-container="true" class="col-sm-12">
+        <div class="m-dropzone dropzone dz-clickable">
+            <div class="m-dropzone__msg dz-message needsclick">
+                <h3 class="m-dropzone__msg-title">
+                    <run content="{Static m:Strings.UploadTip}" />
+                </h3>
+                <span class="m-dropzone__msg-desc">
+                    <run content="{TemplateBinding Help}" />
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+</ControlTemplate>

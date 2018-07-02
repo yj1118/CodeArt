@@ -122,5 +122,14 @@ namespace AccountSubsystem {
                 return ResourceManager.GetString("TwicePasswordDifferent", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   查找类似 The provided account name or password is incorrect 的本地化字符串。
+        /// </summary>
+        internal static string UpdatePasswordError {
+            get {
+                return ResourceManager.GetString("UpdatePasswordError", resourceCulture);
+            }
+        }
     }
 }

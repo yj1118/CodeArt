@@ -1,0 +1,105 @@
+﻿<ControlTemplate xmlns="http://schemas.codeart.cn/web/xaml"
+                 xmlns:m="http://schemas.codeart.cn/web/xaml/metronic"
+                 xmlns:ui="http://schemas.codeart.cn/web/xaml/ui">
+<m:Page title="{TemplateBinding Title}"
+        xamlStyle="{TemplateBinding XamlStyle}">
+    <m:Portlet title="{Static ui:Strings.ListOfExistingAccounts}" icon="flaticon-signs">
+        <m:DataTable id="list" name="list" view="deletes">
+            <m:DataTable.Header>
+                <m:DataTableQuery>
+                    <m:TextBox layout="cell" placeholder="{Static ui:Strings.AccountNameOrEmailAddress}" query-field="flag">
+                        <m:TextBox.Prepend>
+                            <span class="input-group-text">
+                                <i class="la la-search"></i>
+                            </span>
+                        </m:TextBox.Prepend>
+                        <m:TextBox.Append>
+                            <button class="btn btn-primary" type="button" name="search" Click="OnSearch">
+                                <run Content="{Static ui:Strings.Search}" />
+                            </button>
+                        </m:TextBox.Append>
+                    </m:TextBox>
+                </m:DataTableQuery>
+            </m:DataTable.Header>
+            <m:DataTable.Columns>
+                <m:DataTableColumn field="Id" selector="true"></m:DataTableColumn>
+                <m:DataTableColumn field="Name" textField="true" title="{Static ui:Strings.AccountName}" sortable="false" textAlign="left" width="200"></m:DataTableColumn>
+                <m:DataTableColumn field="Email" title="{Static ui:Strings.EmailAddress}" sortable="false" textAlign="left"></m:DataTableColumn>
+                <m:DataTableColumn field="LoginTime" title="{Static ui:Strings.LoginTime}" type="datetime" sortable="false" textAlign="left" width="200"></m:DataTableColumn>
+                <m:DataTableColumn field="LoginIp" title="{Static ui:Strings.LoginIP}" sortable="false" textAlign="left" width="100"></m:DataTableColumn>
+                <m:DataTableColumn field="LoginTimes" title="{Static ui:Strings.LoginTimes}" sortable="false" textAlign="center" width="100"></m:DataTableColumn>
+                <m:DataTableColumn field="IsEnabled" title="{Static ui:Strings.Status}" sortable="false" textAlign="center" width="100"></m:DataTableColumn>
+                <m:DataTableColumn title="{Static ui:Strings.Operation}" width="100" sortable="false" textAlign="center">
+                    <m:button icon="la la-edit" color="accent" hover="accent" shape="pill" title="{Static ui:Strings.Modify}" name="edit" view="self" Click="OnEdit"></m:button>
+                </m:DataTableColumn>
+            </m:DataTable.Columns>
+        </m:DataTable>
+    </m:Portlet>
+    <m:Portlet air="false">
+        <m:button text="{Static ui:Strings.AddAccounts}" name="add" color="focus" air="true" icon="flaticon-plus" Click="OnAdd"></m:button>
+        <m:button text="{Static ui:Strings.BatchDeletion}" name="deletes" color="danger" air="true" icon="flaticon-cancel" class="m--margin-left-15" view="deletes" Click="OnDeletes"></m:button>
+    </m:Portlet>
+    <m:Modal id="addDialog" size="lg" title="{Static ui:Strings.AddAccounts}">
+        <m:form view="add" id="formAdd">
+            <m:TextBox layout="Wrap" label="{Static ui:Strings.AccountName}" required="true" minlength="2" maxlength="25" field="accountName" />
+            <m:TextBox layout="Wrap" label="{Static ui:Strings.LoginPassword}" required="true" type="password" minlength="2" maxlength="25" field="password" />
+            <m:TextBox layout="Wrap" label="{Static ui:Strings.ConfirmPassword}" required="true" type="password" minlength="2" maxlength="25" field="rpassword" equalToPrev="{Static ui:Strings.PasswordTip2}" help="{Static ui:Strings.PasswordTip3}" />
+            <m:TextBox layout="Wrap" label="{Static ui:Strings.Email}" field="email" type="email" maxlength="300" help="{Static ui:Strings.PasswordTip1}" />
+            <m:Select layout="Wrap" label="{Static ui:Strings.AssignRoles}" field="roles" multiple="true" modal="rolesDialog" />
+            <m:Radio layout="Wrap" label="{Static ui:Strings.AccountStatus}" field="isEnabled" required="true">
+                <m:Radio.Options>
+                    <m:option value="true" text="{Static ui:Strings.Enable}"></m:option>
+                    <m:option value="false" text="{Static ui:Strings.Disable}"></m:option>
+                </m:Radio.Options>
+            </m:Radio>
+        </m:form>
+        <m:Modal.Footer>
+            <m:button color="primary" name="submitAdd" icon="flaticon-interface" text="{Static ui:Strings.ConfirmSubmission}" Click="OnSubmitAdd" view="add"></m:button>
+            <m:button color="secondary" text="{Static ui:Strings.Close}" data-dismiss="modal"></m:button>
+        </m:Modal.Footer>
+    </m:Modal>
+    <m:Modal id="editDialog" size="lg" title="{Static ui:Strings.ModifyAccountInformation}">
+        <m:form view="edit" id="formEdit">
+            <m:TextBox layout="Hidden" field="id" />
+            <m:TextBox layout="Wrap" label="{Static ui:Strings.AccountName}" required="true" minlength="2" maxlength="25" field="name" /> <!-- 注意，此处跟创建不同，创建是创建的用户，而修改是修改的账号信息，所以这里直接是name而不是accountName -->
+            <m:TextBox layout="Wrap" label="{Static ui:Strings.Email}" field="email" type="email" maxlength="300" help="{Static ui:Strings.PasswordTip1}" />
+            <m:Select layout="Wrap" label="{Static ui:Strings.AssignRoles}" field="roles" multiple="true" modal="rolesDialog" />
+            <m:Radio layout="Wrap" label="{Static ui:Strings.AccountStatus}" field="isEnabled" required="true">
+                <m:Radio.Options>
+                    <m:option value="true" text="{Static ui:Strings.Enable}"></m:option>
+                    <m:option value="false" text="{Static ui:Strings.Disable}"></m:option>
+                </m:Radio.Options>
+            </m:Radio>
+        </m:form>
+        <m:Modal.Footer>
+            <m:button color="primary" name="submitEdit" icon="flaticon-interface" text="{Static ui:Strings.ConfirmSubmission}" Click="OnSubmitEdit" view="edit"></m:button>
+            <m:button color="secondary" text="{Static ui:Strings.Close}" data-dismiss="modal"></m:button>
+        </m:Modal.Footer>
+    </m:Modal>
+    <m:Modal id="rolesDialog" size="xl">
+        <m:DataTable id="roles" name="roles">
+            <m:DataTable.Header>
+                <m:DataTableQuery>
+                    <m:TextBox layout="cell" placeholder="{Static ui:Strings.RoleName}" query-field="name">
+                        <m:TextBox.Append>
+                            <button class="btn btn-primary" type="button" name="roleSearch" Click="OnRoleSearch">
+                                <run Content="{Static ui:Strings.Search}" />
+                            </button>
+                        </m:TextBox.Append>
+                    </m:TextBox>
+                </m:DataTableQuery>
+            </m:DataTable.Header>
+            <m:DataTable.Columns>
+                <m:DataTableColumn field="Id" selector="true"></m:DataTableColumn>
+                <m:DataTableColumn field="Name" textField="true" title="{Static ui:Strings.RoleName}" sortable="false" textAlign="left"></m:DataTableColumn>
+                <m:DataTableColumn field="MarkedCode" title="{Static ui:Strings.IdentificationCode}" sortable="false" textAlign="center" width="200"></m:DataTableColumn>
+            </m:DataTable.Columns>
+        </m:DataTable>
+        <m:Modal.Footer>
+            <!-- 标记了 data-select-ok 那么select组件就会在按钮点击时，将table中对应的value和text提取到select中 -->
+            <m:button color="primary" icon="flaticon-plus" text="{Static ui:Strings.ConfirmChoice}" data-select-ok="{value:'id',text:'name'}"></m:button>
+            <m:button color="secondary" text="{Static ui:Strings.Close}" data-dismiss="modal"></m:button>
+        </m:Modal.Footer>
+    </m:Modal>
+</m:Page>
+</ControlTemplate>

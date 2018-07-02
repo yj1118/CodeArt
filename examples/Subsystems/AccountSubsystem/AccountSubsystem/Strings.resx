@@ -138,4 +138,7 @@
   <data name="TwicePasswordDifferent" xml:space="preserve">
     <value>The password entered twice is different</value>
   </data>
+  <data name="UpdatePasswordError" xml:space="preserve">
+    <value>The provided account name or password is incorrect</value>
+  </data>
 </root>

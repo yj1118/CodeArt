@@ -1,0 +1,13 @@
+﻿.qa--paper {
+    padding: 0px !important;
+}
+
+.qa--quesetion {
+    margin-bottom: 0.7rem;
+}
+
+    .qa--quesetion label.col-form-label {
+        font-weight: 400;
+        color: #3f4047;
+        font-size: 1.2rem;
+    }

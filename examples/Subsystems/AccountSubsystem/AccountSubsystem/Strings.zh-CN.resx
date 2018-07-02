@@ -138,4 +138,7 @@
   <data name="TwicePasswordDifferent" xml:space="preserve">
     <value>两次输入的密码不同</value>
   </data>
+  <data name="UpdatePasswordError" xml:space="preserve">
+    <value>提供的账号名或密码错误</value>
+  </data>
 </root>

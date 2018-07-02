@@ -38,13 +38,12 @@ namespace AccountSubsystem
         /// 根据账号名或邮箱或手机号查找账户
         /// </summary>
         /// <param name="flag"></param>
-        /// <param name="password"></param>
         /// <param name="level"></param>
         /// <returns></returns>
-        public static Account FindByFlag(string flag, string password, QueryLevel level)
+        public static Account FindByFlag(string flag, QueryLevel level)
         {
             var repository = Repository.Create<IAccountRepository>();
-            return repository.FindByFlag(flag, password, level);
+            return repository.FindByFlag(flag, level);
         }
 
         public static IEnumerable<Account> FindsByRole(Guid roleId, QueryLevel level)

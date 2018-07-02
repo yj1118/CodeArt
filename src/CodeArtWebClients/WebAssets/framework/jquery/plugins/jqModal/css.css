@@ -1,0 +1,23 @@
+/*section src="/framework/jquery/plugins/jqModal/jqModal.css"*/
+.sidebar-modal {
+    height: 100%;
+    background: #fff;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 1001;
+    display: none;
+    overflow: auto;
+}
+
+.jqmOverlay:before, .jqmOverlay:after {
+    content: '';
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    top: 48%;
+    border-right: 4px solid #fff;
+    border-bottom: 4px solid #fff;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}

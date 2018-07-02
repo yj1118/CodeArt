@@ -1,0 +1,93 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2026
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework", "Framework", "{F05BF759-3214-4371-A321-E7D08A55E66A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt", "..\..\CodeArt Framework\CodeArt\CodeArt\CodeArt.csproj", "{D2C9F430-6B47-482A-A49C-A2478D75F95F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.DomainDriven", "..\..\CodeArt Framework\CodeArt\CodeArt.DomainDriven\CodeArt.DomainDriven.csproj", "{F62D7792-F4EE-4924-898E-C56309E6DFC2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.DomainDriven.DataAccess", "..\..\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\CodeArt.DomainDriven.DataAccess.csproj", "{C0BAC0EB-7068-42AF-ACAC-09DF677CF980}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.DomainDriven.Extensions", "..\..\CodeArt Framework\CodeArt\CodeArt.DomainDriven.Extensions\CodeArt.DomainDriven.Extensions.csproj", "{A45A1E35-6CE5-42C2-8FD3-19CE5B0BD5D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.EasyMQ", "..\..\CodeArt Framework\CodeArt\CodeArt.EasyMQ\CodeArt.EasyMQ.csproj", "{AFB15952-0DFA-4919-9D4B-46C2737654EC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuestionAnswerSubsystem", "QuestionAnswerSubsystem\QuestionAnswerSubsystem.csproj", "{91D117F4-D30D-47C3-8540-63379F338F22}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D2C9F430-6B47-482A-A49C-A2478D75F95F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2C9F430-6B47-482A-A49C-A2478D75F95F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2C9F430-6B47-482A-A49C-A2478D75F95F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2C9F430-6B47-482A-A49C-A2478D75F95F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F62D7792-F4EE-4924-898E-C56309E6DFC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F62D7792-F4EE-4924-898E-C56309E6DFC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F62D7792-F4EE-4924-898E-C56309E6DFC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F62D7792-F4EE-4924-898E-C56309E6DFC2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0BAC0EB-7068-42AF-ACAC-09DF677CF980}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0BAC0EB-7068-42AF-ACAC-09DF677CF980}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0BAC0EB-7068-42AF-ACAC-09DF677CF980}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0BAC0EB-7068-42AF-ACAC-09DF677CF980}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A45A1E35-6CE5-42C2-8FD3-19CE5B0BD5D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A45A1E35-6CE5-42C2-8FD3-19CE5B0BD5D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A45A1E35-6CE5-42C2-8FD3-19CE5B0BD5D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A45A1E35-6CE5-42C2-8FD3-19CE5B0BD5D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFB15952-0DFA-4919-9D4B-46C2737654EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFB15952-0DFA-4919-9D4B-46C2737654EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFB15952-0DFA-4919-9D4B-46C2737654EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFB15952-0DFA-4919-9D4B-46C2737654EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91D117F4-D30D-47C3-8540-63379F338F22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91D117F4-D30D-47C3-8540-63379F338F22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91D117F4-D30D-47C3-8540-63379F338F22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91D117F4-D30D-47C3-8540-63379F338F22}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D2C9F430-6B47-482A-A49C-A2478D75F95F} = {F05BF759-3214-4371-A321-E7D08A55E66A}
+		{F62D7792-F4EE-4924-898E-C56309E6DFC2} = {F05BF759-3214-4371-A321-E7D08A55E66A}
+		{C0BAC0EB-7068-42AF-ACAC-09DF677CF980} = {F05BF759-3214-4371-A321-E7D08A55E66A}
+		{A45A1E35-6CE5-42C2-8FD3-19CE5B0BD5D6} = {F05BF759-3214-4371-A321-E7D08A55E66A}
+		{AFB15952-0DFA-4919-9D4B-46C2737654EC} = {F05BF759-3214-4371-A321-E7D08A55E66A}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {87F66FBC-C559-4AEB-8A15-87D8700F86E7}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 7
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://120.27.140.63:8080/tfs/workspace
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = ..\\..\\CodeArt\u0020Framework\\CodeArt\\CodeArt\\CodeArt.csproj
+		SccProjectTopLevelParentUniqueName1 = QuestionAnswerSubsystem.sln
+		SccProjectName1 = ../../CodeArt\u0020Framework/CodeArt/CodeArt
+		SccLocalPath1 = ..\\..\\CodeArt\u0020Framework\\CodeArt\\CodeArt
+		SccProjectUniqueName2 = ..\\..\\CodeArt\u0020Framework\\CodeArt\\CodeArt.DomainDriven\\CodeArt.DomainDriven.csproj
+		SccProjectTopLevelParentUniqueName2 = QuestionAnswerSubsystem.sln
+		SccProjectName2 = ../../CodeArt\u0020Framework/CodeArt/CodeArt.DomainDriven
+		SccLocalPath2 = ..\\..\\CodeArt\u0020Framework\\CodeArt\\CodeArt.DomainDriven
+		SccProjectUniqueName3 = ..\\..\\CodeArt\u0020Framework\\CodeArt\\CodeArt.DomainDriven.DataAccess\\CodeArt.DomainDriven.DataAccess.csproj
+		SccProjectTopLevelParentUniqueName3 = QuestionAnswerSubsystem.sln
+		SccProjectName3 = ../../CodeArt\u0020Framework/CodeArt/CodeArt.DomainDriven.DataAccess
+		SccLocalPath3 = ..\\..\\CodeArt\u0020Framework\\CodeArt\\CodeArt.DomainDriven.DataAccess
+		SccProjectUniqueName4 = ..\\..\\CodeArt\u0020Framework\\CodeArt\\CodeArt.DomainDriven.Extensions\\CodeArt.DomainDriven.Extensions.csproj
+		SccProjectTopLevelParentUniqueName4 = QuestionAnswerSubsystem.sln
+		SccProjectName4 = ../../CodeArt\u0020Framework/CodeArt/CodeArt.DomainDriven.Extensions
+		SccLocalPath4 = ..\\..\\CodeArt\u0020Framework\\CodeArt\\CodeArt.DomainDriven.Extensions
+		SccProjectUniqueName5 = ..\\..\\CodeArt\u0020Framework\\CodeArt\\CodeArt.EasyMQ\\CodeArt.EasyMQ.csproj
+		SccProjectTopLevelParentUniqueName5 = QuestionAnswerSubsystem.sln
+		SccProjectName5 = ../../CodeArt\u0020Framework/CodeArt/CodeArt.EasyMQ
+		SccLocalPath5 = ..\\..\\CodeArt\u0020Framework\\CodeArt\\CodeArt.EasyMQ
+		SccProjectUniqueName6 = QuestionAnswerSubsystem\\QuestionAnswerSubsystem.csproj
+		SccProjectName6 = QuestionAnswerSubsystem
+		SccLocalPath6 = QuestionAnswerSubsystem
+	EndGlobalSection
+EndGlobal

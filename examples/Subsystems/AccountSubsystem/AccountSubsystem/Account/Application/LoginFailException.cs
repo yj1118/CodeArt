@@ -7,7 +7,7 @@ using CodeArt.DomainDriven;
 
 namespace AccountSubsystem
 {
-    public sealed class LoginFailException : UserUIException
+    public sealed class LoginFailException : BusinessException
     {
         public LoginFailException(string message)
             : base(message)

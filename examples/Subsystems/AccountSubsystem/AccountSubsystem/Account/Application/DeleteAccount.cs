@@ -21,6 +21,7 @@ namespace AccountSubsystem
         {
             var repository = Repository.Create<IAccountRepository>();
             var account = repository.Find(_id, QueryLevel.Mirroring);
+            if (account.IsEmpty()) return;
             repository.Delete(account);
         }
 

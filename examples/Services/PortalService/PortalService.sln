@@ -27,8 +27,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.TestTools", "..\..\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.TestTools.ServiceModel", "..\..\CodeArt Framework\CodeArt\CodeArt.TestTools.ServiceModel\CodeArt.TestTools.ServiceModel.csproj", "{986A39BB-38B7-4C33-A61E-C635885088F8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.Web", "..\..\CodeArt Framework\CodeArt\CodeArt.Web\CodeArt.Web.csproj", "{FC477F23-2BCC-4917-841E-691726EB0894}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.RabbitMQ", "..\..\CodeArt Framework\CodeArt\CodeArt.RabbitMQ\CodeArt.RabbitMQ.csproj", "{89C4BA5C-358B-4095-8FD2-0BAE32C2178E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.EasyMQ", "..\..\CodeArt Framework\CodeArt\CodeArt.EasyMQ\CodeArt.EasyMQ.csproj", "{AFB15952-0DFA-4919-9D4B-46C2737654EC}"
@@ -44,6 +42,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileSubsystem", "..\..\Subsystems Framework\FileSubsystem\FileSubsystem\FileSubsystem.csproj", "{BCE782F2-71EA-43C0-A361-FE79666CCC06}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserSubsystem", "..\..\Subsystems Framework\UserSubsystem\UserSubsystem\UserSubsystem.csproj", "{36C405AE-737F-4EC4-8568-84CBD0AE9B9A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.Web", "..\..\CodeArt Framework\CodeArt\CodeArt.Web\CodeArt.Web.csproj", "{FC477F23-2BCC-4917-841E-691726EB0894}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -91,10 +91,6 @@ Global
 		{986A39BB-38B7-4C33-A61E-C635885088F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{986A39BB-38B7-4C33-A61E-C635885088F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{986A39BB-38B7-4C33-A61E-C635885088F8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FC477F23-2BCC-4917-841E-691726EB0894}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FC477F23-2BCC-4917-841E-691726EB0894}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FC477F23-2BCC-4917-841E-691726EB0894}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FC477F23-2BCC-4917-841E-691726EB0894}.Release|Any CPU.Build.0 = Release|Any CPU
 		{89C4BA5C-358B-4095-8FD2-0BAE32C2178E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{89C4BA5C-358B-4095-8FD2-0BAE32C2178E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{89C4BA5C-358B-4095-8FD2-0BAE32C2178E}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -127,6 +123,10 @@ Global
 		{36C405AE-737F-4EC4-8568-84CBD0AE9B9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{36C405AE-737F-4EC4-8568-84CBD0AE9B9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{36C405AE-737F-4EC4-8568-84CBD0AE9B9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC477F23-2BCC-4917-841E-691726EB0894}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC477F23-2BCC-4917-841E-691726EB0894}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC477F23-2BCC-4917-841E-691726EB0894}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC477F23-2BCC-4917-841E-691726EB0894}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -140,13 +140,13 @@ Global
 		{F9F4EF44-D894-4B0C-8A6F-AE422D98576C} = {5F589A1E-007A-4A15-BE6D-EEB69A7DBCFC}
 		{A55DD9DB-5254-4D31-888D-05474318035D} = {99ECAE38-204D-4947-B45A-6B4F8C963C2E}
 		{986A39BB-38B7-4C33-A61E-C635885088F8} = {99ECAE38-204D-4947-B45A-6B4F8C963C2E}
-		{FC477F23-2BCC-4917-841E-691726EB0894} = {99ECAE38-204D-4947-B45A-6B4F8C963C2E}
 		{89C4BA5C-358B-4095-8FD2-0BAE32C2178E} = {99ECAE38-204D-4947-B45A-6B4F8C963C2E}
 		{AFB15952-0DFA-4919-9D4B-46C2737654EC} = {99ECAE38-204D-4947-B45A-6B4F8C963C2E}
 		{CEBC603E-59AD-4BD7-839D-CCFE7C0841B1} = {99ECAE38-204D-4947-B45A-6B4F8C963C2E}
 		{D555A345-1D09-42F6-B090-15A08E763B1D} = {5F589A1E-007A-4A15-BE6D-EEB69A7DBCFC}
 		{BCE782F2-71EA-43C0-A361-FE79666CCC06} = {5F589A1E-007A-4A15-BE6D-EEB69A7DBCFC}
 		{36C405AE-737F-4EC4-8568-84CBD0AE9B9A} = {5F589A1E-007A-4A15-BE6D-EEB69A7DBCFC}
+		{FC477F23-2BCC-4917-841E-691726EB0894} = {99ECAE38-204D-4947-B45A-6B4F8C963C2E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {948E3B0B-6C0A-4B59-A7CD-3A3583756279}
@@ -194,39 +194,39 @@ Global
 		SccProjectTopLevelParentUniqueName10 = PortalService.sln
 		SccProjectName10 = ../../CodeArt\u0020Framework/CodeArt/CodeArt.TestTools.ServiceModel
 		SccLocalPath10 = ..\\..\\CodeArt\u0020Framework\\CodeArt\\CodeArt.TestTools.ServiceModel
-		SccProjectUniqueName11 = ..\\..\\CodeArt\u0020Framework\\CodeArt\\CodeArt.Web\\CodeArt.Web.csproj
+		SccProjectUniqueName11 = ..\\..\\CodeArt\u0020Framework\\CodeArt\\CodeArt.RabbitMQ\\CodeArt.RabbitMQ.csproj
 		SccProjectTopLevelParentUniqueName11 = PortalService.sln
-		SccProjectName11 = ../../CodeArt\u0020Framework/CodeArt/CodeArt.Web
-		SccLocalPath11 = ..\\..\\CodeArt\u0020Framework\\CodeArt\\CodeArt.Web
-		SccProjectUniqueName12 = ..\\..\\CodeArt\u0020Framework\\CodeArt\\CodeArt.RabbitMQ\\CodeArt.RabbitMQ.csproj
+		SccProjectName11 = ../../CodeArt\u0020Framework/CodeArt/CodeArt.RabbitMQ
+		SccLocalPath11 = ..\\..\\CodeArt\u0020Framework\\CodeArt\\CodeArt.RabbitMQ
+		SccProjectUniqueName12 = ..\\..\\CodeArt\u0020Framework\\CodeArt\\CodeArt.EasyMQ\\CodeArt.EasyMQ.csproj
 		SccProjectTopLevelParentUniqueName12 = PortalService.sln
-		SccProjectName12 = ../../CodeArt\u0020Framework/CodeArt/CodeArt.RabbitMQ
-		SccLocalPath12 = ..\\..\\CodeArt\u0020Framework\\CodeArt\\CodeArt.RabbitMQ
-		SccProjectUniqueName13 = ..\\..\\CodeArt\u0020Framework\\CodeArt\\CodeArt.EasyMQ\\CodeArt.EasyMQ.csproj
-		SccProjectTopLevelParentUniqueName13 = PortalService.sln
-		SccProjectName13 = ../../CodeArt\u0020Framework/CodeArt/CodeArt.EasyMQ
-		SccLocalPath13 = ..\\..\\CodeArt\u0020Framework\\CodeArt\\CodeArt.EasyMQ
-		SccProjectUniqueName14 = PortalService\\PortalService.csproj
-		SccProjectName14 = PortalService
-		SccLocalPath14 = PortalService
-		SccProjectUniqueName15 = ..\\..\\CodeArt\u0020Framework\\CodeArt\\CodeArt.ServiceModel.MQ\\CodeArt.ServiceModel.MQ.csproj
-		SccProjectTopLevelParentUniqueName15 = PortalService.sln
-		SccProjectName15 = ../../CodeArt\u0020Framework/CodeArt/CodeArt.ServiceModel.MQ
-		SccLocalPath15 = ..\\..\\CodeArt\u0020Framework\\CodeArt\\CodeArt.ServiceModel.MQ
-		SccProjectUniqueName16 = ProtalServiceClientDemo\\ProtalServiceClientDemo.csproj
-		SccProjectName16 = ProtalServiceClientDemo
-		SccLocalPath16 = ProtalServiceClientDemo
-		SccProjectUniqueName17 = ..\\..\\Subsystems\u0020Framework\\LocationSubsystem\\LocationSubsystem\\LocationSubsystem.csproj
+		SccProjectName12 = ../../CodeArt\u0020Framework/CodeArt/CodeArt.EasyMQ
+		SccLocalPath12 = ..\\..\\CodeArt\u0020Framework\\CodeArt\\CodeArt.EasyMQ
+		SccProjectUniqueName13 = PortalService\\PortalService.csproj
+		SccProjectName13 = PortalService
+		SccLocalPath13 = PortalService
+		SccProjectUniqueName14 = ..\\..\\CodeArt\u0020Framework\\CodeArt\\CodeArt.ServiceModel.MQ\\CodeArt.ServiceModel.MQ.csproj
+		SccProjectTopLevelParentUniqueName14 = PortalService.sln
+		SccProjectName14 = ../../CodeArt\u0020Framework/CodeArt/CodeArt.ServiceModel.MQ
+		SccLocalPath14 = ..\\..\\CodeArt\u0020Framework\\CodeArt\\CodeArt.ServiceModel.MQ
+		SccProjectUniqueName15 = ProtalServiceClientDemo\\ProtalServiceClientDemo.csproj
+		SccProjectName15 = ProtalServiceClientDemo
+		SccLocalPath15 = ProtalServiceClientDemo
+		SccProjectUniqueName16 = ..\\..\\Subsystems\u0020Framework\\LocationSubsystem\\LocationSubsystem\\LocationSubsystem.csproj
+		SccProjectTopLevelParentUniqueName16 = PortalService.sln
+		SccProjectName16 = ../../Subsystems\u0020Framework/LocationSubsystem/LocationSubsystem
+		SccLocalPath16 = ..\\..\\Subsystems\u0020Framework\\LocationSubsystem\\LocationSubsystem
+		SccProjectUniqueName17 = ..\\..\\Subsystems\u0020Framework\\FileSubsystem\\FileSubsystem\\FileSubsystem.csproj
 		SccProjectTopLevelParentUniqueName17 = PortalService.sln
-		SccProjectName17 = ../../Subsystems\u0020Framework/LocationSubsystem/LocationSubsystem
-		SccLocalPath17 = ..\\..\\Subsystems\u0020Framework\\LocationSubsystem\\LocationSubsystem
-		SccProjectUniqueName18 = ..\\..\\Subsystems\u0020Framework\\FileSubsystem\\FileSubsystem\\FileSubsystem.csproj
+		SccProjectName17 = ../../Subsystems\u0020Framework/FileSubsystem/FileSubsystem
+		SccLocalPath17 = ..\\..\\Subsystems\u0020Framework\\FileSubsystem\\FileSubsystem
+		SccProjectUniqueName18 = ..\\..\\Subsystems\u0020Framework\\UserSubsystem\\UserSubsystem\\UserSubsystem.csproj
 		SccProjectTopLevelParentUniqueName18 = PortalService.sln
-		SccProjectName18 = ../../Subsystems\u0020Framework/FileSubsystem/FileSubsystem
-		SccLocalPath18 = ..\\..\\Subsystems\u0020Framework\\FileSubsystem\\FileSubsystem
-		SccProjectUniqueName19 = ..\\..\\Subsystems\u0020Framework\\UserSubsystem\\UserSubsystem\\UserSubsystem.csproj
+		SccProjectName18 = ../../Subsystems\u0020Framework/UserSubsystem/UserSubsystem
+		SccLocalPath18 = ..\\..\\Subsystems\u0020Framework\\UserSubsystem\\UserSubsystem
+		SccProjectUniqueName19 = ..\\..\\CodeArt\u0020Framework\\CodeArt\\CodeArt.Web\\CodeArt.Web.csproj
 		SccProjectTopLevelParentUniqueName19 = PortalService.sln
-		SccProjectName19 = ../../Subsystems\u0020Framework/UserSubsystem/UserSubsystem
-		SccLocalPath19 = ..\\..\\Subsystems\u0020Framework\\UserSubsystem\\UserSubsystem
+		SccProjectName19 = ../../CodeArt\u0020Framework/CodeArt/CodeArt.Web
+		SccLocalPath19 = ..\\..\\CodeArt\u0020Framework\\CodeArt\\CodeArt.Web
 	EndGlobalSection
 EndGlobal

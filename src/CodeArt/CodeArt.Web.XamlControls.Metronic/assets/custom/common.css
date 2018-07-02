@@ -1,0 +1,646 @@
+﻿body {
+  font-family: 'Microsoft YaHei UI';
+  font-size:1.3rem;
+}
+
+h4{
+    font-family:'Microsoft YaHei UI';
+    font-size:1.4rem;
+}
+
+h1, h2, h3, h4, h5, h6{
+     font-family:'Microsoft YaHei UI';
+}
+
+p {
+    font-family:'Microsoft YaHei UI';
+    font-size:1.3rem;
+}
+
+.m-brand {
+    width: 280px;
+}
+
+@media (max-width: 992px) {
+    .m-brand {
+        width: 100%;
+    }
+}
+
+/* 左侧菜单 */
+.m-aside-menu .m-menu__nav > .m-menu__item > .m-menu__heading .m-menu__link-icon, .m-aside-menu .m-menu__nav > .m-menu__item > .m-menu__link .m-menu__link-icon {
+    font-size: 1.4rem;
+}
+.m-aside-menu .m-menu__nav > .m-menu__item > .m-menu__heading .m-menu__link-text, .m-aside-menu .m-menu__nav > .m-menu__item > .m-menu__link .m-menu__link-text {
+    font-size: 1.3rem;
+}
+
+.m-aside-menu .m-menu__nav > .m-menu__item .m-menu__submenu .m-menu__item > .m-menu__heading .m-menu__link-text, .m-aside-menu .m-menu__nav > .m-menu__item .m-menu__submenu .m-menu__item > .m-menu__link .m-menu__link-text {
+    font-size: 1.3rem;
+}
+
+.m-aside-menu .m-menu__nav > .m-menu__item .m-menu__submenu .m-menu__item > .m-menu__heading .m-menu__link-icon, .m-aside-menu .m-menu__nav > .m-menu__item .m-menu__submenu .m-menu__item > .m-menu__link .m-menu__link-icon {
+    font-size: 1.4rem;
+}
+
+.m-aside-menu .m-menu__nav > .m-menu__item > .m-menu__heading .m-menu__ver-arrow, .m-aside-menu .m-menu__nav > .m-menu__item > .m-menu__link .m-menu__ver-arrow {
+    font-size: 1rem;
+}
+
+.m-aside-menu .m-menu__nav > .m-menu__item .m-menu__submenu .m-menu__item > .m-menu__heading .m-menu__ver-arrow, .m-aside-menu .m-menu__nav > .m-menu__item .m-menu__submenu .m-menu__item > .m-menu__link .m-menu__ver-arrow {
+    font-size: 1rem;
+}
+
+
+@media (min-width: 993px) {
+    .m-aside-left--minimize .m-aside-menu .m-menu__nav > .m-menu__item.m-menu__item--hover > .m-menu__submenu .m-menu__subnav > .m-menu__item.m-menu__item--parent > .m-menu__link .m-menu__link-text {
+        font-size: 1.3rem;
+    }
+
+    .m-aside-left--minimize .m-aside-menu .m-menu__nav .m-menu__item:not([data-menu-submenu-mode='accordion']).m-menu__item--hover > .m-menu__submenu .m-menu__subnav > .m-menu__item > .m-menu__heading .m-menu__link-text, .m-aside-left--minimize .m-aside-menu .m-menu__nav .m-menu__item:not([data-menu-submenu-mode='accordion']).m-menu__item--hover > .m-menu__submenu .m-menu__subnav > .m-menu__item > .m-menu__link .m-menu__link-text, .m-aside-menu.m-aside-menu--dropdown .m-menu__nav .m-menu__item:not([data-menu-submenu-mode='accordion']).m-menu__item--hover > .m-menu__submenu .m-menu__subnav > .m-menu__item > .m-menu__heading .m-menu__link-text, .m-aside-menu.m-aside-menu--dropdown .m-menu__nav .m-menu__item:not([data-menu-submenu-mode='accordion']).m-menu__item--hover > .m-menu__submenu .m-menu__subnav > .m-menu__item > .m-menu__link .m-menu__link-text {
+        font-size: 1.3rem;
+    }
+}
+
+.m-aside-left {
+    width: 280px;  /*不知道为什么写了该句样式后会引起 checkbox的√不对齐，后面的代码会修复这个问题*/
+}
+
+/*快捷通道和同级菜单*/
+@media (min-width: 993px) {
+    .m-header-menu .m-menu__nav > .m-menu__item > .m-menu__link .m-menu__link-text {
+        font-size: 1.3rem;
+    }
+    .m-header-menu .m-menu__nav > .m-menu__item > .m-menu__link .m-menu__link-icon {
+        font-size: 1.5rem;
+    }
+    .m-header-menu.m-header-menu--skin-light .m-menu__nav > .m-menu__item > .m-menu__link .m-menu__link-icon {
+        color: #676c7b;
+    }
+
+    .m-header-menu .m-menu__nav > .m-menu__item .m-menu__submenu > .m-menu__subnav .m-menu__content .m-menu__heading > .m-menu__link-text {
+        font-size: 1.2rem;
+    }
+    .m-header-menu .m-menu__nav > .m-menu__item .m-menu__submenu > .m-menu__subnav .m-menu__content .m-menu__inner > .m-menu__item > .m-menu__link .m-menu__link-text{
+        font-size:1.1rem;
+    }
+
+    /*同级菜单*/
+    .m-header-menu .m-menu__nav > .m-menu__item .m-menu__submenu > .m-menu__subnav > .m-menu__item > .m-menu__link .m-menu__link-text {
+        font-size: 1.1rem;
+    }
+
+}
+
+@media (max-width: 992px) {
+    .m-header-menu .m-menu__nav > .m-menu__item > .m-menu__link .m-menu__link-text {
+        font-size: 1.3rem;
+    }
+
+    .m-header-menu .m-menu__nav > .m-menu__item > .m-menu__link .m-menu__link-icon {
+        font-size: 1.5rem;
+    }
+
+    .m-aside-header-menu-mobile .m-menu__nav > .m-menu__item .m-menu__submenu .m-menu__item > .m-menu__heading .m-menu__link-text, .m-aside-header-menu-mobile .m-menu__nav > .m-menu__item .m-menu__submenu .m-menu__item > .m-menu__link .m-menu__link-text {
+        font-size: 1.3rem;
+    }
+
+    .m-aside-header-menu-mobile {
+        width: 280px !important;
+    }
+
+    .m-aside-header-menu-mobile .m-menu__nav > .m-menu__item > .m-menu__heading .m-menu__ver-arrow, .m-aside-header-menu-mobile .m-menu__nav > .m-menu__item > .m-menu__link .m-menu__ver-arrow{
+        font-size:1rem;
+    }
+
+    .m-aside-header-menu-mobile .m-menu__nav > .m-menu__item .m-menu__submenu .m-menu__item > .m-menu__heading .m-menu__ver-arrow, .m-aside-header-menu-mobile .m-menu__nav > .m-menu__item .m-menu__submenu .m-menu__item > .m-menu__link .m-menu__ver-arrow {
+        font-size: 1rem;
+    }
+
+    .m-aside-header-menu-mobile--on .m-aside-header-menu-mobile-close {
+        right: 255px;
+    }
+}
+
+/*用户有关的菜单*/
+.m-nav .m-nav__item > .m-nav__link .m-nav__link-text {
+    font-size: 1.1rem;
+}
+
+/*底部*/
+@media (min-width: 993px) {
+    .m-footer--push.m-aside-left--enabled:not(.m-footer--fixed) .m-footer {
+        margin-left: 280px;
+    }
+}
+
+/*修复inline模式下的label汉字换行问题*/
+.m-form .m-form__group.m-form__group--inline > .m-form__label {
+    white-space: nowrap;
+}
+
+.m-form .m-form__group.row {
+    margin-right: 0px;
+    margin-left: 0px; 
+}
+
+.m-form .m-form__group .form-control-label, .m-form .m-form__group label {
+    font-size: 1.2rem;
+}
+.form-cell{
+    margin-bottom:0px;
+}
+
+.m-form .form-control-feedback {
+    font-size: 0.95rem;
+}
+
+.m-form .m-form__help {
+    font-size: 0.95rem;
+}
+
+.form-group > .form-control-feedback{ /* 修正，当输入组件有后缀或者前缀时，信息提示的位置不正确的bug */
+    padding-left:15px;
+}
+
+.m-form .m-form__heading .m-form__heading-title {
+    font-weight: bold;
+}
+
+/*原始样式中将最后一个form-section的margin-bottomn变更为0了，我们需要保留间隔，所以修复*/
+.m-form .m-form__section:last-child, .m-form .m-form__section.m-form__section--last{
+    margin-bottom:40px;
+}
+
+/*disabled样式调整*/
+.form-control[disabled] {
+    border-color: #ebedf2;
+    background-color: #fff;
+    cursor: not-allowed;
+}
+
+.bootstrap-select.btn-group > .dropdown-toggle.btn-default.disabled, .bootstrap-select.btn-group > .dropdown-toggle.btn-default:disabled, .bootstrap-select.btn-group > .dropdown-toggle.btn-secondary.disabled, .bootstrap-select.btn-group > .dropdown-toggle.btn-secondary:disabled {
+    border-color: #ebedf2;
+    background-color: #fff;
+    cursor: not-allowed;
+}
+
+.btn.disabled, .btn:disabled{
+    opacity:1;
+}
+
+.m-radio.m-radio--disabled {
+    opacity: 1;
+    filter: alpha(opacity=100);
+}
+
+.m-radio > input:disabled ~ span {
+    opacity: 1;
+    filter: alpha(opacity=100);
+}
+
+.m-radio > input:disabled ~ span, .m-checkbox > input:disabled ~ span {
+    opacity: 1;
+    filter: alpha(opacity=100);
+}
+
+.m-radio > input:disabled ~ span:after {
+    border-color: #7281a4;
+}
+
+
+.dropzone.dz-disabled {
+    cursor: not-allowed;
+}
+/*调整表单在弹出窗口的样式*/
+.modal .m-form.m-form--fit .m-form__content, .m-form.m-form--fit .m-form__heading, .m-form.m-form--fit .m-form__group {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.modal .m-form .m-form__group {
+    margin-bottom:1rem;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.m-form .m-portlet__body {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+/* 修正由于修改了.m-aside-left的宽度导致checkbox的√不居中的问题*/
+.m-radio > span, .m-checkbox > span{
+    width:20px;
+    height:20px;
+}
+
+.m-radio > span:after, .m-checkbox > span:after {
+    margin-left: -3px;
+}
+
+/*datatable*/
+.m-datatable.m-datatable--default > .m-datatable__table > .m-datatable__head .m-datatable__row > .m-datatable__cell, .m-datatable.m-datatable--default > .m-datatable__table > .m-datatable__body .m-datatable__row > .m-datatable__cell, .m-datatable.m-datatable--default > .m-datatable__table > .m-datatable__foot .m-datatable__row > .m-datatable__cell{
+    font-size:1.1rem;
+}
+
+.m-datatable-selectedItems {
+    background: #F7F8FC;
+    border: 4px solid #f7f7fa;
+    padding: 20px;
+    margin-top:30px;
+    display:none;
+}
+
+    .m-datatable-selectedItems ul.list-inline {
+        padding: 0px;
+        margin: 0px;
+    }
+
+        .m-datatable-selectedItems ul.list-inline li {
+            display: inline-block;
+            padding: 0px;
+            margin: 5px;
+        }
+
+/*以下解决两2个问题：
+    1.datatable 获取数据的loading不水平居中
+    2.form在modal提交时，loading不水平居中
+    这是由于chrome升级后，metronic的原本算法失效了导致的，需要查看最新版是否修复，在此之前自己修复*/
+.m-blockui {
+    display: inline-block;
+}
+
+.blockUI.blockMsg.blockElement {
+    width: 100% !important;
+}
+
+.modal .c-datatableQuery {
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+}
+
+.modal .m-datatable-selectedItems{
+    padding:5px;
+}
+
+/*modal*/
+.modal .modal-content .modal-header .modal-title {
+    font-size: 1.3rem;
+}
+
+
+@media (min-width: 992px) {
+    .modal-xl {
+        max-width: 900px;
+    }
+
+    .modal-full {
+        max-width: 98%;
+    }
+
+}
+
+@media (min-width: 1156px) {
+    .modal-xl {
+        max-width: 1100px;
+    }
+
+    .modal-full {
+        max-width: 90%;
+    }
+}
+
+/*select*/
+.bootstrap-select .btn-sm, .btn-group-sm > .btn {
+    font-size:1rem;
+}
+.bootstrap-select.btn-group .dropdown-menu.inner > li > a {
+    font-size: 1.1rem;
+}
+
+/*list*/
+.list .list-actions a{
+    margin:0px 2px;
+}
+
+.list .m-table.m-table--head-bg-brand thead th {
+    font-size: 1.1rem;
+}
+
+.list .table tbody th {
+    font-size: 1.1rem;
+    line-height:3rem;
+}
+
+.list .table tbody tr:hover {
+    background-color: #eaf2fb;
+}
+
+.list .m-section{
+    margin:0px;
+}
+
+
+/*wizard*/
+.m-wizard.m-wizard--2 .m-wizard__head .m-wizard__nav .m-wizard__steps .m-wizard__step .m-wizard__step-info .m-wizard__step-desc{
+    font-size:1.1rem;
+}
+
+.m-wizard .m-form{
+    width:100%;
+}
+
+/*dropzone*/
+.has-danger .m-dropzone {
+    border-color: #f4516c;
+}
+/*补充的公共样式*/
+.m--padding-top-0 {
+    padding-top: 0px !important;
+}
+
+.m--padding-right-0 {
+    padding-right: 0px !important;
+}
+
+
+.m--padding-left-0 {
+    padding-left: 0px !important;
+}
+
+.m--padding-0 {
+    padding: 0px !important;
+}
+
+.m--margin-top-0 {
+    margin-top: 0px !important;
+}
+
+.m--margin-0 {
+    margin: 0px !important;
+}
+
+@media (min-width: 1800px) {
+    .col-vl {
+        flex-basis: 0;
+        flex-grow: 1;
+        max-width: 100%;
+    }
+
+    .col-vl-auto {
+        flex: 0 0 auto;
+        width: auto;
+        max-width: none;
+    }
+
+    .col-vl-1 {
+        flex: 0 0 8.33333%;
+        max-width: 8.33333%;
+    }
+
+    .col-vl-2 {
+        flex: 0 0 16.66667%;
+        max-width: 16.66667%;
+    }
+
+    .col-vl-3 {
+        flex: 0 0 25%;
+        max-width: 25%;
+    }
+
+    .col-vl-4 {
+        flex: 0 0 33.33333%;
+        max-width: 33.33333%;
+    }
+
+    .col-vl-5 {
+        flex: 0 0 41.66667%;
+        max-width: 41.66667%;
+    }
+
+    .col-vl-6 {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+
+    .col-vl-7 {
+        flex: 0 0 58.33333%;
+        max-width: 58.33333%;
+    }
+
+    .col-vl-8 {
+        flex: 0 0 66.66667%;
+        max-width: 66.66667%;
+    }
+
+    .col-vl-9 {
+        flex: 0 0 75%;
+        max-width: 75%;
+    }
+
+    .col-vl-10 {
+        flex: 0 0 83.33333%;
+        max-width: 83.33333%;
+    }
+
+    .col-vl-11 {
+        flex: 0 0 91.66667%;
+        max-width: 91.66667%;
+    }
+
+    .col-vl-12 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    .order-vl-first {
+        order: -1;
+    }
+
+    .order-vl-last {
+        order: 13;
+    }
+
+    .order-vl-0 {
+        order: 0;
+    }
+
+    .order-vl-1 {
+        order: 1;
+    }
+
+    .order-vl-2 {
+        order: 2;
+    }
+
+    .order-vl-3 {
+        order: 3;
+    }
+
+    .order-vl-4 {
+        order: 4;
+    }
+
+    .order-vl-5 {
+        order: 5;
+    }
+
+    .order-vl-6 {
+        order: 6;
+    }
+
+    .order-vl-7 {
+        order: 7;
+    }
+
+    .order-vl-8 {
+        order: 8;
+    }
+
+    .order-vl-9 {
+        order: 9;
+    }
+
+    .order-vl-10 {
+        order: 10;
+    }
+
+    .order-vl-11 {
+        order: 11;
+    }
+
+    .order-vl-12 {
+        order: 12;
+    }
+
+    .offset-vl-0 {
+        margin-left: 0;
+    }
+
+    .offset-vl-1 {
+        margin-left: 8.33333%;
+    }
+
+    .offset-vl-2 {
+        margin-left: 16.66667%;
+    }
+
+    .offset-vl-3 {
+        margin-left: 25%;
+    }
+
+    .offset-vl-4 {
+        margin-left: 33.33333%;
+    }
+
+    .offset-vl-5 {
+        margin-left: 41.66667%;
+    }
+
+    .offset-vl-6 {
+        margin-left: 50%;
+    }
+
+    .offset-vl-7 {
+        margin-left: 58.33333%;
+    }
+
+    .offset-vl-8 {
+        margin-left: 66.66667%;
+    }
+
+    .offset-vl-9 {
+        margin-left: 75%;
+    }
+
+    .offset-vl-10 {
+        margin-left: 83.33333%;
+    }
+
+    .offset-vl-11 {
+        margin-left: 91.66667%;
+    }
+}
+
+
+
+/* mizard */
+@media (max-width: 1200px) {
+    .mizard-title {
+        margin-bottom: 150px;
+    }
+
+    .m-wizard {
+        margin-top: 0px !important;
+    }
+}
+
+
+.chart {
+}
+
+.m-alert__text p{
+    margin:0.2rem 0 0.2rem 0;
+    line-height:2rem;
+}
+
+.m-alert__text p.inner {
+    text-indent:1.3rem;
+}
+
+.alert.m-alert--icon.c--icon-top .m-alert__icon {
+    vertical-align:top;
+    margin-top:1.3rem;
+}
+
+.alert.m-alert--icon .m-alert__actions {
+    white-space: nowrap;
+}
+
+.c--unair {
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+}
+
+.c--none-color {
+    background-color: transparent !important;
+    border-color: transparent !important;
+}
+
+.c--over-row:hover {
+    background-color: #f7f6fa;
+}
+
+.m-portlet.m-portlet--creative .m-portlet__head .m-portlet__head-caption .m-portlet__head-label > span {
+    white-space:nowrap;
+}
+
+.ca-m-portlet-block{
+    margin-bottom:0px!important;
+}
+
+.ca-m-portlet-block .m-portlet__head {
+    margin-top: 20px !important;
+    margin-bottom: 10px !important;
+    background: none !important;
+}
+
+.ca-m-portlet-block .m-portlet__head .m-portlet__head-icon{
+    color: #b2b1c5 !important;
+}
+
+    .ca-m-portlet-block .m-portlet__head .m-portlet__head-icon i {
+        font-size: 1.8rem!important;
+    }
+
+    .ca-m-portlet-block .m-portlet__head .m-portlet__head-text {
+        font-size: 1.3rem !important;
+        font-weight: 500 !important;
+        color: #575962!important;
+    }
+
+.ca-m-portlet-block .m-portlet__body {
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+}

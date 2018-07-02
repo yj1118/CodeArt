@@ -1,0 +1,25 @@
+﻿<ControlTemplate xmlns="http://schemas.codeart.cn/web/xaml"
+                 xmlns:m="http://schemas.codeart.cn/web/xaml/metronic"
+                 xmlns:qa="http://schemas.codeart.cn/web/xaml/qa">
+<ControlTemplate.Directories>
+    <AssetDirectory AssemblyName="Module.QuestionAnswer">
+        <AssetPackage Path="/assets"></AssetPackage>
+    </AssetDirectory>
+</ControlTemplate.Directories>
+<div class="m-content qa--paper" data-proxy="{give:new $$qa.paper(),sealed:true}"
+     id="{TemplateBinding Id}"
+     name="{TemplateBinding Name}"
+     data-rule="{Binding Converter={Static qa:PaperRuleCodeConverter.Instance}}"
+     data-field="{TemplateBinding Field}"
+     data-metadataId="{TemplateBinding MetadataId}"
+     data-paper="true">
+    <AttributesPresenter />
+    <m:TextBox layout="Hidden" field="metadataId" />
+    <m:TextBox layout="Hidden" field="paperId" />
+    <div class="qa--quesetions">
+        <ItemsPresenter />
+    </div>
+</div>
+<LinkCode Key="/assets/common.css" Origin="Header" />
+<LinkCode Key="/assets/common.js" Origin="Bottom" />
+</ControlTemplate>

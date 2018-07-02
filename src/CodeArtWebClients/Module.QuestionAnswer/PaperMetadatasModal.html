@@ -1,0 +1,29 @@
+﻿<ControlTemplate xmlns="http://schemas.codeart.cn/web/xaml"
+                 xmlns:m="http://schemas.codeart.cn/web/xaml/metronic"
+                 xmlns:local="http://schemas.codeart.cn/web/xaml/local">
+<m:Modal id="paperMetadatasDialog" size="xl">
+    <m:DataTable id="paperMetadatas" name="paperMetadatas">
+        <m:DataTable.Header>
+            <m:DataTableQuery>
+                <m:TextBox layout="cell" placeholder="原型名称" query-field="name">
+                    <m:TextBox.Append>
+                        <button class="btn btn-primary" type="button" name="paperMetadataSearch" Click="OnPaperMetadataSearch">
+                            <run Content="搜索" />
+                        </button>
+                    </m:TextBox.Append>
+                </m:TextBox>
+            </m:DataTableQuery>
+        </m:DataTable.Header>
+        <m:DataTable.Columns>
+            <m:DataTableColumn field="Id" selector="true"></m:DataTableColumn>
+            <m:DataTableColumn field="Name" textField="true" title="名称" sortable="false" textAlign="left"></m:DataTableColumn>
+            <m:DataTableColumn field="MarkedCode" title="标识码" sortable="false" textAlign="center" width="200"></m:DataTableColumn>
+        </m:DataTable.Columns>
+    </m:DataTable>
+    <m:Modal.Footer>
+        <!-- 标记了 data-select-ok 那么select组件就会在按钮点击时，将table中对应的value和text提取到select中 -->
+        <m:button color="primary" icon="flaticon-plus" text="确定选择" data-select-ok="{value:'id',text:'name'}"></m:button>
+        <m:button color="secondary" text="关闭" data-dismiss="modal"></m:button>
+    </m:Modal.Footer>
+</m:Modal>
+</ControlTemplate>

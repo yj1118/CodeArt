@@ -1,0 +1,14 @@
+﻿<ControlTemplate 
+    xmlns="http://schemas.codeart.cn/web/xaml"
+    xmlns:m="http://schemas.codeart.cn/web/xaml/metronic">
+<div class="{TemplateBinding Class,Converter={Static AppendClassConverter.Instance},ConverterParameter=frow m-form__section}">
+    <div class="col-lg-12" Visibility="{TemplateBinding Title,Converter={Static StringCollapsedConverter.Instance}}">
+        <div class="m-form__heading">
+            <h3 class="m-form__heading-title">
+                <run content="{TemplateBinding Title}"></run>
+            </h3>
+        </div>
+    </div>
+    <ContentPresenter Content="{TemplateBinding Content}" />
+</div>
+</ControlTemplate>

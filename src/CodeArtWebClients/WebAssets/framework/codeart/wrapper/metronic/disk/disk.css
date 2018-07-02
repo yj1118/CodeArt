@@ -1,0 +1,655 @@
+﻿.disk .img-precontainer {
+    margin: auto;
+    width: 100%;
+    text-align: center;
+    background: #fff;
+    border: none;
+}
+
+.disk .img-container {
+    padding: 0;
+    border: none;
+    overflow: hidden;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    margin: auto;
+}
+
+    .disk .img-container img {
+        width: 122px;
+        height: 91px;
+        box-shadow: 5px 5px 20px black;
+        -webkit-box-shadow:5px 5px 20px black;
+        -moz-box-shadow: 5px 5px 20px black;
+    }
+
+
+.disk .img-container *, .disk .img-container-mini * {
+    vertical-align: middle;
+}
+
+.disk .close-uploader{
+    margin-left:10px;
+}
+
+.upload-tabbable {
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top:10px;
+}
+
+    .upload-tabbable .upload-help {
+        font-size: 11px;
+        font-weight: 200;
+        color: #777;
+        text-shadow: 0 1px 0 #fff;
+        text-align: center;
+        line-height:35px;
+    }
+
+    .upload-tabbable .nav {
+        margin: 0;
+    }
+
+        .upload-tabbable .nav li a {
+            font-size: 13px;
+            font-weight: 200;
+            color: #777;
+            text-shadow: 0 1px 0 #fff;
+        }
+
+    .upload-tabbable .tab-content {
+        padding: 5px;
+        border-bottom: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        background: #fff;
+        margin-bottom: 5px;
+        height: 402px;
+        overflow-y: auto;
+    }
+
+.disk h4 {
+    font-size: 16px;
+    font-weight: normal;
+    margin: 0;
+    text-align: center;
+    padding: 0;
+    margin-top: 6px;
+    line-height: 18px;
+}
+
+.disk h3 {
+    font-size: 14px;
+    font-weight: 200;
+}
+
+.disk .boxes {
+    border: 1px solid #CCC;
+    word-wrap: break-word;
+    background: #fff;
+    -webkit-box-shadow: 1px 1px 2px 0 rgba(0,0,0,.2);
+    box-shadow: 1px 1px 2px 0 rgba(0,0,0,.2);
+    min-height: 115px;
+    text-align: center;
+}
+
+
+.disk-uploader {
+    position : absolute;
+    margin: auto;
+    width: 100%;
+    z-index: 9999;
+    overflow: hidden;
+    background: #eee;
+    padding-top: 20px;
+    border: 1px solid #ccc;
+    display: none;
+    -webkit-box-shadow: 0 0 10px 0 rgba(1,1,1,.5);
+    box-shadow: 0 0 10px 0 rgba(1,1,1,.5);
+}
+
+.download-form {
+    margin-bottom: 25px;
+}
+
+.disk .grid li i {
+    margin-left: 2px;
+    margin-right: 2px;
+    z-index: 0;
+}
+
+.disk .box,.disk .boxx {
+    text-align: center;
+    word-wrap: break-word;
+    vertical-align: top;
+    text-align: left;
+    position: relative;
+    border: none;
+    box-shadow: none;
+    z-index: 100;
+    padding: 4px;
+}
+
+   .disk .box .btn {
+        width: 100%;
+        background: 0 0;
+        box-shadow: none;
+        border: none;
+        z-index: 200;
+    }
+
+.img-dimension, .file-date, .file-size, .file-extension, .file-name, .file-operations {
+    font-size: 12px;
+    font-weight: 200;
+    color: #777;
+    text-shadow: 0 1px 0 #fff;
+    display: none;
+}
+
+.disk .grid {
+    padding: 0 0;
+    margin: 0 auto;
+    list-style: none;
+    width:100%;
+    -webkit-overflow-scrolling: touch;
+}
+
+    .disk .grid li {
+        display:inline-block;
+        border: none;
+        padding:0px;
+        vertical-align: top;
+        margin:5px;
+    }
+
+    .disk .grid figure {
+        margin: 0;
+        position: relative;
+        display: block;
+        width: 122px;
+        margin: auto;
+    }
+
+        .disk .grid figure:hover {
+            background: #e0e0e0!important;
+        }
+
+.disk .grid figcaption {
+    text-align: center;
+    padding: 2px;
+    padding-top: 8px;
+    color: #fff;
+    height: 30px;
+    width:100%;
+    margin-left: 0;
+    margin-right: 0;
+    position: absolute;
+    top: auto;
+    bottom: 0;
+    -webkit-box-shadow: inset 0 0 8px 0 rgba(41,41,41,.5);
+    box-shadow: inset 0 0 8px 0 rgba(41,41,41,.5);
+}
+
+    .disk .grid figcaption a {
+        margin: 0;
+        padding: 2px;
+    }
+
+    .disk .grid figcaption h3 {
+        margin: 0;
+        padding: 0;
+        color: #fff;
+    }
+
+.disk .grid h4 {
+    text-align: center;
+    color: #000;
+    padding: 0;
+    margin-bottom: 4px;
+    margin-top: 4px;
+}
+
+.disk .grid figure .box {
+    box-sizing: content-box;
+    cursor: pointer;
+}
+
+.list-view0.grid figure .box, .list-view1.grid figure .box, .list-view2.grid figure .box {
+    max-width: 100%;
+    display: block;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+    .list-view0.grid figure .box h4.ellipsis, .list-view1.grid figure .box h4.ellipsis, .list-view2.grid figure .box h4.ellipsis {
+        height: 18px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size:13px;
+        color:#000;
+    }
+
+    .list-view0.grid figure .box h4 {
+        z-index: 1;
+    }
+
+        .list-view0.grid figure .box h4 a {
+            z-index: 1;
+            font-size:13px;
+            color:#000;
+        }
+
+.list-view0.grid figure .box h4 a:hover {
+    color:#000;
+    text-decoration:none;
+}
+
+.disk-item-command a,.disk-item-command a:hover{
+    color:#000;
+    text-decoration:none;
+}
+
+.no-touch .list-view0 figure .box {
+    z-index: 1;
+    -webkit-transition: -webkit-transform .3s;
+    -moz-transition: -moz-transform .3s;
+    transition: transform .3s;
+}
+
+.list-view0.grid .ui-state-highlight .img-precontainer {
+    background: grey!important;
+}
+
+    .list-view0.grid .ui-state-highlight .img-precontainer .img-container {
+        background: repeating-linear-gradient(45deg,transparent,transparent 5px,rgba(255,255,255,.4) 5px,rgba(255,255,255,.3) 10px);
+        border: none;
+        overflow: hidden;
+    }
+
+.list-view0.grid .ui-state-hover .img-precontainer .img-container {
+    background: #666;
+}
+
+
+.no-touch .list-view0 figure:hover .box, .no-touch .list-view0 figure.cs-hover .box {
+    -webkit-box-shadow: 0 0 4px 0 rgba(1,1,1,.5);
+    box-shadow: 0 0 4px 0 rgba(1,1,1,.5);
+    -webkit-transform: translateY(-26px);
+    -moz-transform: translateY(-26px);
+    -ms-transform: translateY(-26px);
+    transform: translateY(-26px);
+}
+
+.list-view0 figure:hover .box.no-effect, .list-view0 figure.cs-hover .box.no-effect, .no-effect {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    -webkit-transform: none;
+    -moz-transform: none;
+    -ms-transform: none;
+    transform: none;
+}
+
+.list-view0 .img-precontainer-mini {
+    display: none;
+    background: 0 0;
+}
+
+.back-directory .img-precontainer, .back-directory .img-precontainer-mini, .back-directory .box {
+    background: 0 0;
+}
+
+.viewer-iframe {
+    width: 100%;
+    height: 400px;
+    border: none;
+}
+
+.list-view1.sorter-container {
+    display: block;
+}
+
+.list-view0.sorter-container, .list-view2.sorter-container {
+    display: none;
+}
+
+.list-view0.grid .img-precontainer .img-container img {
+    width: 122px!important;
+    height: 91px!important;
+}
+
+    .list-view0.grid .img-precontainer .img-container img.icon {
+        width: 122px;
+        margin-top: 0;
+    }
+
+.list-view0.grid .img-precontainer .filetype {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    text-align: center;
+    color: #fff;
+    font-size: 13px;
+    line-height: 22px;
+}
+
+.list-view0.grid .cover {
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIwLjI1Ii8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmZmZmZmYiIHN0b3Atb3BhY2l0eT0iMC4yNSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    background: -moz-linear-gradient(top,rgba(255,255,255,.25) 0,rgba(255,255,255,.25) 100%);
+    background: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgba(255,255,255,.25)),color-stop(100%,rgba(255,255,255,.25)));
+    background: -webkit-linear-gradient(top,rgba(255,255,255,.25) 0,rgba(255,255,255,.25) 100%);
+    background: -o-linear-gradient(top,rgba(255,255,255,.25) 0,rgba(255,255,255,.25) 100%);
+    background: -ms-linear-gradient(top,rgba(255,255,255,.25) 0,rgba(255,255,255,.25) 100%);
+    background: linear-gradient(to bottom,rgba(255,255,255,.25) 0,rgba(255,255,255,.25) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#40ffffff', endColorstr='#40ffffff', GradientType=0);
+    width: 122px;
+    position: absolute;
+    top: 22px;
+    right: 0;
+    height: 69px;
+}
+
+.list-view0.grid .box {
+    background: #fff;
+}
+
+.list-view0.grid .directory {
+    background: #ddd;
+}
+
+.list-view0.grid figure.back-directory .directory {
+    background: #bbb;
+}
+
+.list-view0.grid figcaption {
+    background: #fff;
+}
+
+.list-view0.grid .selected figure {
+    border: none;
+    height: 126px;
+}
+
+    .list-view0.grid .selected figure > a, .list-view0.grid .selected figure figcaption, .list-view0.grid .selected figure .box {
+        display: none;
+    }
+
+
+.disk .portlet > .portlet-title > .actions {
+    float: left;
+}
+
+
+
+
+/*.disk{
+    width:100%;
+}
+
+.disk iframe{
+    width:100%;
+    height:100%;
+}*/
+
+.dropzone .dz-default.dz-message,
+.dropzone .dz-preview .dz-error-mark,
+.dropzone-previews .dz-preview .dz-error-mark,
+.dropzone .dz-preview .dz-success-mark,
+.dropzone-previews .dz-preview .dz-success-mark,
+.dropzone .dz-preview .dz-progress .dz-upload,
+.dropzone-previews .dz-preview .dz-progress .dz-upload {
+    background-image: url(/framework/codeart/wrapper/metronic/images/disk/spritemap_CN.png);
+}
+
+@media all and (-webkit-min-device-pixel-ratio:1.5),(min--moz-device-pixel-ratio:1.5),(-o-min-device-pixel-ratio:1.5/1),(min-device-pixel-ratio:1.5),(min-resolution:138dpi),(min-resolution:1.5dppx) {
+    .dropzone .dz-default.dz-message,
+    .dropzone .dz-preview .dz-error-mark,
+    .dropzone-previews .dz-preview .dz-error-mark,
+    .dropzone .dz-preview .dz-success-mark,
+    .dropzone-previews .dz-preview .dz-success-mark,
+    .dropzone .dz-preview .dz-progress .dz-upload,
+    .dropzone-previews .dz-preview .dz-progress .dz-upload {
+        background-image: url(/framework/codeart/wrapper/metronic/images/disk/spritemap_CN.png);
+    }
+}
+
+.selectFolders {
+    height: 500px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+    .selectFolders .span12 {
+        width: 100%;
+        margin: 5px 0px 0px 0px;
+    }
+
+    .selectFolders .sorter-container {
+        height: 30px;
+    }
+
+        .selectFolders .sorter-container .file-name {
+            left: 10px;
+            width: auto;
+            margin-top: 7px;
+        }
+
+        .selectFolders .sorter-container .file-operations {
+            width: 50px;
+            margin-top: 7px;
+        }
+
+    .selectFolders .grid .select {
+        font-size: 12px;
+        margin-right: 20px;
+    }
+
+    .selectFolders .grid li figure .box {
+        padding-right: 0px;
+        margin-left: 10px;
+    }
+
+
+.context-menu-list {
+    font-family: 'Open Sans', sans-serif;
+    width: 200px;
+    display: inline-block;
+    position: absolute;
+    list-style-type: none;
+    border: 1px solid #DDD;
+    background: #fff;
+    font-size: 12px;
+    margin: 0;
+    padding: 5px;
+}
+
+.context-menu-item {
+    background-color: #fff;
+    position: relative;
+    height: auto;
+    word-wrap: break-word;
+    -webkit-user-select: none;
+    -moz-user-select: 0;
+    -ms-user-select: none;
+    user-select: none;
+    padding: 5px 5px 5px 30px;
+}
+
+    .context-menu-item:last-child {
+        border: none;
+    }
+
+.context-menu-separator {
+    padding-bottom: 0;
+    border-bottom: 1px solid #DDD;
+}
+
+.context-menu-item > label > input, .context-menu-item > label > textarea {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+}
+
+.context-menu-item.hover {
+    cursor: pointer;
+    background-color: #DDD;
+}
+
+.context-menu-item.disabled {
+    color: #666;
+}
+
+    .context-menu-input.hover, .context-menu-item.disabled.hover {
+        cursor: default;
+        background-color: #EEE;
+    }
+
+.context-menu-submenu:after {
+    content: ">";
+    color: #666;
+    position: absolute;
+    top: 0;
+    right: 3px;
+    z-index: 1;
+}
+
+.context-menu-item.icon {
+    min-height: 18px;
+    vertical-align: middle;
+    background-repeat: no-repeat;
+    background-position: 4px 5px;
+    width: auto;
+    display: list-item;
+}
+
+.context-menu-item.icon-edit {
+    background-image: url(/framework/codeart/wrapper/metronic/images/disk/file_edit.png);
+}
+
+.context-menu-item.icon-cut {
+    background-image: url(/framework/codeart/wrapper/metronic/images/disk/cut.png);
+}
+
+.context-menu-item.icon-copy {
+    background-image: url(/framework/codeart/wrapper/metronic/images/disk/copy.png);
+}
+
+.context-menu-item.icon-rename {
+    background-image: url(/framework/codeart/wrapper/metronic/images/disk/rename.png);
+}
+
+.context-menu-item.icon-preview {
+    background-image: url(/framework/codeart/wrapper/metronic/images/disk/preview.png);
+}
+
+.context-menu-item.icon-dimension {
+    background-image: url(/framework/codeart/wrapper/metronic/images/disk/dimension.png);
+}
+
+.context-menu-item.icon-date {
+    background-image: url(/framework/codeart/wrapper/metronic/images/disk/date.png);
+}
+
+.context-menu-item.icon-label {
+    background-image: url(/framework/codeart/wrapper/metronic/images/disk/label.png);
+}
+
+.context-menu-item.icon-size {
+    background-image: url(/framework/codeart/wrapper/metronic/images/disk/size.png);
+}
+
+.context-menu-item.icon-download {
+    background-image: url(/framework/codeart/wrapper/metronic/images/disk/download.png);
+}
+
+.context-menu-item.icon-paste {
+    background-image: url(/framework/codeart/wrapper/metronic/images/disk/page_white_paste.png);
+}
+
+.context-menu-item.icon-clipboard-apply {
+    background-image: url(/framework/codeart/wrapper/metronic/images/disk/clipboard_apply.png);
+}
+
+.context-menu-item.icon-delete {
+    background-image: url(/framework/codeart/wrapper/metronic/images/disk/page_white_delete.png);
+}
+
+.context-menu-item.icon-add {
+    background-image: url(/framework/codeart/wrapper/metronic/images/disk/page_white_add.png);
+}
+
+.context-menu-item.icon-quit {
+    background-image: url(/framework/codeart/wrapper/metronic/images/disk/door.png);
+}
+
+.context-menu-item.icon-info {
+    background-image: url(/framework/codeart/wrapper/metronic/images/disk/info.png);
+}
+
+.context-menu-item.icon-extract {
+    background-image: url(/framework/codeart/wrapper/metronic/images/disk/zip.png);
+}
+
+.context-menu-item.icon-url {
+    background-image: url(/framework/codeart/wrapper/metronic/images/disk/url.png);
+}
+
+.context-menu-item.icon-edit_img {
+    background-image: url(/framework/codeart/wrapper/metronic/images/disk/edit_img.png);
+}
+
+.context-menu-item.icon-duplicate {
+    background-image: url(/framework/codeart/wrapper/metronic/images/disk/duplicate.png);
+}
+
+.context-menu-item.icon-key {
+    background-image: url(/framework/codeart/wrapper/metronic/images/disk/key.png);
+}
+
+.context-menu-input > label > * {
+    vertical-align: top;
+}
+
+.context-menu-input > label > input[type=checkbox], .context-menu-input > label > input[type=radio] {
+    margin-left: -17px;
+}
+
+.context-menu-input > label > span {
+    margin-left: 5px;
+}
+
+.context-menu-input > label, .context-menu-input > label > input[type=text], .context-menu-input > label > textarea, .context-menu-input > label > select {
+    display: block;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+    .context-menu-input > label > textarea {
+        height: 100px;
+    }
+
+.context-menu-item > .context-menu-list {
+    display: none;
+    right: -5px;
+    top: 5px;
+}
+
+.context-menu-item.hover > .context-menu-list {
+    display: block;
+}
+
+.context-menu-accesskey {
+    text-decoration: underline;
+}
+
+.input-group-btn .btn.disk-filter-btn{
+    font-size:16px;
+}

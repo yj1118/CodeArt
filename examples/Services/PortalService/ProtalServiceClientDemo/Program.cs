@@ -22,7 +22,7 @@ namespace ProtalServiceClientDemo
             //以下是调用远程服务的代码
             var result = ServiceContext.Invoke("AddPermission", (arg) =>
              {
-                 arg.Name = "测试权限的名称";
+                 //arg.Name = "测试权限的名称";
              });
 
             Console.WriteLine("调用deletePermission的服务");
@@ -30,7 +30,7 @@ namespace ProtalServiceClientDemo
 
             ServiceContext.Invoke("deletePermission", (arg) =>
             {
-                arg.Id = permissionId;
+                //arg.Id = permissionId;
             });
 
             Console.WriteLine("执行完毕，按任意键退出");

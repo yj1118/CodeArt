@@ -1,0 +1,20 @@
+﻿.jp-video{
+    border:none;
+}
+
+.jp-video-auto{
+    width:100%;
+    height:auto;
+}
+
+.jp-video-auto .jp-video-play{
+    overflow:inherit;
+}
+
+.jp-video-auto .jp-video-play-icon{
+    margin-top:0px;
+}
+
+.youku-video{
+    display:none;
+}

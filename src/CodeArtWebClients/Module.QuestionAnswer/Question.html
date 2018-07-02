@@ -1,0 +1,26 @@
+﻿<ControlTemplate xmlns="http://schemas.codeart.cn/web/xaml"
+                 xmlns:m="http://schemas.codeart.cn/web/xaml/metronic"
+                 xmlns:qa="http://schemas.codeart.cn/web/xaml/qa">
+<div class="row qa--quesetion" Visibility="{TemplateBinding Type,Converter={Static qa:TypeCollapsedConverter.Instance},ConverterParameter=1}">
+    <div class="col-lg-12">
+        <m:Radio layout="Wrap" label="{TemplateBinding Text}" disabled="{TemplateBinding Disabled}" field="{TemplateBinding Value}" required="true"
+                 Options="{TemplateBinding Options}" data-answer="{TemplateBinding Type}">
+        </m:Radio>
+    </div>
+</div>
+<div class="row qa--quesetion" Visibility="{TemplateBinding Type,Converter={Static qa:TypeCollapsedConverter.Instance},ConverterParameter=2}">
+    <div class="col-lg-12">
+        <m:Checkbox layout="Wrap" label="{TemplateBinding Text}" disabled="{TemplateBinding Disabled}" field="{TemplateBinding Value}" required="true"
+                    Options="{TemplateBinding Options}" data-answer="{TemplateBinding Type}">
+        </m:Checkbox>
+    </div>
+</div>
+<div class="row qa--quesetion" Visibility="{TemplateBinding Type,Converter={Static qa:TypeCollapsedConverter.Instance},ConverterParameter=3}">
+    <div class="col-lg-12">
+        <m:TextBox layout="Wrap" label="{TemplateBinding Text}" 
+                   disabled="{TemplateBinding Disabled}" field="{TemplateBinding Value}" maxlength="500" required="true"
+                   rows="5" data-answer="{TemplateBinding Type}">
+        </m:TextBox>
+    </div>
+</div>
+</ControlTemplate>

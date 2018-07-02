@@ -1,0 +1,318 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccountName" xml:space="preserve">
+    <value>Account name</value>
+  </data>
+  <data name="AccountNameOrEmailAddress" xml:space="preserve">
+    <value>Account name or email address</value>
+  </data>
+  <data name="AccountStatus" xml:space="preserve">
+    <value>Account status</value>
+  </data>
+  <data name="AddAccounts" xml:space="preserve">
+    <value>Add accounts</value>
+  </data>
+  <data name="AddFeatures" xml:space="preserve">
+    <value>Add features</value>
+  </data>
+  <data name="AddRoles" xml:space="preserve">
+    <value>Add roles</value>
+  </data>
+  <data name="AssignPermissions" xml:space="preserve">
+    <value>Assign permissions</value>
+  </data>
+  <data name="AssignRoles" xml:space="preserve">
+    <value>Assign roles</value>
+  </data>
+  <data name="BatchDeletion" xml:space="preserve">
+    <value>Batch deletion</value>
+  </data>
+  <data name="ChangeLoginPassword" xml:space="preserve">
+    <value>Change login password</value>
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>Change password</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="ConfirmChoice" xml:space="preserve">
+    <value>Confirm choice</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Confirm password</value>
+  </data>
+  <data name="ConfirmSubmission" xml:space="preserve">
+    <value>Confirm submission</value>
+  </data>
+  <data name="Disable" xml:space="preserve">
+    <value>Disable</value>
+  </data>
+  <data name="EditFunction" xml:space="preserve">
+    <value>Edit function - {0}</value>
+  </data>
+  <data name="EditRole" xml:space="preserve">
+    <value>Edit role - {0}</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="EmailAddress" xml:space="preserve">
+    <value>Email address</value>
+  </data>
+  <data name="Enable" xml:space="preserve">
+    <value>Enable</value>
+  </data>
+  <data name="FDTip" xml:space="preserve">
+    <value>Fill in the function of the realized function of the site, so that they can be assigned to the related menus and roles, so as to achieve the purpose of using the account of different identities for different purposes</value>
+  </data>
+  <data name="Female" xml:space="preserve">
+    <value>Female</value>
+  </data>
+  <data name="FunctionName" xml:space="preserve">
+    <value>Function name</value>
+  </data>
+  <data name="Gender" xml:space="preserve">
+    <value>Gender</value>
+  </data>
+  <data name="IdentificationCode" xml:space="preserve">
+    <value>Identification code</value>
+  </data>
+  <data name="InformationAuthentication" xml:space="preserve">
+    <value>Information authentication</value>
+  </data>
+  <data name="ListOfExistingAccounts" xml:space="preserve">
+    <value>List of existing accounts</value>
+  </data>
+  <data name="LoginIP" xml:space="preserve">
+    <value>Login IP</value>
+  </data>
+  <data name="LoginName" xml:space="preserve">
+    <value>Login name</value>
+  </data>
+  <data name="LoginNameTip" xml:space="preserve">
+    <value>For your account security, please fill in the login name</value>
+  </data>
+  <data name="LoginPassword" xml:space="preserve">
+    <value>Login password</value>
+  </data>
+  <data name="LoginTime" xml:space="preserve">
+    <value>Login time</value>
+  </data>
+  <data name="LoginTimes" xml:space="preserve">
+    <value>Login times</value>
+  </data>
+  <data name="Male" xml:space="preserve">
+    <value>Male</value>
+  </data>
+  <data name="Modify" xml:space="preserve">
+    <value>Modify</value>
+  </data>
+  <data name="ModifyAccountInformation" xml:space="preserve">
+    <value>Modify account information</value>
+  </data>
+  <data name="ModifyAccountInformationTip" xml:space="preserve">
+    <value>ModifyAccountInformation - {0}</value>
+  </data>
+  <data name="ModifyFunction" xml:space="preserve">
+    <value>Modify function</value>
+  </data>
+  <data name="ModifyRole" xml:space="preserve">
+    <value>Modify role</value>
+  </data>
+  <data name="MyProfile" xml:space="preserve">
+    <value>My profile</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>New password</value>
+  </data>
+  <data name="Operation" xml:space="preserve">
+    <value>Operation</value>
+  </data>
+  <data name="OriginalPassword" xml:space="preserve">
+    <value>Original password</value>
+  </data>
+  <data name="PasswordTip" xml:space="preserve">
+    <value>For your account security, please fill in the original password</value>
+  </data>
+  <data name="PasswordTip1" xml:space="preserve">
+    <value>You can use this email to reset your password if you forget your password</value>
+  </data>
+  <data name="PasswordTip2" xml:space="preserve">
+    <value>The password entered twice is different</value>
+  </data>
+  <data name="PasswordTip3" xml:space="preserve">
+    <value>Please enter your password again</value>
+  </data>
+  <data name="PersonalInformation" xml:space="preserve">
+    <value>Personal information</value>
+  </data>
+  <data name="Photo" xml:space="preserve">
+    <value>Photo</value>
+  </data>
+  <data name="PhotoRequirements" xml:space="preserve">
+    <value>The volume of the photo is within 2M, and the height and width are 190*190</value>
+  </data>
+  <data name="RegularRole" xml:space="preserve">
+    <value>Regular role</value>
+  </data>
+  <data name="Remark" xml:space="preserve">
+    <value>Remark</value>
+  </data>
+  <data name="RoleName" xml:space="preserve">
+    <value>Role name</value>
+  </data>
+  <data name="RoleTip" xml:space="preserve">
+    <value>You can assign functions to the role that you can use, and these functions belong to a menu, so different roles can be accessed by different menus</value>
+  </data>
+  <data name="RoleType" xml:space="preserve">
+    <value>Role type</value>
+  </data>
+  <data name="SavedSuccessfully" xml:space="preserve">
+    <value>Saved successfully</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="SiteFunctionList" xml:space="preserve">
+    <value>Site function list</value>
+  </data>
+  <data name="SiteRoleList" xml:space="preserve">
+    <value>Site role list</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="SuccessfulOperation" xml:space="preserve">
+    <value>Successful operation</value>
+  </data>
+  <data name="SystemRole" xml:space="preserve">
+    <value>System role</value>
+  </data>
+  <data name="TelephoneNumber" xml:space="preserve">
+    <value>Telephone number</value>
+  </data>
+  <data name="UploadNoDirectory" xml:space="preserve">
+    <value>Cannot complete the upload operation without specifying the virtual directory number where the file is located</value>
+  </data>
+</root>

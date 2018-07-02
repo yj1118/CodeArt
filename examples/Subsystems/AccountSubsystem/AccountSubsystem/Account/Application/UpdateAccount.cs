@@ -44,6 +44,7 @@ namespace AccountSubsystem
             set;
         }
 
+
         private Guid _id;
 
         public UpdateAccount(Guid id)
@@ -60,7 +61,7 @@ namespace AccountSubsystem
             if (this.Email != null) account.Email = this.Email;
             if (this.IsEnabled != null) account.Status.IsEnabled = this.IsEnabled.Value;
             if (this.MobileNumber != null) account.MobileNumber = this.MobileNumber;
-            if (this.Password != null) account.Password = this.Password;
+            if (this.Password != null) account.SetPasswordAndEncrypt(this.Password);
             if (this.RoleIds != null)
             {
                 var roles = RoleCommon.FindsBy(this.RoleIds);

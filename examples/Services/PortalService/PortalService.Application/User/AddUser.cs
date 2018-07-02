@@ -7,9 +7,11 @@ using System.Threading.Tasks;
 using CodeArt.DTO;
 using CodeArt.ServiceModel;
 using CodeArt.Concurrent;
+using CodeArt.DomainDriven;
 
 using UserSubsystem;
 using FileSubsystem;
+using AccountSubsystem;
 
 namespace PortalService.Application
 {
@@ -19,6 +21,21 @@ namespace PortalService.Application
     {
         protected override DTObject DynamicInvoke(dynamic arg)
         {
+            Guid[] roleIds = Array.Empty<Guid>();
+            if(arg.RoleMarkedCode != null)
+            {
+                string markedCode = arg.RoleMarkedCode.ToString();
+                var role = RoleCommon.FindByMarkedCode(markedCode, QueryLevel.None);
+                if(!role.IsEmpty())
+                {
+                    roleIds = new Guid[] { role.Id };
+                }
+            }
+            else
+            {
+                roleIds = arg.RoleIds != null ? arg.RoleIds?.OfType<Guid>() : Array.Empty<Guid>();
+            }
+
             var cmd = new CreateUser(arg.AccountName, arg.Password, arg.DiskSize ?? VirtualDisk.Size1G) //默认给予1G的大小
             {
                 Email = arg.Email,

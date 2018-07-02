@@ -1,0 +1,106 @@
+﻿.caption-subject {
+    float: left;
+    margin-top: 1px;
+}
+
+.progress {
+    float: left;
+    width: 250px;
+    margin: 0px 20px 0px 0px;
+}
+
+.portlet.light > .portlet-title > .caption.caption-md > .caption-subject {
+    margin-right: 10px;
+}
+
+.feeds li {
+    background-color: #fff !important;
+    border-bottom: 1px dashed #eee;
+    padding: 60px 0px;
+}
+
+    .feeds li .col1 > .cont > .cont-col1 > .label {
+        margin-top: 2px;
+    }
+
+.desc {
+    color: #000;
+    font-size: 16px;
+    font-family: 'Microsoft YaHei UI';
+}
+
+.feeds li .col2 {
+    float: right !important;
+    width: 150px !important;
+}
+
+.col1 .cont-col2 .label {
+    color: #808080;
+    margin-left: 10px;
+    font-size: 14px;
+    font-family: 'Microsoft YaHei UI';
+}
+
+.col2 .label {
+    color: #808080;
+    font-size: 14px;
+    font-family: 'Microsoft YaHei UI';
+}
+
+    .color-green *, .col2 .label.color-green {
+        color: green;
+        line-height: 33px;
+    }
+
+    .color-default *, .col2 .label.color-default {
+        color: #808080;
+        line-height: 33px;
+    }
+
+    .color-red *, .col2 .label.color-red {
+        color: red;
+    }
+
+.color-default a:hover {
+    color: #3175af;
+    text-decoration: underline;
+}
+
+.feeds div.desc em {
+    display: inline-block;
+    font-style: normal;
+    margin-right: 10px;
+}
+
+.feeds div.desc span {
+    display: inline-block;
+    margin-left: 0px !important;
+    padding-left: 0px;
+}
+
+.feeds li .col1 {
+    width: auto !important;
+}
+
+.feeds div.desc span {
+    text-align: left !important;
+}
+
+.feeds li div span.label {
+    white-space: normal;
+    line-height: 22px;
+}
+
+@media (max-width:1250px) {
+    .feeds li div span.label {
+        width: 92%;
+    }
+
+    .feeds li .col1 > .cont {
+        width: 100%;
+    }
+
+    .feeds li {
+        padding: 30px 0px 15px 0px;
+    }
+}

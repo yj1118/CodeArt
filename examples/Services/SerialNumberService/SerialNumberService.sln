@@ -1,0 +1,185 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.15
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework", "Framework", "{8EF904F2-2991-47C6-A268-D45A7F21CBBA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Subsystems", "Subsystems", "{4E41DE3C-61D3-4046-BFAD-9DC6095D5540}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt", "..\..\CodeArt Framework\CodeArt\CodeArt\CodeArt.csproj", "{D2C9F430-6B47-482A-A49C-A2478D75F95F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.DomainDriven", "..\..\CodeArt Framework\CodeArt\CodeArt.DomainDriven\CodeArt.DomainDriven.csproj", "{F62D7792-F4EE-4924-898E-C56309E6DFC2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.DomainDriven.DataAccess", "..\..\CodeArt Framework\CodeArt\CodeArt.DomainDriven.DataAccess\CodeArt.DomainDriven.DataAccess.csproj", "{C0BAC0EB-7068-42AF-ACAC-09DF677CF980}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.DomainDriven.Extensions", "..\..\CodeArt Framework\CodeArt\CodeArt.DomainDriven.Extensions\CodeArt.DomainDriven.Extensions.csproj", "{A45A1E35-6CE5-42C2-8FD3-19CE5B0BD5D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.EasyMQ", "..\..\CodeArt Framework\CodeArt\CodeArt.EasyMQ\CodeArt.EasyMQ.csproj", "{AFB15952-0DFA-4919-9D4B-46C2737654EC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.RabbitMQ", "..\..\CodeArt Framework\CodeArt\CodeArt.RabbitMQ\CodeArt.RabbitMQ.csproj", "{89C4BA5C-358B-4095-8FD2-0BAE32C2178E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.ServiceModel", "..\..\CodeArt Framework\CodeArt\CodeArt.ServiceModel\CodeArt.ServiceModel.csproj", "{EA6365F1-C027-416B-B4CC-A94572B5FC19}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.ServiceModel.MQ", "..\..\CodeArt Framework\CodeArt\CodeArt.ServiceModel.MQ\CodeArt.ServiceModel.MQ.csproj", "{CEBC603E-59AD-4BD7-839D-CCFE7C0841B1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.TestTools", "..\..\CodeArt Framework\CodeArt\CodeArt.TestTools\CodeArt.TestTools.csproj", "{A55DD9DB-5254-4D31-888D-05474318035D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeArt.TestTools.ServiceModel", "..\..\CodeArt Framework\CodeArt\CodeArt.TestTools.ServiceModel\CodeArt.TestTools.ServiceModel.csproj", "{986A39BB-38B7-4C33-A61E-C635885088F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SerialNumberSubsystem", "..\..\Subsystems Framework\SerialNumberSubsystem\SerialNumberSubsystem\SerialNumberSubsystem.csproj", "{CD504670-0EEF-4719-8015-0D76A77813F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SerialNumberService.Application", "SerialNumberService.Application\SerialNumberService.Application.csproj", "{5F5FDF6E-D348-4236-853E-3350097234E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SerialNumberService", "SerialNumberService\SerialNumberService.csproj", "{1A541749-B0A8-498E-A2AB-85CA9B6C189A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SerialNumberServiceTest", "SerialNumberServiceTest\SerialNumberServiceTest.csproj", "{9A0B7739-6FB1-483F-A9C9-6A1932032B40}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SerialNumberServiceClientDemo", "SerialNumberServiceClientDemo\SerialNumberServiceClientDemo.csproj", "{6DC43EA5-50CF-4FBA-9A84-4C44EA86B1CD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D2C9F430-6B47-482A-A49C-A2478D75F95F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2C9F430-6B47-482A-A49C-A2478D75F95F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2C9F430-6B47-482A-A49C-A2478D75F95F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2C9F430-6B47-482A-A49C-A2478D75F95F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F62D7792-F4EE-4924-898E-C56309E6DFC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F62D7792-F4EE-4924-898E-C56309E6DFC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F62D7792-F4EE-4924-898E-C56309E6DFC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F62D7792-F4EE-4924-898E-C56309E6DFC2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0BAC0EB-7068-42AF-ACAC-09DF677CF980}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0BAC0EB-7068-42AF-ACAC-09DF677CF980}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0BAC0EB-7068-42AF-ACAC-09DF677CF980}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0BAC0EB-7068-42AF-ACAC-09DF677CF980}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A45A1E35-6CE5-42C2-8FD3-19CE5B0BD5D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A45A1E35-6CE5-42C2-8FD3-19CE5B0BD5D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A45A1E35-6CE5-42C2-8FD3-19CE5B0BD5D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A45A1E35-6CE5-42C2-8FD3-19CE5B0BD5D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFB15952-0DFA-4919-9D4B-46C2737654EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFB15952-0DFA-4919-9D4B-46C2737654EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFB15952-0DFA-4919-9D4B-46C2737654EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFB15952-0DFA-4919-9D4B-46C2737654EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89C4BA5C-358B-4095-8FD2-0BAE32C2178E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89C4BA5C-358B-4095-8FD2-0BAE32C2178E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89C4BA5C-358B-4095-8FD2-0BAE32C2178E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89C4BA5C-358B-4095-8FD2-0BAE32C2178E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA6365F1-C027-416B-B4CC-A94572B5FC19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA6365F1-C027-416B-B4CC-A94572B5FC19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA6365F1-C027-416B-B4CC-A94572B5FC19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA6365F1-C027-416B-B4CC-A94572B5FC19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CEBC603E-59AD-4BD7-839D-CCFE7C0841B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEBC603E-59AD-4BD7-839D-CCFE7C0841B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEBC603E-59AD-4BD7-839D-CCFE7C0841B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEBC603E-59AD-4BD7-839D-CCFE7C0841B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A55DD9DB-5254-4D31-888D-05474318035D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A55DD9DB-5254-4D31-888D-05474318035D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A55DD9DB-5254-4D31-888D-05474318035D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A55DD9DB-5254-4D31-888D-05474318035D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{986A39BB-38B7-4C33-A61E-C635885088F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{986A39BB-38B7-4C33-A61E-C635885088F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{986A39BB-38B7-4C33-A61E-C635885088F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{986A39BB-38B7-4C33-A61E-C635885088F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD504670-0EEF-4719-8015-0D76A77813F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD504670-0EEF-4719-8015-0D76A77813F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD504670-0EEF-4719-8015-0D76A77813F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD504670-0EEF-4719-8015-0D76A77813F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F5FDF6E-D348-4236-853E-3350097234E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F5FDF6E-D348-4236-853E-3350097234E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F5FDF6E-D348-4236-853E-3350097234E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F5FDF6E-D348-4236-853E-3350097234E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A541749-B0A8-498E-A2AB-85CA9B6C189A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A541749-B0A8-498E-A2AB-85CA9B6C189A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A541749-B0A8-498E-A2AB-85CA9B6C189A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A541749-B0A8-498E-A2AB-85CA9B6C189A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A0B7739-6FB1-483F-A9C9-6A1932032B40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A0B7739-6FB1-483F-A9C9-6A1932032B40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A0B7739-6FB1-483F-A9C9-6A1932032B40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A0B7739-6FB1-483F-A9C9-6A1932032B40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DC43EA5-50CF-4FBA-9A84-4C44EA86B1CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DC43EA5-50CF-4FBA-9A84-4C44EA86B1CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DC43EA5-50CF-4FBA-9A84-4C44EA86B1CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DC43EA5-50CF-4FBA-9A84-4C44EA86B1CD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D2C9F430-6B47-482A-A49C-A2478D75F95F} = {8EF904F2-2991-47C6-A268-D45A7F21CBBA}
+		{F62D7792-F4EE-4924-898E-C56309E6DFC2} = {8EF904F2-2991-47C6-A268-D45A7F21CBBA}
+		{C0BAC0EB-7068-42AF-ACAC-09DF677CF980} = {8EF904F2-2991-47C6-A268-D45A7F21CBBA}
+		{A45A1E35-6CE5-42C2-8FD3-19CE5B0BD5D6} = {8EF904F2-2991-47C6-A268-D45A7F21CBBA}
+		{AFB15952-0DFA-4919-9D4B-46C2737654EC} = {8EF904F2-2991-47C6-A268-D45A7F21CBBA}
+		{89C4BA5C-358B-4095-8FD2-0BAE32C2178E} = {8EF904F2-2991-47C6-A268-D45A7F21CBBA}
+		{EA6365F1-C027-416B-B4CC-A94572B5FC19} = {8EF904F2-2991-47C6-A268-D45A7F21CBBA}
+		{CEBC603E-59AD-4BD7-839D-CCFE7C0841B1} = {8EF904F2-2991-47C6-A268-D45A7F21CBBA}
+		{A55DD9DB-5254-4D31-888D-05474318035D} = {8EF904F2-2991-47C6-A268-D45A7F21CBBA}
+		{986A39BB-38B7-4C33-A61E-C635885088F8} = {8EF904F2-2991-47C6-A268-D45A7F21CBBA}
+		{CD504670-0EEF-4719-8015-0D76A77813F4} = {4E41DE3C-61D3-4046-BFAD-9DC6095D5540}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 16
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://nuancetech-projects.visualstudio.com/
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = ..\\..\\CodeArt\u0020Framework\\CodeArt\\CodeArt\\CodeArt.csproj
+		SccProjectTopLevelParentUniqueName1 = SerialNumberService.sln
+		SccProjectName1 = ../../CodeArt\u0020Framework/CodeArt/CodeArt
+		SccLocalPath1 = ..\\..\\CodeArt\u0020Framework\\CodeArt\\CodeArt
+		SccProjectUniqueName2 = ..\\..\\CodeArt\u0020Framework\\CodeArt\\CodeArt.DomainDriven\\CodeArt.DomainDriven.csproj
+		SccProjectTopLevelParentUniqueName2 = SerialNumberService.sln
+		SccProjectName2 = ../../CodeArt\u0020Framework/CodeArt/CodeArt.DomainDriven
+		SccLocalPath2 = ..\\..\\CodeArt\u0020Framework\\CodeArt\\CodeArt.DomainDriven
+		SccProjectUniqueName3 = ..\\..\\CodeArt\u0020Framework\\CodeArt\\CodeArt.DomainDriven.DataAccess\\CodeArt.DomainDriven.DataAccess.csproj
+		SccProjectTopLevelParentUniqueName3 = SerialNumberService.sln
+		SccProjectName3 = ../../CodeArt\u0020Framework/CodeArt/CodeArt.DomainDriven.DataAccess
+		SccLocalPath3 = ..\\..\\CodeArt\u0020Framework\\CodeArt\\CodeArt.DomainDriven.DataAccess
+		SccProjectUniqueName4 = ..\\..\\CodeArt\u0020Framework\\CodeArt\\CodeArt.DomainDriven.Extensions\\CodeArt.DomainDriven.Extensions.csproj
+		SccProjectTopLevelParentUniqueName4 = SerialNumberService.sln
+		SccProjectName4 = ../../CodeArt\u0020Framework/CodeArt/CodeArt.DomainDriven.Extensions
+		SccLocalPath4 = ..\\..\\CodeArt\u0020Framework\\CodeArt\\CodeArt.DomainDriven.Extensions
+		SccProjectUniqueName5 = ..\\..\\CodeArt\u0020Framework\\CodeArt\\CodeArt.EasyMQ\\CodeArt.EasyMQ.csproj
+		SccProjectTopLevelParentUniqueName5 = SerialNumberService.sln
+		SccProjectName5 = ../../CodeArt\u0020Framework/CodeArt/CodeArt.EasyMQ
+		SccLocalPath5 = ..\\..\\CodeArt\u0020Framework\\CodeArt\\CodeArt.EasyMQ
+		SccProjectUniqueName6 = ..\\..\\CodeArt\u0020Framework\\CodeArt\\CodeArt.RabbitMQ\\CodeArt.RabbitMQ.csproj
+		SccProjectTopLevelParentUniqueName6 = SerialNumberService.sln
+		SccProjectName6 = ../../CodeArt\u0020Framework/CodeArt/CodeArt.RabbitMQ
+		SccLocalPath6 = ..\\..\\CodeArt\u0020Framework\\CodeArt\\CodeArt.RabbitMQ
+		SccProjectUniqueName7 = ..\\..\\CodeArt\u0020Framework\\CodeArt\\CodeArt.ServiceModel\\CodeArt.ServiceModel.csproj
+		SccProjectTopLevelParentUniqueName7 = SerialNumberService.sln
+		SccProjectName7 = ../../CodeArt\u0020Framework/CodeArt/CodeArt.ServiceModel
+		SccLocalPath7 = ..\\..\\CodeArt\u0020Framework\\CodeArt\\CodeArt.ServiceModel
+		SccProjectUniqueName8 = ..\\..\\CodeArt\u0020Framework\\CodeArt\\CodeArt.ServiceModel.MQ\\CodeArt.ServiceModel.MQ.csproj
+		SccProjectTopLevelParentUniqueName8 = SerialNumberService.sln
+		SccProjectName8 = ../../CodeArt\u0020Framework/CodeArt/CodeArt.ServiceModel.MQ
+		SccLocalPath8 = ..\\..\\CodeArt\u0020Framework\\CodeArt\\CodeArt.ServiceModel.MQ
+		SccProjectUniqueName9 = ..\\..\\CodeArt\u0020Framework\\CodeArt\\CodeArt.TestTools\\CodeArt.TestTools.csproj
+		SccProjectTopLevelParentUniqueName9 = SerialNumberService.sln
+		SccProjectName9 = ../../CodeArt\u0020Framework/CodeArt/CodeArt.TestTools
+		SccLocalPath9 = ..\\..\\CodeArt\u0020Framework\\CodeArt\\CodeArt.TestTools
+		SccProjectUniqueName10 = ..\\..\\CodeArt\u0020Framework\\CodeArt\\CodeArt.TestTools.ServiceModel\\CodeArt.TestTools.ServiceModel.csproj
+		SccProjectTopLevelParentUniqueName10 = SerialNumberService.sln
+		SccProjectName10 = ../../CodeArt\u0020Framework/CodeArt/CodeArt.TestTools.ServiceModel
+		SccLocalPath10 = ..\\..\\CodeArt\u0020Framework\\CodeArt\\CodeArt.TestTools.ServiceModel
+		SccProjectUniqueName11 = ..\\..\\Subsystems\u0020Framework\\SerialNumberSubsystem\\SerialNumberSubsystem\\SerialNumberSubsystem.csproj
+		SccProjectTopLevelParentUniqueName11 = SerialNumberService.sln
+		SccProjectName11 = ../../Subsystems\u0020Framework/SerialNumberSubsystem/SerialNumberSubsystem
+		SccLocalPath11 = ..\\..\\Subsystems\u0020Framework\\SerialNumberSubsystem\\SerialNumberSubsystem
+		SccProjectUniqueName12 = SerialNumberService.Application\\SerialNumberService.Application.csproj
+		SccProjectName12 = SerialNumberService.Application
+		SccLocalPath12 = SerialNumberService.Application
+		SccProjectUniqueName13 = SerialNumberService\\SerialNumberService.csproj
+		SccProjectName13 = SerialNumberService
+		SccLocalPath13 = SerialNumberService
+		SccProjectUniqueName14 = SerialNumberServiceTest\\SerialNumberServiceTest.csproj
+		SccProjectName14 = SerialNumberServiceTest
+		SccLocalPath14 = SerialNumberServiceTest
+		SccProjectUniqueName15 = SerialNumberServiceClientDemo\\SerialNumberServiceClientDemo.csproj
+		SccProjectName15 = SerialNumberServiceClientDemo
+		SccLocalPath15 = SerialNumberServiceClientDemo
+	EndGlobalSection
+EndGlobal

@@ -113,7 +113,8 @@ namespace AccountSubsystem
 
         [PropertyRepository()]
         [NotEmpty()]
-        [StringLength(2, 25)]
+        [ASCIIString()]
+        [StringLength(Max = 200)]
         private static readonly DomainProperty PasswordProperty = DomainProperty.Register<string, Account>("Password");
 
         /// <summary>
@@ -125,22 +126,29 @@ namespace AccountSubsystem
             {
                 return GetValue<string>(PasswordProperty);
             }
-            set
+            private set
             {
                 SetValue(PasswordProperty, value);
             }
         }
 
         /// <summary>
-        /// 设置密码
+        /// 设置并且加密密码
         /// </summary>
-        public void SetPassword(string password, string confirmPassword)
+        public void SetPasswordAndEncrypt(string password)
         {
-            if (password != confirmPassword)
-            {
-                throw new AccountException(Strings.TwicePasswordDifferent);
-            }
-            this.Password = password;
+            if (this.Password == password) return; //password已被加密，且等同于当前密码，不必修改
+            this.Password = password.PBKDF2(this.Id.ToByteArray(), 100); //使用ID的字节数组作为密码盐
+        }
+
+        /// <summary>
+        /// 检查密码是否正确
+        /// </summary>
+        /// <param name="password">未加密的密码</param>
+        /// <returns></returns>
+        public bool ValidatePassword(string password)
+        {
+            return this.Password == password.PBKDF2(this.Id.ToByteArray(), 100);
         }
 
 
@@ -363,16 +371,17 @@ namespace AccountSubsystem
             : base(Guid.NewGuid())
         {
             this.Name = name;
-            this.Password = password;
+            this.SetPasswordAndEncrypt(password);
             this.Roles = roles;
             this.Status = new AccountStatus(this.Id, DateTime.Now, LoginInfo.Empty);
             this.OnConstructed();
         }
 
         [ConstructorRepository]
-        internal Account(Guid id)
+        internal Account(Guid id, string password)
             : base(id)
         {
+            this.Password = password;
             this.OnConstructed();
         }
 
