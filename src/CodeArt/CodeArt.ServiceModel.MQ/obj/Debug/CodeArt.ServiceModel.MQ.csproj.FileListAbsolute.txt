@@ -1,0 +1,5 @@
+D:\Workspace\GitHub\CodeArt-Framework\src\CodeArt\CodeArt.ServiceModel.MQ\obj\Debug\CodeArt.ServiceModel.MQ.csprojAssemblyReference.cache
+D:\Workspace\GitHub\CodeArt-Framework\src\CodeArt\CodeArt.ServiceModel.MQ\obj\Debug\CodeArt.ServiceModel.MQ.Strings.resources
+D:\Workspace\GitHub\CodeArt-Framework\src\CodeArt\CodeArt.ServiceModel.MQ\obj\Debug\CodeArt.ServiceModel.MQ.Strings.zh-CN.resources
+D:\Workspace\GitHub\CodeArt-Framework\src\CodeArt\CodeArt.ServiceModel.MQ\obj\Debug\CodeArt.ServiceModel.MQ.csproj.GenerateResource.cache
+D:\Workspace\GitHub\CodeArt-Framework\src\CodeArt\CodeArt.ServiceModel.MQ\obj\Debug\CodeArt.ServiceModel.MQ.csproj.CoreCompileInputs.cache

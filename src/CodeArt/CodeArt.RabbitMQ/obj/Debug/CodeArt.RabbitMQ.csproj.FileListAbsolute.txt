@@ -1,0 +1,5 @@
+D:\Workspace\GitHub\CodeArt-Framework\src\CodeArt\CodeArt.RabbitMQ\obj\Debug\CodeArt.RabbitMQ.csprojAssemblyReference.cache
+D:\Workspace\GitHub\CodeArt-Framework\src\CodeArt\CodeArt.RabbitMQ\obj\Debug\CodeArt.RabbitMQ.Strings.resources
+D:\Workspace\GitHub\CodeArt-Framework\src\CodeArt\CodeArt.RabbitMQ\obj\Debug\CodeArt.RabbitMQ.Strings.zh-CN.resources
+D:\Workspace\GitHub\CodeArt-Framework\src\CodeArt\CodeArt.RabbitMQ\obj\Debug\CodeArt.RabbitMQ.csproj.GenerateResource.cache
+D:\Workspace\GitHub\CodeArt-Framework\src\CodeArt\CodeArt.RabbitMQ\obj\Debug\CodeArt.RabbitMQ.csproj.CoreCompileInputs.cache

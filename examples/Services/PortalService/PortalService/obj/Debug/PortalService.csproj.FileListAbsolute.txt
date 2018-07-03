@@ -1,0 +1,2 @@
+D:\Workspace\GitHub\CodeArt-Framework\examples\Services\PortalService\PortalService\obj\Debug\PortalService.csprojAssemblyReference.cache
+D:\Workspace\GitHub\CodeArt-Framework\examples\Services\PortalService\PortalService\obj\Debug\PortalService.csproj.CoreCompileInputs.cache

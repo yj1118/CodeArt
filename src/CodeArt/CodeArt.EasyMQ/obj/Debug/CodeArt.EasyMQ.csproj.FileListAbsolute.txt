@@ -1,0 +1,4 @@
+D:\Workspace\GitHub\CodeArt-Framework\src\CodeArt\CodeArt.EasyMQ\obj\Debug\CodeArt.EasyMQ.Strings.resources
+D:\Workspace\GitHub\CodeArt-Framework\src\CodeArt\CodeArt.EasyMQ\obj\Debug\CodeArt.EasyMQ.Strings.zh-CN.resources
+D:\Workspace\GitHub\CodeArt-Framework\src\CodeArt\CodeArt.EasyMQ\obj\Debug\CodeArt.EasyMQ.csproj.GenerateResource.cache
+D:\Workspace\GitHub\CodeArt-Framework\src\CodeArt\CodeArt.EasyMQ\obj\Debug\CodeArt.EasyMQ.csproj.CoreCompileInputs.cache

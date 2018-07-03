@@ -1,0 +1,5 @@
+D:\Workspace\GitHub\CodeArt-Framework\examples\Subsystems\FileSubsystem\FileSubsystem\obj\Debug\FileSubsystem.csprojAssemblyReference.cache
+D:\Workspace\GitHub\CodeArt-Framework\examples\Subsystems\FileSubsystem\FileSubsystem\obj\Debug\FileSubsystem.Strings.resources
+D:\Workspace\GitHub\CodeArt-Framework\examples\Subsystems\FileSubsystem\FileSubsystem\obj\Debug\FileSubsystem.Strings.zh-CN.resources
+D:\Workspace\GitHub\CodeArt-Framework\examples\Subsystems\FileSubsystem\FileSubsystem\obj\Debug\FileSubsystem.csproj.GenerateResource.cache
+D:\Workspace\GitHub\CodeArt-Framework\examples\Subsystems\FileSubsystem\FileSubsystem\obj\Debug\FileSubsystem.csproj.CoreCompileInputs.cache

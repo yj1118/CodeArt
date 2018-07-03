@@ -1,0 +1,5 @@
+D:\Workspace\GitHub\CodeArt-Framework\examples\Subsystems\AccountSubsystem\AccountSubsystem\obj\Debug\AccountSubsystem.csprojAssemblyReference.cache
+D:\Workspace\GitHub\CodeArt-Framework\examples\Subsystems\AccountSubsystem\AccountSubsystem\obj\Debug\AccountSubsystem.Strings.resources
+D:\Workspace\GitHub\CodeArt-Framework\examples\Subsystems\AccountSubsystem\AccountSubsystem\obj\Debug\AccountSubsystem.Strings.zh-CN.resources
+D:\Workspace\GitHub\CodeArt-Framework\examples\Subsystems\AccountSubsystem\AccountSubsystem\obj\Debug\AccountSubsystem.csproj.GenerateResource.cache
+D:\Workspace\GitHub\CodeArt-Framework\examples\Subsystems\AccountSubsystem\AccountSubsystem\obj\Debug\AccountSubsystem.csproj.CoreCompileInputs.cache

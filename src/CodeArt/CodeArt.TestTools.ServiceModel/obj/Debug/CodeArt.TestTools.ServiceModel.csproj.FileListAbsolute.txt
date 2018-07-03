@@ -1,0 +1,1 @@
+D:\Workspace\GitHub\CodeArt-Framework\src\CodeArt\CodeArt.TestTools.ServiceModel\obj\Debug\CodeArt.TestTools.ServiceModel.csproj.CoreCompileInputs.cache

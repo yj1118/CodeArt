@@ -1,0 +1,5 @@
+D:\Workspace\GitHub\CodeArt-Framework\src\CodeArt\CodeArt.ServiceModel\obj\Debug\CodeArt.ServiceModel.csprojAssemblyReference.cache
+D:\Workspace\GitHub\CodeArt-Framework\src\CodeArt\CodeArt.ServiceModel\obj\Debug\CodeArt.ServiceModel.Strings.resources
+D:\Workspace\GitHub\CodeArt-Framework\src\CodeArt\CodeArt.ServiceModel\obj\Debug\CodeArt.ServiceModel.Strings.zh-CN.resources
+D:\Workspace\GitHub\CodeArt-Framework\src\CodeArt\CodeArt.ServiceModel\obj\Debug\CodeArt.ServiceModel.csproj.GenerateResource.cache
+D:\Workspace\GitHub\CodeArt-Framework\src\CodeArt\CodeArt.ServiceModel\obj\Debug\CodeArt.ServiceModel.csproj.CoreCompileInputs.cache

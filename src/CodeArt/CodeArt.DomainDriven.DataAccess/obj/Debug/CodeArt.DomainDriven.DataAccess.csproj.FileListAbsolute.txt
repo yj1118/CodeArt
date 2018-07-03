@@ -1,0 +1,5 @@
+D:\Workspace\GitHub\CodeArt-Framework\src\CodeArt\CodeArt.DomainDriven.DataAccess\obj\Debug\CodeArt.DomainDriven.DataAccess.csprojAssemblyReference.cache
+D:\Workspace\GitHub\CodeArt-Framework\src\CodeArt\CodeArt.DomainDriven.DataAccess\obj\Debug\CodeArt.DomainDriven.DataAccess.Strings.resources
+D:\Workspace\GitHub\CodeArt-Framework\src\CodeArt\CodeArt.DomainDriven.DataAccess\obj\Debug\CodeArt.DomainDriven.DataAccess.Strings.zh-CN.resources
+D:\Workspace\GitHub\CodeArt-Framework\src\CodeArt\CodeArt.DomainDriven.DataAccess\obj\Debug\CodeArt.DomainDriven.DataAccess.csproj.GenerateResource.cache
+D:\Workspace\GitHub\CodeArt-Framework\src\CodeArt\CodeArt.DomainDriven.DataAccess\obj\Debug\CodeArt.DomainDriven.DataAccess.csproj.CoreCompileInputs.cache
