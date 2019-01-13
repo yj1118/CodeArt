@@ -97,6 +97,17 @@ namespace CodeArt.Web.WebPages.Xaml
             return base.GetChild(childName) ?? this.GetTemplateChild(childName);
         }
 
+
+        public IEnumerable<UIElement> GetTemplateActionElement(string actionName)
+        {
+            return this.Template != null ? this.Template.GetActionElement(actionName) : null;
+        }
+
+        public override IEnumerable<UIElement> GetActionElement(string actionName)
+        {
+            return this.Combine(base.GetActionElement(actionName), this.GetTemplateActionElement(actionName));
+        }
+
         public override void OnLoad()
         {
             if(this.Template != null) this.Template.OnLoad();

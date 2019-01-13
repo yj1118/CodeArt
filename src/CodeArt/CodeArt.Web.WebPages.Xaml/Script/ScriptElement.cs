@@ -104,5 +104,35 @@ namespace CodeArt.Web.WebPages.Xaml.Script
             this.View.WriteCode(string.Format("{0}.removeClass(\"{1}\");", this.Id, className));
         }
 
+        public void Hide()
+        {
+            this.View.WriteCode(string.Format("{0}.hide();", this.Id));
+        }
+        public void Show()
+        {
+            this.View.WriteCode(string.Format("{0}.show();", this.Id));
+        }
+
+        public void Clear()
+        {
+            this.View.WriteCode(string.Format("{0}.proxy().clear();", this.Id));
+        }
+
+        public void Bind(DTObject data)
+        {
+            this.View.WriteCode(string.Format("{0}.proxy().bind({1});", this.Id, data.GetCode(false, false)));
+        }
+
+        public void Update(string targetExpression, DTObject data)
+        {
+            this.View.WriteCode(string.Format("{0}.proxy().update({1},{2});", this.Id, targetExpression, data.GetCode(false, false)));
+        }
+
+        public void Bind(string expression)
+        {
+            this.View.WriteCode(string.Format("{0}.proxy().bind({1});", this.Id, expression));
+        }
+
+
     }
 }

@@ -30,6 +30,11 @@ namespace CodeArt.Web.WebPages.Xaml.Controls
             return base.GetChild(childName) ?? this.Content.GetChild(childName);
         }
 
+        public override IEnumerable<UIElement> GetActionElement(string actionName)
+        {
+            return this.Combine(base.GetActionElement(actionName) , this.Content.GetActionElement(actionName));
+        }
+
         protected override void Draw(PageBrush brush)
         {
             if (this.Template == null)

@@ -100,18 +100,21 @@ namespace CodeArt.WPF.Controls.Playstation
         {
             image.Visibility = Visibility.Collapsed;
             loading.Visibility = Visibility.Visible;
+            loading.IsActive = true;
         }
 
         private void ShowPicture()
         {
             image.Visibility = Visibility.Visible;
             loading.Visibility = Visibility.Collapsed;
+            loading.IsActive = false;
         }
 
         private void ShowError()
         {
             image.Visibility = Visibility.Collapsed;
             loading.Visibility = Visibility.Collapsed;
+            loading.IsActive = false;
         }
 
         public static readonly DependencyProperty SourceProperty;

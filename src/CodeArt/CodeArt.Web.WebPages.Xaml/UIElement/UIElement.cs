@@ -13,6 +13,7 @@ using CodeArt.Concurrent;
 
 using CodeArt.Web.WebPages.Xaml.Markup;
 using CodeArt.Web.WebPages.Xaml.Script;
+using CodeArt.Util;
 
 namespace CodeArt.Web.WebPages.Xaml
 {
@@ -266,8 +267,60 @@ namespace CodeArt.Web.WebPages.Xaml
             return false;
         }
 
+
+        public bool HasRegisteredScriptAction(string actionName)
+        {
+            if (_registeredScriptActions == null) return false;
+            return _registeredScriptActions.ContainsKey(actionName);
+        }
+
         #endregion
 
+        public virtual IEnumerable<UIElement> GetActionElement(string actionName)
+        {
+            if (this.HasRegisteredScriptAction(actionName)
+                || this.HasScriptAction(actionName)) return new UIElement[] { this };
+            return null;
+        }
+
+        protected IEnumerable<UIElement> Combine(params IEnumerable<UIElement>[] prms)
+        {
+            List<UIElement> list = null;
+            foreach(var prm in prms)
+            {
+                if(prm != null && prm.Count() > 0)
+                {
+                    if (list == null) list = new List<UIElement>();
+                    list.AddRange(prm);
+                }
+            }
+            return list;
+        }
+
+        public bool HasScriptAction(string actionName)
+        {
+            return this.ObjectType.ResolveMethod(actionName, ActionParameters) != null;
+        }
+
+        internal readonly static MethodParameter[] ActionParameters = new MethodParameter[] { MethodParameter.Create<ScriptView>() };
+
+        private static IScriptView ExecuteAction(UIElement e, string actionName, ScriptView arg)
+        {
+            if (e == null) return null;
+            IScriptView result = null;
+            if (e.CallRegisteredScriptAction(actionName, arg, ref result)) return result; //优先执行注册的行为
+            var action = e.ObjectType.ResolveMethod(actionName, ActionParameters);
+            if (action != null)
+            {
+                using (var temp = ArgsPool.Borrow1())
+                {
+                    var args = temp.Item;
+                    args[0] = arg;
+                    return action.Invoke(e, args) as IScriptView;
+                }
+            }
+            return null;
+        }
 
         /// <summary>
         /// 执行组件的脚本行为
@@ -277,57 +330,10 @@ namespace CodeArt.Web.WebPages.Xaml
         /// <param name="arg"></param>
         internal IScriptView CallScriptAction(string componentName, string actionName, ScriptView arg)
         {
-            object result = null;
-            if (string.IsNullOrEmpty(componentName) || string.Equals(this.Name, componentName))
-            {
-                result = ExecuteAction(this, actionName, arg);
-            }
-            else
-            {
-                var e = GetChild(componentName) as UIElement;
-                if (e == null) throw new XamlException("没有找到名称为" + componentName + "的" + typeof(UIElement).FullName + "组件");
-                result = ExecuteAction(e, actionName, arg) ?? ExecuteAction(this, actionName, arg); //先在对应的元素上找方法执行，如果找不到，就在该组件上找
-            }
-            var view = result as IScriptView;
-            if (view == null) throw new XamlException(string.Format(Strings.CallServerMethodError, actionName, typeof(IScriptView).Name));
-            return view;
+            var target = _getActionElement(actionName)(componentName);
+            if(target == null) throw new XamlException("没有找到脚本方法" + actionName);
+            return ExecuteAction(target, actionName, arg);
         }
-
-        private readonly static MethodParameter[] ActionParameters = new MethodParameter[] { MethodParameter.Create<ScriptView>() };
-
-        private static object ExecuteAction(UIElement e, string actionName, ScriptView arg)
-        {
-            IScriptView result = null;
-            if (e.CallRegisteredScriptAction(actionName, arg, ref result)) return result; //优先执行注册的行为
-            var action = e.ObjectType.ResolveMethod(actionName, ActionParameters);
-            if(action != null)
-            {
-                using (var temp = ArgsPool.Borrow1())
-                {
-                    var args = temp.Item;
-                    args[0] = arg;
-                    return action.Invoke(e, args);
-                }  
-            }
-
-            return null;
-
-            //IScriptView result = null;
-            //if (e.CallRegisteredScriptAction(actionName, arg, ref result)) return result; //优先执行注册的行为
-            //var action = DependencyAction.GetAction(e.ObjectType, actionName);
-            //if (action != null)
-            //{
-            //    if (!action.AllowClientAccess) throw new XamlException("组件方法" + actionName + "未公开");
-            //    return e.CallAction(action, arg);
-            //}
-
-            ////如果未能成功在e上执行行文，那么找父亲对象的方法
-            //var parent = e.Parent as UIElement;
-            //if (parent != null) return parent.CallScriptAction(null, actionName, arg);
-
-            //throw new XamlException("未能执行" + actionName);
-        }
-
 
         #endregion
 
@@ -483,6 +489,7 @@ namespace CodeArt.Web.WebPages.Xaml
             OnPreRender();
             if (this.Visibility == Visibility.Collapsed) return; //如果隐藏元素，则不绘制
             Draw(brush);
+            DrawScriptInit(brush);
             DrawScriptCallback(brush);
             RenderContext.Current.PopObject();
         }
@@ -490,7 +497,31 @@ namespace CodeArt.Web.WebPages.Xaml
         protected abstract void Draw(PageBrush brush);
 
         /// <summary>
+        /// 脚本初始化事件，当整个页面加载完后，但JS还未执行初始化操作之前，执行该脚本内容,
+        /// 由于view用了池技术，所以该事件里不能使用异步算法
+        /// </summary>
+        public event ScriptActionEventHandler ScriptInit;
+
+        /// <summary>
+        /// 绘制脚本初始化指令
+        /// </summary>
+        private void DrawScriptInit(PageBrush brush)
+        {
+            if (this.ScriptInit != null)
+            {
+                using (var temp = ScriptView.Borrow())
+                {
+                    var view = temp.Item;
+                    var result = this.ScriptInit(view);
+                    brush.DrawScriptInit(result);
+                }
+            }
+        }
+
+
+        /// <summary>
         /// 脚本回调事件，当整个页面加载完后，执行该脚本内容
+        /// 由于view用了池技术，所以该事件里不能使用异步算法
         /// </summary>
         public event ScriptActionEventHandler ScriptCallback;
 
@@ -501,9 +532,12 @@ namespace CodeArt.Web.WebPages.Xaml
         {
             if (this.ScriptCallback != null)
             {
-                var view = new ScriptView();
-                var result = this.ScriptCallback(view);
-                brush.DrawScriptCallback(result);
+                using (var temp = ScriptView.Borrow())
+                {
+                    var view = temp.Item;
+                    var result = this.ScriptCallback(view);
+                    brush.DrawScriptCallback(result);
+                }
             }
         }
 
@@ -520,12 +554,19 @@ namespace CodeArt.Web.WebPages.Xaml
                 if(_belongTemplate == null)
                 {
                     //模板的概念由整个xaml空间共享，而不是control类独有的，UIElement和Control在同一命名空间下，内聚高，所以可以转换
-                    var parent = this.Parent as Control;
+                    var parent = this.Parent;
                     while(parent != null)
                     {
-                        var template = parent.Template;
-                        if (template != null) return template;
-                        parent = parent.Parent as Control;
+                        var control = parent as Control;
+                        if(control != null)
+                        {
+                            var template = control.Template;
+                            if (template != null) return template;
+                        }
+
+                        var ui = parent as UIElement;
+                        if (ui == null) break;
+                        parent = ui.Parent;
                     }
                     return null;
                 }
@@ -555,6 +596,27 @@ namespace CodeArt.Web.WebPages.Xaml
         //    return null;
         //}
 
+        private Func<string, Func<string, UIElement>> _getActionElement;
+
+        public UIElement()
+        {
+            _getActionElement = LazyIndexer.Init<string, Func<string, UIElement>>((actionName) =>
+            {
+                return LazyIndexer.Init<string, UIElement>((component)=>
+                {
+                    var elems = this.GetActionElement(actionName);
+                    if (elems == null) return null;
+                    var ele = elems.FirstOrDefault((e)=>
+                    {
+                        return string.Equals(e.Name, component, StringComparison.OrdinalIgnoreCase);
+                    });
+                    if (ele != null) return ele;
+                    return elems.FirstOrDefault();
+                });
+            });
+        }
+
+
         /// <summary>
         /// 获取当前以模板方式应用本组件的对象
         /// </summary>
@@ -582,13 +644,13 @@ namespace CodeArt.Web.WebPages.Xaml
         {
             get
             {
-                return !WebPageContext.Current.IsGET;
+                return !AccessContext.Current.IsGET;
             }
         }
 
         public T GetQueryValue<T>(string name,T defaultValue)
         {
-            return WebPageContext.Current.GetQueryValue<T>(name, defaultValue);
+            return AccessContext.Current.GetQueryValue<T>(name, defaultValue);
         }
 
         #endregion

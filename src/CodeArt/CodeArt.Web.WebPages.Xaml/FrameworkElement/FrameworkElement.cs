@@ -38,7 +38,7 @@ namespace CodeArt.Web.WebPages.Xaml
 
         protected virtual void OnXamlStyleChanged(DependencyPropertyChangedEventArgs e)
         {
-            (e.NewValue as XamlStyle).Apply(this);
+            (e.NewValue as XamlStyle)?.Apply(this);
         }
 
 

@@ -8,6 +8,7 @@ using CodeArt.EasyMQ.RPC;
 using CodeArt.DTO;
 using CodeArt.AppSetting;
 using CodeArt.Log;
+using CodeArt.EasyMQ;
 
 namespace ServerApp1
 {
@@ -29,12 +30,12 @@ namespace ServerApp1
 
         private class Handler : IRPCHandler
         {
-            public DTObject Process(string method, DTObject args)
+            public TransferData Process(string method, DTObject args)
             {
                 Console.WriteLine(string.Format("调用方法:{0},参数:{1}", method, args.GetCode()));
-                var result = DTObject.CreateReusable();
+                var result = DTObject.Create();
                 result["value"] = 1;
-                return result;
+                return new TransferData(result);
             }
         }
 

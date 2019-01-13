@@ -70,6 +70,17 @@ namespace CodeArt.DomainDriven.DataAccess
             Direct(objectType, action);
         }
 
+        public static IEnumerable<dynamic> DirectQuery<T>(string sql,object param) where T : IDomainObject
+        {
+            IEnumerable<dynamic> result = null;
+            Direct<T>((conn) =>
+            {
+                result = conn.Query(sql, param);
+            });
+            return result;
+        }
+
+
         public static void Direct(Type objectType, Action<IDbConnection> action)
         {
             var model = DataModel.Create(objectType);
@@ -77,6 +88,39 @@ namespace CodeArt.DomainDriven.DataAccess
             using (IDbConnection conn = new SqlConnection(connectionString))
             {
                 action(conn);
+            }
+        }
+
+
+        public static void Direct<T>(Action<IDbConnection, IDbTransaction> action) where T : IDomainObject
+        {
+            var objectType = typeof(T);
+            Direct(objectType, action);
+        }
+
+        public static void Direct(Type objectType, Action<IDbConnection, IDbTransaction> action)
+        {
+            var model = DataModel.Create(objectType);
+            var connectionString = SqlHelper.GetConnectionString(model.ConnectionName);
+            using (IDbConnection conn = new SqlConnection(connectionString))
+            {
+                IDbTransaction tran = null;
+                try
+                {
+                    conn.Open();
+                    tran = conn.BeginTransaction();
+                    action(conn, tran);
+                    tran.Commit();
+                }
+                catch
+                {
+                    tran?.Rollback();
+                    throw;
+                }
+                finally
+                {
+                    tran?.Dispose();
+                }
             }
         }
 

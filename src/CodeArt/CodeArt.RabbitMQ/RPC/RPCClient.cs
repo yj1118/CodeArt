@@ -13,20 +13,22 @@ using CodeArt.Util;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using CodeArt.Log;
+using CodeArt.EasyMQ;
 
 namespace CodeArt.RabbitMQ
 {
     /// <summary>
-    /// 为事件提供广播服务的广播器
+    /// 
     /// </summary>
     public class RPCClient : IClient, IDisposable, IMessageHandler
     {
         private string _correlationId;
         private IPoolItem<RabbitBus> _busItem;
-        private string _queue;
-        private DTObject _result;
+        private string _tempQueue;
+        private TransferData _result;
         private AutoResetEvent _signal;
         private int _millisecondsTimeout;
+        private bool _success;
 
         public RPCClient(int millisecondsTimeout)
         {
@@ -39,43 +41,47 @@ namespace CodeArt.RabbitMQ
         private void InitConsumer()
         {
             var bus = _busItem.Item;
-            _queue = bus.TempQueueDeclare();
-            bus.Consume(_queue, this);
+            _tempQueue = bus.TempQueueDeclare();
+            bus.Consume(_tempQueue, this);
         }
 
-        public DTObject Invoke(string method, DTObject arg)
+        public TransferData Invoke(string method, DTObject arg)
         {
             var bus = _busItem.Item;
 
-            _result = null;
+            _result = default(TransferData);
+            _success = false;
             _correlationId = Guid.NewGuid().ToString();
 
-            DTObject dto = DTObject.CreateReusable();
+            DTObject dto = DTObject.Create();
             dto["method"] = method;
             dto["arg"] = arg;
 
+            var data = new TransferData(dto);
             var routingKey = RPC.GetServerQueue(method.ToLower()); //将服务器端的方法名称作为路由键，统一转为小写表示不区分大小写
-            bus.Publish(string.Empty, routingKey, dto, (properties) =>
+            bus.Publish(string.Empty, routingKey, data, (properties) =>
             {
-                properties.ReplyTo = _queue;
+                properties.ReplyTo = _tempQueue;
                 properties.CorrelationId = _correlationId;
             });
             _signal.WaitOne(_millisecondsTimeout);
 
-
-            if (_result == null)
+            if (!_success)
             {
                 _correlationId = string.Empty;
                 throw new RabbitMQException(string.Format(Strings.RequestTimedout, method));
             }
 
-            if (_result.GetValue<string>("status") == "fail")
+            var info = _result.Info;
+
+            if (info.GetValue<string>("status") == "fail")
             {
-                var msg = _result.GetValue<string>("message");
+                var msg = info.GetValue<string>("message");
                 throw new RabbitMQException(string.Format(msg));
             }
 
-            return _result.GetObject("returnValue");
+            _result.Info = info.GetObject("returnValue");
+            return _result;
         }
 
         public void Handle(Message message)
@@ -84,13 +90,14 @@ namespace CodeArt.RabbitMQ
             {
                 message.Success();
                 _result = message.Content;
+                _success = true;
                 _signal.Set();
             }
         }
 
         public void Clear()
         {
-            _result = null;
+            _result = default(TransferData);
             _correlationId = string.Empty;
         }
 

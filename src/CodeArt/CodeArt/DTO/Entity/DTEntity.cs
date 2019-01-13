@@ -23,12 +23,6 @@ namespace CodeArt.DTO
         {
         }
 
-        public bool IsPinned
-        {
-            get;
-            protected set;
-        }
-
         #region 数据
 
         public abstract DTEntity Clone();
@@ -53,20 +47,12 @@ namespace CodeArt.DTO
         {
             if (_selfEntities == null)
             {
-                var es = DTOPool.CreateDTEntities(this.IsPinned);
+                var es = new List<DTEntity>();
                 es.Add(this);
                 _selfEntities = es;
             }
             return _selfEntities;
         }
-
-        public virtual void Reset()
-        {
-            this.Name = null;
-            this.Parent = null;
-            _selfEntities = null;
-        }
-
 
         /// <summary>
         /// 根据查找表达式找出dto成员
@@ -87,11 +73,6 @@ namespace CodeArt.DTO
         /// <param name="query">查询表达式</param>
         /// <param name="createEntity"></param>
         public abstract void SetEntity(QueryExpression query, Func<string, DTEntity> createEntity);
-
-        /// <summary>
-        /// 对实体成员排序
-        /// </summary>
-        //public abstract void OrderEntities();
 
         #endregion
 

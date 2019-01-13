@@ -1,0 +1,23 @@
+﻿<ControlTemplate xmlns="http://schemas.codeart.cn/web/xaml"
+                 xmlns:m="http://schemas.codeart.cn/web/xaml/metronic">
+    <div class="{TemplateBinding Class,Converter={Static AppendClassConverter.Instance},ConverterParameter=row c--listView-itemPortlet}" data-proxy="{TemplateBinding ProxyCode}">
+        <AttributesPresenter />
+        <div class="col-sm-12 c-lv-header">
+            <div class="c-lv-title">
+                <span class="{TemplateBinding Color,Converter={Static m:ListViewItemPortletColorConverter.Instance},ConverterParameter=fc-event-dot}"></span>
+                <h5 style="display:inline-block; margin-left:5px;"><run Content="{TemplateBinding Title}"></run></h5>
+            </div>
+            <ul class="c-lv-tools">
+                <CollectionPresenter Items="{TemplateBinding Tools}" ItemFormat="<li>{0}</li>" />
+            </ul>
+        </div>
+        <div class="col-sm-12">
+            <div class="fc-description c-lv-description">
+                <run Content="{TemplateBinding Description}"></run>
+            </div>
+        </div>
+        <div class="col-sm-12 m--padding-top-15 m--padding-bottom-15">
+            <ContentPresenter Content="{TemplateBinding Content}" />
+        </div>
+    </div>
+</ControlTemplate>

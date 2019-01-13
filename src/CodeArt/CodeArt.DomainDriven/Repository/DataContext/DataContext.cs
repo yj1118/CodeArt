@@ -10,7 +10,7 @@ using System.Transactions;
 using CodeArt.Runtime;
 using CodeArt.AppSetting;
 using CodeArt.Concurrent;
-
+using System.Threading;
 
 namespace CodeArt.DomainDriven
 {
@@ -37,6 +37,7 @@ namespace CodeArt.DomainDriven
             InitializeRollback();
             InitializeMirror();
             InitializeBuffer();
+            InitializeItems();
         }
 
         /// <summary>
@@ -262,8 +263,6 @@ namespace CodeArt.DomainDriven
             }
         }
 
-
-
         private void RaisePreCommit(ScheduledAction action)
         {
             switch (action.Type)
@@ -403,7 +402,7 @@ namespace CodeArt.DomainDriven
             IsCommiting = false;
         }
 
-        public bool IsInTransaction
+        public bool InTransaction
         {
             get
             {
@@ -418,7 +417,7 @@ namespace CodeArt.DomainDriven
         {
             if (_transactionStatus != TransactionStatus.Timely)
             {
-                if (!this.IsInTransaction)
+                if (!this.InTransaction)
                     throw new NotBeginTransactionException(Strings.NotOpenTransaction);
 
                 //开启即时事务
@@ -435,7 +434,7 @@ namespace CodeArt.DomainDriven
             }
         }
 
-        private ITransactionManager GetTransactionManager()
+        private static ITransactionManager GetTransactionManager()
         {
             var factory = TransactionManagerFactory.CreateFactory();
             return factory.CreateManager();
@@ -446,7 +445,7 @@ namespace CodeArt.DomainDriven
         /// </summary>
         public void BeginTransaction()
         {
-            if (this.IsInTransaction)
+            if (this.InTransaction)
                 _transactionCount++;
             else
             {
@@ -458,7 +457,7 @@ namespace CodeArt.DomainDriven
 
         public void Commit()
         {
-            if (!this.IsInTransaction)
+            if (!this.InTransaction)
                 throw new NotBeginTransactionException(Strings.NotOpenTransaction);
             else
             {
@@ -527,22 +526,45 @@ namespace CodeArt.DomainDriven
             }
         }
 
+        private int _inBuildObjectCount = 0;
+
+        /// <summary>
+        /// 指示是否通过数据上下文在构建对象，这意味着是从数据仓储中创建并加载对象属性
+        /// </summary>
+        public bool InBuildObject
+        {
+            get
+            {
+                return _inBuildObjectCount > 0;
+            }
+            set
+            {
+                if (value)
+                    Interlocked.Increment(ref _inBuildObjectCount);
+                else
+                    Interlocked.Decrement(ref _inBuildObjectCount);
+            }
+        }
+
+
         /// <summary>
         /// 清理资源
         /// </summary>
         internal void Clear()
         {
             this.RequiresNew = false;
+            _inBuildObjectCount = 0;
             DisposeSchedule();
             DisposeRollback();
             DisposeTransaction();
             DisposeMirror();
             DisposeBuffer();
+            DisposeItems();
         }
 
         public void Dispose()
         {
-            if (this.IsInTransaction)
+            if (this.InTransaction)
             {
                 this.Rollback();
             }
@@ -570,7 +592,7 @@ namespace CodeArt.DomainDriven
 
         public void Rollback()
         {
-            if (!this.IsInTransaction)
+            if (!this.InTransaction)
                 throw new NotBeginTransactionException(Strings.NotOpenTransaction);
             else
             {
@@ -605,6 +627,48 @@ namespace CodeArt.DomainDriven
             }
         }
 
+
+        #endregion
+
+        #region 额外项
+
+        private Dictionary<string, object> _items = null;
+
+        private void InitializeItems()
+        {
+
+        }
+
+        public void SetItem(string name, object item)
+        {
+            if (_items == null) _items = new Dictionary<string, object>();
+            _items[name] = item;
+        }
+
+        public object GetItem(string name)
+        {
+            if (_items == null) return null;
+            if(_items.TryGetValue(name,out var item))
+            {
+                return item;
+            }
+            return null;
+        }
+
+        public bool HasItem(string name)
+        {
+            if (_items == null) return false;
+            return _items.ContainsKey(name);
+        }
+
+        private void DisposeItems()
+        {
+            if (_items != null)
+            {
+                _items.Clear();
+                _items = null;
+            }
+        }
 
         #endregion
 
@@ -674,7 +738,7 @@ namespace CodeArt.DomainDriven
         /// 使用事务，在<paramref name="action"/>执行之前会开启一个新的事务并在<paramref name="action"/>执行完毕后结束事务
         /// </summary>
         /// <param name="action"></param>
-        internal static void UseTransactionScope(Action action)
+        public static void UseTransactionScope(Action action)
         {
             TransactionOptions option = new TransactionOptions();
             option.IsolationLevel = IsolationLevel.ReadUncommitted;
@@ -700,7 +764,7 @@ namespace CodeArt.DomainDriven
             }
             catch (Exception)
             {
-                if (dataContext.IsInTransaction)
+                if (dataContext.InTransaction)
                 {
                     dataContext.Rollback();
                 }

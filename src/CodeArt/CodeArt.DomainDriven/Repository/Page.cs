@@ -53,5 +53,35 @@ namespace CodeArt.DomainDriven
             this.Objects = objects;
             this.DataCount = dataCount;
         }
+
+        /// <summary>
+        /// 根据页信息计算出翻页对象
+        /// </summary>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="objects"></param>
+        /// <returns></returns>
+        public static Page<T> Calculate(int pageIndex, int pageSize, IEnumerable<T> objects)
+        {
+            int dataCount = objects.Count();
+
+            var start = (pageIndex - 1) * pageSize;
+            if (start >= dataCount)
+            {
+                return new Page<T>(pageIndex, pageSize, Array.Empty<T>(), dataCount);
+            }
+
+            var end = start + pageSize - 1;
+            if (end >= dataCount) end = dataCount - 1;
+
+            List<T> items = new List<T>(end - start + 1);
+
+            for (var i = start; i <= end; i++)
+            {
+                items.Add(objects.ElementAt(i));
+            }
+            return new Page<T>(pageIndex, pageSize, items, dataCount);
+        }
+
     }
 }

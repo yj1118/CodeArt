@@ -34,5 +34,22 @@ namespace CodeArt.WPF.Controls.Playstation
             set { SetValue(TitleProperty, value); }
         }
 
+
+        public static readonly DependencyProperty TitleMarginProperty = DependencyProperty.Register("TitleMargin", typeof(Thickness), typeof(Header), new PropertyMetadata(new Thickness(110, 75, 0, 10)));
+
+        public Thickness TitleMargin
+        {
+            get { return (Thickness)GetValue(TitleMarginProperty); }
+            set { SetValue(TitleMarginProperty, value); }
+        }
+
+        public static readonly DependencyProperty TitleFontSizeProperty = DependencyProperty.Register("TitleFontSize", typeof(double), typeof(Header), new PropertyMetadata((double)50));
+
+        public double TitleFontSize
+        {
+            get { return (double)GetValue(FontSizeProperty); }
+            set { SetValue(FontSizeProperty, value); }
+        }
+
     }
 }

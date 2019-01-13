@@ -7,28 +7,29 @@ using System.Threading.Tasks;
 using CodeArt.DTO;
 using CodeArt.AppSetting;
 using CodeArt.Concurrent;
+using CodeArt.Util;
 
 namespace CodeArt.EasyMQ.RPC
 {
     public static class RPCClient
     {
-        public static DTObject Invoke(string method, Action<DTObject> fillArg)
+        public static TransferData Invoke(string method, Action<DTObject> fillArg)
         {
-            var arg = DTObject.CreateReusable();
+            var arg = DTObject.Create();
             fillArg(arg);
             return Invoke(method, arg);
         }
 
-        public static DTObject Invoke(string method, Action<dynamic> fillArg)
+        public static TransferData Invoke(string method, Action<dynamic> fillArg)
         {
-            var arg = DTObject.CreateReusable();
+            var arg = DTObject.Create();
             fillArg(arg);
             return Invoke(method, arg);
         }
 
-        public static DTObject Invoke(string method, DTObject arg)
+        public static TransferData Invoke(string method, DTObject arg)
         {
-            DTObject result = DTObject.Empty;
+            TransferData result;
             using (var temp = _pool.Borrow())
             {
                 var client = temp.Item;

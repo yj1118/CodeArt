@@ -42,7 +42,7 @@ namespace CodeArt.ModuleNest
 
         public DTObject Process(Action<DTObject> fillArg)
         {
-            var arg = DTObject.CreateReusable();
+            var arg = DTObject.Create();
             fillArg(arg);
             return Process(arg);
         }
@@ -67,7 +67,7 @@ namespace CodeArt.ModuleNest
         private DTObject MapResponse(S response)
         {
             if (typeof(S) == typeof(DTObject)) return response as DTObject;
-            return DTObject.Serialize(response, false);
+            return DTObject.Serialize(response);
         }
     }
 }

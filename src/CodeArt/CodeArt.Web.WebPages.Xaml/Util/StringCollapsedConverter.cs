@@ -14,6 +14,11 @@ namespace CodeArt.Web.WebPages.Xaml
         public object Convert(object value, object parameter)
         {
             var v = value as string;
+            if (parameter != null)
+            {
+                //取反
+                return string.IsNullOrEmpty(v) ? Visibility.Visible : Visibility.Collapsed;
+            }
             return string.IsNullOrEmpty(v) ? Visibility.Collapsed : Visibility.Visible;
         }
 

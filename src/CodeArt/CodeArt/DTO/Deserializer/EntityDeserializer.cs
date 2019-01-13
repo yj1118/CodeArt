@@ -15,70 +15,70 @@ namespace CodeArt.DTO
     internal static class EntityDeserializer
     {
 
-        public static DTEObject Deserialize(string code, bool isReadOnly, bool isPinned)
+        public static DTEObject Deserialize(string code, bool isReadOnly)
         {
-            if (string.IsNullOrEmpty(code)) return DTOPool.CreateDTEObject(isPinned);
-            return Deserialize(new StringSegment(code), isReadOnly, isPinned);
+            if (string.IsNullOrEmpty(code)) return new DTEObject();
+            return Deserialize(new StringSegment(code), isReadOnly);
         }
 
-        private static DTEObject Deserialize(StringSegment code, bool isReadOnly, bool isPinned)
+        private static DTEObject Deserialize(StringSegment code, bool isReadOnly)
         {
-            if (code.IsEmpty()) return DTOPool.CreateDTEObject(isPinned);
+            if (code.IsEmpty()) return new DTEObject();
             var node = ParseNode(CodeType.Object, code);
 
             DTEObject result = null;
-            using (var temp = DTOPool.EntitiesPool.Borrow())
+            using (var temp = ListPool<DTEntity>.Borrow())
             {
                 List<DTEntity> entities = temp.Item;
-                FillEntities(entities, node, isReadOnly, isPinned);
+                FillEntities(entities, node, isReadOnly);
                 result = entities.First() as DTEObject;
             }
             return result;
         }
 
-        private static void FillEntities(List<DTEntity> entities, CodeTreeNode node, bool isReadOnly, bool isPinned)
+        private static void FillEntities(List<DTEntity> entities, CodeTreeNode node, bool isReadOnly)
         {
             var name = JSON.GetStringValue(node.Name.ToString());
             if (node.Type == CodeType.Object)
             {
-                var members = DTOPool.CreateDTEntities(isPinned);
+                var members = new List<DTEntity>();
                 //收集成员
                 foreach (CodeTreeNode item in node.Childs)
                 {
-                    FillEntities(members, item, isReadOnly, isPinned);
+                    FillEntities(members, item, isReadOnly);
                 }
 
-                var obj = DTOPool.CreateDTEObject(members, isPinned);
+                var obj = new DTEObject(members);
                 obj.Name = name;
                 entities.Add(obj);
             }
             else if (node.Type == CodeType.List)
             {
-                var childs = DTOPool.CreateObjects(isPinned);
-                using (var temp = DTOPool.EntitiesPool.Borrow())
+                var childs = new List<DTObject>();
+                using (var temp = ListPool<DTEntity>.Borrow())
                 {
                     //收集成员
                     var tempChilds = temp.Item;
                     foreach (CodeTreeNode item in node.Childs)
                     {
-                        FillEntities(tempChilds, item, isReadOnly, isPinned);
+                        FillEntities(tempChilds, item, isReadOnly);
                     }
 
                     foreach(var e in tempChilds)
                     {
-                        var item = CreateDTObject(e, isReadOnly, isPinned);
+                        var item = CreateDTObject(e, isReadOnly);
                         childs.Add(item);
                     }
                 }
 
-                var list = DTOPool.CreateDTEList(childs, isPinned);
+                var list = new DTEList(childs);
                 list.Name = name;
                 entities.Add(list);
             }
             else
             {
                 object value = GetNodeValue(node);
-                var dte = DTOPool.CreateDTEValue(name, value, isPinned);
+                var dte = new DTEValue(name, value);
                 entities.Add(dte);
             }
         }
@@ -101,16 +101,16 @@ namespace CodeArt.DTO
             return code.Substring(1, code.Length - 2).Trim();
         }
 
-        private static DTObject CreateDTObject(DTEntity root, bool isReadOnly, bool isPinned)
+        private static DTObject CreateDTObject(DTEntity root, bool isReadOnly)
         {
             var o = root as DTEObject;
-            if (o != null) return DTOPool.CreateObject(o, isReadOnly, isPinned);
+            if (o != null) return new DTObject(o,isReadOnly);
 
-            var members = DTOPool.CreateDTEntities(isPinned);
+            var members = new List<DTEntity>();
             members.Add(root);
 
-            o = DTOPool.CreateDTEObject(members, isPinned);
-            return DTOPool.CreateObject(o, isReadOnly, isPinned);
+            o = new DTEObject(members);
+            return new DTObject(o, isReadOnly);
         }
 
 
@@ -179,7 +179,9 @@ namespace CodeArt.DTO
             else
             {
                 var info = DeserializerUtil.Find(code, 0, ':');
-                if (parentCodeType == CodeType.Object)
+                bool isStringValue = CodeTreeNode.GetValueType(nodeCode) == CodeType.StringValue;
+
+                if (parentCodeType == CodeType.Object && !isStringValue)  //如果是{aaa}，我们会将aaa识别为name，如果是{'aaa'}，我们会将aaa识别为value
                 {
                     name = !info.Finded ? code : code.Substring(0, info.KeyPosition).Trim();
                     value = !info.Finded ? StringSegment.Null : code.Substring(info.KeyPosition + 1).Trim();

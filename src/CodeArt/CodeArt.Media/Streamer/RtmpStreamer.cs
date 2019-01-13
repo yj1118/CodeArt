@@ -108,7 +108,6 @@ namespace CodeArt.Media
             DisposeProcess();
         }
 
-
         private static string StreamerFileName = string.Format("{0}_Media\\Streamer\\rtmpstreamer.exe", AppDomain.CurrentDomain.BaseDirectory);
 
         static RtmpStreamer()

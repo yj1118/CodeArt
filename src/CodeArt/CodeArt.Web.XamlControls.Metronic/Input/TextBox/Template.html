@@ -6,7 +6,8 @@
      data-rule="{Binding Converter={Static m:TextBoxRuleCodeConverter.Instance}}" 
      id="{TemplateBinding Id}"
      data-field="{TemplateBinding Field}"
-     data-disabled="{TemplateBinding Disabled}">
+     data-disabled="{TemplateBinding Disabled}"
+     data-textbox="true">
     <AttributesPresenter />
     <label class="col-form-label col-xl-2 col-sm-12 offset-xl-1">
         <run content="{Binding Converter={Static m:LabelConverter.Instance}}" />
@@ -15,11 +16,11 @@
         <div class="input-group-prepend" Visibility="{Binding Converter={Static m:InputPrependCollapsedConverter.Instance}}">
             <ContentPresenter Content="{TemplateBinding Prepend}" />
         </div>
-        <input class="form-control"
+        <input class="{Binding Converter={Static m:TextBoxControlClassConverter.Instance}}"
                type="{TemplateBinding Type}"
                placeholder="{TemplateBinding Placeholder}"
                Visibility="{Binding Converter={Static m:TextBoxCoreCollapsedConverter.Instance},ConverterParameter=1}" />
-        <textarea class="form-control" placeholder="{TemplateBinding Placeholder}" rows="{TemplateBinding Rows}" Visibility="{Binding Converter={Static m:TextBoxCoreCollapsedConverter.Instance},ConverterParameter=2}"></textarea>
+        <textarea class="{Binding Converter={Static m:TextBoxControlClassConverter.Instance}}" placeholder="{TemplateBinding Placeholder}" rows="{TemplateBinding Rows}" Visibility="{Binding Converter={Static m:TextBoxCoreCollapsedConverter.Instance},ConverterParameter=2}"></textarea>
         <div class="input-group-append" Visibility="{Binding Converter={Static m:InputAppendCollapsedConverter.Instance}}">
             <ContentPresenter Content="{TemplateBinding Append}" />
         </div>
@@ -34,7 +35,8 @@
      data-rule="{Binding Converter={Static m:TextBoxRuleCodeConverter.Instance}}"
      id="{TemplateBinding Id}"
      data-field="{TemplateBinding Field}"
-     data-disabled="{TemplateBinding Disabled}">
+     data-disabled="{TemplateBinding Disabled}"
+     data-textbox="true">
     <AttributesPresenter />
     <label class="col-form-label col-sm-12">
         <run content="{Binding Converter={Static m:LabelConverter.Instance}}" />
@@ -43,11 +45,11 @@
         <div class="input-group-prepend" Visibility="{Binding Converter={Static m:InputPrependCollapsedConverter.Instance}}">
             <ContentPresenter Content="{TemplateBinding Prepend}" />
         </div>
-        <input class="form-control"
+        <input class="{Binding Converter={Static m:TextBoxControlClassConverter.Instance}}"
                type="{TemplateBinding Type}"
                placeholder="{TemplateBinding Placeholder}"
                Visibility="{Binding Converter={Static m:TextBoxCoreCollapsedConverter.Instance},ConverterParameter=1}" />
-        <textarea class="form-control" placeholder="{TemplateBinding Placeholder}" rows="{TemplateBinding Rows}" Visibility="{Binding Converter={Static m:TextBoxCoreCollapsedConverter.Instance},ConverterParameter=2}"></textarea>
+        <textarea class="{Binding Converter={Static m:TextBoxControlClassConverter.Instance}}" placeholder="{TemplateBinding Placeholder}" rows="{TemplateBinding Rows}" Visibility="{Binding Converter={Static m:TextBoxCoreCollapsedConverter.Instance},ConverterParameter=2}"></textarea>
         <div class="input-group-append" Visibility="{Binding Converter={Static m:InputAppendCollapsedConverter.Instance}}">
             <ContentPresenter Content="{TemplateBinding Append}" />
         </div>
@@ -64,17 +66,18 @@
      data-rule="{Binding Converter={Static m:TextBoxRuleCodeConverter.Instance}}"
      id="{TemplateBinding Id}"
      data-field="{TemplateBinding Field}"
-     data-disabled="{TemplateBinding Disabled}">
+     data-disabled="{TemplateBinding Disabled}"
+     data-textbox="true">
     <AttributesPresenter />
     <div data-core-container="true" class="{Binding Converter={Static m:InputGroupClassConverter.Instance},ConverterParameter=col-sm-12}">
         <div class="input-group-prepend" Visibility="{Binding Converter={Static m:InputPrependCollapsedConverter.Instance}}">
             <ContentPresenter Content="{TemplateBinding Prepend}" />
         </div>
-        <input class="form-control"
+        <input class="{Binding Converter={Static m:TextBoxControlClassConverter.Instance}}"
                type="{TemplateBinding Type}"
                placeholder="{TemplateBinding Placeholder}"
                Visibility="{Binding Converter={Static m:TextBoxCoreCollapsedConverter.Instance},ConverterParameter=1}" />
-        <textarea class="form-control" placeholder="{TemplateBinding Placeholder}" rows="{TemplateBinding Rows}" Visibility="{Binding Converter={Static m:TextBoxCoreCollapsedConverter.Instance},ConverterParameter=2}"></textarea>
+        <textarea class="{Binding Converter={Static m:TextBoxControlClassConverter.Instance}}" placeholder="{TemplateBinding Placeholder}" rows="{TemplateBinding Rows}" Visibility="{Binding Converter={Static m:TextBoxCoreCollapsedConverter.Instance},ConverterParameter=2}"></textarea>
         <div class="input-group-append" Visibility="{Binding Converter={Static m:InputAppendCollapsedConverter.Instance}}">
             <ContentPresenter Content="{TemplateBinding Append}" />
         </div>
@@ -90,7 +93,8 @@
      data-proxy="{give:new $$metronic.textBox()}" 
      id="{TemplateBinding Id}"
      data-field="{TemplateBinding Field}"
-     data-disabled="">
+     data-disabled=""
+     data-textbox="true">
     <AttributesPresenter />
     <input type="hidden" />
 </div>

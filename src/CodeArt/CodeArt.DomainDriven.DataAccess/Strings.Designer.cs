@@ -79,7 +79,7 @@ namespace CodeArt.DomainDriven.DataAccess {
         }
         
         /// <summary>
-        ///   查找类似 Did not find the attribute definition corresponding to the constructor {0}. Please check whether the property has been marked PropertyRepositoryAttribute or how the custom constructor is loaded 的本地化字符串。
+        ///   查找类似 Did not find the attribute {1} definition corresponding to the constructor {0}. Please check whether the property has been marked PropertyRepositoryAttribute or how the custom constructor is loaded 的本地化字符串。
         /// </summary>
         internal static string ConstructionParameterNoProperty {
             get {

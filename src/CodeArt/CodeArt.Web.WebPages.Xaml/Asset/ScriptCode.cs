@@ -9,17 +9,17 @@ using CodeArt.Web.WebPages.Xaml.Markup;
 namespace CodeArt.Web.WebPages.Xaml
 {
     /// <summary>
-    /// css样式形式的代码基类
+    /// 脚本形式的代码基类
     /// </summary>
-    public abstract class StyleCode : CodeAsset
+    public abstract class ScriptCode : CodeAsset
     {
         protected override string GetCode()
         {
             StringBuilder code = new StringBuilder();
-            code.AppendLine("<style type=\"text/css\">");
+            code.AppendLine("<script>");
             FillCode(code);
             code.AppendLine();
-            code.AppendLine("</style>");
+            code.AppendLine("</script>");
             return code.ToString();
         }
 

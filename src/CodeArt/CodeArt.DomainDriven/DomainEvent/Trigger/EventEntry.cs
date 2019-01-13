@@ -14,7 +14,7 @@ namespace CodeArt.DomainDriven
     /// 每一个事件条目的执行和回逆都需要满足幂等性
     /// </summary>
     [DebuggerDisplay("EventName:{EventName},EventId:{EventId}")]
-    [ObjectRepository(typeof(IEventQueueRepository))]
+    [ObjectRepository(typeof(IEventQueueRepository), CloseMultiTenancy = true)]
     public class EventEntry : EntityObject<EventEntry, int>
     {
         /// <summary>
@@ -45,7 +45,7 @@ namespace CodeArt.DomainDriven
             if (this.IsRootSource)
             {
                 //根事件源
-                var args = DTObject.CreateReusable(this.ArgsCode);
+                var args = DTObject.Create(this.ArgsCode);
                 var @event = EventFactory.GetLocalEvent(this.EventName, args, true);
                 @event.Entry = this;
                 return @event;
@@ -166,7 +166,7 @@ namespace CodeArt.DomainDriven
             if (this.Source.IsEmpty())
             {
                 //根条目
-                return DTObject.CreateReusable(this.ArgsCode);
+                return DTObject.Create(this.ArgsCode);
             }
             else if (this.IsLocal)
             {
@@ -179,7 +179,7 @@ namespace CodeArt.DomainDriven
                     return args;
                 }
                 else
-                    return DTObject.CreateReusable(this.ArgsCode); //如果已经有代码，那么直接使用
+                    return DTObject.Create(this.ArgsCode); //如果已经有代码，那么直接使用
             }
             else
             {
@@ -197,7 +197,7 @@ namespace CodeArt.DomainDriven
         internal DTObject GetRemotable(DTObject identity, DTObject args)
         {
             //并没有将本地队列的编号和条目状态传递出去
-            var e = DTObject.CreateReusable();
+            var e = DTObject.Create();
             e.SetValue("eventId", this.EventId);
             e.SetValue("eventName", this.EventName);
             e.SetObject("args", args);

@@ -125,4 +125,38 @@ namespace CodeArt.DomainDriven
         }
     }
 
+
+    public abstract class EntityObject<TObject, TIdentity, TObjectEmpty> : EntityObject<TObject, TIdentity>
+            where TObject : AggregateRoot<TObject, TIdentity>
+            where TIdentity : struct
+            where TObjectEmpty : TObject, new()
+    {
+        public EntityObject(TIdentity id)
+            : base(id)
+        {
+            this.OnConstructed();
+        }
+
+        private static TObject _empty;
+        private static object _syncObject = new object();
+
+        public static TObject Empty
+        {
+            get
+            {
+                if (_empty == null)
+                {
+                    lock (_syncObject)
+                    {
+                        if (_empty == null)
+                        {
+                            _empty = new TObjectEmpty();
+                        }
+                    }
+                }
+                return _empty;
+            }
+        }
+    }
+
 }

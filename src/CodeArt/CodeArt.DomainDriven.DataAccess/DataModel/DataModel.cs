@@ -128,7 +128,6 @@ namespace CodeArt.DomainDriven.DataAccess
         {
             return this.Root.GetIdentity();
         }
-
        
         #region 静态成员
 

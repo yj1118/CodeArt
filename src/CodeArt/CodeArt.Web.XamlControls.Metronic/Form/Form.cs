@@ -8,7 +8,7 @@ using CodeArt.Web.WebPages.Xaml.Markup;
 using CodeArt.Web.WebPages.Xaml;
 using CodeArt.Web.WebPages.Xaml.Controls;
 using CodeArt.DTO;
-using CodeArt.ModuleNest;
+
 
 namespace CodeArt.Web.XamlControls.Metronic
 {
@@ -33,6 +33,12 @@ namespace CodeArt.Web.XamlControls.Metronic
         {
             return base.GetChild(childName) ?? this.Actions.GetChild(childName);
         }
+
+        public override IEnumerable<UIElement> GetActionElement(string actionName)
+        {
+            return this.Combine(base.GetActionElement(actionName) ,this.Actions.GetActionElement(actionName));
+        }
+
 
         static Form()
         {

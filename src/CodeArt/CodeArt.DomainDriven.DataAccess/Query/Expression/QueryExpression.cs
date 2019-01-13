@@ -66,7 +66,7 @@ namespace CodeArt.DomainDriven.DataAccess
         {
             this.Target = target;
             this.Expression = expression;
-            this.Definition = SqlDefinition.Create(this.Expression);
+            this.Definition = SqlDefinition.Create(this.Expression, target.IsEnabledMultiTenancy);
             this.Level = level;
         }
 
@@ -90,7 +90,7 @@ namespace CodeArt.DomainDriven.DataAccess
             var table = this.Target;
 
             StringBuilder sql = new StringBuilder();
-            sql.Append("select");
+            sql.Append("select ");
             sql.AppendLine(GetSelectFieldsSql(table, this.Definition));
             sql.AppendLine(" from ");
             sql.AppendLine(GetFromSql(table, this.Level, this.Definition));
@@ -174,6 +174,15 @@ namespace CodeArt.DomainDriven.DataAccess
                 sql.AppendFormat("{0}.{1} as {1},", SqlStatement.Qualifier(current.Name),
                                                     SqlStatement.Qualifier(field.Name));
             }
+
+            if(current.IsEnabledMultiTenancy)
+            {
+                if (tableType != TableType.Derived)
+                {
+                    sql.AppendFormat("{0}.{1} as {1},", SqlStatement.Qualifier(current.Name),
+                                                        SqlStatement.Qualifier(GeneratedField.TenantIdName));
+                }
+            }
         }
 
         /// <summary>
@@ -251,6 +260,18 @@ namespace CodeArt.DomainDriven.DataAccess
                                                     SqlStatement.Qualifier(field.Name),
                                                     SqlStatement.Qualifier(fieldName));
             }
+
+            if (current.IsEnabledMultiTenancy)
+            {
+                if (tableType != TableType.Derived)
+                {
+                    var fieldName = string.Format("{0}_{1}", chain, GeneratedField.TenantIdName);
+                    sql.AppendFormat("{0}.{1} as {2},", SqlStatement.Qualifier(chain),
+                                                        SqlStatement.Qualifier(GeneratedField.TenantIdName),
+                                                        fieldName);
+                }
+            }
+
             FillChildSelectFieldsSql(chainRoot, current, exp, sql, index);
         }
 
@@ -284,15 +305,16 @@ namespace CodeArt.DomainDriven.DataAccess
 
                 if (table.Type == DataTableType.AggregateRoot)
                 {
-                    sql.AppendFormat(" inner join {0} on {1}.Id={0}.Id",
-                        SqlStatement.Qualifier(derived.Name), SqlStatement.Qualifier(inheritedRoot.Name));
+                    sql.AppendFormat(" inner join {0}{2} on {1}.Id={0}.Id",
+                        SqlStatement.Qualifier(derived.Name), SqlStatement.Qualifier(inheritedRoot.Name), GetLockCode(QueryLevel.None));
                 }
                 else
                 {
-                    sql.AppendFormat(" inner join {0} on {1}.Id={0}.Id and {1}.{2}={0}.{2}",
+                    sql.AppendFormat(" inner join {0}{3} on {1}.Id={0}.Id and {1}.{2}={0}.{2}",
                         SqlStatement.Qualifier(derived.Name)
                         , SqlStatement.Qualifier(inheritedRoot.Name)
-                        , SqlStatement.Qualifier(GeneratedField.RootIdName));
+                        , SqlStatement.Qualifier(GeneratedField.RootIdName)
+                        , GetLockCode(QueryLevel.None));
                 }
             }
             return sql.ToString();
@@ -370,11 +392,11 @@ namespace CodeArt.DomainDriven.DataAccess
             sql.AppendLine();
      
             var tip = current.MemberPropertyTip;
-            sql.AppendFormat(" left join ({0}) as {1} on {2}.{3}Id={1}.Id",
+            sql.AppendFormat(" left join ({0}) as {1}{4} on {2}.{3}Id={1}.Id",
                                 childSql, 
                                 SqlStatement.Qualifier(chain), 
                                 SqlStatement.Qualifier(masterTableName)
-                                , tip.PropertyName);
+                                , tip.PropertyName, GetLockCode(QueryLevel.None));
 
             FillJoinSql(chainRoot, current, exp, sql, index);
         }
@@ -386,42 +408,95 @@ namespace CodeArt.DomainDriven.DataAccess
             var chain = current.GetChainCode(chainRoot);
             string masterTableName = string.IsNullOrEmpty(masterChain) ? master.Name : masterChain;
 
+            string currentTenantSql = current.IsEnabledMultiTenancy ? string.Format("and {0}.{1}=@{2}", SqlStatement.Qualifier(chain),
+                                                                SqlStatement.Qualifier(GeneratedField.TenantIdName),
+                                                                GeneratedField.TenantIdName) : string.Empty;
+
             sql.AppendLine();
             if (current.IsMultiple)
             {
                 var middle = current.Middle;
                 var masterIdName = middle.Root == middle.Master ? GeneratedField.RootIdName : GeneratedField.MasterIdName;
-                if(current.Type == DataTableType.AggregateRoot)
+
+                string middleTenantSql = middle.IsEnabledMultiTenancy ? string.Format("and {0}.{1}=@{2}", SqlStatement.Qualifier(middle.Name),
+                        SqlStatement.Qualifier(GeneratedField.TenantIdName),
+                        GeneratedField.TenantIdName) : string.Empty;
+
+
+                if (current.Type == DataTableType.AggregateRoot)
                 {
-                    sql.AppendFormat(" left join {0} on {0}.{1}={2}.Id left join {3} as {4} on {0}.{5}={4}.Id",
+                    sql.AppendFormat(" left join {0}{6} on {0}.{1}={2}.Id {7} left join {3} as {4}{6} on {0}.{5}={4}.Id {8}",
                     SqlStatement.Qualifier(middle.Name),
                     SqlStatement.Qualifier(masterIdName),
                     SqlStatement.Qualifier(masterTableName),
                     SqlStatement.Qualifier(current.Name),
                     SqlStatement.Qualifier(chain),
-                    GeneratedField.SlaveIdName);
+                    GeneratedField.SlaveIdName,
+                    GetLockCode(QueryLevel.None),
+                    middleTenantSql,
+                    currentTenantSql);
                 }
                 else
                 {
                     //中间的查询会多一个{4}.{6}={2}.Id的限定，
-                    sql.AppendFormat(" left join {0} on {0}.{1}={2}.Id left join {3} as {4} on {0}.{5}={4}.Id and {4}.{6}={2}.Id",
+                    sql.AppendFormat(" left join {0}{7} on {0}.{1}={2}.Id {8} left join {3} as {4}{7} on {0}.{5}={4}.Id and {4}.{6}={2}.Id {9}",
                         SqlStatement.Qualifier(middle.Name),
                         SqlStatement.Qualifier(masterIdName),
                         SqlStatement.Qualifier(masterTableName),
                         SqlStatement.Qualifier(current.Name),
                         SqlStatement.Qualifier(chain),
                         GeneratedField.SlaveIdName,
-                        GeneratedField.RootIdName);
+                        GeneratedField.RootIdName,
+                        GetLockCode(QueryLevel.None),
+                        middleTenantSql,
+                        currentTenantSql);
                 }
             }
             else
             {
-                var tip = current.MemberPropertyTip;
-                sql.AppendFormat(" left join {0} as {1} on {2}.{3}Id={1}.Id",
+                if (current.Type == DataTableType.AggregateRoot)
+                {
+                    var tip = current.MemberPropertyTip;
+                    sql.AppendFormat(" left join {0} as {1}{4} on {2}.{3}Id={1}.Id {5}",
                     SqlStatement.Qualifier(current.Name),
                     SqlStatement.Qualifier(chain),
                     SqlStatement.Qualifier(masterTableName),
-                    tip.PropertyName);
+                    tip.PropertyName,
+                    GetLockCode(QueryLevel.None),
+                    currentTenantSql);
+                }
+                else
+                {
+                    if(chainRoot.Type == DataTableType.AggregateRoot)
+                    {
+                        string rootTableName = chainRoot.Name;
+                        var tip = current.MemberPropertyTip;
+                        sql.AppendFormat(" left join {0} as {1}{4} on {2}.{3}Id={1}.Id and {1}.{5}={6}.Id {7}",
+                        SqlStatement.Qualifier(current.Name),
+                        SqlStatement.Qualifier(chain),
+                        SqlStatement.Qualifier(masterTableName),
+                        tip.PropertyName,
+                        GetLockCode(QueryLevel.None),
+                        GeneratedField.RootIdName,
+                        SqlStatement.Qualifier(rootTableName),
+                        currentTenantSql);
+                    }
+                    else
+                    {
+                        //查询不是从根表发出的，而是从引用表，那么直接用@RootId来限定
+                        var tip = current.MemberPropertyTip;
+                        sql.AppendFormat(" left join {0} as {1}{4} on {2}.{3}Id={1}.Id and {1}.{5}=@{5} {6}",
+                        SqlStatement.Qualifier(current.Name),
+                        SqlStatement.Qualifier(chain),
+                        SqlStatement.Qualifier(masterTableName),
+                        tip.PropertyName,
+                        GetLockCode(QueryLevel.None),
+                        GeneratedField.RootIdName,
+                        currentTenantSql);
+                    }
+                    
+                }
+                    
             }
             
             FillChildJoinSql(chainRoot, current, exp, sql, index);
@@ -461,17 +536,26 @@ namespace CodeArt.DomainDriven.DataAccess
             sql.AppendFormat(" from {0}{1}", SqlStatement.Qualifier(inheritedRoot.Name), GetLockCode(level));
             foreach (var derived in table.Deriveds)
             {
+                string derivedTenantSql = derived.IsEnabledMultiTenancy ? string.Format("and {0}.{1}=@{2}", SqlStatement.Qualifier(derived.Name),
+                                                                SqlStatement.Qualifier(GeneratedField.TenantIdName),
+                                                                GeneratedField.TenantIdName) : string.Empty;
+
                 if (table.Type == DataTableType.AggregateRoot)
                 {
-                    sql.AppendFormat(" inner join {0} on {1}.Id={0}.Id",
-                        SqlStatement.Qualifier(derived.Name), SqlStatement.Qualifier(inheritedRoot.Name));
+                    sql.AppendFormat(" inner join {0}{2} on {1}.Id={0}.Id {3}",
+                        SqlStatement.Qualifier(derived.Name), 
+                        SqlStatement.Qualifier(inheritedRoot.Name), 
+                        GetLockCode(QueryLevel.None), 
+                        derivedTenantSql);
                 }
                 else
                 {
-                    sql.AppendFormat(" inner join {0} on {1}.Id={0}.Id and {1}.{2}={0}.{2}",
+                    sql.AppendFormat(" inner join {0}{3} on {1}.Id={0}.Id and {1}.{2}={0}.{2} {4}",
                         SqlStatement.Qualifier(derived.Name),
                         SqlStatement.Qualifier(inheritedRoot.Name),
-                        SqlStatement.Qualifier(GeneratedField.RootIdName));
+                        SqlStatement.Qualifier(GeneratedField.RootIdName), 
+                        GetLockCode(QueryLevel.None), 
+                        derivedTenantSql);
                 }
             }
             return sql.ToString();

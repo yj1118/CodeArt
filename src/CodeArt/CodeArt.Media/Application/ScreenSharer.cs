@@ -17,7 +17,7 @@ namespace CodeArt.Media
             {
                 IOUtil.ClearDirectory(FLVTempFolder);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 //写日志todo...
             }

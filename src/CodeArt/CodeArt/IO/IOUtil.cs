@@ -157,6 +157,64 @@ namespace CodeArt.IO
             return files.ToArray();
         }
 
+        public static string[] GetDirectFiles(string path)
+        {
+            return GetFiles(path, true, (t) =>
+            {
+                return true;
+            });
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="onlyDirect">是否只读一级</param>
+        /// <param name="filter"></param>
+        /// <returns></returns>
+        public static string[] GetFiles(string path,bool onlyDirect, Func<string,bool> filter)
+        {
+            List<string> files = new List<string>();
+            if (Directory.Exists(path))
+            {
+                //收集当前目录的文件
+                string[] fs = Directory.GetFiles(path);
+                foreach(var f in fs)
+                {
+                    var r = filter(f);
+                    if(r) files.Add(f);
+                }
+
+                if (!onlyDirect)
+                {
+                    //再收集该目录下的文件
+                    string[] dis = Directory.GetDirectories(path);
+                    foreach (string d in dis)
+                    {
+                        files.AddRange(GetFiles(d,onlyDirect, filter));
+                    }
+                }
+            }
+            return files.ToArray();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="onlyDirect">是否只读一级目录</param>
+        /// <param name="extensions"></param>
+        /// <returns></returns>
+        public static string[] GetFiles(string path, bool onlyDirect, string extensions)
+        {
+            var es = extensions.Split(',');
+            return GetFiles(path, onlyDirect, (fileName) =>
+             {
+                 var t = IOUtil.GetExtension(fileName);
+                 return es.Contains(t, StringComparer.OrdinalIgnoreCase);
+             });
+        }
+
         /// <summary>
         /// 删除文件
         /// </summary>

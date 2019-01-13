@@ -21,16 +21,10 @@ namespace CodeArt.DTO
             private set;
         }
 
-        internal DTObjectList()
-        {
-
-        }
-
-        public void Init(DTEList owner, bool isPinned)
+        internal DTObjectList(DTEList owner)
         {
             _owner = owner;
-            this.IsPinned = isPinned;
-            _list = DTOPool.CreateObjects(isPinned);
+            _list = new List<DTObject>();
         }
 
         public void Reset()

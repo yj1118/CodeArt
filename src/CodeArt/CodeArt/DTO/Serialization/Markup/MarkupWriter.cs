@@ -35,7 +35,7 @@ namespace CodeArt.DTO
             }
             else
             {
-                var elementDTO = DTObjectSerializer.Instance.Serialize(element, _dto.IsPinned);
+                var elementDTO = DTObjectSerializer.Instance.Serialize(element);
                 _dto.Push(name, elementDTO);
             }
 
@@ -52,7 +52,7 @@ namespace CodeArt.DTO
                 return;
             }
 
-            var dtoValue = DTObjectSerializer.Instance.Serialize(value, _dto.IsPinned);
+            var dtoValue = DTObjectSerializer.Instance.Serialize(value);
             _dto.SetObject(name, dtoValue);
         }
     }

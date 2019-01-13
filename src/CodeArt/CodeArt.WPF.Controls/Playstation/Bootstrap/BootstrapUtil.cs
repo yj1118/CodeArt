@@ -17,7 +17,14 @@ namespace CodeArt.WPF.Controls.Playstation
         /// <returns></returns>
         public static (double Width, double Height) ZoomByWidth((double Width, double Height) proportion,double widthScale)
         {
-            var actualWidth = Work.Current.LogicArea.Width * widthScale;
+            var logicAreaWidth = 0;
+            Work.UIInvoke(()=>
+            {
+                logicAreaWidth = Work.Current.LogicArea.Width;
+            });
+
+            var actualWidth = logicAreaWidth * widthScale;
+            if (actualWidth > proportion.Width) return proportion; //如果转换后的宽度比原始宽度大，那么还是使用原始宽度
             var height = actualWidth * proportion.Height / proportion.Width;
             return (actualWidth, height);
         }

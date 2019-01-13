@@ -134,14 +134,25 @@ namespace CodeArt.Web.WebPages.Xaml
             MaxRemainTime = 1800 //停留时间60分钟
         });
 
-
-        public static string GetCode(string xaml)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="xaml"></param>
+        /// <param name="onlyMain">是否仅输出主体代码，如果该选项为true，那么当代码段没有body节点时，是不会输出script,style的代码的</param>
+        /// <returns></returns>
+        public static string GetCode(string xaml, bool onlyMain)
         {
             var obj = XamlReader.ReadComponent(xaml) as UIElement;
-            return GetCode(obj);
+            return GetCode(obj, onlyMain);
         }
 
-        public static string GetCode(UIElement element)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="element"></param>
+        /// <param name="onlyMain">是否仅输出主体代码，如果该选项为true，那么当代码段没有body节点时，是不会输出script,style的代码的</param>
+        /// <returns></returns>
+        public static string GetCode(UIElement element, bool onlyMain)
         {
             if(RenderContext.IsRendering)
             {
@@ -150,7 +161,7 @@ namespace CodeArt.Web.WebPages.Xaml
                 {
                     var brush = temp.Item;
                     element.Render(brush);
-                    code = brush.GetCode();
+                    code = brush.GetCode(onlyMain);
                 }
                 return code;
             }
@@ -161,7 +172,7 @@ namespace CodeArt.Web.WebPages.Xaml
                 {
                     element.OnLoad();
                     element.Render(brush);
-                    code = brush.GetCode();
+                    code = brush.GetCode(onlyMain);
                 });
                 return code;
             }
@@ -184,9 +195,9 @@ namespace CodeArt.Web.WebPages.Xaml
                     {
                         if (action != null) action(brush);
                     }
-                    catch(Exception ex)
+                    catch(Exception)
                     {
-                        throw ex;
+                        throw;
                     }
                     finally
                     {

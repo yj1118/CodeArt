@@ -101,6 +101,7 @@ namespace CodeArt.DomainDriven.DataAccess
         public const string MasterIdName = "MasterId";
         public const string SlaveIdName = "SlaveId";
         public const string PrimitiveValueName = "Value";
+        public const string TenantIdName = "TenantId";
 
         /// <summary>
         /// 创建中间表多个数据的排序序号键
@@ -136,12 +137,20 @@ namespace CodeArt.DomainDriven.DataAccess
         {
             var valueType = field.ValueType;
             DomainProperty property = null;
+            DbFieldType fieldType = DbFieldType.Common;
             if (valueType == typeof(string))
             {
-                property = new StringProperty(ownerType, PrimitiveValueName, field.Tip.GetMaxLength(), field.Tip.IsASCIIString());
+                var maxLength = field.Tip.GetMaxLength();
+                if(maxLength < 300)
+                {
+                    //如果value的字符串类型长度小于300，那么就可以参与索引
+                    fieldType = DbFieldType.NonclusteredIndex;
+                }
+                property = new StringProperty(ownerType, PrimitiveValueName, maxLength, field.Tip.IsASCIIString());
             }
             else
             {
+                fieldType = DbFieldType.NonclusteredIndex;
                 property = new CustomProperty(ownerType, valueType, PrimitiveValueName);
             }
 
@@ -149,7 +158,7 @@ namespace CodeArt.DomainDriven.DataAccess
             {
                 Property = property
             };
-            return new GeneratedField(attr, PrimitiveValueName, GeneratedFieldType.PrimitiveValue, DbFieldType.NonclusteredIndex);
+            return new GeneratedField(attr, PrimitiveValueName, GeneratedFieldType.PrimitiveValue, fieldType);
         }
 
 

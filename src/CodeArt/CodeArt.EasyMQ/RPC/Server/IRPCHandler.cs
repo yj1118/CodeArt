@@ -11,6 +11,6 @@ namespace CodeArt.EasyMQ.RPC
 {
     public interface IRPCHandler
     {
-        DTObject Process(string method, DTObject args);
+        TransferData Process(string method, DTObject args);
     }
 }

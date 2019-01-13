@@ -15,13 +15,13 @@ namespace CodeArt.Media
     {
         public static void Init()
         {
-            RtmpStreamer.CleanUp();
+            ScreenStreamer.CleanUp();
             FFMpeg.CleanUp();
         }
 
         public static void Clear()
         {
-            RtmpStreamer.CleanUp();
+            ScreenStreamer.CleanUp();
             FFMpeg.CleanUp();
         }
 

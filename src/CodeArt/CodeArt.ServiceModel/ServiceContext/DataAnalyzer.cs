@@ -13,7 +13,7 @@ namespace CodeArt.ServiceModel
         /// <summary>
         /// 因为调用的服务的名称是固定的数量，所以可以永久缓存
         /// </summary>
-        private static Func<string, byte[]> _getServiceNameData = LazyIndexer.Init<string, byte[]>((serviceName)=>
+        private static Func<string, byte[]> _getServiceNameData = LazyIndexer.Init<string, byte[]>((serviceName) =>
         {
             return serviceName.GetBytes(Encoding.UTF8);
         });
@@ -38,7 +38,7 @@ namespace CodeArt.ServiceModel
             var identityData = Map(request.Identity);
             var argData = Map(request.Argument);
 
-            if(ServiceModelConfiguration.Current.Client.EnabledOldVersion)
+            if (ServiceModelConfiguration.Current.Client.EnabledOldVersion)
             {
                 target.Write(nameData.Length);
                 target.Write(nameData);
@@ -98,7 +98,7 @@ namespace CodeArt.ServiceModel
                 return new ServiceRequest(ns, name, identity, arg);
             }
 
-            
+
         }
 
         public static void SerializeResponse(ServiceResponse response, ByteArray target)
@@ -124,7 +124,7 @@ namespace CodeArt.ServiceModel
             var status = Map(statusData);
             var returnValue = Map(returnValueData);
 
-            return new ServiceResponse(status, returnValue);
+            return new ServiceResponse(status, returnValue,BinaryResponse.Empty);
         }
 
         private static byte[] Map(DTObject dto)
@@ -134,7 +134,7 @@ namespace CodeArt.ServiceModel
 
         private static DTObject Map(byte[] data)
         {
-            return data.Length == 0 ? DTObject.Empty : DTObject.CreateReusable(data);
+            return data.Length == 0 ? DTObject.Empty : DTObject.Create(data);
         }
     }
 }

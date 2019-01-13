@@ -25,6 +25,11 @@ namespace CodeArt.Util
             return Init<TKey, TValue>(valueFactory, (value) => { return true; }, EqualityComparer<TKey>.Default);
         }
 
+        public static Func<TKey, TValue> Init<TKey, TValue>(Func<TKey, TValue> valueFactory, IEqualityComparer<TKey> comparer)
+        {
+            return Init<TKey, TValue>(valueFactory, (value) => { return true; }, comparer);
+        }
+
         public static Func<TKey, TValue> Init<TKey, TValue>(Func<TKey, TValue> valueFactory, Func<TValue, bool> filter)
         {
             return Init<TKey, TValue>(valueFactory, filter, EqualityComparer<TKey>.Default);
@@ -139,7 +144,7 @@ namespace CodeArt.Util
         }
 
 
-        public void Rmove(TKey key)
+        public void Remove(TKey key)
         {
             lock (_data)
             {

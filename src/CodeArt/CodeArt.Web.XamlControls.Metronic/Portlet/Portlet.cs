@@ -9,7 +9,7 @@ using CodeArt.Web.WebPages.Xaml.Script;
 using CodeArt.Web.WebPages.Xaml.Markup;
 using CodeArt.Web.WebPages.Xaml;
 using CodeArt.DTO;
-using CodeArt.ModuleNest;
+
 using CodeArt.Web.WebPages.Xaml.Controls;
 using CodeArt.Concurrent;
 
@@ -232,6 +232,11 @@ namespace CodeArt.Web.XamlControls.Metronic
         public override DependencyObject GetChild(string childName)
         {
             return base.GetChild(childName) ?? this.Tools.GetChild(childName) ?? this.Footer.GetChild(childName);
+        }
+
+        public override IEnumerable<UIElement> GetActionElement(string actionName)
+        {
+            return this.Combine(base.GetActionElement(actionName) , this.Tools.GetActionElement(actionName) , this.Footer.GetActionElement(actionName));
         }
 
         static Portlet()

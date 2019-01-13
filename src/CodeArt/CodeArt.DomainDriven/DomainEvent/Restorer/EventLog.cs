@@ -12,7 +12,7 @@ using CodeArt.AppSetting;
 namespace CodeArt.DomainDriven
 {
     [DebuggerDisplay("Status:{Status},EntryCount:{EntryCount}")]
-    [ObjectRepository(typeof(IEventLogRepository))]
+    [ObjectRepository(typeof(IEventLogRepository), CloseMultiTenancy = true)]
     public class EventLog : AggregateRoot<EventLog, Guid>
     {
         /// <summary>
@@ -21,6 +21,8 @@ namespace CodeArt.DomainDriven
         private static readonly DomainProperty LanguageProperty = DomainProperty.Register<string, EventLog>("Language");
 
         [PropertyRepository()]
+        [ASCIIString()]
+        [StringLength(Min = 0, Max = 50)]
         public string Language
         {
             get
@@ -33,10 +35,31 @@ namespace CodeArt.DomainDriven
             }
         }
 
+        /// <summary>
+        /// 触发该事件队列时系统使用的语言
+        /// </summary>
+        private static readonly DomainProperty TenantIdProperty = DomainProperty.Register<string, EventLog>("TenantId");
+
+        [PropertyRepository()]
+        [ASCIIString()]
+        [StringLength(Min = 0, Max = 50)]
+        public string TenantId
+        {
+            get
+            {
+                return GetValue<string>(TenantIdProperty);
+            }
+            private set
+            {
+                SetValue(TenantIdProperty, value);
+            }
+        }
+
         public new DTObject GetIdentity()
         {
-            var identity = DTObject.CreateReusable();
+            var identity = DTObject.Create();
             identity["language"] = this.Language;
+            identity["tenantId"] = this.TenantId;
             return identity;
         }
 
@@ -74,10 +97,11 @@ namespace CodeArt.DomainDriven
         }
 
         [ConstructorRepository()]
-        public EventLog(Guid id, string language)
+        public EventLog(Guid id, string language,string tenantId)
             : base(id)
         {
             this.Language = language;
+            this.TenantId = tenantId;
             this.OnConstructed();
         }
 
@@ -86,7 +110,7 @@ namespace CodeArt.DomainDriven
         private class EventLogEmpty : EventLog
         {
             public EventLogEmpty()
-                : base(Guid.Empty,string.Empty)
+                : base(Guid.Empty,string.Empty,string.Empty)
             {
                 this.OnConstructed();
             }
@@ -112,7 +136,7 @@ namespace CodeArt.DomainDriven
         {
             var logId = queue.Id;
             //写入日志
-            var content = DTObject.CreateReusable();
+            var content = DTObject.Create();
             content["entryId"] = entry.Id;
             EventLog.WriteAndFlush(logId, EventOperation.Raise, content);
         }
@@ -137,7 +161,7 @@ namespace CodeArt.DomainDriven
         /// <returns></returns>
         public static void Create(EventQueue queue)
         {
-            var log = new EventLog(queue.Id, queue.Language);
+            var log = new EventLog(queue.Id, queue.Language, queue.TenantId);
             var repository = Repository.Create<IEventLogRepository>();
             repository.Add(log);
 

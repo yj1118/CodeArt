@@ -9,19 +9,24 @@ using System.Text.RegularExpressions;
 
 using CodeArt.Util;
 using CodeArt.IO;
+using CodeArt.Concurrent;
 
 namespace CodeArt.Web.WebPages
 {
     /// <summary>
     /// 基于虚拟路径的代码预处理器
     /// </summary>
+    [SafeAccess]
     public class VirtualPathPreprocessor : ICodePreprocessor
     {
-        private VirtualPathPreprocessor() { }
+        protected VirtualPathPreprocessor() {
+            _getCode = LazyIndexer.Init<string, string>(LoadCode, (value) => { return value != null; });
+            _getSetting = LazyIndexer.Init<string, WebPageSetting>(LoadSetting);
+        }
 
         #region 获取原始代码
 
-        private static readonly Func<string, string> _getCode = LazyIndexer.Init<string, string>(LoadCode, (value) => { return value != null; });
+        private readonly Func<string, string> _getCode = null;
 
         public string ReadCode(string path)
         {
@@ -35,7 +40,7 @@ namespace CodeArt.Web.WebPages
         }
 
 
-        private static string LoadCode(string virtualPath)
+        private string LoadCode(string virtualPath)
         {
             string rawCode = LoadRawCode(virtualPath);
             if (rawCode == null) return null;
@@ -52,9 +57,10 @@ namespace CodeArt.Web.WebPages
         /// </summary>
         /// <param name="virtualPath"></param>
         /// <returns></returns>
-        private static string LoadRawCode(string virtualPath)
+        protected virtual string LoadRawCode(string virtualPath)
         {
-            string fileName = HostingEnvironment.MapPath(virtualPath);
+            var path = virtualPath.TrimStart('/').Replace("/", "\\");
+            string fileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, path);
             if (!File.Exists(fileName)) return null;
             string code = null;
             using (StreamReader stream = new StreamReader(fileName, Encoding.UTF8))
@@ -64,12 +70,13 @@ namespace CodeArt.Web.WebPages
             return code;
         }
 
+
         #endregion
 
         #region 读取页面配置
 
 
-        private static Func<string, WebPageSetting> _getSetting = LazyIndexer.Init<string, WebPageSetting>(LoadSetting);
+        private Func<string, WebPageSetting> _getSetting = null;
 
         public WebPageSetting ReadSetting(string path)
         {
@@ -87,7 +94,7 @@ namespace CodeArt.Web.WebPages
         /// </summary>
         /// <param name="handler"></param>
         /// <returns></returns>
-        private static StreamReader GetTextReader(string path)
+        private StreamReader GetTextReader(string path)
         {
             string rawCode = LoadRawCode(path);
             if (rawCode == null) return null;
@@ -97,7 +104,7 @@ namespace CodeArt.Web.WebPages
             return new StreamReader(ms);
         }
 
-        private static WebPageSetting LoadSetting(string path)
+        private WebPageSetting LoadSetting(string path)
         {
             WebPageSetting setting = new WebPageSetting();
             using (StreamReader reader = GetTextReader(path))

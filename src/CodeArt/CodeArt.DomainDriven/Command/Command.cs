@@ -7,7 +7,7 @@ using CodeArt.AppSetting;
 
 namespace CodeArt.DomainDriven
 {
-    public abstract class Command : CommandBase, ICommand
+    public abstract class Command : CommandBase, ICommandImp
     {
         public void Execute()
         {
@@ -20,7 +20,7 @@ namespace CodeArt.DomainDriven
         protected abstract void ExecuteProcedure();
     }
 
-    public abstract class Command<T> : CommandBase, ICommand<T>
+    public abstract class Command<T> : CommandBase, ICommanImp<T>
     {
         public T Execute()
         {

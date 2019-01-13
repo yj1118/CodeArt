@@ -35,12 +35,12 @@ namespace CodeArt.Web.WebPages.Xaml
             private set;
         }
 
-        public AssetFile GetFile(string path)
+        public AssetFile GetFile(string key)
         {
             if (this.Files == null) return null;
             foreach (var item in this.Files)
             {
-                if (item.Path == path) return item;
+                if (item.Key == key) return item;
             }
             return null;
         }

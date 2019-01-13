@@ -15,13 +15,27 @@ using System.Windows.Shapes;
 using System.Windows.Media.Animation;
 
 using CodeArt.WPF.UI;
+using System.Windows.Controls.Primitives;
 
 namespace CodeArt.WPF.Controls.Playstation
 {
     public class ScrollViewerPro : ScrollViewer
     {
+        public ScrollBar VerticalScrollBar
+        {
+            get;
+            private set;
+        }
+
+        public Thumb VerticalScrollThumb
+        {
+            get;
+            private set;
+        }
+
+
         /// <summary>
-        /// 输入框中的提示
+        /// 
         /// </summary>
         public static readonly DependencyProperty ScrollByMouseMoveProperty = DependencyProperty.Register("ScrollByMouseMove", typeof(bool), typeof(ScrollViewer), new PropertyMetadata(false));
 
@@ -83,11 +97,27 @@ namespace CodeArt.WPF.Controls.Playstation
             }
         }
 
+        /// <summary>
+        /// 滚动条底部的偏移量
+        /// </summary>
+        public double VerticalBottomOffset
+        {
+            get
+            {
+                return this.ExtentHeight - this.ViewportHeight - this.VerticalOffset;
+            }
+        }
+
+
         public ScrollContentPresenter content;
 
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
+            this.VerticalScrollBar = GetTemplateChild("PART_VerticalScrollBar") as ScrollBar;
+            this.MakeChildsLoaded(this.VerticalScrollBar);
+            this.VerticalScrollThumb = this.VerticalScrollBar.GetChilds<Thumb>().First();
+
             content = GetTemplateChild("PART_ScrollContentPresenter") as ScrollContentPresenter;
 
             if (this.ScrollByMouseMove)

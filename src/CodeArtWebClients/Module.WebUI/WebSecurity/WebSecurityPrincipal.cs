@@ -24,6 +24,9 @@ namespace Module.WebUI
         /// <returns></returns>
         public bool InRole(WebPageContext context, string[] roles)
         {
+            if (!Principal.IsLogin) return false;
+            if (roles.Length == 0) return true;
+
             foreach(var role in roles)
             {
                 if (Principal.InRole(role)) return true;
@@ -37,6 +40,6 @@ namespace Module.WebUI
         }
 
 
-        public static WebSecurityPrincipal Instance = new WebSecurityPrincipal();
+        public static readonly WebSecurityPrincipal Instance = new WebSecurityPrincipal();
     }
 }

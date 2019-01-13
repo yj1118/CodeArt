@@ -12,6 +12,7 @@ using CodeArt.Util;
 using CodeArt.IO;
 using CodeArt.AppSetting;
 using System.Linq.Expressions;
+using CodeArt.Concurrent;
 
 namespace CodeArt.DTO
 {
@@ -22,22 +23,15 @@ namespace CodeArt.DTO
 
         internal DTEObject _root;
 
-        internal DTObject()
+        internal DTObject(DTEObject root,bool isReadOnly)
         {
+            _root = root;
+            this.IsReadOnly = isReadOnly;
         }
 
         internal DTEObject GetRoot()
         {
             return _root;
-        }
-
-        /// <summary>
-        /// 清理数据，提供池使用
-        /// </summary>
-        internal void Clear()
-        {
-            _root.Reset();
-            this.IsReadOnly = false;
         }
 
         //internal DTObject(DTEObject root, bool isReadOnly)
@@ -65,7 +59,7 @@ namespace CodeArt.DTO
         public bool IsReadOnly
         {
             get;
-            internal set;
+            private set;
         }
 
         private void ValidateReadOnly()
@@ -107,13 +101,13 @@ namespace CodeArt.DTO
             }
             else
             {
-                return DTOPool.CreateDTEValue(name, value, this.IsPinned);
+                return new DTEValue(name, value);
             }
         }
 
         private DTEList CreateListEntity(string name, IEnumerable list)
         {
-            var dte = DTOPool.CreateDTEList(this.IsPinned);
+            var dte = new DTEList();
             dte.Name = name;
 
             foreach (var item in list)
@@ -188,7 +182,7 @@ namespace CodeArt.DTO
                 case DTEntityType.Object:
                     {
                         var eo = entity as DTEObject;
-                        if (eo != null) return DTOPool.CreateObject(eo, this.IsReadOnly, this.IsPinned);
+                        if (eo != null) return new DTObject(eo,this.IsReadOnly);
                     }
                     break;
                 case DTEntityType.List:
@@ -359,31 +353,34 @@ namespace CodeArt.DTO
         public IEnumerable<T> GetValues<T>(string findExp)
         {
             DTEntity[] entities = FindEntities(findExp, false);
-            List<T> values = new List<T>();
-            for (var i = 0; i < entities.Length; i++)
+            using (var temp = ListPool<T>.Borrow())
             {
-                var entity = entities[i];
-                var value = GetValue(entity);
-                switch (entity.Type)
+                List<T> values = temp.Item;
+                for (var i = 0; i < entities.Length; i++)
                 {
-                    case DTEntityType.Value:
-                        {
-                            values.Add(DataUtil.ToValue<T>(value));
-                        }
-                        break;
-                    case DTEntityType.Object:
-                        {
-                            values.Add((value as DTObject).GetValue<T>());
-                        }
-                        break;
-                    case DTEntityType.List:
-                        {
-                            values.AddRange((value as DTObjects).ToArray<T>());
-                        }
-                        break;
+                    var entity = entities[i];
+                    var value = GetValue(entity);
+                    switch (entity.Type)
+                    {
+                        case DTEntityType.Value:
+                            {
+                                values.Add(DataUtil.ToValue<T>(value));
+                            }
+                            break;
+                        case DTEntityType.Object:
+                            {
+                                values.Add((value as DTObject).GetValue<T>());
+                            }
+                            break;
+                        case DTEntityType.List:
+                            {
+                                values.AddRange((value as DTObjects).ToArray<T>());
+                            }
+                            break;
+                    }
                 }
+                return values.ToArray();
             }
-            return values.ToArray();
         }
 
         #endregion
@@ -516,8 +513,10 @@ namespace CodeArt.DTO
                 var query = QueryExpression.Create(findExp);
                 _root.SetEntity(query, (name) =>
                 {
-                    var dte = DTOPool.CreateDTEList(this.IsPinned);
-                    dte.Name = name;
+                    var dte = new DTEList()
+                    {
+                        Name = name
+                    };
                     return dte;
                 });
                 entity = FindEntity<DTEList>(findExp, true);
@@ -527,7 +526,7 @@ namespace CodeArt.DTO
             entity.Push(member);
         }
 
-        public void SetList(string findExp, IList<DTObject> items)
+        public void SetList(string findExp, IEnumerable<DTObject> items)
         {
             ValidateReadOnly();
 
@@ -552,7 +551,7 @@ namespace CodeArt.DTO
                 var query = QueryExpression.Create(findExp);
                 _root.SetEntity(query, (name) =>
                 {
-                    var dte = DTOPool.CreateDTEList(this.IsPinned);
+                    var dte = new DTEList();
                     dte.Name = name;
                     return dte;
                 });
@@ -575,7 +574,7 @@ namespace CodeArt.DTO
                 var query = QueryExpression.Create(findExp);
                 _root.SetEntity(query, (name) =>
                 {
-                    var dte = DTOPool.CreateDTEList(this.IsPinned);
+                    var dte = new DTEList();
                     dte.Name = name;
                     return dte;
                 });
@@ -589,6 +588,15 @@ namespace CodeArt.DTO
         {
             return this.CreateAndPush(string.Empty);
         }
+
+        public DTObject CreateAndInsert(string findExp, int index)
+        {
+            ValidateReadOnly();
+
+            DTEList entity = GetOrCreateList(findExp);
+            return entity.CreateAndInsert(index);
+        }
+
 
         public void Each(string findExp, Action<DTObject> action)
         {
@@ -623,6 +631,17 @@ namespace CodeArt.DTO
             if (entity != null)
             {
                 entity.RemoveAts(indexs);
+            }
+        }
+
+        public void Clear(string listExp)
+        {
+            ValidateReadOnly();
+
+            DTEList entity = FindEntity<DTEList>(listExp, false);
+            if (entity != null)
+            {
+                entity.ClearData();
             }
         }
 
@@ -717,7 +736,7 @@ namespace CodeArt.DTO
             var obj = GetObject(findExp, false);
             if(obj == null)
             {
-                obj = this.IsPinned ? DTObject.Create() : DTObject.CreateReusable();
+                obj = DTObject.Create();
                 this.SetObject(findExp, obj);
             }
             return obj;
@@ -732,14 +751,14 @@ namespace CodeArt.DTO
         {
             var entity = this.FindEntity<DTEObject>(findExp, false);
             if (entity == null) return defaultValue;
-            return DTOPool.CreateObject(entity, this.IsReadOnly, this.IsPinned);
+            return new DTObject(entity, this.IsReadOnly);
         }
 
         public DTObject GetObject(string findExp, bool throwError)
         {
             var entity = this.FindEntity<DTEObject>(findExp, throwError);
             if (entity == null) return null;
-            return DTOPool.CreateObject(entity, this.IsReadOnly, this.IsPinned);
+            return new DTObject(entity, this.IsReadOnly);
         }
 
         public bool TryGetObject(string findExp, out DTObject value)
@@ -765,7 +784,7 @@ namespace CodeArt.DTO
         public Dictionary<string, object> GetDictionary(string findExp, bool throwError)
         {
             var entities = this.FindEntities(findExp, throwError);
-            var dictionary = DTOPool.CreateDictionary(this.IsPinned);
+            var dictionary = new Dictionary<string, object>();
             foreach (var entity in entities)
             {
                 var key = entity.Name;
@@ -773,6 +792,32 @@ namespace CodeArt.DTO
                 dictionary.Add(key, value);
             }
             return dictionary;
+        }
+
+        public void EachDictionary(string findExp, Action<string, object> action)
+        {
+            var entities = this.FindEntities(findExp, false);
+
+            if(entities.Length == 1 && entities.First() is DTEObject)
+            {
+                var es = ((DTEObject)entities.First()).GetEntities();
+                foreach (var entity in es)
+                {
+                    var key = entity.Name;
+                    var value = CreateEntityValue(entity);
+                    action(key, value);
+                }
+            }
+            else
+            {
+                foreach (var entity in entities)
+                {
+                    var key = entity.Name;
+                    var value = CreateEntityValue(entity);
+                    action(key, value);
+                }
+            }
+
         }
 
 
@@ -820,7 +865,7 @@ namespace CodeArt.DTO
                 case DTEntityType.Object:
                     {
                         var temp = entity as DTEObject;
-                        if (temp != null) return DTOPool.CreateObject(temp, this.IsReadOnly, this.IsPinned);
+                        if (temp != null) return new DTObject(temp, this.IsReadOnly);
                     }
                     break;
                 case DTEntityType.List:
@@ -936,17 +981,20 @@ namespace CodeArt.DTO
         {
             var query = QueryExpression.Create(findExp);
 
-            List<DTEntity> list = DTOPool.CreateDTEntities(this.IsPinned);
-            var es = _root.FindEntities(query);
-            list.AddRange(es);
-
-            if (list.Count == 0)
+            using (var temp = ListPool<DTEntity>.Borrow())
             {
-                if (throwError)
-                    throw new NotFoundDTEntityException("没有找到" + findExp + "对应的DTO实体！");
+                var list = temp.Item;
+                var es = _root.FindEntities(query);
+                list.AddRange(es);
+
+                if (list.Count == 0)
+                {
+                    if (throwError)
+                        throw new NotFoundDTEntityException("没有找到" + findExp + "对应的DTO实体！");
+                    return list.ToArray();
+                }
                 return list.ToArray();
             }
-            return list.ToArray();
         }
 
         //internal T[] FindEntities<T>(string findExp, bool throwError) where T : DTEntity
@@ -1037,7 +1085,7 @@ namespace CodeArt.DTO
 
         public DTObject Clone()
         {
-            return DTOPool.CreateObject(_root.Clone() as DTEObject, this.IsReadOnly, this.IsPinned);
+            return new DTObject(_root.Clone() as DTEObject, this.IsReadOnly);
         }
 
         #endregion
@@ -1079,15 +1127,6 @@ namespace CodeArt.DTO
             }
         }
 
-        /// <summary>
-        /// 是否为固定的
-        /// </summary>
-        public bool IsPinned
-        {
-            get;
-            internal set;
-        }
-
         #region 可重复使用的dto创建方法
 
         /// <summary>
@@ -1097,51 +1136,22 @@ namespace CodeArt.DTO
         /// <param name="isReadOnly"></param>
         /// <param name="isPinned"></param>
         /// <returns></returns>
-        private static DTObject CreateComplete(string code, bool isReadOnly, bool isPinned)
+        private static DTObject CreateComplete(string code, bool isReadOnly)
         {
-            var root = EntityDeserializer.Deserialize(code, isReadOnly, isPinned);
-            return DTOPool.CreateObject(root, isReadOnly, isPinned);
+            var root = EntityDeserializer.Deserialize(code, isReadOnly);
+            return new DTObject(root, isReadOnly);
         }
 
-        /// <summary>
-        /// 创建非只读的可重复使用的dto对象，该对象的使用周期与共生器同步
-        /// </summary>
-        /// <param name="code"></param>
-        /// <returns></returns>
-        public static DTObject CreateReusable(string code)
-        {
-            return CreateComplete(code, false, false);
-        }
-
-        /// <summary>
-        /// 创建可重复使用的dto对象，该对象的使用周期与共生器同步
-        /// </summary>
-        /// <param name="code"></param>
-        /// <param name="isReadOnly"></param>
-        /// <returns></returns>
-        public static DTObject CreateReusable(string code, bool isReadOnly)
-        {
-            return CreateComplete(code, isReadOnly, false);
-        }
-
-        /// <summary>
-        /// 创建非只读的可重复使用的dto对象，该对象的使用周期与共生器同步
-        /// </summary>
-        /// <returns></returns>
-        public static DTObject CreateReusable()
-        {
-            return CreateComplete("{}", false, false);
-        }
 
         /// <summary>
         /// 创建非只读的可重复使用的dto对象，该对象的使用周期与共生器同步
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public static DTObject CreateReusable(byte[] data)
+        public static DTObject Create(byte[] data)
         {
             var code = data.GetString(Encoding.UTF8);
-            return CreateReusable(code);
+            return Create(code);
         }
 
         /// <summary>
@@ -1150,9 +1160,9 @@ namespace CodeArt.DTO
         /// <param name="schemaCode"></param>
         /// <param name="target"></param>
         /// <returns></returns>
-        public static DTObject CreateReusable(string schemaCode, object target)
+        public static DTObject Create(string schemaCode, object target)
         {
-            return DTObjectMapper.Instance.Load(schemaCode, target, false);
+            return DTObjectMapper.Instance.Load(schemaCode, target);
         }
 
         #endregion
@@ -1167,7 +1177,7 @@ namespace CodeArt.DTO
         /// <returns></returns>
         public static DTObject Create(string code)
         {
-            return CreateComplete(code, false, true);
+            return CreateComplete(code, false);
         }
 
         /// <summary>
@@ -1178,7 +1188,7 @@ namespace CodeArt.DTO
         /// <returns></returns>
         public static DTObject Create(string code, bool isReadOnly)
         {
-            return CreateComplete(code, isReadOnly, true);
+            return CreateComplete(code, isReadOnly);
         }
 
         /// <summary>
@@ -1187,41 +1197,10 @@ namespace CodeArt.DTO
         /// <returns></returns>
         public static DTObject Create()
         {
-            return CreateComplete("{}", false, true);
-        }
-
-        /// <summary>
-        /// 创建非只读的、不会被共生器回收的dto对象
-        /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
-        public static DTObject Create(byte[] data)
-        {
-            var code = data.GetString(Encoding.UTF8);
-            return Create(code);
-        }
-
-        /// <summary>
-        /// 根据架构代码将对象的信息加载到dto中，该对象不会被共生器回收
-        /// </summary>
-        /// <param name="schemaCode"></param>
-        /// <param name="target"></param>
-        /// <returns></returns>
-        public static DTObject Create(string schemaCode, object target)
-        {
-            return DTObjectMapper.Instance.Load(schemaCode, target, true);
+            return CreateComplete("{}", false);
         }
 
         #endregion
-
-        /// <summary>
-        /// 得到对象的不会被共生回收的版本
-        /// </summary>
-        /// <returns></returns>
-        public DTObject ToPinned()
-        {
-            return this.IsPinned ? this : DTObject.Create(this.GetCode(), this.IsReadOnly);
-        }
 
         #region 检测架构代码包含
 
@@ -1278,7 +1257,6 @@ namespace CodeArt.DTO
             return true;
         }
         #endregion
-
 
         #region 对象映射
 
@@ -1454,9 +1432,9 @@ namespace CodeArt.DTO
         /// <param name="obj"></param>
         /// <param name="isPinned">对象生命周期是否依赖于共生器，true:不依赖 ，false:依赖</param>
         /// <returns></returns>
-        public static DTObject Serialize(object obj, bool isPinned)
+        public static DTObject Serialize(object obj)
         {
-            return DTObjectSerializer.Instance.Serialize(obj, isPinned);
+            return DTObjectSerializer.Instance.Serialize(obj);
         }
 
         #endregion

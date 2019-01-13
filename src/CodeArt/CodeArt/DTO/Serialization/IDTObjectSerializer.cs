@@ -14,7 +14,7 @@ namespace CodeArt.DTO
         /// </summary>
         /// <param name="instance"></param>
         /// <returns></returns>
-        DTObject Serialize(object instance, bool isPinned);
+        DTObject Serialize(object instance);
     }
 }
 

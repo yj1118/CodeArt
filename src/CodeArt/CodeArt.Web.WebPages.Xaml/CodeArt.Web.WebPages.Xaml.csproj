@@ -34,8 +34,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="HtmlAgilityPack, Version=1.8.4.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
-      <HintPath>..\packages\HtmlAgilityPack.1.8.4\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    <Reference Include="HtmlAgilityPack, Version=1.8.5.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.8.5\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -63,14 +63,16 @@
     <Compile Include="Asset\LinkCode.cs" />
     <Compile Include="Asset\Mapper\AssetMapper.cs" />
     <Compile Include="Asset\Mapper\IAssetMapper.cs" />
+    <Compile Include="Asset\DynamicCode.cs" />
     <Compile Include="Asset\RawCode.cs" />
     <Compile Include="Asset\RawCodeLoader.cs" />
-    <Compile Include="Asset\ScriptCode.cs" />
     <Compile Include="Asset\StyleCode.cs" />
+    <Compile Include="Asset\ScriptCode.cs" />
     <Compile Include="Controls\Comment\Comment.cs" />
     <Compile Include="Controls\Comment\CommentLoader.cs" />
     <Compile Include="Controls\ContentControl.cs" />
     <Compile Include="Controls\AttributesPresenter.cs" />
+    <Compile Include="Controls\CollectionPresenter.cs" />
     <Compile Include="Controls\ContentPresenter.cs" />
     <Compile Include="Controls\Control.cs" />
     <Compile Include="Controls\HtmlElement\HtmlElement.cs" />
@@ -209,28 +211,30 @@
     <Compile Include="Script\ScriptViewSession.cs" />
     <Compile Include="Script\ViewEvent.cs" />
     <Compile Include="Script\ViewEventProcessor.cs" />
-    <Compile Include="Sealed\InternalElements.cs" />
-    <Compile Include="Sealed\SealedControl\SealedControl.cs" />
-    <Compile Include="Sealed\SealedControl\SealedControlLoader.cs" />
-    <Compile Include="Sealed\SealedPainter.cs" />
     <Compile Include="Strings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Strings.resx</DependentUpon>
     </Compile>
     <Compile Include="UIElement\IUIElement.cs" />
+    <Compile Include="UIElement\ScriptActionChannel.cs" />
     <Compile Include="UIElement\ScriptActionEventHandler.cs" />
     <Compile Include="UIElement\UIElement.cs" />
     <Compile Include="UIElement\UIElementCollection.cs" />
     <Compile Include="UIElement\UIUtil.cs" />
     <Compile Include="UIElement\VisibilityConverter.cs" />
     <Compile Include="UIElement\Visibility.cs" />
+    <Compile Include="Util\PrependValueConverter.cs" />
     <Compile Include="Util\BackgroundImageConverter.cs" />
     <Compile Include="Util\AppendClassConverter.cs" />
     <Compile Include="Util\BoolCollapsedConverter.cs" />
     <Compile Include="Util\ListCountCollapsedConverter.cs" />
     <Compile Include="Util\StringCollapsedConverter.cs" />
     <Compile Include="XamlException.cs" />
+    <Compile Include="XamlPage\AccessContext\AccessContext.cs" />
+    <Compile Include="XamlPage\AccessContext\AccessContextFactory.cs" />
+    <Compile Include="XamlPage\AccessContext\WebContext.cs" />
+    <Compile Include="XamlPage\AccessContext\IAccessContext.cs" />
     <Compile Include="XamlPage\PageBrush\DrawOrigin.cs" />
     <Compile Include="XamlPage\PageBrush\DrawOriginTypeConverter.cs" />
     <Compile Include="XamlPage\PageBrush\PageBrush.cs" />
@@ -246,6 +250,9 @@
     <Compile Include="XamlPage\XamlPageComponent\XPCBuildProvider.cs" />
     <Compile Include="XamlPage\XamlPageComponent\XPCCoder.cs" />
     <Compile Include="XamlPage\XamlPageComponent\XPCFactory.cs" />
+    <Compile Include="XamlPage\XamlPageComponent\XPCAssemblyLocator\VirtualPathXPCALoader.cs" />
+    <Compile Include="XamlPage\XamlPageComponent\XPCAssemblyLocator\XPCAssemblyLoader.cs" />
+    <Compile Include="XamlPage\XamlPageComponent\XPCAssemblyLocator\IXPCAssemblyLoader.cs" />
     <Compile Include="XamlPage\XamlPageLocator.cs" />
     <Compile Include="XamlStyle\ISetter.cs" />
     <Compile Include="XamlStyle\IStyle.cs" />

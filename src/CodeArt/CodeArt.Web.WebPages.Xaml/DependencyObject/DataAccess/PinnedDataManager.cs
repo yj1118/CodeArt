@@ -54,7 +54,7 @@ namespace CodeArt.Web.WebPages.Xaml
         {
             get
             {
-                return _getManager(WebPageContext.Current.VirtualPath);
+                return _getManager(AccessContext.Current.VirtualPath);
             }
         }
 

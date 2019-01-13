@@ -9,7 +9,6 @@ using CodeArt.Web.WebPages.Xaml;
 using CodeArt.Web.WebPages.Xaml.Controls;
 using CodeArt.DTO;
 using CodeArt.Data;
-using CodeArt.ModuleNest;
 using CodeArt.Concurrent;
 using CodeArt.Web.WebPages.Xaml.Script;
 using CodeArt.Util;
@@ -192,5 +191,11 @@ namespace CodeArt.Web.XamlControls.Metronic
         {
             return base.GetChild(childName) ?? this.Columns.GetChild(childName);
         }
+
+        public override IEnumerable<UIElement> GetActionElement(string actionName)
+        {
+            return this.Combine(base.GetActionElement(actionName) , this.Columns.GetActionElement(actionName));
+        }
+
     }
 }

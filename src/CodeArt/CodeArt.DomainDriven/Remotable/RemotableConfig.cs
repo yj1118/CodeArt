@@ -13,9 +13,6 @@ namespace CodeArt.DomainDriven
 {
     public class RemotableConfig
     {
-
-
-
         internal void LoadFrom(XmlNode root)
         {
 

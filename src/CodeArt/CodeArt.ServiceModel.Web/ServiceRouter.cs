@@ -69,7 +69,7 @@ namespace CodeArt.ServiceModel
 
 
             //根据请求端身份，获取服务地址表
-            DTObject arg = DTObject.CreateReusable();
+            DTObject arg = DTObject.Create();
             arg.SetValue("namespace", serviceNamespace); //提交服务的命名空间
             var request = new ServiceRequest("getServiceAddressTable", identity, arg);
             var response = WebServiceProxy.Instance.Invoke(request, routerAddress);

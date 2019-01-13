@@ -39,7 +39,7 @@ namespace RPCConcurrentClient
                     {
                         arg.Index = index;
                     });
-                    Console.WriteLine(string.Format("第{0}次请求结束，返回值{1}", index, result.Dynamic.Index));
+                    Console.WriteLine(string.Format("第{0}次请求结束，返回值{1}", index, result.Info.Dynamic.Index));
                 });
                 Console.WriteLine("请求结束");
             }

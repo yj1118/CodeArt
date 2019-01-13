@@ -12,6 +12,15 @@ namespace CodeArt.DomainDriven
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false)]
     public class PropertyActionAttribute : Attribute
     {
+        /// <summary>
+        /// 从仓储中加载对象时，忽略该属性行为
+        /// </summary>
+        public bool IgnoreWithRepository
+        {
+            get;
+            set;
+        }
+
         public Type ObjectOrExtensionType
         {
             get;
@@ -26,6 +35,7 @@ namespace CodeArt.DomainDriven
 
         public PropertyActionAttribute(string methodName)
         {
+            this.IgnoreWithRepository = true;
             this.MethodName = methodName;
         }
 

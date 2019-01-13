@@ -18,7 +18,7 @@ namespace CodeArt.DomainDriven
         private static ConcurrentDictionary<Guid, TimeoutMonitor> _monitors = new ConcurrentDictionary<Guid, TimeoutMonitor>();
         private static PoolWrapper<TimeoutMonitor> _pool = new PoolWrapper<TimeoutMonitor>(() =>
         {
-            return new TimeoutMonitor(TimeoutProcess,null);
+            return new TimeoutMonitor(TimeoutProcess);
         }, (monitor, phase) =>
         {
             if (phase == PoolItemPhase.Returning)
@@ -39,10 +39,9 @@ namespace CodeArt.DomainDriven
         }
 
 
-
-
-        private static void TimeoutProcess(object state)
+        private static void TimeoutProcess(TimeoutMonitor monitor)
         {
+            var state = monitor.State;
             var key = (EventKey)state;
             EventListener.Timeout(key);//处理超时
         }
@@ -62,13 +61,15 @@ namespace CodeArt.DomainDriven
         /// 结束等待
         /// </summary>
         /// <param name="eventId"></param>
-        public static void End(EventKey key)
+        public static bool End(EventKey key)
         {
             if (_monitors.TryRemove(key.EventId, out var monitor))
             {
                 monitor.TryComplete();
                 _pool.Return(monitor);
+                return true;
             }
+            return false;
         }
 
     }

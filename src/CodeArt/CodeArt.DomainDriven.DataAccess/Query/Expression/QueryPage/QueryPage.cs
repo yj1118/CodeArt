@@ -69,7 +69,7 @@ namespace CodeArt.DomainDriven.DataAccess
             var sql = new SQLServer.SqlPageTemplate();
             sql.Select("*");
             sql.From(this.GetObjectSql());//不需要where，因为GetObjectSql内部已经处理了
-            sql.OrderBy(this.Definition.Order);
+            sql.OrderBy(this.Definition);
             return sql;
         }
 

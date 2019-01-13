@@ -8,7 +8,7 @@ using CodeArt.Web.WebPages.Xaml.Markup;
 using CodeArt.Web.WebPages.Xaml;
 using CodeArt.Web.WebPages.Xaml.Controls;
 using CodeArt.DTO;
-using CodeArt.ModuleNest;
+
 
 namespace CodeArt.Web.XamlControls.Metronic
 {
@@ -28,6 +28,41 @@ namespace CodeArt.Web.XamlControls.Metronic
             }
         }
 
+
+        public static readonly DependencyProperty DetailProperty = DependencyProperty.Register<bool, DataTableColumn>("Detail", () => { return false; });
+
+        /// <summary>
+        /// 该列是否为显示详细的列
+        /// </summary>
+        public bool Detail
+        {
+            get
+            {
+                return (bool)GetValue(DetailProperty);
+            }
+            set
+            {
+                SetValue(DetailProperty, value);
+            }
+        }
+
+        public static readonly DependencyProperty ActionProperty = DependencyProperty.Register<string, DataTableColumn>("Action", () => { return null; });
+
+        public string Action
+        {
+            get
+            {
+                return (string)GetValue(ActionProperty);
+            }
+            set
+            {
+                SetValue(ActionProperty, value);
+            }
+        }
+
+
+
+
         public static readonly DependencyProperty SelectorProperty = DependencyProperty.Register<bool, DataTableColumn>("Selector", () => { return false; });
 
         public bool Selector
@@ -41,6 +76,7 @@ namespace CodeArt.Web.XamlControls.Metronic
                 SetValue(SelectorProperty, value);
             }
         }
+
 
         public static readonly DependencyProperty TitleProperty = DependencyProperty.Register<string, DataTableColumn>("Title", () => { return string.Empty; });
 
@@ -154,6 +190,23 @@ namespace CodeArt.Web.XamlControls.Metronic
             set
             {
                 SetValue(GetTemplateProperty, value);
+            }
+        }
+
+        /// <summary>
+        /// 指示该列是否作为值提交
+        /// </summary>
+        public static readonly DependencyProperty ValueFieldProperty = DependencyProperty.Register<bool, DataTableColumn>("ValueField", () => { return false; });
+
+        public bool ValueField
+        {
+            get
+            {
+                return (bool)GetValue(ValueFieldProperty);
+            }
+            set
+            {
+                SetValue(ValueFieldProperty, value);
             }
         }
 

@@ -37,6 +37,8 @@ namespace CodeArt.DTO
 
         void Write(string name, Guid? value);
 
+        void Write(string name, float? value);
+
         void WriteElement<T>(string name, bool elementIsPrimitive, T telement);
 
         void Write(string name, object value);

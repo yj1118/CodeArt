@@ -12,21 +12,26 @@ namespace CodeArt.Web.WebPages
 {
     public static class PageUtil
     {
-        private static string ActualGetRawCode(string virtualPath)
+        public static ICodePreprocessor GetCodePreprocessor()
         {
-            string rawCode = null;
+            ICodePreprocessor reader = null;
             var config = WebPagesConfiguration.Global.PageConfig;
             if (config == null || config.CodePreprocessor == null)
-                rawCode = VirtualPathPreprocessor.Instance.ReadCode(virtualPath);
+            {
+                reader = CodePreprocessorFactory.Create();
+            }
             else
             {
-                var reader = config.CodePreprocessor.GetInstance<ICodePreprocessor>();
+                reader = config.CodePreprocessor.GetInstance<ICodePreprocessor>();
                 if (reader == null) throw new WebException("ICodePreprocessor 定义错误!");
-                rawCode = reader.ReadCode(virtualPath);
             }
-            if (rawCode == null) rawCode = string.Empty;
-            //throw new FileNotFoundException("文件" + virtualPath + "不存在 或 不是文本文件");
-            return rawCode;
+            return reader;
+        }
+
+        private static string ActualGetRawCode(string virtualPath)
+        {
+            var reader = GetCodePreprocessor();
+            return reader.ReadCode(virtualPath);
         }
 
         private static Func<string, string> _getRawCode = LazyIndexer.Init<string, string>((virtualPath) =>

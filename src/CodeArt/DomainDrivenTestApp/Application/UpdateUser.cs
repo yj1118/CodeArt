@@ -15,7 +15,7 @@ namespace DomainDrivenTestApp
     [Service("UpdateUser")]
     public sealed class UpdateUser : ServiceProvider
     {
-        protected override DTObject DynamicInvoke(dynamic arg)
+        protected override DTObject InvokeDynamic(dynamic arg)
         {
             var cmd = new DomainModel.UpdateUser(arg.Id);
             cmd.Name = arg.Name;

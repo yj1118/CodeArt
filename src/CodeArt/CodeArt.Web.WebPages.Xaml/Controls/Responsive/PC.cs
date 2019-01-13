@@ -12,13 +12,13 @@ namespace CodeArt.Web.WebPages.Xaml.Controls
     {
         public override void OnLoad()
         {
-            if (WebPageContext.Current.IsMobileDevice) return;
+            if (AccessContext.Current.IsMobileDevice) return;
             base.OnLoad();
         }
 
         protected override void Draw(PageBrush brush)
         {
-            if (WebPageContext.Current.IsMobileDevice) return;
+            if (AccessContext.Current.IsMobileDevice) return;
             base.Draw(brush);
         }
     }

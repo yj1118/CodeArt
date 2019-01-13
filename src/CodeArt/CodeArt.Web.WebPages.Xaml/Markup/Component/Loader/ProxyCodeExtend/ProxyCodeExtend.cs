@@ -60,7 +60,7 @@ namespace CodeArt.Web.WebPages.Xaml.Markup
             string view = string.Empty;
             string name = string.Empty;
 
-            //invoke:{component:'xxx',events:[{client:'click',server:'save',view:''}]}
+            //invoke:{events:[{client:'click',server:'save'}]}
             StringBuilder invokeCode = null;
             foreach (var define in eventDefines)  //client="server" 客户端事件对应的执行服务器端的处理程序名称
             {
@@ -79,16 +79,11 @@ namespace CodeArt.Web.WebPages.Xaml.Markup
                 {
                     if (invokeCode == null)
                     {
-                        view = objNode.GetAttributeValue("view", string.Empty);
-                        name = objNode.GetAttributeValue("name", string.Empty);
-                        if (string.IsNullOrEmpty(name)) throw new XamlException("由于指定了远程脚本方法，组件必须指定Name");
-
                         invokeCode = new StringBuilder();
-                        invokeCode.Append("invoke:{");
-                        invokeCode.AppendFormat("component:'{0}',events:[", name);
+                        invokeCode.Append("invoke:{events:[");
                     }
                     invokeCode.Append("{");
-                    invokeCode.AppendFormat("client:'{0}',server:'{1}',view:'{2}',option:{3}", define.ClientName, server, TidyView(view), option);
+                    invokeCode.AppendFormat("client:'{0}',server:'{1}',option:{2}", define.ClientName, server, option);
                     invokeCode.Append("},");
 
                     RemoveAttribute(e, objNode, define.OriginalName);
@@ -104,6 +99,58 @@ namespace CodeArt.Web.WebPages.Xaml.Markup
             }
             return null;
         }
+
+
+        //private static string GetScriptEventCode(UIElement e, HtmlNode objNode, ScriptEventDefine[] eventDefines)
+        //{
+        //    string view = string.Empty;
+        //    string name = string.Empty;
+
+        //    //invoke:{component:'xxx',events:[{client:'click',server:'save',view:''}]}
+        //    StringBuilder invokeCode = null;
+        //    foreach (var define in eventDefines)  //client="server" 客户端事件对应的执行服务器端的处理程序名称
+        //    {
+        //        var server = objNode.GetAttributeValue(define.OriginalName, string.Empty); //获得定义的服务器端处理程序名称
+        //        const string defaultOption = "{}";
+        //        var option = defaultOption;
+        //        var dotPos = server.IndexOf(',');
+        //        if (dotPos > -1)
+        //        {
+        //            var temp = server;
+        //            server = temp.Substring(0, dotPos);
+        //            option = temp.Substring(dotPos + 1);
+        //        }
+
+        //        if (!string.IsNullOrEmpty(server))
+        //        {
+        //            if (invokeCode == null)
+        //            {
+        //                view = objNode.GetAttributeValue("view", string.Empty);
+        //                name = objNode.GetAttributeValue("name", string.Empty);
+
+        //                if (string.IsNullOrEmpty(name)) throw new XamlException("由于指定了远程脚本方法，组件必须指定Name");
+
+        //                invokeCode = new StringBuilder();
+        //                invokeCode.Append("invoke:{");
+        //                invokeCode.AppendFormat("component:'{0}',events:[", name);
+        //            }
+        //            invokeCode.Append("{");
+        //            invokeCode.AppendFormat("client:'{0}',server:'{1}',view:'{2}',option:{3}", define.ClientName, server, TidyView(view), option);
+        //            invokeCode.Append("},");
+
+        //            RemoveAttribute(e, objNode, define.OriginalName);
+        //        }
+        //    }
+
+        //    if (invokeCode != null)
+        //    {
+        //        invokeCode.Length--;
+        //        invokeCode.Append("]}");
+
+        //        return invokeCode.ToString();
+        //    }
+        //    return null;
+        //}
 
         /// <summary>
         /// 获取脚本事件的扩展代代码

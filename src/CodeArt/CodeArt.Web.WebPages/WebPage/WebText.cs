@@ -12,6 +12,7 @@ using System.IO;
 using CodeArt.Util;
 using CodeArt.Runtime;
 using CodeArt.AOP;
+using CodeArt.DTO;
 
 namespace CodeArt.Web.WebPages
 {
@@ -76,7 +77,7 @@ namespace CodeArt.Web.WebPages
         protected override void ProcessPOST()
         {
             var extractor = GetParameterExtractor();
-            object[] args = extractor.ParseArguments(this.PageContext);//提取方法参数
+            var args = extractor.ParseArguments(this.PageContext);//提取方法参数
 
             var result = CallWebMethod(args);
 
@@ -87,7 +88,7 @@ namespace CodeArt.Web.WebPages
             }
         }
 
-        protected abstract object CallWebMethod(object[] args);
+        protected abstract string CallWebMethod(DTObject args);
 
 
         protected virtual IParameterExtractor GetParameterExtractor()

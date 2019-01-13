@@ -17,7 +17,7 @@ using CodeArt.Web.WebPages.Xaml.Markup;
 
 namespace CodeArt.Web.WebPages.Xaml
 {
-    internal sealed class XPCCoder
+    public sealed class XPCCoder
     {
         #region 路径
 
@@ -36,6 +36,12 @@ namespace CodeArt.Web.WebPages.Xaml
             private set;
         }
 
+        public string VirtualGIPath
+        {
+            get;
+            private set;
+        }
+
         /// <summary>
         /// g文件
         /// </summary>
@@ -45,10 +51,22 @@ namespace CodeArt.Web.WebPages.Xaml
             private set;
         }
 
+        public string VirtualGPath
+        {
+            get;
+            private set;
+        }
+
         /// <summary>
         /// 用户代码文件
         /// </summary>
         public string UserPath
+        {
+            get;
+            private set;
+        }
+
+        public string VirtualUserPath
         {
             get;
             private set;
@@ -69,6 +87,16 @@ namespace CodeArt.Web.WebPages.Xaml
             path = string.Format("{0}.{1}cs", path, suffix);
 
             return !string.IsNullOrEmpty(suffix) ? Path.Combine(App_CodePath, "g", path) : Path.Combine(App_CodePath, path);
+        }
+
+        private static string GetVirtualPath(string virtualPath, string suffix)
+        {
+            var path = virtualPath;
+            int pos = path.LastIndexOf(".");
+            if (pos > 0) path = path.Substring(0, pos);
+            path = string.Format("{0}.{1}cs", path, suffix);
+
+            return !string.IsNullOrEmpty(suffix) ? string.Format("/App_Code/g{0}", path) : string.Format("/App_Code{0}", path);
         }
 
         public static string App_CodePath
@@ -124,6 +152,11 @@ namespace CodeArt.Web.WebPages.Xaml
             this.GIPath = GetFileName(this.VirtualPath, "g.i.");
             this.GPath = GetFileName(this.VirtualPath, "g.");
             this.UserPath = GetFileName(this.VirtualPath, null);
+
+            this.VirtualGIPath = GetVirtualPath(this.VirtualPath, "g.i.");
+            this.VirtualGPath = GetVirtualPath(this.VirtualPath, "g.");
+            this.VirtualUserPath = GetVirtualPath(this.VirtualPath, null);
+
             this.PageCode = PageUtil.GetRawCode(virtualPath);
             InitCode();
         }
@@ -237,7 +270,21 @@ namespace CodeArt.Web.WebPages.Xaml
             code.AppendFormat("    public partial class {0} : {1}", className,baseComponentType.Name);
             code.AppendLine();
             code.AppendLine("    {");
+
+            //以下算法是，如果定义了多个同名称的组件，只取第一个
+            List<ConnectedObject> objsCopy = new List<ConnectedObject>();
             foreach(var obj in objs)
+            {
+                if(!objsCopy.Exists((t)=>
+                {
+                    return t.Name.EqualsIgnoreCase(obj.Name);
+                }))
+                {
+                    objsCopy.Add(obj);
+                }
+            }
+
+            foreach (var obj in objsCopy)
             {
                 code.AppendFormat("        private {0} {1};", obj.Type.FullName, obj.Name);
                 code.AppendLine();
@@ -285,7 +332,20 @@ namespace CodeArt.Web.WebPages.Xaml
             code.AppendLine("            switch (connectionName)");
             code.AppendLine("            {");
 
+            //以下算法是，如果定义了多个同名称的组件，只取第一个
+            List<ConnectedObject> objsCopy = new List<ConnectedObject>();
             foreach (var obj in objs)
+            {
+                if (!objsCopy.Exists((t) =>
+                {
+                    return t.Name.EqualsIgnoreCase(obj.Name);
+                }))
+                {
+                    objsCopy.Add(obj);
+                }
+            }
+
+            foreach (var obj in objsCopy)
             {
                 code.AppendFormat("                case \"{0}\":", obj.Name);
                 code.AppendLine();
@@ -303,7 +363,7 @@ namespace CodeArt.Web.WebPages.Xaml
             code.AppendLine("            switch (connectionName)");
             code.AppendLine("            {");
 
-            foreach (var obj in objs)
+            foreach (var obj in objsCopy)
             {
                 code.AppendFormat("                case \"{0}\":", obj.Name);
                 code.AppendLine();

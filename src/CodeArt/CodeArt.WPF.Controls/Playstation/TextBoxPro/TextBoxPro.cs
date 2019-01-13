@@ -161,6 +161,8 @@ namespace CodeArt.WPF.Controls.Playstation
             {
                 be.UpdateSource();
             }
+
+            RaiseValueChanged(sender, new InputValueChangedEventArgs(this.Text));
         }
 
         public override void Write(DTObject data)

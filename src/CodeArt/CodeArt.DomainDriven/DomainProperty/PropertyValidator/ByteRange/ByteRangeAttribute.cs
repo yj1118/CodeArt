@@ -42,6 +42,7 @@ namespace CodeArt.DomainDriven
             this.Min = min;
             this.Max = max;
         }
+
         public override IPropertyValidator CreateValidator()
         {
             return new ByteRangeValidator(this.Min, this.Max);

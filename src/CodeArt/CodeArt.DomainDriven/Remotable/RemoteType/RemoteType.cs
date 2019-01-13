@@ -110,10 +110,11 @@ namespace CodeArt.DomainDriven
         public static void Initialize()
         {
             _types = new List<RemoteType>();
-            var tips = AssemblyUtil.GetTypesByAttribute<RemoteTypeAttribute>();
-            foreach (var tip in tips)
+            var defineTypes = AssemblyUtil.GetTypesByAttribute<RemoteTypeAttribute>();
+            foreach (var defineType in defineTypes)
             {
-                var obj = (TypeDefine)TypeDefine.Initialize(tip);
+                if (TypeDefine.IsIgnore(defineType)) continue;
+                var obj = (TypeDefine)TypeDefine.Initialize(defineType);
                 var remoteType = obj.RemoteType;
                 _types.Add(remoteType);
             }

@@ -27,12 +27,12 @@ namespace CodeArt.Web.WebPages.Xaml
             coder.Generate();//生成代码
             if (!IsIgnore(coder))
             {
-                if (WriteCode(coder) || !XPCAssembly.Exists(coder))
+                if (WriteCode(coder) || !XPCAssembly.Exists(virtualPath))
                 {
                     try
                     {
                         //重新生成程序集
-                        XPCAssembly.Compile(coder);
+                        XPCAssembly.Compile(virtualPath);
                     }
                     catch (Exception ex)
                     {

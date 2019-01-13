@@ -11,7 +11,7 @@ var SnippetLogin = function() {
 
         form.find('.alert').remove();
         alert.prependTo(form);
-        alert.animateClass('fadeIn animated');
+        mUtil.animateClass(alert[0], 'flipInX animated');
         alert.find('span').html(msg);
     }
 
@@ -22,7 +22,7 @@ var SnippetLogin = function() {
         login.removeClass('m-login--signin');
 
         login.addClass('m-login--signup');
-        login.find('.m-login__signup').animateClass('flipInX animated');
+        mUtil.animateClass(login.find('.m-login__signup')[0], 'flipInX animated');
     }
 
     var displaySignInForm = function() {
@@ -30,7 +30,7 @@ var SnippetLogin = function() {
         login.removeClass('m-login--signup');
 
         login.addClass('m-login--signin');
-        login.find('.m-login__signin').animateClass('flipInX animated');
+        mUtil.animateClass(login.find('.m-login__signin')[0], 'flipInX animated');
     }
 
     var displayForgetPasswordForm = function() {
@@ -38,7 +38,7 @@ var SnippetLogin = function() {
         login.removeClass('m-login--signup');
 
         login.addClass('m-login--forget-password');
-        login.find('.m-login__forget-password').animateClass('flipInX animated');
+        mUtil.animateClass(login.find('.m-login__forget-password')[0], 'flipInX animated');
     }
 
     var handleFormSwitch = function() {

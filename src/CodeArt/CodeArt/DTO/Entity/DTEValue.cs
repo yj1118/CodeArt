@@ -42,21 +42,10 @@ namespace CodeArt.DTO
         }
 
 
-        public DTEValue()
+        public DTEValue(string name,object value)
         {
-        }
-
-        public void Init(bool isPinned)
-        {
-            this.IsPinned = isPinned;
-        }
-
-
-        public override void Reset()
-        {
-            this.Name = null;
-            this.Value = null;
-            base.Reset();
+            this.Name = name;
+            this.Value = value;
         }
 
         #region 数据
@@ -67,7 +56,7 @@ namespace CodeArt.DTO
         /// <returns></returns>
         public override DTEntity Clone()
         {
-            return DTOPool.CreateDTEValue(this.Name, Clone(this.Value), this.IsPinned);
+            return new DTEValue(this.Name, Clone(this.Value));
         }
 
         private object Clone(object value)

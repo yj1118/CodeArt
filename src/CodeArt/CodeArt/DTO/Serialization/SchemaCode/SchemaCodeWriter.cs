@@ -53,7 +53,7 @@ namespace CodeArt.DTO
                 else
                 {
                     string schemaCode = _schemaCodes.GetSchemaCode(name, () => typeof(T));
-                    var elementDTO = DTObjectMapper.Instance.Load(schemaCode, element, _dto.IsPinned);
+                    var elementDTO = DTObjectMapper.Instance.Load(schemaCode, element);
                     _dto.Push(name, elementDTO);
                 }
             }
@@ -71,7 +71,7 @@ namespace CodeArt.DTO
                 return;
             }
             string schemaCode = _schemaCodes.GetSchemaCode(name, () => value.GetType());
-            var dtoValue = DTObjectMapper.Instance.Load(schemaCode, value, _dto.IsPinned);
+            var dtoValue = DTObjectMapper.Instance.Load(schemaCode, value);
             _dto.SetObject(name, dtoValue);
         }
     }

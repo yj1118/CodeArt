@@ -8,7 +8,6 @@ using CodeArt.Web.WebPages.Xaml.Markup;
 using CodeArt.Web.WebPages.Xaml;
 using CodeArt.Web.WebPages.Xaml.Controls;
 using CodeArt.DTO;
-using CodeArt.ModuleNest;
 using CodeArt.Util;
 
 namespace CodeArt.Web.XamlControls.Metronic
@@ -171,6 +170,23 @@ namespace CodeArt.Web.XamlControls.Metronic
         }
 
 
+        public static readonly DependencyProperty HrefProperty = DependencyProperty.Register<string, Button>("Href", () => { return string.Empty; });
+
+        /// <summary>
+        /// 文本
+        /// </summary>
+        public string Href
+        {
+            get
+            {
+                return GetValue(HrefProperty) as string;
+            }
+            set
+            {
+                SetValue(HrefProperty, value);
+            }
+        }
+
         public Button()
         {
 
@@ -199,7 +215,26 @@ namespace CodeArt.Web.XamlControls.Metronic
 
         private void DrawBegin(PageBrush brush)
         {
-            brush.Draw("<a href='javascript:;'");
+            if (string.IsNullOrEmpty(this.Href))
+            {
+                brush.Draw("<a href='javascript:;'");
+            }
+            else
+            {
+                brush.DrawFormat("<a href='{0}'", this.Href);
+            }
+
+            if (!string.IsNullOrEmpty(this.Id))
+            {
+                brush.DrawFormat(" id=\"{0}\"", this.Id);
+            }
+
+            if (!string.IsNullOrEmpty(this.Name))
+            {
+                brush.DrawFormat(" name=\"{0}\"", this.Name);
+            }
+
+
             if (!string.IsNullOrEmpty(this.Color))
             {
                 if (this.Outline > 0)

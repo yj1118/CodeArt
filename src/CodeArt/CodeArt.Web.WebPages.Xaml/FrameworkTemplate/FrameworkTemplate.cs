@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using CodeArt.AppSetting;
 using CodeArt.Util;
 using CodeArt.Web.WebPages.Xaml.Markup;
 
@@ -104,6 +104,11 @@ namespace CodeArt.Web.WebPages.Xaml
             return this.Template.GetChild(childName);
         }
 
+        public IEnumerable<UIElement> GetActionElement(string actionName)
+        {
+            return this.Template.GetActionElement(actionName);
+        }
+
         /// <summary>
         /// 自定义属性
         /// </summary>
@@ -186,16 +191,31 @@ namespace CodeArt.Web.WebPages.Xaml
 
 #if (DEBUG)
 
-        private static Stack<string> _trackCodes = new Stack<string>();
+        private const string _sessionKey = "__FrameworkTemplate.TrackCodes";
+
+        private static Stack<string> TrackCodes
+        {
+            get
+            {
+                var trackCodes = AppSession.GetOrAddItem<Stack<string>>(
+                    _sessionKey,
+                    () =>
+                    {
+                        return new Stack<string>();
+                    });
+                if (trackCodes == null) throw new InvalidOperationException("__FrameworkTemplate.TrackCodes 为null,无法使用加载上下文");
+                return trackCodes;
+            }
+        }
 
         internal static void PushTrackCode(string code)
         {
-            _trackCodes.Push(code);
+            TrackCodes.Push(code);
         }
 
         internal static void PopTrackCode()
         {
-            _trackCodes.Pop();
+            TrackCodes.Pop();
         }
 
         /// <summary>
@@ -205,7 +225,7 @@ namespace CodeArt.Web.WebPages.Xaml
         {
             get
             {
-                return _trackCodes.Count == 0 ? null : _trackCodes.First();
+                return TrackCodes.Count == 0 ? null : TrackCodes.First();
             }
         }
 #endif

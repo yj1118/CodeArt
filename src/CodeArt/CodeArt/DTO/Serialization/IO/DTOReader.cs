@@ -114,6 +114,12 @@ namespace CodeArt.DTO
             return _dto.GetValue<byte>(name);
         }
 
+        public float? ReadNullableFloat(string name)
+        {
+            if (!_dto.Exist(name)) return null;
+            return _dto.GetValue<float>(name);
+        }
+
         public Guid? ReadNullableGuid(string name)
         {
             if (!_dto.Exist(name)) return null;

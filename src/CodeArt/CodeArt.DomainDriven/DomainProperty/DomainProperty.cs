@@ -460,6 +460,13 @@ namespace CodeArt.DomainDriven
 
         #region 注册集合
 
+        /// <summary>
+        /// 注册集合
+        /// </summary>
+        /// <typeparam name="MemberType"></typeparam>
+        /// <typeparam name="OT"></typeparam>
+        /// <param name="propertyName"></param>
+        /// <returns></returns>
         public static DomainProperty RegisterCollection<MemberType, OT>(string propertyName)
             where OT : DomainObject
         {

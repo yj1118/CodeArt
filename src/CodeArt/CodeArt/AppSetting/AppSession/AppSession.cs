@@ -1,10 +1,13 @@
 using System;
+using System.Collections;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Linq;
 
 using CodeArt.Runtime;
 using CodeArt.Log;
 using CodeArt.DTO;
+using System.Collections.Generic;
 
 namespace CodeArt.AppSetting
 {
@@ -66,7 +69,38 @@ namespace CodeArt.AppSetting
         public static void Initialize()
         {
             Current.Initialize();
+            InitPreAppSessionStart();
         }
+
+        #region 事件
+
+        private static IEnumerable<PreAppSessionStartAttribute> _starts;
+        private static IEnumerable<PreAppSessionEndAttribute> _ends;
+
+        private static void InitEvents()
+        {
+            _starts = AssemblyUtil.GetAttributes<PreAppSessionStartAttribute>();
+            _ends = AssemblyUtil.GetAttributes<PreAppSessionEndAttribute>();
+        }
+
+
+        private static void InitPreAppSessionStart()
+        {
+            foreach (var attr in _starts)
+            {
+                attr.Run();
+            }
+        }
+
+        private static void InitPreAppSessionEnd()
+        {
+            foreach (var attr in _ends)
+            {
+                attr.Run();
+            }
+        }
+
+        #endregion
 
 
         /// <summary>
@@ -74,6 +108,7 @@ namespace CodeArt.AppSetting
         /// </summary>
         public static void Dispose()
         {
+            InitPreAppSessionEnd();
             Current.Dispose();
         }
 
@@ -145,6 +180,7 @@ namespace CodeArt.AppSetting
                 AppSessionAccessAttribute.CheckUp(appSession);
                 _sessionByConfig = appSession;
             }
+            InitEvents();
         }
 
 
@@ -181,6 +217,12 @@ namespace CodeArt.AppSetting
             }
         }
 
+        private static void InitIdentity()
+        {
+            if (Identity == null)
+                Identity = DTObject.Create();
+        }
+
         /// <summary>
         /// 当会话的身份发生改变时触发
         /// </summary>
@@ -198,6 +240,21 @@ namespace CodeArt.AppSetting
             }
         }
 
+        /// <summary>
+        /// 租户编号
+        /// </summary>
+        public static string TenantId
+        {
+            get
+            {
+                return Identity == null ? string.Empty : Identity.GetValue<string>("tenantId", string.Empty);
+            }
+            set
+            {
+                InitIdentity();
+                Identity.SetValue("tenantId", value);
+            }
+        }
 
         #endregion
     }

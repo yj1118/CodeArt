@@ -207,4 +207,7 @@
   <data name="Keyboard" xml:space="preserve">
     <value>ScreenKeyboard</value>
   </data>
+  <data name="CloseClient" xml:space="preserve">
+    <value>Close Client</value>
+  </data>
 </root>

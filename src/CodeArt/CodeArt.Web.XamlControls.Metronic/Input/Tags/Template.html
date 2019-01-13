@@ -1,0 +1,72 @@
+﻿<ControlTemplate xmlns="http://schemas.codeart.cn/web/xaml"
+                 xmlns:m="http://schemas.codeart.cn/web/xaml/metronic">
+<div Visibility="{TemplateBinding Layout,Converter={Static m:LayoutCollapsedConverter.Instance},ConverterParameter=Inline}"
+        class="{TemplateBinding Class,Converter={Static AppendClassConverter.Instance},ConverterParameter=form-group m-form__group row c--tags}"
+        data-proxy="{give:new $$metronic.tags()}"
+        data-rule="{Binding Converter={Static m:TagsRuleCodeConverter.Instance}}"
+        data-maxlength="{TemplateBinding MaxLength}"
+        data-minlength="{TemplateBinding MinLength}"
+        data-length="{TemplateBinding Length}"
+        id="{TemplateBinding Id}"
+        data-field="{TemplateBinding Field}"
+        data-disabled="{TemplateBinding Disabled}"
+        data-tags="true">
+    <AttributesPresenter />
+    <label class="col-form-label col-xl-2 col-sm-12 offset-xl-1">
+        <run content="{Binding Converter={Static m:LabelConverter.Instance}}" />
+    </label>
+    <div data-core-container="true" class="col-xl-8 col-sm-12">
+        <m:TagsPresenter />
+        <span class="m-form__help" Visibility="{TemplateBinding Help,Converter={Static StringCollapsedConverter.Instance}}">
+            <run content="{TemplateBinding Help}" />
+        </span>
+        <div class="m--margin-top-5" data-actions="true">
+            <m:button text="添加新项" color="success" air="true" icon="flaticon-plus" data-add="true"></m:button>
+            <m:button text="移除末项" color="danger" air="true" icon="flaticon-cancel" data-remove="true" class="m--margin-left-15"></m:button>
+        </div>
+    </div>
+</div>
+<div Visibility="{TemplateBinding Layout,Converter={Static m:LayoutCollapsedConverter.Instance},ConverterParameter=Wrap}"
+     class="{TemplateBinding Class,Converter={Static AppendClassConverter.Instance},ConverterParameter=form-group m-form__group c--tags}"
+     data-proxy="{give:new $$metronic.tags()}"
+     data-rule="{Binding Converter={Static m:TagsRuleCodeConverter.Instance}}"
+     data-maxlength="{TemplateBinding MaxLength}"
+     data-minlength="{TemplateBinding MinLength}"
+     data-length="{TemplateBinding Length}"
+     id="{TemplateBinding Id}"
+     data-field="{TemplateBinding Field}"
+     data-disabled="{TemplateBinding Disabled}"
+     data-tags="true">
+    <AttributesPresenter />
+    <label class="col-form-label col-sm-12">
+        <run content="{Binding Converter={Static m:LabelConverter.Instance}}" />
+    </label>
+    <div data-core-container="true" class="col-sm-12">
+        <m:TagsPresenter />
+        <span class="m-form__help" Visibility="{TemplateBinding Help,Converter={Static StringCollapsedConverter.Instance}}">
+            <run content="{TemplateBinding Help}" />
+        </span>
+        <div class="m--margin-top-5" data-actions="true">
+            <m:button text="添加新项" color="success" air="true" icon="flaticon-plus" data-add="true"></m:button>
+            <m:button text="移除末项" color="danger" air="true" icon="flaticon-cancel" data-remove="true" class="m--margin-left-15"></m:button>
+        </div>
+    </div>
+</div>
+<div Visibility="{TemplateBinding Layout,Converter={Static m:LayoutCollapsedConverter.Instance},ConverterParameter=Hidden}"
+        class="{TemplateBinding Class,Converter={Static AppendClassConverter.Instance},ConverterParameter=form-group m-form__group c--tags}"
+        style="display:none;" 
+        data-proxy="{give:new $$metronic.tags()}"
+        data-rule="{Binding Converter={Static m:TagsRuleCodeConverter.Instance}}"
+        data-maxlength="{TemplateBinding MaxLength}"
+        data-minlength="{TemplateBinding MinLength}"
+        data-length="{TemplateBinding Length}"
+        id="{TemplateBinding Id}"
+        data-field="{TemplateBinding Field}"
+        data-disabled=""
+        data-tags="true">
+        <AttributesPresenter />
+        <div data-core-container="true" class="col-sm-12">
+            <m:TagsPresenter />
+        </div>
+    </div>
+</ControlTemplate>

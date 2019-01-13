@@ -93,6 +93,11 @@ namespace CodeArt.DomainDriven.DataAccess
                     var typeKey = this.IsDerived ? this.DerivedClass.TypeKey : this.DynamicType.Define.TypeName;
                     data.Add(GeneratedField.TypeKeyName, typeKey);
 
+                    if(inheritedRoot.IsEnabledMultiTenancy)
+                    {
+                        data.Add(GeneratedField.TenantIdName, AppSession.TenantId);
+                    }
+
                     //更改基表的信息
                     var sql = inheritedRoot.GetUpdateSql(data);
                     SqlHelper.Execute(inheritedRoot.Name, sql, data);
@@ -150,6 +155,12 @@ namespace CodeArt.DomainDriven.DataAccess
                 data.Add(GeneratedField.TypeKeyName, string.Empty); //追加类型编号，非派生类默认类型编号为空
                 data.Add(GeneratedField.DataVersionName, 1); //追加数据版本号
             }
+
+            if(this.IsEnabledMultiTenancy)
+            {
+                data.Add(GeneratedField.TenantIdName, AppSession.TenantId);
+            }
+
             return data;
         }
 
@@ -213,6 +224,8 @@ namespace CodeArt.DomainDriven.DataAccess
                         data.Add(rootIdName, rootId);
                         data.Add(slaveIdName, slaveId);
                         data.Add(GeneratedField.OrderIndexName, index);
+                        if (this.IsEnabledMultiTenancy)
+                            data.Add(GeneratedField.TenantIdName, AppSession.TenantId);
                         SqlHelper.Execute(this.ConnectionName, this.SqlInsert, data);
                         index++;
                     }
@@ -234,6 +247,8 @@ namespace CodeArt.DomainDriven.DataAccess
                         data.Add(masterIdName, masterId);
                         data.Add(slaveIdName, slaveId);
                         data.Add(GeneratedField.OrderIndexName, index);
+                        if (this.IsEnabledMultiTenancy)
+                            data.Add(GeneratedField.TenantIdName, AppSession.TenantId);
                         SqlHelper.Execute(this.ConnectionName, this.SqlInsert, data);
                         index++;
                     }
@@ -257,6 +272,8 @@ namespace CodeArt.DomainDriven.DataAccess
                         data.Add(rootIdName, rootId);
                         data.Add(GeneratedField.PrimitiveValueName, value);
                         data.Add(GeneratedField.OrderIndexName, index);
+                        if(this.IsEnabledMultiTenancy)
+                            data.Add(GeneratedField.TenantIdName, AppSession.TenantId);
                         SqlHelper.Execute(this.ConnectionName, this.SqlInsert, data);
                         index++;
                     }
@@ -276,6 +293,8 @@ namespace CodeArt.DomainDriven.DataAccess
                         data.Add(masterIdName, masterId);
                         data.Add(GeneratedField.PrimitiveValueName, value);
                         data.Add(GeneratedField.OrderIndexName, index);
+                        if (this.IsEnabledMultiTenancy)
+                            data.Add(GeneratedField.TenantIdName, AppSession.TenantId);
                         SqlHelper.Execute(this.ConnectionName, this.SqlInsert, data);
                         index++;
                     }

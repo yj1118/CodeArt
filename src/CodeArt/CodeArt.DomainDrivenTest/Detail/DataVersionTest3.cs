@@ -33,14 +33,14 @@ namespace CodeArt.DomainDrivenTest.Detail
             DataPortal.Dispose();
 
             //恢复原来的远程对象
-            ServiceContext.Invoke("UpdateUser", (arg) =>
+            ServiceContext.InvokeDynamic("UpdateUser", (arg) =>
             {
                 arg.Id = 1;
                 arg.Name = "袁俊";
             });
 
             // 删除远程对象
-            ServiceContext.Invoke("DeleteUser", (arg) =>
+            ServiceContext.InvokeDynamic("DeleteUser", (arg) =>
             {
                 arg.Id = 20;
             });
@@ -85,7 +85,7 @@ namespace CodeArt.DomainDrivenTest.Detail
             int dv = GetCarUserVersion(1);
 
             // 修改远程对象
-            ServiceContext.Invoke("UpdateUser",(arg) =>
+            ServiceContext.InvokeDynamic("UpdateUser",(arg) =>
             {
                 arg.Id = 1;
                 arg.Name = "袁俊修改";
@@ -100,7 +100,7 @@ namespace CodeArt.DomainDrivenTest.Detail
 
 
             // 修改远程对象
-            ServiceContext.Invoke("UpdateUser", (arg) =>
+            ServiceContext.InvokeDynamic("UpdateUser", (arg) =>
             {
                 arg.Id = 1;
                 arg.Name = "袁俊";
@@ -112,7 +112,7 @@ namespace CodeArt.DomainDrivenTest.Detail
         public void CarRemoteTest3()
         {
             // 创建一个远程对象
-            ServiceContext.Invoke("CreateUser", (arg) =>
+            ServiceContext.InvokeDynamic("CreateUser", (arg) =>
             {
                 arg.Id = 20;
                 arg.Name = "袁俊新增";
@@ -127,7 +127,7 @@ namespace CodeArt.DomainDrivenTest.Detail
             int dv = GetCarUserVersion(20);
 
             // 删除远程对象
-            ServiceContext.Invoke("DeleteUser", (arg) =>
+            ServiceContext.InvokeDynamic("DeleteUser", (arg) =>
             {
                 arg.Id = 20;
             });

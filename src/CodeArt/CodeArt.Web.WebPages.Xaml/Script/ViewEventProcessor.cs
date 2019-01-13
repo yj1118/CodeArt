@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CodeArt.Concurrent;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,24 +29,28 @@ namespace CodeArt.Web.WebPages.Xaml.Script
 
         public string GetCode()
         {
-            StringBuilder code = new StringBuilder();
-            code.Append("new function(){");
-            if(_data !=null)
+            using (var temp = StringPool.Borrow())
             {
-                foreach(var p in _data)
+                var code = temp.Item;
+                code.Append("new function(){");
+                if (_data != null)
                 {
-                    var evt = p.Key;
-                    var view = p.Value;
+                    foreach (var p in _data)
+                    {
+                        var evt = p.Key;
+                        var view = p.Value;
 
-                    code.AppendFormat(" this.{0}=function()", GetEventName(evt));
-                    code.Append("{");
-                    code.Append(view.GetCode());
-                    code.Append("};");
+                        code.AppendFormat(" this.{0}=function()", GetEventName(evt));
+                        code.Append("{");
+                        code.Append(view.GetScriptCode());
+                        code.Append("};");
+                    }
                 }
-            }
-            code.Append("}");
+                code.Append("}");
 
-            return code.ToString();
+                return code.ToString();
+            }
+                
         }
 
         private static string GetEventName(ViewEvent evt)

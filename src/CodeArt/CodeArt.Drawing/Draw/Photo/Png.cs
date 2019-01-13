@@ -368,7 +368,7 @@ namespace CodeArt.Drawing
             }
         }
 
-        public ImageCodecInfo GetEncoderInfo(String mimeType)
+        public static ImageCodecInfo GetEncoderInfo(String mimeType)
         {
             int j;
             ImageCodecInfo[] encoders;
@@ -384,5 +384,65 @@ namespace CodeArt.Drawing
 
         public static Png Instance = new Png();
 
+        /// <summary>
+        /// ½«<paramref name="sourceStream"/>Ñ¹Ëõ´óÐ¡
+        /// </summary>
+        /// <param name="sourceStream"></param>
+        /// <param name="ouputStream"></param>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
+        public static void Compress(Stream sourceStream, Stream ouputStream, int width, int height,bool highQuality)
+        {
+            System.Drawing.Image source = null;
+            Graphics gdiobj = null;
+            try
+            {
+                source = System.Drawing.Image.FromStream(sourceStream);
+                using (Bitmap img = new Bitmap(width, height))
+                {
+                    img.SetResolution(source.HorizontalResolution, source.VerticalResolution);
+                    gdiobj = Graphics.FromImage(img);
+                    gdiobj.CompositingQuality = highQuality ? CompositingQuality.HighQuality : CompositingQuality.HighSpeed;
+                    gdiobj.SmoothingMode = highQuality ? SmoothingMode.HighQuality : SmoothingMode.HighSpeed;
+                    gdiobj.InterpolationMode = highQuality ? InterpolationMode.HighQualityBicubic : InterpolationMode.Low;
+                    gdiobj.PixelOffsetMode = highQuality? PixelOffsetMode.HighQuality: PixelOffsetMode.HighSpeed;
+                    gdiobj.FillRectangle(new SolidBrush(System.Drawing.Color.FromArgb(0, System.Drawing.Color.Transparent)), 0, 0, width, height);
+                    Rectangle destrect = new Rectangle(0, 0, width, height);
+                    gdiobj.DrawImage(source, destrect, 0, 0, source.Width,
+                                    source.Height, GraphicsUnit.Pixel);
+
+                    using (System.Drawing.Imaging.EncoderParameters ep = new System.Drawing.Imaging.EncoderParameters(1))
+                    {
+                        ep.Param[0] = new System.Drawing.Imaging.EncoderParameter(System.Drawing.Imaging.Encoder.Compression, (long)1);
+                        if (!highQuality)
+                        {
+                            img.Save(ouputStream, ImageFormat.Png);
+                        }
+                        else
+                        {
+                            System.Drawing.Imaging.ImageCodecInfo ici = GetEncoderInfo("image/png");
+                            if (ici != null)
+                            {
+                                img.Save(ouputStream, ici, ep);
+                            }
+                            else
+                            {
+                                img.Save(ouputStream, System.Drawing.Imaging.ImageFormat.Png);
+                            }
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (source != null) source.Dispose();
+                if (gdiobj != null) gdiobj.Dispose();
+            }
+        }
     }
 }

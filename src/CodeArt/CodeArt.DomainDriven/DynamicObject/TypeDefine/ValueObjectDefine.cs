@@ -16,8 +16,8 @@ namespace CodeArt.DomainDriven
 {
     internal class ValueObjectDefine : TypeDefine
     {
-        public ValueObjectDefine(string typeName, string metadataCode)
-            : base(typeName, metadataCode, DomainObject.ValueObjectType, typeof(DynamicValueObject))
+        public ValueObjectDefine(string typeName, string metadataCode, bool closeMultiTenancy)
+            : base(typeName, metadataCode, DomainObject.ValueObjectType, typeof(DynamicValueObject), closeMultiTenancy)
         {
         }
 
@@ -27,8 +27,8 @@ namespace CodeArt.DomainDriven
         /// <param name="typeName"></param>
         /// <param name="metadataCode"></param>
         /// <param name="qualifiedName"></param>
-        internal ValueObjectDefine(string typeName, TypeMetadata metadata, string qualifiedName)
-            : base(typeName, metadata, DomainObject.ValueObjectType, typeof(DynamicValueObject), qualifiedName)
+        internal ValueObjectDefine(string typeName, TypeMetadata metadata, string qualifiedName, bool closeMultiTenancy)
+            : base(typeName, metadata, DomainObject.ValueObjectType, typeof(DynamicValueObject), qualifiedName, closeMultiTenancy)
         {
         }
 

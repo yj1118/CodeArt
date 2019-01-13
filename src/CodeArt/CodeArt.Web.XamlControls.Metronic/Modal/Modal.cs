@@ -93,5 +93,10 @@ namespace CodeArt.Web.XamlControls.Metronic
             return base.GetChild(childName) ?? this.Footer.GetChild(childName);
         }
 
+        public override IEnumerable<UIElement> GetActionElement(string actionName)
+        {
+            return this.Combine(base.GetActionElement(actionName) , this.Footer.GetActionElement(actionName));
+        }
+
     }
 }

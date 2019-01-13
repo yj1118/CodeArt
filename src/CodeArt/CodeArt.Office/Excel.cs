@@ -9,58 +9,77 @@ using System.Drawing.Imaging;
 using CodeArt.IO;
 using CodeArt.Util;
 
-using Aspose.Cells;
-using Aspose.Cells.Rendering;
+using Microsoft.Office.Interop.Excel;
+using System.Runtime.InteropServices;
+using System.Drawing;
 
 namespace CodeArt.Office
 {
-    public class Excel : DocumentBase
+    /// <summary>
+    /// 之前采用的通过EXCEL COM组件提供的API来转换，由于API提供的页数据本身就会出错，所以不能使用该方法
+    /// 这里我们采用的做法是，将EXCEL导出为PDF，然后由PDF每页转换成图片，这样输出的格式就与打印的格式是一样的
+    /// 至此，问题解决了
+    /// </summary>
+    public class Excel : Pdf
     {
-        private string _fileName;
-        private Workbook _book;
-        private ImageOrPrintOptions _options;
-
         public Excel(string fileName)
+            : base(GetPdfFileName(fileName))
         {
-            _fileName = fileName;
-            _book = new Workbook(_fileName);
-            _options = GetOptions();
         }
 
-        private ImageOrPrintOptions GetOptions()
+        private static string GetPdfFileName(string fileName)
         {
-            ImageOrPrintOptions options = new ImageOrPrintOptions();
-            options.ImageFormat = ImageFormat.Png;
-            //options.OnePagePerSheet = true;  开启此参数在某些情况下会报错，所以屏蔽了该参数
-            options.PrintingPage = PrintingPageType.IgnoreBlank;
-            return options;
-        }
+            Application application = null;
+            Workbook book = null;
 
-        public override int PageCount
-        {
-            get
+            try
             {
-                return _book.Worksheets.Count;
+                application = GetApplication();
+                book = GetWorkbook(application, fileName);
+
+                var temp = Path.Combine(Environment.GetEnvironmentVariable("TEMP"), Guid.NewGuid().ToString("N"));
+                temp = string.Format("{0}.pdf", temp);
+
+                //转成pdf
+                book.ExportAsFixedFormat(XlFixedFormatType.xlTypePDF, temp, null, false);
+                return temp;
+            }
+            catch(Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                if (book != null)
+                {
+                    book.Close(false, Type.Missing, Type.Missing);
+                    Marshal.ReleaseComObject(book);
+                }
+
+                if(application !=null)
+                {
+                    application.Quit();
+                    Marshal.ReleaseComObject(application);
+                }
             }
         }
 
-        protected override Stream ExtractImage(int pageIndex)
-        {
-            var stream = new MemoryStream();
-            Worksheet sheet = _book.Worksheets[pageIndex];
-            sheet.PageSetup.LeftMargin = 1;
-            sheet.PageSetup.RightMargin = 1;
-            sheet.PageSetup.BottomMargin = 1;
-            sheet.PageSetup.TopMargin = 1;
 
-            SheetRender sr = new SheetRender(sheet, _options);
-            sr.ToImage(0, stream);
-            return stream;
+        private static Application GetApplication()
+        {
+            Application app = new Application();
+            app.Visible = app.ScreenUpdating = app.DisplayAlerts = false;
+            app.CopyObjectsWithCells = true;
+            app.CutCopyMode = XlCutCopyMode.xlCopy;
+            app.DisplayClipboardWindow = false;
+            return app;
         }
 
-        public override void Dispose()
+        private static Workbook GetWorkbook(Application app, string fileName)
         {
-            _book.Dispose();
+            return app.Workbooks.Open(fileName, false, false, Type.Missing, Type.Missing, Type.Missing, Type.Missing,
+                      Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing,
+                      Type.Missing, Type.Missing);
         }
 
     }

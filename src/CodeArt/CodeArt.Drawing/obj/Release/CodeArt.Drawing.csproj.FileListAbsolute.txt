@@ -1,0 +1,13 @@
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Drawing\bin\Release\NLog.config
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Drawing\bin\Release\CodeArt.Drawing.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Drawing\bin\Release\CodeArt.Drawing.pdb
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Drawing\bin\Release\CodeArt.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Drawing\bin\Release\NLog.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Drawing\bin\Release\CodeArt.pdb
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Drawing\bin\Release\NLog.xml
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Drawing\bin\Release\zh-CN\CodeArt.resources.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Drawing\obj\Release\CodeArt.Drawing.csproj.CoreCompileInputs.cache
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Drawing\obj\Release\CodeArt.Drawing.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Drawing\obj\Release\CodeArt.Drawing.pdb
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Drawing\obj\Release\CodeArt.Drawing.csprojAssemblyReference.cache
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Drawing\obj\Release\CodeArt.Drawing.csproj.CopyComplete

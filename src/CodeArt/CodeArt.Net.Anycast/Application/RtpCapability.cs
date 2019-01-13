@@ -223,13 +223,19 @@ namespace CodeArt.Net.Anycast
 
         private Message CreateMessage(string eventName, byte[] data, Action<DTObject> setMessageHeader)
         {
-            var messageHeader = DTObject.Create();
-            messageHeader.SetValue(FieldRtpCapabilityName, this.Name);
-            messageHeader.SetValue(FieldRtpEventName, eventName);
-            messageHeader.SetValue(MessageField.MessageType, (byte)MessageType.Distribute);
-            setMessageHeader(messageHeader);
+            return CreateMessage(this.Name, eventName, data, setMessageHeader);
+        }
 
-            return new Message(messageHeader, data);
+        public static Message CreateMessage(string capabilityName, string eventName, byte[] data, Action<DTObject> setMessageHeader = null)
+        {
+            var header = DTObject.Create();
+            header.SetValue(FieldRtpCapabilityName, capabilityName);
+            header.SetValue(FieldRtpEventName, eventName);
+            header.SetValue(MessageField.MessageType, (byte)MessageType.Distribute);
+            if(setMessageHeader != null)
+                setMessageHeader(header);
+
+            return new Message(header, data);
         }
 
         #endregion

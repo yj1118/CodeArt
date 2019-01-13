@@ -37,6 +37,24 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -56,7 +74,11 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="NS\Styles.xaml">
+    <Page Include="NS\Black\Work\Style.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="NS\Black\Style.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -233,6 +255,8 @@
       <SubType>Designer</SubType>
     </Page>
     <Compile Include="Common\Extensions.cs" />
+    <Compile Include="Common\IVirtualizable.cs" />
+    <Compile Include="Common\VirtualizableItem.cs" />
     <Compile Include="Playstation\Bootstrap\BootstrapUtil.cs" />
     <Compile Include="Playstation\Bootstrap\BootstrapThicknessConverter.cs" />
     <Compile Include="Playstation\Bootstrap\BootstrapHeightConverter.cs" />
@@ -251,6 +275,7 @@
     <Compile Include="Playstation\Bootstrap\BootstrapValue.cs" />
     <Compile Include="Playstation\Bootstrap\BootstrapExpression.cs" />
     <Compile Include="Playstation\Bootstrap\BootstrapDoubleConverter.cs" />
+    <Compile Include="Playstation\Button\ZoomButton.cs" />
     <Compile Include="Playstation\Chart\Histogram.xaml.cs">
       <DependentUpon>Histogram.xaml</DependentUpon>
     </Compile>
@@ -592,6 +617,8 @@
   <ItemGroup>
     <Resource Include="Playstation\TitleBar\keyboard.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Playstation\TitleBar\closeClient.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

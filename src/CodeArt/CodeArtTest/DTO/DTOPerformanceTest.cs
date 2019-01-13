@@ -24,7 +24,7 @@ namespace CodeArtTest.DTO
         [TestMethod]
         public void CreateDTOByPerformance()
         {
-            DTObject dto = DTObject.CreateReusable("{id,name,childs:[{id,name}]}");
+            DTObject dto = DTObject.Create("{id,name,childs:[{id,name}]}");
 
             dto.SetValue("id",1);
             dto.SetValue("name", "刘备");

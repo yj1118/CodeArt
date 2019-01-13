@@ -144,17 +144,18 @@ namespace CodeArt.Web
         /// <returns></returns>
         public static string GetAbsolutePath()
         {
-            return HttpRuntime.AppDomainAppPath;
+            //return HttpRuntime.AppDomainAppPath; 在新建的appDomain里不能使用
+            return AppDomain.CurrentDomain.BaseDirectory;
         }
 
         public static string MapVirtualPath(string absolutePath)
         {
-            return absolutePath.Substring(HttpRuntime.AppDomainAppPath.Length - 1).Replace("\\", "/");
+            return absolutePath.Substring(AppDomain.CurrentDomain.BaseDirectory.Length - 1).Replace("\\", "/");
         }
 
         public static string MapAbsolutePath(string virtualPath)
         {
-            return HttpContext.Current.Server.MapPath(virtualPath);
+            return Path.Combine(AppDomain.CurrentDomain.BaseDirectory,virtualPath.TrimStart('/').Replace("/","\\"));
         }
 
         /// <summary>

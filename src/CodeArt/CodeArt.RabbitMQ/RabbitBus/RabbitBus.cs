@@ -13,6 +13,8 @@ using CodeArt.AppSetting;
 
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
+using CodeArt.IO;
+using CodeArt.EasyMQ;
 
 namespace CodeArt.RabbitMQ
 {
@@ -120,7 +122,7 @@ namespace CodeArt.RabbitMQ
             }
             else
             {
-                this.Channel.QueueDeclare(queue, false, false, true);
+                this.Channel.QueueDeclare(queue, false, false, false);
             }
         }
 
@@ -157,9 +159,9 @@ namespace CodeArt.RabbitMQ
         /// 将dto消息发布到指定的交换机
         /// </summary>
         /// <param name="message"></param>
-        public void Publish(string exchange, string routingKey, DTObject message, Action<IBasicProperties> setProperties = null)
+        public void Publish(string exchange, string routingKey, TransferData data, Action<IBasicProperties> setProperties = null)
         {
-            var body = message.ToData();
+            var body = TransferData.Serialize(data);
             var properties = this.Channel.CreateBasicProperties();
             properties.ContentEncoding = "utf-8";
             properties.ContentType = "text/plain";
@@ -174,7 +176,7 @@ namespace CodeArt.RabbitMQ
                 properties.Persistent = true;
                 if (!ConfirmPublish(exchange, routingKey, properties, body))
                 {
-                    throw new RabbitMQException(string.Format(Strings.PublishMessageFailed, message.GetCode()));
+                    throw new RabbitMQException(string.Format(Strings.PublishMessageFailed, routingKey));
                 }
             }
             else
@@ -203,6 +205,7 @@ namespace CodeArt.RabbitMQ
                 {
                     Thread.Sleep(1000); //1秒后重发
                 }
+
                 this.Channel.BasicPublish(exchange, routingKey, properties, body);
                 nack = !this.Channel.WaitForConfirms();
                 sendTimes++;
@@ -221,22 +224,23 @@ namespace CodeArt.RabbitMQ
             Accept(queue, false);
         }
 
-        private void Accept(string queue, bool noAck)
+        private void Accept(string queue, bool autoAck)
         {
             var consumer = new EventingBasicConsumer(this.Channel);
             consumer.Received += MessageReceived;
-            this.Channel.BasicConsume(queue, noAck, consumer);
+            this.Channel.BasicConsume(queue, autoAck, consumer);
         }
 
 
         private void MessageReceived(object sender, BasicDeliverEventArgs e)
         {
-            //此处必须异步，否则会阻塞接收处理消息，导致一个请求处理完后才处理下一个请求，吞吐量大幅度降低
+            //此处必须异步，否则会阻塞RPCServer接收处理消息，导致一个请求处理完后才处理下一个请求，吞吐量大幅度降低Task.Run(() =>
             Task.Run(() =>
             {
                 IBasicProperties properties = e.BasicProperties;
+                //DTObject content = DTObject.Create(e.Body);
+                var content = TransferData.Deserialize(e.Body);
 
-                DTObject content = DTObject.CreateReusable(e.Body);
                 var message = new Message(content, properties, () =>
                 {
                     this.Channel.BasicAck(e.DeliveryTag, false);
@@ -245,7 +249,7 @@ namespace CodeArt.RabbitMQ
                     this.Channel.BasicReject(e.DeliveryTag, requeue);
                 });
                 _messageHandler.Handle(message);
-            });
+            }); 
         }
 
         /// <summary>

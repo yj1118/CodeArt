@@ -8,7 +8,7 @@ using CodeArt.Web.WebPages.Xaml.Markup;
 using CodeArt.Web.WebPages.Xaml;
 using CodeArt.Web.WebPages.Xaml.Controls;
 using CodeArt.DTO;
-using CodeArt.ModuleNest;
+
 
 namespace CodeArt.Web.XamlControls.Metronic
 {
@@ -105,6 +105,24 @@ namespace CodeArt.Web.XamlControls.Metronic
                 SetValue(EqualToPrevProperty, value);
             }
         }
+
+        public static readonly DependencyProperty SizeProperty = DependencyProperty.Register<string, TextBox>("Size", () => { return string.Empty; });
+
+        /// <summary>
+        /// lg或不填
+        /// </summary>
+        public string Size
+        {
+            get
+            {
+                return GetValue(SizeProperty) as string;
+            }
+            set
+            {
+                SetValue(SizeProperty, value);
+            }
+        }
+
 
         static TextBox()
         {

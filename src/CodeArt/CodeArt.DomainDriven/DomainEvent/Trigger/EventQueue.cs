@@ -11,7 +11,7 @@ using CodeArt.DTO;
 
 namespace CodeArt.DomainDriven
 {
-    [ObjectRepository(typeof(IEventQueueRepository))]
+    [ObjectRepository(typeof(IEventQueueRepository), CloseMultiTenancy = true)]
     public class EventQueue : AggregateRoot<EventQueue, Guid>
     {
         /// <summary>
@@ -20,6 +20,8 @@ namespace CodeArt.DomainDriven
         private static readonly DomainProperty LanguageProperty = DomainProperty.Register<string, EventQueue>("Language");
 
         [PropertyRepository()]
+        [ASCIIString()]
+        [StringLength(Min =0,Max = 50)]
         public string Language
         {
             get
@@ -32,10 +34,28 @@ namespace CodeArt.DomainDriven
             }
         }
 
+        private static readonly DomainProperty TenantIdProperty = DomainProperty.Register<string, EventQueue>("TenantId");
+
+        [PropertyRepository()]
+        [ASCIIString()]
+        [StringLength(Min = 0, Max = 50)]
+        public string TenantId
+        {
+            get
+            {
+                return GetValue<string>(TenantIdProperty);
+            }
+            private set
+            {
+                SetValue(TenantIdProperty, value);
+            }
+        }
+
         public new DTObject GetIdentity()
         {
-            var identity = DTObject.CreateReusable();
+            var identity = DTObject.Create();
             identity["language"] = this.Language;
+            identity["tenantId"] = this.TenantId;
             return identity;
         }
 
@@ -240,6 +260,7 @@ namespace CodeArt.DomainDriven
             this.EntriesImpl = GetEntriesFromSource(source);
             this.IsSubqueue = isSubqueue;
             this.Language = identity.Language ?? string.Empty;
+            this.TenantId = identity.TenantId ?? string.Empty;
             this.OnConstructed();
         }
 

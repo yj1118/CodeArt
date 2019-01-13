@@ -222,40 +222,54 @@ namespace CodeArt.DomainDriven.DataAccess
         }
 
 
-        public static SqlDefinition Create(string expression)
+        public static SqlDefinition Create(string expression,bool isEnabledMultiTenancy)
         {
             if (string.IsNullOrEmpty(expression)) return Empty;
-            return _create(expression);
+            return _create(expression)(isEnabledMultiTenancy);
         }
 
-        private static Func<string, SqlDefinition> _create = LazyIndexer.Init<string, SqlDefinition>((expression) =>
+        private static Func<string, Func<bool, SqlDefinition>> _create = LazyIndexer.Init<string, Func<bool, SqlDefinition>>((expression) =>
         {
-            SqlDefinition define = new SqlDefinition();
-            const string sqlTip = "[sql]";
-            if (expression.StartsWith("[sql]"))
+            return LazyIndexer.Init<bool, SqlDefinition>((isEnabledMultiTenancy) =>
             {
-                define.IsNativeSql = true;
-                define.NativeSql = expression.Substring(sqlTip.Length);
-            }
-            else
-            {
-                var subs = CollectSubs(expression);
-
-                foreach (var sub in subs)
+                SqlDefinition define = new SqlDefinition();
+                const string sqlTip = "[sql]";
+                if (expression.StartsWith("[sql]"))
                 {
-                    var exp = Pretreatment(sub);
-                    if (string.IsNullOrEmpty(exp)) continue;
-
-                    if (IsTop(exp)) define.Top = exp;
-                    else if (IsOrder(exp)) define.Order = exp;
-                    else if (IsSelect(exp)) define.SelectFields = GetFields(exp);
-                    else if (IsKey(exp)) define.Key = GetKey(exp);
-                    else define.Condition = new SqlCondition(exp); //默认为条件
+                    define.IsNativeSql = true;
+                    define.NativeSql = expression.Substring(sqlTip.Length);
                 }
-                define.IsEmpty = _IsEmpty(define); //缓存结果，运行时不必再运算
-                define.Columns = GetColumns(define);
-            }
-            return define;
+                else
+                {
+                    var subs = CollectSubs(expression);
+
+                    foreach (var sub in subs)
+                    {
+                        var exp = Pretreatment(sub);
+                        if (string.IsNullOrEmpty(exp)) continue;
+
+                        if (IsTop(exp)) define.Top = exp;
+                        else if (IsOrder(exp)) define.Order = exp;
+                        else if (IsSelect(exp)) define.SelectFields = GetFields(exp);
+                        else if (IsKey(exp)) define.Key = GetKey(exp);
+                        else
+                        {
+                            if (isEnabledMultiTenancy)
+                            {
+                                if (string.IsNullOrEmpty(exp))
+                                    exp = string.Format("@{0}<{0}=@{0}>", GeneratedField.TenantIdName);
+                                else
+                                    exp = string.Format("{0} and @{1}<{1}=@{1}>", exp, GeneratedField.TenantIdName);
+                            }
+
+                            define.Condition = new SqlCondition(exp); //默认为条件
+                        }
+                    }
+                    define.IsEmpty = _IsEmpty(define); //缓存结果，运行时不必再运算
+                    define.Columns = GetColumns(define);
+                }
+                return define;
+            });
         });
 
 

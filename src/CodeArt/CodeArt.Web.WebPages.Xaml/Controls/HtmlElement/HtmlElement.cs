@@ -168,6 +168,11 @@ namespace CodeArt.Web.WebPages.Xaml.Controls
             return base.GetChild(childName) ?? this.Children.GetChild(childName);
         }
 
+        public override IEnumerable<UIElement> GetActionElement(string actionName)
+        {
+            return this.Combine(base.GetActionElement(actionName), this.Children.GetActionElement(actionName));
+        }
+
         public override void OnLoad()
         {
             this.Children.OnLoad();

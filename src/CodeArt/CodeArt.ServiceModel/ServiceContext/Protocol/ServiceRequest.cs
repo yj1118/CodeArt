@@ -51,6 +51,13 @@ namespace CodeArt.ServiceModel
             private set;
         }
 
+        public int? TransmittedLength
+        {
+            get;
+            set;
+        }
+
+
         /// <summary>
         /// 
         /// </summary>
@@ -63,6 +70,7 @@ namespace CodeArt.ServiceModel
             this.Name = _getName(serviceName);
             this.Identity = identity ?? DTObject.Empty;
             this.Argument = argument ?? DTObject.Empty;
+            this.TransmittedLength = null;
         }
 
         public ServiceRequest(string ns, string name, DTObject identity, DTObject argument)
@@ -71,6 +79,7 @@ namespace CodeArt.ServiceModel
             this.Name = name;
             this.Identity = identity ?? DTObject.Empty;
             this.Argument = argument ?? DTObject.Empty;
+            this.TransmittedLength = null;
         }
 
         #region 静态成员
@@ -118,7 +127,10 @@ namespace CodeArt.ServiceModel
             var serviceName = dto.GetValue<string>("serviceName", string.Empty);
             var identity = dto.GetObject("identity", DTObject.Empty);
             var argument = dto.GetObject("argument", DTObject.Empty);
-            return new ServiceRequest(serviceName, identity, argument);
+            var transmittedLength = dto.GetValue<int>("transmittedLength",-1);
+            var request = new ServiceRequest(serviceName, identity, argument);
+            if (transmittedLength > -1) request.TransmittedLength = transmittedLength;
+            return request;
         }
 
         #endregion

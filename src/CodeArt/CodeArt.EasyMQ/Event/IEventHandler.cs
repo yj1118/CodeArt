@@ -19,6 +19,6 @@ namespace CodeArt.EasyMQ.Event
         /// </summary>
         /// <param name="eventName"></param>
         /// <param name="arg"></param>
-        void Handle(string eventName, DTObject arg);
+        void Handle(string eventName, TransferData data);
     }
 }

@@ -27,7 +27,7 @@ namespace CodeArt.DomainDriven
         {
             var repository = Repository.Create<IDynamicRepository>();
             var root = repository.Find(define, id, QueryLevel.None);
-            if (!root.IsEmpty()) return root;
+            if (!root.IsEmpty()) return root;//注释这句话就可以测试paper提交引起的死锁问题，该问题目前已解决
 
             //从远程获取聚合根对象
             var remoteRoot = GetRootByRemote(define, id);
@@ -36,6 +36,7 @@ namespace CodeArt.DomainDriven
             DataContext.UseTransactionScope(() =>
             {
                 root = repository.Find(define, id, QueryLevel.HoldSingle);
+                //System.Threading.Thread.Sleep(5000);  取消注释就可以测试paper提交引起的死锁问题，该问题目前已解决
                 if (root.IsEmpty())
                 {
                     root = remoteRoot;
@@ -100,10 +101,16 @@ namespace CodeArt.DomainDriven
 
             DataContext.UseTransactionScope(() =>
             {
-                var local = repository.Find(define, id, QueryLevel.Single);
+                var local = repository.Find(define, id, QueryLevel.HoldSingle);
                 if (local.IsEmpty()) return; //本地没有数据，不需要更新
 
+                //System.Threading.Thread.Sleep(3000);  取消注释就可以测试paper提交引起的死锁问题，该问题目前已解决
                 var root = GetRootByRemote(define, id);
+                if (root.IsEmpty())
+                {
+                    DeleteObject(define, id);
+                    return;
+                }
                 local.Sync(root); //同步数据
                 UpdateRoot(repository, define, local);
             });

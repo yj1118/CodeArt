@@ -11,7 +11,7 @@ namespace CodeArt.Web.WebPages
 {
     public interface IResultSender
     {
-        void Send(WebPageContext context, object result);
+        void Send(WebPageContext context, string resultCode);
 
         /// <summary>
         /// 发送错误信息

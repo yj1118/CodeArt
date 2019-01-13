@@ -1,0 +1,17 @@
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Search\obj\Debug\CodeArt.Search.csprojAssemblyReference.cache
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Search\obj\Debug\CodeArt.Search.csproj.CoreCompileInputs.cache
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Search\bin\Debug\NLog.config
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Search\bin\Debug\CodeArt.Search.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Search\bin\Debug\CodeArt.Search.pdb
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Search\bin\Debug\CodeArt.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Search\bin\Debug\Elasticsearch.Net.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Search\bin\Debug\Nest.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Search\bin\Debug\NLog.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Search\bin\Debug\CodeArt.pdb
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Search\bin\Debug\Elasticsearch.Net.xml
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Search\bin\Debug\Nest.xml
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Search\bin\Debug\NLog.xml
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Search\bin\Debug\zh-CN\CodeArt.resources.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Search\obj\Debug\CodeArt.Search.csproj.CopyComplete
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Search\obj\Debug\CodeArt.Search.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Search\obj\Debug\CodeArt.Search.pdb

@@ -86,6 +86,9 @@ namespace CodeArt.WPF.Controls.Playstation
             set { SetValue(SpeedRatioProperty, value); }
         }
 
+        /// <summary>
+        /// 请使用该属性控制loading的显示与隐藏，这个属性会停止动画，不耗CPU
+        /// </summary>
         public bool IsActive
         {
             get { return (bool)GetValue(IsActiveProperty); }

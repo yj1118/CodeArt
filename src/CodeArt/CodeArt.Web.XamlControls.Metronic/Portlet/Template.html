@@ -2,7 +2,7 @@
                  xmlns:m="http://schemas.codeart.cn/web/xaml/metronic">
 <div class="{TemplateBinding Class,Converter={Static m:PortletClassConverter.Instance}}" 
      id="{TemplateBinding Id}" 
-     data-proxy="{give:new $$metronic.portlet()}">
+     data-proxy="{give:new $$metronic.portlet()}" m-portlet="true">
 	<div class="m-portlet__head" Visibility="{TemplateBinding Title,Converter={Static StringCollapsedConverter.Instance}}">
 		<div class="m-portlet__head-caption">
 			<div class="m-portlet__head-title">

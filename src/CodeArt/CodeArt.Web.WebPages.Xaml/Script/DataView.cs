@@ -21,9 +21,14 @@ namespace CodeArt.Web.WebPages.Xaml.Script
             _data = data;
         }
 
-        public DTObject Output()
+        public string GetDataCode()
         {
-            return _data;
+            return _data.GetCode(false, false);
+        }
+
+        public string GetScriptCode()
+        {
+            throw new NotImplementedException("DataView.GetScriptCode");
         }
 
     }

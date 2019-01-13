@@ -10,7 +10,7 @@ namespace CodeArt.Web.WebPages
     [SafeAccess]
     public class DTOExtractor : IParameterExtractor
     {
-        public virtual object[] ParseArguments(WebPageContext context)
+        public virtual DTObject ParseArguments(WebPageContext context)
         {
             HttpRequest request = context.Request;
 
@@ -20,7 +20,7 @@ namespace CodeArt.Web.WebPages
                 code = reader.ReadToEnd();
             }
 
-            if (IsJSON(code)) return new object[] { DTObject.Create(code) };
+            if (IsJSON(code)) return DTObject.Create(code);
             else return FormExtractor.Instance.ParseArguments(context);
         }
 

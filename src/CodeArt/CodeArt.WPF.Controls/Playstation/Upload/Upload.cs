@@ -185,6 +185,24 @@ namespace CodeArt.WPF.Controls.Playstation
             }
         }
 
+        /// <summary>
+        /// 该方法可以批量添加文件上传，无须经过OpenFileDialog
+        /// </summary>
+        /// <param name="files"></param>
+        public void AddFiles(IEnumerable<string> fileFullNames)
+        {
+            var files = fileFullNames.Select((t)=>
+            {
+                var name = IOUtil.GetName(t);
+                var path = t;
+                var extension = IOUtil.GetExtension(t);
+                return new FileInfo(name,path, extension);
+            });
+
+            AddFiles(files);
+        }
+
+
         private void AddFiles(IEnumerable<FileInfo> files)
         {
             foreach (var info in files)

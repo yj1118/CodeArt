@@ -39,7 +39,7 @@ namespace ClientApp1
                     {
                         arg["client1-count"] = count;
                     });
-                    Console.WriteLine("收到请求结果：" + result1.GetCode());
+                    Console.WriteLine("收到请求结果：" + result1.Info.GetCode());
                     Thread.Sleep(10);
                 }
             }

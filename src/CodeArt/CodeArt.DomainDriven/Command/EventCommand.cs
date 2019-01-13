@@ -9,10 +9,18 @@ using CodeArt.Concurrent;
 
 namespace CodeArt.DomainDriven
 {
-    public abstract class EventCommand<ET, RT> : CommandBase, ICommand<RT>
+    /// <summary>
+    /// 代表是领域事件相关的命令
+    /// </summary>
+    public interface IEventCommand : ICommand
+    {
+
+    }
+
+    public abstract class EventCommand<ET, RT> : CommandBase, ICommanImp<RT>, IEventCommand
         where ET : DomainEvent
     {
-        public RT Execute()
+        public virtual RT Execute()
         {
             var queueId = Guid.NewGuid();
             var future = CreateFuture(queueId);

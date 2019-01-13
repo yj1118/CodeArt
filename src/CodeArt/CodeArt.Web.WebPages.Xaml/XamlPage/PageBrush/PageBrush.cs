@@ -68,16 +68,49 @@ namespace CodeArt.Web.WebPages.Xaml
         /// <summary>
         /// 获取页面代码
         /// </summary>
+        /// <param name="onlyMain">是否仅输出主体代码，如果该选项为true，那么当代码段没有body节点时，是不会输出script,style的代码的</param>
         /// <returns></returns>
-        public string GetCode()
+        public string GetCode(bool onlyMain = true)
         {
             var code = _current.ToString();
-            code = InsertHeader(code);
-            code = InserBottom(code);
+            code = InsertHeader(code, onlyMain);
+            code = InserBottom(code, onlyMain);
             return code;
         }
 
-        private string InsertHeader(string mainCode)
+        //private string InsertHeader(string mainCode)
+        //{
+        //    var code = _header.ToString();
+        //    if (string.IsNullOrEmpty(code)) return mainCode;
+
+        //    var pos = mainCode.IndexOf("</head>", StringComparison.OrdinalIgnoreCase);
+        //    if (pos == -1)
+        //    {
+        //        //在根画刷中插入代码
+        //        var rootBrush = RenderContext.Current.RootBrush;
+        //        rootBrush.Draw(code, DrawOrigin.Header);
+        //        //return mainCode.Insert(0, code);
+        //    }
+        //    return mainCode.Insert(pos, code);
+        //}
+
+        //private string InserBottom(string mainCode)
+        //{
+        //    var code = _bottom.ToString();
+        //    if (string.IsNullOrEmpty(code)) return mainCode;
+
+        //    var pos = mainCode.IndexOf("</body>", StringComparison.OrdinalIgnoreCase);
+        //    if (pos == -1)
+        //    {
+        //        //在根画刷中插入代码
+        //        var rootBrush = RenderContext.Current.RootBrush;
+        //        rootBrush.Draw(code, DrawOrigin.Bottom);
+        //        //return mainCode.Insert(mainCode.Length, code);
+        //    }
+        //    return mainCode.Insert(pos, code);
+        //}
+
+        private string InsertHeader(string mainCode,bool onlyMain)
         {
             var code = _header.ToString();
             if (string.IsNullOrEmpty(code)) return mainCode;
@@ -86,14 +119,19 @@ namespace CodeArt.Web.WebPages.Xaml
             if (pos == -1)
             {
                 //在根画刷中插入代码
-                var rootBrush = RenderContext.Current.RootBrush;
-                rootBrush.Draw(code, DrawOrigin.Header);
-                return mainCode;
+                if (onlyMain)
+                {
+                    var rootBrush = RenderContext.Current.RootBrush;
+                    rootBrush.Draw(code, DrawOrigin.Header);
+                    return mainCode;
+                }
+                else
+                    return mainCode.Insert(0, code);
             }
             return mainCode.Insert(pos, code);
         }
 
-        private string InserBottom(string mainCode)
+        private string InserBottom(string mainCode, bool onlyMain)
         {
             var code = _bottom.ToString();
             if (string.IsNullOrEmpty(code)) return mainCode;
@@ -101,10 +139,15 @@ namespace CodeArt.Web.WebPages.Xaml
             var pos = mainCode.IndexOf("</body>", StringComparison.OrdinalIgnoreCase);
             if (pos == -1)
             {
-                //在根画刷中插入代码
-                var rootBrush = RenderContext.Current.RootBrush;
-                rootBrush.Draw(code, DrawOrigin.Bottom);
-                return mainCode;
+                if (onlyMain)
+                {
+                    //在根画刷中插入代码
+                    var rootBrush = RenderContext.Current.RootBrush;
+                    rootBrush.Draw(code, DrawOrigin.Bottom);
+                    return mainCode;
+                }
+                else
+                    return mainCode.Insert(mainCode.Length, code);
             }
             return mainCode.Insert(pos, code);
         }
@@ -138,21 +181,34 @@ namespace CodeArt.Web.WebPages.Xaml
             }
         }
 
+        public void DrawScriptInit(IScriptView view)
+        {
+            using (var temp = StringPool.Borrow())
+            {
+                var code = temp.Item;
+                code.Append("<script>");
+                code.AppendFormat("{0}", view.GetScriptCode());
+                code.Append("</script>");
+                this.DrawLine(code.ToString(), DrawOrigin.Bottom);
+            }
+        }
+
         /// <summary>
         /// 绘制脚本回调
         /// </summary>
         public void DrawScriptCallback(IScriptView view)
         {
-            var output = view.Output();
             using (var temp = StringPool.Borrow())
             {
                 StringBuilder code = temp.Item;
                 code.Append("<script>$(document).ready(function () { ");
-                code.AppendFormat("$$view.callback({0});", output.GetCode());
+                code.AppendFormat("$$view.callback({0});", view.GetDataCode());
                 code.Append(" });</script>");
                 this.DrawLine(code.ToString(), DrawOrigin.Bottom);
             }
         }
+
+        
 
 
         /// <summary>

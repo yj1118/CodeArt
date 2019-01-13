@@ -33,6 +33,11 @@ namespace CodeArt.DTO
             if (value.HasValue) _dto.SetValue(name, value.Value);
         }
 
+        public void Write(string name, float? value)
+        {
+            if (value.HasValue) _dto.SetValue(name, value.Value);
+        }
+
         public void Write(string name, Guid? value)
         {
             if (value.HasValue) _dto.SetValue(name, value.Value);

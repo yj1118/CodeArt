@@ -7,6 +7,7 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using CodeArt.DTO;
+using System.Threading.Tasks;
 
 namespace CodeArtTest.DTO
 {
@@ -30,7 +31,7 @@ namespace CodeArtTest.DTO
         public void TransformListIsEmpty()
         {
             var code = "{\"config\":[],\"description\":\"类型描述\",\"id\":13,\"markedCode\":\"test\",\"name\":\"测试\",\"orderIndex\":1}";
-            DTObject dto = DTObject.CreateReusable(code);
+            DTObject dto = DTObject.Create(code);
             dto.Transform("id=>typeId;config=>attached");
             dto.Transform("attached.options=options", (v) =>
             {
@@ -49,11 +50,11 @@ namespace CodeArtTest.DTO
         [TestMethod]
         public void Reserve()
         {
-            DTObject dto = DTObject.CreateReusable(_code1);
+            DTObject dto = DTObject.Create(_code1);
             dto.Transform("~config.name,config.options,config.persons,description,id");
             Assert.AreEqual("{\"config\":[{\"name\":\"1\",\"options\":[\"选项1\",\"选项2\"],\"persons\":[{\"id\":\"1\",\"name\":\"姓名1\"},{\"id\":\"2\",\"name\":\"姓名2\"}]}],\"description\":\"111\",\"id\":7}", dto.GetCode());
 
-            dto = DTObject.CreateReusable(_code1);
+            dto = DTObject.Create(_code1);
             dto.Transform("~config.name,config.options,config.persons.id,description,id");
             Assert.AreEqual("{\"config\":[{\"name\":\"1\",\"options\":[\"选项1\",\"选项2\"],\"persons\":[{\"id\":\"1\"},{\"id\":\"2\"}]}],\"description\":\"111\",\"id\":7}", dto.GetCode());
         }
@@ -64,11 +65,11 @@ namespace CodeArtTest.DTO
         [TestMethod]
         public void Remove()
         {
-            DTObject dto = DTObject.CreateReusable(_code1);
+            DTObject dto = DTObject.Create(_code1);
             dto.Transform("!config.name,config.options,config.persons,description,id");
             Assert.AreEqual("{\"config\":[{\"message\":\"\",\"required\":true,\"type\":4}],\"markedCode\":\"1\",\"name\":\"123\",\"orderIndex\":1,\"rootId\":6}", dto.GetCode(true));
 
-            dto = DTObject.CreateReusable(_code1);
+            dto = DTObject.Create(_code1);
             dto.Transform("!config.name,config.options,config.persons.id,description,id");
             Assert.AreEqual("{\"config\":[{\"message\":\"\",\"persons\":[{\"name\":\"姓名1\"},{\"name\":\"姓名2\"}],\"required\":true,\"type\":4}],\"markedCode\":\"1\",\"name\":\"123\",\"orderIndex\":1,\"rootId\":6}", dto.GetCode(true));
         }
@@ -79,11 +80,11 @@ namespace CodeArtTest.DTO
         [TestMethod]
         public void SetSelf()
         {
-            var dto = DTObject.CreateReusable();
+            var dto = DTObject.Create();
             dto.SetValue(2);
             Assert.AreEqual(2, dto.GetValue<int>());
 
-            var newDTO = DTObject.CreateReusable("{id:3}");
+            var newDTO = DTObject.Create("{id:3}");
             dto.SetValue(newDTO); //该表达式表示设置自己
             Assert.AreEqual("{\"id\":3}", dto.GetCode());
 
@@ -96,12 +97,12 @@ namespace CodeArtTest.DTO
         public void MapInnerDTO()
         {
             var code = "{\"name\":\"类型名称\",\"orderIndex\":\"1\",\"markedCode\":\"markedCode\",\"description\":\"描述\",\"coverConfig\":[{\"name\":\"1\",\"width\":\"111\",\"height\":\"111\"}],\"dcSlimConfig\":{\"items\":[{\"name\":\"配置1\",\"type\":\"2\",\"required\":\"false\",\"options\":[\"选项1\",\"选项2\",\"选项3\"]},{\"name\":\"配置2\",\"type\":\"4\",\"required\":\"true\",\"options\":[\"选项1\",\"选项2\"]}]}}";
-            var para = DTObject.CreateReusable(code);
+            var para = DTObject.Create(code);
 
             var temp = DTObject.Deserialize<MapInnerDTOClass>(para);
             Assert.AreEqual("\"dcSlimConfig\":{\"items\":[{\"name\":\"配置1\",\"options\":[\"选项1\",\"选项2\",\"选项3\"],\"required\":\"false\",\"type\":\"2\"},{\"name\":\"配置2\",\"options\":[\"选项1\",\"选项2\"],\"required\":\"true\",\"type\":\"4\"}]}", temp.DCSlimConfig.GetCode(true));
 
-            var dto = DTObject.Serialize(temp, false);
+            var dto = DTObject.Serialize(temp);
             var dcSlimConfig = dto.GetObject("dcSlimConfig");
             Assert.AreEqual("\"dcSlimConfig\":{\"items\":[{\"name\":\"配置1\",\"options\":[\"选项1\",\"选项2\",\"选项3\"],\"required\":\"false\",\"type\":\"2\"},{\"name\":\"配置2\",\"options\":[\"选项1\",\"选项2\"],\"required\":\"true\",\"type\":\"4\"}]}", temp.DCSlimConfig.GetCode(true));
 
@@ -143,7 +144,7 @@ namespace CodeArtTest.DTO
         [TestMethod]
         public void DynamicDTO()
         {
-            var dto = DTObject.CreateReusable("{name:\"张三丰\",sex:'男',person:{name:'张无忌',sex:'男'},persons:[{id:1,name:'1的名称'},{id:2,name:'2的名称'}], values:[1,2,3]}");
+            var dto = DTObject.Create("{name:\"张三丰\",sex:'男',person:{name:'张无忌',sex:'男'},persons:[{id:1,name:'1的名称'},{id:2,name:'2的名称'}], values:[1,2,3]}");
             dynamic d = (dynamic)dto;
 
             var name = d.Name;
@@ -187,11 +188,11 @@ namespace CodeArtTest.DTO
         {
             var menu = CreateMenu();
 
-            var dto = DTObject.CreateReusable("{name,index,parent:{name}}", menu);
+            var dto = DTObject.Create("{name,index,parent:{name}}", menu);
             var code = dto.GetCode(true);
             Assert.AreEqual("{\"Index\":1,\"Name\":\"主菜单\",\"Parent\":{\"Name\":\"根菜单\"}}", code);
 
-            dto = DTObject.CreateReusable("{name,index,parent,owner}", menu);
+            dto = DTObject.Create("{name,index,parent,owner}", menu);
             code = dto.GetCode(true);
             Assert.AreEqual("{\"Index\":1,\"Name\":\"主菜单\",\"Parent\":{\"Index\":0,\"Name\":\"根菜单\",\"Owner\":{\"Creator\":{\"Name\":\"创建人\",\"Sex\":\"男\"},\"Id\":\"project1\",\"Name\":\"项目1\"}}}", code);
 
@@ -234,11 +235,11 @@ namespace CodeArtTest.DTO
         {
             var menu = CreateMenu();
 
-            var dto = DTObject.CreateReusable("{name,childs:[{name,index}]}", menu);
+            var dto = DTObject.Create("{name,childs:[{name,index}]}", menu);
             var code = dto.GetCode(true);
             Assert.AreEqual("{\"Childs\":[{\"Index\":2,\"Name\":\"子菜单1\"},{\"Index\":3,\"Name\":\"子菜单2\"},{\"Index\":4,\"Name\":\"子菜单3\"}],\"Name\":\"主菜单\"}", code);
 
-            dto = DTObject.CreateReusable("{name,childs}", menu);
+            dto = DTObject.Create("{name,childs}", menu);
             code = dto.GetCode(true);
             Assert.AreEqual("{\"Childs\":[{\"Childs\":[],\"Name\":\"子菜单1\"},{\"Childs\":[],\"Name\":\"子菜单2\"},{\"Childs\":[{\"Childs\":[],\"Name\":\"子菜单3-1\"},{\"Childs\":[],\"Name\":\"子菜单3-2\"}],\"Name\":\"子菜单3\"}],\"Name\":\"主菜单\"}", code);
         }
@@ -247,7 +248,7 @@ namespace CodeArtTest.DTO
         public void MenuListMapObject()
         {
             var code = "{\"Childs\":[{\"Childs\":[],\"Name\":\"子菜单1\"},{\"Childs\":[],\"Name\":\"子菜单2\"},{\"Childs\":[{\"Childs\":[],\"Name\":\"子菜单3-1\"},{\"Childs\":[],\"Name\":\"子菜单3-2\"}],\"Name\":\"子菜单3\"}],\"Name\":\"主菜单\"}";
-            var dto = DTObject.CreateReusable(code);
+            var dto = DTObject.Create(code);
             var menu = dto.Save<Menu>();
             Assert.AreEqual(3, menu.Childs.Count);
         }
@@ -281,8 +282,8 @@ namespace CodeArtTest.DTO
         {
             var code1 = "{\"Name\":\"主菜单\",value:1}";
             var code2 = "{value:1,\"name\":\"主菜单\"}";
-            var dto1 = DTObject.CreateReusable(code1);
-            var dto2 = DTObject.CreateReusable(code2);
+            var dto1 = DTObject.Create(code1);
+            var dto2 = DTObject.Create(code2);
             Assert.AreEqual(dto1, dto2);
         }
 
@@ -290,6 +291,23 @@ namespace CodeArtTest.DTO
         public void Multithreading()
         {
             //to do...
+        }
+
+
+        [TestMethod]
+        public void MoreCode()
+        {
+            var fileName = @"D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArtTest\DTO\code.txt";
+            var sourceCode = System.IO.File.ReadAllText(fileName);
+            {
+                var dto = DTObject.Create(sourceCode);
+                Assert.AreEqual(sourceCode, dto.GetCode());
+            }
+
+            Parallel.For(0, 10000, (index) => {
+                var dto = DTObject.Create(sourceCode);
+                Assert.AreEqual(sourceCode, dto.GetCode());
+            });
         }
 
     }

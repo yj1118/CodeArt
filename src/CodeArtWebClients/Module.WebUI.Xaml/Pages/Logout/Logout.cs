@@ -20,9 +20,25 @@ namespace Module.WebUI.Xaml.Pages
     [TemplateCodeFactory("Template", typeof(DefaultTemplateCodeFactory))]
     public class Logout : CodeArt.Web.WebPages.Xaml.Controls.Page
     {
+        public static readonly DependencyProperty ReturnUrlProperty = DependencyProperty.Register<string, Logout>("ReturnUrl", () => { return "/login.htm"; });
+        /// <summary>
+        /// 
+        /// </summary>
+        public string ReturnUrl
+        {
+            get
+            {
+                return (string)GetValue(ReturnUrlProperty);
+            }
+            set
+            {
+                SetValue(ReturnUrlProperty, value);
+            }
+        }
+
         public Logout()
         {
-            this.Loaded += Logout_Loaded;
+            this.Loaded += OnLoaded;
         }
 
         public override void OnApplyTemplate()
@@ -30,7 +46,7 @@ namespace Module.WebUI.Xaml.Pages
             base.OnApplyTemplate();
         }
 
-        private void Logout_Loaded(object sender, object e)
+        private void OnLoaded(object sender, object e)
         {
             Principal.Logout();
         }

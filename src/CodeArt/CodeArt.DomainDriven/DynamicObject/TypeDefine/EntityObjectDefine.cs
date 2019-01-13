@@ -16,8 +16,8 @@ namespace CodeArt.DomainDriven
 {
     internal class EntityObjectDefine : TypeDefine
     {
-        public EntityObjectDefine(string typeName, string metadataCode)
-            : base(typeName, metadataCode, DomainObject.EntityObjectType, typeof(DynamicEntity))
+        public EntityObjectDefine(string typeName, string metadataCode,bool closeMultiTenancy)
+            : base(typeName, metadataCode, DomainObject.EntityObjectType, typeof(DynamicEntity), closeMultiTenancy)
         {
         }
 
@@ -28,8 +28,8 @@ namespace CodeArt.DomainDriven
         /// <param name="typeName"></param>
         /// <param name="metadataCode"></param>
         /// <param name="qualifiedName"></param>
-        internal EntityObjectDefine(string typeName, TypeMetadata metadata, string qualifiedName)
-            : base(typeName, metadata, DomainObject.EntityObjectType, typeof(DynamicEntity), qualifiedName)
+        internal EntityObjectDefine(string typeName, TypeMetadata metadata, string qualifiedName, bool closeMultiTenancy)
+            : base(typeName, metadata, DomainObject.EntityObjectType, typeof(DynamicEntity), qualifiedName, closeMultiTenancy)
         {
         }
 

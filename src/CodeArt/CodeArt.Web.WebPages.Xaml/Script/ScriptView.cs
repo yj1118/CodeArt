@@ -7,6 +7,7 @@ using System.Diagnostics;
 
 using CodeArt.DTO;
 using CodeArt.Util;
+using CodeArt.Concurrent;
 
 namespace CodeArt.Web.WebPages.Xaml.Script
 {
@@ -164,6 +165,16 @@ namespace CodeArt.Web.WebPages.Xaml.Script
         }
 
         /// <summary>
+        /// 输出返回值,用此方法可以直接返回值
+        /// </summary>
+        /// <param name="value"></param>
+        public void Output(DTObject value)
+        {
+            Var("_$output", value);
+            _scriptBody.AppendFormat("return _$output;");
+        }
+
+        /// <summary>
         /// 在输出脚本中做if判断
         /// </summary>
         /// <param name="condition"></param>
@@ -313,28 +324,33 @@ namespace CodeArt.Web.WebPages.Xaml.Script
         #endregion
 
 
-        /// <summary>
-        /// 脚本视图输出dto格式的指令
-        /// </summary>
-        /// <returns></returns>
-        public DTObject Output()
+        public string GetDataCode()
         {
-            var code = GetCode();
-            DTObject output = DTObject.Create();
-            output.SetValue("process", code.ToBase64(Encoding.UTF8)); //进行编码，此处编码不是因为DTO的转义而是避免script等特殊标签令客户端执行的时候代码冲突报错，
-            return output;
+            var scriptCode = GetScriptCode();
+            using (var temp = StringPool.Borrow())
+            {
+                var code = temp.Item;
+                code.Append("{");
+                code.Append("process:\"");
+                code.Append(scriptCode.ToBase64(Encoding.UTF8)); //进行编码，此处编码不是因为DTO的转义而是避免script等特殊标签令客户端执行的时候代码冲突报错，
+                code.Append("\"}");
+                return code.ToString();
+            }
         }
 
         /// <summary>
         /// 获取脚本代码
         /// </summary>
         /// <returns></returns>
-        internal string GetCode()
+        public string GetScriptCode()
         {
-            var code = new StringBuilder(_scriptHeader.Length + _scriptBody.Length);
-            code.Append(_scriptHeader);
-            code.Append(_scriptBody);
-            return code.ToString();
+            using (var temp = StringPool.Borrow())
+            {
+                var code = temp.Item;
+                code.Append(_scriptHeader);
+                code.Append(_scriptBody);
+                return code.ToString();
+            }
         }
 
         /// <summary>
@@ -344,7 +360,7 @@ namespace CodeArt.Web.WebPages.Xaml.Script
         /// <returns></returns>
         public DTObject GetData(params string[] elementIds)
         {
-            DTObject data = DTObject.CreateReusable();
+            DTObject data = DTObject.Create();
             if (_input == null) return data;
             if (elementIds == null || elementIds.Length == 0)
             {
@@ -402,6 +418,40 @@ namespace CodeArt.Web.WebPages.Xaml.Script
         }
 
         #endregion
+
+        public void Clear()
+        {
+            _input = null;
+            _elementsCache.Clear();
+            _sender = null;
+            _scriptHeader.Clear();
+            _scriptBody.Clear();
+            _session = null;
+        }
+
+        private static Pool<ScriptView> _pool = new Pool<ScriptView>(() =>
+        {
+            return new ScriptView();
+        }, (view, phase) =>
+        {
+            if (phase == PoolItemPhase.Returning)
+            {
+                view.Clear();
+            }
+            return true;
+        }, new PoolConfig()
+        {
+            MaxRemainTime = 300 //闲置时间300秒
+        });
+
+        /// <summary>
+        /// 得到参数数量为2的参数对象
+        /// </summary>
+        /// <returns></returns>
+        public static IPoolItem<ScriptView> Borrow()
+        {
+            return _pool.Borrow();
+        }
 
     }
 }

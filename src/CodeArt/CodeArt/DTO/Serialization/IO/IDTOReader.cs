@@ -146,6 +146,8 @@ namespace CodeArt.DTO
 
         byte? ReadNullableByte(string name);
 
+        float? ReadNullableFloat(string name);
+
         Guid? ReadNullableGuid(string name);
 
 

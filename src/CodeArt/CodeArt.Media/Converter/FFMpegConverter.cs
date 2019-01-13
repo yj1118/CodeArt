@@ -25,10 +25,6 @@
             this.FFMpegProcessPriority = ProcessPriorityClass.Normal;
             this.LogLevel = "info";
             this.FFMpegToolPath = string.Format("{0}_Media\\", AppDomain.CurrentDomain.BaseDirectory);
-            //if (HttpContext.Current != null)
-            //{
-            //    this.FFMpegToolPath = HttpRuntime.AppDomainAppPath + "bin";
-            //}
             if (string.IsNullOrEmpty(this.FFMpegToolPath))
             {
                 this.FFMpegToolPath = Path.GetDirectoryName(typeof(FFMpegConverter).Assembly.Location);
@@ -52,6 +48,7 @@
 
         protected string ComposeFFMpegCommandLineArgs(string inputFile, string inputFormat, string outputFile, string outputFormat, ConvertSettings settings)
         {
+            //return "-y -loglevel info -f dshow -i audio=\"麦克风 (Realtek High Definition Audio)\" -f gdigrab  -draw_mouse 1 -i \"desktop\" -ar 44100 -r 30 -s hd1080  -qscale 15 udp://127.0.0.1:7777";
             //return "-y -f dshow -i audio=\"您听到的声音 (Sound Blaster Recon3Di)\" -f gdigrab -draw_mouse 1 -video_size 1920x1080 -i desktop -vcodec h264 " + this.CommandArgParameter(outputFile);
 
             StringBuilder builder = new StringBuilder();

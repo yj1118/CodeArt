@@ -69,6 +69,24 @@ namespace Module.QuestionAnswer
         }
 
 
+        /// <summary>
+        /// 是否必填
+        /// </summary>
+        public static readonly DependencyProperty RequiredProperty = DependencyProperty.Register<bool, Question>("Required",() => { return false; });
+
+        public bool Required
+        {
+            get
+            {
+                return (bool)GetValue(RequiredProperty);
+            }
+            set
+            {
+                SetValue(RequiredProperty, value);
+            }
+        }
+
+
         public static readonly DependencyProperty TextProperty = DependencyProperty.Register<string, Question>("Text", () => { return string.Empty; });
 
         /// <summary>

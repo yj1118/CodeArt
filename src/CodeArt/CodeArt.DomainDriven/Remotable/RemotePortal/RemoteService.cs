@@ -28,7 +28,7 @@ namespace CodeArt.DomainDriven
                 arg["typeName"] = remoteType.FullName;
                 arg["schemaCode"] = define.MetadataSchemaCode;
                 arg["identity"] = AppContext.Identity; //没有直接使用session的身份是因为有可能服务点只为一个项目（一个身份）而架设
-            });
+            }).Info;
         }
 
 
@@ -48,7 +48,7 @@ namespace CodeArt.DomainDriven
 
         private static DTObject CreateEventArg(RemoteType remoteType, object id)
         {
-            var arg = DTObject.CreateReusable();
+            var arg = DTObject.Create();
             arg["identity"] = AppContext.Identity;
             arg["typeName"] = remoteType.FullName;
             arg["id"] = id;

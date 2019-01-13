@@ -34,5 +34,11 @@
     <add name="vis.js.map" />
     <add name="vis.min.css" />
     <add name="vis.min.js" />
+
+    <add name="layout-builder.js" />
+    <add name="my-script.js" />
+
+    <add name="layui.all.js" />
+    <add name="layui.mobile.css" />
   </files>
 </config>

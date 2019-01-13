@@ -72,9 +72,9 @@ namespace CodeArt.DomainDriven.DataAccess
             private set;
         }
 
-       /// <summary>
-       /// 表记录的实际类型，对于中间表，该类型是集合类型
-       /// </summary>
+        /// <summary>
+        /// 对象的实际类型，对于中间表，该类型是集合类型
+        /// </summary>
         public Type ObjectType
         {
             get;
@@ -104,7 +104,8 @@ namespace CodeArt.DomainDriven.DataAccess
         {
             get
             {
-                return this.ObjectTip == null ? false : DomainObject.IsAggregateRoot(this.ObjectTip.ObjectType);
+                //return this.ObjectTip == null ? false : DomainObject.IsAggregateRoot(this.ObjectTip.ObjectType);
+                return this.ObjectType == null ? false : DomainObject.IsAggregateRoot(this.ObjectType); //有可能对象标记的ObjectTip的类型与对象的实际类型不同，所以需要使用ObjectType
             }
         }
 
@@ -229,6 +230,19 @@ namespace CodeArt.DomainDriven.DataAccess
         {
             get;
             private set;
+        }
+
+        public bool IsEnabledMultiTenancy
+        {
+            get
+            {
+                if(this.ObjectTip == null)
+                {
+                    //中间表是没有ObjectTip的
+                    return this.Root.IsEnabledMultiTenancy;
+                }
+                return !this.ObjectTip.CloseMultiTenancy && DomainDrivenConfiguration.Current.MultiTenancyConfig.IsEnabled;
+            }
         }
 
         public IEnumerable<IDataField> Fields
@@ -379,14 +393,15 @@ namespace CodeArt.DomainDriven.DataAccess
             AddBuildtimeIndex(this);
             if(memberField != null) memberField.Table = this;
 
+
             this.Type = type;
 
             this.ChainRoot = chainRoot;
             this.Master = master;
             this.MemberField = memberField;
             this.Root = FindActualRoot(chainRoot);
-            
             InitObjectType(objectType, memberField?.Tip);
+
             this.Chain = this.MemberField == null ? ObjectChain.Empty : new ObjectChain(this.MemberField);
             this.IsSnapshot = isSnapshot;
 

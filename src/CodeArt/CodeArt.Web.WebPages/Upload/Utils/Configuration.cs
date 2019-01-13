@@ -17,7 +17,7 @@
             {
                 if (_chunkSize < 0)
                 {
-                    string s = ConfigurationSettings.AppSettings["Telerik.RadUpload.ChunkSize"];
+                    string s = System.Configuration.ConfigurationManager.AppSettings["Telerik.RadUpload.ChunkSize"];
                     _chunkSize = ((s != null) && Utility.IsInteger(s)) ? int.Parse(s) : DEFAULT_CHUNK_SIZE;
                     _chunkSize = Math.Min(MAX_CHUNK_SIZE, _chunkSize);
                 }
@@ -47,7 +47,7 @@
             {
                 if (_tempFolder == null)
                 {
-                    string str = ConfigurationSettings.AppSettings["Telerik.RadUpload.TempFolder"];
+                    string str = System.Configuration.ConfigurationManager.AppSettings["Telerik.RadUpload.TempFolder"];
                     _tempFolder = (str != null) ? str : DEFAULT_TEMP_FOLDER;
                 }
                 return _tempFolder;

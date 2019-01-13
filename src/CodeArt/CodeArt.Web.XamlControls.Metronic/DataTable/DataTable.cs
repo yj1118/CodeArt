@@ -9,7 +9,7 @@ using CodeArt.Web.WebPages.Xaml;
 using CodeArt.Web.WebPages.Xaml.Controls;
 using CodeArt.DTO;
 using CodeArt.Data;
-using CodeArt.ModuleNest;
+
 using CodeArt.Concurrent;
 using CodeArt.Web.WebPages.Xaml.Script;
 using CodeArt.Util;
@@ -33,6 +33,23 @@ namespace CodeArt.Web.XamlControls.Metronic
             set
             {
                 SetValue(PaginationProperty, value);
+            }
+        }
+
+        /// <summary>
+        /// 是否显示翻页信息
+        /// </summary>
+        public readonly static DependencyProperty PageSizeProperty = DependencyProperty.Register<int, DataTable>("PageSize", () => { return 10; });
+
+        public int PageSize
+        {
+            get
+            {
+                return (int)GetValue(PageSizeProperty);
+            }
+            set
+            {
+                SetValue(PageSizeProperty, value);
             }
         }
 
@@ -100,7 +117,8 @@ namespace CodeArt.Web.XamlControls.Metronic
                 }
                 if (this.Columns.Count > 0) sb.Length--;
                 sb.Append("],");
-                sb.AppendFormat("pagination:{0}", this.Pagination.ToString().ToLower());
+                sb.AppendFormat("pagination:{0},", this.Pagination.ToString().ToLower());
+                sb.AppendFormat("pageSize:{0}", this.PageSize);
                 sb.Append("}");
                 return sb.ToString();
             }
@@ -108,18 +126,36 @@ namespace CodeArt.Web.XamlControls.Metronic
 
         private void FillColumnCode(DataTableColumn column, int columnIndex, StringBuilder code)
         {
-            if(column.Selector)
+            if(column.Detail)
+            {
+                code.Append("{field: '',title: '',width: 20,sortable: false,textAlign: 'center',detail:{");
+                code.AppendFormat("title:'{0}',", column.Title);
+                if (column.Content.Count > 0)
+                    code.AppendFormat("template:{0},", GetTemplateFunction(columnIndex));
+                else
+                    throw new XamlException("必须为detail列指定至少一个子元素以呈现内容");
+
+                if(!string.IsNullOrEmpty(column.Action))
+                {
+                    code.AppendFormat("action:'{0}',", column.Action);
+                }
+
+                code.Append("}}");
+            }
+            else if (column.Selector)
             {
                 code.Append("{");
                 code.AppendFormat("field: '{0}',title: '#',width: 50,sortable: false,textAlign: 'center',selector:", column.Field);
-                code.Append("{class: 'm-checkbox--solid m-checkbox--brand'}}");
+                code.Append("{class: 'm-checkbox--solid m-checkbox--brand'}");
+                if (column.ValueField) code.Append(",valueField:true");
+                code.Append("}");
             }
             else
             {
                 code.Append("{");
                 code.AppendFormat("field:'{0}',", column.Field);
                 code.AppendFormat("title:'{0}',", column.Title);
-                if(!string.IsNullOrEmpty(column.Width)) code.AppendFormat("width:{0},", column.Width);
+                if(!string.IsNullOrEmpty(column.Width)) code.AppendFormat("width:'{0}',", column.Width);
                 code.AppendFormat("sortable:{0},",JSON.GetCode(column.Sortable));
                 code.AppendFormat("textAlign:'{0}',", column.TextAlign);
                 if (!string.IsNullOrEmpty(column.Overflow)) code.AppendFormat("overflow:'{0}',", column.Overflow);
@@ -129,7 +165,8 @@ namespace CodeArt.Web.XamlControls.Metronic
                     code.AppendFormat("template:{0},", column.GetTemplate);
                 else if (column.Content.Count > 0) code.AppendFormat("template:{0},", GetTemplateFunction(columnIndex));
 
-                if(column.TextField) code.Append("textField:true,");
+                if (column.ValueField) code.Append("valueField:true,");
+                if (column.TextField) code.Append("textField:true,");
 
                 code.Length--;
                 code.Append("}");
@@ -181,7 +218,7 @@ namespace CodeArt.Web.XamlControls.Metronic
                 var sb = temp.Item;
                 foreach (UIElement item in content)
                 {
-                    var ec = XamlUtil.GetCode(item);
+                    var ec = XamlUtil.GetCode(item, true);
                     sb.AppendLine(ec);
                 }
                 code = sb.ToString();
@@ -219,7 +256,7 @@ namespace CodeArt.Web.XamlControls.Metronic
             return new DataView(data);
         }
 
-        private void ProcessDate(DataTableSE sender, DTObject data)
+        private static void ProcessDate(DataTableSE sender, DTObject data)
         {
             var dateColumns = sender.DateColumns;
             var datetimeColumns = sender.DatetimesColumns;
@@ -239,19 +276,23 @@ namespace CodeArt.Web.XamlControls.Metronic
                     {
                         if(row.TryGetValue<DateTime>(column,out var value))
                         {
-                            row[column] = value.ToString("yyyy/MM/dd hh:mm");
+                            row[column] = value.ToString("yyyy/MM/dd HH:mm");
                         }
                     }
                 });
             }
-
         }
-
 
         public override DependencyObject GetChild(string childName)
         {
             return base.GetChild(childName) ?? this.Header.GetChild(childName) ?? this.Columns.GetChild(childName);
         }
+
+        public override IEnumerable<UIElement> GetActionElement(string actionName)
+        {
+            return this.Combine(base.GetActionElement(actionName) , this.Header.GetActionElement(actionName) , this.Columns.GetActionElement(actionName));
+        }
+
 
         public Func<ScriptView, DataTableSE, DTObject> LoadData = null;
     }

@@ -9,7 +9,7 @@ namespace CodeArt.DomainDriven
     /// <summary>
     /// 事件锁
     /// </summary>
-    [ObjectRepository(typeof(IEventLockRepository))]
+    [ObjectRepository(typeof(IEventLockRepository), CloseMultiTenancy = true)]
     public class EventLock : AggregateRoot<EventLock, Guid>
     {
         [PropertyRepository()]

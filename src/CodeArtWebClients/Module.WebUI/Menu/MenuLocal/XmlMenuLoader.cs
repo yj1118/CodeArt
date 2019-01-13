@@ -94,6 +94,12 @@ namespace Module.WebUI
             item.SetValue("name", name);
             item.SetObject("code", codeDTO);
 
+            var handler = MenuHelper.GetHandler();
+            if(handler != null)
+            {
+                handler.Process(item);
+            }
+
             foreach (XmlNode childNode in node.ChildNodes)
             {
                 if (childNode.NodeType != XmlNodeType.Element) continue;

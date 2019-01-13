@@ -16,7 +16,12 @@ namespace CodeArt.Net.Anycast
 {
     public abstract class TransferHandler : IMessageHandler
     {
-        public void Process(IServerSession origin, Message message)
+        public virtual void BeginProcess(IServerSession origin, Message message, HandlerContext ctx)
+        {
+
+        }
+
+        public void EndProcess(IServerSession origin, Message message, HandlerContext ctx)
         {
             if (message.Type != MessageType.Custom) return;
 

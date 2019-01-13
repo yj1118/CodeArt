@@ -32,5 +32,26 @@ namespace CodeArt.Web.WebPages.Xaml
             }
             return null;
         }
+
+        public IEnumerable<UIElement> GetActionElement(string actionName)
+        {
+            List<UIElement> elems = null;
+            var childs = this;
+            foreach (var e in childs)
+            {
+                var ui = e as UIElement;
+                if (ui != null)
+                {
+                    var t = ui.GetActionElement(actionName);
+                    if (t != null)
+                    {
+                        if (elems == null) elems = new List<UIElement>();
+                        elems.AddRange(t);
+                    }
+                }
+            }
+            return elems;
+        }
+
     }
 }

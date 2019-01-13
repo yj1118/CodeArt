@@ -15,5 +15,6 @@ namespace CodeArt.Drawing
         {
             return System.Drawing.Image.FromStream(stream);
         }
+
     }
 }

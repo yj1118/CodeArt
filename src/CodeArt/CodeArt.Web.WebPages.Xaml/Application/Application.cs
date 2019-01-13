@@ -17,7 +17,7 @@ namespace CodeArt.Web.WebPages.Xaml
             set;
         }
 
-        public object FindResource(object resourceKey)
+        public object FindResource(object resourceKey, bool throwError = true)
         {
             var result = this.Resources[resourceKey];
             if (result != null)
@@ -29,7 +29,9 @@ namespace CodeArt.Web.WebPages.Xaml
                 }
                 return result;
             }
-            throw new XamlException("没有找到资源" + resourceKey + "的定义");
+            if (throwError)
+                throw new XamlException("没有找到资源" + resourceKey + "的定义");
+            return null;
         }
 
         public CustomAttributeCollection Attributes

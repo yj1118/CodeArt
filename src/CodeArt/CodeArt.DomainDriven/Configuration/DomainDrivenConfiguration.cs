@@ -18,13 +18,14 @@ namespace CodeArt.DomainDriven
         public RemotableConfig RemotableConfig { get; private set; }
 
         public BufferConfig BufferConfig { get; private set; }
-
+        public MultiTenancyConfig MultiTenancyConfig { get; private set; }
 
         internal DomainDrivenConfiguration()
         {
             this.RepositoryConfig = new RepositoryConfig();
             this.RemotableConfig = new RemotableConfig();
             this.BufferConfig = new BufferConfig();
+            this.MultiTenancyConfig = new MultiTenancyConfig();
         }
 
         public object Create(object parent, object configContext, XmlNode section)
@@ -33,6 +34,7 @@ namespace CodeArt.DomainDriven
             config.RepositoryConfig = DeserializeRepositoryConfig(section);
             config.RemotableConfig = DeserializeRemotableConfig(section);
             config.BufferConfig = DeserializeBufferConfig(section);
+            config.MultiTenancyConfig = DeserializeMultiTenancyConfig(section);
             return config;
         }
 
@@ -63,6 +65,17 @@ namespace CodeArt.DomainDriven
             BufferConfig config = new BufferConfig();
 
             var section = root.SelectSingleNode("buffer");
+            if (section == null) return config;
+
+            config.LoadFrom(section);
+            return config;
+        }
+
+        private MultiTenancyConfig DeserializeMultiTenancyConfig(XmlNode root)
+        {
+            MultiTenancyConfig config = new MultiTenancyConfig();
+
+            var section = root.SelectSingleNode("multiTenancy");
             if (section == null) return config;
 
             config.LoadFrom(section);

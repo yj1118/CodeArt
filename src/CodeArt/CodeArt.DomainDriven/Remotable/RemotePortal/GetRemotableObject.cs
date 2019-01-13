@@ -11,6 +11,7 @@ using CodeArt.DomainDriven;
 using CodeArt.AppSetting;
 using CodeArt.EasyMQ.RPC;
 using CodeArt.Util;
+using CodeArt.EasyMQ;
 
 namespace CodeArt.DomainDriven
 {
@@ -19,7 +20,7 @@ namespace CodeArt.DomainDriven
     {
         private GetRemoteObject() { }
 
-        public DTObject Process(string method, DTObject arg)
+        public TransferData Process(string method, DTObject arg)
         {
             //先初始化会话身份
             InitIdentity(arg);
@@ -27,7 +28,8 @@ namespace CodeArt.DomainDriven
             var tip = GetTip(arg);
             var obj = FindObject(tip, arg);
             var schemaCode = GetSchemaCode(tip, arg);
-            return DTObject.CreateReusable(schemaCode, obj);
+            var info = DTObject.Create(schemaCode, obj);
+            return new TransferData(info);
         }
 
         private void InitIdentity(DTObject arg)

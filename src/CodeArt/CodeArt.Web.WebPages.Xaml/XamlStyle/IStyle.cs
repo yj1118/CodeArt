@@ -8,7 +8,7 @@ namespace CodeArt.Web.WebPages.Xaml
 {
     internal interface IStyle
     {
-        XamlStyle BasedOn { get; set; }
+        string BasedOn { get; set; }
 
         SetterCollection Setters { get; }
 

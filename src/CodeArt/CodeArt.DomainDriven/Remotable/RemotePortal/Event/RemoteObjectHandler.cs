@@ -12,7 +12,7 @@ using CodeArt.DomainDriven;
 using CodeArt.EasyMQ.Event;
 using CodeArt.Util;
 using CodeArt.AppSetting;
-
+using CodeArt.EasyMQ;
 
 namespace CodeArt.DomainDriven
 {
@@ -21,8 +21,9 @@ namespace CodeArt.DomainDriven
     /// </summary>
     internal abstract class RemoteObjectHandler : IEventHandler
     {
-        public void Handle(string eventName, DTObject arg)
+        public void Handle(string eventName, TransferData data)
         {
+            var arg = data.Info;
             AppSession.Identity = arg.GetObject("identity"); //先初始化身份
             Handle(arg);
         }

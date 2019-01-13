@@ -19,13 +19,46 @@ namespace CodeArt.ServiceModel
     {
         public ServiceResponse Invoke(ServiceRequest request)
         {
-            DTObject args = DTObject.CreateReusable();
+            DTObject args = DTObject.Create();
             args["serviceName"] = request.FullName;
             args["identity"] = request.Identity;
             args["argument"] = request.Argument;
+            if (request.TransmittedLength != null)
+            {
+                return InvokeBinary(request, args);
+            }
+            else
+            {
+                return InvokeDTO(request, args);
+            }
+        }
 
+        private ServiceResponse InvokeBinary(ServiceRequest request, DTObject args)
+        {
+            int transmittedLength = request.TransmittedLength.Value;
+            args["transmittedLength"] = transmittedLength;
             var result = RPCClient.Invoke(request.FullName, args);
-            return ServiceResponse.Create(result);
+
+            var status = TransferStatus.Ing;
+
+            if (transmittedLength == 0)
+            {
+                status |= TransferStatus.First;
+            }
+
+            var bufferLength = result.Buffer.Length;
+            if (result.DataLength == (transmittedLength + bufferLength))
+            {
+                status |= TransferStatus.Last;
+            }
+
+            return ServiceResponse.Create(result.Info, new BinaryResponse(status, result.Buffer));
+        }
+
+        private ServiceResponse InvokeDTO(ServiceRequest request, DTObject args)
+        {
+            var result = RPCClient.Invoke(request.FullName, args);
+            return ServiceResponse.Create(result.Info, BinaryResponse.Empty);
         }
 
         /// <summary>

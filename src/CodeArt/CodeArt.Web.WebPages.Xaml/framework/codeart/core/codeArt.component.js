@@ -14,6 +14,11 @@
                     this.data = data;
                     if (this.onbind) this.onbind(this, data);
                 }
+                o.update = function (target, data) {//更新指定的target的绘制
+                    exec(target.ent(), data, true, true);
+                    var po = target.proxy();
+                    if (po.onbind) po.onbind(po, data);
+                }
                 o.clear = function () {
                     exec(this.ent(), {}, false, true);
                     this.data = null;
@@ -22,16 +27,29 @@
                 parse(o.ent());
             }
 
-            //#region 执行绑定
+            function getValue(data, n, dv) {
 
+                if (n == "_self") return data; //返回子嗣
+
+                var v;
+                try {
+                    eval("v=data." + n + ";"); //不要写成v=d[n],因为这样就不支持v=d.data.title了
+                }
+                catch (e) {
+                    v = dv;
+                }
+                return v;
+            }
+
+            //#region 执行绑定
             function exec(o, data, noloops, force) { //o是dom对象
                 var po = getProxy(o);
                 if (!force && po && po.bind) return; //防止两个binging组件，嵌套后受到影响
                 var into = true, cg;
                 if (po && (cg = po.__bind_cg)) {
                     var t;
-                    if ((t = cg.loops) && !noloops) { loops(o, data[t], cg); into = false; }
-                    else if (t = cg.object) { object(o, data[t], cg); into = false; }
+                    if ((t = cg.loops) && !noloops) { loops(o, getValue(data,t,null), cg); into = false; }
+                    else if (t = cg.object) { object(o, getValue(data, t, null), cg); into = false; }
                     else if (t = cg.binds) binds(o, data, cg);
                 }
                 if (into) {
@@ -62,7 +80,8 @@
 
                 var ms, po = $$(o);
                 if (po.increment) {//increment:自增模式
-                    var ds = d.length, ms = [];
+                    var ds = d.length;
+                    ms = [];
                     for (var k = 0; k < ds; k++) {
                         last = cg.newMember(last);
                         ms.push(last);
@@ -97,24 +116,55 @@
 
             function binds(o, d, cg) {
                 var st = cg.binds, po = $(o).proxy(), ext = { html: "innerHTML", text: "innerText" }, t;
+                if (po.simple) {
+                    //simple 表示目标的data只包含指定的成员
+                    var simpleData = {};
+                    for (var e in st) {
+                        var n = st[e];
+                        if (n.indexOf(".") === -1)
+                            simpleData[n] = d[n];
+                        else {
+                            var ns = n.split("."), td = simpleData;
+                            for (var i = 0; i < ns.length; i++) {
+                                var cn = ns[i];
+                                if (i === ns.length - 1) {
+                                    td[cn] = getValue(d, n, '');
+                                } else {
+                                    if (!td[cn]) {
+                                        td = td[cn] = {};
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    po.data = simpleData;
+                }
+                else
+                    po.data = d;
                 for (var e in st) {
                     var n = st[e], v;
                     if (type(n) != "string") continue;
-                    if (n == "_self") { //值自身
+                    if (n === "_self") { //值自身
                         v = d;
                     }
-                    else eval("v=d." + n + ";"); //不要写成v=d[n],因为这样就不支持v=d.data.title了
+                    else {
+                        v = getValue(d, n, '');
+                    }
                     bindValue(po, e, v);
                 }
-                po.data = d;
-                if (po.format) {
+                if (po.format && type(po.format)=="string") {  //该用法已被抛弃
                     var field = st["text"] || st["html"], fd = d[field];
                     po.attr("innerText", fd ? fd.format(po.format) : '');
                 }
-                if (po.onbind) po.onbind.apply(po, [po, d]); //绑定结束时触发的事件
+                if (po.onbind)
+                    po.onbind.apply(po, [po, d]); //绑定结束时触发的事件
             }
 
             function bindValue(po, n, v) {
+                if (po.format) {//设置了格式化函数，使用该方法转换v
+                    v = po.format.apply(po,[v,po]);
+                }
+
                 if (n == "text") po.attr("innerText", v);
                 else if (n == "html") po.attr("innerHTML", v);
                 else if (n == "display") po.css("display", v ? "block" : "none");

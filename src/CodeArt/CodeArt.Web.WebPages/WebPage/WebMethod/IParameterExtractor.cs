@@ -6,6 +6,7 @@ using System.Threading;
 using System.Collections.Specialized;
 using System.Reflection;
 
+using CodeArt.DTO;
 
 namespace CodeArt.Web.WebPages
 {
@@ -17,6 +18,6 @@ namespace CodeArt.Web.WebPages
         /// <param name="context"></param>
         /// <param name="prms"></param>
         /// <returns></returns>
-        object[] ParseArguments(WebPageContext context);
+        DTObject ParseArguments(WebPageContext context);
     }
 }

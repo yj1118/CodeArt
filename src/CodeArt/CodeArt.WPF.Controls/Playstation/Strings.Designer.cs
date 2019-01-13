@@ -47,7 +47,7 @@ namespace CodeArt.WPF.Controls.Playstation {
         }
         
         /// <summary>
-        ///   使用此强类型资源类，为所有资源查找
+        ///   重写当前线程的 CurrentUICulture 属性
         ///   重写当前线程的 CurrentUICulture 属性。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -129,6 +129,15 @@ namespace CodeArt.WPF.Controls.Playstation {
         public static string Close {
             get {
                 return ResourceManager.GetString("Close", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Close Client 的本地化字符串。
+        /// </summary>
+        public static string CloseClient {
+            get {
+                return ResourceManager.GetString("CloseClient", resourceCulture);
             }
         }
         

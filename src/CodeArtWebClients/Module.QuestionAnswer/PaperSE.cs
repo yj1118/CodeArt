@@ -19,7 +19,15 @@ namespace Module.QuestionAnswer
         {
             get
             {
-                return this.Metadata.GetValue<string>("metadataId");
+                return this.Metadata.GetValue<string>("metadataId", null);
+            }
+        }
+
+        public string PaperMetadataMarkedCode
+        {
+            get
+            {
+                return this.Metadata.GetValue<string>("metadataMarkedCode", null);
             }
         }
 
@@ -51,6 +59,27 @@ namespace Module.QuestionAnswer
             this.View.WriteCode(string.Format("{0}.proxy().load({1},", this.Id, JSON.GetCode(paperMetadataId)));
             this.View.WriteCode("function() {");
             callBack();
+            this.View.WriteCode("}");
+            this.View.WriteCode(");");
+        }
+
+        public void LoadByMarkedCode(string paperMetadataMarkedCode, Action callBack)
+        {
+            this.View.WriteCode(string.Format("{0}.proxy().load(", this.Id));
+            this.View.WriteCode("{");
+            this.View.WriteCode(string.Format("markedCode:{0}", JSON.GetCode(paperMetadataMarkedCode)));
+            this.View.WriteCode("},function() {");
+            callBack();
+            this.View.WriteCode("}");
+            this.View.WriteCode(");");
+        }
+
+        public void Load(Action callBack = null)
+        {
+            this.View.WriteCode(string.Format("{0}.proxy().load(", this.Id));
+            this.View.WriteCode("function() {");
+            if(callBack != null)
+                callBack();
             this.View.WriteCode("}");
             this.View.WriteCode(");");
         }

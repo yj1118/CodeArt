@@ -44,7 +44,7 @@ namespace CodeArt.Web.WebPages.Xaml.Markup
         }
 
 
-        public static ScriptEventAttribute Default = new ScriptEventAttribute("click","change");
+        public static readonly ScriptEventAttribute Default = new ScriptEventAttribute("click","change");
 
 
         #endregion

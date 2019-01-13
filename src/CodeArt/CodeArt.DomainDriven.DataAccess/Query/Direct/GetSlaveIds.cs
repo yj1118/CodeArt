@@ -76,18 +76,33 @@ namespace CodeArt.DomainDriven.DataAccess
             var slaveId = GeneratedField.SlaveIdName;
 
             StringBuilder sql = new StringBuilder();
-            //if (root.IsEqualsOrDerivedOrInherited(master))
             if(root.IsEqualsOrDerivedOrInherited(master))
             {
-                sql.AppendFormat("select [{1}] from [{2}] where [{2}].[{0}] = @{0} order by [{3}] asc",
-                    rootId, slaveId, middle.Name, GeneratedField.OrderIndexName);
+                if(middle.IsEnabledMultiTenancy)
+                {
+                    sql.AppendFormat("select [{1}] from [{2}] where [{2}].[{0}] = @{0} and [{2}].[{4}] = @{4} order by [{3}] asc",
+                        rootId, slaveId, middle.Name, GeneratedField.OrderIndexName, GeneratedField.TenantIdName);
+                }
+                else
+                {
+                    sql.AppendFormat("select [{1}] from [{2}] where [{2}].[{0}] = @{0} order by [{3}] asc",
+                        rootId, slaveId, middle.Name, GeneratedField.OrderIndexName);
+                }
             }
             else
             {
                 var masterId = GeneratedField.MasterIdName;
 
-                sql.AppendFormat("select [{1}] from {2} where [{2}].[{0}] = @{0} and [{2}].[{3}]=@{3} order by [{4}] asc",
-                    rootId, slaveId, middle.Name, masterId, GeneratedField.OrderIndexName);
+                if(middle.IsEnabledMultiTenancy)
+                {
+                    sql.AppendFormat("select [{1}] from {2} where [{2}].[{0}] = @{0} and [{2}].[{3}]=@{3} and [{2}].[{5}] = @{5} order by [{4}] asc",
+                        rootId, slaveId, middle.Name, masterId, GeneratedField.OrderIndexName, GeneratedField.TenantIdName);
+                }
+                else
+                {
+                    sql.AppendFormat("select [{1}] from {2} where [{2}].[{0}] = @{0} and [{2}].[{3}]=@{3} order by [{4}] asc",
+                        rootId, slaveId, middle.Name, masterId, GeneratedField.OrderIndexName);
+                }
             }
             return sql.ToString();
         }

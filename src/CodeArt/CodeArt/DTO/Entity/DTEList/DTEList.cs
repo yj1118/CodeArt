@@ -25,12 +25,23 @@ namespace CodeArt.DTO
             private set;
         }
 
+        public DTEList(List<DTObject> items)
+        {
+            this.SetList(items);
+        }
+
+        public DTEList()
+            : this(new List<DTObject>())
+        {
+
+        }
+
         private void SetList(List<DTObject> items)
         {
-            Items = DTOPool.CreateObjectList(this, this.IsPinned);
-        
+            Items = new DTObjectList(this);
+
             if (items.Count == 0)
-                this.ItemTemplate = this.IsPinned ? DTObject.Create() : DTObject.CreateReusable();
+                this.ItemTemplate = DTObject.Create();
             else
             {
                 if (items.Count == 1)
@@ -51,25 +62,31 @@ namespace CodeArt.DTO
             }
         }
 
-        public DTEList()
+        /// <summary>
+        /// 该构造函数仅供克隆时使用
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="itemTemplate"></param>
+        /// <param name="items"></param>
+        private DTEList(string name, DTObject itemTemplate, DTObjectList items)
         {
+            this.Name = name;
+            this.ItemTemplate = itemTemplate;
+            this.Items = new DTObjectList(this);
+            foreach (var item in items)
+            {
+                this.Items.Add(item.Clone());
+            }
         }
 
-        public void Init(bool isPinned, List<DTObject> items)
-        {
-            this.IsPinned = isPinned;
-            this.SetList(items);
-        }
-
-
-        public override void Reset()
-        {
-            Items.Clear();
-            this.Items = null;
-            this.ItemTemplate = null;
-            _objects = null;
-            base.Reset();
-        }
+        //public override void Reset()
+        //{
+        //    Items.Clear();
+        //    this.Items = null;
+        //    this.ItemTemplate = null;
+        //    _objects = null;
+        //    base.Reset();
+        //}
 
         #region 数据
 
@@ -79,27 +96,7 @@ namespace CodeArt.DTO
         /// <returns></returns>
         public override DTEntity Clone()
         {
-            return DTOPool.CreateDTEList(this.Name, this.ItemTemplate, this.Items, this.IsPinned);
-        }
-
-        /// <summary>
-        /// 该构造函数仅供克隆时使用
-        /// </summary>
-        /// <param name="template"></param>
-        /// <param name="items"></param>
-        internal void InitByClone(string name, DTObject template, DTObjectList items,bool isPinned)
-        {
-            this.IsPinned = isPinned;
-            this.Name = name;
-            this.ItemTemplate = template;
-            this.Items = DTOPool.CreateObjectList(this, this.IsPinned);
-            if (items.Count > 0)
-            {
-                foreach (var item in items)
-                {
-                    this.Items.Add(item.Clone());
-                }
-            }
+            return new DTEList(this.Name, this.ItemTemplate, this.Items);
         }
 
         public override bool ContainsData()
@@ -122,7 +119,7 @@ namespace CodeArt.DTO
         public override IEnumerable<DTEntity> FindEntities(QueryExpression query)
         {
             if (query.IsSelfEntities) return this.GetSelfEntities(); //*代表返回对象自己
-            List<DTEntity> list = DTOPool.CreateDTEntities(this.IsPinned);
+            List<DTEntity> list = new List<DTEntity>();
             foreach (var e in Items)
             {
                 var es = e.GetRoot().FindEntities(query);
@@ -203,6 +200,22 @@ namespace CodeArt.DTO
             return obj;
         }
 
+        public void CreateAndInsert(int index, Action<DTObject> fill)
+        {
+            DTObject obj = this.ItemTemplate.Clone();
+            Items.Insert(index, obj);
+            if (fill != null) fill(obj);
+            this.Changed();
+        }
+
+        public DTObject CreateAndInsert(int index)
+        {
+            DTObject obj = this.ItemTemplate.Clone();
+            Items.Insert(index, obj);
+            this.Changed();
+            return obj;
+        }
+
         public void Push(DTObject item)
         {
             Items.Add(item);
@@ -215,7 +228,7 @@ namespace CodeArt.DTO
         {
             if(_objects == null)
             {
-                _objects = DTOPool.CreateDTOjects(Items,this.IsPinned);
+                _objects = new DTObjects(Items);
             }
             return _objects;
         }

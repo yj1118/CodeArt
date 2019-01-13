@@ -6,17 +6,18 @@
         <AssetPackage Path="/assets"></AssetPackage>
     </AssetDirectory>
 </ControlTemplate.Directories>
-<div class="m-content qa--paper" data-proxy="{give:new $$qa.paper(),sealed:true}"
+<div class="m-content qa--paper" data-proxy="{give:new $$qa.paper()}"
      id="{TemplateBinding Id}"
      name="{TemplateBinding Name}"
      data-rule="{Binding Converter={Static qa:PaperRuleCodeConverter.Instance}}"
      data-field="{TemplateBinding Field}"
      data-metadataId="{TemplateBinding MetadataId}"
+     data-metadata="{TemplateBinding Metadata}"
      data-paper="true">
     <AttributesPresenter />
     <m:TextBox layout="Hidden" field="metadataId" />
     <m:TextBox layout="Hidden" field="paperId" />
-    <div class="qa--quesetions">
+    <div class="qa--questions">
         <ItemsPresenter />
     </div>
 </div>

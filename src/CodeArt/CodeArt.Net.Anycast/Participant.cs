@@ -55,7 +55,7 @@ namespace CodeArt.Net.Anycast
 
         public bool ContainsExtension(string exp)
         {
-            return Extensions.GetValue(exp) != null;
+            return Extensions.GetValue(exp, false) != null;
         }
 
 

@@ -12,6 +12,7 @@ using CodeArt.Runtime;
 using CodeArt.Web.WebPages.Xaml.Markup;
 using CodeArt.Web.WebPages.Xaml.Script;
 using CodeArt.AOP;
+using CodeArt.AppSetting;
 
 namespace CodeArt.Web.WebPages.Xaml
 {
@@ -38,13 +39,22 @@ namespace CodeArt.Web.WebPages.Xaml
             get
             {
                 const string key = "DependencyObject_UserData";
-                var item = HttpContext.Current.Items[key];
-                if (item == null)
-                {
-                    item = new ConcurrentDictionary<string, object>();
-                    HttpContext.Current.Items[key] = item;
-                }
-                return item as ConcurrentDictionary<string, object>;
+
+                var item = AppSession.GetOrAddItem(key,
+                   () =>
+                   {
+                       return new ConcurrentDictionary<string, object>();
+                   });
+                if (item == null) throw new InvalidOperationException("DependencyObject_UserData为null,无法使用xaml组件");
+                return item;
+
+                //var item = HttpContext.Current.Items[key];
+                //if (item == null)
+                //{
+                //    item = new ConcurrentDictionary<string, object>();
+                //    HttpContext.Current.Items[key] = item;
+                //}
+                //return item as ConcurrentDictionary<string, object>;
             }
         }
 
@@ -107,13 +117,23 @@ namespace CodeArt.Web.WebPages.Xaml
         {
             get
             {
-                var item = HttpContext.Current.Items[_runContenxtsKey];
-                if (item == null)
-                {
-                    item = new Dictionary<Guid, RunContext>();
-                    HttpContext.Current.Items[_runContenxtsKey] = item;
-                }
-                return item as Dictionary<Guid, RunContext>;
+                var item = AppSession.GetOrAddItem(
+                   _runContenxtsKey,
+                   () =>
+                   {
+                       return new Dictionary<Guid, RunContext>();
+                   });
+                if (item == null) throw new InvalidOperationException("RunContenxts为null,无法使用xaml组件");
+                return item;
+
+
+                //var item = HttpContext.Current.Items[_runContenxtsKey];
+                //if (item == null)
+                //{
+                //    item = new Dictionary<Guid, RunContext>();
+                //    HttpContext.Current.Items[_runContenxtsKey] = item;
+                //}
+                //return item as Dictionary<Guid, RunContext>;
             }
         }
 

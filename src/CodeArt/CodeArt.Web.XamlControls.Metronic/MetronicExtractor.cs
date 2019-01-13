@@ -11,16 +11,14 @@ namespace CodeArt.Web.XamlControls.Metronic
     [SafeAccess]
     public class MetronicExtractor : DTOExtractor
     {
-        public override object[] ParseArguments(WebPageContext context)
+        public override DTObject ParseArguments(WebPageContext context)
         {
-            var args = base.ParseArguments(context);
-            var arg = args[0] as DTObject;
+            var arg = base.ParseArguments(context);
             if(DatatableExtractor.Exist(arg))
             {
                 arg = DatatableExtractor.Transform(arg);
-                args[0] = arg;
             }
-            return args;
+            return arg;
         }
 
         public new static readonly MetronicExtractor Instance = new MetronicExtractor();

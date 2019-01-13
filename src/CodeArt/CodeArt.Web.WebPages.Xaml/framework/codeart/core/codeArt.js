@@ -57,6 +57,39 @@ var $$ = (function () {
         return v == undefined || v == null || (typeof v === 'number' && isNaN(v));
     }
 
+    function toBool(v) {
+        if (empty(v)) return false;
+        if (type(v) == "number") return v != 0;
+        return v.toString().toLowerCase() == "true";
+    }
+
+    function deepEmpty(v) {
+        var ty = type(v);
+        if (ty == "array") {
+            if (v.length == 0) return true;
+            var e = true;
+            v.each(function () {
+                var b = deepEmpty(this);
+                if (!b) {
+                    e = false;
+                    return false;
+                }
+            });
+            return e;
+        }
+
+        if (ty == "object") {
+            for (var e in v) {
+                var t = v[e];
+                if (!deepEmpty(t)) return false;
+            }
+            return true;
+        }
+
+        if (ty == "function" || ty == "null") return true;
+        return (v == '' || empty(v));
+    }
+
     function equals(v0, v1) {
         //如果遇到字符串和其他类型的数据对比，我们仅看值是否相等，而不考虑数据类型
         var ty0 = type(v0), ty1 = type(v1);
@@ -100,7 +133,9 @@ var $$ = (function () {
         areHostProperties: areHostProperties,
         type: type,
         empty: empty,
-        equals: equals
+        deepEmpty: deepEmpty,
+        equals: equals,
+        toBool: toBool
     };
     api.modules = modules;
     api.config = {
@@ -207,14 +242,20 @@ var $$ = (function () {
                 try {
                     initFunc(api, module);
                     module.supported = true;
-                } catch (ex) {
+                } catch (ex){
                     var errorMessage = "加载模块 '" + name + "' 失败: " + getErrorDesc(ex);
                     //consoleLog(errorMessage);
                     throw new Error(errorMessage);
                 }
             }
         });
-        modules[name] = module;
+
+        if (!modules[name]) {
+            modules[name] = module;
+            if (api.initialized) { //如果全局已经初始化了，那有可能是局部加载，需要立即初始化模块
+                module.init();
+            }
+        }
     };
 
     function getErrorDesc(ex) {
@@ -267,6 +308,10 @@ var $$ = (function () {
 
     function getProxy(o) { //获取对象的代理信息
         o = J(o)[0];
+        if (!o) {
+            debugger;
+            throw new Error("没有找到对象");
+        }
         if (o.__type_proxy) return o; //o本身就为代理对象
         return o.__proxy ? o.__proxy : null;
     }
@@ -283,7 +328,19 @@ var $$ = (function () {
             s = "{}";
             o.attr("data-proxy", s);
         }
-        eval("pro=" + s + ";");
+        try {
+            eval("pro=" + s + ";");
+
+            //分析追加特性data-give
+            s = o.attr("data-give");
+            if (s) {
+                eval("pro.__gives=" + s + ";");
+            }
+        }
+        catch (e) {
+            debugger;
+            throw e;
+        }
         ent.__proxy = pro;
         pro.__ent = ent;
         pro.__type_proxy = true;
@@ -312,10 +369,17 @@ var $$ = (function () {
     function giveCapability(o) {
         var g = o.give;
         if (g) {
-            if (type(g) != "array") { g.give(o); return; }
+            if (type(g) != "array") g = [g];
             g.each(function (i, c) {
                 c.give(o);
             });//每个能力对象会实现方法give
+        }
+
+        g = o.__gives;
+        if (g) {
+            g.each(function (i, c) {
+                c.give(o);
+            });
         }
     }
 
@@ -324,6 +388,7 @@ var $$ = (function () {
             g.give(p);
         });
     }
+
 
     api.init = initProxy; //由外界决定，是否初始化代理
 
@@ -413,6 +478,80 @@ var $$ = (function () {
         return _currentId++;
     };
 
+    var _scripts;
+    function _initScripts() {
+        if (_scripts) return;
+        _scripts = {};
+        $("script").each(function () {
+            var t = $(this), c = t.attr("src") || t.html();
+            _scripts[c] = true;
+        });
+    }
+    function addScript(t) { //t有可能是src也有可能是一个script元素
+        _initScripts();
+        if (api.util.type(t) == "string") {
+            var src = t;
+            if (_scripts[src]) return;
+            _scripts[src] = true;
+            var s = document.createElement('script');
+            s.type = 'text/jacascript';
+            s.src = src;
+            $('body').append(s);
+        }
+        else {
+            var src = $(t).attr("src") || $(t).html();
+            if (_scripts[src]) return;
+            _scripts[src] = true;
+            $('body').append(t);
+        }
+    }
+
+    var _links = {};
+    function _initLinks() {
+        if (_links) return;
+        _links = {};
+        $("link").each(function () {
+            var c = $(this).attr("href");
+            _links[c] = true;
+        });
+        $("style").each(function () {
+            var c = $(this).html();
+            _links[c] = true;
+        });
+    }
+    function addLink(t) { //t有可能是href也有可能是一个link或style元素
+        _initLinks();
+        if (api.util.type(t) == "string") {
+            var src = t;
+            if (_links[src]) return;
+            _links[src] = true;
+            var tag = $('<link rel="stylesheet" type="text/css" href="' + src + '" />');
+            $($('head')[0]).append(tag);
+        }
+        else {
+            var src = $(t).attr("href") || $(t).html();
+            if (_links[src]) return;
+            _links[src] = true;
+            $($('head')[0]).append(t);
+        }
+    }
+
+    api.util.addExternal = function (t) { //为当前文档添加外部资源:script 或link或style
+        if (t.code && t.type) { //直接写代码 type:script或style
+            var s = document.createElement(t.type);
+            $(s).html(t.code);
+            t = s;
+        }
+        if (api.util.type(t) == "string") {
+            if (t.indexOf(".css") > -1) addLink(t);
+            else addScript(t);
+        }
+        else {
+            if ($(t).is("script")) addScript(t);
+            else addLink(t);
+        }
+    }
+
     J(document).ready(function () { initModules(); });
 
     //#region 扩展getJquery对象
@@ -437,7 +576,7 @@ $$.createModule("Util", function (api, module) {
 
     //#region 字符串扩展
     var sp = String.prototype;
-    sp.trim = function () { return this.replace(/(^\s*)|(\s*$)/g, "") };
+    sp.trim = function () { return this.replace(/(^\s*)|(\s*$)/g, ""); };
     sp.toUpper = function (n) {
         if (!n) return this.toUpperCase();
         return this.substr(0, n).toUpperCase() + this.substr(n);
@@ -449,6 +588,36 @@ $$.createModule("Util", function (api, module) {
     sp.equalsIgnoreCase = function (v) {
         return this.toLower() == v.toLower();
     };
+    sp.html = function (f) { //f段落处理函数
+        var s = this;
+        if (f) {
+            if (type(f) == 'string') {
+                var cls = f;
+                f = function (c) {
+                    return ["<p class='", cls, "'>", c.encodeHtml(), "</p>"].join('');
+                }
+            }
+
+            s = s.replace(/\r\n/g, "\n");
+            var l = s.split(/\n/g);
+            for (var i = 0; i < l.length; i++) {
+                l[i] = f(l[i]);
+            }
+            s = l.join('');
+        }
+        else {
+            s = s.encodeHtml();
+            s = s.replace(/\r\n/g, "\n");
+            s = s.replace(/\n/g, "<br />");
+        }
+        return s;
+    }
+    sp.text = function (b) { //b:true 转移为纯文本，过滤换行符，false：<br/> 转义为\r\n
+        var s = this;
+        s = s.replace(/\r\n/g, "");
+        s = s.replace(/\n/g, "");
+        return s;
+    }
     sp.pad = function (l) {
         return function (n) {
             var num = this;
@@ -463,6 +632,108 @@ $$.createModule("Util", function (api, module) {
             return this.replace(t0, t1);
         }
     }
+
+    sp.encodeHtml = function () {
+        return this.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/ /g, "&nbsp;").replace(/\'/g, "&#39;").replace(/\"/g, "&quot;");
+    };
+
+    sp.decodeHtml = function () {
+        return this.replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&nbsp;/g, " ").replace(/&#39;/g, "\'").replace(/&quot;/g, "\"");
+    };
+
+    sp.setUrlParam = function (n,v) { //查询字符串参数
+        return setUrlParam(this, n, v);
+    }
+
+    sp.deleteUrlParam = function (n) {
+        return deleteUrlParam(this, n);
+    }
+
+    sp.getUrlParam = function (n) {
+        return getUrlParam(this, n);
+    }
+
+    function setUrlParam(url, arg, arg_val) {
+        var pattern = arg + '=([^&]*)';
+        var replaceText = arg + '=' + arg_val;
+        if (url.match(pattern)) {
+            var tmp = '/(' + arg + '=)([^&]*)/gi';
+            tmp = url.replace(eval(tmp), replaceText);
+            return tmp;
+        } else {
+            if (url.match('[\?]')) {
+                return url + '&' + replaceText;
+            } else {
+                return url + '?' + replaceText;
+            }
+        }
+    }
+
+    function deleteUrlParam(url, ref) {
+        // 如果不包括此参数
+        if (url.indexOf(ref) == -1)
+            return url;
+        var arr_url = url.split('?');
+        var base = arr_url[0];
+        var arr_param = arr_url[1].split('&');
+        var index = -1;
+
+        for (i = 0; i < arr_param.length; i++) {
+            var paired = arr_param[i].split('=');
+            if (paired[0] == ref) {
+                index = i;
+                break;
+            }
+        }
+
+        if (index == -1) {
+            return url;
+        } else {
+            arr_param.splice(index, 1);
+            return base + "?" + arr_param.join('&');
+        }
+    }
+
+    function getUrlParam(url, ref) {
+        if (url.indexOf(ref) == -1)
+            return "";
+
+        var str = url.substr(url.indexOf('?') + 1);
+        var arr = str.split('&');
+        for (i in arr) {
+            var paired = arr[i].split('=');
+
+            if (paired[0] == ref) {
+                return paired[1];
+            }
+        }
+
+        return "";
+    }
+
+
+    //this.trim = function (s) {
+    //    s = (s != undefined) ? s : this.toString();
+    //    return (typeof s != "string") ? s :
+    //        s.replace(this.REGX_TRIM, "");
+    //};
+
+
+    //this.hashCode = function () {
+    //    var hash = this.__hash__, _char;
+    //    if (hash == undefined || hash == 0) {
+    //        hash = 0;
+    //        for (var i = 0, len = this.length; i < len; i++) {
+    //            _char = this.charCodeAt(i);
+    //            hash = 31 * hash + _char;
+    //            hash = hash & hash; // Convert to 32bit integer  
+    //        }
+    //        hash = hash & 0x7fffffff;
+    //    }
+    //    this.__hash__ = hash;
+
+    //    return this.__hash__;
+    //};
 
     if (!window.btoa) {
         var a = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
@@ -614,12 +885,28 @@ $$.createModule("Util", function (api, module) {
         var len = this.length;
         return this.concat(this).splice(len);
     }
-    ap.group = function (length) { //将数组转换成拥有subGroupLength个项的数组的集合，例如[1,2,3,4,5] => [[1,2],[3,4],[5]]
-        var a = this, i = 0, n = [];
-        while (i < a.length) {
-            n.push(a.slice(i, i += length));
+    ap.group = function (p) { //将数组转换成拥有subGroupLength个项的数组的集合，例如[1,2,3,4,5] => [[1,2],[3,4],[5]]
+        var ty = util.type(p);
+        if (ty == "number") {
+            var length = p, a = this, i = 0, n = [];
+            while (i < a.length) {
+                n.push(a.slice(i, i += length));
+            }
+            return n;
+        } else if (ty == "function"){
+            var func = p, l = this, temp = {};
+            l.each(function () {
+                var c = this, key = func(c);
+                if (!temp[key]) temp[key] = [];
+                temp[key].push(c);
+            });
+            var r = [];
+            util.object.eachValue(temp, function (n, v) {
+                r.push({ key: n, data: v });
+            });
+            return r;
         }
-        return n;
+        
     }
     ap.select = function (f) { //与c#用法一样
         var l = [], s = this;
@@ -643,6 +930,21 @@ $$.createModule("Util", function (api, module) {
     ap.min = function () { //数组最小值
         return Math.min.apply(null, this);
     }
+    ap.order = function (func, t) { //type:asc desc
+        if (!t) t = "asc";
+        var m = {};
+        var ef = t === "asc" ? function (a, b) { return a < b; } : function (a, b) { return a > b; };
+        for (var i = 0; i < this.length; i++) {
+            for (var k = 0; k < this.length; k++) {
+                if (ef(func(this[i]),func(this[k]))) {
+                    m = this[k];
+                    this[k] = this[i];
+                    this[i] = m;
+                }
+            }
+        }
+        return this;
+    }
     //#endregion
 
     //#region 日期扩展
@@ -654,6 +956,8 @@ $$.createModule("Util", function (api, module) {
         };
     }
     Date.prototype.equals = function (v) { return this.getTime() == v.getTime(); }
+    var _weekDayCN = ["日", "一", "二", "三", "四", "五", "六"];
+    Date.prototype.getDayCN = function () { return _weekDayCN[this.getDay()]; }
     function createDate(v) { return new Date(v.year, v.month, v.date, v.hour, v.minute, v.second); };
     Date.prototype.format = function (f) {
         var d = this.get(), l = [];
@@ -670,6 +974,9 @@ $$.createModule("Util", function (api, module) {
             }
         }
         return l.join('');
+    }
+    Date.prototype.shortDateTime = function () {
+        return this.format('M/d 周' + this.getDayCN() + ' h:m');
     }
 
     //#endregion
@@ -908,34 +1215,22 @@ $$.createModule("Util", function (api, module) {
 
         $prototype = $type.prototype;
         $prototype.endsWith = function String$endsWith(suffix) {
-            /// <summary>Determines whether the end of this instance matches the specified string.</summary>
-            /// <param name="suffix" type="String">A string to compare to.</param>
-            /// <returns type="Boolean">true if suffix matches the end of this instance; otherwise, false.</returns>
             return (this.substr(this.length - suffix.length) === suffix);
         }
 
         $prototype.startsWith = function String$startsWith(prefix) {
-            /// <summary >Determines whether the beginning of this instance matches the specified string.</summary>
-            /// <param name="prefix" type="String">The String to compare.</param>
-            /// <returns type="Boolean">true if prefix matches the beginning of this string; otherwise, false.</returns>
             return (this.substr(0, prefix.length) === prefix);
         }
 
         $prototype.trim = function String$trim() {
-            /// <summary >Removes all leading and trailing white-space characters from the current String object.</summary>
-            /// <returns type="String">The string that remains after all white-space characters are removed from the start and end of the current String object.</returns>
             return this.replace(/^\s+|\s+$/g, '');
         }
 
         $prototype.trimEnd = function String$trimEnd() {
-            /// <summary >Removes all trailing white spaces from the current String object.</summary>
-            /// <returns type="String">The string that remains after all white-space characters are removed from the end of the current String object.</returns>
             return this.replace(/\s+$/, '');
         }
 
         $prototype.trimStart = function String$trimStart() {
-            /// <summary >Removes all leading white spaces from the current String object.</summary>
-            /// <returns type="String">The string that remains after all white-space characters are removed from the start of the current String object.</returns>
             return this.replace(/^\s+/, '');
         }
 
@@ -1023,8 +1318,19 @@ $$.createModule("Util", function (api, module) {
 
     })(window);
 
+    $$.unique = function (prefix) {  //给与对象唯一id的能力
+        if (!prefix) prefix = "unique_";
+        this.give = function (o) {
+            var id = prefix + api.util.getId();
+            o.attr("id", id);
+        }
+    }
+
 });
 
+//function evalGlobal(code) {
+//    with (window) eval(code);
+//}
 
 $$.createModule("Ajax", function (api, module) {
     api.requireModules(["Util"]);
@@ -1040,9 +1346,10 @@ $$.createModule("Ajax", function (api, module) {
 
             this.post = this.submit = function (arg) {
                 arg = parseArg(arg);
+                arg.type = "POST";
                 var p = {
                     cache: false,
-                    type: "POST",
+                    type: arg.type,
                     url: arg.url,
                     async: arg.async,
                     data: _ser.serialize(my.getData(arg,my.paras)),
@@ -1054,7 +1361,7 @@ $$.createModule("Ajax", function (api, module) {
                     dataFilter: arg.dataFilter || function (rawData, dataType) { return _ser.deserialize(rawData); }
                 };
                 initEvent(my, p);
-                copyEvent(my, p);
+                copyEvent(my, p);                
                 J.ajax(p);
             }
 
@@ -1073,9 +1380,10 @@ $$.createModule("Ajax", function (api, module) {
 
             this.get = function (arg) {
                 arg = parseArg(arg);
+                arg.type = "GET";
                 var p = {
                     cache: false,
-                    type: "GET",
+                    type: arg.type,
                     url: arg.url,
                     async: arg.async,
                     data: _ser.serialize(my.getData(arg,my.paras)),
@@ -1118,10 +1426,27 @@ $$.createModule("Ajax", function (api, module) {
 
         }
 
-        Request.getData = function (arg,paras) { return paras; } //外界可以重写
+        Request.getData = function (arg, paras) { return paras; } //外界可以重写
 
         $$.ajax = {};
         $$.ajax.request = Request;
+
+        //var _scriptLoaded = {};
+        //$$.ajax.getScript = function (p) {
+        //    if (_scriptLoaded[p.url]) return;
+        //    if (empty(p.async)) p.async = false; //默认同步
+        //    var req = new Request();
+        //    req.success = function (code) {
+        //        var s = $("<script>" + code + "</script>");
+        //        $('body').append(s);
+        //        _scriptLoaded[p.url] = true;
+        //        if (p.callback) p.callback(code);
+        //    };
+        //    req.get({
+        //        url: p.url,
+        //        async: p.async
+        //    });
+        //}
     })();
 
     function Serializer() {
@@ -1134,7 +1459,15 @@ $$.createModule("Ajax", function (api, module) {
     function parseArg(arg) { //分析参数
         if (empty(arg)) return {};
         if (type(arg) == "string") { arg = { url: arg } };
-        if (!arg.url) arg.url = window.location.href;
+        if (!arg.url) {
+            if (arg.scene) { //如果指定了场景元素
+                var e = arg.scene.getJquery();
+                var s = e.closest("[data-stage-url]").mapNull(); //找出舞台路径
+                if (s) arg.url = s.attr("data-stage-url");
+            }
+            if (!arg.url)
+                arg.url = window.location.href;
+        }
         if (empty(arg.async)) arg.async = true;
         return arg;
     }
@@ -1144,7 +1477,9 @@ $$.createModule("Ajax", function (api, module) {
         para.success = obj.success;
         para.complete = obj.complete;
         para.progress = obj.progress;
-        para.error = obj.error ? function (xhr, msg, o) { obj.error(getErrorMessage(xhr)); } : processError;
+        para.error = obj.error ? function (xhr, msg, o) {
+            obj.error(getErrorMessage(xhr));
+        } : processError;
 
 
         function processError(xhr, msg, obj) { //或d
@@ -1162,7 +1497,7 @@ $$.createModule("Ajax", function (api, module) {
                 xhr.response ? xhr.response : '',
                 xhr.statusText ? xhr.statusText : '',
                 xhr.status ? xhr.status : '',
-            ].join(',')
+            ].join(',');
         }
     }
 
@@ -1185,6 +1520,12 @@ $$.createModule("Ajax", function (api, module) {
                 }
             }//target没有对应的事件才拷贝
         });
+
+        t = source["override"];//自定义覆写
+        if (t) {
+            t.apply(t, [target]);
+        }
+
     }
 
     $$.ajax.util = {

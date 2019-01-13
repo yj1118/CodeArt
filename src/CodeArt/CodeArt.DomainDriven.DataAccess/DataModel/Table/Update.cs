@@ -10,7 +10,7 @@ using System.Collections;
 
 using CodeArt.Runtime;
 using CodeArt.Util;
-
+using CodeArt.AppSetting;
 
 namespace CodeArt.DomainDriven.DataAccess
 {
@@ -39,8 +39,6 @@ namespace CodeArt.DomainDriven.DataAccess
                 //如果对象不是脏的，但是要求修改，那么有可能是该对象的引用链上的对象发生了变化，所以我们移除该对象的缓冲
                 DomainBuffer.Public.Remove(obj.ObjectType, GetObjectId(obj));
             }
-
-            
         }
 
         /// <summary>
@@ -74,6 +72,11 @@ namespace CodeArt.DomainDriven.DataAccess
 
                     //补充主键
                     data.Add(EntityObject.IdPropertyName, GetObjectId(obj));
+
+                    if(this.IsEnabledMultiTenancy)
+                    {
+                        data.Add(GeneratedField.TenantIdName, AppSession.TenantId);
+                    }
 
                     var sql = GetUpdateSql(data);
                     SqlHelper.Execute(this.Name, sql, data);
@@ -120,6 +123,11 @@ namespace CodeArt.DomainDriven.DataAccess
                 }
 
                 data.Add(EntityObject.IdPropertyName, id);
+
+                if (this.IsEnabledMultiTenancy)
+                {
+                    data.Add(GeneratedField.TenantIdName, AppSession.TenantId);
+                }
 
                 //更新版本号
                 SqlHelper.Execute(target.Name, target.SqlUpdateVersion, data);

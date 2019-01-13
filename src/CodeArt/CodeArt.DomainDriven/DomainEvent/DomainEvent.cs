@@ -35,7 +35,7 @@ namespace CodeArt.DomainDriven
 
         internal DTObject GetArgs()
         {
-            return DTObject.Serialize(this, false);
+            return DTObject.Serialize(this);
         }
 
         internal void SetArgs(DTObject args)
@@ -76,7 +76,7 @@ namespace CodeArt.DomainDriven
                 return this.GetArgs();
             }
 
-            var args = DTObject.CreateReusable();
+            var args = DTObject.Create();
             FillArgs(eventName, args);
             return args;
         }

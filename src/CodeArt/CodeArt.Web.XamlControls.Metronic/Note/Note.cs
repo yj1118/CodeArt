@@ -15,28 +15,19 @@ namespace CodeArt.Web.XamlControls.Metronic
     [TemplateCode("Template", "CodeArt.Web.XamlControls.Metronic.Note.Template.html,CodeArt.Web.XamlControls.Metronic")]
     public class Note : ContentControl
     {
-        public static DependencyProperty TitleProperty { get; private set; }
+        public static DependencyProperty TitleProperty = DependencyProperty.Register<string, Note>("Title", new PropertyMetadata(() => { return string.Empty; }));
 
-        public static DependencyProperty TypeProperty { get; private set; }
-
-        static Note()
-        {
-            var titleMetadata = new PropertyMetadata(() => { return string.Empty; });
-            TitleProperty = DependencyProperty.Register<string, Note>("Title", titleMetadata);
-
-            var typeMetadata = new PropertyMetadata(() => { return string.Empty; });
-            TypeProperty = DependencyProperty.Register<string, Note>("Type", typeMetadata);
-        }
+        public static DependencyProperty ColorProperty = DependencyProperty.Register<string, Note>("Color", new PropertyMetadata(() => { return string.Empty; }));
 
         protected override void OnGotClass(ref object baseValue)
         {
-            var t = this.Type;
+            var t = this.Color;
             switch (t)
             {
-                case "success": baseValue = "note note-success"; return;
-                case "warning": baseValue = "note note-warning"; return;
-                case "danger": baseValue = "note note-danger"; return;
-                default: baseValue = "note note-info"; return;
+                case "red": baseValue = "c--stickyNote.c--red"; return;
+                case "green": baseValue = "c--stickyNote.c--green"; return;
+                case "yellow":
+                default: baseValue = "c--stickyNote"; return;
             }
         }
 
@@ -56,21 +47,25 @@ namespace CodeArt.Web.XamlControls.Metronic
         }
 
         /// <summary>
-        /// success、warning、danger
+        /// red,green,yellow
         /// </summary>
-        public string Type
+        public string Color
         {
             get
             {
-                return GetValue(TypeProperty) as string;
+                return GetValue(ColorProperty) as string;
             }
             set
             {
-                SetValue(TypeProperty, value);
+                SetValue(ColorProperty, value);
             }
         }
 
         public Note()
+        {
+        }
+
+        static Note()
         {
         }
     }

@@ -53,6 +53,15 @@ namespace CodeArt.DomainDriven
         }
 
         /// <summary>
+        /// 关闭多租户功能，这意味着即使配置文件开启了多租户特性，目标对象也不会启动多租户功能
+        /// </summary>
+        public bool CloseMultiTenancy
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// 表示对象可以仓储，仓储的接口类型为所在聚合根的仓储的类型
         /// </summary>
         public ObjectRepositoryAttribute()
@@ -64,6 +73,7 @@ namespace CodeArt.DomainDriven
         {
             this.RepositoryInterfaceType = repositoryInterfaceType;
             this.SnapshotLifespan = -1;
+            this.CloseMultiTenancy = false;
         }
 
 

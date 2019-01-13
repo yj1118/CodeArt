@@ -44,9 +44,15 @@ namespace CodeArt.Web.WebPages.Xaml.Controls
             return base.GetChild(childName) ?? this.Content.GetChild(childName);
         }
 
+        public override IEnumerable<UIElement> GetActionElement(string actionName)
+        {
+            return this.Combine(base.GetActionElement(actionName), this.Content.GetActionElement(actionName));
+        }
+
         public override void OnLoad()
         {
-            this.Content.OnLoad();
+            if(this.Content != null)
+                this.Content.OnLoad();
             base.OnLoad();
         }
 

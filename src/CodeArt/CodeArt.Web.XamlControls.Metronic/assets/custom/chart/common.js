@@ -2,34 +2,57 @@
     api.requireModules(["metronic"]);
 
     var J = jQuery, util = api.util, type = util.type, empty = util.empty, getProxy = util.getProxy;
-    var $chart = $$metronic.chart;
 
     var $chart = $$.metronic.chart = function (painter, validator) {
         var my = this;
 
         my.give = function (o) {
             var my = this;
-            o.set = function (option) {
-                this._chart.setOption(option);
+
+            o.set = function (data) {
+                var p = this.initOption(data);
+                this._chart.setOption(p);
+            }
+
+            o.setOption = function (p) {
+                if (this.initOption) {
+                    this.initOption(p);
+                }
+                this._chart.setOption(p);
             }
             o.setPie = function (config) { //饼状图
                 var option = getPieOption(config);
-                this.set(option);
+                this.setOption(option);
             }
             o.setLine = function (config) { //折线图
                 var option = getLineOption(config);
-                this.set(option);
+                this.setOption(option);
             }
-            init(o);
-        }
+            o.setScatter = function (config) {
+                var option = getScatterOption(config);
+                this.setOption(option);
+            }
 
-        function init(o) {
-            // 基于准备好的dom，初始化echarts实例
-            o._chart = echarts.init(o.ent());
-            var p = o.getJquery().parent();
-            p.resize(function () {
-                o._chart.resize();
-            });
+            o.init = function () {
+                var o = this, oj = this.getJquery();
+                // 基于准备好的dom，初始化echarts实例
+                if (o._chart) {
+                    o._chart.dispose();
+                }
+                o._chart = echarts.init(this.ent());
+                var p = oj.parent();
+                var my = this;
+                p.resize(function () {
+                    my._chart.resize();
+                });
+
+                var option = oj.attr("option") || oj.attr("data-option");
+                if (option) {
+                    eval("o.initOption=" + option+";");
+                }
+            }
+            if (o.attr("data-lazyInit") !== "true") //在bind数据或克隆模式下，需要手工初始化
+                o.init();
         }
 
 
@@ -61,8 +84,8 @@
                     {
                         name: g.series.name||'',
                         type: 'pie',
-                        radius: '75%',
-                        center: ['45%', '50%'],
+                        radius: '65%',
+                        center: ["40%","50%"],
                         data: g.series.data,
                         itemStyle: {
                             emphasis: {
@@ -153,8 +176,59 @@
             }
 
             return option;
-
         }
+
+        function getScatterOption(config) {
+            var g = config;
+            if (!g.title) g.title = {};
+            if (!g.series) g.series = [];
+            if (!g.symbolSize) g.symbolSize = 30;
+            if (!g.nameFontSize) g.nameFontSize = 20;
+
+            var data = g.series.select((t) => [t.x || t.X || 0, t.y || t.Y || 0,t.name||t.Name||'']);
+            var option = {
+                title: {
+                    text: g.title.text || '',
+                    subtext: g.title.subtext || '',
+                    x: g.title.x || 'left'
+                },
+                xAxis: g.xAxis||{},
+                yAxis: g.yAxis||{},
+                series: [{
+                    label: {
+                        normal: {
+                            show: true,
+                            formatter: function (param) {
+                                return param.data[2];
+                            },
+                            position: 'top',
+                            textStyle: {
+                                fontSize: g.nameFontSize
+                            }
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            shadowBlur: 10,
+                            shadowColor: 'rgba(120, 36, 50, 0.5)',
+                            shadowOffsetY: 5,
+                            color: new echarts.graphic.RadialGradient(0.4, 0.3, 1, [{
+                                offset: 0,
+                                color: 'rgb(251, 118, 123)'
+                            }, {
+                                offset: 1,
+                                color: 'rgb(204, 46, 72)'
+                            }])
+                        }
+                    },
+                    symbolSize: 30,
+                    data: data,
+                    type: 'scatter'
+                }]
+            };
+            return option;
+        }
+
 
         var _formatter = {
             hhmm: {
@@ -163,14 +237,14 @@
                     xDatas.each(function () {
                         var yMd = this;
                         var d = s.data.first(function () {
-                            return this.format("y/M/d") == yMd;
+                            return this.format("y/M/d") === yMd;
                         });
                         ds.push(d || 0);
                     });
-                    s.data = ds.select((v) => v != 0 ? getDayMinutes(v) : 0);
+                    s.data = ds.select((v) => v !== 0 ? getDayMinutes(v) : 0);
                 },
                 tooltip: function (ps) {
-                    if (ps.length == 0) return;
+                    if (ps.length === 0) return;
                     var s = [], f = ps[0];
                     s.push(f.name);
                     ps.each(function () {
@@ -180,7 +254,7 @@
                     return s.join("</br>");
                 },
                 tooltipLabel: function (v) {
-                    if (util.type(v.value) == "number") return hhmmText(v.value);
+                    if (util.type(v.value) === "number") return hhmmText(v.value);
                     return v.value;
                 },
                 xDatas: function (xDatas) {
@@ -219,5 +293,4 @@
             return _color[t];
         }
     }
-
 });

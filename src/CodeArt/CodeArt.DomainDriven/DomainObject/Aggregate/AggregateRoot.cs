@@ -214,7 +214,6 @@ namespace CodeArt.DomainDriven
 
         #endregion
 
-
         #region 内聚根可以具有远程能力
 
         public RemotableAttribute RemotableTip
@@ -258,7 +257,6 @@ namespace CodeArt.DomainDriven
 
         #endregion
 
-
         private static RemotableAttribute _remotableTip;
 
         static AggregateRoot()
@@ -266,6 +264,40 @@ namespace CodeArt.DomainDriven
             var objectType = typeof(TObject);
             _remotableTip = RemotableAttribute.GetTip(objectType);
         }
+    }
 
+
+    public abstract class AggregateRoot<TObject, TIdentity, TObjectEmpty> : AggregateRoot<TObject, TIdentity>
+        where TObject : AggregateRoot<TObject, TIdentity>
+        where TIdentity : struct
+        where TObjectEmpty : TObject,new ()
+    {
+        public AggregateRoot(TIdentity id)
+            : base(id)
+        {
+            this.OnConstructed();
+        }
+
+        //以下写法可以避免循环引用导致的初始化BUG
+        private static TObject _empty;
+        private static object _syncObject = new object();
+
+        public static TObject Empty
+        {
+            get
+            {
+                if (_empty == null)
+                {
+                    lock (_syncObject)
+                    {
+                        if (_empty == null)
+                        {
+                            _empty = new TObjectEmpty();
+                        }
+                    }
+                }
+                return _empty;
+            }
+        }
     }
 }

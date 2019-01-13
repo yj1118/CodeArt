@@ -15,6 +15,8 @@ using System.Windows.Shapes;
 using System.Windows.Media.Animation;
 
 using CodeArt.WPF.UI;
+using System.Diagnostics;
+using System.Windows.Threading;
 
 namespace CodeArt.WPF.Controls.Playstation
 {
@@ -68,9 +70,22 @@ namespace CodeArt.WPF.Controls.Playstation
             set { SetValue(ShowKeyboardProperty, value); }
         }
 
+        public static readonly DependencyProperty ShowCloseClientProperty = DependencyProperty.Register("ShowCloseClient", typeof(bool), typeof(TitleBar), new PropertyMetadata(false));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool ShowCloseClient
+        {
+            get { return (bool)GetValue(ShowCloseClientProperty); }
+            set { SetValue(ShowCloseClientProperty, value); }
+        }
+
         private Image min;
         private Image close;
         private Image keyboard;
+        private Image closeClient;
+        private TextBlock clockBlock;
 
         private StackPanel _status;
 
@@ -86,6 +101,8 @@ namespace CodeArt.WPF.Controls.Playstation
             this.min = GetTemplateChild("min") as Image;
             this.close = GetTemplateChild("close") as Image;
             this.keyboard = GetTemplateChild("keyboard") as Image;
+            this.closeClient = GetTemplateChild("closeClient") as Image;
+            this.clockBlock = GetTemplateChild("clockBlock") as TextBlock;
 
             _status = GetTemplateChild("status") as StackPanel;
 
@@ -100,6 +117,12 @@ namespace CodeArt.WPF.Controls.Playstation
             this.keyboard.MouseEnter += OnMouseEnter;
             this.keyboard.MouseLeave += OnMouseLeave;
             this.keyboard.MouseUp += OnKeyboard;
+
+            this.closeClient.MouseEnter += OnMouseEnter;
+            this.closeClient.MouseLeave += OnMouseLeave;
+            this.closeClient.MouseUp += OnCloseClient;
+
+            this.clockBlock.Loaded += OnClockBlockLoaded;
 
         }
 
@@ -121,6 +144,19 @@ namespace CodeArt.WPF.Controls.Playstation
             }
         }
 
+        private void OnClockBlockLoaded(object sender, RoutedEventArgs e)
+        {
+            DispatcherTimer myTimer = new DispatcherTimer();
+            myTimer.Interval = new TimeSpan(0, 0, 1);//获取或设置计时器刻度之间的时间段——设置myTimer的时间间隔是1秒  
+            myTimer.Tick += new EventHandler(Timer_Tick);//Tick是超过计时间隔发生的事件——即超过1秒触发事件Timer_Tick  
+            myTimer.Start();//计时器开始  
+        }
+
+        void Timer_Tick(object send, EventArgs e)
+        {
+            this.clockBlock.Text = DateTime.Now.ToLongTimeString();
+        }
+
         private void Maximized()
         {
 #if !DEBUG
@@ -129,8 +165,6 @@ namespace CodeArt.WPF.Controls.Playstation
             _root.Hide(); //先调用其隐藏方法 然后再显示出来,这样就会全屏,且任务栏不会出现.如果不加这句 可能会出现假全屏即任务栏还在下面.
             _root.Show();
         }
-
-
         private void Minimized(object sender, MouseButtonEventArgs e)
         {
             _root.WindowState = WindowState.Minimized;
@@ -139,6 +173,16 @@ namespace CodeArt.WPF.Controls.Playstation
         private void OnKeyboard(object sender, MouseButtonEventArgs e)
         {
             TabTipBoard.ClickTabTip();
+        }
+
+        private void OnCloseClient(object sender, MouseButtonEventArgs e)
+        {
+
+            using (Process proc = new Process())
+            {
+                proc.StartInfo.FileName = AppDomain.CurrentDomain.BaseDirectory + @"\_closeClients\CloseClients.exe";
+                proc.Start();
+            }
         }
 
         private void OnMouseLeave(object sender, MouseEventArgs e)

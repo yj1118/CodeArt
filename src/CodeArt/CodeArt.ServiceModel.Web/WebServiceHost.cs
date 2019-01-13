@@ -65,7 +65,7 @@ namespace CodeArt.ServiceModel
             }
             finally
             {
-                ServiceResponse response = new ServiceResponse(status, returnValue);
+                ServiceResponse response = new ServiceResponse(status, returnValue,BinaryResponse.Empty);
                 SendResponse(context, response);
             }
         }

@@ -1,5 +1,18 @@
-D:\Workspace\GitHub\CodeArt-Framework\src\CodeArt\CodeArt.ServiceModel\obj\Debug\CodeArt.ServiceModel.csprojAssemblyReference.cache
-D:\Workspace\GitHub\CodeArt-Framework\src\CodeArt\CodeArt.ServiceModel\obj\Debug\CodeArt.ServiceModel.Strings.resources
-D:\Workspace\GitHub\CodeArt-Framework\src\CodeArt\CodeArt.ServiceModel\obj\Debug\CodeArt.ServiceModel.Strings.zh-CN.resources
-D:\Workspace\GitHub\CodeArt-Framework\src\CodeArt\CodeArt.ServiceModel\obj\Debug\CodeArt.ServiceModel.csproj.GenerateResource.cache
-D:\Workspace\GitHub\CodeArt-Framework\src\CodeArt\CodeArt.ServiceModel\obj\Debug\CodeArt.ServiceModel.csproj.CoreCompileInputs.cache
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\bin\Debug\NLog.config
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\bin\Debug\CodeArt.ServiceModel.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\bin\Debug\CodeArt.ServiceModel.pdb
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\bin\Debug\zh-CN\CodeArt.ServiceModel.resources.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\bin\Debug\CodeArt.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\bin\Debug\NLog.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\bin\Debug\CodeArt.pdb
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\bin\Debug\NLog.xml
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\bin\Debug\zh-CN\CodeArt.resources.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\obj\Debug\CodeArt.ServiceModel.Strings.resources
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\obj\Debug\CodeArt.ServiceModel.Strings.zh-CN.resources
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\obj\Debug\CodeArt.ServiceModel.csproj.GenerateResource.cache
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\obj\Debug\CodeArt.ServiceModel.csproj.CoreCompileInputs.cache
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\obj\Debug\zh-CN\CodeArt.ServiceModel.resources.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\obj\Debug\CodeArt.ServiceModel.csproj.CopyComplete
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\obj\Debug\CodeArt.ServiceModel.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\obj\Debug\CodeArt.ServiceModel.pdb
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ServiceModel\obj\Debug\CodeArt.ServiceModel.csprojAssemblyReference.cache

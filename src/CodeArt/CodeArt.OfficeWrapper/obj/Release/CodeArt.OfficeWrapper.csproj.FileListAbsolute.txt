@@ -1,0 +1,11 @@
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.OfficeWrapper\bin\Release\NLog.config
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.OfficeWrapper\bin\Release\CodeArt.OfficeWrapper.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.OfficeWrapper\bin\Release\CodeArt.OfficeWrapper.pdb
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.OfficeWrapper\bin\Release\CodeArt.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.OfficeWrapper\bin\Release\NLog.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.OfficeWrapper\bin\Release\CodeArt.pdb
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.OfficeWrapper\bin\Release\NLog.xml
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.OfficeWrapper\bin\Release\zh-CN\CodeArt.resources.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.OfficeWrapper\obj\Release\CodeArt.OfficeWrapper.csproj.CoreCompileInputs.cache
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.OfficeWrapper\obj\Release\CodeArt.OfficeWrapper.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.OfficeWrapper\obj\Release\CodeArt.OfficeWrapper.pdb

@@ -1,0 +1,26 @@
+﻿<ControlTemplate xmlns="http://schemas.codeart.cn/web/xaml"
+                 xmlns:m="http://schemas.codeart.cn/web/xaml/metronic"
+                 xmlns:qa="http://schemas.codeart.cn/web/xaml/qa">
+<ControlTemplate.Directories>
+    <AssetDirectory AssemblyName="Module.QuestionAnswer">
+        <AssetPackage Path="/assets"></AssetPackage>
+    </AssetDirectory>
+</ControlTemplate.Directories>
+<div class="qa--paper" data-proxy="{give:[new $$qa.paperReader(),new $$.databind()]}"
+     id="{TemplateBinding Id}"
+     name="{TemplateBinding Name}"
+     data-metadataId="{TemplateBinding MetadataId}"
+     data-metadata="{TemplateBinding Metadata}"
+     data-paperReader="true"
+     >
+    <div class="qa--questions">
+        <div class="row qa--question" data-proxy="{loops:'questions'}">
+            <label class="col-form-label col-sm-12 c--p-i" data-proxy="{binds:{html:'content'},format:(v)=>{ return v.html(); }}">
+            </label>
+            <div class="col-sm-12 c--p-i" data-proxy="{binds:{html:'answer',questionId:'id'},format:(v)=>{ return v.html(); }}"></div>
+        </div>
+    </div>
+</div>
+<LinkCode Key="/assets/common.css" Origin="Header" />
+<LinkCode Key="/assets/common.js" Origin="Bottom" />
+</ControlTemplate>

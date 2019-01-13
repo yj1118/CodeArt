@@ -15,7 +15,7 @@ namespace DomainDrivenTestApp
     [Service("CreateUser")]
     public sealed class CreateUser : ServiceProvider
     {
-        protected override DTObject DynamicInvoke(dynamic arg)
+        protected override DTObject InvokeDynamic(dynamic arg)
         {
             var cmd = new DomainModel.CreateUser(arg.Id, arg.Name, arg.WifeId ?? 0, arg.SonId ?? 0);
             cmd.Execute();

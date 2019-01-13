@@ -23,7 +23,9 @@ namespace CodeArt.Web.WebPages.Xaml
         {
             var assetFileKey = GetAssetFileKey(value);
             if (string.IsNullOrEmpty(assetFileKey)) throw new XamlException("资产绑定表达式" + value + "格式不正确");
-            return new AssetFileBindingExtension(assetFileKey);
+
+            var additionalString = GetAdditionalString(ref assetFileKey);
+            return new AssetFileBindingExtension(assetFileKey, additionalString);
         }
 
         /// <summary>
@@ -37,5 +39,22 @@ namespace CodeArt.Web.WebPages.Xaml
             return string.Empty;
         }
 
+        private string GetAdditionalString(ref string assetFileKey)
+        {
+            var raw = assetFileKey;
+            int pos = raw.IndexOf("#");
+            if (pos > -1)
+            {
+                assetFileKey = raw.Substring(0, pos);
+                return raw.Substring(pos);
+            }
+            pos = raw.IndexOf("?");
+            if (pos > -1)
+            {
+                assetFileKey = raw.Substring(0, pos);
+                return raw.Substring(pos);
+            }
+            return string.Empty;
+        }
     }
 }

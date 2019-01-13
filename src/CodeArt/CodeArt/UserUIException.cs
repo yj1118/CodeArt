@@ -29,4 +29,19 @@ namespace CodeArt
         }
 
     }
+
+    public static class ExceptionExtensions
+    {
+        public static bool IsUserUIException(this Exception ex)
+        {
+            var temp = ex;
+            while (temp != null)
+            {
+                if (temp is UserUIException) return true;
+                temp = temp.InnerException;
+            }
+            return false;
+        }
+    }
+
 }

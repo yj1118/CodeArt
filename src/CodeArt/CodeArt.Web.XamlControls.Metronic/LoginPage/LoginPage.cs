@@ -5,11 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
+using CodeArt.ModuleNest;
 using CodeArt.Web.WebPages.Xaml.Script;
 using CodeArt.Web.WebPages.Xaml.Markup;
 using CodeArt.Web.WebPages.Xaml;
 using CodeArt.DTO;
-using CodeArt.ModuleNest;
+
 
 namespace CodeArt.Web.XamlControls.Metronic
 {
@@ -27,6 +28,21 @@ namespace CodeArt.Web.XamlControls.Metronic
         public static DependencyProperty RegisterTitleProperty { get; private set; }
 
         public static readonly DependencyProperty BackgroundImageProperty = DependencyProperty.Register<string, LoginPage>("BackgroundImage", () => { return string.Empty; });
+
+        public static readonly DependencyProperty RegisterUrlProperty = DependencyProperty.Register<string, LoginPage>("RegisterUrl", () => { return string.Empty; });
+
+        public string RegisterUrl
+        {
+            get
+            {
+                return GetValue(RegisterUrlProperty) as string;
+            }
+            set
+            {
+                SetValue(RegisterUrlProperty, value);
+            }
+        }
+
 
         static LoginPage()
         {

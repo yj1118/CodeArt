@@ -29,9 +29,9 @@ namespace CodeArt.Web.WebPages.Xaml
             vp = vp.Replace(assemblyName, string.Empty);
             vp = vp.Replace(".", "/");
             vp.Append(assetName);
-            var localVirtualPath = vp.ToString();
+            var localVirtualPath = string.Format("/{0}", vp.ToString());
             localVirtualPath = mapper.MapPath(localVirtualPath);
-            var virtualPath = string.Format("/assets/{0}/{1}", token, localVirtualPath);
+            var virtualPath = string.Format("/assets/{0}{1}", token, localVirtualPath);
             var physicalPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, virtualPath.Replace('/', '\\').Substring(1));
 
 #if DEBUG
@@ -51,7 +51,17 @@ namespace CodeArt.Web.WebPages.Xaml
         {
             IOUtil.CreateFileDirectory(physicalPath);
             var bytes = AssemblyResource.LoadBytes(assetPath);
-            File.WriteAllBytes(physicalPath, bytes);
+
+            try
+            {
+                File.WriteAllBytes(physicalPath, bytes);
+            }
+            catch(Exception ex)
+            {
+                //写日志即可，有时候同一时间访问一个文件，有可能冲突，但是在发布模式下不会遇到该问题，所以只用写日志
+                Log.LogWrapper.Default.Fatal(ex);
+            }
+            
         }
 
 

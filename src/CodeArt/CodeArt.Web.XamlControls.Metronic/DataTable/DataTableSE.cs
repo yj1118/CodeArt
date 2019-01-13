@@ -73,7 +73,7 @@ namespace CodeArt.Web.XamlControls.Metronic
         /// <returns></returns>
         public DTObject GetQuery()
         {
-            var arg = DTObject.CreateReusable();
+            var arg = DTObject.Create();
             arg["pageSize"] = this.PageSize;
             arg["pageIndex"] = this.PageIndex;
             if(!this.Parameters.IsEmpty())
@@ -96,13 +96,13 @@ namespace CodeArt.Web.XamlControls.Metronic
 
         #region 发射命令
 
-        ///// <summary>
-        ///// 绑定数据
-        ///// </summary>
-        //public void Bind(DTObject data)
-        //{
-        //    this.View.WriteCode(string.Format("{0}.proxy().bind({1}, {2});", this.Id, data.GetCode(), this.Id));
-        //}
+        /// <summary>
+        /// 清空选择
+        /// </summary>
+        public void Clear()
+        {
+            this.View.WriteCode(string.Format("{0}.proxy().clear();", this.Id));
+        }
 
         //public void SelectedItemsIsEmpty()
         //{
@@ -143,7 +143,66 @@ namespace CodeArt.Web.XamlControls.Metronic
             this.View.WriteCode(string.Format("{0}.proxy().get().length == 0", this.Id));
         }
 
+        public void ReloadDetail(object value)
+        {
+            this.View.WriteCode(string.Format("{0}.proxy().reloadDetail({1});", this.Id, JSON.GetCode(value)));
+        }
+
+        public void ReloadDetail(object value,Action callBack)
+        {
+            this.View.WriteCode(string.Format("{0}.proxy().reloadDetail({1},", this.Id, JSON.GetCode(value)));
+            this.View.WriteCode("function (){");
+            if(callBack != null)
+                callBack();
+            this.View.WriteCode("});");
+        }
+
+        public void ReloadRow(DTObject data)
+        {
+            ReloadRow(data, true);
+        }
+
+        public void ReloadRow(DTObject data, Action callBack)
+        {
+            ReloadRow(data, true, callBack);
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="reloadDetail">重新加载行时，是否重新加载详细信息</param>
+        public void ReloadRow(DTObject data, bool reloadDetail)
+        {
+            this.View.WriteCode(string.Format("{0}.proxy().reloadRow({1},{2});", this.Id, data.GetCode(false, false), JSON.GetCode(reloadDetail)));
+        }
+
+        public void ReloadRow(DTObject data, bool reloadDetail, Action callBack)
+        {
+            this.View.WriteCode(string.Format("{0}.proxy().reloadRow({1},{2},", this.Id, data.GetCode(false, false), JSON.GetCode(reloadDetail)));
+            this.View.WriteCode("function (){");
+            if (callBack != null)
+                callBack();
+            this.View.WriteCode("});");
+        }
+
         #endregion
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="variableName">得到行后的变量名</param>
+        public void FindRow(string variableName, object value)
+        {
+            this.View.WriteCode(string.Format("var {2}={0}.proxy().findRow({1});", this.Id, JSON.GetCode(value), variableName));
+        }
+
+        public void FindDetail(string variableName, object value)
+        {
+            this.View.WriteCode(string.Format("var {2}={0}.proxy().findDetail({1});", this.Id, JSON.GetCode(value), variableName));
+        }
 
         /// <summary>
         /// 在删除数据之前做提示的视图事件
@@ -187,6 +246,7 @@ namespace CodeArt.Web.XamlControls.Metronic
         /// </summary>
         /// <param name="tableId"></param>
         /// <returns></returns>
+        [Obsolete("请使用SweetAlert的方法")]
         public static Action<ViewEventProcessor> GetDeleteConfirmEvent()
         {
             return _deleteConfirmEvent;

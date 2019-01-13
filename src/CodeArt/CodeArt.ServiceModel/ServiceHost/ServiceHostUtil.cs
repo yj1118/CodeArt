@@ -17,7 +17,7 @@ namespace CodeArt.ServiceModel
             DTObject failed = DTObject.Create();
             failed.SetValue("status", "failed");
             failed.SetValue("message", GetMessage(ex));
-            failed.SetValue("userError", ex is UserUIException); //用户错误
+            failed.SetValue("userError", ex.IsUserUIException()); //用户错误
             return failed;
         }
 

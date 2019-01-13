@@ -1,6 +1,6 @@
 ﻿<ControlTemplate xmlns="http://schemas.codeart.cn/web/xaml">
-<div class="{TemplateBinding Class}">
-<h4 class="block"><run Content="{TemplateBinding Title}"></run></h4>
+<div class="{TemplateBinding Class}" data-proxy="{TemplateBinding ProxyCode}">
+<AttributesPresenter />
 <ContentPresenter Content="{TemplateBinding Content}" />
 </div>
 </ControlTemplate>

@@ -44,9 +44,9 @@ namespace CodeArt.DomainDriven
                 var method = _methods[ctx.MethodIndex];
                 method(domainObject, value);
             }
-            catch (Exception ex)
+            catch
             {
-                throw ex;
+                throw;
             }
             finally
             {

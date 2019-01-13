@@ -110,7 +110,7 @@ namespace CodeArt.DomainDriven
             var queueId = log.Id;
             if (logEntry.Operation == EventOperation.Raise)
             {
-                var content = DTObject.CreateReusable(logEntry.ContentCode);
+                var content = DTObject.Create(logEntry.ContentCode);
                 var entryId = content.GetValue<int>("entryId");
 
                 var queue = EventQueue.Find(queueId);

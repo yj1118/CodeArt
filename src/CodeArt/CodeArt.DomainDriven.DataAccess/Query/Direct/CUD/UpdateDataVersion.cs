@@ -49,11 +49,16 @@ namespace CodeArt.DomainDriven.DataAccess
             var sql = new SqlUpdateBuilder();
             sql.SetTable(table.Name);
 
-            sql.Set(string.Format("{0}={0}+1", SqlStatement.Qualifier(GeneratedField.DataVersionName)));
+            sql.Set(string.Format("{0}={0}+1", SqlStatement.Qualifier(GeneratedField.DataVersionName)));                
 
             foreach (var field in table.PrimaryKeys)
             {
                 sql.Where(field.Name);
+            }
+
+            if (table.IsEnabledMultiTenancy)
+            {
+                sql.Where(GeneratedField.TenantIdName);
             }
 
             return sql.GetCommandText();

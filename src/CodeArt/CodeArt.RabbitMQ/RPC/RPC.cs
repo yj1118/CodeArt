@@ -31,7 +31,6 @@ namespace CodeArt.RabbitMQ
             return new Policy(policy.Name, policy.Server, policy.User, policy.PrefetchCount, false, false);
         }
 
-
         public static string GetServerQueue(string method)
         {
             return _getServerQueue(method);

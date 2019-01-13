@@ -1,6 +1,7 @@
 ﻿<ControlTemplate xmlns="http://schemas.codeart.cn/web/xaml"
                  xmlns:m="http://schemas.codeart.cn/web/xaml/metronic">
-<div class="{TemplateBinding Class,Converter={Static m:AlertClassConverter.Instance}}" role="alert" data-proxy="{give:new $$metronic.alert()}">
+<div id="{TemplateBinding Id}" class="{TemplateBinding Class,Converter={Static m:AlertClassConverter.Instance}}" role="alert" data-proxy="{give:new $$metronic.alert()}">
+    <AttributesPresenter />
     <div class="m-alert__icon" Visibility="{TemplateBinding Icon,Converter={Static StringCollapsedConverter.Instance}}">
         <i class="{TemplateBinding Icon}"></i>
     </div>
@@ -14,5 +15,5 @@
     <div class="m-alert__close" Visibility="{TemplateBinding Close,Converter={Static BoolCollapsedConverter.Instance}}">
         <button type="button" class="close" data-close="alert" aria-label="Close"></button>
     </div>
-    </div>
+</div>
 </ControlTemplate>

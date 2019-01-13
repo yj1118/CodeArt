@@ -38,7 +38,7 @@ namespace CodeArt.Web.WebPages.Xaml
 
         private string GetPageCode(string language)
         {
-            var path = WebPageContext.Current.VirtualPath;
+            var path = AccessContext.Current.VirtualPath;
             var pos = path.LastIndexOf(".");
             path = path.Substring(0, pos).TrimStart("/");
 
@@ -78,7 +78,7 @@ namespace CodeArt.Web.WebPages.Xaml
         {
             get
             {
-                return _getStrings(WebPageContext.Current.VirtualPath);
+                return _getStrings(AccessContext.Current.VirtualPath);
             }
         }
 
@@ -99,7 +99,6 @@ namespace CodeArt.Web.WebPages.Xaml
 
         #region  生成语言文件
 
-        
         private bool GenerateFiles(string language)
         {
             var code = BuildFileCode(language);
@@ -114,8 +113,10 @@ namespace CodeArt.Web.WebPages.Xaml
             StringBuilder code = new StringBuilder();
             if (this.IsGlobal)
             {
-                code.AppendFormat("var $$language=\"{0}\";", language);
-                code.Append("var $$strings = {};");
+                code.AppendLine("if(!window.$$language){");
+                code.AppendFormat("window.$$language=\"{0}\";", language);
+                code.Append("window.$$strings = {};");
+                code.AppendLine("}");
             }
             if (_data.Count() > 0)
             {
@@ -161,7 +162,7 @@ namespace CodeArt.Web.WebPages.Xaml
             }
             else
             {
-                var path = WebPageContext.Current.VirtualPath;
+                var path = AccessContext.Current.VirtualPath;
                 var pos = path.LastIndexOf(".");
                 path = path.Substring(0, pos).TrimStart("/");
 

@@ -12,6 +12,7 @@ using CodeArt.DomainDriven;
 using CodeArt.Runtime;
 using CodeArt.Util;
 using CodeArt.Concurrent;
+using CodeArt.AppSetting;
 
 namespace CodeArt.DomainDriven.DataAccess
 {
@@ -96,6 +97,8 @@ namespace CodeArt.DomainDriven.DataAccess
                 var data = temp.Item;
                 data.Add(GeneratedField.RootIdName, rootId);
                 data.Add(EntityObject.IdPropertyName, id);
+                AddToTenant(data);
+
                 SqlHelper.Execute(this.Name, this.SqlDelete, data);
             }
         }
@@ -117,11 +120,22 @@ namespace CodeArt.DomainDriven.DataAccess
             OnPreDataDelete(obj);
             if(DeleteData(rootId, rootId))
             {
+                DeleteMiddles(obj);
                 DeleteMembers(obj, obj, obj);
                 OnDataDeleted(rootId, rootId, obj);
             }
             
         }
+
+        private void DeleteMiddles(DomainObject obj)
+        {
+            var middles = RootIsSlaveIndex.Get(this);
+            foreach(var middle in middles)
+            {
+                middle.DeleteMiddleByRootSlave(obj);
+            }
+        }
+
 
         private string _sqlDelete = null;
         public string SqlDelete
@@ -340,9 +354,19 @@ namespace CodeArt.DomainDriven.DataAccess
             DeleteMiddle(root, master, null);
         }
 
-        private void DeleteMiddleBySlave(DomainObject root, DomainObject slave)
+        private void DeleteMiddleByRootSlave(DomainObject slave)
         {
-            DeleteMiddle(root, null, slave);
+            //根据slave删除中间表数据
+            var slaveId = GetObjectId(slave);
+            using (var temp = SqlHelper.BorrowData())
+            {
+                var data = temp.Item;
+                data.Add(GeneratedField.RootIdName, null);
+                data.Add(GeneratedField.MasterIdName, null);
+                data.Add(GeneratedField.SlaveIdName, slaveId);
+                AddToTenant(data);
+                SqlHelper.Execute(this.ConnectionName, this.SqlDelete, data);
+            }
         }
 
         private void DeleteMiddle(DomainObject root, DomainObject master, DomainObject slave)
@@ -364,6 +388,7 @@ namespace CodeArt.DomainDriven.DataAccess
                     var data = temp.Item;
                     data.Add(GeneratedField.RootIdName, rootId);
                     data.Add(GeneratedField.SlaveIdName, slaveId);//slaveId有可能为空，因为是根据master删除，但是没有关系，sql会处理slaveId为空的情况
+                    AddToTenant(data);
                     SqlHelper.Execute(this.ConnectionName, this.SqlDelete, data);
                 }
             }
@@ -376,6 +401,7 @@ namespace CodeArt.DomainDriven.DataAccess
                     data.Add(GeneratedField.RootIdName, rootId);
                     data.Add(GeneratedField.MasterIdName, masterId);
                     data.Add(GeneratedField.SlaveIdName, slaveId);
+                    AddToTenant(data);
                     SqlHelper.Execute(this.ConnectionName, this.SqlDelete, data);
                 }
             }
@@ -392,6 +418,7 @@ namespace CodeArt.DomainDriven.DataAccess
                 {
                     var data = temp.Item;
                     data.Add(GeneratedField.RootIdName, rootId);
+                    AddToTenant(data);
                     SqlHelper.Execute(this.ConnectionName, this.SqlDelete, data);
                 }
             }
@@ -403,6 +430,7 @@ namespace CodeArt.DomainDriven.DataAccess
                     var data = temp.Item;
                     data.Add(GeneratedField.RootIdName, rootId);
                     data.Add(GeneratedField.MasterIdName, masterId);
+                    AddToTenant(data);
                     SqlHelper.Execute(this.ConnectionName, this.SqlDelete, data);
                 }
             }

@@ -117,7 +117,7 @@ namespace CodeArt.Web.WebPages.Xaml
             }
 
             return component;
-        });
+        }, StringComparer.OrdinalIgnoreCase);
 
 
         private static readonly XPCFactory Instance = new XPCFactory();

@@ -174,9 +174,9 @@ namespace CodeArt.DTO
 
         #endregion
 
-        public DTObject Serialize(object instance, bool isPinned)
+        public DTObject Serialize(object instance)
         {
-            var dto = isPinned ? DTObject.Create() : DTObject.CreateReusable();
+            var dto = DTObject.Create();
 
             var serializable = instance as IDTOSerializable;
             if(serializable != null)

@@ -17,6 +17,22 @@ namespace CodeArt.DTO
     {
         public override DTEntityType Type => DTEntityType.Object;
 
+        public DTEObject()
+            : this(new List<DTEntity>())
+        {
+        }
+
+        public DTEObject(List<DTEntity> entities)
+        {
+            SetMembers(entities);
+        }
+
+        //public void Init(bool isPinned)
+        //{
+        //    this.IsPinned = isPinned;
+        //    this.SetMembers(DTOPool.CreateDTEntities(isPinned));
+        //}
+
         #region entities
 
         private List<DTEntity> _entities;
@@ -41,83 +57,17 @@ namespace CodeArt.DTO
             return _entities.FirstOrDefault((t) => t.Name.EqualsIgnoreCase(entityName));
         }
 
-        internal void SetMembers(List<DTEntity> entities)
+        private void SetMembers(List<DTEntity> entities)
         {
             _entities = entities;
             foreach (var e in _entities)
             {
                 e.Parent = this;
             }
-            //this.OrderMembers();
             Changed();
         }
 
-
-        //private void OrderMembers()
-        //{
-        //    //先排序自身
-        //    OrderSelfMembers();
-
-        //    //再排序子项
-        //    foreach (var member in _members)
-        //    {
-        //        var e = member as DTEObject;
-        //        if (e != null) e.OrderMembers();
-        //    }
-        //    Changed();
-        //}
-
-        //private void OrderSelfMembers()
-        //{
-        //    if (_members.Count == 0) return;
-        //    var orders = _members.OrderBy((m) =>
-        //    {
-        //        return m.Name;
-        //    });
-        //    using (var temp = DTOPool.EntitiesPool.Borrow())
-        //    {
-        //        var list = temp.Item;
-        //        list.AddRange(orders);
-        //        _members.Clear();
-        //        _members.AddRange(list);
-        //    }
-               
-        //    Changed();
-        //}
-
-        //public override void OrderEntities()
-        //{
-        //    this.OrderMembers();
-        //}
-
         #endregion
-
-        ///// <summary>
-        ///// 出于性能考虑，我们直接传递 List集合
-        ///// </summary>
-        ///// <param name="members"></param>
-        //public DTEObject(List<DTEntity> members)
-        //{
-        //    this.SetMembers(members);
-        //}
-
-        public DTEObject()
-        {
-        }
-
-        public void Init(bool isPinned)
-        {
-            this.IsPinned = isPinned;
-            this.SetMembers(DTOPool.CreateDTEntities(isPinned));
-        }
-
-
-        public override void Reset()
-        {
-            _entities.Clear();
-            base.Reset();
-        }
-
 
         #region 数据
 
@@ -127,13 +77,13 @@ namespace CodeArt.DTO
         /// <returns></returns>
         public override DTEntity Clone()
         {
-            var copy = DTOPool.CreateDTEntities(this.IsPinned);
-            for (var i = 0; i < _entities.Count; i++)
+            var copy = new List<DTEntity>();
+            foreach(var e in _entities)
             {
-                copy.Add(_entities[i].Clone());
+                copy.Add(e.Clone());
             }
 
-            var dte = DTOPool.CreateDTEObject(copy, this.IsPinned);
+            var dte = new DTEObject(copy);
             dte.Name = this.Name;
             return dte;
         }
@@ -169,10 +119,10 @@ namespace CodeArt.DTO
 
             if (entity == null)
             {
-                if (query.Next == null && _entities.Count == 1 && string.IsNullOrEmpty(_entities[0].Name))
+                if (query.Next == null && _entities.Count() == 1 && string.IsNullOrEmpty(_entities.First().Name))
                 {
                     //例如:{[{id,name}]}  id=>id2 , {{name,sex}}  name=>name2
-                    return _entities[0].FindEntities(query);
+                    return _entities.First().FindEntities(query);
                 }
                 else
                 {
@@ -239,7 +189,7 @@ namespace CodeArt.DTO
                 }
                 else
                 {
-                    var next = DTOPool.CreateDTEObject(this.IsPinned);
+                    var next = new DTEObject();
                     next.Name = segment;
                     next.Parent = this;
                     _entities.Add(next);
@@ -254,7 +204,6 @@ namespace CodeArt.DTO
         public override void DeletEntity(DTEntity e)
         {
             _entities.Remove(e);
-            //OrderSelfMembers();
             Changed();
         }
 
@@ -343,7 +292,5 @@ namespace CodeArt.DTO
         {
             return (_entities[0] as DTEValue).Value;
         }
-
-
     }
 }

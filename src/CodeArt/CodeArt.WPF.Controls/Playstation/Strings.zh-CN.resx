@@ -207,4 +207,7 @@
   <data name="Keyboard" xml:space="preserve">
     <value>触摸键盘</value>
   </data>
+  <data name="CloseClient" xml:space="preserve">
+    <value>关闭客户端</value>
+  </data>
 </root>

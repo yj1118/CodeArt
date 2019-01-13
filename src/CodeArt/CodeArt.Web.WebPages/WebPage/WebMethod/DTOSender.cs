@@ -12,21 +12,15 @@ namespace CodeArt.Web.WebPages
     {
         private DTOSender() { }
 
-        public void Send(WebPageContext context, object result)
+        public void Send(WebPageContext context, string resultCode)
         {
-            DTObject dto = result as DTObject;
-            if (dto != null)
-            {
-                context.Response.Write(dto.GetCode(false, false));
-                return;
-            }
-            var code = result as string;
-            if (code != null)
-            {
-                context.Response.Write(code);
-                return;
-            }
-            throw new DTOSenderException("DTOSender对象仅能发送 DTObject 或者 string 类型的对象！当前被发送的对象类型为：" + result.GetType().FullName);
+            //DTObject dto = result as DTObject;
+            //if (dto != null)
+            //{
+            //    context.Response.Write(dto.GetCode(false, false));
+            //    return;
+            //}
+            context.Response.Write(resultCode);
         }
 
         public void SendError(WebPageContext context, string error)
@@ -34,7 +28,7 @@ namespace CodeArt.Web.WebPages
             var dto = DTObject.Create("{status,message}");
             dto.SetValue("status", "error");
             dto.SetValue("message", error);
-            this.Send(context, dto);
+            this.Send(context, dto.GetCode(false, false));
         }
 
         public static readonly IResultSender Instance = new DTOSender();

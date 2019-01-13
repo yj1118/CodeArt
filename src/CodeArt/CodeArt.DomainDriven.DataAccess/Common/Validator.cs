@@ -21,12 +21,22 @@ namespace CodeArt.DomainDriven.DataAccess
         /// <param name="property"></param>
         /// <param name="findByValue">该方法是用仓储根据属性的值加载对象，请指定QueryLevel.HoldSingle锁，来避免并发冲突</param>
         /// <returns></returns>
-        private static bool IsPropertyRepeated<T>(T obj, DomainProperty property, out string value) where T : class, IAggregateRoot
+        private static bool IsPropertyRepeated<T>(T obj, DomainProperty property, out object value) where T : class, IAggregateRoot
         {
             value = null;
             if (!obj.IsPropertyDirty(property)) return false;
-            string propertyValue = obj.GetPropertyValue<string>(property.Name);
-            if (string.IsNullOrEmpty(propertyValue)) return false;
+            var propertyValue = obj.GetPropertyValue(property.Name);
+
+            var stringValue = propertyValue as string;
+            if (stringValue != null)
+            {
+                if(string.IsNullOrEmpty(stringValue))
+                    return false;
+            }
+            else
+            {
+                if (DataUtil.IsDefaultValue(propertyValue)) return false;
+            }
 
             var exp = _getPropertyNameCondition(property.Name);
             var target = DataContext.Current.QuerySingle<T>(exp, (data) =>
@@ -65,7 +75,7 @@ namespace CodeArt.DomainDriven.DataAccess
         /// <param name="property"></param>
         public static void CheckPropertyRepeated<T>(T obj, DomainProperty property, ValidationResult result) where T : class, IAggregateRoot
         {
-            string propertyValue = null;
+            object propertyValue = null;
             if (IsPropertyRepeated(obj, property, out propertyValue))
             {
                 var code = _getProppertyRepeatedErrorCode(property);

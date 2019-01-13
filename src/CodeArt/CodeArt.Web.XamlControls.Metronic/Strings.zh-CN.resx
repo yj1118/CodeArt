@@ -510,4 +510,10 @@
   <data name="DateTitleFormat" xml:space="preserve">
     <value>yyyy年mm月</value>
   </data>
+  <data name="NodeManagement" xml:space="preserve">
+    <value>节点管理</value>
+  </data>
+  <data name="AddNodes" xml:space="preserve">
+    <value>新增节点</value>
+  </data>
 </root>

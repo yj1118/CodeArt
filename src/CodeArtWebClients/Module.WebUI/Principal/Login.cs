@@ -40,9 +40,9 @@ namespace Module.WebUI
             int photoWidth = arg.GetValue<int>("photoWidth", 80);
             int photoHeight = arg.GetValue<int>("photoHeight", 80);
 
-            Principal.Login(result.Id, result.DisplayName, result.Email);
+            Principal.Login(result.Id, result.Name, result.Email);
             if(result.Photo != null) Principal.Photo = ImageUtil.GetDynamicUrl(result.Photo.StoreKey, photoWidth, photoHeight, 2);
-            Principal.SetItem("flag", arg.Flag); //需要记录用户的登录标识，其他地方需要使用
+            Principal.SetItem("flag", arg.Flag ?? arg.MobileNumber ?? arg.Email); //需要记录用户的登录标识，其他地方需要使用
 
             var roles = new List<Principal.Role>(result.Roles.Count);
             foreach (var role in result.Roles)

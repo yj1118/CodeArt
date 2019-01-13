@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace CodeArt.DomainDriven
 {
     [DebuggerDisplay("Operation:{Operation},ContentCode:{ContentCode},OrderIndex:{OrderIndex}")]
-    [ObjectRepository(typeof(IEventLogEntryRepository))]
+    [ObjectRepository(typeof(IEventLogEntryRepository), CloseMultiTenancy = true)]
     public class EventLogEntry : AggregateRoot<EventLogEntry, Guid>
     {
         [PropertyRepository(Lazy = true)]

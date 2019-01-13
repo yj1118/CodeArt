@@ -8,7 +8,7 @@ using System.Text;
 namespace CodeArt.DomainDriven
 {
     [DebuggerDisplay("EventName:{EventName},EventId:{EventId}")]
-    internal struct EventKey
+    internal class EventKey
     {
 
         public Guid EventId

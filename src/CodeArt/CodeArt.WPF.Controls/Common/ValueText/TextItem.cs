@@ -46,12 +46,30 @@ namespace CodeArt.WPF.Controls
             }
         }
 
+        private bool _isVisible;
+
+        public bool IsVisible
+        {
+            get
+            {
+                return _isVisible;
+            }
+            set
+            {
+                _isVisible = value;
+                this.MarkPropertyChanged(IsVisiblePropertyName);
+            }
+        }
+
+
         public TextItem(object value)
         {
             this.Value = value;
         }
 
         public const string IsSelectedPropertyName = "IsSelected";
+
+        public const string IsVisiblePropertyName = "IsVisible";
 
     }
 }

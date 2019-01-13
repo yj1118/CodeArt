@@ -97,16 +97,25 @@ namespace CodeArt.Web.WebPages
         {
             get { return _virtualPath; }
             private set 
-            { 
+            {
                 _virtualPath = value;
-                _pathExtension = WebUtil.GetPathExtension(_virtualPath);
+                this.PathExtension = WebUtil.GetPathExtension(_virtualPath);
+                this.Fragments = _virtualPath.TrimStart('/').Split('/');
             }
         }
 
-        private string _pathExtension;
+        public string[] Fragments
+        {
+            get;
+            private set;
+        }
+
+
+
         public string PathExtension
         {
-            get { return _pathExtension; }
+            get;
+            private set;
         }
 
         private IAspect[] _pageAspects;
@@ -226,7 +235,7 @@ namespace CodeArt.Web.WebPages
         {
             get
             {
-                if (_preprocessor == null) _preprocessor = VirtualPathPreprocessor.Instance;
+                if (_preprocessor == null) _preprocessor = PageUtil.GetCodePreprocessor();
                 return _preprocessor;
             }
         }

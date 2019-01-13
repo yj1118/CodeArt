@@ -81,7 +81,6 @@ namespace CodeArt.DomainDriven
             return depth - baseType.GetDepth();
         }
 
-
         #region 对象快照
 
         /// <summary>
@@ -302,6 +301,16 @@ namespace CodeArt.DomainDriven
         public bool IsPropertyChanged(DomainProperty property)
         {
             return _machine.IsPropertyChanged(property.Name);
+        }
+
+        /// <summary>
+        /// 仅仅只是属性<paramref name="property"/>发生了改变
+        /// </summary>
+        /// <param name="property"></param>
+        /// <returns></returns>
+        public bool OnlyPropertyChanged(DomainProperty property)
+        {
+            return _machine.OnlyPropertyChanged(property.Name);
         }
 
         /// <summary>
@@ -634,6 +643,13 @@ namespace CodeArt.DomainDriven
         {
             var value = GetValue(property);
             if (value == null) throw new IsNullException(property.Name);
+            //if(value is IEmptyable)
+            //{
+            //    if(!typeof(T).ImplementInterface(typeof(IEmptyable)))
+            //    {
+            //        return (T)((value as IEmptyable)).GetValue();
+            //    }
+            //}
             return (T)value;
         }
 

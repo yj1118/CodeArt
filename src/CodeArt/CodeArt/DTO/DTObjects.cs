@@ -14,18 +14,13 @@ namespace CodeArt.DTO
     {
         private IList<DTObject> _list;
 
-        internal void SetList(IList<DTObject> items)
-        {
-            _list = items;
-        }
-
         public DTObjects()
         {
         }
 
         public DTObjects(IList<DTObject> items)
         {
-            SetList(items);
+            _list = items;
         }
 
         public DTObject this[int index]
@@ -77,10 +72,16 @@ namespace CodeArt.DTO
             }
         }
 
-        public void Reset()
+        /// <summary>
+        /// 将数组转为一个对象，数组作为对象的成员
+        /// </summary>
+        /// <param name="memberName">成员名称</param>
+        /// <returns></returns>
+        public DTObject ToObject(string memberName)
         {
-            _list.Clear();
-            _list = null;
+            var obj = DTObject.Create();
+            obj.SetList(memberName, _list);
+            return obj;
         }
 
         #region 自定义方法
@@ -145,18 +146,6 @@ namespace CodeArt.DTO
             return code.ToString();
         }
 
-        /// <summary>
-        /// 将数组转为一个对象(可回收的)，数组作为对象的成员
-        /// </summary>
-        /// <param name="memberName">成员名称</param>
-        /// <returns></returns>
-        public DTObject ToReusableObject(string memberName)
-        {
-            var obj = DTObject.CreateReusable();
-            obj.SetList(memberName, _list);
-            return obj;
-        }
-
         #endregion
 
         ///// <summary>
@@ -185,7 +174,7 @@ namespace CodeArt.DTO
         //}
 
 
-        public readonly static DTObjects Empty = new DTObjects(DTOPool.CreateObjects(true));
+        public readonly static DTObjects Empty = new DTObjects(new List<DTObject>());
 
     }
 }

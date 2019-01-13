@@ -22,12 +22,22 @@ namespace Module.WebUI
             return DomainUtil.GetUrl("file", string.Format("/cover-{0}-{1}-{2}", coverId.ToString("N"), width, height));
         }
 
+        [Obsolete("被GetDynamicUrl(category)取代")]
         public static string GetDynamicUrl(string storeKey, int width = 122, int height = 91, int cutType = 1)
         {
             if (!string.IsNullOrEmpty(storeKey)) return GetUrl("thumbnailUrl", string.Format("/image.htm?w={0}&h={1}&c={2}&key={3}", width, height, cutType, storeKey));
             else
             {
                 return GetUrl("thumbnailUrl", string.Format("/images/default/{0}-{1}.jpg", width, height));
+            }
+        }
+
+        public static string GetDynamicUrl(string category, string storeKey, int width = 122, int height = 91, int cutType = 1)
+        {
+            if (!string.IsNullOrEmpty(storeKey)) return GetUrl("thumbnailUrl", string.Format("/image.htm?w={0}&h={1}&c={2}&key={3}", width, height, cutType, storeKey));
+            else
+            {
+                return GetUrl("thumbnailUrl", string.Format("/images/default/{0}-{1}-{2}.jpg", category, width, height));
             }
         }
 
@@ -113,7 +123,8 @@ namespace Module.WebUI
 
         public static string GetDomain(string domainKey, bool throwError = true)
         {
-            var domain = Application.Current.FindResource(domainKey) as string;
+            var domain = Application.Current.FindResource(domainKey, false) as string;
+            if (string.IsNullOrEmpty(domain)) domain = System.Configuration.ConfigurationManager.AppSettings[domainKey];
             if (string.IsNullOrEmpty(domain) && throwError) throw new WebException("没有找到" + domainKey + "的资源配置");
             return domain;
         }

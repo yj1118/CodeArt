@@ -141,15 +141,23 @@ namespace CodeArt.Net.Anycast
 
         #region 消息处理
 
+        internal void StartProcess(IServerSession origin, Message message, HandlerContext ctx)
+        {
+            foreach (var handler in _handlers)
+            {
+                handler.BeginProcess(origin, message, ctx);
+            }
+        }
+
         /// <summary>
         /// 处理消息
         /// </summary>
         /// <param name="message"></param>
-        internal void Process(IServerSession origin, Message message)
+        internal void EndProcess(IServerSession origin, Message message, HandlerContext ctx)
         {
             foreach (var handler in _handlers)
             {
-                handler.Process(origin, message);
+                handler.EndProcess(origin, message, ctx);
             }
         }
 

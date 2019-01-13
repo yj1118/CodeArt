@@ -23,6 +23,13 @@ namespace CodeArt.DomainDriven.DataAccess.SQLServer
             sql.AppendLine("begin");
             sql.AppendFormat("	CREATE TABLE [{0}](", table.Name);
             sql.AppendLine();
+
+            if (table.IsEnabledMultiTenancy)
+            {
+                //如果是多租户，需要追加租户字段
+                sql.AppendLine("[TenantId] [varchar](50) NOT NULL,");
+            }
+
             foreach (var field in table.Fields)
             {
                 sql.AppendLine(GetFieldSql(field));
@@ -48,11 +55,21 @@ namespace CodeArt.DomainDriven.DataAccess.SQLServer
             if (primaryKeys.Count() == 0) return string.Empty;
             StringBuilder sql = new StringBuilder();
             sql.AppendFormat("CONSTRAINT [PK_{0}", table.Name);
+
+            if (table.IsEnabledMultiTenancy)
+            {
+                sql.AppendFormat("_{0}", GeneratedField.TenantIdName);
+            }
+
             foreach (var field in primaryKeys)
             {
                 sql.AppendFormat("_{0}", field.Name);
             }
             sql.Append("] PRIMARY KEY CLUSTERED (");
+            if (table.IsEnabledMultiTenancy)
+            {
+                sql.AppendFormat("[{0}],", GeneratedField.TenantIdName);
+            }
             foreach (var field in primaryKeys)
             {
                 sql.AppendFormat("[{0}],", field.Name);
@@ -69,11 +86,23 @@ namespace CodeArt.DomainDriven.DataAccess.SQLServer
             if (clusteredIndexs.Count() == 0) return string.Empty;
             StringBuilder sql = new StringBuilder();
             sql.AppendFormat("CREATE CLUSTERED INDEX [IX_{0}", table.Name);
+
+            if (table.IsEnabledMultiTenancy)
+            {
+                sql.AppendFormat("_{0}", GeneratedField.TenantIdName);
+            }
+
             foreach (var field in clusteredIndexs)
             {
                 sql.AppendFormat("_{0}", field.Name);
             }
             sql.AppendFormat("] ON [{0}](", table.Name);
+
+            if (table.IsEnabledMultiTenancy)
+            {
+                sql.AppendFormat("[{0}],", GeneratedField.TenantIdName);
+            }
+
             foreach (var field in clusteredIndexs)
             {
                 sql.AppendFormat("[{0}],", field.Name);
@@ -90,11 +119,23 @@ namespace CodeArt.DomainDriven.DataAccess.SQLServer
             if (nonclusteredIndexs.Count() == 0) return string.Empty;
             StringBuilder sql = new StringBuilder();
             sql.AppendFormat("CREATE NONCLUSTERED INDEX [IX_{0}", table.Name);
+
+            if(table.IsEnabledMultiTenancy)
+            {
+                sql.AppendFormat("_{0}", GeneratedField.TenantIdName);
+            }
+
             foreach (var field in nonclusteredIndexs)
             {
                 sql.AppendFormat("_{0}", field.Name);
             }
             sql.AppendFormat("] ON [{0}](", table.Name);
+
+            if (table.IsEnabledMultiTenancy)
+            {
+                sql.AppendFormat("[{0}],", GeneratedField.TenantIdName);
+            }
+
             foreach (var field in nonclusteredIndexs)
             {
                 sql.AppendFormat("[{0}],", field.Name);
@@ -214,13 +255,27 @@ namespace CodeArt.DomainDriven.DataAccess.SQLServer
 
         private static string GetDeleteByRootIdSql(DataTable table)
         {
-            if (table.Type == DataTableType.AggregateRoot)
+            if (table.IsEnabledMultiTenancy)
             {
-                return string.Format("delete [{0}] where [{1}]=@{1};", table.Name, EntityObject.IdPropertyName);
+                if (table.Type == DataTableType.AggregateRoot)
+                {
+                    return string.Format("delete [{0}] where [{1}]=@{1} and [{2}]=@{2};", table.Name, EntityObject.IdPropertyName, GeneratedField.TenantIdName);
+                }
+                else
+                {
+                    return string.Format("delete [{0}] where [{1}]=@{1} and [{2}]=@{2};", table.Name, GeneratedField.RootIdName, GeneratedField.TenantIdName);
+                }
             }
             else
             {
-                return string.Format("delete [{0}] where [{1}]=@{1};", table.Name, GeneratedField.RootIdName);
+                if (table.Type == DataTableType.AggregateRoot)
+                {
+                    return string.Format("delete [{0}] where [{1}]=@{1};", table.Name, EntityObject.IdPropertyName);
+                }
+                else
+                {
+                    return string.Format("delete [{0}] where [{1}]=@{1};", table.Name, GeneratedField.RootIdName);
+                }
             }
         }
 
@@ -229,8 +284,16 @@ namespace CodeArt.DomainDriven.DataAccess.SQLServer
 
         private static string GetDeleteMemberSql(DataTable table)
         {
-            return string.Format("delete [{0}] where [{1}]=@{1} and [{2}]=@{2};",
-                                        table.Name, GeneratedField.RootIdName, EntityObject.IdPropertyName);
+            if(table.IsEnabledMultiTenancy)
+            {
+                return string.Format("delete [{0}] where [{1}]=@{1} and [{2}]=@{2} and [{3}]=@{3};",
+                            table.Name, GeneratedField.RootIdName, EntityObject.IdPropertyName, GeneratedField.TenantIdName);
+            }
+            else
+            {
+                return string.Format("delete [{0}] where [{1}]=@{1} and [{2}]=@{2};",
+                            table.Name, GeneratedField.RootIdName, EntityObject.IdPropertyName);
+            }
         }
 
         /// <summary>
@@ -251,14 +314,44 @@ namespace CodeArt.DomainDriven.DataAccess.SQLServer
             if (middle.Root == middle.Master)
             {
                 StringBuilder sql = new StringBuilder();
+                sql.AppendFormat("if @{0} is null", rootId);  //根据slave删除
+                sql.AppendLine();
+                sql.AppendLine("begin");
+                if(middle.IsEnabledMultiTenancy)
+                {
+                    sql.AppendFormat("delete [{0}] where [{1}]=@{1} and [{2}]=@{2};", middle.Name, slaveId, GeneratedField.TenantIdName);
+                }
+                else
+                {
+                    sql.AppendFormat("delete [{0}] where [{1}]=@{1};", middle.Name, slaveId);
+                }
+                
+                sql.AppendLine();
+                sql.AppendLine("return;");
+                sql.AppendLine("end");
+
                 sql.AppendFormat("if @{0} is null", slaveId);
                 sql.AppendLine();
-                sql.AppendFormat("delete [{0}] where [{1}]=@{1}",
-                                             middle.Name, rootId);
+                if(middle.IsEnabledMultiTenancy)
+                {
+                    sql.AppendFormat("delete [{0}] where [{1}]=@{1}  and [{2}]=@{2};", middle.Name, rootId, GeneratedField.TenantIdName);
+                }
+                else
+                {
+                    sql.AppendFormat("delete [{0}] where [{1}]=@{1};", middle.Name, rootId);
+                }
+                
                 sql.AppendLine();
                 sql.AppendLine("else");
-                sql.AppendFormat("delete [{0}] where [{1}]=@{1} and [{2}]=@{2}",
-                                            middle.Name, rootId, slaveId);
+                if(middle.IsEnabledMultiTenancy)
+                {
+                    sql.AppendFormat("delete [{0}] where [{1}]=@{1} and [{2}]=@{2} and [{3}]=@{3};", middle.Name, rootId, slaveId, GeneratedField.TenantIdName);
+                }
+                else
+                {
+                    sql.AppendFormat("delete [{0}] where [{1}]=@{1} and [{2}]=@{2};", middle.Name, rootId, slaveId);
+                }
+                
                 return sql.ToString();
             }
             else
@@ -266,14 +359,45 @@ namespace CodeArt.DomainDriven.DataAccess.SQLServer
                 var masterId = GeneratedField.MasterIdName;
 
                 StringBuilder sql = new StringBuilder();
+                sql.AppendFormat("if @{0} is null", rootId);  //根据slave删除
+                sql.AppendLine();
+                sql.AppendLine("begin");
+
+                if(middle.IsEnabledMultiTenancy)
+                {
+                    sql.AppendFormat("delete [{0}] where [{1}]=@{1} and [{2}]=@{2};", middle.Name, slaveId, GeneratedField.TenantIdName);
+                }
+                else
+                {
+                    sql.AppendFormat("delete [{0}] where [{1}]=@{1};", middle.Name, slaveId);
+                }
+
+                
+                sql.AppendLine();
+                sql.AppendLine("return;");
+                sql.AppendLine("end");
+
                 sql.AppendFormat("if @{0} is null", slaveId);
                 sql.AppendLine();
-                sql.AppendFormat("delete [{0}] where [{1}]=@{1} and [{2}]=@{2};",
-                                            middle.Name, rootId, masterId);
+                if (middle.IsEnabledMultiTenancy)
+                {
+                    sql.AppendFormat("delete [{0}] where [{1}]=@{1} and [{2}]=@{2} and [{3}]=@{3};", middle.Name, rootId, masterId, GeneratedField.TenantIdName);
+                }
+                else
+                {
+                    sql.AppendFormat("delete [{0}] where [{1}]=@{1} and [{2}]=@{2};", middle.Name, rootId, masterId);
+                }
+               
                 sql.AppendLine();
                 sql.AppendLine("else");
-                sql.AppendFormat("delete [{0}] where [{1}]=@{1} and [{2}]=@{2}",
-                                            middle.Name, rootId, slaveId);
+                if (middle.IsEnabledMultiTenancy)
+                {
+                    sql.AppendFormat("delete [{0}] where [{1}]=@{1} and [{2}]=@{2}  and [{3}]=@{3};", middle.Name, rootId, slaveId, GeneratedField.TenantIdName);
+                }
+                else
+                {
+                    sql.AppendFormat("delete [{0}] where [{1}]=@{1} and [{2}]=@{2};", middle.Name, rootId, slaveId);
+                }
                 return sql.ToString();
 
             }
@@ -285,14 +409,27 @@ namespace CodeArt.DomainDriven.DataAccess.SQLServer
 
             if (middle.Root == middle.Master)
             {
-                return string.Format("delete [{0}] where [{1}]=@{1}", middle.Name, rootId);
+                if (middle.IsEnabledMultiTenancy)
+                {
+                    return string.Format("delete [{0}] where [{1}]=@{1} and [{2}]=@{2};", middle.Name, rootId, GeneratedField.TenantIdName);
+                }
+                else
+                {
+                    return string.Format("delete [{0}] where [{1}]=@{1};", middle.Name, rootId);
+                }
             }
             else
             {
                 var masterId = GeneratedField.MasterIdName;
 
-                return string.Format("delete [{0}] where [{1}]=@{1} and [{2}]=@{2};",
-                                            middle.Name, rootId, masterId);
+                if (middle.IsEnabledMultiTenancy)
+                {
+                    return string.Format("delete [{0}] where [{1}]=@{1} and [{2}]=@{2} and [{3}]=@{3};", middle.Name, rootId, masterId, GeneratedField.TenantIdName);
+                }
+                else
+                {
+                    return string.Format("delete [{0}] where [{1}]=@{1} and [{2}]=@{2};", middle.Name, rootId, masterId);
+                }
             }
         }
 
@@ -317,38 +454,81 @@ namespace CodeArt.DomainDriven.DataAccess.SQLServer
 
         public static string GetIncrementIdentitySql(DataTable table)
         {
-            const string increment = "Increment";
+            if (table.IsEnabledMultiTenancy) return GetIncrementIdentityTenantSql(table);
+
+            string increment = string.Format("{0}Increment", table.Name);
 
             StringBuilder sql = new StringBuilder();
             sql.AppendLine("begin transaction;");
             sql.AppendFormat("if(object_id('[{0}]') is null)", increment);
             sql.AppendLine("begin");
-            sql.AppendLine("	create table [" + increment + "]([type] [varchar](100) NOT NULL,[value] [bigint] NOT NULL,CONSTRAINT [PK_" + increment + "] PRIMARY KEY CLUSTERED ([type] ASC)WITH (IGNORE_DUP_KEY = OFF) ON [PRIMARY]) ON [PRIMARY];");
+            sql.AppendLine("	create table [" + increment + "]([value] [bigint] NOT NULL,CONSTRAINT [PK_" + increment + "] PRIMARY KEY CLUSTERED ([value] ASC)WITH (IGNORE_DUP_KEY = OFF) ON [PRIMARY]) ON [PRIMARY];");
             sql.AppendLine("end");
-            sql.AppendFormat("if(not exists(select 1 from [{0}] with(xlock,holdlock) where [type]='{1}'))", increment, table.Name);
+            sql.AppendFormat("if(not exists(select 1 from [{0}] with(xlock,holdlock)))", increment);
             sql.AppendLine();
             sql.AppendLine("begin");
-            sql.AppendFormat(" insert into [{0}](type,value) values('{1}',1);", increment, table.Name);
+            sql.AppendFormat(" insert into [{0}](value) values(1);", increment);
             sql.AppendLine();
             sql.AppendLine(" select cast(1 as bigint) as value;");
             sql.AppendLine("end");
             sql.AppendLine("else");
             sql.AppendLine("begin");
-            sql.AppendFormat(" update [{0}] set [value]=[value]+1 where [type]='{1}';", increment, table.Name);
+            sql.AppendFormat(" update [{0}] set [value]=[value]+1;", increment);
             sql.AppendLine();
-            sql.AppendFormat("select value from [{0}] with(nolock) where [type]='{1}';", increment, table.Name);
+            sql.AppendFormat("select value from [{0}] with(nolock);", increment);
             sql.AppendLine();
             sql.AppendLine("end");
             sql.AppendLine("commit;");
             return sql.ToString();
         }
 
+
+        private static string GetIncrementIdentityTenantSql(DataTable table)
+        {
+            string increment = string.Format("{0}Increment", table.Name);
+
+            StringBuilder sql = new StringBuilder();
+            sql.AppendLine("begin transaction;");
+            sql.AppendFormat("if(object_id('[{0}]') is null)", increment);
+            sql.AppendLine("begin");
+            sql.AppendLine("	create table [" + increment + "]([tenantId] [varchar](50) NOT NULL,[value] [bigint] NOT NULL,CONSTRAINT [PK_" + increment + "] PRIMARY KEY CLUSTERED ([tenantId] ASC)WITH (IGNORE_DUP_KEY = OFF) ON [PRIMARY]) ON [PRIMARY];");
+            sql.AppendLine("end");
+            sql.AppendFormat("if(not exists(select 1 from [{0}] with(xlock,holdlock) where [tenantId]=@tenantId))", increment);
+            sql.AppendLine();
+            sql.AppendLine("begin");
+            sql.AppendFormat(" insert into [{0}](tenantId,value) values(@tenantId,1);", increment);
+            sql.AppendLine();
+            sql.AppendLine(" select cast(1 as bigint) as value;");
+            sql.AppendLine("end");
+            sql.AppendLine("else");
+            sql.AppendLine("begin");
+            sql.AppendFormat(" update [{0}] set [value]=[value]+1 where [tenantId]=@tenantId;", increment);
+            sql.AppendLine();
+            sql.AppendFormat("select value from [{0}] with(nolock) where  [tenantId]=@tenantId;", increment);
+            sql.AppendLine();
+            sql.AppendLine("end");
+            sql.AppendLine("commit;");
+            return sql.ToString();
+        }
+
+
         public static string GetSingleLockSql(DataTable table)
         {
-            return string.Format("select [{0}] from [{1}]{2} where [{0}]=@{0};"
-                            , EntityObject.IdPropertyName
-                            , table.Name
-                            , GetLockCode(QueryLevel.Single));
+            if (table.IsEnabledMultiTenancy)
+            {
+                return string.Format("select [{0}] from [{1}]{2} where [{0}]=@{0} and [{3}]=@{3};"
+                                , EntityObject.IdPropertyName
+                                , table.Name
+                                , GetLockCode(QueryLevel.Single),
+                                GeneratedField.TenantIdName);
+            }
+            else
+            {
+                return string.Format("select [{0}] from [{1}]{2} where [{0}]=@{0};"
+                                , EntityObject.IdPropertyName
+                                , table.Name
+                                , GetLockCode(QueryLevel.Single));
+            }
         }
 
     }

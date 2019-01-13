@@ -15,6 +15,7 @@ using CodeArt.AppSetting;
 using System.Threading;
 using System.Globalization;
 using CodeArt.Util;
+using CodeArt.EasyMQ;
 
 namespace CodeArt.ServiceModel
 {
@@ -23,15 +24,30 @@ namespace CodeArt.ServiceModel
     {
         protected MQServiceHandler() { }
 
-        public DTObject Process(string method, DTObject arg)
+        public TransferData Process(string method, DTObject arg)
         {
             DTObject returnValue = null;
             DTObject status = null;
+            int dataLength = 0;
+            byte[] content = null;
+
             try
             {
                 var request = ServiceRequest.Create(arg);
                 InitIdentity(request);
-                returnValue = ProcessService(request);
+
+                if (request.TransmittedLength == null)
+                {
+                    returnValue = ProcessService(request);
+                }
+                else
+                {
+                    var result = ProcessDownloadService(request);
+                    returnValue = result.Info;
+                    dataLength = result.DataLength;
+                    content = result.Content;
+                }
+                
                 status = ServiceHostUtil.Success;
             }
             catch (Exception ex)
@@ -40,10 +56,10 @@ namespace CodeArt.ServiceModel
                 status = ServiceHostUtil.CreateFailed(ex);
             }
 
-            var reponse = DTObject.CreateReusable();
+            var reponse = DTObject.Create();
             reponse["status"] = status;
             reponse["returnValue"] = returnValue;
-            return reponse;
+            return new TransferData(reponse, dataLength, content);
         }
 
         private void InitIdentity(ServiceRequest request)
@@ -52,10 +68,16 @@ namespace CodeArt.ServiceModel
         }
 
 
-        protected virtual DTObject ProcessService(ServiceRequest request)
+        private DTObject ProcessService(ServiceRequest request)
         {
             var provider = ServiceProviderFactory.Create(request);
             return provider.Invoke(request);
+        }
+
+        private BinaryData ProcessDownloadService(ServiceRequest request)
+        {
+            var provider = ServiceProviderFactory.Create(request);
+            return provider.InvokeBinary(request);
         }
 
         public static readonly MQServiceHandler Instance = new MQServiceHandler();

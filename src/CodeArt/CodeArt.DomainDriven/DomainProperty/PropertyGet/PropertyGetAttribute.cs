@@ -14,6 +14,7 @@ namespace CodeArt.DomainDriven
         public PropertyGetAttribute(string methodName)
             : base(methodName)
         {
+            this.IgnoreWithRepository = false;//get方法在仓储构建对象时不默认不忽略
         }
 
         internal PropertyGetAttribute(Func<DomainObject, object> getAction)
@@ -26,11 +27,18 @@ namespace CodeArt.DomainDriven
 
         public Func<DomainObject, object> GetAction()
         {
-            if (_getAction != null) return _getAction; //自定义了方法
-
             MethodInfo methodInfo = GetMethod();
             return (domainObject) =>
             {
+                if (this.IgnoreWithRepository)
+                {
+                    var current = DataContext.Current;
+                    if (current != null && current.InBuildObject)
+                        return domainObject; //指示了在仓储构建时不触发行为，所以返回
+                }
+
+                if (_getAction != null) return _getAction(domainObject);
+
                 object value = null;
                 if (methodInfo.IsStatic)
                 {

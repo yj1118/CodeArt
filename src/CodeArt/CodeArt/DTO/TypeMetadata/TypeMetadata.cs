@@ -64,7 +64,7 @@ namespace CodeArt.DTO
             this.MetadataCode = metadataCode;
             this.Index = new TypeIndex();
             this.Root = new ObjectEntry(this);
-            var dto = DTObject.CreateReusable(metadataCode);
+            var dto = DTObject.Create(metadataCode);
 
             var root = dto.GetRoot();
             //设置了根类型的名称
@@ -80,7 +80,7 @@ namespace CodeArt.DTO
             this.MetadataCode = metadataCode;
             this.Parent = parent;
             this.Index = parent.Index;
-            var dto = DTObject.CreateReusable(metadataCode);
+            var dto = DTObject.Create(metadataCode);
             this.Entries = Parse(dto.GetRoot());
         }
 
@@ -91,7 +91,7 @@ namespace CodeArt.DTO
             this.Index = parent.Index;
             this.Root = new ObjectEntry(this);
 
-            var dto = DTObject.CreateReusable(metadataCode);
+            var dto = DTObject.Create(metadataCode);
             this.Entries = Parse(dto.GetRoot());
         }
 

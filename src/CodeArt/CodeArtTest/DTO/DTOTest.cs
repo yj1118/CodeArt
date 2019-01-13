@@ -26,7 +26,7 @@ namespace CodeArtTest.DTO
         [TestMethod]
         public void CreateDTO()
         {
-            DTObject dto = DTObject.CreateReusable("{id,name}");
+            DTObject dto = DTObject.Create("{id,name}");
             dto.SetValue("id", 1);
             dto.SetValue("name", "刘备");
 
@@ -39,7 +39,7 @@ namespace CodeArtTest.DTO
         [TestMethod]
         public void CreateHaveValueDTO()
         {
-            DTObject dto = DTObject.CreateReusable("{id:1,name:\"Louis\"}");
+            DTObject dto = DTObject.Create("{id:1,name:\"Louis\"}");
 
             Assert.AreEqual(1, dto.GetValue<int>("id"));
             Assert.AreEqual("Louis", dto.GetValue<string>("name"));
@@ -50,7 +50,7 @@ namespace CodeArtTest.DTO
         [TestMethod]
         public void CreateListDTO()
         {
-            DTObject dto = DTObject.CreateReusable("{id,name,hobby:[{v,n}]}");
+            DTObject dto = DTObject.Create("{id,name,hobby:[{v,n}]}");
             dto.SetValue("id", 1);
             dto.SetValue("name", "Louis");
             DTObject obj = dto.CreateAndPush("hobby");
@@ -74,7 +74,7 @@ namespace CodeArtTest.DTO
             //Assert.AreEqual("{\"id\":1,\"name\":\"Louis\",\"hobby\":[{\"v\":0,\"n\":\"LS0\"},{\"v\":1,\"n\":\"LS1\"}]}", dto.GetCode());
 
             var code = dto.GetCode();
-            var copy = DTObject.CreateReusable(code);
+            var copy = DTObject.Create(code);
             list = dto.GetList("hobby");
             for (int i = 0; i < list.Count; i++)
             {
@@ -90,7 +90,7 @@ namespace CodeArtTest.DTO
         [TestMethod]
         public void CreateNestListDTO()
         {
-            DTObject dto = DTObject.CreateReusable("{items:[{v,n,childs:[{v,n}]}]}");
+            DTObject dto = DTObject.Create("{items:[{v,n,childs:[{v,n}]}]}");
 
             DTObject objItems = dto.CreateAndPush("items");
             objItems.SetValue("v", 0);
@@ -116,7 +116,7 @@ namespace CodeArtTest.DTO
         [TestMethod]
         public void CreateSymbolDTO()
         {
-            DTObject dto = DTObject.CreateReusable("{id,name,sex,hobbys:[{v,n}]}");
+            DTObject dto = DTObject.Create("{id,name,sex,hobbys:[{v,n}]}");
             dto.SetValue("id", 1);
             dto.SetValue("name", "loui's");
             dto.SetValue("sex", 9);
@@ -135,7 +135,7 @@ namespace CodeArtTest.DTO
         [TestMethod]
         public void CreateGuidDTO()
         {
-            DTObject dto = DTObject.CreateReusable("{id}");
+            DTObject dto = DTObject.Create("{id}");
             dto.SetValue("id", Guid.Empty);
 
             Assert.AreEqual(Guid.Empty, dto.GetValue<Guid>("id"));
@@ -144,7 +144,7 @@ namespace CodeArtTest.DTO
         [TestMethod]
         public void CreateStringDTO()
         {
-            DTObject dto = DTObject.CreateReusable("{name}");
+            DTObject dto = DTObject.Create("{name}");
             dto.SetValue("name", string.Empty);
 
             Assert.AreEqual(string.Empty, dto.GetValue<string>("name"));
@@ -153,7 +153,7 @@ namespace CodeArtTest.DTO
         [TestMethod]
         public void CreateBoolDTO()
         {
-            DTObject dto = DTObject.CreateReusable("{isShow}");
+            DTObject dto = DTObject.Create("{isShow}");
             dto.SetValue("isShow", true);
 
             Assert.AreEqual(true, dto.GetValue<bool>("isShow"));
@@ -162,7 +162,7 @@ namespace CodeArtTest.DTO
         [TestMethod]
         public void CreateDateTimeDTO()
         {
-            DTObject dto = DTObject.CreateReusable("{time}");
+            DTObject dto = DTObject.Create("{time}");
             dto.SetValue("time", DateTime.Parse("2031-08-05"));
 
             Assert.AreEqual(DateTime.Parse("2031-08-05"), dto.GetValue<DateTime>("time"));
@@ -172,8 +172,8 @@ namespace CodeArtTest.DTO
         public void CreateObjectDTO()
         {
             var user = new User(1, "Louis");
-            DTObject dto = DTObject.CreateReusable("{user}");
-            var dtoUser = DTObject.CreateReusable("{id,name}", user);
+            DTObject dto = DTObject.Create("{user}");
+            var dtoUser = DTObject.Create("{id,name}", user);
             dto.SetValue("user", dtoUser);
 
             dynamic result = dto.GetValue("user");
@@ -208,7 +208,7 @@ namespace CodeArtTest.DTO
         [TestMethod]
         public void CreateSocketMessageDTO()
         {
-            DTObject dto = DTObject.CreateReusable("{\"RCN\":\"ControlBigScreenCapability\",\"REN\":\"PlayEvent\",\"MT\":7,\"Ds\":[\"[::ffff:192.168.0.13]:59714\"]}");
+            DTObject dto = DTObject.Create("{\"RCN\":\"ControlBigScreenCapability\",\"REN\":\"PlayEvent\",\"MT\":7,\"Ds\":[\"[::ffff:192.168.0.13]:59714\"]}");
             var ds = dto.GetList("Ds");
             var code = dto.GetCode();
 

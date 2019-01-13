@@ -35,18 +35,26 @@ namespace CodeArt.Net.Anycast
                 var senders = this.Sessions.GetSessions(msg.Origin);
                 foreach (var sender in senders)
                 {
-                    Process(sender, msg);
+                    using (var temp = HandlerContext.Pool.Borrow())
+                    {
+                        var ctx = temp.Item;
+                        if (sender.IsActive)
+                            this.Server.StartProcess(sender, msg, ctx);
 
-                    //使用服务器扩展的handler处理
-                    if (sender.IsActive)
-                        this.Server.Process(sender, msg);
+                        if (!ctx.IsCompleted && sender.IsActive)
+                            Process(sender, msg, ctx);
+
+                        //使用服务器扩展的handler处理
+                        if (sender.IsActive)
+                            this.Server.EndProcess(sender, msg, ctx);
+                    }
                 }
             }, context);
         }
 
         #region 自带的处理器
 
-        private void Process(IServerSession origin, Message message)
+        private void Process(IServerSession origin, Message message, HandlerContext ctx)
         {
             switch (message.Type)
             {

@@ -15,7 +15,7 @@ namespace DomainDrivenTestApp
     [Service("DeleteUser")]
     public sealed class DeleteUser : ServiceProvider
     {
-        protected override DTObject DynamicInvoke(dynamic arg)
+        protected override DTObject InvokeDynamic(dynamic arg)
         {
             var cmd = new DomainModel.DeleteUser(arg.Id);
             cmd.Execute();

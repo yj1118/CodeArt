@@ -76,7 +76,7 @@ namespace CodeArtTest.DTO
 
             AssertList(es[6], "values", "values");
             var valuesItem = (es[6] as ListEntry).ItemEntry;
-            AssertValue(valuesItem, "item", "string", "10");
+            AssertValue(valuesItem, "values.item", "string", "10");
 
             AssertOthers(es[7], "others2", "others");
 
@@ -107,7 +107,7 @@ namespace CodeArtTest.DTO
         {
             AssertList(entry, name, typeName);
             var othersItemEntry = (entry as ListEntry).ItemEntry;
-            AssertObject(othersItemEntry, "item", "item");
+            AssertObject(othersItemEntry, "others.item", "others.item");
             var obj = othersItemEntry as ObjectEntry;
             var childs = obj.Childs.ToArray();
 
@@ -127,7 +127,7 @@ namespace CodeArtTest.DTO
             //验证数组
             AssertList(menuChilds[3], "childs", "menu.childs");
             var menuChildsEntry = menuChilds[3] as ListEntry;
-            AssertObject(menuChildsEntry.ItemEntry, "item", "menu");
+            AssertObject(menuChildsEntry.ItemEntry, "menu.childs.item", "menu");
             AssertMenuBase(menuChildsEntry.ItemEntry);
         }
 

@@ -23,14 +23,14 @@ namespace CodeArt.ServiceModel
 
         public static DTObject Invoke(string serviceName, Action<DTObject> fillArg)
         {
-            var arg = DTObject.CreateReusable();
+            var arg = DTObject.Create();
             fillArg(arg);
             return Invoke(serviceName, arg);
         }
 
         public static DTObject InvokeDynamic(string serviceName, Action<dynamic> fillArg)
         {
-            var arg = DTObject.CreateReusable();
+            var arg = DTObject.Create();
             fillArg(arg);
             return Invoke(serviceName, arg);
         }
@@ -38,12 +38,12 @@ namespace CodeArt.ServiceModel
 
         public static DTObject Invoke(string serviceName, DTObject arg)
         {
-            return Invoke(serviceName, AppContext.LocalIdentity, arg);
+            return Invoke(serviceName, AppContext.Identity, arg);
         }
 
         public static DTObject Invoke(string serviceName, DTObject identity, Action<DTObject> fillArg)
         {
-            var arg = DTObject.CreateReusable();
+            var arg = DTObject.Create();
             fillArg(arg);
             return Invoke(serviceName, identity, arg);
         }
@@ -64,12 +64,56 @@ namespace CodeArt.ServiceModel
 
         #endregion
 
+        #region 二进制传输
+
+        public static void InvokeBinaryDynamic(string serviceName, Action<dynamic> fillArg, Action<BinaryResponse> callBack)
+        {
+            var arg = DTObject.Create();
+            fillArg(arg);
+            InvokeBinary(serviceName, arg, callBack);
+        }
+
+        public static void InvokeBinary(string serviceName, Action<DTObject> fillArg, Action<BinaryResponse> callBack)
+        {
+            var arg = DTObject.Create();
+            fillArg(arg);
+            InvokeBinary(serviceName, arg, callBack);
+        }
+
+
+        public static void InvokeBinary(string serviceName, DTObject arg, Action<BinaryResponse> callBack)
+        {
+            InvokeBinary(serviceName, AppContext.Identity, arg, callBack);
+        }
+
+        public static void InvokeBinary(string serviceName, DTObject identity, DTObject arg, Action<BinaryResponse> callBack)
+        {
+            int length = 0;
+            ServiceRequest request = new ServiceRequest(serviceName, identity, arg);
+
+            request.TransmittedLength = length;
+            var response = Send(request);
+            var data = response.Binary;
+            callBack(data);
+            length += data.Content.Length;
+
+            while ((data.Status & TransferStatus.Last) != TransferStatus.Last)
+            {
+                request.TransmittedLength = length;
+                response = Send(request);
+                data = response.Binary;
+                callBack(data);
+                length += data.Content.Length;
+            }
+        }
+
+        #endregion
+
         private static ServiceResponse Send(ServiceRequest request)
         {
             var response = ServiceProxy.Invoke(request);
             response.TryCatch();
             return response;
         }
-
     }
 }

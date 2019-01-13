@@ -5,9 +5,12 @@
         <AssetString keys="NoRecords,DisplayingRecords,FirstPage,PreviousPage,NextPage,LastPage,SelectPageSize,MorePages,PageNumber"></AssetString>
     </AssetDirectory>
 </ControlTemplate.Directories>
-<div data-proxy="{TemplateBinding ProxyCode}" id="{TemplateBinding Id}" data-datatable="true">
+<div data-proxy="{TemplateBinding ProxyCode}" 
+     id="{TemplateBinding Id}"
+     name="{TemplateBinding Name}"
+     data-datatable="true">
     <AttributesPresenter />
-    <ContentPresenter Content="{TemplateBinding Header}" />
+    <div class="ca-datatable-header"><ContentPresenter Content="{TemplateBinding Header}" /></div>
     <div class="m_datatable"></div>
     <div class="m-datatable-selectedItems" data-datatable-selectedarea="true" data-proxy="{give:new $$.databind()}">
         <ul class="list-inline">

@@ -84,7 +84,7 @@ namespace CodeArt.DomainDriven
 
         public DTObject GetData()
         {
-            var data = DTObject.CreateReusable();
+            var data = DTObject.Create();
             var properties = this.Define.Properties;
             foreach (var property in properties)
             {
@@ -97,7 +97,7 @@ namespace CodeArt.DomainDriven
                     continue;
                 }
 
-                var list = value as IEnumerable<DynamicEntity>;
+                var list = value as IEnumerable<DynamicObject>;
                 if (list != null)
                 {
                     //集合

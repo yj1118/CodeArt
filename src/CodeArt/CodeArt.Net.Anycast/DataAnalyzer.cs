@@ -11,7 +11,7 @@ using CodeArt.DTO;
 
 namespace CodeArt.Net.Anycast
 {
-    internal static class DataAnalyzer
+    public static class DataAnalyzer
     {
         public static Participant DeserializeParticipant(string orgin, byte[] data)
         {

@@ -12,7 +12,7 @@ using CodeArt.AOP;
 namespace CodeArt.Web.WebPages
 {
     [SafeAccess]
-    internal class VirtualPathRouter  : IWebPageRouter
+    public class VirtualPathRouter  : IWebPageRouter
     {
         public IHttpHandler CreateHandler(WebPageContext context)
         {

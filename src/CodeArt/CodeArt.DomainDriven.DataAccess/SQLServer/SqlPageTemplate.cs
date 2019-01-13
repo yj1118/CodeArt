@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Data;
 using System.Text;
@@ -40,9 +41,11 @@ namespace CodeArt.DomainDriven.DataAccess.SQLServer
         }
 
         private string _orderBy = string.Empty;
-        public void OrderBy(string format, params object[] args)
+        public void OrderBy(SqlDefinition definition)
         {
-            _orderBy = string.Format(format, args);
+            _orderBy = definition.Order;
+            if (!definition.Columns.Order.Contains(EntityObject.IdPropertyName, StringComparer.OrdinalIgnoreCase)) //对于翻页列表，我们需要保证排序的唯一性，时间有时候不能保证，所以我们会主动追加根据id排序
+                _orderBy = string.Format("{0},{1} asc", _orderBy, EntityObject.IdPropertyName);
         }
 
         private string _groupBy = string.Empty;

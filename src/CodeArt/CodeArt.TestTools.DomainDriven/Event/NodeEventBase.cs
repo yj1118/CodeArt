@@ -34,7 +34,7 @@ namespace CodeArt.TestTools.DomainDriven
             var index = int.Parse(this.EventName.Substring(prefix.Length));
             List<string> ems = new List<string>();
 
-            var dto = DTObject.CreateReusable(this.Code);
+            var dto = DTObject.Create(this.Code);
             var pre = dto.GetList("pre", false);
             if (pre != null)
             {
@@ -50,7 +50,7 @@ namespace CodeArt.TestTools.DomainDriven
 
         protected override void RaiseImplement()
         {
-            var dto = DTObject.CreateReusable(this.Code);
+            var dto = DTObject.Create(this.Code);
             var raise = (NodeAction)dto.GetValue<byte>("raise", 1);
 
             switch (raise)
@@ -80,7 +80,7 @@ namespace CodeArt.TestTools.DomainDriven
 
         protected override void ReverseImplement()
         {
-            var dto = DTObject.CreateReusable(this.Code);
+            var dto = DTObject.Create(this.Code);
             var reverse = (NodeAction)dto.GetValue<byte>("reverse", 1);
 
             switch (reverse)

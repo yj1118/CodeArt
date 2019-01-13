@@ -70,6 +70,15 @@ namespace CodeArt.Web.XamlControls.Metronic {
         }
         
         /// <summary>
+        ///   查找类似 Add nodes 的本地化字符串。
+        /// </summary>
+        internal static string AddNodes {
+            get {
+                return ResourceManager.GetString("AddNodes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 am 的本地化字符串。
         /// </summary>
         internal static string am {
@@ -732,6 +741,15 @@ namespace CodeArt.Web.XamlControls.Metronic {
         internal static string NextPage {
             get {
                 return ResourceManager.GetString("NextPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Node management 的本地化字符串。
+        /// </summary>
+        internal static string NodeManagement {
+            get {
+                return ResourceManager.GetString("NodeManagement", resourceCulture);
             }
         }
         

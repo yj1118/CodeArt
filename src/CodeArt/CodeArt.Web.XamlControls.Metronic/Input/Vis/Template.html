@@ -1,0 +1,105 @@
+﻿<ControlTemplate xmlns="http://schemas.codeart.cn/web/xaml"
+                 xmlns:m="http://schemas.codeart.cn/web/xaml/metronic">
+<ControlTemplate.Directories>
+    <AssetDirectory AssemblyName="CodeArt.Web.XamlControls.Metronic">
+        <AssetPackage Path="/assets"></AssetPackage>
+    </AssetDirectory>
+</ControlTemplate.Directories>
+<div Visibility="{TemplateBinding Layout,Converter={Static m:LayoutCollapsedConverter.Instance},ConverterParameter=Inline}" 
+     class="{TemplateBinding Class,Converter={Static AppendClassConverter.Instance},ConverterParameter=form-group m-form__group row}" 
+     data-proxy="{give:new $$metronic.vis()}" 
+     data-rule="{Binding Converter={Static m:VisRuleCodeConverter.Instance}}" 
+     id="{TemplateBinding Id}"
+     data-field="{TemplateBinding Field}"
+     data-addNodesModalId="{TemplateBinding AddNodesModalId}"
+     data-setEdgeModalId="{TemplateBinding SetEdgeModalId}"
+     data-disabled="{TemplateBinding Disabled}">
+    <AttributesPresenter />
+    <label class="col-form-label col-xl-2 col-sm-12 offset-xl-1">
+        <run content="{Binding Converter={Static m:LabelConverter.Instance}}" />
+	</label>
+    <div data-core="true" data-core-container="true" class="col-xl-8 col-sm-12">
+        <div class="ca-m-vis-command" Visibility="{TemplateBinding Disabled,Converter={Static BoolCollapsedConverter.Instance},ConverterParameter=1}">
+            <m:button color="focus" shape="pill" text="{Static m:Strings.AddNodes}" data-addNodes="true" size="sm"></m:button>
+            <m:button color="brand" shape="pill" text="连接节点" data-addEdge="true" class="ca-hide" size="sm"></m:button>
+            <m:button color="accent" shape="pill" text="连线批注" data-edgeTip="true" class="ca-hide" size="sm"></m:button>
+            <m:button color="danger" shape="pill" text="删除选中的对象" data-remove="true" class="ca-hide" size="sm"></m:button>
+        </div>
+        <div class="ca-m-vis" style="{TemplateBinding VisHeight,Converter={Static m:VisStyleConverter.Instance}}"></div>
+        <span class="m-form__help" Visibility="{TemplateBinding Help,Converter={Static StringCollapsedConverter.Instance}}">
+            <run content="{TemplateBinding Help}" />
+        </span>
+    </div>
+</div>
+<div Visibility="{TemplateBinding Layout,Converter={Static m:LayoutCollapsedConverter.Instance},ConverterParameter=Wrap}" 
+     class="{TemplateBinding Class,Converter={Static AppendClassConverter.Instance},ConverterParameter=form-group m-form__group}" 
+     data-proxy="{give:new $$metronic.vis()}" 
+     data-rule="{Binding Converter={Static m:VisRuleCodeConverter.Instance}}" 
+     id="{TemplateBinding Id}"
+     data-field="{TemplateBinding Field}"
+     data-addNodesModalId="{TemplateBinding AddNodesModalId}"
+     data-setEdgeModalId="{TemplateBinding SetEdgeModalId}"
+     data-disabled="{TemplateBinding Disabled}">
+    <AttributesPresenter />
+    <label class="col-form-label col-sm-12">
+        <run content="{Binding Converter={Static m:LabelConverter.Instance}}" />
+    </label>
+    <div data-core="true" data-core-container="true" class="col-sm-12">
+        <div class="ca-m-vis-command" Visibility="{TemplateBinding Disabled,Converter={Static BoolCollapsedConverter.Instance},ConverterParameter=1}">
+            <m:button color="focus" shape="pill" text="{Static m:Strings.AddNodes}" data-addNodes="true"></m:button>
+            <m:button color="brand" shape="pill" text="连接节点" data-addEdge="true" class="ca-hide"></m:button>
+            <m:button color="accent" shape="pill" text="连线批注" data-edgeTip="true" class="ca-hide"></m:button>
+            <m:button color="danger" shape="pill" text="删除选中的对象" data-remove="true" class="ca-hide"></m:button>
+        </div>
+        <div class="ca-m-vis" style="{TemplateBinding VisHeight,Converter={Static m:VisStyleConverter.Instance}}"></div>
+        <span class="m-form__help" Visibility="{TemplateBinding Help,Converter={Static StringCollapsedConverter.Instance}}">
+            <run content="{TemplateBinding Help}" />
+        </span>
+    </div>
+</div>
+<div Visibility="{TemplateBinding Layout,Converter={Static m:LayoutCollapsedConverter.Instance},ConverterParameter=Cell}" 
+     class="{TemplateBinding Class,Converter={Static AppendClassConverter.Instance},ConverterParameter=form-group no-gutters form-cell}" 
+     data-proxy="{give:new $$metronic.vis()}" 
+     data-rule="{Binding Converter={Static m:VisRuleCodeConverter.Instance}}" 
+     id="{TemplateBinding Id}"
+     data-field="{TemplateBinding Field}"
+     data-addNodesModalId="{TemplateBinding AddNodesModalId}"
+     data-setEdgeModalId="{TemplateBinding SetEdgeModalId}"
+     data-disabled="{TemplateBinding Disabled}">
+    <AttributesPresenter />
+    <div data-core="true" data-core-container="true" class="col-sm-12">
+        <div class="ca-m-vis-command" Visibility="{TemplateBinding Disabled,Converter={Static BoolCollapsedConverter.Instance},ConverterParameter=1}">
+            <m:button color="focus" shape="pill" text="{Static m:Strings.AddNodes}" data-addNodes="true"></m:button>
+            <m:button color="brand" shape="pill" text="连接节点" data-addEdge="true" class="ca-hide"></m:button>
+            <m:button color="accent" shape="pill" text="连线批注" data-edgeTip="true" class="ca-hide"></m:button>
+            <m:button color="danger" shape="pill" text="删除选中的对象" data-remove="true" class="ca-hide"></m:button>
+        </div>
+        <div class="ca-m-vis" style="{TemplateBinding VisHeight,Converter={Static m:VisStyleConverter.Instance}}"></div>
+    </div>
+</div>
+<DynamicCode Origin="Bottom">
+    <m:Modal id="{TemplateBinding AddNodesModalId}" size="xl"
+             Visibility="{TemplateBinding Disabled,Converter={Static BoolCollapsedConverter.Instance},ConverterParameter=1}"
+             title="新增节点">
+        <!-- 这里以后可以升级为自定义名称的节点 -->
+        <m:Checkbox layout="Wrap" label="请选择一个或多个节点" field="nodes" data-nodeTypes="true"></m:Checkbox>
+        <m:Modal.Footer>
+            <m:button color="primary" icon="flaticon-interface" text="确认" data-ok="true"></m:button>
+            <m:button color="secondary" text="关闭" data-dismiss="modal"></m:button>
+        </m:Modal.Footer>
+    </m:Modal>
+
+    <m:Modal id="{TemplateBinding SetEdgeModalId}" size="xl"
+             Visibility="{TemplateBinding Disabled,Converter={Static BoolCollapsedConverter.Instance},ConverterParameter=1}"
+             title="连线批注">
+        <m:textbox layout="Wrap" label="批注内容" field="content" data-content="true"></m:textbox>
+        <m:Modal.Footer>
+            <m:button color="primary" icon="flaticon-interface" text="确认" data-ok="true"></m:button>
+            <m:button color="secondary" text="关闭" data-dismiss="modal"></m:button>
+        </m:Modal.Footer>
+    </m:Modal>
+</DynamicCode>
+<LinkCode Key="/assets/custom/vis/vis-network.min.css" Origin="Header" />
+<LinkCode Key="/assets/custom/vis/vis.min.js" Origin="Bottom" />
+<LinkCode Key="/assets/custom/vis/common.js" Origin="Bottom" />
+</ControlTemplate>

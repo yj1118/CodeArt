@@ -59,5 +59,24 @@ namespace CodeArt.AppSetting
             _data.Clear();
             this.Initialized = false;
         }
+
+
+
+        public static PoolWrapper<ContentEntries> Pool = new PoolWrapper<ContentEntries>(() =>
+        {
+            return new ContentEntries();
+        }, (obj, phase) =>
+        {
+            if (phase == PoolItemPhase.Returning)
+            {
+                obj.Clear();
+            }
+            return true;
+        }, new PoolConfig()
+        {
+            MaxRemainTime = 300 //闲置时间300秒
+        });
+
+
     }
 }

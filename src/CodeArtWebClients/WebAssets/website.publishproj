@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+***********************************************************************************************
+website.publishproj
+
+警告: 请勿修改此文件，它将用于 Web 发布过程。
+
+版权所有 (C) Microsoft Corporation。保留所有权利。
+
+***********************************************************************************************
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.30319</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{a0a8114e-e836-4148-97bb-f8003b604187}</ProjectGuid>
+    <SourceWebPhysicalPath>$(MSBuildThisFileDirectory)</SourceWebPhysicalPath>
+    <SourceWebVirtualPath>/WebBootstrap</SourceWebVirtualPath>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <SourceWebProject>http://bootstrap.codeart.cn</SourceWebProject>
+    <SourceWebMetabasePath>/LM/W3SVC/3/ROOT</SourceWebMetabasePath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <!-- for VS2010 we need to use 10.5 but for VS2012+ we should use VisualStudioVersion -->
+    <WebPublishTargetsVersion Condition=" '$(WebPublishTargetsVersion)' =='' and '$(VisualStudioVersion)' == 10.0 ">10.5</WebPublishTargetsVersion>
+    <WebPublishTargetsVersion Condition=" '$(WebPublishTargetsVersion)'=='' ">$(VisualStudioVersion)</WebPublishTargetsVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(WebPublishTargetsVersion)</VSToolsPath>
+    <_WebPublishTargetsPath Condition=" '$(_WebPublishTargetsPath)'=='' ">$(VSToolsPath)</_WebPublishTargetsPath>
+    <AssemblyFileVersion Condition="'$(AssemblyFileVersion)' == ''">1.0.0.0</AssemblyFileVersion>
+    <AssemblyVersion Condition="'$(AssemblyVersion)' == ''">1.0.0.0</AssemblyVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <AssemblyAttributes Include="AssemblyFileVersion">
+      <Value>$(AssemblyFileVersion)</Value>
+    </AssemblyAttributes>
+    <AssemblyAttributes Include="AssemblyVersion">
+      <Value>$(AssemblyVersion)</Value>
+    </AssemblyAttributes>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\CodeArt2.0\CodeArtCore\CodeArt\CodeArt.csproj">
+      <Project>{26D05C80-DD25-4948-9521-DB72475F55DB}</Project>
+      <Name>CodeArt</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\CodeArt2.0\CodeArtText\CodeArt.HtmlWrapper\CodeArt.HtmlWrapper.csproj">
+      <Project>{B5631787-CAC4-480F-B9BA-FF3A6807A6C0}</Project>
+      <Name>CodeArt.HtmlWrapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\CodeArt2.0\CodeArtWeb\CodeArt.Web.Common\CodeArt.Web.Common.csproj">
+      <Project>{EF8E1308-476F-49C9-8451-6CD93AE3080E}</Project>
+      <Name>CodeArt.Web.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\CodeArt2.0\CodeArtWeb\CodeArt.Web.WebPages.Bootstrap\CodeArt.Web.WebPages.Bootstrap.csproj">
+      <Project>{FFF59818-A883-4D3E-9333-5507E35086D3}</Project>
+      <Name>CodeArt.Web.WebPages.Bootstrap</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\CodeArt2.0\CodeArtWeb\CodeArt.Web.WebPages.EasyTemplate\CodeArt.Web.WebPages.EasyTemplate.csproj">
+      <Project>{F6BD129E-2FAD-4D2C-AAAE-38B2A3B3EC51}</Project>
+      <Name>CodeArt.Web.WebPages.EasyTemplate</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\CodeArt2.0\CodeArtWeb\CodeArt.Web.WebPages\CodeArt.Web.WebPages.csproj">
+      <Project>{EDAD3C74-FED4-4093-83EA-399511ACE7FA}</Project>
+      <Name>CodeArt.Web.WebPages</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\CodeArt2.0\CodeArtWeb\CodeArt.Web\CodeArt.Web.csproj">
+      <Project>{85CBEDF2-02B5-4560-8A81-4D15A3005028}</Project>
+      <Name>CodeArt.Web</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(_WebPublishTargetsPath)\Web\Microsoft.WebSite.Publishing.targets" />
+</Project>

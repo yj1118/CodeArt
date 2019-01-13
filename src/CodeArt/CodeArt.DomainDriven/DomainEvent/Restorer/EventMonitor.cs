@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CodeArt.DomainDriven
 {
-    [ObjectRepository(typeof(IEventMonitorRepository))]
+    [ObjectRepository(typeof(IEventMonitorRepository), CloseMultiTenancy = true)]
     public class EventMonitor : AggregateRoot<EventMonitor, Guid>
     {
         [PropertyRepository()]

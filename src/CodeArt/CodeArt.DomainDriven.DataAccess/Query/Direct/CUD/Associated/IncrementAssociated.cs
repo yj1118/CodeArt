@@ -51,11 +51,24 @@ namespace CodeArt.DomainDriven.DataAccess
 
         private string GetSqlBySQLServer()
         {
-            return string.Format("update [{0}] set [{3}]=[{3}]+1 where [{1}]=@{1} and [{2}]=@{2};",
-                                       this.Target.Name
-                                       , GeneratedField.RootIdName
-                                       , EntityObject.IdPropertyName
-                                       , GeneratedField.AssociatedCountName);
+            if(this.Target.IsEnabledMultiTenancy)
+            {
+                return string.Format("update [{0}] set [{3}]=[{3}]+1 where [{1}]=@{1} and [{2}]=@{2}  and [{4}]=@{4} ;",
+                           this.Target.Name
+                           , GeneratedField.RootIdName
+                           , EntityObject.IdPropertyName
+                           , GeneratedField.AssociatedCountName
+                           , GeneratedField.TenantIdName);
+            }
+            else
+            {
+                return string.Format("update [{0}] set [{3}]=[{3}]+1 where [{1}]=@{1} and [{2}]=@{2};",
+                           this.Target.Name
+                           , GeneratedField.RootIdName
+                           , EntityObject.IdPropertyName
+                           , GeneratedField.AssociatedCountName);
+            }
+
         }
 
     }

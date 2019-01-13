@@ -8,6 +8,7 @@ using System.Reflection;
 using CodeArt.Runtime;
 using CodeArt.AOP;
 using CodeArt.Web.WebPages;
+using CodeArt.DTO;
 
 namespace CodeArt.Web.WebPages.Static
 {
@@ -26,7 +27,13 @@ namespace CodeArt.Web.WebPages.Static
             return StaticBuildProvider.GetDynamicCode(this.VirtualPath);
         }
 
-        protected override object CallWebMethod(object[] args)
+        public static string GetPageCode(string virtualPath)
+        {
+            return StaticBuildProvider.GetDynamicCode(virtualPath);
+        }
+
+
+        protected override string CallWebMethod(DTObject args)
         {
             throw new NotImplementedException();
         }

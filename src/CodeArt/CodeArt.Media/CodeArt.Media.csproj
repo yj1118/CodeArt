@@ -49,8 +49,8 @@
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="NReco.VideoConverter, Version=1.1.2.0, Culture=neutral, PublicKeyToken=395ccb334978a0cd, processorArchitecture=MSIL">
-      <HintPath>..\packages\NReco.VideoConverter.1.1.2\lib\net20\NReco.VideoConverter.dll</HintPath>
+    <Reference Include="NReco.VideoConverter, Version=1.1.3.0, Culture=neutral, PublicKeyToken=395ccb334978a0cd, processorArchitecture=MSIL">
+      <HintPath>..\packages\NReco.VideoConverter.1.1.3\lib\net20\NReco.VideoConverter.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -64,6 +64,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Application\ApplicationLife.cs" />
+    <Compile Include="Application\FLVScreenCaptureConfig.cs" />
+    <Compile Include="Application\GPUEncoderSharer.cs" />
     <Compile Include="Application\RtmpStreamerConfig.cs" />
     <Compile Include="Application\ScreenSharer.cs" />
     <Compile Include="BitmapPlayer.cs" />
@@ -86,13 +88,15 @@
     <Compile Include="FFMpeg.cs" />
     <Compile Include="FFMpegObsolete.cs" />
     <Compile Include="FFMpegScreenCapture.cs" />
-    <Compile Include="Application\FLVScreenCaptureConfig.cs" />
-    <Compile Include="ScreenCapture\IScreenCapture.cs" />
+    <Compile Include="GPUEncoderStreamer\GPUEncoderStreamer.cs" />
     <Compile Include="ScreenCapture\FLVScreenCapture.cs" />
+    <Compile Include="ScreenCapture\IScreenCapture.cs" />
+    <Compile Include="ScreenStreamer\FrameSize.cs" />
+    <Compile Include="ScreenStreamer\ScreenStreamer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Streamer\IStreamer.cs" />
-    <Compile Include="Streamer\RtmpStreamerNotExist.cs" />
     <Compile Include="Streamer\RtmpStreamer.cs" />
+    <Compile Include="Streamer\RtmpStreamerNotExist.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CodeArt.Drawing\CodeArt.Drawing.csproj">
@@ -113,6 +117,18 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <None Include="_Media\GPUEncoder\GPUEncoder.exe.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="_Media\GPUEncoder\GPUEncoder.vshost.exe.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="_Media\GPUEncoder\GPUEncoder.vshost.exe.manifest">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="_Media\GPUEncoder\NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="_Media\Streamer\libcrypto.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -126,6 +142,39 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="_Media\GPUEncoder\AxInterop.HDPLAYERLib.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="_Media\GPUEncoder\CodeArt.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="_Media\GPUEncoder\CodeArt.pdb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="_Media\GPUEncoder\GPUEncoder.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="_Media\GPUEncoder\GPUEncoder.pdb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="_Media\GPUEncoder\GPUEncoder.vshost.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="_Media\GPUEncoder\Interop.HDPLAYERLib.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="_Media\GPUEncoder\NLog.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="_Media\GPUEncoder\NLog.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="_Media\GPUEncoder\zh-CN\CodeArt.resources.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Accord.3.8.0\build\Accord.targets" Condition="Exists('..\packages\Accord.3.8.0\build\Accord.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

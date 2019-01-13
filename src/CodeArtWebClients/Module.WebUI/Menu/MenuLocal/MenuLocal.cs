@@ -45,19 +45,35 @@ namespace Module.WebUI
         /// <returns></returns>
         public static string GetMenuCode(string language, string markedCode)
         {
-            var userId = Principal.Id.ToString();
-            var fileName = MenuHelper.GetMenuFileName(_version, language, markedCode, userId);
-            if (!File.Exists(fileName))
+            if(Principal.IsLogin)
             {
-                var menu = _getLocalMenu(language)(markedCode);
-                var roles = Principal.Roles;
-                var real = FilterMenu(menu, roles);
-                string code = real == null ? "{childs:[]}" : real.GetCode();
-                CodeArt.IO.IOUtil.CreateFileDirectory(fileName);
-                File.WriteAllText(fileName, code);
-                return code;
+                var userId = Principal.Id.ToString();
+                var fileName = MenuHelper.GetMenuFileName(_version, language, markedCode, userId);
+                if (!File.Exists(fileName))
+                {
+                    var menu = _getLocalMenu(language)(markedCode);
+                    var roles = Principal.Roles;
+                    var real = FilterMenu(menu, roles);
+                    string code = real == null ? "{childs:[]}" : real.GetCode();
+                    CodeArt.IO.IOUtil.CreateFileDirectory(fileName);
+                    File.WriteAllText(fileName, code);
+                    return code;
+                }
+                return File.ReadAllText(fileName); //从缓存读取
             }
-            return File.ReadAllText(fileName); //从缓存读取
+            else
+            {
+                var fileName = MenuHelper.GetMenuFileName(_version, language, markedCode, "$public");
+                if (!File.Exists(fileName))
+                {
+                    var menu = _getLocalMenu(language)(markedCode);
+                    string code = menu == null ? "{childs:[]}" : menu.GetCode();
+                    CodeArt.IO.IOUtil.CreateFileDirectory(fileName);
+                    File.WriteAllText(fileName, code);
+                    return code;
+                }
+                return File.ReadAllText(fileName); //从缓存读取
+            }
         }
 
         internal static void RemoveMenuCode(string userId)
@@ -85,7 +101,7 @@ namespace Module.WebUI
                 if (result == null) return null; //当前登录人没有菜单需要的角色，不能显示
             }
 
-            DTObject menu = DTObject.CreateReusable();
+            DTObject menu = DTObject.Create();
             foreach (var member in _outputMembers)
             {
                 if (rawMenu.Exist(member))

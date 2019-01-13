@@ -9,16 +9,17 @@ using CodeArt.Concurrent;
 using CodeArt.DTO;
 using CodeArt.EasyMQ.Event;
 using CodeArt.Runtime;
+using CodeArt.EasyMQ;
 
 namespace CodeArt.DomainDriven
 {
     [SafeAccess]
     public abstract class DomainEventHandler : IEventHandler
     {
-        public void Handle(string eventName, DTObject arg)
+        public void Handle(string eventName, TransferData data)
         {
-            InitIdentity(arg);
-            Handle(arg);
+            InitIdentity(data.Info);
+            Handle(data.Info);
         }
 
         protected abstract void Handle(DTObject arg);

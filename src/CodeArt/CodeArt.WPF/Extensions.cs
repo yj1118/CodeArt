@@ -256,6 +256,20 @@ namespace CodeArt.WPF
             return System.Windows.Forms.Screen.FromHandle(handle);
         }
 
+        /// <summary>
+        /// 判断子控件是否在父控件中可见
+        /// </summary>
+        /// <param name="child">子控件</param>
+        /// <param name="parent">父控件</param>
+        /// <returns></returns>
+        public static bool IsChildVisibleInParent(this FrameworkElement child, FrameworkElement parent)
+        {
+            var childTransform = child.TransformToAncestor(parent);
+            var childRectangle = childTransform.TransformBounds(new Rect(new System.Windows.Point(0, 0), child.RenderSize));
+            var ownerRectangle = new Rect(new System.Windows.Point(0, 0), parent.RenderSize);
+            return ownerRectangle.IntersectsWith(childRectangle);
+        }
+
 
     }
 }

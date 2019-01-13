@@ -33,18 +33,39 @@ namespace CodeArt.Web.WebPages.Xaml
         {
             var code = GetTemplateCode(obj, templatePropertyName);
             if (code == null) return null;
+            object template = null;
             XmlnsDictionary.New(); //模板内的加载，需要使用自己的xmlns空间
-
+            try
+            {
 #if (DEBUG)
-            FrameworkTemplate.PushTrackCode(code);
-            object template = XamlReader.ReadComponent(code);
-            FrameworkTemplate.PopTrackCode();
+                FrameworkTemplate.PushTrackCode(code);
+                try
+                {
+                    template = XamlReader.ReadComponent(code);
+                }
+                catch
+                {
+                    throw;
+                }
+                finally
+                {
+                    FrameworkTemplate.PopTrackCode();
+                }
 #endif
 
 #if (!DEBUG)
-            object template = XamlReader.ReadComponent(code);
+                template = XamlReader.ReadComponent(code);
 #endif
-            XmlnsDictionary.Pop();
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                XmlnsDictionary.Pop();
+            }
+
             //if (template == null) throw new WebException("没有找到类型" + objType.FullName + "的模板" + templatePropertyName + "定义");
             if (template == null) return null;
             return template;

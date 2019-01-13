@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Collections;
 using System.Text;
 using System.IO;
 using System.CodeDom.Compiler;
@@ -7,6 +9,7 @@ using System.Reflection;
 using Microsoft.CSharp;
 
 using CodeArt.IO;
+using System.Collections.Generic;
 
 namespace CodeArt.Runtime
 {
@@ -30,6 +33,17 @@ namespace CodeArt.Runtime
         {
             _params.ReferencedAssemblies.Add(assemblyName);
         }
+
+        public IEnumerable<string> References
+        {
+            get
+            {
+                var temp = new string[_params.ReferencedAssemblies.Count];
+                _params.ReferencedAssemblies.CopyTo(temp,0);
+                return temp;
+            }
+        }
+
 
         public CodeCompiler(CodeDomProvider provider, bool debug)
         {
@@ -65,7 +79,7 @@ namespace CodeArt.Runtime
         /// </summary>
         /// <param name="outputAssembly"></param>
         /// <param name="sourceCodes"></param>
-        internal void CompileFromSource(string outputAssembly,params string[] sourceCodes)
+        internal void CompileFromSource(string outputAssembly, string[] sourceCodes)
         {
             Compile(outputAssembly, () =>
             {
@@ -78,7 +92,7 @@ namespace CodeArt.Runtime
         /// </summary>
         /// <param name="outputAssembly"></param>
         /// <param name="sourceFileNames"></param>
-        internal void CompileFromFile(string outputAssembly,params string[] sourceFileNames)
+        internal void CompileFromFile(string outputAssembly, string[] sourceFileNames)
         {
             Compile(outputAssembly, () =>
              {
@@ -112,7 +126,7 @@ namespace CodeArt.Runtime
             }
         }
 
-        public static void CompileCSharp(string outputAssembly, params string[] sourceFileNames)
+        public static void CompileCSharpFromSource(string outputAssembly, string[] sourceCodes, IEnumerable<string> referenceAssemblyNames)
         {
             //动态创建和卸载appDomain来编译代码，防止锁定生成的文件
             AppDomain domain = null;
@@ -126,6 +140,61 @@ namespace CodeArt.Runtime
                 {
                     compiler.AddReference(assembly.Location);
                 });
+
+                var referenceds = compiler.References;
+                foreach (var assemblyName in referenceAssemblyNames)
+                {
+                    if (referenceds.FirstOrDefault((t) => t.IndexOf(assemblyName) > -1) == null)
+                    {
+                        compiler.AddReference(assemblyName);
+                    }
+                }
+
+
+                compiler.CompileFromSource(outputAssembly, sourceCodes);
+
+                IOUtil.SetEveryoneFullControl(outputAssembly);//设置文件权限为所有人可以访问
+                IOUtil.SetEveryoneFullControl(GetPDB(outputAssembly));//设置文件权限为所有人可以访问
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                AppDomain.Unload(domain);
+            }
+        }
+
+        /// <summary>
+        /// 只有从文件编译才能调试
+        /// </summary>
+        /// <param name="outputAssembly"></param>
+        /// <param name="sourceFileNames"></param>
+        public static void CompileCSharpFromFile(string outputAssembly, string[] sourceFileNames, IEnumerable<string> referenceAssemblyNames)
+        {
+            //动态创建和卸载appDomain来编译代码，防止锁定生成的文件
+            AppDomain domain = null;
+            try
+            {
+                AppDomainSetup setup = AppDomain.CurrentDomain.SetupInformation;
+                domain = AppDomain.CreateDomain("Domain #Compile", null, setup);
+                var compiler = CodeCompiler.Create<CSharpCodeCompiler>(domain);
+
+                AssemblyUtil.Each((assembly) =>
+                {
+                    compiler.AddReference(assembly.Location);
+                });
+
+                var referenceds = compiler.References;
+                foreach (var assemblyName in referenceAssemblyNames)
+                {
+                    if (referenceds.FirstOrDefault((t) => t.IndexOf(assemblyName, StringComparison.OrdinalIgnoreCase) > -1) == null)
+                    {
+                        compiler.AddReference(assemblyName);
+                    }
+                }
+
 
                 compiler.CompileFromFile(outputAssembly, sourceFileNames);
 
@@ -141,38 +210,6 @@ namespace CodeArt.Runtime
                 AppDomain.Unload(domain);
             }
         }
-
-        //public static void CompileCSharp(string outputAssembly,string[] referencedAssemblies, params string[] sourceFileNames)
-        //{
-        //    //动态创建和卸载appDomain来编译代码，防止锁定生成的文件
-        //    AppDomain domain = null;
-        //    try
-        //    {
-        //        AppDomainSetup setup = AppDomain.CurrentDomain.SetupInformation;
-        //        domain = AppDomain.CreateDomain("Domain #Compile", null, setup);
-        //        var compiler = CodeCompiler.Create<CSharpCodeCompiler>(domain);
-
-        //        //添加bin下的引用
-        //        string binFolder = AppDomain.CurrentDomain.RelativeSearchPath;
-        //        var refs = Directory.GetFiles(binFolder, "*.dll");
-        //        foreach (string item in refs) compiler.AddReference(item);
-
-        //        foreach (string item in referencedAssemblies) compiler.AddReference(item);
-
-        //        compiler.CompileFromFile(outputAssembly, sourceFileNames);
-
-        //        IOUtil.SetEveryoneFullControl(outputAssembly);//设置文件权限为所有人可以访问
-        //        IOUtil.SetEveryoneFullControl(GetPDB(outputAssembly));//设置文件权限为所有人可以访问
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //    finally
-        //    {
-        //        AppDomain.Unload(domain);
-        //    }
-        //}
 
         private static string GetPDB(string assemblyFileName)
         {

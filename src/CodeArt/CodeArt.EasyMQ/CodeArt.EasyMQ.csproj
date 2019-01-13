@@ -49,6 +49,7 @@
     <Compile Include="Configuration\EventConfig.cs" />
     <Compile Include="Configuration\EasyMQConfiguration.cs" />
     <Compile Include="Configuration\RPCConfig.cs" />
+    <Compile Include="TransferData.cs" />
     <Compile Include="Event\EventPortal.cs" />
     <Compile Include="Event\IEventHandler.cs" />
     <Compile Include="Event\Publisher\IPublisher.cs" />

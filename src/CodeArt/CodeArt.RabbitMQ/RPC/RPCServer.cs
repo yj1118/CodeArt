@@ -14,6 +14,7 @@ using CodeArt.Log;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using CodeArt.AppSetting;
+using CodeArt.EasyMQ;
 
 namespace CodeArt.RabbitMQ
 {
@@ -22,13 +23,13 @@ namespace CodeArt.RabbitMQ
     /// </summary>
     public class RPCServer : IServer, IDisposable, IMessageHandler
     {
-        private IPoolItem<RabbitBus> _busItem;
+        private IPoolItem<RabbitBus> _hostItem;
         private IRPCHandler _handler;
         private string _queue;
 
         public RPCServer(string method)
         {
-            _busItem = RabbitBus.Borrow(RPC.Policy);
+            _hostItem = RabbitBus.Borrow(RPC.Policy);
             _queue = RPC.GetServerQueue(method);
         }
 
@@ -36,26 +37,26 @@ namespace CodeArt.RabbitMQ
         {
             _handler = handler;
 
-            var bus = _busItem.Item;
-            bus.QueueDeclare(_queue);
-            bus.Consume(_queue, this);
+            var host = _hostItem.Item;
+            host.QueueDeclare(_queue);
+            host.Consume(_queue, this);
         }
 
 
         void IMessageHandler.Handle(Message message)
         {
-            var bus = _busItem.Item;
+            var bus = _hostItem.Item;
 
             AppSession.Using(() =>
             {
                 try
                 {
                     var content = message.Content;
-                    var method = content.GetValue<string>("method");
-                    var arg = content.GetObject("arg");
+                    var info = content.Info;
+                    var method = info.GetValue<string>("method");
+                    var arg = info.GetObject("arg");
 
-                    var result = DTObject.CreateReusable();
-                    Process(method, arg, result);
+                    var result = Process(method, arg);
 
                     var routingKey = message.Properties.ReplyTo; //将客户端的临时队列名称作为路由key
                     bus.Publish(string.Empty, routingKey, result, (replyProps) =>
@@ -77,19 +78,27 @@ namespace CodeArt.RabbitMQ
             }, true);
         }
 
-        private void Process(string method, DTObject arg, DTObject result)
+        private TransferData Process(string method, DTObject arg)
         {
+            TransferData result;
+            DTObject info = DTObject.Create();
             try
             {
-                result["status"] = "success";
-                result["returnValue"] = _handler.Process(method, arg);
+                result = _handler.Process(method, arg);
+
+                info["status"] = "success";
+                info["returnValue"] = result.Info;
+
+                result.Info = info;
             }
             catch (Exception ex)
             {
                 LogWrapper.Default.Fatal(ex);
-                result["status"] = "fail";
-                result["message"] = ex.Message;
+                info["status"] = "fail";
+                info["message"] = ex.Message;
+                result = new TransferData(info);
             }
+            return result;
         }
 
         public void Close()
@@ -100,7 +109,7 @@ namespace CodeArt.RabbitMQ
 
         public void Dispose()
         {
-            _busItem.Dispose();
+            _hostItem.Dispose();
         }
     }
 }

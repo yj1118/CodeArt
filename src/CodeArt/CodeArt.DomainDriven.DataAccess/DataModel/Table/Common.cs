@@ -14,6 +14,7 @@ using CodeArt.Runtime;
 using CodeArt.Util;
 using CodeArt.Concurrent;
 using System.Collections.Concurrent;
+using CodeArt.AppSetting;
 
 namespace CodeArt.DomainDriven.DataAccess
 {
@@ -36,9 +37,18 @@ namespace CodeArt.DomainDriven.DataAccess
         {
             var query = GetIncrementIdentity.Create(this);
             var sql = query.Build(null, this);
-            return SqlHelper.ExecuteScalar<long>(this.ConnectionName, sql);
-        }
 
+            if(this.IsEnabledMultiTenancy)
+            {
+                var param = new DynamicData();
+                param.Add(GeneratedField.TenantIdName, AppSession.TenantId);
+                return SqlHelper.ExecuteScalar<long>(this.ConnectionName, sql, param);
+            }
+            else
+            {
+                return SqlHelper.ExecuteScalar<long>(this.ConnectionName, sql);
+            }
+        }
 
         /// <summary>
         /// 获取表相对于<paramref name="parent"/>的属性路径下的对象链，格式是 a_b_c
@@ -199,7 +209,8 @@ namespace CodeArt.DomainDriven.DataAccess
                 if(child.Middle != null 
                     && child.Middle.Master.Name.EqualsIgnoreCase(target.Name))
                 {
-                    result.Add(child.Middle);
+                    if(result.FirstOrDefault((t)=> { return t.Name == child.Middle.Name; })==null)
+                        result.Add(child.Middle);
                 }
                 FillQuoteMiddlesByMaster(target, child, result, index);
             }
@@ -284,6 +295,8 @@ namespace CodeArt.DomainDriven.DataAccess
                 var data = temp.Item;
                 data.Add(GeneratedField.RootIdName, rootId);
                 data.Add(EntityObject.IdPropertyName, id);
+                if (this.IsEnabledMultiTenancy)
+                    data.Add(GeneratedField.TenantIdName, AppSession.TenantId);
                 SqlHelper.Execute(this.ConnectionName, sql, data);
             }
         }

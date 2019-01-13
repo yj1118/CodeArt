@@ -11,14 +11,14 @@ namespace CodeArt.DTO
         {
         }
 
-        public DTObject Serialize(object instance, bool isPinned)
+        public DTObject Serialize(object instance)
         {
             //if (instance == null) return DTObject.Create("{null}");   老代码，暂时保留
             if (instance == null) return DTObject.Empty;
             var instanceType = instance.GetType();
             if (instanceType == typeof(DTObject)) return (DTObject)instance;
             TypeMakupInfo typeInfo = TypeMakupInfo.GetTypeInfo(instanceType);
-            return typeInfo.Serialize(instance, isPinned);
+            return typeInfo.Serialize(instance);
         }
 
         public static readonly DTObjectSerializer Instance = new DTObjectSerializer();

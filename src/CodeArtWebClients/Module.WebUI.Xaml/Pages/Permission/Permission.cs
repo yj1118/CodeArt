@@ -134,7 +134,7 @@ namespace Module.WebUI.Xaml.Pages
         {
             var grid = view.GetElement<DataTableSE>("list");
             var items = grid.SelectedValues;
-            ServiceContext.Invoke("deletePermissions", items.ToReusableObject("ids"));
+            ServiceContext.Invoke("deletePermissions", items.ToObject("ids"));
 
             MenuHelper.RemoveAllMenuCode();
 

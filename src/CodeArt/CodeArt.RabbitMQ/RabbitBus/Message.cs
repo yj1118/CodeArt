@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using CodeArt.DTO;
+using CodeArt.EasyMQ;
 using RabbitMQ.Client;
 
 namespace CodeArt.RabbitMQ
@@ -14,7 +15,7 @@ namespace CodeArt.RabbitMQ
         /// <summary>
         /// 消息的内容
         /// </summary>
-        public DTObject Content
+        public TransferData Content
         {
             get;
             private set;
@@ -52,7 +53,7 @@ namespace CodeArt.RabbitMQ
         }
 
 
-        internal Message(DTObject content, IBasicProperties properties, Action ack, Action<bool> reject)
+        internal Message(TransferData content, IBasicProperties properties, Action ack, Action<bool> reject)
         {
             this.Content = content;
             this.Properties = properties;

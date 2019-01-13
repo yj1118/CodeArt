@@ -10,6 +10,7 @@ using CodeArt.Concurrent;
 using CodeArt.AppSetting;
 
 using EventHandler = CodeArt.EasyMQ.Event.EventHandler;
+using CodeArt.EasyMQ;
 
 namespace SubscribeApp
 {
@@ -35,9 +36,9 @@ namespace SubscribeApp
         [SafeAccess]
         private class Handler1 : EventHandler
         {
-            protected override void DynamicHandle(string eventName, dynamic arg)
+            public override void Handle(string eventName, TransferData arg)
             {
-                Console.WriteLine(string.Format("[handler1]name:{0},id:{1}", arg.Name, arg.Id));
+                Console.WriteLine(string.Format("[handler1]name:{0},id:{1}", arg.Info.Dynamic.Name, arg.Info.Dynamic.Id));
             }
         }
 
@@ -45,9 +46,9 @@ namespace SubscribeApp
         [SafeAccess]
         private class Handler2 : EventHandler
         {
-            protected override void DynamicHandle(string eventName, dynamic arg)
+            public override void Handle(string eventName, TransferData arg)
             {
-                Console.WriteLine(string.Format("[handler2]name:{0},id:{1}", arg.Name, arg.Id));
+                Console.WriteLine(string.Format("[handler2]name:{0},id:{1}", arg.Info.Dynamic.Name, arg.Info.Dynamic.Id));
             }
         }
 

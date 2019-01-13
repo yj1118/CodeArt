@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using CodeArt.Web.WebPages;
 using CodeArt.Web.WebPages.Xaml;
 using CodeArt.Web.WebPages.Xaml.Markup;
 using CodeArt.Web.WebPages.Xaml.Controls;
@@ -37,6 +38,7 @@ namespace CodeArt.Web.XamlControls.Metronic
 
             code.AppendFormat("$$.page.menu.view.data={0};", menuCode);
             code.AppendLine();
+
             //code.Append("var pageTip={AssetsPath:\"" + parent.AssetsPath + "\"};");
         }
     }

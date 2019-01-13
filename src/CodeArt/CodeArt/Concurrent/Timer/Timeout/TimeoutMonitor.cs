@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading;
+using System.Timers;
 
 namespace CodeArt.Concurrent.Sync
 {
@@ -17,6 +17,7 @@ namespace CodeArt.Concurrent.Sync
         private bool _isDisposed;
         private object _syncObject = new object();
 
+
         public object State
         {
             get;
@@ -24,19 +25,22 @@ namespace CodeArt.Concurrent.Sync
         }
 
         public TimeoutMonitor(Action timeoutCallback)
-            :this((state)=>{ timeoutCallback(); },null)
+            :this((getState)=> { timeoutCallback(); })
         {
         }
 
-        public TimeoutMonitor(Action<object> timeoutCallback, object state)
+        public TimeoutMonitor(Action<TimeoutMonitor> timeoutCallback)
         {
-            State = state;
-            _timer = new Timer(new TimerCallback((s) =>
+            _timer = new Timer();
+            _timer.Elapsed += (s,e)=>
             {
-                timeoutCallback(State);
-            }));
+                timeoutCallback(this);
+            };
+            _timer.AutoReset = false;//设置是执行一次（false）还是一直执行(true)
+            _timer.Enabled = false;//是否执行System.Timers.Timer.Elapsed事件
             _isDisposed = false;
         }
+
 
         /// <summary>
         /// 开始监视超时
@@ -48,17 +52,17 @@ namespace CodeArt.Concurrent.Sync
             {
                 _isComplete = false;
                 _isCancel = false;
-                ChangeTimer(timeout, Timeout.Infinite);
+                StartTimer(timeout);
             }
         }
 
-        /// <summary>
-        /// 标示永不超时
-        /// </summary>
-        public void None()
-        {
-            Start(Timeout.Infinite);
-        }
+        ///// <summary>
+        ///// 标示永不超时
+        ///// </summary>
+        //public void None()
+        //{
+        //    Start(Timeout.Infinite);
+        //}
 
         /// <summary>
         /// 尝试执行取消操作，如果操作已完成或已取消，那么返回false
@@ -71,7 +75,7 @@ namespace CodeArt.Concurrent.Sync
                 _isCancel = true;
                 _isComplete = false;
                 this.State = null;
-                ChangeTimer(Timeout.Infinite, Timeout.Infinite);
+                StopTimer();
                 return true;
             }
         }
@@ -87,7 +91,7 @@ namespace CodeArt.Concurrent.Sync
                 if (_isCancel || _isComplete) return false;
                 _isComplete = true;
                 this.State = null;
-                ChangeTimer(Timeout.Infinite, Timeout.Infinite);
+                StopTimer();
                 return true;
             }
         }
@@ -102,7 +106,7 @@ namespace CodeArt.Concurrent.Sync
                 _isComplete = false;
                 _isCancel = false;
                 this.State = null;
-                ChangeTimer(Timeout.Infinite, Timeout.Infinite);
+                StopTimer();
             }
         }
 
@@ -116,12 +120,17 @@ namespace CodeArt.Concurrent.Sync
             }
         }
 
-        private void ChangeTimer(int dueTime, int period)
+        private void StartTimer(int timeout)
         {
             if (_isDisposed) return;
-            _timer.Change(dueTime, period);
+            _timer.Interval = timeout;
+            _timer.Start();
         }
 
-
+        private void StopTimer()
+        {
+            if (_isDisposed) return;
+            _timer.Stop();
+        }
     }
 }

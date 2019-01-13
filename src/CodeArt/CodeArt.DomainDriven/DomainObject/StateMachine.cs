@@ -118,6 +118,16 @@ namespace CodeArt.DomainDriven
             return _propertyChangedRecord.ContainsKey(propertyName);
         }
 
+        /// <summary>
+        /// 仅仅只是属性<paramref name="propertyName"/>发生了改变
+        /// </summary>
+        /// <param name="propertyName"></param>
+        /// <returns></returns>
+        public bool OnlyPropertyChanged(string propertyName)
+        {
+            return _propertyChangedRecord.Count == 1 && this.IsPropertyChanged(propertyName);
+        }
+
         #endregion
 
         public StateMachine()

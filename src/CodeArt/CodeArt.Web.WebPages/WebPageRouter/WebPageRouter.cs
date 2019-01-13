@@ -10,7 +10,7 @@ using CodeArt.AOP;
 
 namespace CodeArt.Web.WebPages
 {
-    internal static class WebPageRouter
+    public static class WebPageRouter
     {
         public static IHttpHandler GetHandler(WebPageContext context)
         {

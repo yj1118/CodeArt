@@ -93,7 +93,7 @@ namespace CodeArtTest.Util
             {
                 Parallel.For(0, 1000, (j) =>
                 {
-                    indexer.Rmove(id);
+                    indexer.Remove(id);
                 });
             });
 

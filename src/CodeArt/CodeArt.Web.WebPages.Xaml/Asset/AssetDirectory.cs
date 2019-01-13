@@ -66,7 +66,8 @@ namespace CodeArt.Web.WebPages.Xaml
 
         public AssetDirectory()
         {
-            _getFile = LazyIndexer.Init<string, AssetFile>((path) =>
+            //key是本地的虚拟路径 比如： /assets/my-custom/css.min.css
+            _getFile = LazyIndexer.Init<string, AssetFile>((key) =>
             {
                 var assets = this.Assets;
                 foreach (var item in assets)
@@ -74,14 +75,14 @@ namespace CodeArt.Web.WebPages.Xaml
                     var file = item as AssetFile;
                     if (file != null)
                     {
-                        if (file.Path == path) return file;
+                        if (file.Key == key) return file;
                     }
                     else
                     {
                         var package = item as AssetPackage;
                         if (package != null)
                         {
-                            file = package.GetFile(path);
+                            file = package.GetFile(key);
                             if (file != null) return file;
                         }
                     }
@@ -112,11 +113,13 @@ namespace CodeArt.Web.WebPages.Xaml
 
         private bool _filesGenerated = false;
 
+        private object _syncObject = new object();
+
         private void GenerateFiles()
         {
             if (!_filesGenerated)
             {
-                lock (this)
+                lock (_syncObject)
                 {
                     if (!_filesGenerated)
                     {

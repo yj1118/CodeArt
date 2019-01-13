@@ -24,7 +24,7 @@ namespace CodeArt.Web
 
         public void Initialize()
         {
-            var entries = _pool.Borrow();
+            var entries = ContentEntries.Pool.Borrow();
             entries.Initializ();
             HttpContext.Current.Items[ContentEntries.Name] = entries;
         }
@@ -32,7 +32,7 @@ namespace CodeArt.Web
         public void Dispose()
         {
             var item = GetEntries();
-            _pool.Return(item);
+            ContentEntries.Pool.Return(item);
         }
 
 
@@ -60,20 +60,5 @@ namespace CodeArt.Web
 
         public static readonly WebAppSession Instance = new WebAppSession();
 
-
-        private static PoolWrapper<ContentEntries> _pool = new PoolWrapper<ContentEntries>(() =>
-        {
-            return new ContentEntries();
-        }, (obj, phase) =>
-        {
-            if (phase == PoolItemPhase.Returning)
-            {
-                obj.Clear();
-            }
-            return true;
-        }, new PoolConfig()
-        {
-            MaxRemainTime = 300 //œ–÷√ ±º‰300√Î
-        });
     }
 }

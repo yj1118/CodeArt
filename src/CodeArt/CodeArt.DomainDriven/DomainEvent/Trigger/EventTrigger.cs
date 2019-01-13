@@ -193,7 +193,8 @@ namespace CodeArt.DomainDriven
         /// <param name="callback"></param>
         public static void Timeout(Guid queueId, EventKey key, EventCallback callback)
         {
-            TimeoutManager.End(key);
+            if (!TimeoutManager.End(key)) return; //如果结束失败，证明已完成了
+
             //首先释放资源，删除为了收取信息而建立的临时队列
             CleanupRemoteEventResult(key.EventName, key.EventId);
 
@@ -221,7 +222,7 @@ namespace CodeArt.DomainDriven
         /// <param name="event"></param>
         private static void CompleteRemoteEvent(Guid queueId, DTObject @event, EventKey key)
         {
-            TimeoutManager.End(key);
+            if (!TimeoutManager.End(key)) return; //如果结束失败，证明已超时了
 
             //首先释放资源，删除为了收取信息而建立的临时队列
             CleanupRemoteEventResult(key.EventName, key.EventId);
@@ -310,12 +311,12 @@ namespace CodeArt.DomainDriven
         /// <returns></returns>
         private static DTObject CreatePublishRaiseResultArg(DTObject identity, EventKey key,bool success, string message, string argsCode)
         {
-            var arg = DTObject.CreateReusable();
+            var arg = DTObject.Create();
             arg["eventName"] = key.EventName;
             arg["eventId"] = key.EventId;
             arg["success"] = success;
             arg["message"] = message;
-            arg["args"] = DTObject.CreateReusable(argsCode);
+            arg["args"] = DTObject.Create(argsCode);
             arg["identity"] = identity.Clone();
             return arg;
         }

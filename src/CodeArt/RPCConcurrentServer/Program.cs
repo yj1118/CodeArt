@@ -9,6 +9,7 @@ using CodeArt.EasyMQ.RPC;
 using CodeArt.DTO;
 using CodeArt.AppSetting;
 using CodeArt.Log;
+using CodeArt.EasyMQ;
 
 namespace RPCConcurrentServer
 {
@@ -30,7 +31,7 @@ namespace RPCConcurrentServer
 
         private class Handler : IRPCHandler
         {
-            public DTObject Process(string method, DTObject args)
+            public TransferData Process(string method, DTObject args)
             {
                 int current = Interlocked.Increment(ref count);
 
@@ -43,7 +44,7 @@ namespace RPCConcurrentServer
                 var dto = DTObject.Create();
                 dto.Dynamic.Index = args.Dynamic.Index;
 
-                return dto;
+                return new TransferData(dto);
             }
         }
 

@@ -28,7 +28,6 @@ namespace CodeArt.Web.XamlControls.Metronic
             }
         }
 
-
         #region 发射命令
 
         public void AlertSuccess(string message)

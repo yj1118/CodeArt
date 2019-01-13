@@ -51,7 +51,7 @@ namespace CodeArt.ServiceModel.Mock
 
         private void ParseJSON(string code)
         {
-            var dto = DTObject.CreateReusable(code);
+            var dto = DTObject.Create(code);
             var items = dto.GetList();
             foreach(var item in items)
             {

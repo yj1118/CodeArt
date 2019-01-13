@@ -152,7 +152,7 @@ namespace Module.WebUI.Xaml.Pages
         {
             var grid = view.GetElement<DataTableSE>("list");
             var items = grid.SelectedValues;
-            ServiceContext.Invoke("deleteRoles", items.ToReusableObject("ids"));
+            ServiceContext.Invoke("deleteRoles", items.ToObject("ids"));
 
             MenuHelper.RemoveAllMenuCode();
 

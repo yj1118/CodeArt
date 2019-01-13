@@ -86,7 +86,7 @@ namespace CodeArt.Office
         {
             try
             {
-                if (this.Token.IsCanceled)
+                if (this.Token.IsCancelled)
                 {
                     _future.SetResult(false);
                     return;

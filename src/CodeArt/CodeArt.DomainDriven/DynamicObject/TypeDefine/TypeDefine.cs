@@ -106,6 +106,7 @@ namespace CodeArt.DomainDriven
         internal Type DomainInterfaceType
         {
             get;
+            private set;
         }
 
         /// <summary>
@@ -117,14 +118,19 @@ namespace CodeArt.DomainDriven
             private set;
         }
 
+        public bool CloseMultiTenancy
+        {
+            get;
+            private set;
+        }
 
         /// <summary>
         /// 远程根类
         /// </summary>
         /// <param name="typeName">类型名称，请注意，同一个类型名称的<paramref name="metadataCode"/>代码应该相同</param>
         /// <param name="metadataCode"></param>
-        internal TypeDefine(string typeName, string metadataCode, Type domainInterfaceType, Type objectType)
-            : this(typeName, metadataCode, DTObject.GetMetadata(FormatMetadataCode(typeName, metadataCode)), domainInterfaceType, objectType, typeName)
+        internal TypeDefine(string typeName, string metadataCode, Type domainInterfaceType, Type objectType,bool closeMultiTenancy)
+            : this(typeName, metadataCode, DTObject.GetMetadata(FormatMetadataCode(typeName, metadataCode)), domainInterfaceType, objectType, typeName, closeMultiTenancy)
         {
         }
 
@@ -141,13 +147,13 @@ namespace CodeArt.DomainDriven
         }
 
 
-        internal TypeDefine(string typeName, TypeMetadata metadata, Type domainInterfaceType, Type objectType, string qualifiedName)
-            : this(typeName, metadata.MetadataCode, metadata, domainInterfaceType, objectType, qualifiedName)
+        internal TypeDefine(string typeName, TypeMetadata metadata, Type domainInterfaceType, Type objectType, string qualifiedName, bool closeMultiTenancy)
+            : this(typeName, metadata.MetadataCode, metadata, domainInterfaceType, objectType, qualifiedName, closeMultiTenancy)
         {
 
         }
 
-        private TypeDefine(string typeName, string metadataCode, TypeMetadata metadata, Type domainInterfaceType, Type objectType, string qualifiedName)
+        private TypeDefine(string typeName, string metadataCode, TypeMetadata metadata, Type domainInterfaceType, Type objectType, string qualifiedName,bool closeMultiTenancy)
         {
             this.TypeName = typeName.FirstToUpper();
             this.MetadataCode = metadataCode;
@@ -157,9 +163,14 @@ namespace CodeArt.DomainDriven
             this.ObjectType = objectType;
             this.Constructor = this.ObjectType.ResolveConstructor(typeof(TypeDefine), typeof(bool));
             this.QualifiedName = qualifiedName;
+            this.CloseMultiTenancy = closeMultiTenancy;
             InitMetadataType();
             this.RemoteType = GetRemoteType();
-            if (!IsIgnore(typeName, this))
+            if (IsIgnore(this))
+            {
+                LoadFromLocateType();
+            }
+            else
             {
                 AddDefineIndex(typeName, this);  //加入索引
                 RemoteType.AddDefineIndex(this.RemoteType.FullName, this); //加入索引
@@ -193,7 +204,7 @@ namespace CodeArt.DomainDriven
         private void InitMetadataType()
         {
             var metadataType = GetMetadataType(this.TypeName);
-            if(metadataType != null) this.MetadataType = metadataType;
+            if (metadataType != null) this.MetadataType = metadataType;
             else
             {
                 metadataType = new RuntimeObjectType(this.TypeName, this);
@@ -206,6 +217,35 @@ namespace CodeArt.DomainDriven
             }
         }
 
+        private void LoadFromLocateType()
+        {
+            var runtimeObjectType = this.MetadataType as RuntimeObjectType;
+            if (runtimeObjectType != null)
+            {
+                var locateDefine = runtimeObjectType.Define;
+                FillBy(locateDefine);
+            }
+        }
+
+        private void FillBy(TypeDefine target)
+        {
+            this.TypeName = target.TypeName;
+            this.MetadataSchemaCode = target.MetadataSchemaCode;
+            this.MetadataCode = target.MetadataCode;
+            this.Metadata = target.Metadata
+;
+            this.ObjectType = target.ObjectType;
+            this.Constructor = target.Constructor;
+            this.MetadataType = target.MetadataType;
+
+            this.DomainInterfaceType = target.DomainInterfaceType;
+            this.QualifiedName = target.QualifiedName;
+            this.RemoteType = target.RemoteType;
+            this.Properties = target.Properties;
+        }
+
+
+
         /// <summary>
         /// 填充元数据类型的信息
         /// </summary>
@@ -213,7 +253,7 @@ namespace CodeArt.DomainDriven
         private void FillMetadataType(RuntimeObjectType metadataType)
         {
             metadataType.AddInterface(this.DomainInterfaceType);
-            metadataType.AddAttribute(new ObjectRepositoryAttribute(typeof(IDynamicRepository)));
+            metadataType.AddAttribute(new ObjectRepositoryAttribute(typeof(IDynamicRepository)) { CloseMultiTenancy = this.CloseMultiTenancy });
         }
 
         /// <summary>
@@ -285,9 +325,14 @@ namespace CodeArt.DomainDriven
             var propertyType = GetValueType(entry);
             var propertyInfo = objectType.AddProperty(propertyName, propertyType);
             propertyInfo.AddAttribute(new PropertyRepositoryAttribute());
-            object defaultValue = DataUtil.GetDefaultValue(propertyType);
-            //字符串类型处理
-            if (entry.TypeName == "string" || entry.TypeName == "ascii")
+            object defaultValue = entry.IsString ? string.Empty : DataUtil.GetDefaultValue(propertyType);
+            AttachAttributes(propertyInfo, entry);
+            return DomainProperty.Register(propertyName, propertyType, objectType, (o, p) => { return defaultValue; }, PropertyChangedMode.Compare, propertyType);
+        }
+
+        private void AttachAttributes(RuntimePropertyInfo propertyInfo, ValueEntry entry)
+        {
+            if (entry.IsString)
             {
                 if (entry.Descriptions.Count > 0)
                 {
@@ -301,10 +346,9 @@ namespace CodeArt.DomainDriven
                         propertyInfo.AddAttribute(new ASCIIStringAttribute());
                     }
                 }
-                defaultValue = string.Empty;
             }
-            return DomainProperty.Register(propertyName, propertyType, objectType, (o, p) => { return defaultValue; }, PropertyChangedMode.Compare, propertyType);
         }
+
 
         #endregion
 
@@ -332,12 +376,12 @@ namespace CodeArt.DomainDriven
             var idEntry = entry.GetMemberByName(EntityObject.IdPropertyName);
             if (idEntry == null)
             {
-               return new ValueObjectDefine(typeName, entry.Metadata, this.QualifiedName);
+               return new ValueObjectDefine(typeName, entry.Metadata, this.QualifiedName,this.CloseMultiTenancy);
             }
             else
             {
                 //引用对象
-                return new EntityObjectDefine(typeName, entry.Metadata, this.QualifiedName);
+                return new EntityObjectDefine(typeName, entry.Metadata, this.QualifiedName, this.CloseMultiTenancy);
             }
         }
 
@@ -399,6 +443,10 @@ namespace CodeArt.DomainDriven
 
             var propertyInfo = objectType.AddProperty(propertyName, propertyType);
             propertyInfo.AddAttribute(new PropertyRepositoryAttribute());
+
+            var valueEntry = itemEntry as ValueEntry;
+            if(valueEntry != null)
+                AttachAttributes(propertyInfo, valueEntry);
 
             return DomainProperty.Register(propertyName, propertyType, objectType, (o, p) => { return propertyType.CreateInstance(); }, PropertyChangedMode.Definite, elementType);
         }
@@ -506,12 +554,18 @@ namespace CodeArt.DomainDriven
         /// <param name="typeName"></param>
         /// <param name="define"></param>
         /// <returns></returns>
-        private static bool IsIgnore(string typeName, TypeDefine define)
+        private static bool IsIgnore(TypeDefine define)
         {
-            if (_locates.TryGetValue(typeName, out var defineType))
+            return IsIgnore(define.GetType());
+
+        }
+
+        internal static bool IsIgnore(Type defineType)
+        {
+            if (_locates.TryGetValue(defineType.Name, out var locateDefineType))
             {
                 //如果类型名称在定位中存在，那么判断define是否满足定位的要求
-                if (defineType != define.GetType()) return true; //不满足要求，不加入索引中
+                if (defineType != locateDefineType) return true;
             }
             return false;
         }

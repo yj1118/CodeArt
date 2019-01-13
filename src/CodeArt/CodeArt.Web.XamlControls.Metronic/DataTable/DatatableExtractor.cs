@@ -16,14 +16,15 @@ namespace CodeArt.Web.XamlControls.Metronic
     {
         public static bool Exist(DTObject arg)
         {
-            return arg.Exist("datatable[pagination][page]");
+            return arg.Exist("pagination[page]");
+            //return arg.Exist("datatable[pagination][page]");
         }
 
         public static DTObject Transform(DTObject arg)
         { 
             //{component,action,argument:{elements:[{id,name,metadata}]}}
-            DTObject result = DTObject.CreateReusable();
-            DTObject sender = DTObject.CreateReusable();
+            DTObject result = DTObject.Create();
+            DTObject sender = DTObject.Create();
             foreach(var p in arg.GetDictionary())
             {
                 var name = p.Key;

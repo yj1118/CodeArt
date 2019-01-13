@@ -9,6 +9,7 @@ using CodeArt.Web.WebPages.Xaml.Markup;
 using CodeArt.Web.WebPages.Xaml;
 using CodeArt.DTO;
 using CodeArt.ModuleNest;
+
 using CodeArt.Web.WebPages;
 
 namespace CodeArt.Web.XamlControls.Metronic
@@ -23,6 +24,8 @@ namespace CodeArt.Web.XamlControls.Metronic
         public static readonly DependencyProperty PrincipalEmailProperty = DependencyProperty.Register<string, Page>("PrincipalEmail", () => { return string.Empty; });
 
         public static readonly DependencyProperty PrincipalPhotoProperty = DependencyProperty.Register<string, Page>("PrincipalPhoto", () => { return string.Empty; });
+
+        public static readonly DependencyProperty PrincipalIsLoginProperty = DependencyProperty.Register<bool, Page>("PrincipalIsLogin", () => { return false; });
 
         public static readonly DependencyProperty LogoutUrlProperty = DependencyProperty.Register<string, Page>("LogoutUrl", () => { return "/logout.htm"; });
 
@@ -47,6 +50,63 @@ namespace CodeArt.Web.XamlControls.Metronic
         public static readonly DependencyProperty ThemeProperty = DependencyProperty.Register<string, Page>("Theme", () => { return "default"; });
 
         public static readonly DependencyProperty LogoStyleProperty = DependencyProperty.Register<string, Page>("LogoStyle", () => { return string.Empty; });
+
+
+        public static readonly DependencyProperty HeaderMenuProperty = DependencyProperty.Register<UIElementCollection, Page>("HeaderMenu", () => { return new UIElementCollection(); });
+
+        public UIElementCollection HeaderMenu
+        {
+            get
+            {
+                return GetValue(HeaderMenuProperty) as UIElementCollection;
+            }
+            set
+            {
+                SetValue(HeaderMenuProperty, value);
+            }
+        }
+
+        public static readonly DependencyProperty AsideMenuProperty = DependencyProperty.Register<UIElementCollection, Page>("AsideMenu", () => { return new UIElementCollection(); });
+
+        public UIElementCollection AsideMenu
+        {
+            get
+            {
+                return GetValue(AsideMenuProperty) as UIElementCollection;
+            }
+            set
+            {
+                SetValue(AsideMenuProperty, value);
+            }
+        }
+
+        public static readonly DependencyProperty BeforeLoginMenuProperty = DependencyProperty.Register<UIElementCollection, Page>("BeforeLoginMenu", () => { return new UIElementCollection(); });
+
+        public UIElementCollection BeforeLoginMenu
+        {
+            get
+            {
+                return GetValue(BeforeLoginMenuProperty) as UIElementCollection;
+            }
+            set
+            {
+                SetValue(BeforeLoginMenuProperty, value);
+            }
+        }
+
+        public static readonly DependencyProperty AfterLoginMenuProperty = DependencyProperty.Register<UIElementCollection, Page>("AfterLoginMenu", () => { return new UIElementCollection(); });
+
+        public UIElementCollection AfterLoginMenu
+        {
+            get
+            {
+                return GetValue(AfterLoginMenuProperty) as UIElementCollection;
+            }
+            set
+            {
+                SetValue(AfterLoginMenuProperty, value);
+            }
+        }
 
         static Page()
         {
@@ -142,6 +202,18 @@ namespace CodeArt.Web.XamlControls.Metronic
             set
             {
                 SetValue(PrincipalPhotoProperty, value);
+            }
+        }
+
+        public bool PrincipalIsLogin
+        {
+            get
+            {
+                return (bool)GetValue(PrincipalIsLoginProperty);
+            }
+            set
+            {
+                SetValue(PrincipalIsLoginProperty, value);
             }
         }
 

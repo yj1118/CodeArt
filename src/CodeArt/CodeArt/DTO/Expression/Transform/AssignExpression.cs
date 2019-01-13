@@ -64,7 +64,7 @@ namespace CodeArt.DTO
                 var parent = target.Parent as DTEObject;
                 if (parent == null) throw new DTOException("预期之外的错误，" + valueExpression.FindExp);
 
-                var parentDTO = valueExpression.StartRoot ? dto : DTOPool.CreateObject(parent, dto.IsReadOnly, dto.IsPinned);
+                var parentDTO = valueExpression.StartRoot ? dto : new DTObject(parent, dto.IsReadOnly);
 
                 //2.找出值，值是在目标成员所在的对象下进行查找的
                 var entities = parentDTO.FindEntities(valueExpression.FindExp, false);
@@ -73,7 +73,8 @@ namespace CodeArt.DTO
                     //获取值
                     var ve = entities[0];
                     var newValue = GetValue(ve, transformValue, dto.IsReadOnly);
-                    if (newValue == null) throw new DTOException("预期之外的数据转换，" + valueExpression.FindExp);
+                    //if (newValue == null) throw new DTOException("预期之外的数据转换，" + valueExpression.FindExp);
+                    if (newValue == null) continue; //传递的值是null，就表明调用者要忽略这条数据
 
 
                     //目标值是唯一的，这个时候要进一步判断
@@ -117,6 +118,12 @@ namespace CodeArt.DTO
                     }
                     if (isArray)
                         SetValue(target, Array.Empty<object>(), valueExpression.FindExp);
+                    else
+                    {
+                        var newValue = transformValue(null);
+                        SetValue(target, newValue, valueExpression.FindExp);
+                    }
+                        
                 }
             }
         }
@@ -139,7 +146,7 @@ namespace CodeArt.DTO
                 }
                 else
                 {
-                    DTObject t = DTObject.CreateReusable();
+                    DTObject t = DTObject.Create();
                     t.SetValue(value);
                     var newEntity = t.GetRoot().GetFirstEntity();
                     if (newEntity == null) throw new DTOException("预期之外的错误，" + findExp);
@@ -170,7 +177,7 @@ namespace CodeArt.DTO
             var oe = e as DTEObject;
             if (oe != null)
             {
-                var value = DTOPool.CreateObject(oe, isReadOnly, oe.IsPinned);
+                var value = new DTObject(oe, isReadOnly);
                 return transformValue(value);
             }
             return null;

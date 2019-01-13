@@ -9,7 +9,7 @@ namespace CodeArt.Web.WebPages
 {
     internal sealed class FormExtractor : IParameterExtractor
     {
-        public object[] ParseArguments(WebPageContext context)
+        public DTObject ParseArguments(WebPageContext context)
         {
             HttpRequest request = context.Request;
 
@@ -22,7 +22,7 @@ namespace CodeArt.Web.WebPages
 
             code.Append("}");
 
-            return new object[] { DTObject.Create(code.ToString()) };
+            return DTObject.Create(code.ToString());
         }
 
         public static readonly FormExtractor Instance = new FormExtractor();

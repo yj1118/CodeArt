@@ -12,6 +12,7 @@ using CodeArt.DTO;
 using CodeArt.Web.WebPages.Xaml.Controls;
 using CodeArt.Web.WebPages.Xaml.Script;
 using CodeArt.Web.WebPages.Xaml.Markup;
+using CodeArt.Runtime;
 
 namespace CodeArt.Web.WebPages.Xaml
 {
@@ -24,7 +25,7 @@ namespace CodeArt.Web.WebPages.Xaml
 
         private bool ProcessProxy()
         {
-            var proxy = GetComponent() as PageProxy;
+            var proxy = GetComponent(this.VirtualPath) as PageProxy;
             if (proxy != null)
             {
                 proxy.LoadPinned();
@@ -57,26 +58,32 @@ namespace CodeArt.Web.WebPages.Xaml
 
         protected override string GetTextContent(string error)
         {
-            var component = GetComponent();
-            var ui = component as UIElement;
-            return ui == null ? GetRawCode() : GetPageCode(ui, error); 
+            return GetPageCode(this.VirtualPath, error);
         }
 
-        private string GetRawCode()
+        #region 页面刷
+
+        public static string GetPageCode(string virtualPath, string errorInfo = null)
         {
-            return PageUtil.GetRawCode(this.VirtualPath);
+            var component = GetComponent(virtualPath);
+            var ui = component as UIElement;
+            return ui == null ? GetRawCode(virtualPath) : GetPageCode(ui, errorInfo);
+        }
+
+        private static string GetRawCode(string virtualPath)
+        {
+            return PageUtil.GetRawCode(virtualPath);
         }
 
         /// <summary>
         /// 获得页面组件
         /// </summary>
         /// <returns></returns>
-        private object GetComponent()
+        private static object GetComponent(string virtualPath)
         {
-            return XPCFactory.Create(this.VirtualPath);
+            return XPCFactory.Create(virtualPath);
         }
 
-        #region 页面刷
 
         private static string GetPageCode(UIElement element, string error)
         {
@@ -95,7 +102,7 @@ namespace CodeArt.Web.WebPages.Xaml
 
                 AppendLanguage(brush);
                 element.Render(brush);
-                code = brush.GetCode();
+                code = brush.GetCode(false); //输出完整代码，不论body是否存在
             });
             return code;
         }
@@ -122,14 +129,14 @@ namespace CodeArt.Web.WebPages.Xaml
 
         #region 事件
 
-        protected override object CallWebMethod(object[] args)
+        protected override string CallWebMethod(DTObject args)
         {
             //在处理事件之前，先加载固化值
-            UIElement component = this.GetComponent() as UIElement;
+            UIElement component = GetComponent(this.VirtualPath) as UIElement;
             if (component == null) throw new XamlException("无法处理事件，组件不是" + typeof(UIElement).FullName);
             component.LoadPinned();
 
-            object result = null;
+            string result = null;
             XamlUtil.UsingRender((brush) =>
             {
                 component.OnLoad();
@@ -138,24 +145,24 @@ namespace CodeArt.Web.WebPages.Xaml
             return result;
         }
 
-        private static object CallWebMethod(UIElement component, object[] args)
+        private static string CallWebMethod(UIElement component, DTObject args)
         {
-            var arg = args.Length == 0 ? DTObject.Create() : args[0] as DTObject;
-            if (arg == null) throw new XamlException("处理事件参数错误");
+            if (args == null) throw new XamlException("处理事件参数错误");
 
             //{component,action,argument:{sender:{id,metadata:{}},elements:[{id,metadata:{}}]}}
-            var actionName = arg.GetValue<string>("action", string.Empty);
+            var actionName = args.GetValue<string>("action", string.Empty);
             if (string.IsNullOrEmpty(actionName)) throw new XamlException("处理事件参数错误，没有指定action");
 
-            var componentName = arg.GetValue<string>("component", string.Empty);
+            var componentName = args.GetValue<string>("component", string.Empty);
 
             DTObject argument = null;
-            if (!arg.TryGetObject("argument", out argument)) throw new XamlException("处理事件参数错误，没有指定argument");
+            if (!args.TryGetObject("argument", out argument)) throw new XamlException("处理事件参数错误，没有指定argument");
 
             var view = component.CallScriptAction(componentName, actionName, new ScriptView(argument)) as IScriptView;
-            return view.Output();
+            return view.GetDataCode();
         }
 
+        
 
         #endregion
 

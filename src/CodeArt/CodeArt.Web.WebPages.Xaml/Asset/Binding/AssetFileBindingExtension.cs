@@ -20,10 +20,16 @@ namespace CodeArt.Web.WebPages.Xaml
         /// </summary>
         public string AssetFileKey { get; private set; }
 
+        /// <summary>
+        /// 附加字符串，比如 ?id=1 或 #target
+        /// </summary>
+        public string AdditionalString { get; private set; }
 
-        public AssetFileBindingExtension(string assetKey)
+
+        public AssetFileBindingExtension(string assetKey,string additionalString)
         {
             this.AssetFileKey = assetKey;
+            this.AdditionalString = additionalString;
         }
 
 
@@ -40,7 +46,7 @@ namespace CodeArt.Web.WebPages.Xaml
 
         private object ProvideValue()
         {
-            return new AssetFileBindingExpression(this.AssetFileKey);
+            return new AssetFileBindingExpression(this.AssetFileKey, this.AdditionalString);
         }
     }
 }

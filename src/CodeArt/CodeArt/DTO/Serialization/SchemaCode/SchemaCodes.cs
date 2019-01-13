@@ -39,7 +39,7 @@ namespace CodeArt.DTO
             _typeCodes = new Dictionary<Type, string>();
 
             this.ContainsAll = string.IsNullOrEmpty(schemaCode);
-            _schema = DTObject.CreateReusable(schemaCode);
+            _schema = DTObject.Create(schemaCode);
             Initialize(classType, schemaCode);
         }
 

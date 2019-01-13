@@ -26,6 +26,11 @@ namespace Module.WebUI
         internal static string GetMenuFileName(string version,string language, string markedCode, string userId)
         {
             string folder = GetMenuFolder(version, userId);
+            var handler = MenuHelper.GetHandler();
+            if (handler != null)
+            {
+                folder = handler.GetFolder(folder);
+            }
             return Path.Combine(folder, language, markedCode);
         }
 
@@ -93,6 +98,19 @@ namespace Module.WebUI
         public static void RemoveAllMenuCode()
         {
             IOUtil.ClearDirectory(GetRootFolder());
+        }
+
+
+        private static IMenuHandler _handler;
+
+        public static void RegisterHandler(IMenuHandler handler)
+        {
+            _handler = handler;
+        }
+
+        internal static IMenuHandler GetHandler()
+        {
+            return _handler;
         }
 
     }

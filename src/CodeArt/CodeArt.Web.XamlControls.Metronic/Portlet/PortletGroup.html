@@ -1,0 +1,32 @@
+﻿<ControlTemplate xmlns="http://schemas.codeart.cn/web/xaml"
+                 xmlns:m="http://schemas.codeart.cn/web/xaml/metronic">
+    <div class="{TemplateBinding Class,Converter={Static AppendClassConverter.Instance},ConverterParameter=m-portlet m-portlet--primary m-portlet--head-solid-bg m-portlet--head-sm m-portlet--bordered}"
+         id="{TemplateBinding Id}" name="{TemplateBinding Name}" data-proxy="{TemplateBinding ProxyCode}" data-give="[new $$metronic.portlet()]" m-portlet="true">
+        <AttributesPresenter />
+        <div class="m-portlet__head">
+            <div class="m-portlet__head-caption">
+                <div class="m-portlet__head-title">
+                    <span class="m-portlet__head-icon">
+                        <i class="flaticon-information"></i>
+                    </span>
+                    <h3 class="m-portlet__head-text">
+                        <run Content="{TemplateBinding Title}"></run>
+                    </h3>
+                </div>
+            </div>
+            <div class="m-portlet__head-tools">
+                <ul class="m-portlet__nav">
+                    <li class="m-portlet__nav-item" Visibility="{TemplateBinding CanToggle,Converter={Static BoolCollapsedConverter.Instance}}">
+                        <a href="#" m-portlet-tool="toggle" class="m-portlet__nav-link m-portlet__nav-link--icon"><i class="la la-angle-down"></i></a>
+                    </li>
+                    <li class="m-portlet__nav-item">
+                        <a href="#" m-portlet-tool="fullscreen" class="m-portlet__nav-link m-portlet__nav-link--icon"><i class="la la-expand"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="m-portlet__body" style="background-color: #f2f3f8;">
+            <ContentPresenter Content="{TemplateBinding Content}" />
+        </div>
+    </div>
+</ControlTemplate>

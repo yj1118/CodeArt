@@ -21,6 +21,13 @@ namespace CodeArt.DomainDriven
             MethodInfo methodInfo = GetMethod();
             return (domainObject, value) =>
             {
+                if(this.IgnoreWithRepository)
+                {
+                    var current = DataContext.Current;
+                    if (current != null && current.InBuildObject)
+                        return; //指示了在仓储构建时不触发行为，所以返回
+                }
+
                 if (methodInfo.IsStatic)
                 {
                     //静态的版本

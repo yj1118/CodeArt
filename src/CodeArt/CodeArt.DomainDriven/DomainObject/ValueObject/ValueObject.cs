@@ -94,4 +94,37 @@ namespace CodeArt.DomainDriven
         }
 
     }
+
+
+    public abstract class ValueObject<TObject, TObjectEmpty> : ValueObject
+        where TObject : ValueObject<TObject, TObjectEmpty>
+        where TObjectEmpty : TObject, new()
+    {
+        public ValueObject()
+        {
+            this.OnConstructed();
+        }
+
+        private static TObject _empty;
+        private static object _syncObject = new object();
+
+        public static TObject Empty
+        {
+            get
+            {
+                if (_empty == null)
+                {
+                    lock (_syncObject)
+                    {
+                        if (_empty == null)
+                        {
+                            _empty = new TObjectEmpty();
+                        }
+                    }
+                }
+                return _empty;
+            }
+        }
+    }
+
 }

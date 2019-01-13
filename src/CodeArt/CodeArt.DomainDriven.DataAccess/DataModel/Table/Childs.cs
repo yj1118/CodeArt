@@ -363,6 +363,10 @@ namespace CodeArt.DomainDriven.DataAccess
                                     fields,
                                     memberField);
             middle.Slave = slave;
+
+            //如果从表是根，那么需要记录从表和中间表的联系，当删除根对象时，会删除该中间表的数据
+            RootIsSlaveIndex.TryAdd(middle);
+
             return middle;
         }
 

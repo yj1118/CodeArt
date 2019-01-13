@@ -162,8 +162,15 @@ namespace CodeArt.Media
             Process[] processes = Process.GetProcessesByName("ffmpeg");
             foreach (Process p in processes)
             {
-                p.Kill();
-                p.Close();
+                try
+                {
+                    p.Kill();
+                    p.Close();
+                }
+                catch
+                {
+
+                }
             }
         }
 

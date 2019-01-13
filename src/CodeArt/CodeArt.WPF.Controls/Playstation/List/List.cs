@@ -18,7 +18,7 @@ using System.Collections.Specialized;
 
 using CodeArt.WPF.UI;
 using CodeArt.Util;
-
+using System.Collections.ObjectModel;
 
 namespace CodeArt.WPF.Controls.Playstation
 {
@@ -151,7 +151,7 @@ namespace CodeArt.WPF.Controls.Playstation
 
             this.IsNoData = newValue.IsEmpty();
             var ncc = newValue as INotifyCollectionChanged;
-            if(ncc != null)
+            if (ncc != null)
             {
                 ncc.CollectionChanged += Ncc_CollectionChanged;
             }
@@ -163,12 +163,13 @@ namespace CodeArt.WPF.Controls.Playstation
         private void Ncc_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             this.IsNoData = (sender as IEnumerable).IsEmpty();
+            CalculateWidth();
         }
 
         private void CalculateWidth()
         {
             if (this.RowItemCount == 0) return; //不是多列，不启用
-            if(this.FixedWidth)
+            if (this.FixedWidth)
             {
                 this.Width = this.RowItemCount * this.ItemWidth;
             }
@@ -234,7 +235,7 @@ namespace CodeArt.WPF.Controls.Playstation
         {
             var list = d as List;
             var value = (bool)e.NewValue;
-            if(value)
+            if (value)
             {
                 list.PreviewMouseWheel += OnMouseWheel;
             }
@@ -251,6 +252,315 @@ namespace CodeArt.WPF.Controls.Playstation
             args.RoutedEvent = UIElement.MouseWheelEvent;
             args.Source = sender;
             list.RaiseEvent(args);
+        }
+
+        public static readonly DependencyProperty VirtualizedProperty = DependencyProperty.Register("Virtualized", typeof(bool), typeof(List), new PropertyMetadata(false));
+
+        /// <summary>
+        /// 是否虚拟化列表
+        /// </summary>
+        public bool Virtualized
+        {
+            get
+            {
+                return (bool)GetValue(VirtualizedProperty);
+            }
+            set
+            {
+                SetValue(VirtualizedProperty, value);
+            }
+        }
+
+        private ScrollViewerPro _scrollViewer;
+
+        public override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+
+            _scrollViewer = this.GetChilds<ScrollViewerPro>().FirstOrDefault();
+            if (_scrollViewer != null)
+            {
+                _scrollViewer.ScrollChanged -= OnScrollChanged;
+                _scrollViewer.ScrollChanged += OnScrollChanged;
+            }
+        }
+
+        private void OnScrollChanged(object sender, ScrollChangedEventArgs e)
+        {
+            if (!this.Virtualized) return;
+            if (_ignoreOnceScrollChanged)
+            {
+                //忽略一次
+                _ignoreOnceScrollChanged = false;
+                return;
+            }
+
+            int pageSize = (int)(_scrollViewer.ViewportHeight / _averageItemHeight);
+            if (pageSize == 0) return;
+
+            UpdateItemsVisible();
+
+            if (e.VerticalChange > 0)
+            {
+                //滚动条向下移动
+                var bottomOffset = _scrollViewer.VerticalBottomOffset; //由于当删除元素还有，VerticalBottomOffset不会及时更新，所以我们自己更新
+                var verticalOffset = _scrollViewer.VerticalOffset;
+                double decreaseHeight = 0;
+                if (verticalOffset > (_averageItemHeight * pageSize))
+                {
+                    //如果距离顶部大于1个页，那么尝试删除一次
+                    decreaseHeight = RemoveTopPages();
+                    bottomOffset -= decreaseHeight;
+                }
+
+                if (bottomOffset < (_averageItemHeight * pageSize))
+                {
+                    //如果距离底部小于1个页，那么加载一次
+                    LoadNextPage();
+                }
+
+                if (decreaseHeight > 0)
+                {
+                    //修正滚动条
+                    _scrollViewer.ScrollToVerticalOffset(verticalOffset - decreaseHeight);
+                    _ignoreOnceScrollChanged = true;
+                }
+
+            }
+            else if (e.VerticalChange < 0)
+            {
+                //滚动条向上移动
+                var verticalOffset = _scrollViewer.VerticalOffset;
+                var bottomOffset = _scrollViewer.VerticalBottomOffset;
+                double increaseHeight = 0;
+
+                if (bottomOffset > (_averageItemHeight * pageSize))
+                {
+                    //如果距离底部大于1个页，那么尝试删除一次
+                    RemoveBottomPages();
+                }
+
+                if (verticalOffset < (_averageItemHeight * pageSize))
+                {
+                    //如果距离顶部小于1个页，那么加载一次
+                    increaseHeight += LoadPrevPage();
+                }
+
+                if (increaseHeight != 0)
+                {
+                    //修正滚动条
+                    _scrollViewer.ScrollToVerticalOffset(verticalOffset + increaseHeight);
+                    _ignoreOnceScrollChanged = true;
+                }
+            }
+        }
+
+        private bool _ignoreOnceScrollChanged = false;
+
+
+        private void UpdateItemsVisible()
+        {
+            foreach (IVirtualizable item in this.Items)
+            {
+                var listBoxItem = (FrameworkElement)this.ItemContainerGenerator.ContainerFromItem(item);
+                item.IsVisible = listBoxItem.IsChildVisibleInParent(_scrollViewer);
+            }
+        }
+
+        private double RemovePages(Func<int,List<VirtualizableItem>> getPage)
+        {
+            double decreaseHeight = 0;
+            while (true)
+            {
+                //先得到0页的内容
+                var items = getPage(0);
+                if (items == null) break;
+                if (!IsAllInvisible(items)) break;
+
+                //如果0页的内容为全部不可见，那么再看1页是否也是全部不可见，如果是，就真正删除0页，否则保留0页
+                //这样做，主要是为了让滚动条之外的内容，始终保留1页,有足够的可移动空间让我们定位，进而平滑过渡
+                var nextItems = getPage(1);
+                if (nextItems == null) break;
+                if (!IsAllInvisible(nextItems)) break;
+
+                var existItems = this.ItemsSource as ObservableCollection<VirtualizableItem>;
+                foreach (var item in items)
+                {
+                    if (existItems.Remove(item))
+                    {
+                        decreaseHeight += _averageItemHeight;
+                    }
+                }
+            }
+
+            return decreaseHeight;
+        }
+
+
+        /// <summary>
+        /// 移除顶部不可见的页
+        /// </summary>
+        private double RemoveTopPages()
+        {
+            return RemovePages(GetPositivePage);
+        }
+
+        private double RemoveBottomPages()
+        {
+            return RemovePages(GetReversePage);
+        }
+
+        /// <summary>
+        /// 判断对象集合是否全部都不可见
+        /// </summary>
+        /// <param name="items"></param>
+        /// <returns></returns>
+        private bool IsAllInvisible(IEnumerable<VirtualizableItem> items)
+        {
+            foreach(var item in items)
+            {
+                if (item.IsVisible) return false;
+            }
+            return true;
+        }
+
+
+        /// <summary>
+        /// 从正向获取页信息
+        /// </summary>
+        private List<VirtualizableItem> GetPositivePage(int pageIndex)
+        {
+            var startIndex = pageIndex * _pageSize;
+            var count = startIndex + _pageSize;
+
+            var existItems = this.ItemsSource as ObservableCollection<VirtualizableItem>;
+            List<VirtualizableItem> items = null;
+            for (var i = startIndex; i < count; i++)
+            {
+                if (i < existItems.Count)
+                {
+                    if (items == null) items = new List<VirtualizableItem>(_pageSize);
+                    items.Add(existItems[i]);
+                }
+                else
+                    break;
+            }
+            return items;
+        }
+
+        /// <summary>
+        /// 从反向获取页信息
+        /// </summary>
+        /// <param name="pageIndex"></param>
+        /// <returns></returns>
+        private List<VirtualizableItem> GetReversePage(int pageIndex)
+        {
+            var existItems = this.ItemsSource as ObservableCollection<VirtualizableItem>;
+            if (existItems.Count == 0) return null;
+            var lastItem = existItems[existItems.Count - 1];
+
+            var lastIndex = lastItem.Index;
+            var lastPageIndex = lastIndex / _pageSize;
+            if (lastIndex % _pageSize > 0) lastPageIndex++;
+
+            var targetPageIndex = lastPageIndex - pageIndex;
+
+
+            var startIndex = (targetPageIndex -1) * _pageSize;
+            var count = startIndex + _pageSize;
+
+            List<VirtualizableItem> items = null;
+            for (var i = startIndex; i < count; i++)
+            {
+                if (i < existItems.Count)
+                {
+                    if (items == null) items = new List<VirtualizableItem>(_pageSize);
+                    items.Add(existItems[i]);
+                }
+                else
+                    break;
+            }
+            return items;
+        }
+
+
+        private void LoadNextPage()
+        {
+            if (_pageSize == 0) return;
+            if (this.ItemsSource == null) InitItemsSource();
+
+            var existItems = this.ItemsSource as ObservableCollection<VirtualizableItem>;
+            int pageIndex = 0;
+            if (existItems.Count > 0)
+            {
+                var lastItem = existItems[existItems.GetCount() - 1] as VirtualizableItem;
+                var lastIndex = lastItem.Index + 1;
+                pageIndex = lastIndex / _pageSize;
+                if (lastIndex % _pageSize > 0) pageIndex++;
+            }
+            var items = _getItems(pageIndex, _pageSize);
+            if (items == null || items.Count() == 0) return;
+            foreach (var item in items)
+            {
+                existItems.Add(item);
+            }
+        }
+
+        private double LoadPrevPage()
+        {
+            double increaseHeight = 0;
+            if (_pageSize == 0) return increaseHeight;
+            if (this.ItemsSource == null) InitItemsSource();
+
+            var existItems = this.ItemsSource as ObservableCollection<VirtualizableItem>;
+            int pageIndex = 0;
+            if (existItems.Count > 0)
+            {
+                var firstItem = existItems[0] as VirtualizableItem;
+                var index = firstItem.Index;
+                pageIndex = index / _pageSize - 1;
+            }
+            if (pageIndex < 0) return increaseHeight;
+            var items = _getItems(pageIndex, _pageSize);
+            if (items == null || items.Count() == 0) return increaseHeight;
+            var itemIndex = 0;
+            foreach (var item in items)
+            {
+                existItems.Insert(itemIndex, item);
+                itemIndex++;
+                increaseHeight += _averageItemHeight;
+            }
+            return increaseHeight;
+        }
+
+        private void InitItemsSource()
+        {
+            this.ItemsSource = null;
+            this.ItemsSource = new ObservableCollection<VirtualizableItem>();
+        }
+
+        private double _averageItemHeight;
+
+        private Func<int, int, IEnumerable<VirtualizableItem>> _getItems;
+
+        private int _pageSize = 0;
+
+        /// <summary>
+        /// 设置翻页模式，该模式会启动虚拟化提高性能
+        /// </summary>
+        /// <param name="averageItemHeight"></param>
+        /// <param name="getItems">int pageIndex(从0为下标),int pageSize</param>
+        public void SetPageMode(double averageItemHeight, Func<int, int, IEnumerable<VirtualizableItem>> getItems)
+        {
+            this.Virtualized = true;
+            //因为ScrollViewer.CanContentScroll = "False"为物理单元，即像素滚动，当数据很多时，即使开启了虚化化，因计算太耗性能，界面一样卡顿。
+            //因此设置ScrollViewer.CanContentScroll = "True"
+            _scrollViewer.CanContentScroll = true;
+
+            _averageItemHeight = averageItemHeight;
+            _getItems = getItems;
+            _pageSize = (int)(_scrollViewer.ViewportHeight / _averageItemHeight) + 1;//加1的原因是有可能可以容纳2.5个，这时候2个就不够，需要加载3个
+            LoadNextPage();
         }
     }
 }

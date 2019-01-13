@@ -1,0 +1,15 @@
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\bin\Release\NLog.config
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\bin\Release\CodeArt.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\bin\Release\CodeArt.pdb
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\bin\Release\zh-CN\CodeArt.resources.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\bin\Release\NLog.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\bin\Release\NLog.xml
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\obj\Release\CodeArt.Strings.resources
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\obj\Release\CodeArt.Strings.zh-CN.resources
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\obj\Release\CodeArt.csproj.GenerateResource.Cache
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\obj\Release\CodeArt.csproj.CoreCompileInputs.cache
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\obj\Release\zh-CN\CodeArt.resources.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\obj\Release\CodeArt.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\obj\Release\CodeArt.pdb
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\obj\Release\CodeArt.csprojAssemblyReference.cache
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt\obj\Release\CodeArt.csproj.CopyComplete

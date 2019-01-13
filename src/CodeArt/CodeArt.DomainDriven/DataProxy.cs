@@ -166,15 +166,17 @@ namespace CodeArt.DomainDriven
                 }
             }
 
-            var asd = t.GetDatasFromAppSession();
-            var localASD = this.GetDatasFromAppSession();
-            foreach (var p in asd)
-            {
-                if (!localASD.ContainsKey(p.Key))
-                {
-                    localASD[p.Key] = p.Value;
-                }
-            }
+            //注意，在拷贝数据代理数据时，我们不拷贝外部引用的根信息（这些信息是存在当前线程里的appSession）
+            //原因是，不同数据上下文对延迟加载外部根的算法不同，默认的数据上下文是不加载外部根的，只有ORM中的数据上下文才加载
+            //var asd = t.GetDatasFromAppSession();
+            //var localASD = this.GetDatasFromAppSession();
+            //foreach (var p in asd)
+            //{
+            //    if (!localASD.ContainsKey(p.Key))
+            //    {
+            //        localASD[p.Key] = p.Value;
+            //    }
+            //}
         }
 
         /// <summary>

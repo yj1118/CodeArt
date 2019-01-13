@@ -10,6 +10,7 @@ using CodeArt.DTO;
 using CodeArt.Util;
 
 using RabbitMQ.Client;
+using CodeArt.EasyMQ;
 
 namespace CodeArt.RabbitMQ
 {
@@ -26,7 +27,7 @@ namespace CodeArt.RabbitMQ
                 var bus = temp.Item;
                 bus.ExchangeDeclare(Event.Exchange, ExchangeType.Topic);
                 var routingKey = eventName;
-                bus.Publish(Event.Exchange, routingKey, arg);
+                bus.Publish(Event.Exchange, routingKey, new TransferData(arg));
             }
         }
 

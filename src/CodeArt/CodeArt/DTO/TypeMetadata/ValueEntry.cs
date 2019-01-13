@@ -22,6 +22,14 @@ namespace CodeArt.DTO
 
         public override EntryCategory Category => EntryCategory.Value;
 
+        public bool IsString
+        {
+            get
+            {
+                return this.TypeName == "string" || this.TypeName == "ascii";
+            }
+        }
+
         public ValueEntry(TypeMetadata owner, string name, string typeName, string metadataCode, IList<string> descriptions)
             : base(owner, name, typeName, metadataCode)
         {

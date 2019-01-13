@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RabbitMQ.Client;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -132,6 +133,15 @@ namespace CodeArt.RabbitMQ
 
 
         //}
+
+
+        internal void Init(ConnectionFactory factory)
+        {
+            factory.HostName = Server.Host;
+            factory.VirtualHost = Server.VirtualHost;
+            factory.UserName = User.Name;
+            factory.Password = User.Password;
+        }
 
     }
 }

@@ -103,6 +103,7 @@ namespace CodeArt.WPF.Controls.Playstation
                     {
                         _pipeline.IncrementAsync();
                         FadeInOut.RaisePreFadeOut(item);
+                        item.Visibility = Visibility.Collapsed;
                         Animations.OpacityIn(item, 500, EasingMode.EaseOut, () =>
                         {
                             item.Visibility = Visibility.Collapsed;

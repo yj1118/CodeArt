@@ -12,7 +12,7 @@
                             <WrapPanel VerticalAlignment="Top" Visibility="{TemplateBinding IsNoData,Converter={x:Static ps:ListContentCollapsedConverter.Instance}}" Orientation="{TemplateBinding ItemWidth,Converter={x:Static ps:ListOrientationConverter.Instance}}"
                                    Width="{TemplateBinding Width}" 
                                    ItemWidth="{TemplateBinding ItemWidth}"
-                                   IsItemsHost="True" 
+                                   IsItemsHost="True"
                                    ScrollViewer.CanContentScroll="True">
                             </WrapPanel>
                             <TextBlock Style="{DynamicResource TextSM}"
@@ -45,6 +45,7 @@
                     </Setter>
                     <Setter Property="Padding" Value="0,0,0,0"></Setter>
                     <Setter Property="Margin" Value="0,0,0,0"></Setter>
+                    <!--<Setter Property="Visibility" Value="{Binding IsVisible,Converter={x:Static ps:ListContentCollapsedConverter.Instance}}"></Setter>-->
                 </Style>
             </Setter.Value>
         </Setter>

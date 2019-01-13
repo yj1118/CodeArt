@@ -15,8 +15,6 @@ namespace CodeArt.Office
     {
         public static void Init()
         {
-            //用于激活ASPOSE组件
-            LicenseHelper.ModifyInMemory.ActivateMemoryPatching();
         }
 
         public static void Clear()

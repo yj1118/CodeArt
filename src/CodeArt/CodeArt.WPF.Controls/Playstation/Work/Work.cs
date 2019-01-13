@@ -106,6 +106,16 @@ namespace CodeArt.WPF.Controls.Playstation
             set { SetValue(ShowKeyboardProperty, value); }
         }
 
+        public static readonly DependencyProperty ShowCloseClientProperty = DependencyProperty.Register("ShowCloseClient", typeof(bool), typeof(Work), new PropertyMetadata(false));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool ShowCloseClient
+        {
+            get { return (bool)GetValue(ShowCloseClientProperty); }
+            set { SetValue(ShowCloseClientProperty, value); }
+        }
         private Grid container;
         private TitleBar titleBar;
         private DrawerRight right;
@@ -537,7 +547,11 @@ namespace CodeArt.WPF.Controls.Playstation
             return index;
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="callBack">bool参数表示是否真的返回到目标了</param>
         public void Back<T>(Action<bool> callBack = null)
         {
             Execute(() =>
@@ -655,6 +669,19 @@ namespace CodeArt.WPF.Controls.Playstation
                     });
                     if (toWatiPageCallBack != null)
                         toWatiPageCallBack();
+                });
+            });
+        }
+
+        public void WaitNoPage(Action<WaitingToken> asyncAction, Action timeoutAction, int timeoutSeconds = 5, Action toWatiPageCallBack = null)
+        {
+            Execute(() =>
+            {
+                var token = InitWaitTimeout(timeoutAction, timeoutSeconds);
+
+                this.AsyncRun(() =>
+                {
+                    asyncAction(token);
                 });
             });
         }
@@ -866,14 +893,14 @@ namespace CodeArt.WPF.Controls.Playstation
 
         #region left
 
-        public void OpenLeft(object content)
+        public void OpenLeft(object content, double maskOpacity = 0.5)
         {
             this.CloseDrawer();
 
             this.left.Visibility = Visibility.Visible;
             this.left.Value = content;
             mask.Visibility = Visibility.Visible;
-            _OpenMask(0.5, true);
+            _OpenMask(maskOpacity, true);
             Animations.ToSmallVisible(left, Duration);
         }
 

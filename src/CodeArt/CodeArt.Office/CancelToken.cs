@@ -8,7 +8,7 @@ namespace CodeArt.Office
 {
     public sealed class CancelToken
     {
-        public bool IsCanceled
+        public bool IsCancelled
         {
             get;
             private set;
@@ -16,12 +16,12 @@ namespace CodeArt.Office
 
         public void Cancel()
         {
-            this.IsCanceled = true;
+            this.IsCancelled = true;
         }
 
         public CancelToken()
         {
-            this.IsCanceled = false;
+            this.IsCancelled = false;
         }
 
     }

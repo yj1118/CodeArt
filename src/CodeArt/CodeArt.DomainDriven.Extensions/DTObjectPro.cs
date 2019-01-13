@@ -18,7 +18,7 @@ namespace CodeArt.DomainDriven
         /// <returns></returns>
         public static DTObject Create<T>(string rowSchemaCode, Page<T> page)
         {
-            var result = DTObject.CreateReusable();
+            var result = DTObject.Create();
             result.SetValue("dataCount", page.DataCount);
             result.SetValue("pageCount", page.GetPageCount());
             result.SetValue("pageIndex", page.PageIndex);
@@ -26,7 +26,7 @@ namespace CodeArt.DomainDriven
             var objs = page.Objects;
             result.Push("rows", objs, (obj) =>
             {
-                return DTObject.CreateReusable(rowSchemaCode, obj);
+                return DTObject.Create(rowSchemaCode, obj);
             });
             return result;
         }
@@ -40,14 +40,26 @@ namespace CodeArt.DomainDriven
         /// <returns></returns>
         public static DTObject Create<T>(string rowSchemaCode, IEnumerable<T> objs)
         {
-            var result = DTObject.CreateReusable();
+            var result = DTObject.Create();
             result.SetValue("dataCount", objs.Count());
             result.Push("rows", objs, (obj) =>
             {
-                return DTObject.CreateReusable(rowSchemaCode, obj);
+                return DTObject.Create(rowSchemaCode, obj);
             });
             return result;
         }
+
+        public static DTObject Create<T>(IEnumerable<T> objs, Func<T, DTObject> process)
+        {
+            var result = DTObject.Create();
+            result.SetValue("dataCount", objs.Count());
+            result.Push("rows", objs, (obj) =>
+            {
+                return process(obj);
+            });
+            return result;
+        }
+
     }
 
 

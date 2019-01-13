@@ -124,7 +124,7 @@
     <value>没有找到类型{0}的仓储构造参数 {1} 的数据，请考虑是否需要自定义加载方式</value>
   </data>
   <data name="ConstructionParameterNoProperty" xml:space="preserve">
-    <value>没有找到构造参数 {0} 对应的属性定义，请检查属性是否已标记PropertyRepositoryAttribute或者自定义构造参数加载的方法</value>
+    <value>没有找到构造参数 {0} 对应的属性{1}定义，请检查属性是否已标记PropertyRepositoryAttribute或者自定义构造参数加载的方法</value>
   </data>
   <data name="CreateChildTable" xml:space="preserve">
     <value>CreateChildTable 错误,master {0},FieldType {1},objectType{2}</value>

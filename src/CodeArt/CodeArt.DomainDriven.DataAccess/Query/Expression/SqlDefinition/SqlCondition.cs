@@ -173,6 +173,8 @@ namespace CodeArt.DomainDriven.DataAccess
                     var placeholder = m.Groups[0].Value;
                     var paraName = m.Groups[1].Value;
                     var content = m.Groups[2].Value;
+                    //转义
+                    content = content.Replace("&lt;","<").Replace("&gt;", ">");
 
                     SqlAny any = new SqlAny(paraName, placeholder, content);
                     _anys.Add(any);

@@ -75,6 +75,11 @@ namespace CodeArt.DomainDriven.DataAccess
                 sql.Where(field.Name);
             }
 
+            if(table.IsEnabledMultiTenancy)
+            {
+                sql.Where(GeneratedField.TenantIdName);
+            }
+
             return sql.GetCommandText();
         }
     }

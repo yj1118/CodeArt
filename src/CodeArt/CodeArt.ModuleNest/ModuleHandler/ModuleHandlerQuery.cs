@@ -18,7 +18,7 @@ namespace CodeArt.ModuleNest
     {
         public override DTObject Process(Q request)
         {
-            DTObject arg = DTObject.Serialize(request, false);
+            DTObject arg = DTObject.Serialize(request);
             return Load(arg);
         }
 

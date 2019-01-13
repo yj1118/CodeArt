@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using System.Dynamic;
@@ -177,7 +178,50 @@ namespace CodeArt.DomainDriven
         public void TryAdd(string name, Guid? value)
         {
             if (!value.HasValue) return;
-            _data.Add(name, value);
+            _data.Add(name, value.Value);
+        }
+
+        public void TryAdd(string name, long? value)
+        {
+            if (!value.HasValue) return;
+            _data.Add(name, value.Value);
+        }
+
+        public void TryAdd(string name, int? value)
+        {
+            if (!value.HasValue) return;
+            _data.Add(name, value.Value);
+        }
+
+        public void TryAdd(string name, byte? value)
+        {
+            if (!value.HasValue) return;
+            _data.Add(name, value.Value);
+        }
+
+        public void TryAdd(string name, bool? value)
+        {
+            if (!value.HasValue) return;
+            _data.Add(name, value.Value);
+        }
+
+        public void TryAdd(string name, DateTime? value)
+        {
+            if (!value.HasValue) return;
+            _data.Add(name, value.Value);
+        }
+
+        public void TryAdd(string name, IEnumerable value)
+        {
+            if (value == null) return;
+            var hasItem = false;
+            foreach(var item in value)
+            {
+                hasItem = true;
+                break;
+            }
+            if(hasItem)
+                _data.Add(name, value);
         }
 
         public void Set(string name, object value)
@@ -185,9 +229,9 @@ namespace CodeArt.DomainDriven
             _data[name] = value;
         }
 
-        /// <summary>  
-        /// 实现动态对象属性成员访问的方法，得到返回指定属性的值  
-        /// </summary>  
+        /// <summary>
+        /// 实现动态对象属性成员访问的方法，得到返回指定属性的值
+        /// </summary>
         /// <param name="binder"></param>  
         /// <param name="result"></param>  
         /// <returns></returns>  

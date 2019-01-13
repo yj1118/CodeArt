@@ -8,7 +8,6 @@ using CodeArt.Web.WebPages.Xaml.Markup;
 using CodeArt.Web.WebPages.Xaml;
 using CodeArt.Web.WebPages.Xaml.Controls;
 using CodeArt.DTO;
-using CodeArt.ModuleNest;
 
 namespace CodeArt.Web.XamlControls.Metronic
 {
@@ -73,6 +72,21 @@ namespace CodeArt.Web.XamlControls.Metronic
                 SetValue(PlaceholderProperty, value);
             }
         }
+
+        public static readonly DependencyProperty ValueTypeProperty = DependencyProperty.Register<string, Select>("ValueType", () => { return string.Empty; });
+
+        public string ValueType
+        {
+            get
+            {
+                return GetValue(ValueTypeProperty) as string;
+            }
+            set
+            {
+                SetValue(ValueTypeProperty, value);
+            }
+        }
+
 
         public static readonly DependencyProperty ModalProperty = DependencyProperty.Register<string, Select>("Modal", () => { return string.Empty; });
 

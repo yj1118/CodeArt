@@ -16,6 +16,7 @@
     <meta name="description" content="{TemplateBinding Description}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <LinkCode Key="/assets/custom/layui/css/layui.css" Origin="Current" />
     <LinkCode Key="/assets/vendors/base/vendors.bundle.css" Origin="Current" />
     <LinkCode Key="/assets/demo/default/base/style.bundle.css" Origin="Current" />
     <LinkCode Key="/framework/codeart/release/codeArt.min.css" Origin="Current" />
@@ -56,7 +57,7 @@
 </head>
 <!-- end::Head -->
 <!-- end::Body -->
-<body class="m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default">
+<body class="m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--fixed m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default">
     <div class="body-mask">
         <div class="blockUI blockMsg blockPage _blockPage">
             <div class="m-loader  m-loader--primary m-loader--lg"></div>
@@ -65,15 +66,15 @@
     <!-- begin:: Page -->
     <div class="m-grid m-grid--hor m-grid--root m-page">
         <!-- BEGIN: Header -->
-        <header class="m-grid__item    m-header " data-minimize-offset="200" data-minimize-mobile-offset="200">
+        <header id="m_header" class="m-grid__item    m-header " m-minimize-offset="200" m-minimize-mobile-offset="200">
             <div class="m-container m-container--fluid m-container--full-height">
                 <div class="m-stack m-stack--ver m-stack--desktop">
                     <!-- BEGIN: Brand -->
                     <div class="m-stack__item m-brand  m-brand--skin-dark ">
                         <div class="m-stack m-stack--ver m-stack--general">
-                            <div class="m-stack__item m-stack__item--middle m-brand__logo">
-                                <a href="" class="m-brand__logo-wrapper">
-                                    <img alt="" src="{TemplateBinding Logo}" />
+                            <div class="m-stack__item m-stack__item--middle m-brand__logo" Visibility="{TemplateBinding Logo,Converter={Static StringCollapsedConverter.Instance}}">
+                                <a href="/index.htm" class="m-brand__logo-wrapper">
+                                    <img src="{TemplateBinding Logo}" />
                                 </a>
                             </div>
                             <div class="m-stack__item m-stack__item--middle m-brand__tools">
@@ -108,7 +109,7 @@
                         </button>
                         <div id="m_header_menu" class="m-header-menu m-aside-header-menu-mobile m-aside-header-menu-mobile--offcanvas  m-header-menu--skin-light m-header-menu--submenu-skin-light m-aside-header-menu-mobile--skin-dark m-aside-header-menu-mobile--submenu-skin-dark ">
                             <ul class="m-menu__nav  m-menu__nav--submenu-arrow ">
-                                <li id="sameLevel" data-proxy="{give:new $$.databind()}" class="m-menu__item  m-menu__item--submenu m-menu__item--rel" data-menu-submenu-toggle="hover" data-redirect="true" aria-haspopup="true">
+                                <li id="sameLevel" data-proxy="{give:new $$.databind()}" class="m-menu__item  m-menu__item--submenu m-menu__item--rel" m-menu-submenu-toggle="hover" data-redirect="true" aria-haspopup="true">
                                     <a href="#" class="m-menu__link m-menu__toggle">
                                         <i id="sameLevelIcon" class="m-menu__link-icon"></i>
                                         <span class="m-menu__link-text" data-proxy="{binds:{text:'name'}}">
@@ -143,7 +144,7 @@
                                         </ul>
                                     </div>
                                 </li>
-                                <li class="m-menu__item  m-menu__item--submenu m-menu__item--rel" data-menu-submenu-toggle="hover" data-redirect="true" aria-haspopup="true"
+                                <li class="m-menu__item  m-menu__item--submenu m-menu__item--rel" m-menu-submenu-toggle="hover" data-redirect="true" aria-haspopup="true"
                                     id="shortcut">
                                     <a href="#" class="m-menu__link m-menu__toggle">
                                         <i class="m-menu__link-icon flaticon-paper-plane"></i>
@@ -184,10 +185,11 @@
                         <div id="m_header_topbar" class="m-topbar  m-stack m-stack--ver m-stack--general">
                             <div class="m-stack__item m-topbar__nav-wrapper">
                                 <ul class="m-topbar__nav m-nav m-nav--inline">
-                                    <li class="m-nav__item m-topbar__user-profile m-topbar__user-profile--img  m-dropdown m-dropdown--medium m-dropdown--arrow m-dropdown--header-bg-fill m-dropdown--align-right m-dropdown--mobile-full-width m-dropdown--skin-light" data-dropdown-toggle="hover">
+                                    <li class="m-nav__item m-topbar__user-profile m-topbar__user-profile--img  m-dropdown m-dropdown--medium m-dropdown--arrow m-dropdown--header-bg-fill m-dropdown--align-right m-dropdown--mobile-full-width m-dropdown--skin-light" m-dropdown-toggle="hover">
                                         <a href="#" class="m-nav__link m-dropdown__toggle">
                                             <span class="m-topbar__userpic">
                                                 <img src="{TemplateBinding PrincipalPhoto,Converter={Static m:UserPhotoConverter.Instance}}" class="m--img-rounded m--marginless m--img-centered" alt="" />
+                                                <span id="user-photo-badge" class="m-menu__link-badge"><span class="m-badge m-badge--danger"></span></span>
                                             </span>
                                             <span class="m-topbar__username m--hide">
                                                 Nick
@@ -262,10 +264,11 @@
             </button>
             <div id="m_aside_left" class="m-grid__item	m-aside-left  m-aside-left--skin-dark ">
                 <!-- BEGIN: Aside Menu -->
-                <div id="m_ver_menu"
-                     class="m-aside-menu  m-aside-menu--skin-dark m-aside-menu--submenu-skin-dark "
-                     data-menu-vertical="true"
-                     data-menu-scrollable="false" data-menu-dropdown-timeout="500" data-proxy="{give:new $$.databind()}">
+                <div id="m_ver_menu" 
+                     class="m-aside-menu  m-aside-menu--skin-dark m-aside-menu--submenu-skin-dark " 
+                     m-menu-vertical="1" m-menu-scrollable="1" m-menu-dropdown-timeout="500" 
+                     style="position: relative;" 
+                     data-proxy="{give:new $$.databind()}">
                     <ul class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow ">
                         <li data-proxy="{loops:'childs',onbind:$$.page.menu.view.onbind}" class="m-menu__item " aria-haspopup="true">
                             <a href="#" class="m-menu__link ">
@@ -290,16 +293,30 @@
                                             </span>
                                             <i class="m-menu__ver-arrow la la-angle-right"></i>
                                         </a>
-                                        <div class="m-menu__submenu ">
+                                        <div class="m-menu__submenu">
                                             <span class="m-menu__arrow"></span>
                                             <ul class="m-menu__subnav">
-                                                <li data-proxy="{loops:'childs',onbind:$$.page.menu.view.onbind}" class="m-menu__item " aria-haspopup="true">
+                                                <li data-proxy="{loops:'childs',onbind:$$.page.menu.view.onThreeBind}" class="m-menu__item" aria-haspopup="true">
                                                     <a href="#" class="m-menu__link ">
                                                         <i class="m-menu__link-icon"></i>
                                                         <span class="m-menu__link-text" data-proxy="{binds:{text:'name'}}">
                                                         </span>
                                                         <i class="m-menu__ver-arrow la la-angle-right"></i>
                                                     </a>
+                                                    <div class="m-menu__submenu c-menu-float c--menu-hover">
+                                                        <span class="m-menu__arrow"></span>
+                                                        <ul class="m-menu__subnav">
+                                                            <li data-proxy="{loops:'childs',onbind:$$.page.menu.view.onLastBind}" class="m-menu__item " aria-haspopup="true">
+                                                                <a href="#" class="m-menu__link ">
+                                                                    <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                                        <span></span>
+                                                                    </i>
+                                                                    <span class="m-menu__link-text" data-proxy="{binds:{text:'name'}}">
+                                                                    </span>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
                                                 </li>
                                             </ul>
                                         </div>
@@ -332,6 +349,15 @@
                                     </a>
                                 </li>
                             </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="c--page-navigator" id="pageNavigator" data-proxy="{give:new $$.databind()}">
+                    <div class="row m-portlet m--margin-0 c--page-navigator-items">
+                        <div class="col-xxxl-1 col-xxl-2 col-xl-3 col-lg-4 col-sm-4 col-xs-6 c--page-navigator-item" data-proxy="{loops:'childs',display:'',onbind:$$.page.menu.navigator.onbind}">
+                            <a class="c--page-navigator-link" href="">
+
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -382,7 +408,7 @@
     </div>
     <!-- end:: Page -->
     <!-- begin::Scroll Top -->
-    <div class="m-scroll-top m-scroll-top--skin-top" data-toggle="m-scroll-top" data-scroll-offset="500" data-scroll-speed="300">
+    <div id="m_scroll_top" class="m-scroll-top">
         <i class="la la-arrow-up"></i>
     </div>
     <!-- end::Scroll Top -->
@@ -417,8 +443,8 @@
     </ul>-->
     <!-- begin::Quick Nav -->
     <!--begin::Base Scripts -->
+    <LinkCode Key="/assets/custom/layui/layui.js" Origin="Current" />
     <LinkCode Key="/assets/vendors/base/vendors.bundle.js" Origin="Current" />
-    <LinkCode Key="/assets/custom/jquery.mousewheel.min.js" Origin="Current" />
     <LinkCode Key="/assets/demo/default/base/scripts.bundle.js" Origin="Current" />
     <LinkCode Key="/framework/codeart/release/codeArt.xaml.min.js" Origin="Current" />
     <LinkCode Key="/assets/custom/common.js" Origin="Current" />

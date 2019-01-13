@@ -11,7 +11,7 @@ namespace CodeArt.DomainDriven
         /// <summary>
         /// 表示当前数据上下文的实例是否正在事务模式中
         /// </summary>
-        bool IsInTransaction { get; }
+        bool InTransaction { get; }
 
         /// <summary>
         /// 开始进入事务模式

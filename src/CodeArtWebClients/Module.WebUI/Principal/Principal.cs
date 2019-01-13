@@ -34,11 +34,6 @@ namespace Module.WebUI
             //Session.Dispose(); 不能释放，因为Principal是基于session的，但是session不是仅为Principal服务的
         }
 
-        public static bool IsLogin()
-        {
-            return Cookie.GetItem("online") != null;
-        }
-
         public static T GetId<T>()
         {
             var value = Principal.Id;
@@ -48,19 +43,19 @@ namespace Module.WebUI
 
         private static void CheckLogin()
         {
-            if (!IsLogin()) throw new UserUIException("尚未登录");
+            if (!IsLogin)
+                throw new UserUIException("尚未登录");
         }
+
 
         public static object Id
         {
             get
             {
-                CheckLogin();
                 return GetItem<object>("id");
             }
             set
             {
-                CheckLogin();
                 SetItem("id", value);
             }
         }
@@ -69,12 +64,10 @@ namespace Module.WebUI
         {
             get
             {
-                CheckLogin();
                 return GetItem<string>("name") ?? string.Empty;
             }
             set
             {
-                CheckLogin();
                 SetItem("name", value);
             }
         }
@@ -83,12 +76,10 @@ namespace Module.WebUI
         {
             get
             {
-                CheckLogin();
                 return GetItem<string>("email") ?? string.Empty;
             }
             set
             {
-                CheckLogin();
                 SetItem("email", value);
             }
         }
@@ -97,13 +88,19 @@ namespace Module.WebUI
         {
             get
             {
-                CheckLogin();
                 return GetItem<string>("photo") ?? string.Empty;
             }
             set
             {
-                CheckLogin();
                 SetItem("photo", value);
+            }
+        }
+
+        public static bool IsLogin
+        {
+            get
+            {
+                return Cookie.GetItem("online") != null;
             }
         }
 
@@ -111,18 +108,17 @@ namespace Module.WebUI
         {
             get
             {
-                CheckLogin();
                 return GetItem<Role[]>("roles") ?? Array.Empty<Role>();
             }
             set
             {
-                CheckLogin();
                 SetItem("roles", value);
             }
         }
 
         public static T GetItem<T>(string name)
         {
+            if(!IsLogin) return default(T);
             var item = Session.GetItem(string.Format("principal_{0}", name));
             if (item == null) return default(T);
             return (T)item;

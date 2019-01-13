@@ -14,7 +14,7 @@
                             <ColumnDefinition Width="*"></ColumnDefinition>
                             <ColumnDefinition Width="150"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="{TemplateBinding Title}" Grid.Row="0" Grid.Column="0" Margin="110 75 0 10" FontSize="50" FontWeight="Light" Foreground="#fff"></TextBlock>
+                        <TextBlock Text="{TemplateBinding Title}" Grid.Row="0" Grid.Column="0" Margin="{TemplateBinding TitleMargin}" FontSize="{TemplateBinding TitleFontSize}" FontWeight="Light" Foreground="#fff"></TextBlock>
                         <ps:Line Height="2" Grid.Row="1" Grid.ColumnSpan="2"></ps:Line>
                     </Grid>
                 </ControlTemplate>

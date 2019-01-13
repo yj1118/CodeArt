@@ -31,7 +31,7 @@ namespace CodeArt.DTO
         /// </summary>
         /// <param name="instance"></param>
         /// <returns></returns>
-        DTObject Load(string schemaCode, object instance, bool isPinned);
+        DTObject Load(string schemaCode, object instance);
 
         /// <summary>
         /// 根据架构代码将对象的信息加载到dto中

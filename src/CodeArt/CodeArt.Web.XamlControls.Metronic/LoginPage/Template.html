@@ -21,6 +21,20 @@
     <LinkCode Key="/assets/vendors/base/vendors.bundle.css" Origin="Current" />
     <LinkCode Key="/assets/demo/default/base/style.bundle.css" Origin="Current" />
     <link rel="shortcut icon" href="{TemplateBinding ShortcutIcon}" Visibility="{TemplateBinding Logo,Converter={Static StringCollapsedConverter.Instance}}" />
+    <style>
+        .m-login.m-login--2 .m-login__wrapper .m-login__container .m-login__form .m-form__group .form-control {
+            padding: 2rem 1.5rem;
+        }
+
+        .m-login.m-login--2 .m-login__wrapper .m-login__container .m-login__account .m-login__account-msg{
+            font-size:1.2rem;
+        }
+
+        .m-login.m-login--2 .m-login__wrapper .m-login__container .m-login__account .m-login__account-link {
+            font-size: 1.2rem;
+        }
+
+    </style>
 </head>
 <body class="m--skin- m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default">
     <div class="m-grid m-grid--hor m-grid--root m-page">
@@ -40,18 +54,18 @@
                         </div>
                         <form class="m-login__form m-form" id="loginForm" data-proxy="{give:new $$.form(),view:'login'}">
                             <div class="form-group m-form__group">
-                                <input class="form-control m-input" type="text" placeholder="{Static m:Strings.Username}" name="username" autocomplete="off" data-proxy="{form:''}">
+                                <input class="form-control m-input" type="text" placeholder="用户名、邮箱或手机号" name="username" autocomplete="off" data-proxy="{form:''}">
                             </div>
                             <div class="form-group m-form__group">
                                 <input class="form-control m-input m-login__form-input--last" type="password" placeholder="{Static m:Strings.Password}" name="password" data-proxy="{form:''}">
                             </div>
                             <div class="row m-login__form-sub">
                                 <div class="col m--align-left m-login__form-left">
-                                    <!--<label class="m-checkbox  m-checkbox--focus">
+                                    <label class="m-checkbox  m-checkbox--focus">
                                         <input type="checkbox" name="remember">
-                                        Remember me
+                                        保持登录状态
                                         <span></span>
-                                    </label>-->
+                                    </label>
                                 </div>
                                 <div class="col m--align-right m-login__form-right">
                                     <a href="javascript:;" id="m_login_forget_password" class="m-link">
@@ -142,7 +156,10 @@
                             <run Content="{Static m:Strings.NoHaveAccount}" />
                         </span>
                         &nbsp;&nbsp;
-                        <a href="javascript:;" id="m_login_signup" class="m-link m-link--light m-login__account-link">
+                        <a href="javascript:;" id="m_login_signup" class="m-link m-link--light m-login__account-link" Visibility="{TemplateBinding RegisterUrl,Converter={Static StringCollapsedConverter.Instance},ConverterParameter=1}">
+                            <run Content="{TemplateBinding RegisterTitle}" />
+                        </a>
+                        <a href="{TemplateBinding RegisterUrl}" class="m-link m-link--light m-login__account-link" Visibility="{TemplateBinding RegisterUrl,Converter={Static StringCollapsedConverter.Instance}}">
                             <run Content="{TemplateBinding RegisterTitle}" />
                         </a>
                     </div>

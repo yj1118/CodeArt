@@ -20,7 +20,7 @@ namespace CodeArt.Web.WebPages.Xaml
         static XamlStyle()
         {
             var basedOnMetadata = new PropertyMetadata(() => { return null; });
-            BasedOnProperty = DependencyProperty.Register<XamlStyle, XamlStyle>("BasedOn", basedOnMetadata);
+            BasedOnProperty = DependencyProperty.Register<string, XamlStyle>("BasedOn", basedOnMetadata);
 
             var settersMetadata = new PropertyMetadata(() => { return new SetterCollection(); });
             SettersProperty = DependencyProperty.Register<SetterCollection, XamlStyle>("Setters", settersMetadata);
@@ -29,11 +29,11 @@ namespace CodeArt.Web.WebPages.Xaml
             TargetTypeProperty = DependencyProperty.Register<Type, XamlStyle>("TargetType", targetTypeMetadata);
         }
 
-        public XamlStyle BasedOn
+        public string BasedOn
         {
             get
             {
-                return GetValue(BasedOnProperty) as XamlStyle;
+                return (string)GetValue(BasedOnProperty);
             }
             set
             {
@@ -70,7 +70,11 @@ namespace CodeArt.Web.WebPages.Xaml
         {
             //先应用基类的
             var basedOn = this.BasedOn;
-            if (basedOn != null) basedOn.Apply(target);
+            if (basedOn != null)
+            {
+               var style = Application.Current.FindResource(basedOn) as XamlStyle;
+                style.Apply(target);
+            }
 
             //再应用当前的
             var setters = this.Setters;

@@ -28,10 +28,17 @@ namespace CodeArt.ServiceModel
             private set;
         }
 
-        public ServiceResponse(DTObject status, DTObject returnValue)
+        public BinaryResponse Binary
+        {
+            get;
+            private set;
+        }
+
+        public ServiceResponse(DTObject status, DTObject returnValue, BinaryResponse binary)
         {
             this.Status = status ?? DTObject.Empty;
             this.ReturnValue = returnValue ?? DTObject.Empty;
+            this.Binary = binary;
         }
 
         public void TryCatch()
@@ -48,7 +55,7 @@ namespace CodeArt.ServiceModel
             }
         }
 
-        public static readonly ServiceResponse Empty = new ServiceResponse(null, null);
+        public static readonly ServiceResponse Empty = new ServiceResponse(null, null, BinaryResponse.Empty);
 
         public bool IsEmpty()
         {
@@ -63,11 +70,13 @@ namespace CodeArt.ServiceModel
         /// </summary>
         /// <param name="dto"></param>
         /// <returns></returns>
-        public static ServiceResponse Create(DTObject dto)
+        public static ServiceResponse Create(DTObject dto, BinaryResponse binaryData)
         {
             var status = dto.GetObject("status", ServiceHostUtil.Success);
             var returnValue = dto.GetObject("returnValue", DTObject.Empty);
-            return new ServiceResponse(status, returnValue);
+
+            if (!binaryData.IsEmpty()) binaryData.Info = returnValue;
+            return new ServiceResponse(status, returnValue, binaryData);
         }
 
         #endregion

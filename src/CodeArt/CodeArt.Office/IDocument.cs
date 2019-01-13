@@ -21,7 +21,32 @@ namespace CodeArt.Office
         /// <param name="count"></param>
         /// <param name="callBack"></param>
         /// <param name="token"></param>
-        void ExtractImages(int index, int count, Action<int, Stream, Progress> callBack, CancelToken token);
+        bool ExtractImages(int index, int count, Action<int, Stream, Progress> callBack, CancelToken token);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="count"></param>
+        /// <param name="getFileName">传入文件序号，需要返回文件的保存名称</param>
+        /// <param name="callBack"></param>
+        /// <param name="token"></param>
+        bool SaveImages(int index, int count, Func<int,string> getFileName, Action<int, string, Progress> callBack, CancelToken token);
+
+        void Cancel();
+
+        /// <summary>
+        /// 以线程安全的方式使用doc
+        /// </summary>
+        void SafeUse(Action<IDocument> action);
+
+        /// <summary>
+        /// 是否只有一个线程在使用该doc
+        /// </summary>
+        int ReferenceTimes
+        {
+            get;
+        }
 
     }
 }

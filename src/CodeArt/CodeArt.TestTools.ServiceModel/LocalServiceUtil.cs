@@ -23,7 +23,7 @@ namespace CodeArt.TestTools
         /// <returns></returns>
         public static DTObject Invoke(string serviceName, Action<DTObject> fillArg)
         {
-            var arg = DTObject.CreateReusable();
+            var arg = DTObject.Create();
             if (fillArg != null) fillArg(arg);
             ServiceRequest request = new ServiceRequest(serviceName, DTObject.Empty, arg);
             var provider = ServiceProviderFactory.Create(request);

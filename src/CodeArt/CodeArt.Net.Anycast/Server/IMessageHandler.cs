@@ -8,6 +8,8 @@ namespace CodeArt.Net.Anycast
 {
     public interface IMessageHandler
     {
-        void Process(IServerSession origin, Message message);
+        void BeginProcess(IServerSession origin, Message message, HandlerContext ctx);
+
+        void EndProcess(IServerSession origin, Message message, HandlerContext ctx);
     }
 }

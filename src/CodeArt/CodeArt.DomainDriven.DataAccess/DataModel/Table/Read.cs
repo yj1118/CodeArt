@@ -211,27 +211,43 @@ namespace CodeArt.DomainDriven.DataAccess
         private DomainObject CreateObjectImpl(Type defineType, Type objectType, DynamicData data, QueryLevel level)
         {
             DomainObject obj = null;
-            if (this.IsDynamic)
+            try
             {
-                //构造对象
-                obj = ConstructDynamicObject(objectType, this.DynamicType.Define);
+                DataContext.Current.InBuildObject = true;
+
+                if (this.IsDynamic)
+                {
+                    //构造对象
+                    obj = ConstructDynamicObject(objectType, this.DynamicType.Define);
+                }
+                else
+                {
+                    //构造对象
+                    obj = ConstructObject(objectType, data, level);
+                }
+
+                //设置代理对象
+                SetDataProxy(obj, data, level == QueryLevel.Mirroring);
+
+                //为了避免死循环，我们先将对象加入到构造上下文中
+                AddToConstructContext(obj, data);
+
+                //加载属性
+                LoadProperties(defineType, data, obj, level);
+
+                RemoveFromConstructContext(obj);
+
+                //补充信息
+                Supplement(obj, data, level);
             }
-            else
+            catch
             {
-                //构造对象
-                obj = ConstructObject(objectType, data, level);
+                throw;
             }
-
-            //为了避免死循环，我们先将对象加入到构造上下文中
-            AddToConstructContext(obj, data);
-
-            //加载属性
-            LoadProperties(defineType, data, obj, level);
-
-            RemoveFromConstructContext(obj);
-
-            //补充信息
-            Supplement(obj, data, level);
+            finally
+            {
+                DataContext.Current.InBuildObject = false;
+            }
             return obj;
         }
 
@@ -307,9 +323,6 @@ namespace CodeArt.DomainDriven.DataAccess
 
         private void Supplement(DomainObject obj, DynamicData data, QueryLevel level)
         {
-            //设置代理对象
-            SetDataProxy(obj, data, level == QueryLevel.Mirroring);
-
             var valueObject = obj as IValueObject;
             if (valueObject != null)
             {
@@ -345,7 +358,8 @@ namespace CodeArt.DomainDriven.DataAccess
                 return value;
             }
             var tip = prm.PropertyTip;
-            if (tip == null) throw new DataAccessException(Strings.ConstructionParameterNoProperty);
+            if (tip == null)
+                throw new DataAccessException(string.Format(Strings.ConstructionParameterNoProperty,this.ObjectType.FullName, prm.Name));
 
             //从属性定义中加载
             value = ReadPropertyValue(null, tip, prm.Tip, data, level); //在构造时，还没有产生对象，所以parent为 null
@@ -499,47 +513,44 @@ namespace CodeArt.DomainDriven.DataAccess
         private object ReadMemberFromData(PropertyRepositoryAttribute tip, DynamicData data)
         {
             var name = _getNameWithSeparated(tip.PropertyName);
-            using (var temp = SqlHelper.BorrowData())
+            var subData = new DynamicData(); //由于subData要参与构造，所以不从池中取
+            foreach (var p in data)
             {
-                var subData = temp.Item;
-                foreach (var p in data)
+                var dataName = p.Key;
+                if (dataName.StartsWith(name))
                 {
-                    var dataName = p.Key;
-                    if (dataName.StartsWith(name))
-                    {
-                        var subName = _getNextName(dataName);
-                        subData.Add(subName, p.Value);
-                    }
+                    var subName = _getNextName(dataName);
+                    subData.Add(subName, p.Value);
                 }
-
-                if (subData.IsEmpty())
-                {
-                    if(tip.DomainPropertyType == DomainPropertyType.AggregateRoot)
-                    {
-                        var idName = _getIdName(tip.PropertyName);
-                        var id = data.Get(idName);
-                        return ReadSnapshot(tip, id);
-                    }
-                    return DomainObject.GetEmpty(tip.PropertyType);
-                }
-                
-                
-                var typeKey = (string)subData.Get(GeneratedField.TypeKeyName);
-                Type objectType = null;
-                if(this.IsDynamic)
-                {
-                    objectType = tip.PropertyType;
-                }
-                else
-                {
-                    objectType = string.IsNullOrEmpty(typeKey) ? tip.PropertyType : DerivedClassAttribute.GetDerivedType(typeKey);
-                }
-                
-         
-                var child = GetRuntimeTable(this, tip.PropertyName, objectType);
-                //先尝试中构造上下文中得到
-                return child.GetObjectFromConstruct(subData) ?? child.CreateObject(objectType, subData, QueryLevel.None); //成员始终是QueryLevel.None的方式加载
             }
+
+            if (subData.IsEmpty())
+            {
+                if (tip.DomainPropertyType == DomainPropertyType.AggregateRoot)
+                {
+                    var idName = _getIdName(tip.PropertyName);
+                    var id = data.Get(idName);
+                    return ReadSnapshot(tip, id);
+                }
+                return DomainObject.GetEmpty(tip.PropertyType);
+            }
+
+
+            var typeKey = (string)subData.Get(GeneratedField.TypeKeyName);
+            Type objectType = null;
+            if (this.IsDynamic)
+            {
+                objectType = tip.PropertyType;
+            }
+            else
+            {
+                objectType = string.IsNullOrEmpty(typeKey) ? tip.PropertyType : DerivedClassAttribute.GetDerivedType(typeKey);
+            }
+
+
+            var child = GetRuntimeTable(this, tip.PropertyName, objectType);
+            //先尝试中构造上下文中得到
+            return child.GetObjectFromConstruct(subData) ?? child.CreateObject(objectType, subData, QueryLevel.None); //成员始终是QueryLevel.None的方式加载
         }
 
         private object ReadMemberByLazy(PropertyRepositoryAttribute tip, DynamicData data)
@@ -715,6 +726,8 @@ namespace CodeArt.DomainDriven.DataAccess
                     param.Add(GeneratedField.MasterIdName, masterId);
                 }
 
+                AddToTenant(param);
+
                 var sql = query.Build(param, this);
                 SqlHelper.Query(this.ConnectionName, sql, param, datas);
             }
@@ -737,6 +750,11 @@ namespace CodeArt.DomainDriven.DataAccess
                 if (!this.Root.IsEqualsOrDerivedOrInherited(this.Master))
                 {
                     param.Add(GeneratedField.MasterIdName, masterId);
+                }
+
+                if (this.IsEnabledMultiTenancy)
+                {
+                    param.Add(GeneratedField.TenantIdName, AppSession.TenantId);
                 }
 
                 var sql = query.Build(param, this);

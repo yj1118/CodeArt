@@ -47,13 +47,13 @@ namespace CodeArt.DTO
         /// </summary>
         /// <param name="instance"></param>
         /// <returns></returns>
-        public DTObject Load(string schemaCode, object instance,bool isPinned)
+        public DTObject Load(string schemaCode, object instance)
         {
             if (instance.IsNull()) return DTObject.Empty;
             var instanceType = instance.GetType();
             if (instanceType == typeof(DTObject)) return (DTObject)instance;
             TypeSchemaCodeInfo typeInfo = TypeSchemaCodeInfo.GetTypeInfo(instanceType, schemaCode);
-            return typeInfo.Serialize(instance, isPinned);
+            return typeInfo.Serialize(instance);
         }
 
         /// <summary>

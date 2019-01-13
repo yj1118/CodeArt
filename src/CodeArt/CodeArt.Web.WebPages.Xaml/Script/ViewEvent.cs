@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace CodeArt.Web.WebPages.Xaml.Script
 {
     /// <summary>
-    /// 视图时间
+    /// 视图事件
     /// </summary>
     public enum ViewEvent : byte
     {

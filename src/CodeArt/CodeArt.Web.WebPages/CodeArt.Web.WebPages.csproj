@@ -128,6 +128,7 @@
     <Compile Include="WebPageRouter\VirtualPathRouter\WebPageTypeLocatorFactory.cs" />
     <Compile Include="WebPageRouter\WebPageRouter.cs" />
     <Compile Include="WebPageRouter\WebPageRouterFactory.cs" />
+    <Compile Include="WebPage\CodePreprocessor\CodePreprocessorFactory.cs" />
     <Compile Include="WebPage\CodePreprocessor\ICodePreprocessor.cs" />
     <Compile Include="WebPage\CodePreprocessor\VirtualPathPreprocessor.cs" />
     <Compile Include="WebPage\Compressor\CompressorFactory.cs" />

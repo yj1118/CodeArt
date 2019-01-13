@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CodeArt.Concurrent;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,9 +30,15 @@ namespace CodeArt.Web.WebPages.Xaml
             set;
         }
 
+        public string Src
+        {
+            get;
+            set;
+        }
 
         protected string GetSrc()
         {
+            if (!string.IsNullOrEmpty(this.Src)) return this.Src;
             if (string.IsNullOrEmpty(this.Key)) throw new XamlException("没有为LinkCode设置Key");
             return GetExternal() ?? GetInternal();
         }
@@ -64,23 +71,26 @@ namespace CodeArt.Web.WebPages.Xaml
                 {
                     if(_cacheCode == null)
                     {
-                        StringBuilder code = new StringBuilder();
-                        var path = GetSrc();
-                        var version = Application.Current.AssetVersion;
-                        if (path.EndsWith(".css"))
+                        using (var temp = StringPool.Borrow())
                         {
-                            code.AppendFormat("<link rel=\"stylesheet\" type=\"text/css\" href=\"{0}?v={1}\" ", path, version);
-                            if (!string.IsNullOrEmpty(this.Media))
+                            var code = temp.Item;
+                            var path = GetSrc();
+                            var version = Application.Current.AssetVersion;
+                            if (path.EndsWith(".css"))
                             {
-                                code.AppendFormat("media=\"{0}\" ", this.Media);
+                                code.AppendFormat("<link rel=\"stylesheet\" type=\"text/css\" href=\"{0}?v={1}\" ", path, version);
+                                if (!string.IsNullOrEmpty(this.Media))
+                                {
+                                    code.AppendFormat("media=\"{0}\" ", this.Media);
+                                }
+                                code.Append("/>");
                             }
-                            code.Append("/>");
+                            else if (path.EndsWith(".js"))
+                                code.AppendFormat("<script type=\"text/javascript\" src=\"{0}?v={1}\" charset=\"utf-8\"></script>", path, version);
+                            else
+                                throw new XamlException("无法识别的附件链接" + path);
+                            _cacheCode = code.ToString();
                         }
-                        else if (path.EndsWith(".js"))
-                            code.AppendFormat("<script type=\"text/javascript\" src=\"{0}?v={1}\" charset=\"utf-8\"></script>", path, version);
-                        else
-                            throw new XamlException("无法识别的附件链接" + path);
-                        _cacheCode = code.ToString();
                     }
                 }
             }

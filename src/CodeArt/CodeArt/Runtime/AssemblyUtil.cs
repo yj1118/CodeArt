@@ -24,6 +24,18 @@ namespace CodeArt.Runtime
         }
 
         /// <summary>
+        /// 加载GAC程序集
+        /// </summary>
+        /// <param name="assemblyName"></param>
+        /// <returns></returns>
+        public static Assembly LoadGACWithNoLock(string assemblyName)
+        {
+            Assembly reflection = Assembly.ReflectionOnlyLoad(assemblyName);
+            byte[] buffer = System.IO.File.ReadAllBytes(reflection.Location);
+            return Assembly.Load(buffer);
+        }
+
+        /// <summary>
         /// 遍历当前加载的所有程序集
         /// </summary>
         /// <param name="action">请保证action的线程安全</param>
@@ -101,19 +113,19 @@ namespace CodeArt.Runtime
             var appDirectory = AppDomain.CurrentDomain.BaseDirectory;
             var dlls = Directory.EnumerateFiles(appDirectory, "*.dll", SearchOption.AllDirectories)
                         .Union(Directory.EnumerateFiles(appDirectory, "*.exe", SearchOption.AllDirectories)); //类似控制台程序的exe里也需要加载分析
-            //
+
             foreach (var fileName in dlls)
             {
                 try
                 {
-                    Assembly.LoadFrom(fileName);
+                    var assembly = Assembly.LoadFrom(fileName);
                     //var assembly = Assembly.LoadFrom(fileName);//不能使用LoadFile，会重复加载程序集，造成BUG,  LoadFrom不会重复加载
                     //if (!IsAnonymouslyHosted(assembly))
                     //{
                     //    assemblies.Add(assembly);
                     //}
                 }
-                catch
+                catch(Exception)
                 {
                     //有可能是非.NET程序集，会加载错误，此处忽略掉
                 }
@@ -221,6 +233,42 @@ namespace CodeArt.Runtime
             return implementTypes;
         }
 
+        public static string GetFileName(this Assembly assembly)
+        {
+            var codeBase = assembly.CodeBase;
+            var fileName = codeBase.Substring("file:///".Length);
+            fileName = fileName.Replace("/","\\");
+            if(fileName.EndsWith(".DLL"))
+            {
+                fileName = fileName.Substring(0, fileName.Length - ".DLL".Length);
+                fileName = string.Format("{0}.dll", fileName);
+            }
+            return fileName;
+        }
+
+        /// <summary>
+        /// 获取程序集中，实现了执行接口类型<paramref name="interfaceType"/>的所有类型
+        /// </summary>
+        /// <param name="assembly"></param>
+        /// <param name="interfaceType"></param>
+        /// <returns></returns>
+        public static IEnumerable<Type> GetImplementTypes(this Assembly assembly, Type interfaceType)
+        {
+            var implementTypes = new List<Type>();
+            var types = GetTypes(assembly);
+            Parallel.ForEach(types, (type) =>
+            {
+                if (type.ImplementInterface(interfaceType))
+                {
+                    lock (implementTypes)
+                    {
+                        implementTypes.Add(type);
+                    }
+                }
+            });
+            return implementTypes;
+        }
+
         /// <summary>
         /// 获取当前应用程序域中，实现了<param name="interfaceType"/>接口的类型(第一个)
         /// </summary>
@@ -250,14 +298,16 @@ namespace CodeArt.Runtime
             {
                 types = assembly.GetTypes();
             }
-            catch (ReflectionTypeLoadException ex)
+            catch (ReflectionTypeLoadException)
             {
-                var loadEx = (ReflectionTypeLoadException)ex;
-                throw new Exception(loadEx.GetCompleteMessage());
+                //var loadEx = (ReflectionTypeLoadException)ex;
+                //throw new Exception(loadEx.GetCompleteMessage());
+                types = Array.Empty<Type>(); //如果程序集无法获取类型，那么返回空数组
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                //throw ex;
+                types = Array.Empty<Type>();  //如果程序集无法获取类型，那么返回空数组
             }
             return types;
         }

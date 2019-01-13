@@ -22,6 +22,21 @@ namespace Module.QuestionAnswer
     [TemplateCode("ItemTemplate", "Module.QuestionAnswer.Question.html,Module.QuestionAnswer")]
     public class Paper : ItemsControl
     {
+        public static readonly DependencyProperty RenderQuestionProperty = DependencyProperty.Register<bool, Paper>("RenderQuestion", () => { return false; });
+
+        public bool RenderQuestion
+        {
+            get
+            {
+                return (bool)GetValue(RenderQuestionProperty);
+            }
+            set
+            {
+                SetValue(RenderQuestionProperty, value);
+            }
+        }
+
+
         public static readonly DependencyProperty DisabledProperty = DependencyProperty.Register<string, Paper>("Disabled", () => { return "false"; });
 
         public string Disabled
@@ -108,7 +123,10 @@ namespace Module.QuestionAnswer
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
-            this.PreRender += OnPreRender;
+            if(this.RenderQuestion)
+            {
+                this.PreRender += OnPreRender;
+            }
         }
 
         private void OnPreRender(object sender, object e)
@@ -126,33 +144,27 @@ namespace Module.QuestionAnswer
             int index = 0;
             string disable = this.Disabled;
 
-            try
+            data.Each("questions", (question) =>
             {
-                data.Each("questions", (question) =>
+                index++;
+                var type = question.GetValue<string>("type");
+                var id = question.GetValue<string>("id");
+                var content = question.GetValue<string>("content");
+                var required = question.GetValue<bool>("required");
+                Question item = new Question() { Type = type, Disabled = disable, Text = string.Format("{0}.{1}", index, content), Value = id,Required = required };
+                if (type != "3")
                 {
-                    index++;
-                    var type = question.GetValue<string>("type");
-                    var id = question.GetValue<string>("id");
-                    var content = question.GetValue<string>("content");
-                    Question item = new Question() { Type = type, Disabled = disable, Text = string.Format("{0}.{1}", index, content), Value = id };
-                    if (type != "3")
+                    //不是问答题
+                    question.Each("options", (t) =>
                     {
-                        //不是问答题
-                        question.Each("options", (t) =>
-                        {
-                            var value = t.GetValue<string>("id");
-                            var text = t.GetValue<string>("content");
-                            var option = new Option() { Text = text, Value = value };
-                            item.Options.Add(option);
-                        });
-                    }
-                    this.Items.Add(item);
-                });
-            }
-            catch (Exception ex)
-            {
-
-            }
+                        var value = t.GetValue<string>("id");
+                        var text = t.GetValue<string>("content");
+                        var option = new Option() { Text = text, Value = value };
+                        item.Options.Add(option);
+                    });
+                }
+                this.Items.Add(item);
+            });
         }
 
 
@@ -170,25 +182,74 @@ namespace Module.QuestionAnswer
         private IScriptView Load(ScriptView view)
         {
             var sender = view.GetSender<PaperSE>();
-            var code = string.Format("<!DOCTYPE xaml><qa:Paper xmlns:qa=\"http://schemas.codeart.cn/web/xaml/qa\" metadataId=\"{0}\" disabled=\"{1}\" />", sender.PaperMetadataId, this.Disabled);
-            var data = _getPaperCode.Get(code);
+
+            //var paperMetadataId = sender.PaperMetadataId;
+            //var paperMetadataMarkedCode = sender.PaperMetadataMarkedCode;
+            //var disabled = this.Disabled;
+
+            //for(var i=0;i<100;i++)
+            //{
+            //    try
+            //    {
+            //        var temp = paperMetadataId != null ? GetPaperByMetadataId(paperMetadataId, disabled)
+            //                                 : GetPaperByMetadataMarkedCode(paperMetadataMarkedCode, disabled);
+            //    }
+            //    catch(Exception ex)
+            //    {
+
+            //    }
+            //}
+
+            var data = sender.PaperMetadataId != null ? GetPaperByMetadataId(sender.PaperMetadataId, this.Disabled)
+                                                     : GetPaperByMetadataMarkedCode(sender.PaperMetadataMarkedCode, this.Disabled);
             return new DataView(data);
         }
 
-        private static LazyIndexer<string, DTObject> _getPaperCode = new LazyIndexer<string, DTObject>((paperCode) =>
+
+        private static LazyIndexer<string, Func<string, DTObject>> _getPaperByMetadataId = new LazyIndexer<string, Func<string, DTObject>>((metadataId) =>
         {
+            return LazyIndexer.Init<string, DTObject>((disabled) =>
+            {
+                return GetPaperByMetadataId(metadataId, disabled);
+            });
+        });
+
+        private static DTObject GetPaperByMetadataId(string metadataId,string disabled)
+        {
+            var paperCode = string.Format("<!DOCTYPE xaml><qa:Paper xmlns:qa=\"http://schemas.codeart.cn/web/xaml/qa\"  metadataId=\"{0}\" disabled=\"{1}\" renderQuestion=\"true\" />", metadataId, disabled);
             var data = DTObject.Create();
-            var code = XamlUtil.GetCode(paperCode);
+            var code = XamlUtil.GetCode(paperCode, true);
             data.SetValue("code", code);
             return data.AsReadOnly();
+        }
+
+
+        private static LazyIndexer<string, Func<string, DTObject>> _getPaperByMetadataMarkedCode = new LazyIndexer<string, Func<string, DTObject>>((metadataMarkedCode) =>
+        {
+            return LazyIndexer.Init<string, DTObject>((disabled) =>
+            {
+                return GetPaperByMetadataMarkedCode(metadataMarkedCode, disabled);
+            });
         });
+
+        private static DTObject GetPaperByMetadataMarkedCode(string metadataMarkedCode, string disabled)
+        {
+            var paperCode = string.Format("<!DOCTYPE xaml><qa:Paper xmlns:qa=\"http://schemas.codeart.cn/web/xaml/qa\"  metadata=\"{0}\" disabled=\"{1}\" renderQuestion=\"true\" />", metadataMarkedCode, disabled);
+            var data = DTObject.Create();
+            var code = XamlUtil.GetCode(paperCode, true);
+            data.SetValue("code", code);
+            return data.AsReadOnly();
+        }
 
         /// <summary>
         /// 清空试卷原型的缓存
         /// </summary>
         public static void ClearMetadata()
         {
-            _getPaperCode.Clear();
+            _getPaperByMetadataId.Clear();
+            _getPaperByMetadataMarkedCode.Clear();
+
+            PaperReader.ClearMetadata();
         }
 
 

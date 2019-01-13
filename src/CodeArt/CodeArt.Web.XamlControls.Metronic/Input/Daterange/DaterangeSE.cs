@@ -20,7 +20,7 @@ namespace CodeArt.Web.XamlControls.Metronic
 
         public void Set(System.DateTime start, System.DateTime end)
         {
-            DTObject value = DTObject.CreateReusable();
+            DTObject value = DTObject.Create();
             value.SetValue("start", start);
             value.SetValue("end", end);
             this.View.WriteCode(string.Format("{0}.proxy().set({1});",this.Id, value.GetCode(false, false)));

@@ -124,7 +124,7 @@
     <value>The data for the {0} construct parameter {1} was not found,Please consider whether you need a custom load method</value>
   </data>
   <data name="ConstructionParameterNoProperty" xml:space="preserve">
-    <value>Did not find the attribute definition corresponding to the constructor {0}. Please check whether the property has been marked PropertyRepositoryAttribute or how the custom constructor is loaded</value>
+    <value>Did not find the attribute {1} definition corresponding to the constructor {0}. Please check whether the property has been marked PropertyRepositoryAttribute or how the custom constructor is loaded</value>
   </data>
   <data name="CreateChildTable" xml:space="preserve">
     <value>CreateChildTable error,master {0},FieldType {1},objectType{2}</value>
