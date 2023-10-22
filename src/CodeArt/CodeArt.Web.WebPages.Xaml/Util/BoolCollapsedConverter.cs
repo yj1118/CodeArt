@@ -14,6 +14,7 @@ namespace CodeArt.Web.WebPages.Xaml
 
         public object Convert(object value, object parameter)
         {
+            if (value == null) value = false;
             var show = (bool)value;
             if (parameter != null)
             {

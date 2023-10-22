@@ -19,7 +19,8 @@ D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.TestTools.DomainDriven\b
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.TestTools.DomainDriven\bin\Release\zh-CN\CodeArt.TestTools.resources.dll
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.TestTools.DomainDriven\bin\Release\zh-CN\CodeArt.resources.dll
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.TestTools.DomainDriven\bin\Release\zh-CN\CodeArt.EasyMQ.resources.dll
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.TestTools.DomainDriven\obj\Release\CodeArt.TestTools.DomainDriven.csprojResolveAssemblyReference.cache
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.TestTools.DomainDriven\obj\Release\CodeArt.TestTools.DomainDriven.csprojAssemblyReference.cache
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.TestTools.DomainDriven\obj\Release\CodeArt.TestTools.DomainDriven.csproj.CoreCompileInputs.cache
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.TestTools.DomainDriven\obj\Release\CodeArt.TestTools.DomainDriven.csproj.CopyComplete
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.TestTools.DomainDriven\obj\Release\CodeArt.TestTools.DomainDriven.dll
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.TestTools.DomainDriven\obj\Release\CodeArt.TestTools.DomainDriven.pdb

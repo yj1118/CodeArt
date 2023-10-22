@@ -33,7 +33,7 @@ namespace CodeArt.DomainDriven.DataAccess
             private set;
         }
 
-        public DataProxyPro(DynamicData originalData, DataTable table,bool isMirror)
+        public DataProxyPro(DynamicData originalData, DataTable table, bool isMirror)
         {
             this.OriginalData = originalData;
             this.Table = table;
@@ -43,7 +43,6 @@ namespace CodeArt.DomainDriven.DataAccess
         protected override object LoadData(DomainProperty property)
         {
             var tip = property.RepositoryTip;
-            //if (tip != null && tip.Lazy)
             if (tip != null)
             {
                 var level = IsLoadByMirroring() ? QueryLevel.Mirroring : QueryLevel.None;
@@ -59,6 +58,7 @@ namespace CodeArt.DomainDriven.DataAccess
         /// <returns></returns>
         private bool IsLoadByMirroring()
         {
+            if (!DataContext.ExistCurrent()) return false;
             var context = DataContext.Current;
             return !context.IsCommiting && this.Owner.IsMirror;
         }
@@ -68,6 +68,7 @@ namespace CodeArt.DomainDriven.DataAccess
             get
             {
                 if (this.IsFromSnapshot) return true;
+                if (this.Table.IsDynamic && this.OriginalData.ContainsKey(DataTable.Snapshot) && (bool)this.OriginalData.Get(DataTable.Snapshot)) return true;
                 //通过对比数据版本号判定数据是否为快照
                 var current = this.Version;
                 var latest = this.Table.GetDataVersion(this.OriginalData);
@@ -93,7 +94,7 @@ namespace CodeArt.DomainDriven.DataAccess
                 return this.Table.IsSnapshot;
             }
         }
-
+        
         public override int Version
         {
             get

@@ -10,8 +10,9 @@ namespace CodeArt.Web.WebPages
 {
     public class ForeverClientCache : ClientCacheBase
     {
-        public override bool IsExpired(WebPageContext context)
+        public override bool IsExpired(ResolveRequestCache controller)
         {
+            var context = controller.Context;
             string modified =null;
             if (TryGetModified(context.Request, out modified))
             {
@@ -21,8 +22,9 @@ namespace CodeArt.Web.WebPages
             return true;
         }
 
-        public override void SetCache(WebPageContext context)
+        public override void SetCache(ResolveRequestCache controller)
         {
+            var context = controller.Context;
             SetClientCache(context.Response, 525600);
         }
 

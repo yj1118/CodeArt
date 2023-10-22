@@ -159,13 +159,6 @@ namespace CodeArt.HtmlWrapper
             return elems;
         }
 
-        public static void RemoveSelf(this HtmlNode node)
-        {
-            if (node.ParentNode == null)
-                throw new InvalidOperationException("RemoveSelf方法对 html文档的根节点无效");
-            node.ParentNode.ChildNodes.Remove(node);
-        }
-
         public static void InsertAfter(this HtmlNode node, HtmlNode newNode)
         {
             node.ParentNode.InsertAfter(newNode, node);

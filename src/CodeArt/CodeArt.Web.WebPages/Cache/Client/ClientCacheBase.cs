@@ -12,9 +12,9 @@ namespace CodeArt.Web.WebPages
     /// </summary>
     public abstract class ClientCacheBase : IClientCache
     {
-        public abstract bool IsExpired(WebPageContext context);
+        public abstract bool IsExpired(ResolveRequestCache controller);
 
-        public abstract void SetCache(WebPageContext context);
+        public abstract void SetCache(ResolveRequestCache controller);
 
         protected bool TryGetModified(HttpRequest request,out string modified)
         {

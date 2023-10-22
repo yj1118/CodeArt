@@ -59,7 +59,6 @@ namespace CodeArt.Web.WebPages.Xaml.Controls
             }
             else
             {
-                
                 foreach(UIElement item in items)
                 {
                     if (item == null) continue;

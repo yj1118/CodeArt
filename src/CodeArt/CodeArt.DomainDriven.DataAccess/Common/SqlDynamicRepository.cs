@@ -67,6 +67,21 @@ namespace CodeArt.DomainDriven.DataAccess
             throw new NotImplementedException("SqlDynamicRepository.Find(object id, QueryLevel level)");
         }
 
+        public void Add(IAggregateRoot obj)
+        {
+            throw new NotImplementedException("SqlDynamicRepository.Add(IAggregateRoot obj)");
+        }
+
+        public void Update(IAggregateRoot obj)
+        {
+            throw new NotImplementedException("SqlDynamicRepository.Update(IAggregateRoot obj)");
+        }
+
+        public void Delete(IAggregateRoot obj)
+        {
+            throw new NotImplementedException("SqlDynamicRepository.Delete(IAggregateRoot obj)");
+        }
+
         public static readonly SqlDynamicRepository Instance = new SqlDynamicRepository();
     }
 }

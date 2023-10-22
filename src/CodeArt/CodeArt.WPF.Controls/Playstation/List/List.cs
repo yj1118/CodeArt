@@ -465,7 +465,6 @@ namespace CodeArt.WPF.Controls.Playstation
 
             var targetPageIndex = lastPageIndex - pageIndex;
 
-
             var startIndex = (targetPageIndex -1) * _pageSize;
             var count = startIndex + _pageSize;
 
@@ -493,7 +492,7 @@ namespace CodeArt.WPF.Controls.Playstation
             int pageIndex = 0;
             if (existItems.Count > 0)
             {
-                var lastItem = existItems[existItems.GetCount() - 1] as VirtualizableItem;
+                var lastItem = existItems.Last();
                 var lastIndex = lastItem.Index + 1;
                 pageIndex = lastIndex / _pageSize;
                 if (lastIndex % _pageSize > 0) pageIndex++;
@@ -562,5 +561,56 @@ namespace CodeArt.WPF.Controls.Playstation
             _pageSize = (int)(_scrollViewer.ViewportHeight / _averageItemHeight) + 1;//加1的原因是有可能可以容纳2.5个，这时候2个就不够，需要加载3个
             LoadNextPage();
         }
+
+        /// <summary>
+        /// 刷新列表，会以pageIndex来刷新
+        /// </summary>
+        public void Load(int pageIndex)
+        {
+            if (_pageSize == 0) return;
+            if (this.ItemsSource == null) InitItemsSource();
+
+            var items = _getItems(pageIndex, _pageSize);
+            if (items == null || items.Count() == 0) return;
+
+            var existItems = this.ItemsSource as ObservableCollection<VirtualizableItem>;
+            existItems.Clear();
+
+            foreach (var item in items)
+            {
+                existItems.Add(item);
+            }
+
+            if (pageIndex == 0)
+                _scrollViewer.ScrollToTop();
+        }
+
+        /// <summary>
+        /// 当前页码，从0开始
+        /// </summary>
+        public (int Min, int Max) PageRange
+        {
+            get
+            {
+                var existItems = this.ItemsSource as ObservableCollection<VirtualizableItem>;
+                if (existItems != null && existItems.Count > 0)
+                {
+                    var firstItem = existItems.First();
+                    var firstIndex = firstItem.Index;
+                    var min = firstIndex / _pageSize;
+
+                    var lastItem = existItems.Last();
+                    var lastIndex = lastItem.Index;
+                    var max = lastIndex / _pageSize;
+
+                    return (min, max);
+                }
+
+                return (0, 0);
+            }
+
+
+        }
+
     }
 }

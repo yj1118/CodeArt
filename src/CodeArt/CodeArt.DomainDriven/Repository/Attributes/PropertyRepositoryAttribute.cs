@@ -152,6 +152,15 @@ namespace CodeArt.DomainDriven
         }
 
         /// <summary>
+        /// 指示属性发生变化时，是否记录日志
+        /// </summary>
+        public bool Log
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// 是否为Emptyable类型
         /// </summary>
         public bool IsEmptyable

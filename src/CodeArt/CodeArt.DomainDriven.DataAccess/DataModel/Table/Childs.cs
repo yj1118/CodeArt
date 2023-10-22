@@ -11,6 +11,7 @@ using System.Collections;
 using CodeArt.DomainDriven;
 using CodeArt.Runtime;
 using CodeArt.Util;
+using System.Xml.Linq;
 
 namespace CodeArt.DomainDriven.DataAccess
 {
@@ -74,6 +75,7 @@ namespace CodeArt.DomainDriven.DataAccess
                     type = field.Tip.GetElementType();
                 if (field.FieldType == DataFieldType.GeneratedField
                     || field.FieldType == DataFieldType.Value) continue;
+
                 var table = CreateChildTable(this, field, type);
                 _buildtimeChilds.Add(table);
             }
@@ -234,7 +236,6 @@ namespace CodeArt.DomainDriven.DataAccess
             //table.Master = master;
             //table.MemberField = memberField;
             //return table;
-
             var mapper = DataMapperFactory.Create(objectType);
             var objectFields = mapper.GetObjectFields(objectType, master.IsSnapshot);
             var table = Create(root, master, objectType, master.IsSnapshot, DataTableType.AggregateRoot, objectFields, memberField);

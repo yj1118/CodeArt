@@ -126,6 +126,11 @@ namespace CodeArt.DTO
             return _dto.GetValue<Guid>(name);
         }
 
+        public decimal? ReadNullableDecimal(string name)
+        {
+            if (!_dto.Exist(name)) return null;
+            return _dto.GetValue<decimal>(name);
+        }
 
         /// <summary>
         /// 读取数组长度

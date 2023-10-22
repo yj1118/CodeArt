@@ -16,22 +16,22 @@ namespace CodeArt.DomainDriven
 {
     public class DataContext : IDataContext, IDisposable
     {
-        /// <summary>
-        /// 打开数据上文的次数
-        /// <para>
-        /// 使用此计数,可以嵌套使用数据上下文
-        /// </para>
-        /// </summary>
-        internal int OpenTimes
-        {
-            get;
-            private set;
-        }
+        ///// <summary>
+        ///// 打开数据上文的次数
+        ///// <para>
+        ///// 使用此计数,可以嵌套使用数据上下文
+        ///// </para>
+        ///// </summary>
+        //internal int OpenTimes
+        //{
+        //    get;
+        //    private set;
+        //}
 
         private DataContext()
         {
-            this.OpenTimes = 0;
-            this.RequiresNew = false;
+            //this.OpenTimes = 0;
+            //this.RequiresNew = false;
             InitializeTransaction();
             InitializeSchedule();
             InitializeRollback();
@@ -40,14 +40,14 @@ namespace CodeArt.DomainDriven
             InitializeItems();
         }
 
-        /// <summary>
-        /// 是否新开独立的事务
-        /// </summary>
-        public bool RequiresNew
-        {
-            get;
-            internal set;
-        }
+        ///// <summary>
+        ///// 是否新开独立的事务
+        ///// </summary>
+        //public bool RequiresNew
+        //{
+        //    get;
+        //    internal set;
+        //}
 
         #region 镜像
 
@@ -250,15 +250,22 @@ namespace CodeArt.DomainDriven
             if (this._transactionStatus == TransactionStatus.None)
             {
                 //没有开启事务，立即执行
-                using (ITransactionManager manager = GetTransactionManager())
-                {
-                    manager.Begin();
-                    ExecuteAction(action);
-                    //提交事务
-                    RaisePreCommit(action);
-                    manager.Commit();
-                    RaiseCommitted(action);
-                }
+                _conn.Begin();
+
+                ExecuteAction(action);
+                RaisePreCommit(action);
+
+                _conn.Commit();
+                RaiseCommitted(action);
+                //using (ITransactionManager manager = GetTransactionManager())
+                //{
+                //    manager.Begin();
+                //    ExecuteAction(action);
+                //    //提交事务
+                //    RaisePreCommit(action);
+                //    manager.Commit();
+                //    RaiseCommitted(action);
+                //}
                 return;
             }
         }
@@ -269,18 +276,24 @@ namespace CodeArt.DomainDriven
             {
                 case ScheduledActionType.Create:
                     action.Target.OnAddPreCommit();
-                    StatusEvent.Execute(StatusEventType.AddPreCommit, action.Target);
+                    StatusEventExecute(StatusEventType.AddPreCommit, action.Target);
                     break;
                 case ScheduledActionType.Update:
                     action.Target.OnUpdatePreCommit();
-                    StatusEvent.Execute(StatusEventType.UpdatePreCommit, action.Target);
+                    StatusEventExecute(StatusEventType.UpdatePreCommit, action.Target);
                     break;
                 case ScheduledActionType.Delete:
                     action.Target.OnDeletePreCommit();
-                    StatusEvent.Execute(StatusEventType.DeletePreCommit, action.Target);
+                    StatusEventExecute(StatusEventType.DeletePreCommit, action.Target);
                     break;
             }
         }
+
+        private void StatusEventExecute(StatusEventType type, IAggregateRoot target)
+        {
+            StatusEvent.Execute((target as DomainObject).ObjectType, type, target);
+        }
+
 
         private void RaiseCommitted(ScheduledAction action)
         {
@@ -288,15 +301,18 @@ namespace CodeArt.DomainDriven
             {
                 case ScheduledActionType.Create:
                     action.Target.OnAddCommitted();
-                    StatusEvent.Execute(StatusEventType.AddCommitted, action.Target);
+                    action.Repository.OnAddCommited(action.Target);
+                    StatusEventExecute(StatusEventType.AddCommitted, action.Target);
                     break;
                 case ScheduledActionType.Update:
                     action.Target.OnUpdateCommitted();
-                    StatusEvent.Execute(StatusEventType.UpdateCommitted, action.Target);
+                    action.Repository.OnUpdateCommited(action.Target);
+                    StatusEventExecute(StatusEventType.UpdateCommitted, action.Target);
                     break;
                 case ScheduledActionType.Delete:
                     action.Target.OnDeleteCommitted();
-                    StatusEvent.Execute(StatusEventType.DeleteCommitted, action.Target);
+                    action.Repository.OnDeleteCommited(action.Target);
+                    StatusEventExecute(StatusEventType.DeleteCommitted, action.Target);
                     break;
             }
         }
@@ -370,7 +386,9 @@ namespace CodeArt.DomainDriven
 
         private TransactionStatus _transactionStatus;
         private int _transactionCount;
-        private ITransactionManager _timelyManager;
+        //private ITransactionManager _transaction;
+        private DataConnection _conn;
+
         /// <summary>
         /// 是否正在执行提交操作
         /// </summary>
@@ -380,26 +398,38 @@ namespace CodeArt.DomainDriven
             private set;
         }
 
+        public DataConnection Connection
+        {
+            get
+            {
+                return _conn;
+            }
+        }
 
 
         private void InitializeTransaction()
         {
             _transactionStatus = TransactionStatus.None;
             _transactionCount = 0;
-            _timelyManager = null;
+            //_transaction = null;
             IsCommiting = false;
+            _conn = new DataConnection();
         }
 
         private void DisposeTransaction()
         {
             _transactionStatus = TransactionStatus.None;
             _transactionCount = 0;
-            if (_timelyManager != null)
-            {
-                _timelyManager.Dispose();
-                _timelyManager = null;
-            }
+            //if (_transaction != null)
+            //{
+            //    _transaction.Dispose();
+            //    _transaction = null;
+            //}
             IsCommiting = false;
+            if(_conn!=null)
+            {
+                _conn.Dispose();
+            }
         }
 
         public bool InTransaction
@@ -423,8 +453,10 @@ namespace CodeArt.DomainDriven
                 //开启即时事务
                 this._transactionStatus = TransactionStatus.Timely;
 
-                _timelyManager = GetTransactionManager();
-                _timelyManager.Begin();
+                _conn.Begin();
+
+                //_transaction = GetTransactionManager();
+                //_transaction.Begin();
 
                 if (!IsCommiting)
                 {
@@ -434,11 +466,11 @@ namespace CodeArt.DomainDriven
             }
         }
 
-        private static ITransactionManager GetTransactionManager()
-        {
-            var factory = TransactionManagerFactory.CreateFactory();
-            return factory.CreateManager();
-        }
+        //private static ITransactionManager GetTransactionManager()
+        //{
+        //    var factory = TransactionManagerFactory.CreateFactory();
+        //    return factory.CreateManager();
+        //}
 
         /// <summary>
         /// 开启事务BeginTransaction和提交事务Commit必须成对出现
@@ -446,12 +478,15 @@ namespace CodeArt.DomainDriven
         public void BeginTransaction()
         {
             if (this.InTransaction)
+            {
                 _transactionCount++;
+            }
             else
             {
                 _transactionStatus = TransactionStatus.Delay;
                 _actions.Clear();
                 _transactionCount++;
+                _conn.Initialize();
             }
         }
 
@@ -467,6 +502,13 @@ namespace CodeArt.DomainDriven
                     if (IsCommiting)
                         throw new RepeatedCommitException(Strings.TransactionRepeatedCommit);
 
+                    //if (IsCommiting)
+                    //{
+                    //    已在提交阶段，此处不用提交，留待上一个提交
+                    //    代码能进入这里，说明在提交阶段，又有新的提交加入，那么这个新的提交就不用提交了，而是留给主线去提交
+                    //    return;
+                    //}
+
                     IsCommiting = true;
 
                     try
@@ -474,28 +516,35 @@ namespace CodeArt.DomainDriven
                         if (_transactionStatus == TransactionStatus.Delay)
                         {
                             _transactionStatus = TransactionStatus.Timely; //开启即时事务
-                            using (ITransactionManager manager = GetTransactionManager())
-                            {
-                                manager.Begin();
-                                ExecuteActionQueue();
-                                RaisePreCommitQueue();
 
-                                manager.Commit();
+                            _conn.Begin();
+                            ExecuteActionQueue();
+                            RaisePreCommitQueue();
+                            _conn.Commit();
 
-                                RaiseCommittedQueue();
-                            }
+                            RaiseCommittedQueue();
+                            //using (ITransactionManager manager = GetTransactionManager())
+                            //{
+                            //    manager.Begin();
+                            //    ExecuteActionQueue();
+                            //    RaisePreCommitQueue();
+
+                            //    manager.Commit();
+
+                            //    RaiseCommittedQueue();
+                            //}
                         }
                         else if (_transactionStatus == TransactionStatus.Timely)
                         {
                             ExecuteActionQueue();
                             RaisePreCommitQueue();
 
-                            _timelyManager.Commit();
+                            _conn.Commit();
 
                             RaiseCommittedQueue();
                         }
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         throw;
                     }
@@ -552,7 +601,7 @@ namespace CodeArt.DomainDriven
         /// </summary>
         internal void Clear()
         {
-            this.RequiresNew = false;
+            //this.RequiresNew = false;
             _inBuildObjectCount = 0;
             DisposeSchedule();
             DisposeRollback();
@@ -684,14 +733,19 @@ namespace CodeArt.DomainDriven
         {
             get
             {
-                var dataContext = AppSession.GetOrAddItem<DataContext>(
-                    _sessionKey,
-                    () =>
-                    {
-                        return Symbiosis.TryMark<DataContext>(_pool, () => { return new DataContext(); });
-                    });
-                if (dataContext == null) throw new InvalidOperationException("DataContext.Current为null,无法使用仓储对象");
+                var dataContext = AppSession.GetItem<DataContext>(_sessionKey);
+                if (dataContext == null)
+                    throw new InvalidOperationException("DataContext.Current为null,无法使用仓储对象");
                 return dataContext;
+
+                //var dataContext = AppSession.GetOrAddItem<DataContext>(
+                //    _sessionKey,
+                //    () =>
+                //    {
+                //        return Symbiosis.TryMark<DataContext>(_pool, () => { return new DataContext(); });
+                //    });
+                //if (dataContext == null) throw new InvalidOperationException("DataContext.Current为null,无法使用仓储对象");
+                //return dataContext;
             }
             internal set
             {
@@ -699,7 +753,7 @@ namespace CodeArt.DomainDriven
             }
         }
 
-        private static bool ExistCurrent()
+        public static bool ExistCurrent()
         {
             return AppSession.GetItem<DataContext>(_sessionKey) != null;
         }
@@ -744,23 +798,37 @@ namespace CodeArt.DomainDriven
             option.IsolationLevel = IsolationLevel.ReadUncommitted;
             using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew, option))
             {
-                action();
+                //注意，这里用DataContext.NewScope修复了一个BUG
+                //当使用UseTransactionScope时，有可能已经有DataContext.Current了
+                //这时候的调用，DataContext必须也新建一个上下文，否则独立事务就无效了
+                DataContext.NewScope(() =>
+                {
+                    action();
+                });
                 scope.Complete();
             }
         }
 
         #endregion
 
-        private static void Using(DataContext dataContext, Action action, bool timely, bool newScope)
+        private static void Using(DataContext dataContext, Action<DataConnection> action, bool timely)
         {
-            if (newScope) dataContext.RequiresNew = newScope;
             try
             {
-                dataContext.BeginTransaction();
-                if (timely) dataContext.OpenTimelyMode();
+                bool isCommiting = dataContext.IsCommiting;
+                if (isCommiting)
+                {
+                    //事务上下文已进入提交阶段，那么不必重复开启事务
+                    action(dataContext.Connection);
+                }
+                else
+                {
+                    dataContext.BeginTransaction();
+                    if (timely) dataContext.OpenTimelyMode();
 
-                action();
-                dataContext.Commit();
+                    action(dataContext.Connection);
+                    dataContext.Commit();
+                }
             }
             catch (Exception)
             {
@@ -774,8 +842,47 @@ namespace CodeArt.DomainDriven
 
         public static void Using(Action action, bool timely = false)
         {
-            var dataContext = DataContext.Current;
-            Using(dataContext, action, timely, false);
+            Using((conn) =>
+            {
+                action();
+            }, timely);
+        }
+
+        public static void Using(Action<DataConnection> action, bool timely = false)
+        {
+            if (DataContext.ExistCurrent())
+            {
+                var dataContext = DataContext.Current;
+                Using(dataContext, action, timely);
+            }
+            else
+            {
+                using (var temp = _pool.Borrow())
+                {
+                    var dataContext = temp.Item;
+                    DataContext.Current = dataContext;
+                    try
+                    {
+                        Using(dataContext, action, timely);
+                    }
+                    catch(Exception)
+                    {
+                        throw;
+                    }
+                    finally
+                    {
+                        DataContext.Current = null; //执行完后，释放
+                    }
+                }
+            }
+        }
+
+        public static void NewScope(Action action)
+        {
+            NewScope((conn) =>
+            {
+                action();
+            });
         }
 
         /// <summary>
@@ -783,7 +890,7 @@ namespace CodeArt.DomainDriven
         /// </summary>
         /// <param name="action"></param>
         /// <param name="timely"></param>
-        internal static void NewScope(Action action, bool timely = false)
+        public static void NewScope(Action<DataConnection> action)
         {
             DataContext prev = null;
             if (DataContext.ExistCurrent())
@@ -797,7 +904,7 @@ namespace CodeArt.DomainDriven
                 {
                     var dataContext = temp.Item;
                     DataContext.Current = dataContext;
-                    Using(dataContext, action, timely, true);
+                    Using(dataContext, action, true);
                 }
             }
             catch (Exception)
@@ -809,6 +916,10 @@ namespace CodeArt.DomainDriven
                 if (prev != null)
                 {
                     DataContext.Current = prev; //还原当前数据上下文
+                }
+                else
+                {
+                    DataContext.Current = null;
                 }
             }
         }

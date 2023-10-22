@@ -135,6 +135,12 @@ namespace CodeArt.DomainDriven
             }
         }
 
+        //清空所有缓冲对象
+        public void Clear()
+        {
+            _buffer.Clear();
+        }
+
         #endregion
 
         #region 获取key

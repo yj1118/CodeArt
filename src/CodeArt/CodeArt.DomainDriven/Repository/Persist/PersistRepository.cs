@@ -74,6 +74,24 @@ namespace CodeArt.DomainDriven
         }
 
 
+
+
+        public virtual void OnAddCommited(IAggregateRoot obj)
+        {
+
+        }
+
+        public virtual void OnUpdateCommited(IAggregateRoot obj)
+        {
+
+        }
+
+        public virtual void OnDeleteCommited(IAggregateRoot obj)
+        {
+
+        }
+
+
         #endregion
 
 

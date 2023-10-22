@@ -1,30 +1,60 @@
-D:\Workspace\Projects\CodeArt Framework\CodeArt\ServiceModelMQTestClient\bin\Debug\NLog.config
-D:\Workspace\Projects\CodeArt Framework\CodeArt\ServiceModelMQTestClient\bin\Debug\ServiceModelMQTestClient.exe.config
-D:\Workspace\Projects\CodeArt Framework\CodeArt\ServiceModelMQTestClient\bin\Debug\ServiceModelMQTestClient.exe
-D:\Workspace\Projects\CodeArt Framework\CodeArt\ServiceModelMQTestClient\bin\Debug\ServiceModelMQTestClient.pdb
-D:\Workspace\Projects\CodeArt Framework\CodeArt\ServiceModelMQTestClient\bin\Debug\CodeArt.dll
-D:\Workspace\Projects\CodeArt Framework\CodeArt\ServiceModelMQTestClient\bin\Debug\CodeArt.EasyMQ.dll
-D:\Workspace\Projects\CodeArt Framework\CodeArt\ServiceModelMQTestClient\bin\Debug\CodeArt.RabbitMQ.dll
-D:\Workspace\Projects\CodeArt Framework\CodeArt\ServiceModelMQTestClient\bin\Debug\CodeArt.ServiceModel.dll
-D:\Workspace\Projects\CodeArt Framework\CodeArt\ServiceModelMQTestClient\bin\Debug\CodeArt.ServiceModel.MQ.dll
-D:\Workspace\Projects\CodeArt Framework\CodeArt\ServiceModelMQTestClient\bin\Debug\RabbitMQ.Client.dll
-D:\Workspace\Projects\CodeArt Framework\CodeArt\ServiceModelMQTestClient\bin\Debug\NLog.dll
-D:\Workspace\Projects\CodeArt Framework\CodeArt\ServiceModelMQTestClient\bin\Debug\CodeArt.EasyMQ.pdb
-D:\Workspace\Projects\CodeArt Framework\CodeArt\ServiceModelMQTestClient\bin\Debug\CodeArt.RabbitMQ.pdb
-D:\Workspace\Projects\CodeArt Framework\CodeArt\ServiceModelMQTestClient\bin\Debug\CodeArt.ServiceModel.MQ.pdb
-D:\Workspace\Projects\CodeArt Framework\CodeArt\ServiceModelMQTestClient\bin\Debug\CodeArt.ServiceModel.pdb
-D:\Workspace\Projects\CodeArt Framework\CodeArt\ServiceModelMQTestClient\bin\Debug\CodeArt.pdb
-D:\Workspace\Projects\CodeArt Framework\CodeArt\ServiceModelMQTestClient\bin\Debug\RabbitMQ.Client.xml
-D:\Workspace\Projects\CodeArt Framework\CodeArt\ServiceModelMQTestClient\bin\Debug\NLog.xml
-D:\Workspace\Projects\CodeArt Framework\CodeArt\ServiceModelMQTestClient\bin\Debug\zh-CN\CodeArt.EasyMQ.resources.dll
-D:\Workspace\Projects\CodeArt Framework\CodeArt\ServiceModelMQTestClient\bin\Debug\zh-CN\CodeArt.RabbitMQ.resources.dll
-D:\Workspace\Projects\CodeArt Framework\CodeArt\ServiceModelMQTestClient\bin\Debug\zh-CN\CodeArt.ServiceModel.MQ.resources.dll
-D:\Workspace\Projects\CodeArt Framework\CodeArt\ServiceModelMQTestClient\bin\Debug\zh-CN\CodeArt.ServiceModel.resources.dll
-D:\Workspace\Projects\CodeArt Framework\CodeArt\ServiceModelMQTestClient\bin\Debug\zh-CN\CodeArt.resources.dll
-D:\Workspace\Projects\CodeArt Framework\CodeArt\ServiceModelMQTestClient\obj\Debug\ServiceModelMQTestClient.csproj.CoreCompileInputs.cache
-D:\Workspace\Projects\CodeArt Framework\CodeArt\ServiceModelMQTestClient\obj\Debug\ServiceModelMQTestClient.csproj.CopyComplete
-D:\Workspace\Projects\CodeArt Framework\CodeArt\ServiceModelMQTestClient\obj\Debug\ServiceModelMQTestClient.exe
-D:\Workspace\Projects\CodeArt Framework\CodeArt\ServiceModelMQTestClient\obj\Debug\ServiceModelMQTestClient.pdb
-D:\Workspace\Projects\CodeArt Framework\CodeArt\ServiceModelMQTestClient\bin\Debug\Microsoft.Diagnostics.Tracing.EventSource.dll
-D:\Workspace\Projects\CodeArt Framework\CodeArt\ServiceModelMQTestClient\bin\Debug\Microsoft.Diagnostics.Tracing.EventSource.xml
-D:\Workspace\Projects\CodeArt Framework\CodeArt\ServiceModelMQTestClient\obj\Debug\ServiceModelMQTestClient.csprojAssemblyReference.cache
+D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTestClient\bin\Debug\NLog.config
+D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTestClient\bin\Debug\ServiceModelMQTestClient.exe.config
+D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTestClient\bin\Debug\ServiceModelMQTestClient.exe
+D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTestClient\bin\Debug\ServiceModelMQTestClient.pdb
+D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTestClient\bin\Debug\CodeArt.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTestClient\bin\Debug\CodeArt.EasyMQ.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTestClient\bin\Debug\CodeArt.RabbitMQ.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTestClient\bin\Debug\CodeArt.ServiceModel.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTestClient\bin\Debug\CodeArt.ServiceModel.MQ.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTestClient\bin\Debug\Microsoft.Diagnostics.Tracing.EventSource.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTestClient\bin\Debug\RabbitMQ.Client.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTestClient\bin\Debug\Newtonsoft.Json.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTestClient\bin\Debug\JWT.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTestClient\bin\Debug\NLog.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTestClient\bin\Debug\StackExchange.Redis.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTestClient\bin\Debug\System.IO.Compression.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTestClient\bin\Debug\System.Memory.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTestClient\bin\Debug\System.Threading.Channels.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTestClient\bin\Debug\System.Threading.Tasks.Extensions.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTestClient\bin\Debug\Pipelines.Sockets.Unofficial.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTestClient\bin\Debug\System.IO.Pipelines.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTestClient\bin\Debug\System.Runtime.InteropServices.RuntimeInformation.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTestClient\bin\Debug\netstandard.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTestClient\bin\Debug\System.Numerics.Vectors.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTestClient\bin\Debug\System.Net.Sockets.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTestClient\bin\Debug\CodeArt.EasyMQ.pdb
+D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTestClient\bin\Debug\CodeArt.EasyMQ.dll.config
+D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTestClient\bin\Debug\CodeArt.RabbitMQ.pdb
+D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTestClient\bin\Debug\CodeArt.RabbitMQ.dll.config
+D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTestClient\bin\Debug\CodeArt.ServiceModel.MQ.pdb
+D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTestClient\bin\Debug\CodeArt.ServiceModel.MQ.dll.config
+D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTestClient\bin\Debug\CodeArt.ServiceModel.pdb
+D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTestClient\bin\Debug\CodeArt.ServiceModel.dll.config
+D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTestClient\bin\Debug\CodeArt.pdb
+D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTestClient\bin\Debug\CodeArt.dll.config
+D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTestClient\bin\Debug\Microsoft.Diagnostics.Tracing.EventSource.xml
+D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTestClient\bin\Debug\RabbitMQ.Client.xml
+D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTestClient\bin\Debug\Newtonsoft.Json.xml
+D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTestClient\bin\Debug\JWT.pdb
+D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTestClient\bin\Debug\JWT.xml
+D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTestClient\bin\Debug\NLog.xml
+D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTestClient\bin\Debug\StackExchange.Redis.xml
+D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTestClient\bin\Debug\System.Memory.xml
+D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTestClient\bin\Debug\System.Threading.Channels.xml
+D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTestClient\bin\Debug\System.Threading.Tasks.Extensions.xml
+D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTestClient\bin\Debug\Pipelines.Sockets.Unofficial.xml
+D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTestClient\bin\Debug\System.IO.Pipelines.xml
+D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTestClient\bin\Debug\System.Numerics.Vectors.xml
+D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTestClient\bin\Debug\zh-CN\CodeArt.EasyMQ.resources.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTestClient\bin\Debug\zh-CN\CodeArt.RabbitMQ.resources.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTestClient\bin\Debug\zh-CN\CodeArt.ServiceModel.MQ.resources.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTestClient\bin\Debug\zh-CN\CodeArt.ServiceModel.resources.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTestClient\bin\Debug\zh-CN\CodeArt.resources.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTestClient\obj\Debug\ServiceModelMQTestClient.csproj.AssemblyReference.cache
+D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTestClient\obj\Debug\ServiceModelMQTestClient.csproj.SuggestedBindingRedirects.cache
+D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTestClient\obj\Debug\ServiceModelMQTestClient.exe.config
+D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTestClient\obj\Debug\ServiceModelMQTestClient.csproj.CoreCompileInputs.cache
+D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTestClient\obj\Debug\ServiceModelMQTestClient.csproj.CopyComplete
+D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTestClient\obj\Debug\ServiceModelMQTestClient.exe
+D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTestClient\obj\Debug\ServiceModelMQTestClient.pdb

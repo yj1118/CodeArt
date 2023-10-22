@@ -13,7 +13,7 @@ namespace CodeArt.Drawing
         /// <summary>
         /// 以填充模式缩略图片
         /// </summary>
-        public virtual void ThumbByFill(Stream sourceStream, Stream ouputStream, int width, int height, bool highQuality)
+        public virtual void Fit(Stream sourceStream, Stream ouputStream, int width, int height, bool highQuality)
         {
             Image source = null;
             Graphics gdiobj = null;
@@ -113,7 +113,7 @@ namespace CodeArt.Drawing
             }
         }
 
-        public virtual void ThumbByCut(Stream sourceStream, Stream ouputStream, int width, int height, bool highQuality)
+        public virtual void Cover(Stream sourceStream, Stream ouputStream, int width, int height, bool highQuality)
         {
             Image source = null;
             Graphics gdiobj = null;
@@ -297,7 +297,7 @@ namespace CodeArt.Drawing
         /// <param name="height"></param>
         /// <param name="format"></param>
         /// <param name="highQuality"></param>
-        public virtual void ThumbByFull(Stream sourceStream, Stream ouputStream, int width, int height, bool highQuality)
+        public virtual void Stetch(Stream sourceStream, Stream ouputStream, int width, int height, bool highQuality)
         {
             Image source = null;
             Graphics gdiobj = null;
@@ -359,7 +359,7 @@ namespace CodeArt.Drawing
 
         }
 
-        public virtual void ThumbByPart(Stream sourceStream, Stream ouputStream, int width, int height,bool highQuality)
+        public virtual void Part(Stream sourceStream, Stream ouputStream, int width, int height,bool highQuality)
         {
             throw new ApplicationException("Jpg.ThumbByPart尚未实现！");
         }

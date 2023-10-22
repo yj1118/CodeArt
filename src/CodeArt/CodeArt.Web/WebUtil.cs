@@ -5,13 +5,21 @@ using System.Web;
 using System.Linq;
 using System.Text;
 using System.Net;
+using System.Net.Security;
+using System.Security.Cryptography.X509Certificates;
 
 using CodeArt.IO;
+using CodeArt.DTO;
 
 namespace CodeArt.Web
 {
     public static class WebUtil
     {
+        public static string GetIP(this HttpRequest request)
+        {
+            return request.ServerVariables.Get("Remote_Addr").ToString();
+        }
+
         public static HttpContext CreateHttpContext(string url, TextWriter writer)
         {
             string queryString = string.Empty;
@@ -162,13 +170,14 @@ namespace CodeArt.Web
         /// 发送一个POST请求
         /// </summary>
         /// <returns></returns>
-        public static string SendPost(string url, string postString, Encoding encoding)
+        public static string SendPost(string url, string postString, Encoding encoding, Action<WebClient> fill = null)
         {
             byte[] responseData = null;
             var postData = encoding.GetBytes(postString);
             using (WebClient web = new WebClient())
             {
                 web.Headers.Add("Content-Type", "application/x-www-form-urlencoded");//采取POST方式必须加的header，如果改为GET方式的话就去掉这句话即可
+                if (fill != null) fill(web);
                 try
                 {
                     responseData = web.UploadData(url, "POST", postData);//得到返回字符流
@@ -202,36 +211,100 @@ namespace CodeArt.Web
             return responseData;
         }
 
-
-        /// <summary>
-        /// 以后升级可以设置编码、超时时间的设置
-        /// </summary>
-        /// <param name="address"></param>
-        /// <param name="data"></param>
-        /// <returns></returns>
-        public static byte[] SendPost(string address, byte[] data)
+        private static bool CheckValidationResult(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
         {
-            HttpWebRequest request = WebRequest.Create(address) as HttpWebRequest;
-            request.Method = "POST";
-            request.ContentType = "application/x-www-form-urlencoded;charset=utf-8";
-            request.ContentLength = data.Length;
-            request.Timeout = 30000; //30秒超时
+            return true;
+        }
 
-            //发送POST数据  
-            using (Stream stream = request.GetRequestStream())
+        public static byte[] SendGet(string address, byte[] data, string contentType = "application/x-www-form-urlencoded;charset=utf-8")
+        {
+            return Send(address, (request) =>
             {
-                stream.Write(data, 0, data.Length);
+                request.Method = "GET";
+                request.ContentType = contentType;
+            });
+        }
+
+        public static byte[] SendDelete(string address, byte[] data, string contentType = "application/x-www-form-urlencoded;charset=utf-8")
+        {
+            return Send(address, (request) =>
+            {
+                request.Method = "DELETE";
+                request.ContentType = contentType;
+            });
+        }
+
+        public static byte[] SendPut(string address, byte[] data, string contentType = "application/x-www-form-urlencoded;charset=utf-8")
+        {
+            return Send(address, (request) =>
+            {
+                request.Method = "PUT";
+                request.ContentType = contentType;
+                request.ContentLength = data.Length;
+
+                //向请求流中写入内容
+                using (Stream stream = request.GetRequestStream())
+                {
+                    stream.Write(data, 0, data.Length);
+                }
+            });
+        }
+
+        public static byte[] SendPost(string address, byte[] data, string contentType = "application/x-www-form-urlencoded;charset=utf-8")
+        {
+            return Send(address, (request) =>
+              {
+                  request.Method = "POST";
+                  request.ContentType = contentType;
+                  request.ContentLength = data.Length;
+
+                  //向请求流中写入内容
+                  using (Stream stream = request.GetRequestStream())
+                  {
+                      stream.Write(data, 0, data.Length);
+                  }
+              });
+        }
+
+
+        private static byte[] Send(string address, Action<HttpWebRequest> setRequest)
+        {
+            HttpWebRequest request = null;
+
+            if (address.StartsWith("https", StringComparison.OrdinalIgnoreCase))
+            {
+                ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
+                request = WebRequest.Create(address) as HttpWebRequest;
+                request.ProtocolVersion = HttpVersion.Version10;
+            }
+            else
+            {
+                request = WebRequest.Create(address) as HttpWebRequest;
             }
 
+            request.Timeout = 30000; //30秒超时
+            setRequest(request);
+
+            //发送POST数据
             byte[] responseData = null;
             using (var response = request.GetResponse() as HttpWebResponse)
             {
                 using (Stream stream = response.GetResponseStream())
                 {
                     responseData = stream.GetBytes(100);
+
                 }
             }
             return responseData;
+        }
+
+
+
+        public static DTObject ToDTO(this HttpRequest request)
+        {
+            DTObject dto = DTObject.Create();
+            dto["Ip"] = request.UserHostAddress;  //目前仅有ip信息，以后根据需要追加
+            return dto;
         }
 
     }

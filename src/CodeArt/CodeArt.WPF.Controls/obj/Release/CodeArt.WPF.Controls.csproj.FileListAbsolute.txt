@@ -1,3 +1,4 @@
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.WPF.Controls\bin\Release\NLog.config
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.WPF.Controls\bin\Release\Playstation\Footer\back.png
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.WPF.Controls\bin\Release\Playstation\Work\Images\selected.png
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.WPF.Controls\bin\Release\Playstation\Work\Images\message.png
@@ -20,7 +21,6 @@ D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.WPF.Controls\bin\Release
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.WPF.Controls\bin\Release\Playstation\Items\Images\moveDown.png
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.WPF.Controls\bin\Release\Playstation\Items\Images\moveUp.png
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.WPF.Controls\bin\Release\Playstation\Items\Images\remove.png
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.WPF.Controls\bin\Release\NLog.config
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.WPF.Controls\bin\Release\CodeArt.WPF.Controls.dll
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.WPF.Controls\bin\Release\CodeArt.WPF.Controls.pdb
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.WPF.Controls\bin\Release\zh-CN\CodeArt.WPF.Controls.resources.dll
@@ -32,6 +32,7 @@ D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.WPF.Controls\bin\Release
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.WPF.Controls\bin\Release\NLog.xml
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.WPF.Controls\bin\Release\zh-CN\CodeArt.WPF.resources.dll
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.WPF.Controls\bin\Release\zh-CN\CodeArt.resources.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.WPF.Controls\obj\Release\CodeArt.WPF.Controls.csprojAssemblyReference.cache
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.WPF.Controls\obj\Release\Playstation\ActionBar\ActionBarButton.g.cs
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.WPF.Controls\obj\Release\Playstation\Chart\Histogram.g.cs
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.WPF.Controls\obj\Release\Playstation\Items\ItemsListItem.g.cs
@@ -53,6 +54,8 @@ D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.WPF.Controls\obj\Release
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.WPF.Controls\obj\Release\GeneratedInternalTypeHelper.g.cs
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.WPF.Controls\obj\Release\CodeArt.WPF.Controls_MarkupCompile.cache
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.WPF.Controls\obj\Release\CodeArt.WPF.Controls_MarkupCompile.lref
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.WPF.Controls\obj\Release\NS\Black\Work\Style.baml
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.WPF.Controls\obj\Release\NS\Black\Style.baml
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.WPF.Controls\obj\Release\Playstation\ActionBar\ActionBarButton.baml
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.WPF.Controls\obj\Release\Playstation\ActionBar\Style.baml
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.WPF.Controls\obj\Release\Playstation\Button\Style.baml
@@ -100,10 +103,9 @@ D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.WPF.Controls\obj\Release
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.WPF.Controls\obj\Release\CodeArt.WPF.Controls.Playstation.Strings.resources
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.WPF.Controls\obj\Release\CodeArt.WPF.Controls.Properties.Resources.resources
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.WPF.Controls\obj\Release\CodeArt.WPF.Controls.Playstation.Strings.zh-CN.resources
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.WPF.Controls\obj\Release\CodeArt.WPF.Controls.csproj.GenerateResource.Cache
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.WPF.Controls\obj\Release\CodeArt.WPF.Controls.csproj.GenerateResource.cache
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.WPF.Controls\obj\Release\CodeArt.WPF.Controls.csproj.CoreCompileInputs.cache
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.WPF.Controls\obj\Release\zh-CN\CodeArt.WPF.Controls.resources.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.WPF.Controls\obj\Release\CodeArt.WPF.Controls.csproj.CopyComplete
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.WPF.Controls\obj\Release\CodeArt.WPF.Controls.dll
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.WPF.Controls\obj\Release\CodeArt.WPF.Controls.pdb
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.WPF.Controls\obj\Release\CodeArt.WPF.Controls.csprojAssemblyReference.cache
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.WPF.Controls\obj\Release\CodeArt.WPF.Controls.csproj.CopyComplete

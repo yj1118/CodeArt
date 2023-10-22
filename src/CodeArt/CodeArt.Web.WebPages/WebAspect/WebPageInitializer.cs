@@ -25,7 +25,7 @@ namespace CodeArt.Web.WebPages
 
         #region contentType
 
-        private void SetContentType(WebPageContext context)
+        protected virtual void SetContentType(WebPageContext context)
         {
             context.Response.ContentType = GetContentType(context);
             //需要设置编码，否则会乱码
@@ -37,7 +37,7 @@ namespace CodeArt.Web.WebPages
         /// 获取输出流的 HTTP MIME 类型
         /// </summary>
         /// <returns></returns>
-        protected virtual string GetContentType(WebPageContext context)
+        private string GetContentType(WebPageContext context)
         {
             string ext = GetExtension(context);
             switch (ext)
@@ -70,6 +70,18 @@ namespace CodeArt.Web.WebPages
                     return "video/webmv";
                 case ".webm":
                     return "video/webm";
+                case ".bmp": return "image/bmp";
+                case ".doc": return "application/msword";
+                case ".docx": return "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+                case ".pdf": return "application/pdf";
+                case ".ppt": return "application/vnd.ms-powerpoint";
+                case ".pptx": return "application/vnd.openxmlformats-officedocument.presentationml.presentation";
+                case ".rar": return "application/x-rar-compressed";
+                case ".txt": return "text/plain";
+                case ".xls": return "application/vnd.ms-excel";
+                case ".xlsx": return "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                case ".zip": return "application/zip";
+                case ".7z": return "application/x-7z-compressed";
             }
             return null;
         }

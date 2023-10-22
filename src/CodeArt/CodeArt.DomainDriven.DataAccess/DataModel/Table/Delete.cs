@@ -99,7 +99,7 @@ namespace CodeArt.DomainDriven.DataAccess
                 data.Add(EntityObject.IdPropertyName, id);
                 AddToTenant(data);
 
-                SqlHelper.Execute(this.Name, this.SqlDelete, data);
+                SqlHelper.Execute(this.SqlDelete, data);
             }
         }
 
@@ -244,16 +244,14 @@ namespace CodeArt.DomainDriven.DataAccess
         private void DeleteMembers(DomainObject root, DomainObject parent, DomainObject current, IEnumerable members, PropertyRepositoryAttribute tip)
         {
             var propertyName = tip.PropertyName;
-            DataTable middle = null;
             foreach (DomainObject obj in members)
             {
+                if (obj.IsEmpty()) continue;
                 var child = GetRuntimeTable(this, propertyName, obj.ObjectType);
                 //删除对象的数据
                 child.DeleteMember(root, current, obj);
-                if (middle == null) middle = child.Middle; //不论实际的成员是否为继承，中间表始终只有一个，所以记录一次就可以了
+                child.Middle.DeleteMiddle(root, current, obj);
             }
-            //删除相关中间表的数据（成员对象未必被真的删除，但是引用关系必须被删除，这样对于parent而言，引用关系被删除了）
-            if(middle != null) middle.DeleteMiddleByMaster(root, current);
         }
 
         //由于两个原因，我们不会删除根对象后，去反向找哪些表的字段引用了该根对象，
@@ -365,7 +363,7 @@ namespace CodeArt.DomainDriven.DataAccess
                 data.Add(GeneratedField.MasterIdName, null);
                 data.Add(GeneratedField.SlaveIdName, slaveId);
                 AddToTenant(data);
-                SqlHelper.Execute(this.ConnectionName, this.SqlDelete, data);
+                SqlHelper.Execute(this.SqlDelete, data);
             }
         }
 
@@ -389,7 +387,7 @@ namespace CodeArt.DomainDriven.DataAccess
                     data.Add(GeneratedField.RootIdName, rootId);
                     data.Add(GeneratedField.SlaveIdName, slaveId);//slaveId有可能为空，因为是根据master删除，但是没有关系，sql会处理slaveId为空的情况
                     AddToTenant(data);
-                    SqlHelper.Execute(this.ConnectionName, this.SqlDelete, data);
+                    SqlHelper.Execute(this.SqlDelete, data);
                 }
             }
             else
@@ -402,7 +400,7 @@ namespace CodeArt.DomainDriven.DataAccess
                     data.Add(GeneratedField.MasterIdName, masterId);
                     data.Add(GeneratedField.SlaveIdName, slaveId);
                     AddToTenant(data);
-                    SqlHelper.Execute(this.ConnectionName, this.SqlDelete, data);
+                    SqlHelper.Execute(this.SqlDelete, data);
                 }
             }
         }
@@ -419,7 +417,7 @@ namespace CodeArt.DomainDriven.DataAccess
                     var data = temp.Item;
                     data.Add(GeneratedField.RootIdName, rootId);
                     AddToTenant(data);
-                    SqlHelper.Execute(this.ConnectionName, this.SqlDelete, data);
+                    SqlHelper.Execute(this.SqlDelete, data);
                 }
             }
             else
@@ -431,7 +429,7 @@ namespace CodeArt.DomainDriven.DataAccess
                     data.Add(GeneratedField.RootIdName, rootId);
                     data.Add(GeneratedField.MasterIdName, masterId);
                     AddToTenant(data);
-                    SqlHelper.Execute(this.ConnectionName, this.SqlDelete, data);
+                    SqlHelper.Execute(this.SqlDelete, data);
                 }
             }
         }

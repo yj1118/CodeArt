@@ -128,6 +128,15 @@ namespace CodeArt.DTO
             }
         }
 
+        public bool Remove(Func<DTObject,bool> predicate)
+        {
+            if (_list == null || _list.Count == 0) return false;
+
+            var item = _list.FirstOrDefault(predicate);
+            if (item != null) return this.Remove(item);
+            return false;
+        }
+
         private IList<DTObject> GetItems(IList<int> indexs)
         {
             var items = new List<DTObject>();

@@ -52,6 +52,11 @@ namespace CodeArt.DTO
             return _entities.FirstOrDefault((t) => t.Name.EqualsIgnoreCase(entityName)) != null;
         }
 
+        internal bool Remove(string entityName)
+        {
+            return _entities.Remove((t) => t.Name.EqualsIgnoreCase(entityName)) != null;
+        }
+
         internal DTEntity Find(string entityName)
         {
             return _entities.FirstOrDefault((t) => t.Name.EqualsIgnoreCase(entityName));

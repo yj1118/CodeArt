@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 using CodeArt.AppSetting;
+using CodeArt.Runtime;
 
 namespace CodeArt.DomainDriven
 {
@@ -58,7 +59,8 @@ namespace CodeArt.DomainDriven
             if (this.Completed != null)
                 this.Completed(this, CommandEventArgs.Instance);
         }
+
     }
 
-   
+
 }

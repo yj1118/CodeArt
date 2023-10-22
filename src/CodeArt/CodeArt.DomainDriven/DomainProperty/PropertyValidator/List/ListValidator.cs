@@ -44,8 +44,8 @@ namespace CodeArt.DomainDriven
             if (list != null) //为null的情况不检查，交由别的对象检查
             {
                 int count = list.Count;
-                if (count < this.Min) result.AddError(property.Name, ListCountError, string.Format(Strings.ListCountLessThan, property.Name, this.Min));
-                else if (count > this.Max) result.AddError(property.Name, ListCountError, string.Format(Strings.ListCountMoreThan, property.Name, this.Max));
+                if (count < this.Min) result.AddError(property.Name, ListCountError, string.Format(Strings.ListCountLessThan, property.Call, this.Min));
+                else if (count > this.Max) result.AddError(property.Name, ListCountError, string.Format(Strings.ListCountMoreThan, property.Call, this.Max));
 
                 if (this.ValidateItem)
                 {
@@ -55,7 +55,7 @@ namespace CodeArt.DomainDriven
                         if (support != null)
                         {
                             ValidationResult t = support.Validate();
-                            if (!t.IsSatisfied) result.AddError(property.Name, ListItemError, string.Format(Strings.ListItemError, property.Name, t.Message));
+                            if (!t.IsSatisfied) result.AddError(property.Name, ListItemError, string.Format(Strings.ListItemError, property.Call, t.Message));
                         }
                     }
                 }

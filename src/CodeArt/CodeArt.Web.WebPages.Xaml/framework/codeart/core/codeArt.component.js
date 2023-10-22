@@ -14,6 +14,9 @@
                     this.data = data;
                     if (this.onbind) this.onbind(this, data);
                 }
+                o.add = function (target, data) {//追加数据，只能使用于标记了loops对象
+                    append(target.ent(), data);
+                }
                 o.update = function (target, data) {//更新指定的target的绘制
                     exec(target.ent(), data, true, true);
                     var po = target.proxy();
@@ -29,7 +32,7 @@
 
             function getValue(data, n, dv) {
 
-                if (n == "_self") return data; //返回子嗣
+                if (n == "_self") return data; //返回自己
 
                 var v;
                 try {
@@ -39,6 +42,12 @@
                     v = dv;
                 }
                 return v;
+            }
+
+            function append(o, d) {//追加数据
+                var po = getProxy(o);
+                var cg = po.__bind_cg;
+                loops(o, d, cg);
             }
 
             //#region 执行绑定
@@ -115,7 +124,7 @@
             }
 
             function binds(o, d, cg) {
-                var st = cg.binds, po = $(o).proxy(), ext = { html: "innerHTML", text: "innerText" }, t;
+                var st = cg.binds, po = $(o).proxy();
                 if (po.simple) {
                     //simple 表示目标的data只包含指定的成员
                     var simpleData = {};
@@ -206,7 +215,8 @@
             my.loops = null;
             my.object = null;
 
-            my.elem = $(e)[0].cloneNode(true); //克隆的结果是dom
+            my.elem = $(e)[0].cloneNode(true); 
+            //my.elem = $(e)[0].cloneNode(true); //克隆的结果是dom
             //util.clearProxy(my.elem);//防止克隆了__proxy属性
 
             my.temp = document.createElement("div");
@@ -222,13 +232,16 @@
                 var l = J(my.temp).children();
                 if (l.length > 0) {
                     var t = l[0];
-                    $(last).after(t)
+                    $(last).after(t);
                     return t;
                 }
                 else {
                     var t = my.elem.cloneNode(true);
                     $(last).after(t);//先追加到dom中
                     $(t); //再初始化t,避免bug
+                    //if ($(t).find(".m-ion-range-slider").length > 0) {
+                    //    debugger;
+                    //}
                     parse(t);
                     return t;
                 }
@@ -392,6 +405,127 @@
         }
 
         var _formMethods = ["inputs", "input", "append", "remove", "validate", "submit", "set", "accept", "reset", "get", "disabled", "setValidate", "browse", "scriptElement"];
+    })();
+
+    //dropload
+    (function () {
+        $$.dropload = $$.component.dropload = function () {
+            this.give = function (o) {
+
+                o.refresh = function () {
+                    var m = this.__mescroll;
+                    m.triggerDownScroll();
+                }
+
+                o.load = function () {
+                    var m = this.__mescroll;
+                    m.triggerUpScroll();
+                }
+
+                init(o);
+
+                function init(o) {
+                    var domId = o.attr("id"), pageSize = parseInt(o.attr("data-pageSize"));
+                    if (!domId) throw new Error("dropload组件必须设置id");
+                    var arg = {
+                        down: {
+                            auto: false,
+                            callback: downCallback
+                        },
+                        up: {
+                            auto: false,
+                            callback: upCallback,
+                            page: {
+                                num: 0, //当前页 默认0,回调之前会加1; 即callback(page)会从1开始
+                                size: pageSize //每页数据条数,默认10
+                            },
+                            htmlNodata: '',//将到达底部的文字改写为空，就不会显示了，否则可以写类似--end--的文字
+                            noMoreSize: 5, //如果列表已无数据,可设置列表的总数量要大于5才显示无更多数据;避免列表数据过少(比如只有一条数据), 显示无更多数据会不好看,这就是为什么无更多数据有时候不显示的原因.
+                            //toTop: {
+                            //    //回到顶部按钮
+                            //    src: "/images/scroll/top.png", //图片路径,默认null,支持网络图
+                            //    offset: 1000 //列表滚动1000px才显示回到顶部按钮	
+                            //},
+                            
+                            lazyLoad: {
+                                use: true, // 是否开启懒加载,默认false
+                                attr: 'url' // 标签中网络图的属性名 : <img url='网络图'  src='占位图''/>
+                            }
+                        }
+                    };
+
+                    var emptyTip = o.attr("data-emptyTip");
+                    if (emptyTip) {
+                        arg.up.empty = {
+                            warpId: domId,
+                            tip: emptyTip //提示
+                            //icon: "/images/scroll/empty.png" //图标,默认null,支持网络图
+                            
+                        }
+                    }
+                    o.__mescroll = new MeScroll(domId, arg);
+
+                    var auto = o.attr("data-auto").toLowerCase() == "true";
+                    if (auto) o.load();
+                }
+
+                function downCallback() {
+                    var action = o.attr("data-action"), pageSize = parseInt(o.attr("data-pageSize"));
+                    var mescroll = o.__mescroll;
+                    $$view.call({
+                        action: action,
+                        data: {
+                            pageIndex: 1, // 页码, 默认从1开始
+                            pageSize: pageSize // 页长, 默认每页10条
+                        },
+                        success: function (r) {
+                            if (!r.rows || r.rows.length == 0) {
+                                mescroll.endByPage(0, 0);
+                                mescroll.endSuccess();
+                            } else {
+                                mescroll.endSuccess();
+                                o.bind(r);
+                            }
+                        },
+                        error: function (data) {
+                            alert(data);
+                            mescroll.endErr();
+                        }
+                    });
+                }
+
+                function upCallback(page) {
+                    var mescroll = o.__mescroll;
+                    var action = o.attr("data-action");
+                    var loops = o.getJquery().children("[data-loops='true']").first().mapNull().proxy();
+                    $$view.call({
+                        action: action,
+                        data: {
+                            pageIndex: parseInt(page.num), // 页码, 默认从1开始
+                            pageSize: parseInt(page.size) // 页长, 默认每页10条
+                        },
+                        success: function (r) {
+                            if (!r.rows) {
+                                mescroll.endByPage(0, 0);
+                                mescroll.endSuccess();
+                                return;
+                            }
+                            mescroll.endByPage(r.rows.length, r.pageCount);
+                            mescroll.endSuccess();
+                            //自行添加元素
+                            o.add(loops, r.rows);
+                        },
+                        error: function (data) {
+                            alert(data);
+                            //联网失败的回调,隐藏下拉刷新的状态
+                            mescroll.endErr();
+                        }
+                    });
+                }
+
+            }
+
+        }
     })();
 
 });

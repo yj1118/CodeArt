@@ -40,5 +40,10 @@ namespace CodeArt.Web.WebPages
 
         }
 
+        public void DeleteAll()
+        {
+
+        }
+
     }
 }

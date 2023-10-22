@@ -14,6 +14,14 @@ namespace CodeArt.Util
             var index = new Random().Next(0, values.Count);
             return values[index];
         }
+
+        private readonly static string[] AB = new string[] { "a", "b" };
+
+        public static string BalanceAB()
+        {
+            return Balance(AB);
+        }
+
         //1,2, 3,4,5
         //2,1,3,4,5
         //3,1,2,
@@ -39,66 +47,98 @@ namespace CodeArt.Util
         //[2,1]
         //[2,3]
 
+        public static IEnumerable<IEnumerable<T>> Compose<T>(this IEnumerable<T> target, Func<IEnumerable<T>, bool> filter = null)
+        {
+            return _Compose<T,object>(target, null,null, filter);
+        }
+
+        public static IEnumerable<IEnumerable<T>> Compose<T,TKey>(this IEnumerable<T> target,int length, Func<T, TKey> keySelector, Func<List<T>, bool> filter = null)
+        {
+            return _Compose<T, TKey>(target, length, keySelector, filter);
+        }
+
+        public static IEnumerable<IEnumerable<T>> Compose<T>(this IEnumerable<T> target, int length, Func<IEnumerable<T>, bool> filter = null)
+        {
+            return _Compose<T, object>(target, length, null, filter);
+        }
+
         /// <summary>
         /// 找出<paramref name="target"/>里的成员的所有组合
         /// </summary>
         /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TKey"></typeparam>
         /// <param name="target"></param>
+        /// <param name="length">这个参数指的是组合的长度，如果是2，就表示只保留[1,2]、[1,3]等2维组合</param>
+        /// <param name="keySelector">指定排序键，一旦指定了该参数，那就意味着组合无视位置，也就是说，1,2组合和2,1组合是同样的，只会保留其中一种</param>
+        /// <param name="filter"></param>
         /// <returns></returns>
-        public static IEnumerable<IEnumerable<T>> Compose<T>(this IEnumerable<T> target, Func<List<T>, bool> filter = null)
+        private static IEnumerable<IEnumerable<T>> _Compose<T, TKey>(this IEnumerable<T> target,int? length, Func<T, TKey> keySelector, Func<List<T>, bool> filter)
         {
             if (target.Count() == 0) return Array.Empty<List<T>>();
             if (target.Count() == 1) return new List<List<T>>() { new List<T> { target.First() } };
 
             var result = new List<List<T>>();
 
-            var all = target.FullArray();
-            foreach (var temp in all)
+            if(length != null && length==1)
             {
-                var items = temp.ComposeForFirst();
-                foreach (var item in items)
+                foreach (var t in target)
                 {
-                    //过滤重复
-                    if (result.FirstOrDefault((t) =>
-                     {
-                         if (t.Count != item.Count) return false;
-                         for (var i = 0; i < t.Count; i++)
-                         {
-                             if (!t[i].Equals(item[i]))
-                                 return false;
-                         }
-                         return true;
-                     }) != null) continue;
-
+                    var item = new List<T> { t };
                     if (filter != null && !filter(item)) continue;
-
                     result.Add(item);
                 }
+                return result;
             }
-            return result;
+            else
+            {
+                var all = target.FullArray();
+                foreach (var temp in all)
+                {
+                    var items = temp.ComposeForFirst();
+                    foreach (var item in items)
+                    {
+                        if (length != null && item.Count != length.Value) continue; //如果指定了数组长度，那么需要判断
 
-            //var temp = target.ToList();
-            //var pointer = 0;
-            //while (pointer < temp.Count)
-            //{
-            //    if (pointer == 0)
-            //    {
-            //        result.AddRange(temp.ComposeForFirst());
-            //    }
-            //    else
-            //    {
-            //        var other = temp[pointer];
-            //        //调整位置
-            //        temp.Remove(other);
-            //        temp.Insert(0, other);
-            //        result.AddRange(temp.ComposeForFirst());
+                        if (keySelector != null)
+                        {
+                            //过滤重复,与位置无关
+                            var orderItem = item.OrderBy(keySelector).ToArray();
+                            if (result.FirstOrDefault((t) =>
+                            {
+                                if (t.Count != orderItem.Length) return false;
+                                var orderT = t.OrderBy(keySelector).ToArray();
 
-            //        //还原数组
-            //        temp.Remove(other);
-            //        temp.Insert(pointer, other);
-            //    }
-            //    pointer++;
-            //}
+                                for (var i = 0; i < orderT.Length; i++)
+                                {
+                                    if (!orderT[i].Equals(orderItem[i]))
+                                        return false;
+                                }
+                                return true;
+                            }) != null) continue;
+                        }
+                        else
+                        {
+                            //过滤重复
+                            if (result.FirstOrDefault((t) =>
+                            {
+                                if (t.Count != item.Count) return false;
+
+                                for (var i = 0; i < t.Count; i++)
+                                {
+                                    if (!t[i].Equals(item[i]))
+                                        return false;
+                                }
+                                return true;
+                            }) != null) continue;
+                        }
+
+                        if (filter != null && !filter(item)) continue;
+
+                        result.Add(item);
+                    }
+                }
+                return result;
+            }
         }
 
         /// <summary>
@@ -206,5 +246,51 @@ namespace CodeArt.Util
         }
 
         #endregion
+
+        /// <summary>
+        /// 组合，从多个列表中，组合每项元素，形成新的列表
+        /// </summary>
+        /// <param name="group"></param>
+        /// <returns></returns>
+        public static IEnumerable<object> GroupCompose(this IEnumerable<IEnumerable<object>> group)
+        {
+            if (group.Count() == 0)
+                return null;
+            int size = 1;
+            for (int i = 0; i < group.Count(); i++)
+            {
+                size = size * group.ElementAt(i).Count();
+            }
+            object[] result = new object[size];
+            for (int j = 0; j < size; j++)
+            {
+                for (int m = 0; m < group.Count(); m++)
+                {
+                    if (result[j] == null) result[j] = new List<object>();
+                    var current = result[j] as List<object>;
+                    var item = group.ElementAt(m).ElementAt((j * Index(group, m) / size) % group.ElementAt(m).Count());
+                    current.Add(item);
+                }
+            }
+            return result;
+
+
+            int Index(IEnumerable<IEnumerable<object>> g, int m)
+            {
+                int index = 1;
+                for (int i = 0; i < g.Count(); i++)
+                {
+                    if (i <= m)
+                    {
+                        index = index * g.ElementAt(i).Count();
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                return index;
+            }
+        }
     }
 }

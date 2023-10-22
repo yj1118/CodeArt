@@ -51,7 +51,7 @@ namespace CodeArt.Web.WebPages
                 return;
             }
             if (ex != null)
-                LogWrapper.Default.Fatal(ex);
+                Logger.Fatal(ex);
         }
 
         static void application_BeginRequest(object sender, EventArgs e)
@@ -66,10 +66,6 @@ namespace CodeArt.Web.WebPages
             {
                 //初始化回话
                 AppSession.Initialize();
-
-                //初始化语言选项
-                Language.Init();
-
                 //执行页面关注点
                 var aspects = current.PageAspects;
                 if (aspects != null)
@@ -95,7 +91,7 @@ namespace CodeArt.Web.WebPages
             {
                 //检查缓存
                 var cache = current.Cache;
-                if (cache.LoadFromCache())
+                if (cache.LoadFromCache() || cache.RemoveCache())
                 {
                     HttpApplication application = (HttpApplication)sender;
                     application.CompleteRequest();

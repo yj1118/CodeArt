@@ -25,16 +25,24 @@ namespace CodeArt.DomainDriven
             DataContext.Current.RegisterRollback(args);
         }
 
-        public void Add(TRoot obj)
+        public virtual void Add(TRoot obj)
         {
             if (obj.IsEmpty()) return;
 
-            RegisterRollbackAdd(obj);
-            StatusEvent.Execute(StatusEventType.PreAdd, obj);
-            obj.OnPreAdd();
-            RegisterAdded(obj);
-            obj.OnAdded();
-            StatusEvent.Execute(StatusEventType.Added, obj);
+            DataContext.Using(()=>
+            {
+                RegisterRollbackAdd(obj);
+                StatusEvent.Execute(StatusEventType.PreAdd, obj);
+                obj.OnPreAdd();
+                RegisterAdded(obj);
+                obj.OnAdded();
+                StatusEvent.Execute(StatusEventType.Added, obj);
+            });
+        }
+
+        public void Add(IAggregateRoot obj)
+        {
+            this.Add((TRoot)obj);
         }
 
 
@@ -69,19 +77,25 @@ namespace CodeArt.DomainDriven
             DataContext.Current.RegisterUpdated(obj, this);
         }
 
-        public void Update(TRoot obj)
+        public virtual void Update(TRoot obj)
         {
             if (obj.IsEmpty()) return;
 
-            RegisterRollbackUpdate(obj);
-            StatusEvent.Execute(StatusEventType.PreUpdate, obj);
-            obj.OnPreUpdate();
-            RegisterUpdated(obj);
-            obj.OnUpdated();
-            StatusEvent.Execute(StatusEventType.Updated, obj);
+            DataContext.Using(() =>
+            {
+                RegisterRollbackUpdate(obj);
+                StatusEvent.Execute(StatusEventType.PreUpdate, obj);
+                obj.OnPreUpdate();
+                RegisterUpdated(obj);
+                obj.OnUpdated();
+                StatusEvent.Execute(StatusEventType.Updated, obj);
+            });
         }
 
-
+        public void Update(IAggregateRoot obj)
+        {
+            this.Update((TRoot)obj);
+        }
 
         public override void PersistUpdate(IAggregateRoot obj)
         {
@@ -114,16 +128,24 @@ namespace CodeArt.DomainDriven
             DataContext.Current.RegisterDeleted(obj, this);
         }
 
-        public void Delete(TRoot obj)
+        public virtual void Delete(TRoot obj)
         {
             if (obj.IsEmpty()) return;
 
-            RegisterRollbackDelete(obj);
-            StatusEvent.Execute(StatusEventType.PreDelete, obj);
-            obj.OnPreDelete();
-            RegisterDeleted(obj);
-            obj.OnDeleted();
-            StatusEvent.Execute(StatusEventType.Deleted, obj);
+            DataContext.Using(() =>
+            {
+                RegisterRollbackDelete(obj);
+                StatusEvent.Execute(StatusEventType.PreDelete, obj);
+                obj.OnPreDelete();
+                RegisterDeleted(obj);
+                obj.OnDeleted();
+                StatusEvent.Execute(StatusEventType.Deleted, obj);
+            });
+        }
+
+        public void Delete(IAggregateRoot obj)
+        {
+            this.Delete((TRoot)obj);
         }
 
         public override void PersistDelete(IAggregateRoot obj)
@@ -151,12 +173,17 @@ namespace CodeArt.DomainDriven
             return Find(id, level);
         }
 
-        public TRoot Find(object id, QueryLevel level)
+        public virtual TRoot Find(object id, QueryLevel level)
         {
-            return DataContext.Current.RegisterQueried<TRoot>(level, () =>
+            TRoot result = null;
+            DataContext.Using(()=>
             {
-                return PersistFind(id, level);
+                result = DataContext.Current.RegisterQueried<TRoot>(level, () =>
+                {
+                    return PersistFind(id, level);
+                });
             });
+            return result;
         }
 
         protected abstract TRoot PersistFind(object id, QueryLevel level);

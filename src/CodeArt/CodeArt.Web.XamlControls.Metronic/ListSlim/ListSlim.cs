@@ -75,6 +75,7 @@ namespace CodeArt.Web.XamlControls.Metronic
             code.AppendFormat("title:'{0}',", column.Title);
             if (!string.IsNullOrEmpty(column.Width)) code.AppendFormat("width:'{0}',", column.Width);
             code.AppendFormat("textAlign:'{0}',", column.TextAlign);
+            code.AppendFormat("textVerticalAlign:'{0}',", column.TextVerticalAlign);
             if (!string.IsNullOrEmpty(column.GetTemplate))
                 code.AppendFormat("template:{0},", column.GetTemplate);
 

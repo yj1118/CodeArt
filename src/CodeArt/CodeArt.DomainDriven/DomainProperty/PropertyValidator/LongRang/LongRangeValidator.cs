@@ -39,9 +39,9 @@ namespace CodeArt.DomainDriven
         protected override void Validate(DomainObject domainObject, DomainProperty property, long propertyValue, ValidationResult result)
         {
             if (propertyValue < this.Min)
-                result.AddError(property.Name, ErrorCode, string.Format(Strings.ValueLessThan, property.Name, this.Min));
+                result.AddError(property.Name, ErrorCode, string.Format(Strings.ValueLessThan, property.Call, this.Min));
             else if (propertyValue > this.Max)
-                result.AddError(property.Name, ErrorCode, string.Format(Strings.ValueMoreThan, property.Name, this.Max));
+                result.AddError(property.Name, ErrorCode, string.Format(Strings.ValueMoreThan, property.Call, this.Max));
         }
 
         public const string ErrorCode = "LongRangeError";

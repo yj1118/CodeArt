@@ -26,7 +26,7 @@ namespace CodeArt.DomainDriven.DataAccess
         {
             switch (SqlContext.GetDbType())
             {
-                case DatabaseType.SQLServer: return SQLServer.SqlStatement.GetIncrementIdentitySql(this.Target);
+                case DatabaseType.SQLServer: return SQLServer.SqlStatement.GetIncrementIdentitySql(this.Target.Name);
             }
             return null;
         }

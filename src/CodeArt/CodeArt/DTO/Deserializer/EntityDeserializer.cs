@@ -38,7 +38,7 @@ namespace CodeArt.DTO
 
         private static void FillEntities(List<DTEntity> entities, CodeTreeNode node, bool isReadOnly)
         {
-            var name = JSON.GetStringValue(node.Name.ToString());
+            var name = JSON.ReadString(node.Name.ToString());
             if (node.Type == CodeType.Object)
             {
                 var members = new List<DTEntity>();
@@ -87,9 +87,11 @@ namespace CodeArt.DTO
         {
             if(node.Type == CodeType.StringValue)
             {
-                var value = JSON.GetStringValue(node.Value);
+                var value = JSON.ReadString(node.Value);
                 Guid guid = Guid.Empty;
                 if (Guid.TryParse(value, out guid)) return guid;
+                if(JSON.TryParseDateTime(value,out var time)) 
+                    return time; //有可能是客户端的JS库的JSON.Parse处理后得到的时间，得特别处理
                 return value;
             }
             return JSON.GetValue(node.Value);

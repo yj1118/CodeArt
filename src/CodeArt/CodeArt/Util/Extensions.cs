@@ -9,6 +9,8 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Xml;
 using System.Collections;
+using CodeArt.Concurrent;
+using CodeArt.Runtime;
 
 namespace CodeArt.Util
 {
@@ -28,13 +30,21 @@ namespace CodeArt.Util
         {
             if (ex == null) return string.Empty;
             if (ex.InnerException == null) return ex.Message;
-            StringBuilder message = new StringBuilder();
-            while (ex != null)
+            string msg = null;
+            using (var temp = StringPool.Borrow())
             {
-                message.AppendLine(ex.Message);
-                ex = ex.InnerException;
+                var info = temp.Item;
+                while (ex != null)
+                {
+                    if(!(ex is TargetInvocationException))  //忽略“调用的目标发生异常”的提示
+                    {
+                        info.AppendLine(ex.Message);
+                    }
+                    ex = ex.InnerException;
+                }
+                msg = info.ToString().Trim();
             }
-            return message.ToString();
+            return msg;
         }
 
         public static IEnumerable<string> GetMessages(this Exception ex)
@@ -53,13 +63,18 @@ namespace CodeArt.Util
         {
             if (ex == null || ex.IsUserUIException()) return string.Empty;  //不显示UserUIException的调用栈信息
             if (ex.InnerException == null) return ex.StackTrace;
-            StringBuilder stackTrace = new StringBuilder();
-            while (ex != null && !(ex is UserUIException))
+            string msg = null;
+            using (var temp = StringPool.Borrow())
             {
-                stackTrace.AppendLine(ex.StackTrace);
-                ex = ex.InnerException;
+                var stackTrace = temp.Item;
+                while (ex != null && !(ex is UserUIException))
+                {
+                    stackTrace.AppendLine(ex.StackTrace);
+                    ex = ex.InnerException;
+                }
+                msg = stackTrace.ToString().Trim();
             }
-            return stackTrace.ToString();
+            return msg;
         }
 
         public static IEnumerable<string> GetStackTraces(this Exception ex)
@@ -77,10 +92,15 @@ namespace CodeArt.Util
 
         public static string GetCompleteInfo(this Exception ex)
         {
-            StringBuilder info = new StringBuilder();
-            info.AppendLine(ex.GetCompleteMessage());
-            info.Append(ex.GetCompleteStackTrace());
-            return info.ToString();
+            string msg = null;
+            using (var temp = StringPool.Borrow())
+            {
+                StringBuilder info = temp.Item;
+                info.AppendLine(ex.GetCompleteMessage());
+                info.Append(ex.GetCompleteStackTrace());
+                msg = info.ToString().Trim();
+            }
+            return msg;
         }
 
         #endregion
@@ -100,6 +120,35 @@ namespace CodeArt.Util
         //    }
         //    return string.Empty;
         //}
+
+        private static readonly DateTime _1970 = new DateTime(1970, 1, 1, 0, 0, 0, 0);
+
+        /// <summary>
+        /// 以1970年至今的总毫秒数
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static long TotalMillisecond(this DateTime value)
+        {
+            long valueTicks = value.Ticks;
+            return (valueTicks - _1970.Ticks) / 10000;
+        }
+
+        /// <summary>
+        /// 从1970年的毫秒数得到时间
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static DateTime GetDateTime(this long value)
+        {
+            return new DateTime(value * 10000 + _1970.Ticks);
+        }
+
+        public static long Timestamp(this DateTime value)
+        {
+            return (long)(value.TotalMillisecond() / 1000);
+        }
+
 
         /// <summary>
         /// 显示汉字的版本
@@ -138,7 +187,28 @@ namespace CodeArt.Util
         /// <returns></returns>
         public static DateTime End(this DateTime value)
         {
-            return value.AddHours(23).AddMinutes(59);
+            return value.Start().AddHours(23).AddMinutes(59);
+        }
+
+
+        /// <summary>
+        /// 获取时间的开始分钟格式，也就是：yyyy/MM/dd mm:00的值
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static DateTime StartMinute(this DateTime value)
+        {
+            return new DateTime(value.Year, value.Month, value.Day, value.Hour, value.Minute, 0);
+        }
+
+        /// <summary>
+        /// 获取时间的结束分钟格式，也就是：yyyy/MM/dd mm:59的值
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static DateTime EndMinute(this DateTime value)
+        {
+            return value.StartMinute().AddSeconds(59);
         }
 
 
@@ -173,7 +243,7 @@ namespace CodeArt.Util
         }
 
         /// <summary>
-        /// 获取时间是月份的第几周，周控制在1-4
+        /// 获取时间是月份的第几周
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
@@ -282,6 +352,32 @@ namespace CodeArt.Util
             throw new ApplicationException("GetDayOfWeekNumber发生未知的异常");
         }
 
+        public static (DateTime Start, DateTime End) GetMonthRange(this DateTime value)
+        {
+            //获取某年某月有多少天
+            int monthDay = DateTime.DaysInMonth(value.Year, value.Month);
+
+            DateTime start = new DateTime(value.Year, value.Month, 1).Start();
+            DateTime end = new DateTime(value.Year, value.Month, monthDay).End();
+            return (start, end);
+        }
+
+        /// <summary>
+        /// 本月最大天数
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static int MaxDays(this DateTime value)
+        {
+            //获取某年某月有多少天
+            return DateTime.DaysInMonth(value.Year, value.Month);
+        }
+
+        public static (DateTime Start, DateTime End) GetDayRange(this DateTime value)
+        {
+            return (value.Start(), value.End());
+        }
+
 
         /// <summary>
         /// 获得当前时间是第几季度
@@ -295,6 +391,91 @@ namespace CodeArt.Util
             return quarter;
         }
 
+        /// <summary>
+        /// 是否为同一天
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static bool SameDay(this DateTime value0, DateTime value1)
+        {
+            return value0.Year == value1.Year && value0.Month == value1.Month && value0.Day == value1.Day;
+        }
+
+        private static Func<int, string> _getHumanizeHour = LazyIndexer.Init<int, string>((hour)=>
+        {
+            if (hour >= 0 && hour <= 12)
+            {
+                return "上午";
+            }
+            else
+            {
+                return "下午";
+            }
+        });
+
+        /// <summary>
+        /// 获得人性化时间
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static string Humanize(this DateTime value)
+        {
+            var now = DateTime.Now;
+            var yesterday = DateTime.Now.AddDays(-1);
+
+            var tip = _getHumanizeHour(value.Hour);
+            if (value.Year == now.Year && value.Month == now.Month && value.Day == now.Day) return string.Format("今天 {0}{1:HH:mm}", tip, value);
+            if(value.Year == yesterday.Year && value.Month == yesterday.Month && value.Day == yesterday.Day) return string.Format("昨天 {0}{1:HH:mm}", tip, value);
+            return string.Format("{1:MM月dd日} {0}{1:HH:mm}", tip, value);
+        }
+
+        /// <summary>
+        /// 自动补充时区
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static DateTime TimeZone(this DateTime value)
+        {
+            if(value.Kind == DateTimeKind.Unspecified) //如果没有时区，就指定本地时区
+                return new DateTime(value.Year, value.Month, value.Day, value.Hour, value.Minute, value.Second, value.Millisecond, DateTimeKind.Local);
+            return value;
+        }
+
+        const long _minute = 60; 
+        const long _hour = 60 * _minute;
+        const long _day = 24 * _hour;
+
+        public static string Diff(this DateTime self, DateTime value)
+        {
+            var gap = new TimeSpan(value.Ticks - self.Ticks).TotalSeconds;
+
+            if (gap < _minute) return "0分钟";
+            if (gap < _hour) return Math.Round((double)(gap / _minute)) + "分钟";
+            if (gap < _day) return Math.Round((double)(gap / _hour)) + "小时";
+            return "长时间";
+        }
+
+        public static double DiffHour(this DateTime self, DateTime value)
+        {
+            return new TimeSpan(value.Ticks - self.Ticks).TotalHours;
+        }
+
+        public static double DiffMinute(this DateTime self, DateTime value)
+        {
+            return new TimeSpan(value.Ticks - self.Ticks).TotalMinutes;
+        }
+
+
+        public static DateTime SetMinute(this DateTime value, int minute)
+        {
+            return new DateTime(value.Year, value.Month, value.Day, value.Hour, minute, value.Second);
+        }
+
+        public static DateTime SetMinute(this DateTime value, int minute,int second)
+        {
+            return new DateTime(value.Year, value.Month, value.Day, value.Hour, minute, second);
+        }
+
         public static string GetAttributeValue(this XmlNode node, string attributeName)
         {
             return GetAttributeValue(node, attributeName, string.Empty);
@@ -305,15 +486,22 @@ namespace CodeArt.Util
             if (node == null || node.Attributes == null) return defaultValue;
             //XmlAttribute attr = node.Attributes[attributeName]; 这个方法会区分大小写，所以改成下面不区分的大小写的算法
             XmlAttribute attr = null;
-            foreach(XmlAttribute item in node.Attributes)
+            foreach (XmlAttribute item in node.Attributes)
             {
-                if(item.Name.EqualsIgnoreCase(attributeName))
+                if (item.Name.EqualsIgnoreCase(attributeName))
                 {
                     attr = item;
                     break;
                 }
             }
             return attr == null ? defaultValue : attr.Value;
+        }
+
+        public static void SetAttributeValue(this XmlNode node, string attributeName, string value)
+        {
+            XmlElement element = node as XmlElement;
+            if (element == null) throw new Exception("不能设置属性");
+            element.SetAttribute(attributeName, value);
         }
 
         /// <summary>
@@ -360,11 +548,245 @@ namespace CodeArt.Util
 
         public static bool Contains<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate)
         {
-            foreach(var item in source)
+            foreach (var item in source)
             {
                 if (predicate(item)) return true;
             }
             return false;
         }
+
+        public static IEnumerable<TSource> Last<TSource>(this IEnumerable<TSource> source, int count)
+        {
+            List<TSource> result = new List<TSource>();
+            var max = source.GetCount();
+            for (var i = 0; i < count; i++)
+            {
+                var pos = max - count + i;
+                if (pos < 0) continue;
+                var e = source.ElementAt(pos);
+                result.Add(e);
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// 将集合<paramref name="source"/>转变成为<paramref name="target"/>，需要增加哪些元素和需要删除哪些元素
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public static (IEnumerable<T> Adds, IEnumerable<T> Removes, IEnumerable<T> Updates) Transform<T>(this IEnumerable<T> source, IEnumerable<T> target)
+        {
+            return Transform<T>(source, target, (s, t) =>
+            {
+                return s.Equals(t);
+            });
+        }
+
+        public static (IEnumerable<T> Adds, IEnumerable<T> Removes, IEnumerable<T> Updates) Transform<T>(this IEnumerable<T> source, IEnumerable<T> target, Func<T, T, bool> equals)
+        {
+            return Transform<T, T>(source, target, equals);
+        }
+
+        /// <summary>
+        /// 将集合<paramref name="source"/>转变成为<paramref name="target"/>，需要增加哪些元素和需要删除哪些元素
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source"></param>
+        /// <param name="target"></param>
+        /// <param name="equals"></param>
+        /// <returns></returns>
+        public static (IEnumerable<TT> Adds, IEnumerable<ST> Removes, IEnumerable<TT> Updates) Transform<ST,TT>(this IEnumerable<ST> source, IEnumerable<TT> target, Func<ST, TT, bool> equals)
+        {
+            List<ST> souceCopy = new List<ST>(source);
+            List<TT> targetCopy = new List<TT>(target);
+
+            if (source.Count() == 0)
+                return (targetCopy, Array.Empty<ST>(), Array.Empty<TT>());
+
+            if (target.Count() == 0)
+                return (Array.Empty<TT>(), souceCopy, Array.Empty<TT>());
+
+            List<TT> sames = new List<TT>(); //需要保留的
+
+            //bool isClass = typeof(TT).IsClass;
+            bool isClass = typeof(TT).IsClass || typeof(TT).IsInterface;
+
+            //有相同的
+            foreach (var item in source)
+            {
+                var same = target.FirstOrDefault((t) => { return equals(item, t); });
+
+                //if (!same.Equals(default(TT)))
+                //{
+                //    sames.Add(same);
+                //}
+
+                if (isClass)
+                {
+                    if (same != null)  //找到相同的保留
+                    {
+                        sames.Add(same);
+                    }
+                }
+                else
+                {
+                    if (!same.Equals(default(TT)))
+                    {
+                        sames.Add(same);
+                    }
+                }
+
+            }
+
+            foreach (var same in sames)
+            {
+                souceCopy.Remove((item)=>
+                {
+                    return equals(item, same);
+                });
+                targetCopy.Remove(same);
+            }
+
+            return (targetCopy, souceCopy, sames);
+        }
+
+
+        /// <summary>
+        /// 不四舍五入保留小数点后几位
+        /// </summary>
+        /// <param name="value">值</param>
+        /// <param name="digits">保留位数</param>
+        /// <returns></returns>
+        public static float LeastRound(this float value, int digits)
+        {
+            //不能直接从float强制转换double，在某些情况会丢失精确度，比如6.599，结果是6.598999
+            return (float)LeastRound(double.Parse(value.ToString()), digits);
+        }
+
+        /// <summary>
+        /// 不四舍五入保留小数点后几位
+        /// </summary>
+        /// <param name="value">值</param>
+        /// <param name="digits">保留位数</param>
+        /// <returns></returns>
+        public static double LeastRound(this double value, int digits)
+        {
+            var pow = Math.Pow(10, digits);
+            return Math.Floor(value * pow) / pow;
+        }
+
+        /// <summary>
+        /// 不四舍五入保留小数点后几位
+        /// </summary>
+        /// <param name="value">值</param>
+        /// <param name="digits">保留位数</param>
+        /// <returns></returns>
+        public static decimal LeastRound(this decimal value, int digits)
+        {
+            var pow = (decimal)Math.Pow(10, digits);
+            return Math.Floor(value * pow) / pow;
+        }
+
+        /// <summary>
+        /// 四舍五入保留小数点后几位
+        /// </summary>
+        /// <param name="value">值</param>
+        /// <param name="digits">保留位数</param>
+        /// <returns></returns>
+        public static float Round(this float value, int digits)
+        {
+            return (float)Math.Round(value, digits, MidpointRounding.AwayFromZero);
+        }
+
+        /// <summary>
+        /// 四舍五入保留小数点后几位
+        /// </summary>
+        /// <param name="value">值</param>
+        /// <param name="digits">保留位数</param>
+        /// <returns></returns>
+        public static double Round(this double value, int digits)
+        {
+            return Math.Round(value, digits, MidpointRounding.AwayFromZero);
+        }
+
+        /// <summary>
+        /// 四舍五入保留小数点后几位
+        /// </summary>
+        /// <param name="value">值</param>
+        /// <param name="digits">保留位数</param>
+        /// <returns></returns>
+        public static decimal Round(this decimal value, int digits)
+        {
+            return Math.Round(value, digits, MidpointRounding.AwayFromZero);
+        }
+
+
+        /// <summary>
+        /// 根据key来过滤重复
+        /// </summary>
+        /// <typeparam name="TSource"></typeparam>
+        /// <typeparam name="TKey"></typeparam>
+        /// <param name="source"></param>
+        /// <param name="getKey"></param>
+        /// <returns></returns>
+        public static IEnumerable<TSource> Distinct<TSource,TKey>(this IEnumerable<TSource> source,Func<TSource, TKey> getKey)
+        {
+            var comparer = new KeyComparer<TSource, TKey>(getKey);
+            return source.Distinct(comparer);
+        }
+
+        private class KeyComparer<TSource, TKey> : IEqualityComparer<TSource>
+        {
+            private Func<TSource, TKey> _getKey;
+
+            public KeyComparer(Func<TSource, TKey> getKey)
+            {
+                _getKey = getKey;
+            }
+
+            public bool Equals(TSource x, TSource y)
+            {
+                return Object.Equals(_getKey(x), _getKey(y));
+            }
+
+            public int GetHashCode(TSource obj)
+            {
+                return _getKey(obj).GetHashCode();
+            }
+        }
+
+
+        /// <summary>
+        /// 生成Guid的16位短格式;重复几率很小，大概1亿次内都不会重复，可以用于领域对象编号，就算重复，也会由于主键重复报错，不会提交数据
+        /// 当我们想要获得一个唯一的key的时候，通常会想到GUID。这个key非常的长，虽然我们在很多情况下这并不是个问题。但是当我们需要将这个36个字符的字符串放在URL中时，会使的URL非常的丑陋。
+        ///想要缩短GUID的长度而不牺牲它的唯一性是不可能的，但是如果我们能够接受一个16位的字符串的话是可以做出这个牺牲的。
+        ///我们可以将一个标准的GUID 21726045-e8f7-4b09-abd8-4bcc926e9e28 转换成短的字符串 3c4ebc5f5f2c4edc
+        ///下面的方法会生成一个短的字符串，并且这个字符串是唯一的。重复1亿次都不会出现重复的，它也是依照GUID的唯一性来生成这个字符串的。
+        /// </summary>
+        /// <param name="guid"></param>
+        /// <returns></returns>
+        public static string Short(this Guid guid)
+        {
+            long i = 1;
+            foreach (byte b in guid.ToByteArray())
+            {
+                i *= ((int)b + 1);
+            }
+            return string.Format("{0:x}", i - DateTime.Now.Ticks);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="guid"></param>
+        /// <returns></returns>
+        public static long Long(this Guid guid)
+        {
+            byte[] buffer = Guid.NewGuid().ToByteArray();
+            return BitConverter.ToInt64(buffer, 0);
+        }
+
     }
 }

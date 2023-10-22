@@ -38,7 +38,7 @@ namespace Module.WebUI
         {
             var value = Principal.Id;
             if (value == null) throw new WebException("没有找到principal_id的值");
-            return (T)value;
+            return DataUtil.ToValue<T>(value);
         }
 
         private static void CheckLogin()

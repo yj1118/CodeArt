@@ -34,8 +34,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="HtmlAgilityPack, Version=1.8.5.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
-      <HintPath>..\packages\HtmlAgilityPack.1.8.5\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    <Reference Include="HtmlAgilityPack, Version=1.11.23.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.11.23\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -51,7 +51,11 @@
   <ItemGroup>
     <Compile Include="Alert\Alert.cs" />
     <Compile Include="Alert\AlertClassConverter.cs" />
+    <Compile Include="Input\Tinymce\Tinymce.cs" />
     <Compile Include="ListView\ListViewQuery.cs" />
+    <Compile Include="PageTurn\PageTurnSE.cs" />
+    <Compile Include="PageTurn\PageTurn.cs" />
+    <Compile Include="Portlet\PortletBgColorConverter.cs" />
     <Compile Include="QueryRange.cs" />
     <Compile Include="ListSlim\ListSlim.cs" />
     <Compile Include="ListSlim\ListSlimColumn.cs" />
@@ -172,12 +176,15 @@
     <Compile Include="Script\Menu.cs" />
     <Compile Include="Script\ViewExtensions.cs" />
     <Compile Include="Script\SweetAlert.cs" />
+    <Compile Include="Sortable\SortableSE.cs" />
+    <Compile Include="Sortable\Sortable.cs" />
     <Compile Include="Strings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Strings.resx</DependentUpon>
     </Compile>
     <Compile Include="Input\Vis\Vis.cs" />
+    <Compile Include="Wall\Wall.cs" />
     <Compile Include="Wizard\WizardFormPresenter.cs" />
     <Compile Include="Wizard\WizardStepPresenter.cs" />
     <Compile Include="Wizard\StepIdConverter.cs" />
@@ -272,6 +279,11 @@
     <EmbeddedResource Include="assets\custom\jquery.mousewheel.min.js" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Input\Tinymce\Template.html" />
+    <EmbeddedResource Include="Thumbs\Template.html" />
+    <EmbeddedResource Include="Wall\Template.html" />
+    <EmbeddedResource Include="Sortable\Template.html" />
+    <EmbeddedResource Include="PageTurn\Template.html" />
     <EmbeddedResource Include="ListSlim\Template.html" />
     <EmbeddedResource Include="Note\Template.html" />
     <EmbeddedResource Include="ListView\ListViewItemPortlet.html" />
@@ -476,7 +488,7 @@
     <EmbeddedResource Include="assets\custom\vis\vis.js" />
     <EmbeddedResource Include="assets\custom\vis\vis.min.css" />
     <EmbeddedResource Include="assets\custom\vis\vis.min.js" />
-    <EmbeddedResource Include="assets\custom\vis\common.js" />
+    <EmbeddedResource Include="assets\custom\vis.js" />
     <EmbeddedResource Include="assets\demo\default\base\scripts.bundle.js" />
     <EmbeddedResource Include="assets\demo\default\base\style.bundle.css" />
     <EmbeddedResource Include="assets\demo\default\base\style.bundle.rtl.css" />
@@ -569,6 +581,128 @@
     <EmbeddedResource Include="assets\demo\default\custom\crud\metronic-datatable\base\translation.js" />
     <EmbeddedResource Include="assets\demo\default\custom\crud\metronic-datatable\child\data-ajax.js" />
     <EmbeddedResource Include="assets\demo\default\custom\crud\metronic-datatable\child\data-local.js" />
+    <EmbeddedResource Include="assets\custom\jquery.ui.min.js" />
+    <EmbeddedResource Include="assets\custom\jquery.ui.min - raw.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\jquery.tinymce.min.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\license.txt" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\advlist\plugin.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\advlist\plugin.min.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\anchor\plugin.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\anchor\plugin.min.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\autolink\plugin.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\autolink\plugin.min.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\autoresize\plugin.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\autoresize\plugin.min.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\autosave\plugin.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\autosave\plugin.min.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\bbcode\plugin.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\bbcode\plugin.min.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\charmap\plugin.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\charmap\plugin.min.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\codesample\plugin.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\codesample\plugin.min.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\code\plugin.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\code\plugin.min.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\colorpicker\plugin.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\colorpicker\plugin.min.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\contextmenu\plugin.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\contextmenu\plugin.min.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\directionality\plugin.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\directionality\plugin.min.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\emoticons\js\emojis.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\emoticons\js\emojis.min.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\emoticons\plugin.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\emoticons\plugin.min.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\fullpage\plugin.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\fullpage\plugin.min.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\fullscreen\plugin.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\fullscreen\plugin.min.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\help\plugin.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\help\plugin.min.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\hr\plugin.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\hr\plugin.min.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\imagetools\plugin.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\imagetools\plugin.min.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\image\plugin.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\image\plugin.min.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\importcss\plugin.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\importcss\plugin.min.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\insertdatetime\plugin.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\insertdatetime\plugin.min.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\legacyoutput\plugin.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\legacyoutput\plugin.min.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\link\plugin.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\link\plugin.min.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\lists\plugin.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\lists\plugin.min.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\media\plugin.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\media\plugin.min.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\nonbreaking\plugin.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\nonbreaking\plugin.min.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\noneditable\plugin.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\noneditable\plugin.min.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\pagebreak\plugin.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\pagebreak\plugin.min.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\paste\plugin.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\paste\plugin.min.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\preview\plugin.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\preview\plugin.min.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\print\plugin.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\print\plugin.min.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\quickbars\plugin.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\quickbars\plugin.min.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\save\plugin.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\save\plugin.min.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\searchreplace\plugin.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\searchreplace\plugin.min.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\spellchecker\plugin.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\spellchecker\plugin.min.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\tabfocus\plugin.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\tabfocus\plugin.min.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\table\plugin.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\table\plugin.min.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\template\plugin.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\template\plugin.min.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\textcolor\plugin.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\textcolor\plugin.min.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\textpattern\plugin.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\textpattern\plugin.min.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\toc\plugin.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\toc\plugin.min.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\visualblocks\plugin.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\visualblocks\plugin.min.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\visualchars\plugin.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\visualchars\plugin.min.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\wordcount\plugin.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\plugins\wordcount\plugin.min.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\skins\content\default\content.css" />
+    <EmbeddedResource Include="assets\custom\tinymce\skins\content\default\content.min.css" />
+    <EmbeddedResource Include="assets\custom\tinymce\skins\content\document\content.css" />
+    <EmbeddedResource Include="assets\custom\tinymce\skins\content\document\content.min.css" />
+    <EmbeddedResource Include="assets\custom\tinymce\skins\content\writer\content.css" />
+    <EmbeddedResource Include="assets\custom\tinymce\skins\content\writer\content.min.css" />
+    <EmbeddedResource Include="assets\custom\tinymce\skins\ui\oxide-dark\content.css" />
+    <EmbeddedResource Include="assets\custom\tinymce\skins\ui\oxide-dark\content.inline.css" />
+    <EmbeddedResource Include="assets\custom\tinymce\skins\ui\oxide-dark\content.inline.min.css" />
+    <EmbeddedResource Include="assets\custom\tinymce\skins\ui\oxide-dark\content.min.css" />
+    <EmbeddedResource Include="assets\custom\tinymce\skins\ui\oxide-dark\skin.css" />
+    <EmbeddedResource Include="assets\custom\tinymce\skins\ui\oxide-dark\skin.min.css" />
+    <EmbeddedResource Include="assets\custom\tinymce\skins\ui\oxide\content.css" />
+    <EmbeddedResource Include="assets\custom\tinymce\skins\ui\oxide\content.inline.css" />
+    <EmbeddedResource Include="assets\custom\tinymce\skins\ui\oxide\content.inline.min.css" />
+    <EmbeddedResource Include="assets\custom\tinymce\skins\ui\oxide\content.min.css" />
+    <EmbeddedResource Include="assets\custom\tinymce\skins\ui\oxide\content.mobile.min.css" />
+    <EmbeddedResource Include="assets\custom\tinymce\skins\ui\oxide\skin.css" />
+    <EmbeddedResource Include="assets\custom\tinymce\skins\ui\oxide\skin.min.css" />
+    <EmbeddedResource Include="assets\custom\tinymce\skins\ui\oxide\skin.mobile.min.css" />
+    <EmbeddedResource Include="assets\custom\tinymce\themes\mobile\theme.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\themes\mobile\theme.min.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\themes\silver\theme.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\themes\silver\theme.min.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\tinymce.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\tinymce.min.js" />
+    <EmbeddedResource Include="assets\custom\tinymce\langs\zh_CN.js" />
+    <EmbeddedResource Include="assets\custom\tinymce.js" />
     <EmbeddedResource Include="assets\custom\layui\css\layui.css" />
     <EmbeddedResource Include="assets\custom\layui\css\layui.mobile.css" />
     <EmbeddedResource Include="assets\custom\layui\css\modules\code.css" />
@@ -670,6 +804,7 @@
     <EmbeddedResource Include="assets\custom\layui\lay\modules\rate.js" />
     <EmbeddedResource Include="assets\custom\layui\lay\modules\slider.js" />
     <EmbeddedResource Include="assets\custom\layui\lay\modules\table.js" />
+    <EmbeddedResource Include="assets\custom\layui\lay\modules\transfer.js" />
     <EmbeddedResource Include="assets\custom\layui\lay\modules\tree.js" />
     <EmbeddedResource Include="assets\custom\layui\lay\modules\upload.js" />
     <EmbeddedResource Include="assets\custom\layui\lay\modules\util.js" />
@@ -736,9 +871,23 @@
     <EmbeddedResource Include="assets\vendors\base\fonts\summernote\summernote.eot" />
     <EmbeddedResource Include="assets\vendors\base\fonts\summernote\summernote.ttf" />
     <EmbeddedResource Include="assets\vendors\base\fonts\summernote\summernote.woff" />
+    <None Include="app.config" />
     <EmbeddedResource Include="assets\custom\layui\font\iconfont.eot" />
     <EmbeddedResource Include="assets\custom\layui\font\iconfont.ttf" />
     <EmbeddedResource Include="assets\custom\layui\font\iconfont.woff" />
+    <EmbeddedResource Include="assets\custom\layui\font\iconfont.woff2" />
+    <None Include="assets\custom\tinymce\langs\readme.md" />
+    <EmbeddedResource Include="assets\custom\tinymce\skins\content\default\content.min.css.map" />
+    <EmbeddedResource Include="assets\custom\tinymce\skins\content\document\content.min.css.map" />
+    <EmbeddedResource Include="assets\custom\tinymce\skins\content\writer\content.min.css.map" />
+    <EmbeddedResource Include="assets\custom\tinymce\skins\ui\oxide-dark\content.inline.min.css.map" />
+    <EmbeddedResource Include="assets\custom\tinymce\skins\ui\oxide-dark\content.min.css.map" />
+    <EmbeddedResource Include="assets\custom\tinymce\skins\ui\oxide-dark\skin.min.css.map" />
+    <EmbeddedResource Include="assets\custom\tinymce\skins\ui\oxide\content.inline.min.css.map" />
+    <EmbeddedResource Include="assets\custom\tinymce\skins\ui\oxide\content.min.css.map" />
+    <EmbeddedResource Include="assets\custom\tinymce\skins\ui\oxide\fonts\tinymce-mobile.woff" />
+    <EmbeddedResource Include="assets\custom\tinymce\skins\ui\oxide\skin.min.css.map" />
+    <EmbeddedResource Include="assets\custom\tinymce\skins\ui\oxide\skin.mobile.min.css.map" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />

@@ -17,80 +17,88 @@ using CodeArt.AppSetting;
 
 namespace CodeArt.DomainDriven.DataAccess
 {
-    internal static class SqlHelper
+    public static class SqlHelper
     {
         #region 内部方法
 
-        public static int Execute(string connName, string sql, object param = null)
+        public static int Execute(string sql, object param = null)
         {
-            var connectionString = GetConnectionString(connName);
-            using (IDbConnection conn = new SqlConnection(connectionString))
+            int result = 0;
+            DataContext.Using((conn)=>
             {
-                return conn.Execute(sql, param);
-            }
+                result = conn.Execute(sql, param);
+            });
+            return result;
         }
 
-        public static T ExecuteScalar<T>(string connName, string sql, object param = null)
+        public static T ExecuteScalar<T>(string sql, object param = null)
         {
-            var connectionString = GetConnectionString(connName);
-            using (IDbConnection conn = new SqlConnection(connectionString))
+            T result = default(T);
+            DataContext.Using((conn) =>
             {
-                return conn.ExecuteScalar<T>(sql, param);
-            }
+                result = conn.ExecuteScalar<T>(sql, param);
+            });
+            return result;
         }
 
-        public static object ExecuteScalar(string connName, string sql, object param = null)
+        public static object ExecuteScalar(string sql, object param = null)
         {
-            var connectionString = GetConnectionString(connName);
-            using (IDbConnection conn = new SqlConnection(connectionString))
+            object result = null;
+            DataContext.Using((conn) =>
             {
-                return conn.ExecuteScalar(sql, param);
-            }
+                result = conn.ExecuteScalar(sql, param);
+            });
+            return result;
         }
 
-        public static DynamicData QueryFirstOrDefault(string connName, string sql, object param = null)
+        public static DynamicData QueryFirstOrDefault(string sql, object param = null)
         {
-            var connectionString = GetConnectionString(connName);
-            using (IDbConnection conn = new SqlConnection(connectionString))
-            {
-                using (var reader = conn.ExecuteReader(sql, param))
-                {
-                    var data = new DynamicData();
-                    FillSingleData(reader, data);
-                    return data;
-                }   
-            }
-        }
-
-        public static void QueryFirstOrDefault(string connName, string sql, object param, DynamicData data)
-        {
-            var connectionString = GetConnectionString(connName);
-            using (IDbConnection conn = new SqlConnection(connectionString))
+            DynamicData data = new DynamicData();
+            DataContext.Using((conn) =>
             {
                 using (var reader = conn.ExecuteReader(sql, param))
                 {
                     FillSingleData(reader, data);
                 }
-            }
+            });
+            return data;
+        }
+
+        public static void QueryFirstOrDefault(string sql, object param, DynamicData data)
+        {
+            DataContext.Using((conn) =>
+            {
+                using (var reader = conn.ExecuteReader(sql, param))
+                {
+                    FillSingleData(reader, data);
+                }
+            });
         }
 
 
-        public static void Query(string connName, string sql, object param, List<DynamicData> datas)
+        public static void Query(string sql, object param, List<DynamicData> datas)
         {
-            var connectionString = GetConnectionString(connName);
-            using (IDbConnection conn = new SqlConnection(connectionString))
+            DataContext.Using((conn) =>
             {
                 using (var reader = conn.ExecuteReader(sql, param))
                 {
                     FillMultipleData(reader, datas);
                 }
-            }
+            });
         }
 
-        public static string GetConnectionString(string connName)
+        public static IEnumerable<DynamicData> Query<T>(string sql, object param = null) where T : IAggregateRoot
+        {
+            var objectType = typeof(T);
+            List<DynamicData> datas = new List<DynamicData>();
+            Query(sql, param, datas);
+            return datas;
+        }
+
+        public static string GetConnection()
         {
             var provider = SqlContext.GetConnectionProvider();
-            return provider.GetConnectionString(connName);
+            return provider.GetConnectionString("local");
         }
 
         #endregion

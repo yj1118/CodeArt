@@ -38,7 +38,31 @@
     <add name="layout-builder.js" />
     <add name="my-script.js" />
 
+    <add name="jquery.ui.min.js" />
+
+
+    <add name="jquery.tinymce.min.js" />
+    <add name="tinymce.min.js" />
+    <add name="plugin.min.js" />
+    <add name="emojis.min.js" />
+    <add name="content.min.css" />
+    <add name="tinymce-mobile.woff" />
+    <add name="content.inline.css" />
+    <add name="content.inline.min.css" />
+    <add name="content.min.css" />
+    <add name="content.mobile.min.css" />
+    <add name="skin.min.css" />
+    <add name="skin.mobile.min.css" />
+    <add name="theme.min.js" />
+
+
     <add name="layui.all.js" />
     <add name="layui.mobile.css" />
+    <add name="icon-ext.png" />
+    <add name="loading-0.gif" />
+    <add name="loading-0.gif" />
+    <add name="loading-1.gif" />
+    <add name="loading-2.gif" />
+    
   </files>
 </config>

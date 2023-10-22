@@ -17,7 +17,7 @@ namespace CodeArt.DomainDriven
 
     }
 
-    public abstract class EventCommand<ET, RT> : CommandBase, ICommanImp<RT>, IEventCommand
+    public abstract class EventCommand<ET, RT> : CommandBase, ICommandImp<RT>, IEventCommand
         where ET : DomainEvent
     {
         public virtual RT Execute()
@@ -33,10 +33,10 @@ namespace CodeArt.DomainDriven
                     source = CreateEvent();
                 });
 
-                EventRestorer.UseQueue(queueId, true, (callback) =>
-                 {
-                     EventTrigger.Start(queueId, source, callback);
-                 });
+                EventProtector.UseNewQueue(queueId,(callback) =>
+                {
+                    EventTrigger.Start(queueId, source, callback);
+                });
             });
 
             {

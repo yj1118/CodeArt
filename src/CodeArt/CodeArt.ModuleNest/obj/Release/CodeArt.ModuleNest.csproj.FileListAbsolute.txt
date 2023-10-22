@@ -6,7 +6,75 @@ D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ModuleNest\bin\Release\N
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ModuleNest\bin\Release\CodeArt.pdb
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ModuleNest\bin\Release\NLog.xml
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ModuleNest\bin\Release\zh-CN\CodeArt.resources.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ModuleNest\obj\Release\CodeArt.ModuleNest.csprojAssemblyReference.cache
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ModuleNest\obj\Release\CodeArt.ModuleNest.csproj.CoreCompileInputs.cache
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ModuleNest\obj\Release\CodeArt.ModuleNest.csproj.CopyComplete
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ModuleNest\obj\Release\CodeArt.ModuleNest.dll
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ModuleNest\obj\Release\CodeArt.ModuleNest.pdb
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ModuleNest\obj\Release\CodeArt.ModuleNest.csprojResolveAssemblyReference.cache
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ModuleNest\bin\Release\CodeArt.ModuleNest.dll.config
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ModuleNest\bin\Release\JWT.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ModuleNest\bin\Release\Newtonsoft.Json.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ModuleNest\bin\Release\StackExchange.Redis.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ModuleNest\bin\Release\System.IO.Compression.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ModuleNest\bin\Release\System.Memory.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ModuleNest\bin\Release\System.Threading.Channels.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ModuleNest\bin\Release\System.Threading.Tasks.Extensions.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ModuleNest\bin\Release\Pipelines.Sockets.Unofficial.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ModuleNest\bin\Release\System.IO.Pipelines.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ModuleNest\bin\Release\System.Buffers.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ModuleNest\bin\Release\System.Runtime.InteropServices.RuntimeInformation.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ModuleNest\bin\Release\netstandard.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ModuleNest\bin\Release\System.Numerics.Vectors.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ModuleNest\bin\Release\System.Runtime.CompilerServices.Unsafe.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ModuleNest\bin\Release\System.Net.Sockets.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ModuleNest\bin\Release\CodeArt.dll.config
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ModuleNest\bin\Release\JWT.pdb
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ModuleNest\bin\Release\JWT.xml
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ModuleNest\bin\Release\Newtonsoft.Json.xml
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ModuleNest\bin\Release\StackExchange.Redis.xml
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ModuleNest\bin\Release\System.Memory.xml
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ModuleNest\bin\Release\System.Threading.Channels.xml
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ModuleNest\bin\Release\System.Threading.Tasks.Extensions.xml
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ModuleNest\bin\Release\Pipelines.Sockets.Unofficial.xml
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ModuleNest\bin\Release\System.IO.Pipelines.xml
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ModuleNest\bin\Release\System.Buffers.xml
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ModuleNest\bin\Release\System.Numerics.Vectors.xml
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.ModuleNest\bin\Release\System.Runtime.CompilerServices.Unsafe.xml
+D:\workspace\Projects\CodeArtFramework\CodeArt\CodeArt.ModuleNest\bin\Release\NLog.config
+D:\workspace\Projects\CodeArtFramework\CodeArt\CodeArt.ModuleNest\bin\Release\CodeArt.ModuleNest.dll.config
+D:\workspace\Projects\CodeArtFramework\CodeArt\CodeArt.ModuleNest\bin\Release\CodeArt.ModuleNest.dll
+D:\workspace\Projects\CodeArtFramework\CodeArt\CodeArt.ModuleNest\bin\Release\CodeArt.ModuleNest.pdb
+D:\workspace\Projects\CodeArtFramework\CodeArt\CodeArt.ModuleNest\bin\Release\CodeArt.dll
+D:\workspace\Projects\CodeArtFramework\CodeArt\CodeArt.ModuleNest\bin\Release\Newtonsoft.Json.dll
+D:\workspace\Projects\CodeArtFramework\CodeArt\CodeArt.ModuleNest\bin\Release\JWT.dll
+D:\workspace\Projects\CodeArtFramework\CodeArt\CodeArt.ModuleNest\bin\Release\NLog.dll
+D:\workspace\Projects\CodeArtFramework\CodeArt\CodeArt.ModuleNest\bin\Release\StackExchange.Redis.dll
+D:\workspace\Projects\CodeArtFramework\CodeArt\CodeArt.ModuleNest\bin\Release\System.IO.Compression.dll
+D:\workspace\Projects\CodeArtFramework\CodeArt\CodeArt.ModuleNest\bin\Release\System.Memory.dll
+D:\workspace\Projects\CodeArtFramework\CodeArt\CodeArt.ModuleNest\bin\Release\System.Threading.Channels.dll
+D:\workspace\Projects\CodeArtFramework\CodeArt\CodeArt.ModuleNest\bin\Release\System.Threading.Tasks.Extensions.dll
+D:\workspace\Projects\CodeArtFramework\CodeArt\CodeArt.ModuleNest\bin\Release\Pipelines.Sockets.Unofficial.dll
+D:\workspace\Projects\CodeArtFramework\CodeArt\CodeArt.ModuleNest\bin\Release\System.IO.Pipelines.dll
+D:\workspace\Projects\CodeArtFramework\CodeArt\CodeArt.ModuleNest\bin\Release\System.Runtime.InteropServices.RuntimeInformation.dll
+D:\workspace\Projects\CodeArtFramework\CodeArt\CodeArt.ModuleNest\bin\Release\netstandard.dll
+D:\workspace\Projects\CodeArtFramework\CodeArt\CodeArt.ModuleNest\bin\Release\System.Numerics.Vectors.dll
+D:\workspace\Projects\CodeArtFramework\CodeArt\CodeArt.ModuleNest\bin\Release\System.Net.Sockets.dll
+D:\workspace\Projects\CodeArtFramework\CodeArt\CodeArt.ModuleNest\bin\Release\CodeArt.pdb
+D:\workspace\Projects\CodeArtFramework\CodeArt\CodeArt.ModuleNest\bin\Release\CodeArt.dll.config
+D:\workspace\Projects\CodeArtFramework\CodeArt\CodeArt.ModuleNest\bin\Release\Newtonsoft.Json.xml
+D:\workspace\Projects\CodeArtFramework\CodeArt\CodeArt.ModuleNest\bin\Release\JWT.pdb
+D:\workspace\Projects\CodeArtFramework\CodeArt\CodeArt.ModuleNest\bin\Release\JWT.xml
+D:\workspace\Projects\CodeArtFramework\CodeArt\CodeArt.ModuleNest\bin\Release\NLog.xml
+D:\workspace\Projects\CodeArtFramework\CodeArt\CodeArt.ModuleNest\bin\Release\StackExchange.Redis.xml
+D:\workspace\Projects\CodeArtFramework\CodeArt\CodeArt.ModuleNest\bin\Release\System.Memory.xml
+D:\workspace\Projects\CodeArtFramework\CodeArt\CodeArt.ModuleNest\bin\Release\System.Threading.Channels.xml
+D:\workspace\Projects\CodeArtFramework\CodeArt\CodeArt.ModuleNest\bin\Release\System.Threading.Tasks.Extensions.xml
+D:\workspace\Projects\CodeArtFramework\CodeArt\CodeArt.ModuleNest\bin\Release\Pipelines.Sockets.Unofficial.xml
+D:\workspace\Projects\CodeArtFramework\CodeArt\CodeArt.ModuleNest\bin\Release\System.IO.Pipelines.xml
+D:\workspace\Projects\CodeArtFramework\CodeArt\CodeArt.ModuleNest\bin\Release\System.Numerics.Vectors.xml
+D:\workspace\Projects\CodeArtFramework\CodeArt\CodeArt.ModuleNest\bin\Release\zh-CN\CodeArt.resources.dll
+D:\workspace\Projects\CodeArtFramework\CodeArt\CodeArt.ModuleNest\obj\Release\CodeArt.ModuleNest.csproj.AssemblyReference.cache
+D:\workspace\Projects\CodeArtFramework\CodeArt\CodeArt.ModuleNest\obj\Release\CodeArt.ModuleNest.csproj.CoreCompileInputs.cache
+D:\workspace\Projects\CodeArtFramework\CodeArt\CodeArt.ModuleNest\obj\Release\CodeArt.ModuleNest.csproj.CopyComplete
+D:\workspace\Projects\CodeArtFramework\CodeArt\CodeArt.ModuleNest\obj\Release\CodeArt.ModuleNest.dll
+D:\workspace\Projects\CodeArtFramework\CodeArt\CodeArt.ModuleNest\obj\Release\CodeArt.ModuleNest.pdb

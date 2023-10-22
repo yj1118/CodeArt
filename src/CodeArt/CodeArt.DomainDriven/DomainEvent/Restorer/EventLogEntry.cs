@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -8,77 +9,40 @@ using System.Threading.Tasks;
 namespace CodeArt.DomainDriven
 {
     [DebuggerDisplay("Operation:{Operation},ContentCode:{ContentCode},OrderIndex:{OrderIndex}")]
-    [ObjectRepository(typeof(IEventLogEntryRepository), CloseMultiTenancy = true)]
-    public class EventLogEntry : AggregateRoot<EventLogEntry, Guid>
+    public class EventLogEntry : DataObject<Guid>
     {
-        [PropertyRepository(Lazy = true)]
-        public static readonly DomainProperty LogProperty = DomainProperty.Register<EventLog, EventLogEntry>("Log");
-
-        public EventLog Log
+        /// <summary>
+        /// 所属日志的编号
+        /// </summary>
+        public Guid LogId
         {
-            get
-            {
-                return GetValue<EventLog>(LogProperty);
-            }
-            private set
-            {
-                SetValue(LogProperty, value);
-            }
+            get;
+            private set;
         }
-
-        [PropertyRepository()]
-        private static readonly DomainProperty OperationProperty = DomainProperty.Register<EventOperation, EventLogEntry>("Operation");
 
         public EventOperation Operation
         {
-            get
-            {
-                return GetValue<EventOperation>(OperationProperty);
-            }
-            private set
-            {
-                SetValue(OperationProperty, value);
-            }
+            get;
+            private set;
         }
-
-        [PropertyRepository()]
-        private static readonly DomainProperty ContentCodeProperty = DomainProperty.Register<string, EventLogEntry>("ContentCode");
 
         public string ContentCode
         {
-            get
-            {
-                return GetValue<string>(ContentCodeProperty);
-            }
-            private set
-            {
-                SetValue(ContentCodeProperty, value);
-            }
+            get;
+            private set;
         }
 
         /// <summary>
         /// 日志条目的写入序号
         /// </summary>
-        [PropertyRepository()]
-        private static readonly DomainProperty OrderIndexProperty = DomainProperty.Register<int, EventLogEntry>("OrderIndex");
-
         public int OrderIndex
         {
-            get
-            {
-                return GetValue<int>(OrderIndexProperty);
-            }
-            private set
-            {
-                SetValue(OrderIndexProperty, value);
-            }
+            get;
+            private set;
         }
 
-        /// <summary>
-        /// 该日志是否已经进行了事件回逆的处理，是为true,否则false
-        /// </summary>
-        [PropertyRepository()]
-        private static readonly DomainProperty IsReversedProperty = DomainProperty.Register<bool, EventLogEntry>("IsReversed");
+
+        private bool _isReversed;
 
         /// <summary>
         /// 该日志是否已经进行了事件回逆的处理，是为true,否则false
@@ -87,59 +51,46 @@ namespace CodeArt.DomainDriven
         {
             get
             {
-                return GetValue<bool>(IsReversedProperty);
+                return _isReversed;
             }
             internal set
             {
-                SetValue(IsReversedProperty, value);
+                _isReversed = value;
+                this.MarkDirty();
             }
         }
 
-        public EventLogEntry(EventLog log, EventOperation operation, string contentCode, int orderIndex)
+        public EventLogEntry()
+           : base(Guid.Empty)
+        {
+
+        }
+
+
+        public EventLogEntry(Guid logId, EventOperation operation, string contentCode, int orderIndex)
             : base(Guid.NewGuid())
         {
-            this.Log = log;
+            this.LogId = logId;
             this.Operation = operation;
             this.ContentCode = contentCode;
             this.OrderIndex = orderIndex;
             this.IsReversed = false;
-            this.OnConstructed();
         }
 
-        [ConstructorRepository()]
-        public EventLogEntry(Guid id, EventOperation operation, string contentCode, int orderIndex, bool isReversed)
-            : base(id)
+        protected override void LoadImpl(IDataReader reader)
         {
-            this.Operation = operation;
-            this.ContentCode = contentCode;
-            this.OrderIndex = orderIndex;
-            this.IsReversed = isReversed;
-            this.OnConstructed();
+            this.Id = reader.GetGuid("Id");
+            this.LogId = reader.GetGuid("LogId");
+            this.Operation = (EventOperation)reader.GetByte("Operation");
+            this.ContentCode = reader.GetString("ContentCode");
+            this.OrderIndex = reader.GetInt32("OrderIndex");
+            this.IsReversed = reader.GetBoolean("IsReversed");
         }
 
-        #region 空对象
-
-        private class EventLogEntryEmpty : EventLogEntry
-        {
-            public EventLogEntryEmpty()
-                : base(Guid.Empty, 0, string.Empty, 0, false)
-            {
-                this.OnConstructed();
-            }
-
-            public override bool IsEmpty()
-            {
-                return true;
-            }
-        }
-
-        public static readonly EventLogEntry Empty = new EventLogEntryEmpty();
-
-        #endregion
 
         public static void Update(EventLogEntry entry)
         {
-            var repository = Repository.Create<IEventLogEntryRepository>();
+            var repository = EventLogEntryRepository.Instance;
             repository.Update(entry);
         }
 
@@ -149,12 +100,8 @@ namespace CodeArt.DomainDriven
         /// <param name="logId"></param>
         internal static void Deletes(Guid logId)
         {
-            var repository = Repository.Create<IEventLogEntryRepository>();
-            var entries = repository.FindByReverseOrder(logId);
-            foreach(var entry in entries)
-            {
-                repository.Delete(entry);
-            }
+            var repository = EventLogEntryRepository.Instance;
+            repository.Deletes(logId);
         }
 
     }

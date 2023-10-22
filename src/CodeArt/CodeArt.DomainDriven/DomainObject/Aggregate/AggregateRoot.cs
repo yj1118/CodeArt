@@ -4,9 +4,14 @@ using System.Linq;
 using System.Text;
 
 using CodeArt.Runtime;
+using CodeArt.DTO;
+using CodeArt.AppSetting;
+using System.Collections;
 
 namespace CodeArt.DomainDriven
 {
+    [MergeDomain]
+    [FrameworkDomain]
     public abstract class AggregateRoot<TObject, TIdentity> : EntityObject<TObject, TIdentity>, IAggregateRoot
         where TObject : AggregateRoot<TObject, TIdentity>
         where TIdentity : struct
@@ -51,12 +56,16 @@ namespace CodeArt.DomainDriven
 
         public virtual void OnPreAdd()
         {
+            if (this.Invalid) throw new DomainDrivenException("对象无效，不能执行新增操作");
+
             if (this.PreAdd != null)
             {
                 var e = new RepositoryEventArgs(this, StatusEventType.PreAdd);
                 this.PreAdd(this, e);
             }
+
         }
+
 
         public event RepositoryEventHandler Added;
         public virtual void OnAdded()
@@ -97,6 +106,8 @@ namespace CodeArt.DomainDriven
         public event RepositoryEventHandler PreUpdate;
         public virtual void OnPreUpdate()
         {
+            if (this.Invalid) throw new DomainDrivenException("对象无效，不能执行修改操作");
+
             if (this.PreUpdate != null)
             {
                 var e = new RepositoryEventArgs(this, StatusEventType.PreUpdate);
@@ -147,6 +158,8 @@ namespace CodeArt.DomainDriven
                 var e = new RepositoryEventArgs(this, StatusEventType.PreDelete);
                 this.PreDelete(this, e);
             }
+
+            var tip = ObjectLogableAttribute.GetTip(this.ObjectType);
         }
 
         public event RepositoryEventHandler Deleted;
@@ -266,11 +279,12 @@ namespace CodeArt.DomainDriven
         }
     }
 
-
+    [MergeDomain]
+    [FrameworkDomain]
     public abstract class AggregateRoot<TObject, TIdentity, TObjectEmpty> : AggregateRoot<TObject, TIdentity>
         where TObject : AggregateRoot<TObject, TIdentity>
         where TIdentity : struct
-        where TObjectEmpty : TObject,new ()
+        where TObjectEmpty : TObject, new()
     {
         public AggregateRoot(TIdentity id)
             : base(id)

@@ -84,7 +84,8 @@ namespace CodeArt.Web.WebPages.Xaml.Markup
                 if (!TrySetDictionary(propertyValue, propertyNodes, owner))
                 {
                     //最后作为对象设置
-                    if (propertyNodes.Count != 1) throw new WebException("属性" + owner.GetType().Name + "." + propertyInfo.Name + "不是集合，xaml的根元素不能超过1");
+                    if (propertyNodes.Count != 1)
+                        throw new WebException("属性" + owner.GetType().Name + "." + propertyInfo.Name + "不是集合，xaml的根元素不能超过1");
                     propertyValue = ComponentLoader.CreateComponent(propertyNodes[0], owner);
                     propertyInfo.SetValue(owner, propertyValue);
 

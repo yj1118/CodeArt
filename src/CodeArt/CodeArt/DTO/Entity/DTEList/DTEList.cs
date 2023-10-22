@@ -178,6 +178,24 @@ namespace CodeArt.DTO
             this.Changed();
         }
 
+        public void RemoveAt(int index)
+        {
+            Items.RemoveAt(index);
+            this.Changed();
+        }
+
+
+        public bool Remove(Func<DTObject, bool> predicate)
+        {
+            if(Items.Remove(predicate))
+            {
+                this.Changed();
+                return true;
+            }
+            return false;
+        }
+
+
         #endregion
 
         /// <summary>
@@ -222,6 +240,12 @@ namespace CodeArt.DTO
             this.Changed();
         }
 
+        public void Insert(int index, DTObject item)
+        {
+            Items.Insert(index, item);
+            this.Changed();
+        }
+
         private DTObjects _objects;
 
         public DTObjects GetObjects()
@@ -231,6 +255,11 @@ namespace CodeArt.DTO
                 _objects = new DTObjects(Items);
             }
             return _objects;
+        }
+
+        public IEnumerable<T> GetValues<T>()
+        {
+            return this.GetObjects().Select((t)=>t.GetValue<T>());
         }
 
         public int Count

@@ -39,6 +39,8 @@ namespace CodeArt.DTO
 
         void Write(string name, float? value);
 
+        void Write(string name, decimal? value);
+
         void WriteElement<T>(string name, bool elementIsPrimitive, T telement);
 
         void Write(string name, object value);

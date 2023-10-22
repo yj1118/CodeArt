@@ -1,0 +1,75 @@
+﻿<ControlTemplate xmlns="http://schemas.codeart.cn/web/xaml"
+                 xmlns:m="http://schemas.codeart.cn/web/xaml/metronic"
+                 xmlns:ui="http://schemas.codeart.cn/web/xaml/ui"
+                 xmlns:qa="http://schemas.codeart.cn/web/xaml/qa">
+
+    <ControlTemplate.Directories>
+        <AssetDirectory AssemblyName="Module.QuestionAnswer">
+            <AssetPackage Path="/assets"></AssetPackage>
+        </AssetDirectory>
+    </ControlTemplate.Directories>
+
+    <m:Alert class="m--margin-bottom-30" air="true" icon="flaticon-exclamation m--font-primary">
+        可以定义多份试卷原型，这些原型可以提供其他系统使用。
+    </m:Alert>
+    <m:Portlet title="试卷原型列表" icon="flaticon-signs-1">
+        <m:DataTable id="list" name="list" view="deletes">
+            <m:DataTable.Header>
+                <m:DataTableQuery>
+                    <m:TextBox layout="cell" placeholder="试卷原型名称" query-field="name">
+                        <m:TextBox.Prepend>
+                            <span class="input-group-text">
+                                <i class="la la-search"></i>
+                            </span>
+                        </m:TextBox.Prepend>
+                    </m:TextBox>
+                </m:DataTableQuery>
+            </m:DataTable.Header>
+            <m:DataTable.Columns>
+                <m:DataTableColumn detail="true" title="详细" action="getQuestions">
+                    <qa:Questions />
+                </m:DataTableColumn>
+                <m:DataTableColumn field="Id" selector="true"></m:DataTableColumn>
+                <m:DataTableColumn field="Name" textField="true" title="试卷原型名称" sortable="false" textAlign="left"></m:DataTableColumn>
+                <m:DataTableColumn field="MarkedCode" title="引用标识" sortable="false" textAlign="center" width="500"></m:DataTableColumn>
+                <m:DataTableColumn title="操作" overflow="visible" width="200" sortable="false" textAlign="center">
+                    <m:button icon="la la-edit" hover="accent" shape="pill" title="修改信息" name="summary" view="self" Click="OnEdit"></m:button>
+                    <!--<m:button icon="la la-question-circle" hover="accent" shape="pill" title="定义题目" name="question" view="self" Click="OnQuestion"></m:button>-->
+                </m:DataTableColumn>
+            </m:DataTable.Columns>
+        </m:DataTable>
+    </m:Portlet>
+    <m:Portlet air="false">
+        <m:button text="新增原型" name="add" color="focus" air="true" icon="flaticon-plus" Click="OnAdd"></m:button>
+        <m:button text="批量删除" name="deletes" color="danger" air="true" icon="flaticon-cancel" class="m--margin-left-15" view="deletes" Click="OnDeletes"></m:button>
+    </m:Portlet>
+
+    <m:Modal id="addDialog" size="lg" title="新增试卷原型">
+        <m:form view="add" id="formAdd">
+            <m:TextBox layout="Wrap" label="原型名称" required="true" minlength="1" maxlength="50" field="name" />
+            <m:TextBox layout="Wrap" label="引用标识" maxlength="50" field="markedCode" />
+        </m:form>
+        <m:Modal.Footer>
+            <m:button color="primary" name="submitAdd" icon="flaticon-interface-10" text="确认提交" Click="OnSubmitAdd" view="add"></m:button>
+            <m:button color="secondary" text="关闭" data-dismiss="modal"></m:button>
+        </m:Modal.Footer>
+    </m:Modal>
+    <m:Modal id="editDialog" size="lg" title="修改试卷原型">
+        <m:form view="edit" id="formEdit" record="true">
+            <m:TextBox layout="Hidden" field="id" ignoreRecord="true" />
+            <m:TextBox layout="Wrap" label="原型名称" required="true" minlength="1" maxlength="50" field="name" />
+            <m:TextBox layout="Wrap" label="引用标识" maxlength="50" field="markedCode" />
+        </m:form>
+        <m:Modal.Footer>
+            <m:button color="primary" name="submitEdit" icon="flaticon-interface-10" text="确认提交" Click="OnSubmitEdit" view="edit"></m:button>
+            <m:button color="secondary" text="关闭" data-dismiss="modal"></m:button>
+        </m:Modal.Footer>
+    </m:Modal>
+
+    <RawCode Origin="Bottom">
+        <script>
+            _paperSync = new $$tools.list.syncHeight("list", "paper", "paperItem");
+        </script>
+    </RawCode>
+
+</ControlTemplate>

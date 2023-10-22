@@ -79,7 +79,7 @@ namespace CodeArt.DomainDriven.DataAccess
             if (IsPropertyRepeated(obj, property, out propertyValue))
             {
                 var code = _getProppertyRepeatedErrorCode(property);
-                result.AddError(code, string.Format(Strings.PropertyValueRepeated, property.Name, propertyValue));
+                result.AddError(code, string.Format(Strings.PropertyValueRepeated, property.Call, propertyValue));
                 return;
             }
         }

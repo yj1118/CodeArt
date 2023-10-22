@@ -14,4 +14,16 @@ namespace CodeArt.DomainDriven
 
         }
     }
+
+    /// <summary>
+    /// 远程发生了业务错误
+    /// </summary>
+    public class RemoteBusinessFailedException : BusinessException
+    {
+        public RemoteBusinessFailedException(string message)
+            : base(message)
+        {
+
+        }
+    }
 }

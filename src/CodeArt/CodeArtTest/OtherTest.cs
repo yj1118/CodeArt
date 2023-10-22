@@ -13,13 +13,15 @@ using CodeArt.TestTools;
 using CodeArt.Concurrent;
 using System.IO;
 
+using Assert = CodeArt.TestTools.Assert;
+
 namespace CodeArtTest.Util
 {
     /// <summary>
     /// UnitTest1 的摘要说明
     /// </summary>
     [TestClass]
-    public class OtherTest : UnitTest
+    public class OtherTest
     {
         [TestMethod]
         public void BoxedAndUnboxed()

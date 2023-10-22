@@ -27,16 +27,16 @@ namespace CodeArt.DomainDriven.DataAccess
             private set;
         }
 
-        /// <summary>
-        /// 数据模型对应的连接字符串的名称
-        /// </summary>
-        public string ConnectionName
-        {
-            get
-            {
-                return this.Root.ConnectionName;
-            }
-        }
+        ///// <summary>
+        ///// 数据模型对应的连接字符串的名称
+        ///// </summary>
+        //public string ConnectionName
+        //{
+        //    get
+        //    {
+        //        return this.Root.ConnectionName;
+        //    }
+        //}
 
         /// <summary>
         /// 根表的信息
@@ -56,7 +56,11 @@ namespace CodeArt.DomainDriven.DataAccess
             private set;
         }
 
-        private ObjectRepositoryAttribute _objectTip;
+        public ObjectRepositoryAttribute ObjectTip
+        {
+            get;
+            private set;
+        }
 
 
         private DataModel(Type objectType, DataTable root, DataTable snapshot)
@@ -64,7 +68,7 @@ namespace CodeArt.DomainDriven.DataAccess
             this.ObjectType = objectType;
             this.Root = root;
             this.Snapshot = snapshot;
-            _objectTip = this.Root.ObjectTip;
+            this.ObjectTip = this.Root.ObjectTip;
         }
 
         public void Insert(DomainObject obj)
@@ -79,7 +83,7 @@ namespace CodeArt.DomainDriven.DataAccess
 
         public void Delete(DomainObject obj)
         {
-            if(_objectTip.Snapshot)
+            if(ObjectTip.Snapshot)
             {
                 //开启快照功能，先保存快照
                 this.Snapshot.Insert(obj);
@@ -119,7 +123,6 @@ namespace CodeArt.DomainDriven.DataAccess
             this.Root.Execute(expression, fillArg, level);
         }
 
-
         /// <summary>
         /// 获取一个自增的编号
         /// </summary>
@@ -128,13 +131,19 @@ namespace CodeArt.DomainDriven.DataAccess
         {
             return this.Root.GetIdentity();
         }
-       
+
+        public long GetSerialNumber()
+        {
+            return this.Root.GetSerialNumber();
+        }
+
         #region 静态成员
 
         private static Func<Type, DataModel> _getDataModel = LazyIndexer.Init<Type, DataModel>((objectType) =>
         {
             return CreateNew(objectType);
         });
+
 
         internal static DataModel Create(Type objectType)
         {
@@ -179,6 +188,11 @@ namespace CodeArt.DomainDriven.DataAccess
             DataTable.Drop();
         }
 
+        public static void ClearUp()
+        {
+            DataTable.ClearUp();
+        }
+
         /// <summary>
         /// 找出当前应用程序可能涉及到的表信息
         /// </summary>
@@ -186,8 +200,15 @@ namespace CodeArt.DomainDriven.DataAccess
 
         static DataModel()
         {
-            DomainObject.Initialize();
-            _indexs = GetIndexs();
+            try
+            {
+                DomainObject.Initialize();
+                _indexs = GetIndexs();
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
 
         private static IEnumerable<string> GetIndexs()

@@ -207,4 +207,7 @@
   <data name="NotFoundTenant" xml:space="preserve">
     <value>没有找到租户{0}的信息</value>
   </data>
+  <data name="ProApplicationStartedNoStatic" xml:space="preserve">
+    <value>ProApplicationStartedAttribute 调用的方法 {0}.{1}必须是静态的</value>
+  </data>
 </root>

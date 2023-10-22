@@ -15,6 +15,8 @@ namespace CodeArt.DomainDriven
         /// </summary>
         string Name { get; }
 
+        string Call { get; }
+
         /// <summary>
         /// 属性的类型
         /// </summary>
@@ -25,10 +27,10 @@ namespace CodeArt.DomainDriven
         /// </summary>
         Type OwnerType { get;}
 
-        /// <summary>
-        /// 属性更改模式
-        /// </summary>
-        PropertyChangedMode ChangedMode { get;  }
+        ///// <summary>
+        ///// 属性更改模式
+        ///// </summary>
+        //PropertyChangedMode ChangedMode { get;  }
 
 
         /// <summary>

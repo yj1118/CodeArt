@@ -32,7 +32,7 @@ namespace CodeArt.DomainDriven
             {
                 if (this.IgnoreWithRepository)
                 {
-                    var current = DataContext.Current;
+                    var current = DataContext.ExistCurrent() ? DataContext.Current : null;
                     if (current != null && current.InBuildObject)
                         return domainObject; //指示了在仓储构建时不触发行为，所以返回
                 }

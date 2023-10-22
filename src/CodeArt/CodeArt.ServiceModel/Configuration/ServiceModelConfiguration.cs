@@ -67,7 +67,7 @@ namespace CodeArt.ServiceModel
         public static ServiceModelConfiguration Current;
         static ServiceModelConfiguration()
         {
-            Current = ConfigurationManager.GetSection("codeArt.serviceModel") as ServiceModelConfiguration;
+            Current = Configuration.GetSection("codeArt.serviceModel", () => new ServiceModelConfiguration()) as ServiceModelConfiguration;
             if (Current == null) Current = new ServiceModelConfiguration();
         }
 

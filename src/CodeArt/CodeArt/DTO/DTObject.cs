@@ -13,11 +13,14 @@ using CodeArt.IO;
 using CodeArt.AppSetting;
 using System.Linq.Expressions;
 using CodeArt.Concurrent;
+using System.Xml;
+using Newtonsoft.Json;
+using Formatting = Newtonsoft.Json.Formatting;
 
 namespace CodeArt.DTO
 {
     [DebuggerDisplay("{GetCode()}")]
-    public class DTObject : DynamicObject
+    public class DTObject : DynamicObject, INullProxy
     {
         #region 根
 
@@ -223,6 +226,13 @@ namespace CodeArt.DTO
         public T GetValue<T>(string findExp, bool throwError)
         {
             return DataUtil.ToValue<T>(GetValue(findExp, throwError));
+        }
+
+        public bool GetBooleanValue(string findExp, bool defaultValue)
+        {
+            var value = GetValue(findExp, false);
+            if (value == null) return defaultValue;
+            return DataUtil.ToValue<bool>(value);
         }
 
         /// <summary>
@@ -608,6 +618,56 @@ namespace CodeArt.DTO
             }
         }
 
+        public DTObject Top(string findExp, int count)
+        {
+            List<DTObject> data = new List<DTObject>(count);
+
+            var list = GetList(findExp, false) ?? new DTObjects();
+
+            foreach (var dto in list)
+            {
+                if (data.Count == count) break;
+                data.Add(dto);
+            }
+
+            DTObject result = DTObject.Create();
+            result.SetList("rows", data);
+            return result;
+        }
+
+        public DTObject Page(string findExp, int pageIndex,int pageSize)
+        {
+            var list = GetList(findExp, false) ?? new DTObjects();
+            int dataCount = list.Count();
+
+
+            var result = DTObject.Create();
+            result.SetValue("pageIndex", pageIndex);
+            result.SetValue("pageSize", pageSize);
+            result.SetValue("dataCount", dataCount);
+
+
+            var start = (pageIndex - 1) * pageSize;
+            if (start >= dataCount)
+            {
+                result.SetList(findExp, Array.Empty<DTObject>());
+                return result;
+            }
+
+            var end = start + pageSize - 1;
+            if (end >= dataCount) end = dataCount - 1;
+
+            List<DTObject> items = new List<DTObject>(end - start + 1);
+
+            for (var i = start; i <= end; i++)
+            {
+                items.Add(list.ElementAt(i));
+            }
+
+            result.SetList(findExp, items);
+            return result;
+        }
+
         public void Each(string findExp, Func<DTObject, bool> action)
         {
             var list = GetList(findExp, false);
@@ -632,6 +692,49 @@ namespace CodeArt.DTO
             {
                 entity.RemoveAts(indexs);
             }
+        }
+
+        public void RemoveAt(string listExp, int index)
+        {
+            ValidateReadOnly();
+
+            DTEList entity = FindEntity<DTEList>(listExp, false);
+            if (entity != null)
+            {
+                entity.RemoveAt(index);
+            }
+        }
+
+        public void Insert(string listExp, int index, DTObject item)
+        {
+            ValidateReadOnly();
+
+            Push(listExp, null);//以此来防止当items个数为0时，没有创建的bug
+
+            DTEList entity = FindEntity<DTEList>(listExp, false);
+            entity.Insert(index, item);
+        }
+
+        /// <summary>
+        /// 删除成员，仅限直系
+        /// </summary>
+        /// <param name="entityName"></param>
+        /// <returns></returns>
+        public bool Remove(string entityName)
+        {
+            return _root.Remove(entityName);
+        }
+
+        public bool Remove(string listExp, Func<DTObject, bool> predicate)
+        {
+            ValidateReadOnly();
+
+            DTEList entity = FindEntity<DTEList>(listExp, false);
+            if (entity != null)
+            {
+                return entity.Remove(predicate);
+            }
+            return false;
         }
 
         public void Clear(string listExp)
@@ -663,7 +766,20 @@ namespace CodeArt.DTO
 
         public DTObjects GetList(string findExp)
         {
-            return GetList(findExp, true);
+            var list = GetList(findExp, false);
+            return list ?? new DTObjects();
+        }
+
+        public IEnumerable<T> GetList<T>(string findExp)
+        {
+            DTEList entity = FindEntity<DTEList>(findExp, false);
+            if (entity == null) return null;
+            return entity.GetValues<T>();
+        }
+
+        public IEnumerable<T> GetList<T>()
+        {
+            return GetList<T>(string.Empty);
         }
 
         public DTObjects GetList(string findExp, bool throwError)
@@ -820,6 +936,11 @@ namespace CodeArt.DTO
 
         }
 
+        public void EachDictionary(Action<string, object> action)
+        {
+            EachDictionary(string.Empty, action);
+        }
+
 
         //public Dictionary<string, T> GetDictionary<T>()
         //{
@@ -893,6 +1014,12 @@ namespace CodeArt.DTO
         }
 
 
+        internal IEnumerable<DTEntity> GetEntities()
+        {
+            return _root.GetEntities();
+        }
+
+
         #region 转换
 
         /// <summary>
@@ -958,6 +1085,26 @@ namespace CodeArt.DTO
         {
             //return FindEntity(findExp, false) != null || GetObject(findExp, false) != null;
             return FindEntity(findExp, false) != null;
+        }
+
+        /// <summary>
+        /// 确保<paramref name="findExp"/>对应的值是有效的
+        /// </summary>
+        /// <param name="findExp"></param>
+        /// <returns></returns>
+        public bool Valid(string findExp)
+        {
+            //return FindEntity(findExp, false) != null || GetObject(findExp, false) != null;
+            var e = FindEntity(findExp, false);
+            if (e == null) return false;
+            var ve = e as DTEValue;
+            if (ve != null)
+            {
+                var strValue = ve.Value as string;
+                if (strValue != null && (strValue == "null" || strValue=="" || strValue == "undefined")) return false;
+                return ve.Value != null;
+            }
+            return true;
         }
 
         internal DTEntity FindEntity(string findExp, bool throwError)
@@ -1101,7 +1248,7 @@ namespace CodeArt.DTO
         {
             return GetCode(sequential, true);
         }
-
+   
         public string GetCode(bool sequential, bool outputKey)
         {
             return _root.GetCode(sequential, outputKey);
@@ -1162,6 +1309,19 @@ namespace CodeArt.DTO
         /// <returns></returns>
         public static DTObject Create(string schemaCode, object target)
         {
+            var dy = target as IDTOSerializable;
+            if (dy != null)
+            {
+                return Create(schemaCode, dy.GetData());
+            }
+
+            var dto = target as DTObject;
+            if(dto != null)
+            {
+                DTObject result = DTObject.Create();
+                result.Load(schemaCode, dto);
+                return result;
+            }
             return DTObjectMapper.Instance.Load(schemaCode, target);
         }
 
@@ -1177,6 +1337,7 @@ namespace CodeArt.DTO
         /// <returns></returns>
         public static DTObject Create(string code)
         {
+            if (string.IsNullOrEmpty(code)) return DTObject.Create();
             return CreateComplete(code, false);
         }
 
@@ -1198,6 +1359,14 @@ namespace CodeArt.DTO
         public static DTObject Create()
         {
             return CreateComplete("{}", false);
+        }
+
+        public static DTObject CreateXml(string xml)
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(xml);
+            string code = JsonConvert.SerializeXmlNode(doc, Formatting.None, true);
+            return Create(code);
         }
 
         #endregion
@@ -1334,7 +1503,35 @@ namespace CodeArt.DTO
         /// <returns></returns>
         public void Load(string schemaCode, object target)
         {
+            var dy = target as IDTOSerializable;
+            if(dy != null)
+            {
+                Load(schemaCode,dy.GetData());
+                return;
+            }
+
+            var dto = target as DTObject;
+            if (dto != null)
+            {
+                Load(schemaCode, target);
+                return;
+            }
             DTObjectMapper.Instance.Load(this, schemaCode, target);
+        }
+
+
+        private void Load(string schemaCode, DTObject target)
+        {
+            var schema = DTObject.Create(schemaCode);
+            var entities = schema.GetEntities();
+            foreach(var entity in entities)
+            {
+                var name = entity.Name;
+                if (target.Exist(name))
+                {
+                    this[name] = target[name];
+                }
+            }
         }
 
         /// <summary>
@@ -1468,6 +1665,26 @@ namespace CodeArt.DTO
         {
             return this.GetValue<bool>("__empty", false);
         }
+
+
+        public bool IsNull()
+        {
+            return this.IsEmpty();
+        }
+
+        #endregion
+
+
+        #region 常用对象
+
+        public const string TrueCode = "{result:true}";
+
+        public const string FalseCode = "{result:true}";
+
+
+        public static readonly DTObject True = DTObject.Create(TrueCode, true).AsReadOnly();
+
+        public static readonly DTObject False = DTObject.Create(FalseCode, true).AsReadOnly();
 
         #endregion
 

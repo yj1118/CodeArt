@@ -10,7 +10,7 @@ using CodeArt.AOP;
 namespace CodeArt.Web.WebPages.Xaml
 {
     [Aspect(typeof(UploadFileInitializer))]
-    [Aspect(typeof(WebCrossDomain))]
+    //[Aspect(typeof(WebCrossDomain))]
     public abstract class UploadPage : PageProxy
     {
         protected override void ProcessPOST()

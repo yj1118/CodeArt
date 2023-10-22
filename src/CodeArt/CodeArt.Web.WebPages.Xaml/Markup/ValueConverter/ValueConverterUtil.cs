@@ -79,7 +79,7 @@ namespace CodeArt.Web.WebPages.Xaml.Markup
             return converter;
         }
 
-   
+
         #endregion
 
 
@@ -87,6 +87,7 @@ namespace CodeArt.Web.WebPages.Xaml.Markup
         #region GetParameter
 
         private static RegexPool _getParameterExpressionRegex = new RegexPool(@"[, ]ConverterParameter[ ]*=[ ]*((\{[^,]*\})|([^,]+))", _flags);
+        //private static RegexPool _getParameterExpressionRegex = new RegexPool(@"[, ]ConverterParameter[ ]*=[ ]*((\{.*\})|(.+))", _flags);
 
 
         private static Func<string, string> getParameterExpression = LazyIndexer.Init<string, string>((expression) =>

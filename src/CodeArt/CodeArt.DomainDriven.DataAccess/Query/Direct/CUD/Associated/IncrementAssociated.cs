@@ -51,7 +51,7 @@ namespace CodeArt.DomainDriven.DataAccess
 
         private string GetSqlBySQLServer()
         {
-            if(this.Target.IsEnabledMultiTenancy)
+            if(this.Target.IsSessionEnabledMultiTenancy)
             {
                 return string.Format("update [{0}] set [{3}]=[{3}]+1 where [{1}]=@{1} and [{2}]=@{2}  and [{4}]=@{4} ;",
                            this.Target.Name

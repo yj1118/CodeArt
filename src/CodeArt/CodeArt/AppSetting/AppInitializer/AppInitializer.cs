@@ -19,6 +19,8 @@ namespace CodeArt.AppSetting
         private static bool _initialized;
         private static object _syncObject = new object();
 
+        #region 初始化
+
         /// <summary>
         /// 应用程序初始化，请根据不同的上下文环境，在程序入口处调用此方法
         /// </summary>
@@ -43,6 +45,42 @@ namespace CodeArt.AppSetting
             }
         }
 
+        #endregion
+
+
+
+        #region 已初始化
+
+        private static bool _proApplicationStarted = false;
+
+        /// <summary>
+        /// 应用程序初始化完后，请根据不同的上下文环境，在程序入口处调用此方法
+        /// </summary>
+        public static void Initialized()
+        {
+            if (_proApplicationStarted) return;
+            lock (_syncObject)
+            {
+                if (_proApplicationStarted) return;
+                _proApplicationStarted = true;
+                InitProApplicationStarted();
+            }
+        }
+
+        private static void InitProApplicationStarted()
+        {
+            var attributes = AssemblyUtil.GetAttributes<ProApplicationStartedAttribute>();
+            foreach (var attr in attributes)
+            {
+                attr.Run();
+            }
+        }
+
+        #endregion
+
+
+        #region 释放资源
+
         private static bool _cleanup = false;
         public static void Cleanup()
         {
@@ -64,6 +102,8 @@ namespace CodeArt.AppSetting
                 attr.Run();
             }
         }
+
+        #endregion
 
     }
 }

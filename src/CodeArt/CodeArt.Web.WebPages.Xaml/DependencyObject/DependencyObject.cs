@@ -292,6 +292,13 @@ namespace CodeArt.Web.WebPages.Xaml
             return GetValue(propertyName, ref value, false);
         }
 
+        public object GetValue(string propertyName)
+        {
+            object value = null;
+            GetValue(propertyName, ref value, false);
+            return value;
+        }
+
         internal virtual bool GetValue(string propertyName, ref object value, bool ignoreExpression)
         {
             var objType = this.ObjectType;

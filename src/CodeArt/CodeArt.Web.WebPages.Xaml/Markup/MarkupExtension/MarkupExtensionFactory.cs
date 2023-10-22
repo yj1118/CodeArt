@@ -40,7 +40,7 @@ namespace CodeArt.Web.WebPages.Xaml.Markup
         private static string GetComponentName(string expression)
         {
             int pos = expression.IndexOf(" ");
-            if (pos == -1) return expression.Substring(1, expression.Length - 1);
+            if (pos == -1) return expression.Substring(1, expression.Length - 2);
             return expression.Substring(1, pos - 1);
         }
 

@@ -15,7 +15,8 @@ namespace CodeArt.DomainDriven
 
         public ITransactionManager CreateManager()
         {
-            return new TransactionScopeManager();
+            return null;
+            //return new SqlTransactionManager();
         }
 
         public static readonly TransactionScopeManagerFactory Instance = new TransactionScopeManagerFactory();

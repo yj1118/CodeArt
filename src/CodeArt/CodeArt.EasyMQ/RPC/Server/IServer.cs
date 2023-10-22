@@ -11,7 +11,14 @@ namespace CodeArt.EasyMQ.RPC
 {
     public interface IServer
     {
-        void Open(IRPCHandler handler);
+        /// <summary>
+        /// 服务的名称
+        /// </summary>
+        string Name { get; }
+
+        void Initialize(IRPCHandler handler);
+
+        void Open();
 
         void Close();
     }

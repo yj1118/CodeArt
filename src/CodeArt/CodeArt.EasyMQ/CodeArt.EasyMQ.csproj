@@ -49,6 +49,7 @@
     <Compile Include="Configuration\EventConfig.cs" />
     <Compile Include="Configuration\EasyMQConfiguration.cs" />
     <Compile Include="Configuration\RPCConfig.cs" />
+    <Compile Include="ProApplicationStarted.cs" />
     <Compile Include="TransferData.cs" />
     <Compile Include="Event\EventPortal.cs" />
     <Compile Include="Event\IEventHandler.cs" />
@@ -88,6 +89,9 @@
       <Project>{d2c9f430-6b47-482a-a49c-a2478d75f95f}</Project>
       <Name>CodeArt</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

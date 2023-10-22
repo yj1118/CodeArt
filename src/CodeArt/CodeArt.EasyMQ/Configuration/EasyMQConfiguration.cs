@@ -65,7 +65,7 @@ namespace CodeArt.EasyMQ
 
         static EasyMQConfiguration()
         {
-            Current = ConfigurationManager.GetSection("codeArt.easyMQ") as EasyMQConfiguration;
+            Current = Configuration.GetSection("codeArt.easyMQ", () => new EasyMQConfiguration()) as EasyMQConfiguration;
             if (Current == null) Current = new EasyMQConfiguration();
         }
 

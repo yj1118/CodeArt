@@ -15,7 +15,7 @@ namespace CodeArt.DomainDriven
             if (propertyValue != null)
             {
                 ValidationResult t = propertyValue.Validate();
-                if (!t.IsSatisfied) result.AddError(ErrorCode, string.Format(Strings.DoNotMeetSpecifications, property.Name));
+                if (!t.IsSatisfied) result.AddError(ErrorCode, string.Format(Strings.DoNotMeetSpecifications, property.Call));
             }
         }
 

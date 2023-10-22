@@ -17,17 +17,26 @@ namespace CodeArt.DomainDriven.DataAccess
 
         protected override void PersistAddRoot(TRoot obj)
         {
-            DataPortal.Create(obj as DomainObject);
+            DataContext.Using(() =>
+            {
+                DataPortal.Create(obj as DomainObject);
+            });
         }
 
 
         protected override void PersistUpdateRoot(TRoot obj)
         {
-            DataPortal.Update(obj as DomainObject);
+            DataContext.Using(() =>
+            {
+                DataPortal.Update(obj as DomainObject);
+            });
         }
         protected override void PersistDeleteRoot(TRoot obj)
         {
-            DataPortal.Delete(obj as DomainObject);
+            DataContext.Using(() =>
+            {
+                DataPortal.Delete(obj as DomainObject);
+            });
         }
 
         #endregion
@@ -46,7 +55,12 @@ namespace CodeArt.DomainDriven.DataAccess
         /// <returns></returns>
         protected T QuerySingle<T>(string expression, Action<DynamicData> fillArg, QueryLevel level) where T : class, IAggregateRoot
         {
-            return DataContext.Current.QuerySingle<T>(expression, fillArg, level);
+            T result = null;
+            DataContext.Using(() =>
+            {
+                result = DataContext.Current.QuerySingle<T>(expression, fillArg, level);
+            });
+            return result;
         }
 
         //protected T QuerySingle<T>(IQueryBuilder compiler, Action<DynamicData> fillArg, QueryLevel level) where T : class, IRepositoryable
@@ -63,13 +77,13 @@ namespace CodeArt.DomainDriven.DataAccess
         /// <returns></returns>
         public IEnumerable<T> Query<T>(string expression, Action<DynamicData> fillArg, QueryLevel level) where T : class, IAggregateRoot
         {
-            return DataContext.Current.Query<T>(expression, fillArg, level);
+            IEnumerable<T> result = null;
+            DataContext.Using(() =>
+            {
+                result = DataContext.Current.Query<T>(expression, fillArg, level);
+            });
+            return result;
         }
-
-        //public IEnumerable<T> Query<T>(IQueryBuilder compiler, Action<DynamicData> fillArg, QueryLevel level) where T : class, IRepositoryable
-        //{
-        //    return DataContext.Current.Query<T>(compiler, fillArg, level);
-        //}
 
         /// <summary>
         /// 基于对象表达式的查询
@@ -80,23 +94,23 @@ namespace CodeArt.DomainDriven.DataAccess
         /// <returns></returns>
         public Page<T> Query<T>(string expression, int pageIndex, int pageSize, Action<DynamicData> fillArg) where T : class, IAggregateRoot
         {
-            return DataContext.Current.Query<T>(expression, pageIndex, pageSize, fillArg);
+            Page<T> result = default(Page<T>);
+            DataContext.Using(() =>
+            {
+                result = DataContext.Current.Query<T>(expression, pageIndex, pageSize, fillArg);
+            });
+            return result;
         }
-
-        //public Page<T> Query<T>(IQueryBuilder pageCompiler, IQueryBuilder countCompiler, int pageIndex, int pageSize, Action<DynamicData> fillArg) where T : class, IRepositoryable
-        //{
-        //    return DataContext.Current.Query<T>(pageCompiler, countCompiler, pageIndex, pageSize, fillArg);
-        //}
 
         public int GetCount<T>(string expression, Action<DynamicData> fillArg, QueryLevel level) where T : class, IAggregateRoot
         {
-            return DataContext.Current.GetCount<T>(expression, fillArg, level);
+            int result = 0;
+            DataContext.Using(() =>
+            {
+                result = DataContext.Current.GetCount<T>(expression, fillArg, level);
+            });
+            return result;
         }
-
-        //public int GetCount<T>(IQueryBuilder compiler, Action<DynamicData> fillArg, QueryLevel level) where T : class, IRepositoryable
-        //{
-        //    return DataContext.Current.GetCount<T>(compiler, fillArg, level);
-        //}
 
         /// <summary>
         /// 使用适配器查询
@@ -106,7 +120,12 @@ namespace CodeArt.DomainDriven.DataAccess
         /// <returns></returns>
         public QueryAdapter<T> Adapter<T>(string adapterName) where T : class, IAggregateRoot
         {
-            return DataContext.Current.Adapter<T>(adapterName);
+            QueryAdapter<T> result = null;
+            DataContext.Using(() =>
+            {
+                result = DataContext.Current.Adapter<T>(adapterName);
+            });
+            return result;
         }
     }
 }

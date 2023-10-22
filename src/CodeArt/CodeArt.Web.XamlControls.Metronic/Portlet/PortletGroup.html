@@ -9,7 +9,7 @@
                     <span class="m-portlet__head-icon">
                         <i class="flaticon-information"></i>
                     </span>
-                    <h3 class="m-portlet__head-text">
+                    <h3 class="m-portlet__head-text" data-portlet-title="true">
                         <run Content="{TemplateBinding Title}"></run>
                     </h3>
                 </div>
@@ -25,7 +25,7 @@
                 </ul>
             </div>
         </div>
-        <div class="m-portlet__body" style="background-color: #f2f3f8;">
+        <div class="m-portlet__body" style="{TemplateBinding BackgroundColor,Converter={Static m:PortletBgColorConverter.Instance}}">
             <ContentPresenter Content="{TemplateBinding Content}" />
         </div>
     </div>

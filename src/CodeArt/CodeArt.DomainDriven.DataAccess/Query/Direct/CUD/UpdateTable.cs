@@ -16,10 +16,13 @@ namespace CodeArt.DomainDriven.DataAccess
     {
         private LazyIndexer<int, string> _cache;
 
-        private UpdateTable(DataTable target)
+        private bool _isEnabledMultiTenancy;
+
+        private UpdateTable(DataTable target,bool isEnabledMultiTenancy)
             : base(target)
         {
             _cache = new LazyIndexer<int, string>();
+            _isEnabledMultiTenancy = isEnabledMultiTenancy;
         }
 
         protected override string GetName()
@@ -30,25 +33,28 @@ namespace CodeArt.DomainDriven.DataAccess
         protected override string Process(DynamicData param)
         {
             var fieldsCode = HashCoder<string>.GetCode(param.Keys); //data.Keys 是参与修改的字段名称
-            string sql = _cache.GetOrCreate(fieldsCode, (t) =>
+            string sql = _cache.Get(fieldsCode, (t) =>
             {
-                return GetUpdateSql(this.Target, param);
+                return GetUpdateSql(this.Target, _isEnabledMultiTenancy, param);
             });
             return sql;
         }
 
-        public static UpdateTable Create(DataTable target)
+        public static UpdateTable Create(DataTable target, bool isEnabledMultiTenancy)
         {
-            return _getInstance(target);
+            return _getInstance(target)(isEnabledMultiTenancy);
         }
 
-        private static Func<DataTable, UpdateTable> _getInstance = LazyIndexer.Init<DataTable, UpdateTable>((target) =>
+        private static Func<DataTable, Func<bool, UpdateTable>> _getInstance = LazyIndexer.Init<DataTable, Func<bool, UpdateTable>>((target) =>
         {
-            return new UpdateTable(target);
-        });
+             return LazyIndexer.Init<bool, UpdateTable>((isEnabledMultiTenancy) =>
+             {
+                 return new UpdateTable(target, isEnabledMultiTenancy);
+             });
+    });
 
 
-        private static string GetUpdateSql(DataTable table, DynamicData data)
+        private static string GetUpdateSql(DataTable table, bool isEnabledMultiTenancy, DynamicData data)
         {
             var sql = new SqlUpdateBuilder();
             sql.SetTable(table.Name);
@@ -75,7 +81,7 @@ namespace CodeArt.DomainDriven.DataAccess
                 sql.Where(field.Name);
             }
 
-            if(table.IsEnabledMultiTenancy)
+            if(isEnabledMultiTenancy)
             {
                 sql.Where(GeneratedField.TenantIdName);
             }

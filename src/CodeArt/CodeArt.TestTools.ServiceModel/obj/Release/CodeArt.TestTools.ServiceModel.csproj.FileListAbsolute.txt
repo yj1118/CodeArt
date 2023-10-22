@@ -16,7 +16,8 @@ D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.TestTools.ServiceModel\b
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.TestTools.ServiceModel\bin\Release\zh-CN\CodeArt.ServiceModel.resources.dll
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.TestTools.ServiceModel\bin\Release\zh-CN\CodeArt.TestTools.resources.dll
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.TestTools.ServiceModel\bin\Release\zh-CN\CodeArt.resources.dll
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.TestTools.ServiceModel\obj\Release\CodeArt.TestTools.ServiceModel.csprojResolveAssemblyReference.cache
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.TestTools.ServiceModel\obj\Release\CodeArt.TestTools.ServiceModel.csprojAssemblyReference.cache
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.TestTools.ServiceModel\obj\Release\CodeArt.TestTools.ServiceModel.csproj.CoreCompileInputs.cache
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.TestTools.ServiceModel\obj\Release\CodeArt.TestTools.ServiceModel.csproj.CopyComplete
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.TestTools.ServiceModel\obj\Release\CodeArt.TestTools.ServiceModel.dll
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.TestTools.ServiceModel\obj\Release\CodeArt.TestTools.ServiceModel.pdb

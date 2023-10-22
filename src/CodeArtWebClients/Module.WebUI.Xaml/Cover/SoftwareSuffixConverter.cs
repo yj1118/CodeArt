@@ -14,9 +14,18 @@ namespace Module.WebUI.Xaml
     {
         public object Convert(object value, object parameter)
         {
-            var v = parameter as string;
-            var software = Application.Current.FindResource("software");
-            return string.IsNullOrEmpty(v) ? software : string.Format("{0}_{1}", v, software);
+            var v = value as string;
+            if(!string.IsNullOrEmpty(v))
+            {
+                var software = Application.Current.FindResource("software");
+                return string.Format("{0}_{1}", v, software);
+            }
+            else
+            {
+                v = parameter as string;
+                var software = Application.Current.FindResource("software");
+                return string.IsNullOrEmpty(v) ? software : string.Format("{0}_{1}", v, software);
+            }
         }
 
         public readonly static SoftwareSuffixConverter Instance = new SoftwareSuffixConverter();

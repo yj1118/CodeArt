@@ -98,5 +98,23 @@ namespace CodeArt.Runtime
             return Attribute.GetCustomAttributes(objectType, true).OfType<T>();//会在继承链中查找验证规则
         }
 
+
+        public static IEnumerable<MethodInfo> GetMethods<T>(Type objectType) where T : Attribute
+        {
+            const BindingFlags flags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.IgnoreCase;
+            var methods = objectType.GetMethods(flags);
+
+            List<MethodInfo> result = new List<MethodInfo>();
+            foreach(var method in methods)
+            {
+                var attr = Attribute.GetCustomAttribute(method, typeof(T));
+                if(attr != null)
+                {
+                    result.Add(method);
+                }
+            }
+            return result;
+        }
+
     }
 }

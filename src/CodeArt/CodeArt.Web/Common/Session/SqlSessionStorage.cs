@@ -171,6 +171,7 @@ namespace CodeArt.Web
 
         static SqlSessionStorage()
         {
+            if (!SqlHelper.ExistConnection(_dbName)) return;
             SqlHelper.ExecuteCommandText(_dbName, _createSessionTableSql);
         }
 

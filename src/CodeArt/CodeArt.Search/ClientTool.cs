@@ -10,6 +10,9 @@ using Nest;
 
 using CodeArt;
 using CodeArt.Concurrent;
+using System.Threading;
+using CodeArt.Log;
+using CodeArt.DTO;
 
 namespace CodeArt.Search
 {
@@ -57,18 +60,21 @@ namespace CodeArt.Search
             this.Using((client) =>
             {
                 string indexsString = string.Join(",", indexes);
-                result = client.IndexExists(indexsString).Exists;
+                result = client.Indices.Exists(indexsString).Exists;
             });
 
             return result;
         }
 
+        /// <summary>
+        /// 判断一个索引是否存在
+        /// </summary>
         public bool ExistIndex(string indexName)
         {
             var result = false;
             this.Using((client) =>
             {
-                result = client.IndexExists(indexName).Exists;
+                result = client.Indices.Exists(indexName).Exists;
             });
 
             return result;
@@ -87,7 +93,7 @@ namespace CodeArt.Search
             {
                 string indexsString = string.Join(",", indexes);
                 var descriptor = new DeleteIndexDescriptor(indexsString);
-                result = client.DeleteIndex(descriptor).Acknowledged;
+                result = client.Indices.Delete(descriptor).Acknowledged;
             });
 
             return result;
@@ -107,9 +113,12 @@ namespace CodeArt.Search
         /// </summary>
         /// <param name="indexName"></param>
         /// <returns></returns>
-        public void CreateIndex(string indexName)
+        public void CreateIndex<T>(string indexName) where T : class
         {
             ArgumentAssert.IsNotNull(indexName, "indexName");
+
+            if (ExistIndex(indexName))
+                return;
 
             // 获取客户端
             this.Using((client) =>
@@ -120,14 +129,15 @@ namespace CodeArt.Search
                     Settings = new IndexSettings()
                     {
                         NumberOfReplicas = 1,//副本数
-                        NumberOfShards = 5//分片数
+                        NumberOfShards = 1  //分片数
                     }
                 };
 
                 // 创建索引
-                client.CreateIndex(indexName, p => p.InitializeUsing(indexState));
-                //var ret = client.CreateIndex(indexName, p => p.InitializeUsing(indexState));
-                //result = ret.Acknowledged;
+                //var descriptor = new CreateIndexDescriptor(indexName).InitializeUsing(indexState).Mappings(ms => ms.Map<T>(m => m.AutoMap()));
+                //client.CreateIndex(descriptor);
+                Func<CreateIndexDescriptor, ICreateIndexRequest> func = x => x.InitializeUsing(indexState).Map<T>(m => m.AutoMap());
+                client.Indices.Create(indexName, func);
             });
         }
 
@@ -144,25 +154,87 @@ namespace CodeArt.Search
         /// <param name="indexName"></param>
         /// <param name="document"></param>
         /// <returns></returns>
-        public void AddDocument<T>(string indexName, T document, Id id) where T : class
+        public void AddDocument<T>(string indexName, T document) where T : class, IDocument
         {
             if (string.IsNullOrEmpty(indexName) || document == null)
                 throw new ApplicationException("索引名称或文档不能为空");
 
             var result = false;
 
-            // 先出库
-            DeleteDocument<T>(indexName, id);
-
             // 再入库
             this.Using((client) =>
             {
-                var response = client.Index<T>(document, descriptor => descriptor.Index(indexName));
+                var response = client.Index<T>(document, descriptor => descriptor.Index(indexName).Refresh(Refresh.True));
+                //var response = client.Index<T>(document, descriptor => descriptor.Index(indexName);
                 result = response.IsValid;
+
+                if (!result)
+                    throw new UserUIException(string.Format("向索引{0}添加文档失败，{1}", indexName, response.OriginalException.Message));
             });
 
-            if (!result)
-                throw new ApplicationException(string.Format("向索引{0}添加文档失败", indexName));
+
+        }
+
+        /// <summary>
+        /// 批量添加多条数据到指定的索引，类型由T指定
+        /// 返回true表示全部添加成功，返回false表示中间出现了错误,
+        /// 错误不会抛出，而是写入日志， 以免中断程序
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="indexName"></param>
+        /// <param name="document"></param>
+        public bool BulkDocuments<T>(string indexName, IEnumerable<T> documents) where T : class, IDocument
+        {
+            if (string.IsNullOrEmpty(indexName) || documents == null)
+                throw new ApplicationException("索引名称或文档不能为空");
+
+            const int size = 100;
+            Exception exception = null;
+
+            this.Using((client) =>
+            {
+                var bulkAll = client.BulkAll<T>(documents, f => f.MaxDegreeOfParallelism(8).BackOffTime(TimeSpan.FromSeconds(10))
+                                                                        .BackOffRetries(2).Size(size).RefreshOnCompleted().Index(indexName)
+                                                                        .BufferToBulk((r, buffer) => r.IndexMany(buffer)));
+                var countdownEvent = new CountdownEvent(1);
+
+                void OnCompleted()
+                {
+                    countdownEvent.Signal();
+                }
+
+                var bulkAllObserver = new BulkAllObserver(
+                    (response) =>
+                    {
+                    },
+                    ex =>
+                    {
+                        exception = ex;
+                        countdownEvent.Signal();
+                    },
+                    OnCompleted);
+
+                bulkAll.Subscribe(bulkAllObserver);
+
+                countdownEvent.Wait();
+
+            });
+
+            if (exception != null)
+            {
+                // 错误写入日志，不抛出异常
+                Logger.Fatal(exception);
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        public void DeleteDocument<T>(string indexName, object id) where T : class, IDocument
+        {
+            DeleteDocument<T>(indexName, (Id)id.ToString());
         }
 
         /// <summary>
@@ -172,7 +244,7 @@ namespace CodeArt.Search
         /// <param name="indexName"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        public void DeleteDocument<T>(string indexName, Id id) where T : class
+        private void DeleteDocument<T>(string indexName, Id id) where T : class,IDocument
         {
             if (string.IsNullOrEmpty(indexName) || id == null)
                 throw new ApplicationException("索引名称或数据ID不能为空");
@@ -182,12 +254,10 @@ namespace CodeArt.Search
             this.Using((client) =>
             {
                 DocumentPath<T> deletePath = new DocumentPath<T>(id);
-                var response = client.Delete(deletePath, descriptor => descriptor.Index(indexName));
+                var response = client.Delete(deletePath, descriptor => descriptor.Index(indexName).Refresh(Refresh.True));
+                //var response = client.Delete(deletePath, descriptor => descriptor.Index(indexName);
                 result = response.IsValid;
             });
-
-            //if (!result)
-            //    throw new ApplicationException(string.Format("从索引{0}删除文档失败", indexName));
         }
 
         /// <summary>
@@ -197,7 +267,7 @@ namespace CodeArt.Search
         /// <param name="indexName"></param>
         /// <param name="id"></param>
         /// <param name="document"></param>
-        private void UpdateDocument<T>(string indexName, Id id, T document) where T : class
+        private bool UpdateDocument<T>(string indexName, Id id, T document) where T : class
         {
             if (string.IsNullOrEmpty(indexName) || document == null)
                 throw new ApplicationException("索引名称或文档不能为空");
@@ -207,14 +277,72 @@ namespace CodeArt.Search
             this.Using((client) =>
             {
                 var docPath = new DocumentPath<T>(id);
-                var ret = client.Update(docPath, descriptor => descriptor.Index(indexName).Doc(document));
+                var ret = client.Update(docPath, descriptor => descriptor.Index(indexName).Doc(document).Refresh(Refresh.True));
+                //var ret = client.Update(docPath, descriptor => descriptor.Index(indexName).Doc(document);
                 result = ret.IsValid;
             });
-       }
+
+            return result;
+        }
+
+        public bool UpdateDocument<T>(string indexName, T document) where T : class, IDocument
+        {
+           return UpdateDocument<T>(indexName, document.Id, document);
+        }
 
         #endregion
 
         #region 查询文档
+
+        public T GetDocumentById<T>(string indexName, object id) where T : class
+        {
+            using (var temp = ListPool<Id>.Borrow())
+            {
+                var ids = temp.Item;
+                ids.Add(id.ToString());
+                var result = GetDocumentsByIds<T>(indexName, ids);
+                return result.Documents.FirstOrDefault();
+            }
+        }
+
+        private (IEnumerable<T> Documents, long Count) GetDocumentsByIds<T>(string indexName, IEnumerable<Id> ids) where T : class
+        {
+            IReadOnlyCollection<T> docs = null;
+            long count = 0;
+
+            QueryContainer idsQuery = new IdsQuery { Values = ids };
+
+            this.Using((client) =>
+            {
+                var index = Indices.Parse(indexName);
+
+                var response = client.Search<T>(s => s.Index(index)
+                        .Query(q => idsQuery));
+
+                docs = response.Documents;
+                count = response.Total;
+            });
+
+            return (docs, count);
+        }
+
+        public (IEnumerable<T> Documents, long Count) GetDocumentsByIds<T>(string indexName, IEnumerable<object> ids) where T : class
+        {
+            (IEnumerable<T> Documents, long Count) result;
+
+            using (var temp = ListPool<Id>.Borrow())
+            {
+                var nIds = temp.Item;
+                foreach(var id in ids)
+                {
+                    nIds.Add(id.ToString());
+                }
+
+                result = GetDocumentsByIds<T>(indexName, nIds);
+            }
+
+            return result;
+        }
 
         public (IEnumerable<T> Documents, long Total) GetDocuments<T>(string indexName,
                                                 int pageIndex, int pageSize,
@@ -224,7 +352,8 @@ namespace CodeArt.Search
             var from = pageSize * (pageIndex - 1);
             var size = pageSize;
 
-            IReadOnlyCollection<T> docs = null;
+            List<T> docs = new List<T>();
+
             long total = 0;
 
             // 获取客户端
@@ -233,7 +362,17 @@ namespace CodeArt.Search
                 var index = Indices.Parse(indexName);
                 Func<SearchDescriptor<T>, ISearchRequest> selector = s => getDescriptor(s.Index(index).From(from).Size(size));
                 var response = client.Search<T>(selector);
-                docs = response.Documents;
+                var hits = response.Hits;
+                foreach (var hit in hits)
+                {
+                    var data = hit.Source as Dictionary<string, object>;
+                    if (data != null)
+                    {
+                        data.Add("id", hit.Id);
+                        T doc = (T)(object)data;
+                        docs.Add(doc);
+                    }
+                }
                 total = response.Total;
             });
 
@@ -307,6 +446,129 @@ namespace CodeArt.Search
                 return descriptor.Query((q) => query(q));
             });
         }
+
+
+        /// <summary>
+        /// 获取索引库中全部id,该方法尽量不要使用，请用翻页查数据，该方法仅用于数据总数比较少的获取
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="indexName"></param>
+        /// <returns></returns>
+        public IEnumerable<Id> GetDocumentIds<T>(string indexName) where T : class
+        {
+            List<Id> ids = new List<Id>();
+
+            Time time = "30s"; // 内置最大处理时间
+
+            this.Using((client) =>
+            {
+                var index = Indices.Parse(indexName);
+
+                var scanResults = client.Search<T>(s => s.Index(index).From(0).Size(1).MatchAll().Scroll(time));
+
+                if (scanResults.Documents.Any())
+                {
+                    foreach (var doc in scanResults.Documents)
+                    {
+                        var data = doc as IDocument;
+                        ids.Add(data.Id);
+                    }
+
+                    var scrollId = scanResults.ScrollId;
+                    var results = client.Scroll<T>(time, scrollId);
+                    while (results.Documents.Any())
+                    {
+                        var docs = results.Documents;
+
+                        foreach (var doc in docs)
+                        {
+                            var data = doc as IDocument;
+                            ids.Add(data.Id);
+                        }
+
+                        results = client.Scroll<T>(time, scrollId);
+                    }
+                }
+            });
+
+            return ids;
+        }
+
+        #endregion
+
+        #region 只查询文档的个数
+
+        public long GetDocumentCount<T>(string indexName, Func<CountDescriptor<T>, CountDescriptor<T>> getDescriptor) where T : class
+        {
+            long count = 0;
+
+            // 获取客户端
+            this.Using((client) =>
+            {
+                var index = Indices.Parse(indexName);
+
+                Func<CountDescriptor<T>, ICountRequest> selector = s => getDescriptor(s.Index(index));
+
+                var response = client.Count<T>(selector);
+
+                count = response.Count;
+            });
+
+            return count;
+        }
+
+        public long GetDocumentCount<T>(string indexName, Func<QueryContainerDescriptor<T>, QueryContainer> query) where T : class
+        {
+            return GetDocumentCount<T>(indexName, (descriptor) =>
+            {
+                return descriptor.Query((q) => query(q));
+            });
+        }
+
+        #endregion
+
+        #region 文档的聚合操作
+
+        public (IEnumerable<DTObject> Aggregations, long Total) GetAggregations<T>(string indexName,
+                                        Func<SearchDescriptor<T>, SearchDescriptor<T>> getDescriptor, 
+                                        Func<AggregationContainerDescriptor<T>, AggregationContainerDescriptor<T>> getAggDescriptorn) where T : class
+        {
+            long total = 0;
+            List<DTObject> aggs = new List<DTObject>();
+
+            // 获取客户端
+            this.Using((client) =>
+            {
+                var index = Indices.Parse(indexName);
+                Func<SearchDescriptor<T>, ISearchRequest> selector = s => getDescriptor(s.Index(index).Size(0).Aggregations(getAggDescriptorn));
+
+                var response = client.Search<T>(selector);
+                var hits = response.Aggregations;
+
+                foreach (var hit in hits)
+                {
+                    DTObject agg = DTObject.Create();
+                    List<DTObject> datas = new List<DTObject>();
+                    agg.SetValue("name", hit.Key);
+                    var ba = hit.Value as BucketAggregate;
+                    foreach (var item in ba.Items)
+                    {
+                        var bucket = item as KeyedBucket<dynamic>;
+
+                        DTObject data = DTObject.Create();
+                        data.SetValue("key", bucket.Key);
+                        data.SetValue("value", bucket.DocCount);
+                        datas.Add(data);
+                    }
+                    agg.SetValue("datas", datas);
+                    aggs.Add(agg);
+                }
+                total = response.Total;
+            });
+
+            return (aggs, total);
+        }
+
 
         #endregion
 

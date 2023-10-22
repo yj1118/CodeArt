@@ -38,7 +38,7 @@ namespace CodeArt.DomainDriven
             catch (Exception ex)
             {
                 //其他类型的错误写入日志，不抛出异常
-                LogWrapper.Default.Fatal(ex);
+                Logger.Fatal(ex);
             }
         }
 

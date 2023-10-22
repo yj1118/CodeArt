@@ -20,7 +20,16 @@ namespace CodeArt.DomainDriven.DataAccess
     {
         internal void Insert(DomainObject obj)
         {
-            if (obj == null || obj.IsEmpty() || !obj.IsDirty) return;
+            if (obj == null || obj.IsEmpty()) return;
+            if(this.IsSnapshot)
+            {
+                //如果是镜像，不为空就可以保存了
+            }
+            else if(!obj.IsDirty)
+            {
+                //非镜像对象，要考虑是否为脏对象，脏对象才有保存的必要
+                return;
+            }
 
             DomainObject root = null;
             if (this.Type == DataTableType.AggregateRoot) root = obj;
@@ -40,7 +49,7 @@ namespace CodeArt.DomainDriven.DataAccess
         internal DynamicData InsertData(DomainObject root, DomainObject parent, DomainObject obj)
         {
             var data = GetInsertData(root, parent, obj);
-            SqlHelper.Execute(this.ConnectionName, this.SqlInsert, data);
+            SqlHelper.Execute(this.SqlInsert, data);
 
             //如果有基表，那么继续插入
             var baseTable = this.BaseTable;
@@ -66,8 +75,12 @@ namespace CodeArt.DomainDriven.DataAccess
         /// <param name="obj"></param>
         private void OnDataInserted(DomainObject root, DomainObject obj, DynamicData objData)
         {
-            SetDataProxy(obj, objData, false);//对于保存的对象，我们依然要同步数据代理
-            obj.MarkClean();
+            if(!this.IsSnapshot)
+            {   
+                //当不是镜像时，需要改变状态，如果是镜像的保存，就不比更改原始对象的状态
+                SetDataProxy(obj, objData, false);//对于保存的对象，我们依然要同步数据代理
+                obj.MarkClean();
+            }
 
             if (this.Type == DataTableType.AggregateRoot)
             {
@@ -93,14 +106,14 @@ namespace CodeArt.DomainDriven.DataAccess
                     var typeKey = this.IsDerived ? this.DerivedClass.TypeKey : this.DynamicType.Define.TypeName;
                     data.Add(GeneratedField.TypeKeyName, typeKey);
 
-                    if(inheritedRoot.IsEnabledMultiTenancy)
+                    if(inheritedRoot.IsSessionEnabledMultiTenancy)
                     {
                         data.Add(GeneratedField.TenantIdName, AppSession.TenantId);
                     }
 
                     //更改基表的信息
                     var sql = inheritedRoot.GetUpdateSql(data);
-                    SqlHelper.Execute(inheritedRoot.Name, sql, data);
+                    SqlHelper.Execute(sql, data);
                 }
             }
 
@@ -156,7 +169,7 @@ namespace CodeArt.DomainDriven.DataAccess
                 data.Add(GeneratedField.DataVersionName, 1); //追加数据版本号
             }
 
-            if(this.IsEnabledMultiTenancy)
+            if(this.IsSessionEnabledMultiTenancy)
             {
                 data.Add(GeneratedField.TenantIdName, AppSession.TenantId);
             }
@@ -191,7 +204,7 @@ namespace CodeArt.DomainDriven.DataAccess
                     this.InheritedRoot.IncrementAssociated(GetObjectId(root), GetObjectId(obj));
                 }
                 else
-                {
+                {   
                     //递增引用次数
                     IncrementAssociated(GetObjectId(root), GetObjectId(obj));
                 }
@@ -224,9 +237,9 @@ namespace CodeArt.DomainDriven.DataAccess
                         data.Add(rootIdName, rootId);
                         data.Add(slaveIdName, slaveId);
                         data.Add(GeneratedField.OrderIndexName, index);
-                        if (this.IsEnabledMultiTenancy)
+                        if (this.IsSessionEnabledMultiTenancy)
                             data.Add(GeneratedField.TenantIdName, AppSession.TenantId);
-                        SqlHelper.Execute(this.ConnectionName, this.SqlInsert, data);
+                        SqlHelper.Execute(this.SqlInsert, data);
                         index++;
                     }
                 }
@@ -247,9 +260,9 @@ namespace CodeArt.DomainDriven.DataAccess
                         data.Add(masterIdName, masterId);
                         data.Add(slaveIdName, slaveId);
                         data.Add(GeneratedField.OrderIndexName, index);
-                        if (this.IsEnabledMultiTenancy)
+                        if (this.IsSessionEnabledMultiTenancy)
                             data.Add(GeneratedField.TenantIdName, AppSession.TenantId);
-                        SqlHelper.Execute(this.ConnectionName, this.SqlInsert, data);
+                        SqlHelper.Execute(this.SqlInsert, data);
                         index++;
                     }
                 }
@@ -272,9 +285,9 @@ namespace CodeArt.DomainDriven.DataAccess
                         data.Add(rootIdName, rootId);
                         data.Add(GeneratedField.PrimitiveValueName, value);
                         data.Add(GeneratedField.OrderIndexName, index);
-                        if(this.IsEnabledMultiTenancy)
+                        if(this.IsSessionEnabledMultiTenancy)
                             data.Add(GeneratedField.TenantIdName, AppSession.TenantId);
-                        SqlHelper.Execute(this.ConnectionName, this.SqlInsert, data);
+                        SqlHelper.Execute(this.SqlInsert, data);
                         index++;
                     }
                 }
@@ -293,15 +306,14 @@ namespace CodeArt.DomainDriven.DataAccess
                         data.Add(masterIdName, masterId);
                         data.Add(GeneratedField.PrimitiveValueName, value);
                         data.Add(GeneratedField.OrderIndexName, index);
-                        if (this.IsEnabledMultiTenancy)
+                        if (this.IsSessionEnabledMultiTenancy)
                             data.Add(GeneratedField.TenantIdName, AppSession.TenantId);
-                        SqlHelper.Execute(this.ConnectionName, this.SqlInsert, data);
+                        SqlHelper.Execute(this.SqlInsert, data);
                         index++;
                     }
                 }
             }
         }
-
 
         private void InsertAndCollectValue(DomainObject root, DomainObject parent, DomainObject current, PropertyRepositoryAttribute tip, DynamicData data)
         {
@@ -396,8 +408,13 @@ namespace CodeArt.DomainDriven.DataAccess
         private void InsertMembers(DomainObject root, DomainObject parent, DomainObject current, PropertyRepositoryAttribute tip)
         {
             var objs = current.GetValue(tip.Property) as IEnumerable;
+            InsertMembers(root, parent, current, objs, tip);
+        }
+
+        private void InsertMembers(DomainObject root, DomainObject parent, DomainObject current, IEnumerable members, PropertyRepositoryAttribute tip)
+        {
             DataTable middle = null;
-            foreach (DomainObject obj in objs)
+            foreach (DomainObject obj in members)
             {
                 if (obj.IsEmpty()) continue;
                 var child = GetRuntimeTable(this, tip.PropertyName, obj.ObjectType);
@@ -409,7 +426,7 @@ namespace CodeArt.DomainDriven.DataAccess
                 child.InsertMember(root, current, obj);
                 if (middle == null) middle = child.Middle;
             }
-            if (middle != null) middle.InsertMiddle(root, current, objs);
+            if (middle != null) middle.InsertMiddle(root, current, members);
         }
 
 

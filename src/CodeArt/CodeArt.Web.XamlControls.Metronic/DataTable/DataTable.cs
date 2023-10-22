@@ -156,7 +156,7 @@ namespace CodeArt.Web.XamlControls.Metronic
                 code.AppendFormat("field:'{0}',", column.Field);
                 code.AppendFormat("title:'{0}',", column.Title);
                 if(!string.IsNullOrEmpty(column.Width)) code.AppendFormat("width:'{0}',", column.Width);
-                code.AppendFormat("sortable:{0},",JSON.GetCode(column.Sortable));
+                code.AppendFormat("sortable:{0},", JSON.GetCode(column.Sortable));
                 code.AppendFormat("textAlign:'{0}',", column.TextAlign);
                 if (!string.IsNullOrEmpty(column.Overflow)) code.AppendFormat("overflow:'{0}',", column.Overflow);
                 if (!string.IsNullOrEmpty(column.Responsive)) code.AppendFormat("responsive:{0},", column.Responsive);

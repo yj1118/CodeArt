@@ -6,6 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
 
+using CodeArt.EasyMQ;
+using CodeArt.EasyMQ.Event;
+
 using CodeArt.DTO;
 using CodeArt.Runtime;
 using CodeArt.Util;
@@ -115,10 +118,28 @@ namespace CodeArt.DomainDriven
             {
                 if (TypeDefine.IsIgnore(defineType)) continue;
                 var obj = (TypeDefine)TypeDefine.Initialize(defineType);
-                var remoteType = obj.RemoteType;
-                _types.Add(remoteType);
+                _types.Add(obj.RemoteType);
+            }
+
+            foreach (var defineType in defineTypes)
+            {
+                SubscribeRemoteObjectEvent(defineType);
             }
         }
+
+
+        private static void SubscribeRemoteObjectEvent(Type defineType)
+        {
+            var define = TypeDefine.GetDefine(defineType);
+            var handler = define as IEventHandler;
+            if (handler == null) return;
+
+            var updateEventName = RemoteObjectUpdated.GetEventName(define.RemoteType);
+            var deleteEventName = RemoteObjectDeleted.GetEventName(define.RemoteType);
+            EventPortal.Subscribe(updateEventName, handler);
+            EventPortal.Subscribe(deleteEventName, handler); //这里订阅了事件，但是不需要对应的有取消订阅的事件，因为这些事件都是框架本身就已经订阅了的，当程序关闭时会自动取消订阅
+        }
+
 
         private static List<RemoteType> _types;
 

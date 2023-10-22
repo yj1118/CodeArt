@@ -11,6 +11,12 @@ namespace CodeArt.EasyMQ
 {
     public struct TransferData
     {
+        public string Language
+        {
+            get;
+            set;
+        }
+
         public DTObject Info
         {
             get;
@@ -40,15 +46,17 @@ namespace CodeArt.EasyMQ
         #endregion
 
 
-        public TransferData(DTObject info, int binaryDataLength, byte[] binaryData)
+        public TransferData(string language, DTObject info, int binaryDataLength, byte[] binaryData)
         {
+            this.Language = language;
             this.Info = info;
             this.DataLength = binaryDataLength;
             this.Buffer = binaryData;
         }
 
-        public TransferData(DTObject info)
+        public TransferData(string language, DTObject info)
         {
+            this.Language = language;
             this.Info = info;
             this.DataLength = 0;
             this.Buffer = Array.Empty<byte>();
@@ -61,6 +69,8 @@ namespace CodeArt.EasyMQ
             {
                 var source = temp.Item;
                 source.Write(content);
+
+                var language = source.ReadString();
 
                 var dtoLength = source.ReadInt32();
                 var dtoData = source.ReadBytes(dtoLength);
@@ -77,7 +87,7 @@ namespace CodeArt.EasyMQ
                     binaryData = source.ReadBytes(thisTimeLength);
                 }
 
-                return new TransferData(dto, binaryLength, binaryData);
+                return new TransferData(language, dto, binaryLength, binaryData);
             }
         }
 
@@ -88,8 +98,11 @@ namespace CodeArt.EasyMQ
             using (var temp = ByteBuffer.Borrow(size))
             {
                 var target = temp.Item;
+
+                target.Write(result.Language);
+
+
                 var dtoData = result.Info.ToData();
-                var dtoLength = dtoData.Length;
 
 
                 target.Write(dtoData.Length);
@@ -104,6 +117,12 @@ namespace CodeArt.EasyMQ
 
                 return target.ToArray();
             }
+        }
+
+
+        public static TransferData CreateEmpty()
+        {
+            return new TransferData(string.Empty, DTObject.Empty);
         }
 
     }

@@ -1,0 +1,21 @@
+﻿<ControlTemplate xmlns="http://schemas.codeart.cn/web/xaml">
+    <ControlTemplate.Directories>
+        <AssetDirectory AssemblyName="CodeArt.Web.WebPages.Xaml">
+            <AssetPackage Path="/framework"></AssetPackage>
+        </AssetDirectory>
+    </ControlTemplate.Directories>
+    <div class="{TemplateBinding Class,Converter={Static AppendClassConverter.Instance},ConverterParameter=x-dropload}"
+         id="{TemplateBinding Id}"
+         data-pageSize="{TemplateBinding PageSize}"
+         data-action="{TemplateBinding Action}"
+         data-emptyTip="{TemplateBinding EmptyTip}"
+         data-auto="{TemplateBinding Auto}"
+         data-proxy="{give:[new $$.databind(),new $$.dropload()]}" data-dropload="true">
+        <AttributesPresenter />
+        <div data-proxy="{loops:'rows',increment:true}" data-loops="true">
+            <ContentPresenter Content="{TemplateBinding RowTemplate}" />
+        </div>
+    </div>
+    <LinkCode Key="/framework/mescroll/mescroll.min.css" Origin="Header" />
+    <LinkCode Key="/framework/mescroll/mescroll.min.js" Origin="Bottom" />
+</ControlTemplate>

@@ -13,8 +13,18 @@ namespace CodeArt.DomainDriven
     [SafeAccess]
     public class NotEmptyValidator : PropertyValidator
     {
-        private NotEmptyValidator()
+        /// <summary>
+        /// 是否过滤空格，默认情况下过滤
+        /// </summary>
+        public bool Trim
         {
+            get;
+            private set;
+        }
+
+        public NotEmptyValidator(bool trim)
+        {
+            this.Trim = trim;
         }
 
         protected override void Validate(DomainObject domainObject, DomainProperty property, object propertyValue, ValidationResult result)
@@ -38,7 +48,9 @@ namespace CodeArt.DomainDriven
             if(property.PropertyType == typeof(string))
             {
                 var stringValue = (string)propertyValue;
-                if(string.IsNullOrEmpty(stringValue))
+                if (this.Trim) stringValue = stringValue.Trim();
+
+                if (string.IsNullOrEmpty(stringValue))
                 {
                     AddError(property, result);
                 }
@@ -68,12 +80,9 @@ namespace CodeArt.DomainDriven
 
         private void AddError(IDomainProperty property, ValidationResult result)
         {
-            result.AddError(property.Name, "NotEmpty", string.Format(Strings.NotEmpty, property.Name));
+            result.AddError(property.Name, "NotEmpty", string.Format(Strings.NotEmpty, property.Call));
         }
 
         public const string ErrorCode = "NotEmpty";
-
-        public static readonly NotEmptyValidator Instance = new NotEmptyValidator();
-
     }
 }

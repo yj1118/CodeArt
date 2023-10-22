@@ -109,6 +109,50 @@ namespace CodeArt.ServiceModel
 
         #endregion
 
+        #region 异步
+
+        public static void AsyncInvoke(string serviceName, Action<DTObject> fillArg, Action<DTObject> success, Action<Exception> error)
+        {
+            var arg = DTObject.Create();
+            fillArg(arg);
+            AsyncInvoke(serviceName, AppContext.Identity, arg, success, error);
+        }
+
+        public static void AsyncInvoke(string serviceName, Action<DTObject> fillArg, Action<Exception> error)
+        {
+            var arg = DTObject.Create();
+            fillArg(arg);
+            AsyncInvoke(serviceName, AppContext.Identity, arg, null, error);
+        }
+
+        public static void AsyncInvoke(string serviceName, Action<DTObject> fillArg)
+        {
+            var arg = DTObject.Create();
+            fillArg(arg);
+            AsyncInvoke(serviceName, AppContext.Identity, arg, null, null);
+        }
+
+        public static void AsyncInvoke(string serviceName, DTObject identity, DTObject arg,Action<DTObject> success, Action<Exception> error)
+        {
+            Task.Run(() =>
+            {
+                try
+                {
+                    ServiceRequest request = new ServiceRequest(serviceName, identity, arg);
+                    var response = Send(request);
+                    if(success != null)
+                        success(response.ReturnValue);
+                }
+                catch (Exception ex)
+                {
+                    if (error != null)
+                        error(ex);
+                }
+            });   
+        }
+
+        #endregion
+
         private static ServiceResponse Send(ServiceRequest request)
         {
             var response = ServiceProxy.Invoke(request);

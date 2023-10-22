@@ -23,12 +23,29 @@ namespace CodeArt.DomainDriven.DataAccess
     {
         #region 对外公开的方法
 
+        public static long GetIdentity(string tableName)
+        {
+            long id = 0;
+            DataContext.UseTransactionScope(() =>
+            {
+                string sql = null;
+                switch (SqlContext.GetDbType())
+                {
+                    case DatabaseType.SQLServer: sql = SQLServer.SqlStatement.GetIncrementIdentitySql(tableName);break;
+                    default: throw new DataAccessException("不支持的数据库类型");
+                }
+                id = SqlHelper.ExecuteScalar<long>(sql);
+            });
+            return id;
+           
+        }
+
         /// <summary>
         /// 根据对象类型，获取一个自增的编号，该编号由数据层维护递增
         /// </summary>
         /// <param name="categoryName"></param>
         /// <returns></returns>
-        public static long GetIdentity<T>() where T : class, IEntityObject
+        public static long GetIdentity<T>() where T : class, IAggregateRoot
         {
             var objectType = typeof(T);
             var model = DataModel.Create(objectType);
@@ -37,6 +54,47 @@ namespace CodeArt.DomainDriven.DataAccess
             DataContext.UseTransactionScope(() =>
             {
                 id = model.GetIdentity();
+            });
+            return id;
+        }
+
+        /// <summary>
+        /// 获得流水号,流水号保证对每个租户都是连续的;
+        /// 请注意，流水号不能用于领域对象的编号，因为编号必须保证全局唯一
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static long GetSerialNumber<T>() where T : class, IAggregateRoot
+        {
+            var objectType = typeof(T);
+            var model = DataModel.Create(objectType);
+
+            long id = 0;
+            DataContext.UseTransactionScope(() =>
+            {
+                id = model.GetSerialNumber();
+            });
+            return id;
+        }
+
+        /// <summary>
+        /// 可以为非根对象建立唯一标示
+        /// </summary>
+        /// <typeparam name="A"></typeparam>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static long GetIdentity<A,T>() where A : class, IAggregateRoot
+                                              where T : DomainObject
+        {
+            var objectType = typeof(A);
+            var model = DataModel.Create(objectType);
+
+            var table = DataTable.GetTable<T>();
+
+            long id = 0;
+            DataContext.UseTransactionScope(() =>
+            {
+                id = table.GetIdentity();
             });
             return id;
         }
@@ -52,6 +110,18 @@ namespace CodeArt.DomainDriven.DataAccess
         }
 
         /// <summary>
+        /// 初始化<typeparamref name="T"/>对应的数据模型，这会初始化表结构
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        public static void Init<T>()
+        {
+            DataModel.Create(typeof(T));
+        }
+
+
+        #region 销毁数据
+
+        /// <summary>
         /// 在数据层中销毁数据模型
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -60,11 +130,34 @@ namespace CodeArt.DomainDriven.DataAccess
             DataModel.Drop();
         }
 
+        #endregion
+
+        /// <summary>
+        /// 清理数据，但是不销毁数据模型
+        /// </summary>
+        public static void ClearUp()
+        {
+            DataModel.ClearUp();
+            foreach(var evt in _onClearUpEvents)
+            {
+                evt();
+            }
+        }
+
+        private static List<Action> _onClearUpEvents = new List<Action>();
+
+        public static void OnClearUp(Action action)
+        {
+            _onClearUpEvents.Add(action);
+        }
+
+
+
         /// <summary>
         /// 直接使用数据库连接操作数据库
         /// </summary>
         /// <param name="action"></param>
-        public static void Direct<T>(Action<IDbConnection> action) where T : IDomainObject
+        public static void Direct<T>(Action<DataConnection> action) where T : IDomainObject
         {
             var objectType = typeof(T);
             Direct(objectType, action);
@@ -81,48 +174,23 @@ namespace CodeArt.DomainDriven.DataAccess
         }
 
 
-        public static void Direct(Type objectType, Action<IDbConnection> action)
+        public static void Direct(Type objectType, Action<DataConnection> action)
         {
             var model = DataModel.Create(objectType);
-            var connectionString = SqlHelper.GetConnectionString(model.ConnectionName);
-            using (IDbConnection conn = new SqlConnection(connectionString))
-            {
+            DataContext.Using(()=> {
+                var conn = DataContext.Current.Connection;
                 action(conn);
-            }
+            });
         }
 
-
-        public static void Direct<T>(Action<IDbConnection, IDbTransaction> action) where T : IDomainObject
+        public static void Direct(Action<DataConnection> action)
         {
-            var objectType = typeof(T);
-            Direct(objectType, action);
+            DataContext.Using(() => {
+                var conn = DataContext.Current.Connection;
+                action(conn);
+            });
         }
 
-        public static void Direct(Type objectType, Action<IDbConnection, IDbTransaction> action)
-        {
-            var model = DataModel.Create(objectType);
-            var connectionString = SqlHelper.GetConnectionString(model.ConnectionName);
-            using (IDbConnection conn = new SqlConnection(connectionString))
-            {
-                IDbTransaction tran = null;
-                try
-                {
-                    conn.Open();
-                    tran = conn.BeginTransaction();
-                    action(conn, tran);
-                    tran.Commit();
-                }
-                catch
-                {
-                    tran?.Rollback();
-                    throw;
-                }
-                finally
-                {
-                    tran?.Dispose();
-                }
-            }
-        }
 
         #endregion
 
@@ -158,6 +226,39 @@ namespace CodeArt.DomainDriven.DataAccess
             var model = DataModel.Create(objectType);
             model.Delete(obj);
         }
+
+        #region keep
+
+        /// <summary>
+        /// 赋予新建的对象可以持续存在多个线程之中，
+        /// 有时候，我们需要建立领域对象，但是并不存入数据库，而是作为内存中的缓存使用，
+        /// 这时候在创建对象后，就需要将对象keep下，才能在随后的多个线程里正常访问，
+        /// 这里的原因是，引用的根对象是存在线程栈里的，在别的线程访问时，没有本地数据做支持就无法延迟加载，所以需要数据层处理
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static void Keep<T>(T obj) where T : DomainObject
+        {
+            var objectType = obj.ObjectType;
+            var table = DataTable.GetTable<T>();
+            if (table == null) throw new ApplicationException("没有找到" + objectType.FullName + "对应的表定义");
+            table.Keep(obj);
+        }
+
+        #endregion
+
+        /// <summary>
+        /// 将指定的对象从缓存区从移除
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="id"></param>
+        public static void Off<T>(object id) where T : DomainObject
+        {
+            var objectType = typeof(T);
+            DomainBuffer.Public.Remove(objectType, id);
+        }
+
 
         /// <summary>
         /// 在数据层中查找指定编号的数据，并加载到对象实例中
@@ -231,6 +332,5 @@ namespace CodeArt.DomainDriven.DataAccess
             var model = DataModel.Create(objectType);
             model.Execute(expression, fillArg, level);
         }
-
     }
 }

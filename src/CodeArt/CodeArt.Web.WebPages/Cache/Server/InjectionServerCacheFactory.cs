@@ -59,7 +59,6 @@ namespace CodeArt.Web.WebPages
             return NonServerCache.Instance;
         }
 
-
         #region 存储器
 
         private static Dictionary<string, ICacheStorage> _storages = new Dictionary<string, ICacheStorage>(5);
@@ -99,9 +98,6 @@ namespace CodeArt.Web.WebPages
         }
 
         #endregion
-
-
-
 
     }
 }

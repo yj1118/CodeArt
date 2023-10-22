@@ -164,17 +164,27 @@ namespace CodeArt.DomainDriven
             this.Constructor = this.ObjectType.ResolveConstructor(typeof(TypeDefine), typeof(bool));
             this.QualifiedName = qualifiedName;
             this.CloseMultiTenancy = closeMultiTenancy;
-            InitMetadataType();
-            this.RemoteType = GetRemoteType();
-            if (IsIgnore(this))
+            //以下代码是新增截获远程对象删除机制所改的，多个子系统有可能有多个远程对象(User)的定义，在实际使用时，需要定位到某一个User上
+            //但是在不同的User上的截获事件都需要触发，所以，为了让忽略的对象不破坏内存定义，改写成以下代码
+            if(!IsIgnore(this))
             {
-                LoadFromLocateType();
-            }
-            else
-            {
+                InitMetadataType();
+                this.RemoteType = GetRemoteType();
                 AddDefineIndex(typeName, this);  //加入索引
                 RemoteType.AddDefineIndex(this.RemoteType.FullName, this); //加入索引
             }
+            //以下是老代码
+            //InitMetadataType();
+            //this.RemoteType = GetRemoteType();
+            //if (IsIgnore(this))
+            //{
+            //    LoadFromLocateType();
+            //}
+            //else
+            //{
+            //    AddDefineIndex(typeName, this);  //加入索引
+            //    RemoteType.AddDefineIndex(this.RemoteType.FullName, this); //加入索引
+            //}
         }
 
 
@@ -190,6 +200,15 @@ namespace CodeArt.DomainDriven
             {
                 return p.Name.EqualsIgnoreCase(propertyName);
             });
+        }
+
+        /// <summary>
+        /// 快照属性
+        /// </summary>
+        public DomainProperty SnapshotProperty
+        {
+            get;
+            private set;
         }
 
         #region 构建类型
@@ -298,8 +317,12 @@ namespace CodeArt.DomainDriven
                     properties.Add(property);
                     continue;
                 }
-
             }
+
+
+            this.SnapshotProperty = GetSnapshotProperty(objectType);
+
+            properties.Add(this.SnapshotProperty);
 
             Properties = properties;
         }
@@ -327,7 +350,7 @@ namespace CodeArt.DomainDriven
             propertyInfo.AddAttribute(new PropertyRepositoryAttribute());
             object defaultValue = entry.IsString ? string.Empty : DataUtil.GetDefaultValue(propertyType);
             AttachAttributes(propertyInfo, entry);
-            return DomainProperty.Register(propertyName, propertyType, objectType, (o, p) => { return defaultValue; }, PropertyChangedMode.Compare, propertyType);
+            return DomainProperty.Register(propertyName, propertyType, objectType, (o, p) => { return defaultValue; }, null, propertyType);
         }
 
         private void AttachAttributes(RuntimePropertyInfo propertyInfo, ValueEntry entry)
@@ -350,6 +373,16 @@ namespace CodeArt.DomainDriven
         }
 
 
+        private DomainProperty GetSnapshotProperty(RuntimeType objectType)
+        {
+            var propertyName = "Snapshot";
+            var propertyType = typeof(bool);
+            var propertyInfo = objectType.AddProperty(propertyName, propertyType);
+            propertyInfo.AddAttribute(new PropertyRepositoryAttribute());
+            object defaultValue = false;
+            return DomainProperty.Register(propertyName, propertyType, objectType, (o, p) => { return defaultValue; }, null, propertyType);
+        }
+
         #endregion
 
         #region 对象的属性
@@ -363,7 +396,7 @@ namespace CodeArt.DomainDriven
             var propertyInfo = objectType.AddProperty(propertyName, propertyType);
             propertyInfo.AddAttribute(new PropertyRepositoryAttribute());
 
-            return DomainProperty.Register(propertyName, propertyType, objectType, (o, p) => { return define.EmptyInstance; }, PropertyChangedMode.Definite, propertyType);
+            return DomainProperty.Register(propertyName, propertyType, objectType, (o, p) => { return define.EmptyInstance; }, null, propertyType);
         }
 
         private TypeDefine GetObjectDefine(RuntimeType objectType, ObjectEntry entry)
@@ -448,7 +481,7 @@ namespace CodeArt.DomainDriven
             if(valueEntry != null)
                 AttachAttributes(propertyInfo, valueEntry);
 
-            return DomainProperty.Register(propertyName, propertyType, objectType, (o, p) => { return propertyType.CreateInstance(); }, PropertyChangedMode.Definite, elementType);
+            return DomainProperty.Register(propertyName, propertyType, objectType, (o, p) => { return propertyType.CreateInstance(); }, null, elementType);
         }
 
         /// <summary>
@@ -624,6 +657,12 @@ namespace CodeArt.DomainDriven
             where RT : TypeDefine
         {
             var define = SafeAccessAttribute.CreateSingleton<RT>();
+            return GetDefine(define.TypeName); //为了防止重定向了类型定义，所以要再获取一遍
+        }
+
+        public static TypeDefine GetDefine(Type defineType)
+        {
+            var define = SafeAccessAttribute.CreateSingleton(defineType) as TypeDefine;
             return GetDefine(define.TypeName); //为了防止重定向了类型定义，所以要再获取一遍
         }
 

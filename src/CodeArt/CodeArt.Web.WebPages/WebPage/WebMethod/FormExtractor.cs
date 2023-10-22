@@ -13,16 +13,14 @@ namespace CodeArt.Web.WebPages
         {
             HttpRequest request = context.Request;
 
-            StringBuilder code = new StringBuilder("{");
+            DTObject data = DTObject.Create();
             foreach (string key in request.Form)
             {
                 string value = request.Form[key];
-                code.AppendFormat("\"{0}\":\"{1}\",", key, value);
+                data[key] = value;
             }
 
-            code.Append("}");
-
-            return DTObject.Create(code.ToString());
+            return data;
         }
 
         public static readonly FormExtractor Instance = new FormExtractor();

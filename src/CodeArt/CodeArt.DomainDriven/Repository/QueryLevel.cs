@@ -86,5 +86,18 @@ namespace CodeArt.DomainDriven
         {
             return this.Code;
         }
+
+
+        public string GetMSSqlLockCode()
+        {
+            switch (this.Code)
+            {
+                case QueryLevel.ShareCode: return string.Empty;
+                case QueryLevel.SingleCode: return " with(xlock,rowlock) ";
+                case QueryLevel.HoldSingleCode: return " with(xlock,holdlock) ";
+                default:
+                    return " with(nolock) "; //None和Mirror 都是无锁模式
+            }
+        }
     }
 }

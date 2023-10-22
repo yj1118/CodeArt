@@ -8,6 +8,7 @@ using CodeArt.Runtime;
 using CodeArt.Log;
 using CodeArt.DTO;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace CodeArt.AppSetting
 {
@@ -52,7 +53,7 @@ namespace CodeArt.AppSetting
                 }
                 catch (Exception ex)
                 {
-                    LogWrapper.Default.Fatal(ex);
+                    Logger.Fatal(ex);
                 }
                 finally
                 {
@@ -139,6 +140,17 @@ namespace CodeArt.AppSetting
             return (T)GetItem(name);
         }
 
+        public static T GetItem<T>(string name,T defaultValue)
+        {
+            var appSession = Current;
+            object item = appSession.GetItem(name);
+            if (item == null)
+            {
+                return defaultValue;
+            }
+            return (T)item;
+        }
+
         public static bool ContainsItem(string name)
         {
             return Current.ContainsItem(name);
@@ -197,6 +209,33 @@ namespace CodeArt.AppSetting
             _sessionByRegister = appSession;
         }
 
+        /// <summary>
+        /// 指示当前回话是否属于系统行为
+        /// 比如由于业务逻辑，必须要设置某个角色时，这个角色不是公开的，系统行为就可以无视这点
+        /// </summary>
+        public static bool SystemBehavior
+        {
+            get
+            {
+                return (bool)AppSession.GetItem("SystemBehavior", false);
+            }
+            private set
+            {
+                AppSession.SetItem("SystemBehavior", value);
+            }
+        }
+
+        /// <summary>
+        /// 系统行为，开启系统行为的权限
+        /// </summary>
+        /// <param name="action"></param>
+        public static void SystemAction(Action action)
+        {
+            SystemBehavior = true;
+            action();
+            SystemBehavior = false;
+        }
+
         #region 会话级别的身份和语言
 
         /// <summary>
@@ -211,7 +250,6 @@ namespace CodeArt.AppSetting
             set
             {
                 AppSession.SetItem("SessionIdentity", value);
-                CodeArt.Language.Init(); //初始化语言选项，因为身份可能含有语言信息，所以需要初始化
                 if (IdentityChanged != null)
                     IdentityChanged(value);
             }
@@ -236,18 +274,25 @@ namespace CodeArt.AppSetting
         {
             get
             {
-                return Identity == null ? string.Empty : Identity.GetValue<string>("name", string.Empty);
+                return GetItem<string>("language", AppContext.LocalLanguage);
+            }
+            set
+            {
+                CultureInfo ci = LanguageUtil.GetCulture(value);
+                Thread.CurrentThread.CurrentCulture = ci;
+                Thread.CurrentThread.CurrentUICulture = ci;
+                SetItem("language", value);
             }
         }
 
         /// <summary>
         /// 租户编号
         /// </summary>
-        public static string TenantId
+        public static long TenantId
         {
             get
             {
-                return Identity == null ? string.Empty : Identity.GetValue<string>("tenantId", string.Empty);
+                return Identity == null ?  0 : Identity.GetValue<long>("tenantId", 0);
             }
             set
             {
@@ -255,6 +300,118 @@ namespace CodeArt.AppSetting
                 Identity.SetValue("tenantId", value);
             }
         }
+
+
+        /// <summary>
+        /// 是否启用租户功能
+        /// </summary>
+        public static bool TenantEnabled
+        {
+            get
+            {
+                return Identity == null ? true : Identity.GetBooleanValue("TenantEnabled", true);
+            }
+            set
+            {
+                InitIdentity();
+                Identity.SetValue("TenantEnabled", value);
+            }
+        }
+
+        /// <summary>
+        /// 负责人编号
+        /// </summary>
+        public static string PrincipalId
+        {
+            get
+            {
+                return Identity == null ? string.Empty : Identity.GetValue<string>("principalId", string.Empty);
+            }
+            set
+            {
+                InitIdentity();
+                Identity.SetValue("principalId", value);
+            }
+        }
+
+
+        /// <summary>
+        /// 访客是否属于灰度中
+        /// </summary>
+        public static bool Dark
+        {
+            get
+            {
+                return Identity == null ? AppDark.In(DTObject.Empty) : Identity.GetValue<bool>("dark", false);
+            }
+            set
+            {
+                InitIdentity();
+                Identity.SetValue("dark", value);
+            }
+        }
+
+        public static bool IgnoreAuth
+        {
+            get
+            {
+                return Identity == null ? false : Identity.GetValue<bool>("ignoreAuth", false);
+            }
+            set
+            {
+                InitIdentity();
+                Identity.SetValue("ignoreAuth", value);
+            }
+        }
+
+        public static DTObject Data
+        {
+            get
+            {
+                return Identity == null ? DTObject.Empty : Identity.GetObject("data", DTObject.Empty);
+            }
+            set
+            {
+                InitIdentity();
+                Identity.SetObject("data", value);
+            }
+        }
+
+
+        //#if DEBUG
+        //        public static bool IgnoreAuth
+        //        {
+        //            get
+        //            {
+        //                return Identity == null ? false : Identity.GetValue<bool>("ignoreAuth", false);
+        //            }
+        //            set
+        //            {
+        //                InitIdentity();
+        //                Identity.SetValue("ignoreAuth", value);
+        //            }
+        //        }
+
+        //#endif
+
+
+        //#if !DEBUG
+
+        //        public static bool IgnoreAuth
+        //        {
+        //            get
+        //            {
+        //                return false;
+        //            }
+        //            set
+        //            {
+        //                //什么也不执行
+        //            }
+        //        }
+
+        //#endif
+
+
 
         #endregion
     }

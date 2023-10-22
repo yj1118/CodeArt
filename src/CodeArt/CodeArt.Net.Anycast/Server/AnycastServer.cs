@@ -141,11 +141,11 @@ namespace CodeArt.Net.Anycast
 
         #region 消息处理
 
-        internal void StartProcess(IServerSession origin, Message message, HandlerContext ctx)
+        internal void StartProcess(AnycastServer server, IServerSession origin, Message message, HandlerContext ctx)
         {
             foreach (var handler in _handlers)
             {
-                handler.BeginProcess(origin, message, ctx);
+                handler.BeginProcess(server, origin, message, ctx);
             }
         }
 
@@ -153,15 +153,30 @@ namespace CodeArt.Net.Anycast
         /// 处理消息
         /// </summary>
         /// <param name="message"></param>
-        internal void EndProcess(IServerSession origin, Message message, HandlerContext ctx)
+        internal void EndProcess(AnycastServer server, IServerSession origin, Message message, HandlerContext ctx)
         {
             foreach (var handler in _handlers)
             {
-                handler.EndProcess(origin, message, ctx);
+                handler.EndProcess(server, origin, message, ctx);
             }
         }
 
         #endregion
 
+        public void Send(Message msg, string address)
+        {
+            var sessions = this.Sessions.GetAnySessions(address);
+
+            Parallel.ForEach(sessions, (target) =>
+            {
+                if (!target.IsActive) return;
+
+                var msgCopy = msg.Clone();
+                msgCopy.Header.SetValue(MessageField.Destination, address); //设置目标地址
+                msgCopy.Header.SetValue(MessageField.Origin, "server"); //设置来源地址，这里就是server
+                target.Process(msgCopy);
+            });
+
+        }
     }
 }

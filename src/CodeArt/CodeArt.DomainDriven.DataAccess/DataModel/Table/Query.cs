@@ -116,6 +116,19 @@ namespace CodeArt.DomainDriven.DataAccess
         }
 
         /// <summary>
+        /// 该方法用于快速加载对象
+        /// </summary>
+        /// <returns></returns>
+        private object GetObjectFromEntryByPage(DynamicData entry)
+        {
+            string typeKey = (string)entry.Get(GeneratedField.TypeKeyName);
+            var table = string.IsNullOrEmpty(typeKey) ? this : GetDataTable(typeKey);
+
+            //非聚合根是不能被加入到缓冲区的
+            return table.CreateObject(table.ObjectTip.ObjectType, entry, QueryLevel.None);
+        }
+
+        /// <summary>
         /// 从条目数据中获取对象
         /// <para>如果加载的对象是聚合根，那么如果存在缓冲区中，那么使用缓冲区的对象，如果不存在，则在数据库中查询并更新缓冲区</para>
         /// <para>如果加载的是成员对象，那么始终从数据库中查询</para>
@@ -148,7 +161,8 @@ namespace CodeArt.DomainDriven.DataAccess
                     {
                         return (IAggregateRoot)table.LoadObject(id, QueryLevel.None); //由于查询条目的时候已经锁了数据，所以此处不用再锁定
                     });
-                    DataContext.Current.AddBuffer(obj); //加入数据上下文缓冲区
+                    if(DataContext.ExistCurrent())
+                        DataContext.Current.AddBuffer(obj); //加入数据上下文缓冲区
                     return obj;
                 }
             }
@@ -176,12 +190,12 @@ namespace CodeArt.DomainDriven.DataAccess
         {
             expression = GetEntryExpression(expression);
             var exp = QueryPage.Create(this, expression);
-            IEnumerable<T> objects = GetObjectsFromEntries<T>(exp, (data) =>
+            IEnumerable<T> objects = GetObjectsFromEntriesByPage<T>(exp, (data) =>
             {
                 data.Add("pageIndex", pageIndex);
                 data.Add("pageSize", pageSize);
                 fillArg(data);
-            }, QueryLevel.None);
+            });
             int count = GetCount(expression, fillArg, QueryLevel.None);
             return new Page<T>(pageIndex, pageSize, objects, count);
         }
@@ -203,7 +217,7 @@ namespace CodeArt.DomainDriven.DataAccess
                 fillArg(param);
                 AddToTenant(param);
                 var sql = query.Build(param, this);
-                count = SqlHelper.ExecuteScalar<int>(this.ConnectionName, sql, param);
+                count = SqlHelper.ExecuteScalar<int>(sql, param);
             }
             return count;
         }
@@ -230,10 +244,24 @@ namespace CodeArt.DomainDriven.DataAccess
                 AddToTenant(param);
 
                 var sql = query.Build(param, this);
-                SqlHelper.Execute(this.ConnectionName, sql, param);
+                SqlHelper.Execute(sql, param);
             }
         }
 
+        private IEnumerable<T> GetObjectsFromEntriesByPage<T>(IQueryBuilder exp, Action<DynamicData> fillArg)
+        {
+            var list = Symbiosis.TryMark(ListPool<T>.Instance, () =>
+            {
+                return new List<T>();
+            });
+
+            UseDataEntries(exp, fillArg, (entry) =>
+            {
+                var obj = GetObjectFromEntryByPage(entry);
+                list.Add((T)obj);
+            });
+            return list;
+        }
 
         private IEnumerable<T> GetObjectsFromEntries<T>(IQueryBuilder exp, Action<DynamicData> fillArg, QueryLevel level)
         {
@@ -302,7 +330,7 @@ namespace CodeArt.DomainDriven.DataAccess
                 AddToTenant(param);
 
                 var sql = query.Build(param, this);//编译表达式获取执行文本
-                SqlHelper.QueryFirstOrDefault(this.ConnectionName, sql, param, data);
+                SqlHelper.QueryFirstOrDefault(sql, param, data);
             }
         }
 
@@ -312,7 +340,8 @@ namespace CodeArt.DomainDriven.DataAccess
             // 为了方便编码，我们认为只要配置文件启动了多租户，在传递条件时，我们就会赋予租户的参数
             if(DomainDrivenConfiguration.Current.MultiTenancyConfig.IsEnabled)
             {
-                param.Add(GeneratedField.TenantIdName, AppSession.TenantId);
+                if(!param.ContainsKey(GeneratedField.TenantIdName))  //TenantId有可能被业务使用,被业务指定了查询条件
+                    param.Add(GeneratedField.TenantIdName, AppSession.TenantId);
             }
         }
 
@@ -326,7 +355,7 @@ namespace CodeArt.DomainDriven.DataAccess
                 AddToTenant(param);
 
                 var sql = query.Build(param, this);//编译表达式获取执行文本
-                SqlHelper.Query(this.ConnectionName, sql, param, datas);
+                SqlHelper.Query(sql, param, datas);
             }
         }
 
@@ -337,52 +366,77 @@ namespace CodeArt.DomainDriven.DataAccess
         /// <returns></returns>
         private string GetEntryExpression(string expression)
         {
-            return _getFindEntryByExpression(this)(expression);
+            return _getFindEntryByExpression(this)(expression)(this.IsSessionEnabledMultiTenancy);
+        }
+
+        /// <summary>
+        /// 获得默认查询的字段
+        /// </summary>
+        /// <returns></returns>
+        private static string GetDefaultQueryFields(DataTable table)
+        {
+            StringBuilder fields= new StringBuilder();
+
+            foreach (var field in table.DefaultQueryFields)
+            {
+                fields.AppendFormat("{0},", field.Name);
+            }
+
+            fields.Length--;
+
+            return fields.ToString();
         }
 
 
-        private static Func<DataTable, Func<string, string>> _getFindEntryByExpression = LazyIndexer.Init<DataTable, Func<string, string>>((table) =>
+        private static Func<DataTable, Func<string, Func<bool, string>>> _getFindEntryByExpression = LazyIndexer.Init<DataTable, Func<string, Func<bool, string>>>((table) =>
         {
-            return LazyIndexer.Init<string, string>((expression) =>
+            return LazyIndexer.Init<string, Func<bool, string>>((expression) =>
             {
-                SqlDefinition def = SqlDefinition.Create(expression,table.IsEnabledMultiTenancy);
-                if (def.IsCustom) return expression; //如果是自定义查询，那么直接返回表达式，由程序员自行解析
-                var selects = def.Columns.Select;
-                if (selects.Count() == 0 || selects.First() == "*")
+                return LazyIndexer.Init<bool, string>((isEnabledMultiTenancy) =>
                 {
-                    var tenantSql = table.IsEnabledMultiTenancy ? string.Format(",{0}", GeneratedField.TenantIdName) : string.Empty;
+                    SqlDefinition def = SqlDefinition.Create(expression, isEnabledMultiTenancy);
+                    if (def.IsCustom) return expression; //如果是自定义查询，那么直接返回表达式，由程序员自行解析
+                    var selects = def.Columns.Select;
+                    if (selects.Count() == 0 || selects.First() == "*")
+                    {
+                        var tenantSql = isEnabledMultiTenancy  ? string.Format(",{0}", GeneratedField.TenantIdName) : string.Empty;
 
-                    //没有指定输出属性就输出对象自身
-                    if (table.Type == DataTableType.AggregateRoot)
-                    {
-                        expression = string.Format("{0}[select {1},{2},{3}{4}]", expression, EntityObject.IdPropertyName, GeneratedField.DataVersionName, GeneratedField.TypeKeyName, tenantSql);
-                    }
-                    else
-                    {
-                        expression = string.Format("{0}[select {1},{2},{3},{4}{5}]", expression, GeneratedField.RootIdName, EntityObject.IdPropertyName, GeneratedField.DataVersionName, GeneratedField.TypeKeyName, tenantSql);
-                    }
-                }
-                else if (selects.Count() == 1)
-                {
-                    var propertyName = selects.First();
+                        var fieldsSql = GetDefaultQueryFields(table);
 
-                    var tenantSql = table.IsEnabledMultiTenancy ? string.Format(",{0}.{1} as {1}", propertyName ,GeneratedField.TenantIdName) : string.Empty;
+                        expression = string.Format("{0}[select {1}{2}]", expression, fieldsSql, tenantSql);
 
-                    if (table.Type == DataTableType.AggregateRoot)
-                    {
-                        expression = string.Format("{0}[select {1}.{2} as {2},{1}.{3} as {3},{1}.{4} as {4}{5}]", expression, propertyName, EntityObject.IdPropertyName, GeneratedField.DataVersionName, GeneratedField.TypeKeyName, tenantSql);
+                        //没有指定输出属性就输出对象自身
+                        //if (table.Type == DataTableType.AggregateRoot)
+                        //{
+                        //    expression = string.Format("{0}[select {1},{2},{3}{4}]", expression, EntityObject.IdPropertyName, GeneratedField.DataVersionName, GeneratedField.TypeKeyName, tenantSql);
+                        //}
+                        //else
+                        //{
+                        //    expression = string.Format("{0}[select {1},{2},{3},{4}{5}]", expression, GeneratedField.RootIdName, EntityObject.IdPropertyName, GeneratedField.DataVersionName, GeneratedField.TypeKeyName, tenantSql);
+                        //}
                     }
-                    else
+                    else if (selects.Count() == 1)
                     {
-                        expression = string.Format("{0}[select {1},{2}.{3},{2}.{4},{2}.{5}{6}]", expression, GeneratedField.RootIdName, propertyName, EntityObject.IdPropertyName, GeneratedField.DataVersionName, GeneratedField.TypeKeyName, tenantSql);
+                        var propertyName = selects.First();
+
+                        var tenantSql = isEnabledMultiTenancy ? string.Format(",{0}.{1} as {1}", propertyName, GeneratedField.TenantIdName) : string.Empty;
+
+                        if (table.Type == DataTableType.AggregateRoot)
+                        {
+                            expression = string.Format("{0}[select {1}.{2} as {2},{1}.{3} as {3},{1}.{4} as {4}{5}]", expression, propertyName, EntityObject.IdPropertyName, GeneratedField.DataVersionName, GeneratedField.TypeKeyName, tenantSql);
+                        }
+                        else
+                        {
+                            expression = string.Format("{0}[select {1},{2}.{3},{2}.{4},{2}.{5}{6}]", expression, GeneratedField.RootIdName, propertyName, EntityObject.IdPropertyName, GeneratedField.DataVersionName, GeneratedField.TypeKeyName, tenantSql);
+                        }
                     }
-                }
-                else if (selects.Count() > 1)
-                {
-                    throw new DataAccessException(string.Format(Strings.NotSupportMultipleProperties, expression));
-                }
-                
-                return expression;
+                    else if (selects.Count() > 1)
+                    {
+                        throw new DataAccessException(string.Format(Strings.NotSupportMultipleProperties, expression));
+                    }
+
+                    return expression;
+                });
             });
         });
 
@@ -446,7 +500,7 @@ namespace CodeArt.DomainDriven.DataAccess
                 AddToTenant(param);
 
                 var sql = query.Build(param, this);//编译表达式获取执行文本
-                var data = SqlHelper.QueryFirstOrDefault(this.ConnectionName, sql, param);
+                var data = SqlHelper.QueryFirstOrDefault(sql, param);
                 return CreateObject(objectType, data, level);
             }
         }
@@ -578,27 +632,32 @@ namespace CodeArt.DomainDriven.DataAccess
 
         private static string GetObjectByIdExpression(DataTable table)
         {
-            return _getObjectIdExpression(table);
+            return _getObjectIdExpression(table)(table.IsSessionEnabledMultiTenancy);
         }
 
-        private static Func<DataTable, string> _getObjectIdExpression = LazyIndexer.Init<DataTable, string>((table) =>
+        private static Func<DataTable, Func<bool,string>> _getObjectIdExpression = LazyIndexer.Init<DataTable, Func<bool, string>>((table) =>
         {
-            string expression = null;
-            if (table.Type == DataTableType.AggregateRoot)
+            return LazyIndexer.Init<bool, string>((isEnabledMultiTenancy) =>
             {
-                expression = string.Format("{0}=@{0}", EntityObject.IdPropertyName);
-            }
-            else
-            {
-                expression = string.Format("{0}=@{0} and {1}=@{1}", GeneratedField.RootIdName, EntityObject.IdPropertyName);
-            }
+                string expression = null;
+                if (table.Type == DataTableType.AggregateRoot)
+                {
+                    expression = string.Format("{0}=@{0}", EntityObject.IdPropertyName);
+                }
+                else
+                {
+                    expression = string.Format("{0}=@{0} and {1}=@{1}", GeneratedField.RootIdName, EntityObject.IdPropertyName);
+                }
 
-            if (table.IsEnabledMultiTenancy)
-            {
-                expression = string.Format("{0} and {1}=@{1}", expression, GeneratedField.TenantIdName);
-            }
+                if (isEnabledMultiTenancy)
+                {
+                    expression = string.Format("{0} and {1}=@{1}", expression, GeneratedField.TenantIdName);
+                }
 
-            return expression;
+                return expression;
+            });
+
+            
         });
     }
 }

@@ -223,10 +223,9 @@ namespace CodeArt.DomainDriven.DataAccess
             {
                 var name = sin.ParamName;
                 var values = param.Get(name) as IEnumerable;
-                if (values == null) continue;  //因为有any语法，所以没有传递参数也正常
                 param.Remove(name);
 
-                if(values.Exists())
+                if(values != null && values.Exists())
                 {
                     using (var temp = StringPool.Borrow())
                     {

@@ -89,7 +89,7 @@ namespace CodeArt
         {
             var identity = DTObject.Create();
             identity.SetValue("name", CodeArt.Configuration.Current.IdentityName);
-            identity.SetValue("language", CodeArt.Language.Current.Name);
+            identity.SetValue("language", CodeArt.Configuration.Current.Language);
             return identity.AsReadOnly();
         }
 
@@ -101,28 +101,6 @@ namespace CodeArt
             get
             {
                 return AppSession.Identity ?? LocalIdentity;
-            }
-        }
-
-        /// <summary>
-        /// 获得应用程序的身份名称，当会话身份存在时使用会话身份，否则使用本地身份
-        /// </summary>
-        public static string IdentityName
-        {
-            get
-            {
-                return Identity != null ? Identity.GetValue<string>("name", string.Empty) : string.Empty;
-            }
-        }
-
-        /// <summary>
-        /// 当前应用程序使用的身份使用的语言
-        /// </summary>
-        public static string Language
-        {
-            get
-            {
-                return Identity != null ? Identity.GetValue<string>("language", string.Empty) : string.Empty;
             }
         }
 

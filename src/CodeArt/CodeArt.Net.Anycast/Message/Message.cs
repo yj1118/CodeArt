@@ -60,7 +60,7 @@ namespace CodeArt.Net.Anycast
             {
                 return Header.GetValue<string>(MessageField.Origin);
             }
-            internal set
+             set
             {
                 Header.SetValue(MessageField.Origin, value);
             }

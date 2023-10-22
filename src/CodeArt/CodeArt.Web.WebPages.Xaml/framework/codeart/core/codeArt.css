@@ -1,0 +1,8 @@
+.x-dropload .mescroll-empty{
+    padding-top:0;
+}
+
+    .x-dropload .mescroll-empty .empty-tip{
+        margin-top:1rem;
+        margin-bottom:1rem;
+    }

@@ -69,7 +69,7 @@ namespace CodeArt.RabbitMQ
         private IModel CreateChannel()
         {
             var channel = this.Connection.CreateModel();
-            if (this.Policy.PersistentMessages)
+            if (this.Policy.PublisherConfirms)
             {
                 channel.ConfirmSelect();
             }
@@ -122,7 +122,7 @@ namespace CodeArt.RabbitMQ
             }
             else
             {
-                this.Channel.QueueDeclare(queue, false, false, false);
+                this.Channel.QueueDeclare(queue, false, false, true); //最后一个true表示不持久化的消息，服务器端分发后就删除，适用于rpc模式
             }
         }
 
@@ -174,10 +174,15 @@ namespace CodeArt.RabbitMQ
             if (this.Policy.PersistentMessages)
             {
                 properties.Persistent = true;
-                if (!ConfirmPublish(exchange, routingKey, properties, body))
+                if(this.Policy.PublisherConfirms)
                 {
-                    throw new RabbitMQException(string.Format(Strings.PublishMessageFailed, routingKey));
+                    if (!ConfirmPublish(exchange, routingKey, properties, body))
+                    {
+                        throw new RabbitMQException(string.Format(Strings.PublishMessageFailed, routingKey));
+                    }
                 }
+                else
+                    this.Channel.BasicPublish(exchange, routingKey, properties, body);
             }
             else
             {
@@ -188,6 +193,7 @@ namespace CodeArt.RabbitMQ
 
         /// <summary>
         /// 发送消息，如果发送失败会尝试重发
+        /// todo，这里的代码有问题，跟官方给的建议不同
         /// </summary>
         /// <param name="exchange"></param>
         /// <param name="routingKey"></param>

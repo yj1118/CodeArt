@@ -1,4 +1,5 @@
 ﻿<ControlTemplate xmlns="http://schemas.codeart.cn/web/xaml"
+                 xmlns:x="http://schemas.codeart.cn/web/xaml"
                  xmlns:m="http://schemas.codeart.cn/web/xaml/metronic">
 <ControlTemplate.Directories>
     <AssetDirectory AssemblyName="CodeArt.Web.WebPages.Xaml">
@@ -12,7 +13,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title><run Content="{TemplateBinding Title}"></run></title>
+    <x:title><run Content="{TemplateBinding Title}"></run></x:title>
     <meta name="description" content="{TemplateBinding Description}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">

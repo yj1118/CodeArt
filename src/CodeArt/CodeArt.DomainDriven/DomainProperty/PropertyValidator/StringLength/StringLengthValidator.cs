@@ -42,9 +42,9 @@ namespace CodeArt.DomainDriven
             {
                 int length = propertyValue.Length;
                 if (length < this.Min)
-                    result.AddError(property.Name, ErrorCode, string.Format(Strings.StringLengthLessThan, property.Name, this.Min));
+                    result.AddError(property.Name, ErrorCode, string.Format(Strings.StringLengthLessThan, property.Call, this.Min));
                 else if (length > this.Max)
-                    result.AddError(property.Name, ErrorCode, string.Format(Strings.StringLengthMoreThan, property.Name, this.Max));
+                    result.AddError(property.Name, ErrorCode, string.Format(Strings.StringLengthMoreThan, property.Call, this.Max));
             }
         }
 

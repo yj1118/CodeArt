@@ -112,10 +112,8 @@ namespace CodeArt.DomainDriven
             if (!DomainObject.IsDomainObject(domainObjectType)) return false;
 
             var baseType = domainObjectType.BaseType;
-            //基类以及以上的类，定义了ObjectRepositoryAttribute，我们就认为是派生的
-            //因为框架提供的基类没有标记ObjectRepositoryAttribute
             return baseType != null
-                 && !DomainObject.IsFrameworkDomainObjectType(baseType);
+                 && !DomainObject.IsMergeDomainType(baseType);
         }
 
 

@@ -32,5 +32,10 @@ namespace CodeArt.DomainDriven
         event RepositoryRollbackEventHandler Rollback;
         void OnRollback(object sender, RepositoryRollbackEventArgs e);
 
+        void OnAddCommited(IAggregateRoot obj);
+
+        void OnUpdateCommited(IAggregateRoot obj);
+
+        void OnDeleteCommited(IAggregateRoot obj);
     }
 }

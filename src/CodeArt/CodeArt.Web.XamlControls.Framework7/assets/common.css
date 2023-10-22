@@ -1,0 +1,28 @@
+﻿:root {
+    --line_color: #b6c2cb;
+    --green_color: #1ed760;
+    --title_color: #14171a;
+    --summary_color: #657786;
+    --primary_color: #1da1f3;
+    --bg_color: #e6ecf0;
+    --gray_color: #b9b9ba;
+    --red_color: #e0245e;
+    --yellow_color: #fcb944;
+    --blue_color: #38a9ff;
+}
+
+.o-title-color {
+    color: var(--title_color);
+}
+
+.o-red-color {
+    color: var(--red_color) !important;
+}
+
+.o-yellow-color {
+    color: var(--yellow_color) !important;
+}
+
+.o-blue-color {
+    color: var(--blue_color) !important;
+}

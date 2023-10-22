@@ -194,7 +194,7 @@ namespace CodeArt.Web
             }
             catch(Exception ex)
             {
-                LogWrapper.Default.Fatal(ex);
+                Logger.Fatal(ex);
             }
             finally
             {

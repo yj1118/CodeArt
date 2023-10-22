@@ -6,9 +6,13 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Runtime;
 
 using System.Runtime.InteropServices;
 using CodeArt.Util;
+using ImageProcessor;
+using ImageProcessor.Imaging.Formats;
+using ImageProcessor.Imaging;
 
 namespace CodeArt.Drawing.Imaging
 {
@@ -103,7 +107,7 @@ namespace CodeArt.Drawing.Imaging
         /// <param name="quality">质量，这个参数并不太会影响图像的呈现质量，主要是可以提高速度,质量越低速度越快</param>
         /// <param name="background"></param>
         /// <returns></returns>
-        public static Bitmap Scale(this Image source, int width, int height,ImageQuality quality, Color background)
+        public static Bitmap Scale(this Image source, int width, int height, ImageQuality quality, Color background)
         {
             var rawRect = new DynamicRectangle()
             {
@@ -295,6 +299,79 @@ namespace CodeArt.Drawing.Imaging
         //    myEncoderParameters.Param[0] = myEncoderParameter;
         //    srcBitmap.Save(destStream, myImageCodecInfo, myEncoderParameters);
         //}
+
+        /// <summary>
+        /// ImageProcessor组件内部会检测App_Code目录是否存在，如果存在，它会引用程序集App_Code，如果没有就报错
+        /// 所以我们建立了一个空的App_Code程序集，放在需要运行的站点下，就不会报错了
+        /// </summary>
+        /// <param name="sourceFileName"></param>
+        /// <param name="targetFileName"></param>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
+        /// <param name="quality"></param>
+        public static void Resize(string sourceFileName,string targetFileName, int width,int height,int quality, string method)
+        {
+            using (var source = new FileStream(sourceFileName, FileMode.Open, FileAccess.Read, FileShare.Read))
+            {
+                var format = CreateImageFormat(source, quality);
+                Size size = new Size(width, height);
+                using (ImageFactory imageFactory = new ImageFactory(true))
+                {
+                    // 加载，调整大小，设置格式和质量并保存图像。
+                    imageFactory.Load(source)
+                                .Resize(new ResizeLayer(size, GetResizeMode(method)))
+                                .Format(format)
+                                .Save(targetFileName);
+                }
+            }
+        }
+       
+        private static ResizeMode GetResizeMode(string method)
+        {
+            switch(method)
+            {
+                case "fit": return ResizeMode.Pad;
+                case "cover": return ResizeMode.Crop;
+                case "stretch": return ResizeMode.Stretch;
+            }
+            return ResizeMode.Pad;
+        }
+
+
+        private static ISupportedImageFormat CreateImageFormat(FileStream stream,int quality)
+        {
+            var format = FormatUtilities.GetFormat(stream);
+
+            if (format is JpegFormat) return new JpegFormat { Quality = quality };
+            if (format is PngFormat) return new PngFormat { Quality = quality };
+            if (format is GifFormat) return new GifFormat { Quality = quality };
+            if (format is BitmapFormat) return new BitmapFormat { Quality = quality };
+            if (format is TiffFormat) return new TiffFormat { Quality = quality };
+
+            throw new DrawingException("不支持的图片格式");
+        }
+
+        /// <summary>
+        /// 根据文件内容得到格式
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        public static ImageFormat GetImageFormatPro(string fileName)
+        {
+            using (var source = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
+            {
+                var format = FormatUtilities.GetFormat(source);
+
+                if (format is JpegFormat) return ImageFormat.Jpeg;
+                if (format is PngFormat) return ImageFormat.Png;
+                if (format is GifFormat) return ImageFormat.Gif;
+                if (format is BitmapFormat) return ImageFormat.Bmp;
+                if (format is TiffFormat) return ImageFormat.Tiff;
+            }
+
+            throw new DrawingException("不支持的图片格式：" + fileName);
+        }
+
 
     }
 }

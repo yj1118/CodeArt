@@ -32,12 +32,18 @@ namespace CodeArt.DomainDriven
 
         public object GetValue()
         {
+            if (this.IsEmpty()) return null;
             return this.Value;
         }
 
         public bool IsEmpty()
         {
             return !_value.HasValue;
+        }
+
+        public bool IsNull()
+        {
+            return this.IsEmpty();
         }
 
         public Emptyable(T value)
@@ -59,6 +65,14 @@ namespace CodeArt.DomainDriven
         {
             if (this.IsEmpty()) return;
             owner.SetValue(name, _value.Value);
+        }
+
+        public DTObject GetData()
+        {
+            if (this.IsEmpty()) return DTObject.Empty;
+            DTObject dto = DTObject.Create();
+            dto.SetValue(_value.Value);
+            return dto;
         }
 
 

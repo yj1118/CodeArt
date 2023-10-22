@@ -67,7 +67,7 @@ namespace CodeArt.DomainDriven.DataAccess
                 sql.AddField("SnapshotLifespan");
             }
 
-            if(table.IsEnabledMultiTenancy)
+            if(table.IsSessionEnabledMultiTenancy)
             {
                 sql.AddField(GeneratedField.TenantIdName);
             }

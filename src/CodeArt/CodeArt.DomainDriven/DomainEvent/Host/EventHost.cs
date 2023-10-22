@@ -26,7 +26,7 @@ namespace CodeArt.DomainDriven
         /// <param name="tip"></param>
         private static void SubscribeRaise(EventAttribute tip)
         {
-            if (!tip.IsEnabled) return;
+            if (!tip.RequierdOpen) return;
 
             var raiseName = EventUtil.GetRaise(tip.Name);
             //作为事件的提供方，我们订阅了触发事件，这样当外界发布了“触发事件”后，这里就可以收到消息并且执行事件
@@ -39,7 +39,7 @@ namespace CodeArt.DomainDriven
         /// <param name="tip"></param>
         private static void SubscribeReverse(EventAttribute tip)
         {
-            if (!tip.IsEnabled) return;
+            if (!tip.RequierdOpen) return;
 
             var reverseName = EventUtil.GetReverse(tip.Name);
             EventPortal.Subscribe(reverseName, ReverseEventHandler.Instance);
@@ -52,7 +52,7 @@ namespace CodeArt.DomainDriven
         /// <param name="tip"></param>
         private static void CancelRaise(EventAttribute tip)
         {
-            if (!tip.IsEnabled) return;
+            if (!tip.RequierdOpen) return;
 
             var raiseName = EventUtil.GetRaise(tip.Name);
             EventPortal.Cancel(raiseName);
@@ -64,7 +64,7 @@ namespace CodeArt.DomainDriven
         /// <param name="tip"></param>
         private static void CanceleReverse(EventAttribute tip)
         {
-            if (!tip.IsEnabled) return;
+            if (!tip.RequierdOpen) return;
 
             var reverseName = EventUtil.GetReverse(tip.Name);
             EventPortal.Cancel(reverseName);
@@ -78,11 +78,11 @@ namespace CodeArt.DomainDriven
         {
             EventAttribute.Initialize();
 
+            //领域事件初始化
+            DomainEvent.Initialize();
+
             //订阅事件
             SubscribeEvents();
-            EventRestorer.RestoreAsync();
-
-            InitTimer();
         }
 
 
@@ -124,6 +124,17 @@ namespace CodeArt.DomainDriven
 
 
         #endregion
+
+        #region 初始化之后
+
+        internal static void Initialized()
+        {
+            EventProtector.RestoreAsync();
+            InitTimer();
+        }
+
+        #endregion
+
 
         #region 事件的启用和禁用
 
@@ -183,7 +194,7 @@ namespace CodeArt.DomainDriven
             }
             catch (Exception ex)
             {
-                LogWrapper.Default.Fatal(ex);
+                Logger.Fatal(ex);
             }
             finally
             {
@@ -202,7 +213,7 @@ namespace CodeArt.DomainDriven
         {
             DataContext.NewScope(() =>
             {
-                var repository = Repository.Create<IEventLockRepository>();
+                var repository = EventLockRepository.Instance;
                 var locks = repository.FindExpireds(24);
                 foreach (var @lock in locks)
                 {
@@ -219,10 +230,10 @@ namespace CodeArt.DomainDriven
                         EventQueue.Delete(queueId);
                         EventLogEntry.Deletes(queueId); //删除日志的所有条目
                         EventLog.Delete(queueId);
-                    }, true);
+                    });
                     EventLock.Delete(@lock);
                 }
-            }, true);
+            });
            
         }
 

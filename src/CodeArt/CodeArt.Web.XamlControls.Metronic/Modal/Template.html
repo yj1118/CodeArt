@@ -20,7 +20,7 @@
             <div class="modal-body">
                 <m:ModalBodyPresenter Content="{TemplateBinding Content}" />
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer" Visibility="{TemplateBinding Footer,Converter={Static ListCountCollapsedConverter.Instance}}">
                 <ContentPresenter Content="{TemplateBinding Footer}" />
             </div>
         </div>

@@ -202,7 +202,10 @@ namespace CodeArt.DomainDriven.DataAccess
             for (int i = statement.FirstTokenIndex; i <= statement.LastTokenIndex; i++)
             {
                 //对于 name as xxx的形式，我们只取name
-                return statement.ScriptTokenStream[i].Text;
+                var name = statement.ScriptTokenStream[i].Text;
+                if (name.StartsWith("[")) 
+                    return name.Substring(1, name.Length - 2);
+                return name;
             }
             return string.Empty;
         }

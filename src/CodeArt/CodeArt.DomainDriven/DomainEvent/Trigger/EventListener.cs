@@ -14,7 +14,7 @@ using CodeArt.Util;
 namespace CodeArt.DomainDriven
 {
     /// <summary>
-    /// 事件触发器
+    /// 事件侦听
     /// </summary>
     internal static class EventListener
     {
@@ -25,20 +25,28 @@ namespace CodeArt.DomainDriven
         public static void Accept(DTObject @event)
         {
             var key = EventEntry.GetEventKey(@event);
-            var args = @event.GetObject("args");
-            var source = EventFactory.GetLocalEvent(key.EventName, args, true);
-            var queueId = key.EventId;
-            EventRestorer.UseQueue(queueId,true, (callback) =>
+            try
             {
-                EventTrigger.Start(key.EventId, source, true, callback); //我们把调用方指定的事件编号作为本地的事件队列编号
-            },
-            (ex) =>
+                var args = @event.GetObject("args");
+                var source = EventFactory.GetLocalEvent(key.EventName, args, true);
+                var queueId = key.EventId; //将外界的事件编号作为本地的队列编号
+                EventProtector.UseNewQueue(queueId, (callback) =>
+                {
+                    EventTrigger.Start(key.EventId, source, true, callback); //我们把调用方指定的事件编号作为本地的事件队列编号
+                },
+                (ex) =>
+                {
+                    //发生了错误就发布出去，通知失败了
+                    EventTrigger.PublishRaiseFailed(AppContext.Identity, key, ex);
+                });
+            }
+            catch(Exception ex)
             {
-                //发生了错误就发布出去，通知失败了
-                EventTrigger.PublishRaiseFailed(AppContext.Identity, key, ex.GetCompleteInfo()); //再恢复
-            });
+                //发生了错误就发布出去
+                EventTrigger.PublishRaiseFailed(AppContext.Identity, key, ex);
+            }
+           
         }
-
 
         /// <summary>
         /// 收到调用结果
@@ -47,23 +55,21 @@ namespace CodeArt.DomainDriven
         public static void Receive(DTObject @event)
         {
             var key = EventEntry.GetEventKey(@event);
-            var queue = EventQueue.FindByEventId(key.EventId);
-            if (queue.IsEmpty()) return;//本地无此队列
-            var queueId = queue.Id;
-            EventRestorer.UseQueue(queueId, false, (callback) =>
+            var queue = GetQueueInfo(key);
+            EventProtector.UseExistedQueue(queue.Id, (callback) =>
              {
-                 EventTrigger.Continue(queueId, @event, key, callback);
+                 EventTrigger.Continue(queue.Id, @event, key, callback);
              }, (ex) =>
              {
                  if (queue.IsSubqueue)
                  {
                     //发生了错误就发布出去，通知失败了
-                    EventTrigger.PublishRaiseFailed(AppContext.Identity, key, ex.GetCompleteInfo()); //再恢复
+                    EventTrigger.PublishRaiseFailed(AppContext.Identity, key, ex); //再恢复
                 }
                  else
                  {
                     //如果不是外界调用而引起的事件，那么出现错误后只用恢复即可，不需要做额外的处理，内部会处理好
-                }
+                 }
              });
         }
 
@@ -73,10 +79,9 @@ namespace CodeArt.DomainDriven
         /// <param name="event"></param>
         public static void Timeout(EventKey key)
         {
-            var queue = EventQueue.FindByEventId(key.EventId);
-            if (queue.IsEmpty()) return;//本地无此队列
+            var queue = GetQueueInfo(key);
             var queueId = queue.Id;
-            EventRestorer.UseQueue(queueId, false, (callback) =>
+            EventProtector.UseExistedQueue(queueId, (callback) =>
             {
                 EventTrigger.Timeout(queueId, key, callback);
             }, (ex) =>
@@ -84,7 +89,7 @@ namespace CodeArt.DomainDriven
                 if (queue.IsSubqueue)
                 {
                     //发生了错误就发布出去，通知失败了
-                    EventTrigger.PublishRaiseFailed(AppContext.Identity, key, ex.GetCompleteInfo());
+                    EventTrigger.PublishRaiseFailed(AppContext.Identity, key, ex);
                 }
                 else
                 {
@@ -101,11 +106,25 @@ namespace CodeArt.DomainDriven
         public static void AskedToReverse(DTObject @event)
         {
             var key = EventEntry.GetEventKey(@event);
-            var queue = EventQueue.FindByEventId(key.EventId);
-            if (queue.IsEmpty()) return;//本地无此队列
+            var queue = GetQueueInfo(key);
             var queueId = queue.Id;
-            EventRestorer.TryRestore(queue.Id, new AskedToReverseException(Strings.AskedToReverseTip), true);
+            EventProtector.TryRestore(queue.Id, new AskedToReverseException(Strings.AskedToReverseTip), true);
         }
 
+        private static (Guid Id, bool IsSubqueue) GetQueueInfo(EventKey key)
+        {
+            (Guid Id, bool IsSubqueue) result = default((Guid, bool));
+            DataContext.NewScope(() =>
+            {
+                var queue = EventQueue.FindByEventId(key.EventId);
+                if (queue.IsEmpty())
+                {
+                    var ex = DomainEvent.OnErrorNoQueue(key.EventId);
+                    throw ex;//本地无此队列
+                }
+                result = (queue.Id, queue.IsSubqueue);
+            });
+            return result;
+        }
     }
 }

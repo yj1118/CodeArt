@@ -16,11 +16,10 @@ namespace CodeArtTest.DTO
     /// DTOTest 的摘要说明
     /// </summary>
     [TestClass]
-    public class DTOTest
+    public class DTOTest 
     {
         public DTOTest()
         {
-
         }
 
         [TestMethod]

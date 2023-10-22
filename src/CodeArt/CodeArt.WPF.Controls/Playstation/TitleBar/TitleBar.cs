@@ -59,6 +59,17 @@ namespace CodeArt.WPF.Controls.Playstation
             set { SetValue(ShowCloseProperty, value); }
         }
 
+        public static readonly DependencyProperty ShowMinProperty = DependencyProperty.Register("ShowMin", typeof(bool), typeof(TitleBar), new PropertyMetadata(true));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool ShowMin
+        {
+            get { return (bool)GetValue(ShowMinProperty); }
+            set { SetValue(ShowMinProperty, value); }
+        }
+
         public static readonly DependencyProperty ShowKeyboardProperty = DependencyProperty.Register("ShowKeyboard", typeof(bool), typeof(TitleBar), new PropertyMetadata(false));
 
         /// <summary>
@@ -160,10 +171,10 @@ namespace CodeArt.WPF.Controls.Playstation
         private void Maximized()
         {
 #if !DEBUG
-            _root.Topmost = true; //这句话也很重要，否则不能盖住任务栏
+            //_root.Topmost = true; //这句话也很重要，否则不能盖住任务栏
 #endif
-            _root.Hide(); //先调用其隐藏方法 然后再显示出来,这样就会全屏,且任务栏不会出现.如果不加这句 可能会出现假全屏即任务栏还在下面.
-            _root.Show();
+            //_root.Hide(); //先调用其隐藏方法 然后再显示出来,这样就会全屏,且任务栏不会出现.如果不加这句 可能会出现假全屏即任务栏还在下面.
+            //_root.Show();
         }
         private void Minimized(object sender, MouseButtonEventArgs e)
         {

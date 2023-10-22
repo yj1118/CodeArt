@@ -31,6 +31,5 @@ namespace CodeArt.DomainDriven
             if (this.IsEmpty()) return;
             owner.SetValue(name, this.GetData());
         }
-
     }
 }

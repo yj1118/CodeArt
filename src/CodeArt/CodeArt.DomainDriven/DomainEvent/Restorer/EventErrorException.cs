@@ -16,5 +16,19 @@ namespace CodeArt.DomainDriven
         {
 
         }
+
+
+        public EventErrorException(string message)
+           : base(message)
+        {
+
+        }
+
+        public static EventErrorException CreateNoQueue(Guid eventId)
+        {
+            return new EventErrorException(string.Format("没有找到事件条目{0}所在的事件队列", eventId));
+        }
+
     }
+
 }

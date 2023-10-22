@@ -45,6 +45,21 @@ namespace CodeArt.Web.XamlControls.Metronic
             }
         }
 
+
+        public readonly static DependencyProperty ShowDefaultButtonProperty = DependencyProperty.Register<bool, QueryRange>("ShowDefaultButton", () => { return true; });
+
+        public bool ShowDefaultButton
+    {
+            get
+            {
+                return (bool)GetValue(ShowDefaultButtonProperty);
+            }
+            set
+            {
+                SetValue(ShowDefaultButtonProperty, value);
+            }
+        }
+
         public abstract string CompontentName
         {
             get;
@@ -70,7 +85,7 @@ namespace CodeArt.Web.XamlControls.Metronic
             var cls = string.Empty;//1个成员
             switch (this.Content.Count)
             {
-                case 1: cls = "col-xl-5 col-md-12"; break;
+                case 1: cls = "col-xl-6 col-md-12"; break;
                 case 2: cls = "col-xl-4 col-lg-6 col-md-12"; break;
                 default:
                     cls = "col-xl-3 col-lg-6 col-md-12"; break;
@@ -87,9 +102,9 @@ namespace CodeArt.Web.XamlControls.Metronic
 
         private void DrawButton(PageBrush brush)
         {
-            if (this.Content.Count == 1) return;//1个成员的时候不显示搜索按钮
             var cls = string.Empty;
-            if (this.Content.Count == 2) cls = "col-xl-4 col-md-12 m--align-right";
+            if (this.Content.Count == 1) cls = "col-xl-6 col-md-12 m--align-right";
+            else if (this.Content.Count == 2) cls = "col-xl-4 col-md-12 m--align-right";
             else
             {
                 var xlCol = (4 - this.Content.Count % 4) * 3;
@@ -102,7 +117,7 @@ namespace CodeArt.Web.XamlControls.Metronic
             var noneCls = this.Content.Count == 2 ? "d-xl-none" : "d-lg-none";
             brush.DrawFormat("<div class=\"m-separator m-separator--dashed {0}\"></div>", noneCls);
             brush.DrawLine();
-            if (this.Button.Count == 0)
+            if (this.Button.Count == 0 && this.ShowDefaultButton) //如果没有指定自定义按钮，并且要求显示默认按钮，那么输出
             {
                 brush.DrawLine("<a href=\"javascript:;\" data-proxy=\"{invoke:{events:[{client:'click',server:'" + this.SearchAction + "',view:'',option:{}}]}}\" class=\"btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air\">");
                 brush.DrawFormat("<span><i class=\"la la-search\"></i><span>{0}</span></span>", Strings.Search);

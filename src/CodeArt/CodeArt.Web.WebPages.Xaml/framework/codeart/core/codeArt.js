@@ -1031,6 +1031,13 @@ $$.createModule("Util", function (api, module) {
                 t[n] = v;
             });
             return t;
+        },
+        emptyValue: function (o) {
+            for (var n in o) {
+                var v = o[n];
+                if (!util.empty(v)) return false;
+            }
+            return true;
         }
     };
 
@@ -1059,6 +1066,27 @@ $$.createModule("Util", function (api, module) {
         });
         var url = location.pathname + t.toString();
         if (replace) util.location.replaceUrl(url, state); else util.location.addUrl(url, state);
+    };
+    loc.getQuery = function (name) {
+        var url = document.location.toString();
+        var obj = url.split("?");
+
+        if (obj.length > 1) {
+            var para = obj[1].split("&");
+            var arr;
+
+            for (var i = 0; i < para.length; i++) {
+                arr = para[i].split("=");
+
+                if (arr != null && arr[0] == name) {
+                    return arr[1];
+                }
+            }
+            return "";
+        }
+        else {
+            return "";
+        }
     };
     /*
     本地视图代表一种模式：由url参数组成视图的状态
@@ -1377,7 +1405,6 @@ $$.createModule("Ajax", function (api, module) {
             }; //增加参数
             my.clear = function () { this.paras = {}; }; //清空参数
 
-
             this.get = function (arg) {
                 arg = parseArg(arg);
                 arg.type = "GET";
@@ -1386,7 +1413,6 @@ $$.createModule("Ajax", function (api, module) {
                     type: arg.type,
                     url: arg.url,
                     async: arg.async,
-                    data: _ser.serialize(my.getData(arg,my.paras)),
                     beforeSend: function (xhr) {
                         xhr.responseType = "text";
                         xhr.onprogress = function (e) { execEvent(my, "progress", [e]); }
@@ -1394,6 +1420,11 @@ $$.createModule("Ajax", function (api, module) {
                     },
                     dataFilter: function (rawData, dataType) { return rawData; }
                 };
+
+                if (!util.object.emptyValue(my.paras)) {
+                    p.data = _ser.serialize(my.getData(arg, my.paras));
+                }
+
                 initEvent(my, p);
                 copyEvent(my, p);
                 J.ajax(p);

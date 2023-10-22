@@ -21,6 +21,7 @@ namespace CodeArt.Web.WebPages
             }
 
             if (IsJSON(code)) return DTObject.Create(code);
+            else if (IsXML(code)) return DTObject.CreateXml(code);
             else return FormExtractor.Instance.ParseArguments(context);
         }
 
@@ -29,6 +30,12 @@ namespace CodeArt.Web.WebPages
             code = code.Trim();
             return code.StartsWith("{") && code.EndsWith("}")
                    || code.StartsWith("[") && code.EndsWith("]");
+        }
+
+        private static bool IsXML(string code)
+        {
+            code = code.Trim();
+            return code.StartsWith("<xml>") && code.EndsWith("</xml>");
         }
 
 

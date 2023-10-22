@@ -13,11 +13,30 @@ namespace CodeArt.EasyMQ.RPC
 {
     public static class RPCServer
     {
-        public static void Open(string method, IRPCHandler handler)
+        /// <summary>
+        /// 初始化服务，但不启动
+        /// </summary>
+        /// <param name="method"></param>
+        /// <param name="handler"></param>
+        public static void Initialize(string method, IRPCHandler handler)
         {
             var server = _setting.GetFactory().Create(method);
-            server.Open(handler);
-            RPCEvents.RaiseServerOpened(server, new RPCEvents.ServerOpenedArgs(method));
+            server.Initialize(handler);
+            //RPCEvents.RaiseServerOpened(server, new RPCEvents.ServerOpenedArgs(method)); //这里不是开启，不需要通知事件
+        }
+
+        /// <summary>
+        /// 开启所有服务
+        /// </summary>
+        /// <param name="method"></param>
+        internal static void Open()
+        {
+            var servers = _setting.GetFactory().GetAll();
+            foreach(var server in servers)
+            {
+                server.Open();
+                RPCEvents.RaiseServerOpened(server, new RPCEvents.ServerOpenedArgs(server.Name));
+            }
         }
 
         public static void Close(string method)

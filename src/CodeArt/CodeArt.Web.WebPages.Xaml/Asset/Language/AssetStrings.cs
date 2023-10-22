@@ -9,6 +9,7 @@ using CodeArt.Util;
 using CodeArt.DTO;
 using CodeArt.Runtime;
 using CodeArt.IO;
+using CodeArt.AppSetting;
 
 
 namespace CodeArt.Web.WebPages.Xaml
@@ -51,7 +52,7 @@ namespace CodeArt.Web.WebPages.Xaml
 
         protected override string GetCode()
         {
-            return _getCode(Language.Current.Name);
+            return _getCode(AppSession.Language);
         }
 
         public override DrawOrigin Origin {
@@ -89,7 +90,7 @@ namespace CodeArt.Web.WebPages.Xaml
 
         protected override void Draw(PageBrush brush)
         {
-            _generateFiles(Language.Current.Name);
+            _generateFiles(AppSession.Language);
             if (this.Origin == DrawOrigin.Header || this.Origin == DrawOrigin.Bottom)
             {
                 brush.Backspace();
@@ -139,7 +140,7 @@ namespace CodeArt.Web.WebPages.Xaml
                     else
                     {
                         var manager = new ResourceManager(string.Format("{0}.Strings", assembly.GetName().Name), assembly);
-                        var ci = LanguageUtil.GetCulture(language); ;
+                        var ci = LanguageUtil.GetCulture(language);
                         foreach (var resourceKey in keys)
                         {
                             var value = manager.GetString(resourceKey, ci) ?? string.Empty;

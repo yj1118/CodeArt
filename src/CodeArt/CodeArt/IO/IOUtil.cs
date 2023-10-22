@@ -207,7 +207,11 @@ namespace CodeArt.IO
         /// <returns></returns>
         public static string[] GetFiles(string path, bool onlyDirect, string extensions)
         {
-            var es = extensions.Split(',');
+            var es = extensions.Split(',').Select((t)=>
+            {
+                if (t.StartsWith("*.")) return t.Substring(2);
+                return t;
+            });
             return GetFiles(path, onlyDirect, (fileName) =>
              {
                  var t = IOUtil.GetExtension(fileName);

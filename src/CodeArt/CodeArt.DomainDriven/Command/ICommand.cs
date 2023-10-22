@@ -18,7 +18,7 @@ namespace CodeArt.DomainDriven
         void Execute();
     }
 
-    public interface ICommanImp<T> : ICommand
+    public interface ICommandImp<T> : ICommand
     {
         T Execute();
     }

@@ -10,7 +10,14 @@ namespace CodeArt.DomainDriven
     {
         object Load(DomainProperty property);
 
-        void Save(DomainProperty property, object value);
+        /// <summary>
+        /// 加载属性更改前的值
+        /// </summary>
+        /// <param name="property"></param>
+        /// <returns></returns>
+        object LoadOld(DomainProperty property);
+
+        void Save(DomainProperty property, object newValue, object oldValue);
 
         /// <summary>
         /// 属性的数据是否已被加载
@@ -54,6 +61,5 @@ namespace CodeArt.DomainDriven
         /// 同步版本号
         /// </summary>
         void SyncVersion();
-
     }
 }

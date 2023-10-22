@@ -42,9 +42,9 @@ namespace CodeArt.DomainDriven
 
             var value = propertyValue.Value;
             if (value < this.Min)
-                result.AddError(property.Name, ErrorCode, string.Format(Strings.ValueLessThan, property.Name, this.Min));
+                result.AddError(property.Name, ErrorCode, string.Format(Strings.ValueLessThan, property.Call, this.Min));
             else if (value > this.Max)
-                result.AddError(property.Name, ErrorCode, string.Format(Strings.ValueMoreThan, property.Name, this.Max));
+                result.AddError(property.Name, ErrorCode, string.Format(Strings.ValueMoreThan, property.Call, this.Max));
         }
 
         public const string ErrorCode = "ByteRangeError";

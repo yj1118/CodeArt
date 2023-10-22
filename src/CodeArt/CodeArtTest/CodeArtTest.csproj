@@ -65,26 +65,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Concurrent\MediaTimer\MediaTimerTest.cs" />
-    <Compile Include="Concurrent\Pattern\Eat\Hungry\HungryMultipleTest.cs" />
-    <Compile Include="Concurrent\Pattern\Eat\Hungry\HungryTest.cs" />
-    <Compile Include="Concurrent\Pattern\Eat\Hungry\HungryTestHelper.cs" />
-    <Compile Include="Concurrent\Pattern\Eat\Hungry\HungrySingleTest.cs" />
-    <Compile Include="Concurrent\Pattern\Eat\Satiety\SatietyMultipleTest.cs" />
-    <Compile Include="Concurrent\Pattern\Eat\Satiety\SatietySingleTest.cs" />
-    <Compile Include="Concurrent\Pattern\Eat\Satiety\SatietyTestHelper.cs" />
-    <Compile Include="Concurrent\Pattern\Eat\Satiety\SatietyTest.cs" />
-    <Compile Include="Concurrent\Pattern\Pipeline\AutoResetTaskTesting.cs" />
-    <Compile Include="Concurrent\Pattern\Pipeline\AutoResetThreadTesting.cs" />
-    <Compile Include="Concurrent\Pattern\Pipeline\OneByOneTaskTesting.cs" />
-    <Compile Include="Concurrent\Pattern\Pipeline\OneByOneThreadTesting.cs" />
-    <Compile Include="Concurrent\Pattern\Pipeline\PipelineActionBaseTesting.cs" />
-    <Compile Include="Concurrent\Pattern\IntervalActionTest.cs" />
-    <Compile Include="Concurrent\PoolingTest.cs" />
-    <Compile Include="Concurrent\SignalDetectorTest.cs" />
     <Compile Include="DTO\DTOTypeMetadataTest.cs" />
     <Compile Include="Runtime\ResolveMethodTest.cs" />
-    <Compile Include="Concurrent\SafeAccessTest.cs" />
     <Compile Include="DTO\DTOAdvancedTest.cs" />
     <Compile Include="DTO\DTOPerformanceTest.cs" />
     <Compile Include="DTO\DTOTest.cs" />
@@ -98,8 +80,10 @@
     <Compile Include="Runtime\RuntimeUtilTest.cs" />
     <Compile Include="OtherTest.cs" />
     <Compile Include="Util\HashCoderTest.cs" />
+    <Compile Include="Util\ExtensionsTest.cs" />
     <Compile Include="Util\StringSegmentTest.cs" />
     <Compile Include="Util\LazyIndexerTest.cs" />
+    <Compile Include="Util\TimeIndexerTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

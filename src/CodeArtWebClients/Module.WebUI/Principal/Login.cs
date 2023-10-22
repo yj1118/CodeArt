@@ -44,17 +44,26 @@ namespace Module.WebUI
             if(result.Photo != null) Principal.Photo = ImageUtil.GetDynamicUrl(result.Photo.StoreKey, photoWidth, photoHeight, 2);
             Principal.SetItem("flag", arg.Flag ?? arg.MobileNumber ?? arg.Email); //需要记录用户的登录标识，其他地方需要使用
 
-            var roles = new List<Principal.Role>(result.Roles.Count);
-            foreach (var role in result.Roles)
+            if (result.Roles == null)
             {
-                var principalRole = new Principal.Role()
-                {
-                    Id = role.Id,
-                    MarkedCode = role.MarkedCode
-                };
-                roles.Add(principalRole);
+                Principal.Roles = Array.Empty<Principal.Role>();
             }
-            Principal.Roles = roles.ToArray();
+            else
+            {
+                var roles = new List<Principal.Role>(result.Roles.Count);
+
+                foreach (var role in result.Roles)
+                {
+                    var principalRole = new Principal.Role()
+                    {
+                        Id = role.Id,
+                        MarkedCode = role.MarkedCode
+                    };
+                    roles.Add(principalRole);
+                }
+                Principal.Roles = roles.ToArray();
+            }
+
         }
     }
 }

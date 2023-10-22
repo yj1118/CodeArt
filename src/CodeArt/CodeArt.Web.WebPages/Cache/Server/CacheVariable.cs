@@ -15,9 +15,9 @@ namespace CodeArt.Web.WebPages
     public class CacheVariable
     {
         /// <summary>
-        /// 页面地址
+        /// 能表示页面唯一标示的代码，一般是由路径和查询字符串组成
         /// </summary>
-        public string Url
+        public string Key
         {
             get;
             private set;
@@ -38,9 +38,9 @@ namespace CodeArt.Web.WebPages
             private set;
         }
 
-        public CacheVariable(string url, HttpCompressionType compressionType, ClientDevice device)
+        public CacheVariable(string key, HttpCompressionType compressionType, ClientDevice device)
         {
-            this.Url = url;
+            this.Key = key;
             this.CompressionType = compressionType;
             this.Device = device;
         }
@@ -66,7 +66,7 @@ namespace CodeArt.Web.WebPages
         /// <returns></returns>
         protected virtual string GetUniqueCode()
         {
-            return string.Format("{0}_{1}_{2}", this.Url, (byte)this.CompressionType, GetDeviceType(this.Device)).MD5();
+            return string.Format("{0}_{1}_{2}", this.Key, (byte)this.CompressionType, GetDeviceType(this.Device)).MD5();
         }
 
     }

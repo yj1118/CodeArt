@@ -12,7 +12,7 @@ namespace CodeArt.DomainDriven
     public class EventFailedException : DomainDrivenException
     {
         public EventFailedException(Exception reason)
-            : base(Strings.EventErrorAndRestored, reason)
+            : base(reason.IsUserUIException() ? string.Empty : Strings.EventErrorAndRestored, reason)
         {
 
         }

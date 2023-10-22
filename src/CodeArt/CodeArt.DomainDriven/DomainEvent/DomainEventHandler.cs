@@ -16,6 +16,8 @@ namespace CodeArt.DomainDriven
     [SafeAccess]
     public abstract class DomainEventHandler : IEventHandler
     {
+        public EventPriority Priority => EventPriority.Medium;
+
         public void Handle(string eventName, TransferData data)
         {
             InitIdentity(data.Info);

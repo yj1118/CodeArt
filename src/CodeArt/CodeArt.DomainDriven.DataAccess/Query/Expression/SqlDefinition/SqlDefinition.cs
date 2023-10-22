@@ -5,7 +5,7 @@ using System.Text;
 
 using CodeArt.DomainDriven;
 using CodeArt.Util;
-
+using CodeArt.Concurrent;
 
 namespace CodeArt.DomainDriven.DataAccess
 {
@@ -23,10 +23,27 @@ namespace CodeArt.DomainDriven.DataAccess
         /// <summary>
         /// select语句指定查询的字段名称
         /// </summary>
-        public string SelectFields
+        public IEnumerable<string> SelectFields
         {
             get;
             private set;
+        }
+
+        /// <summary>
+        /// 需要预加入的数据
+        /// </summary>
+        public IEnumerable<string> Inners
+        {
+            get;
+            private set;
+        }
+
+        public bool HasInner
+        {
+            get
+            {
+                return this.Inners.Count() > 0;
+            }
         }
 
         /// <summary>
@@ -42,14 +59,25 @@ namespace CodeArt.DomainDriven.DataAccess
         {
             if(this.OutputFileds == null)
             {
-                if (string.IsNullOrEmpty(this.SelectFields)) this.OutputFileds = "*";
+                if (this.SelectFields.Count()==0) this.OutputFileds = "*";
                 else
                 {
                     //where涉及到的字段内置到GetObjectSql中，所以不必考虑
                     List<string> temp = new List<string>();
                     temp.AddRange(this.Columns.Select);
                     temp.AddRange(this.Columns.Order);
-                    this.OutputFileds = string.Join(",", temp.Distinct(StringComparer.OrdinalIgnoreCase));
+
+                    var fields = temp.Distinct(StringComparer.OrdinalIgnoreCase);
+
+                    StringBuilder sql = new StringBuilder();
+
+                    foreach (var field in fields)
+                    {
+                        sql.AppendFormat("{0},", SqlStatement.Qualifier(field));
+                    }
+
+                    if (sql.Length > 0) sql.Length--;
+                    this.OutputFileds = sql.ToString();
                 }
             }
             return this.OutputFileds;
@@ -125,10 +153,11 @@ namespace CodeArt.DomainDriven.DataAccess
         private SqlDefinition()
         {
             this.Top = string.Empty;
-            this.SelectFields = string.Empty;
+            this.SelectFields = Array.Empty<string>();
             this.Condition = SqlCondition.Empty;
             this.Order = string.Empty;
             this.Columns = SqlColumns.Empty;
+            this.Inners = Array.Empty<string>();
             this.Key = string.Empty;
         }
 
@@ -138,11 +167,30 @@ namespace CodeArt.DomainDriven.DataAccess
             this.Columns = columns;
         }
 
+
         /// <summary>
-        /// 对象链是否包括在该表达式中,对象链的格式是 a_b_c
+        /// 对象链是否包括在inner表达式中,对象链的格式是 a_b_c
         /// </summary>
         /// <param name="ObjectChain"></param>
         /// <returns></returns>
+        public bool ContainsInner(string objectChain)
+        {
+            if (this.Inners.Count() == 0) return false;
+
+            foreach(var inner in this.Inners)
+            {
+                if(_getInnerChaint(inner).EqualsIgnoreCase(objectChain)) return true;
+            }
+
+            return false;
+        }
+
+        private static Func<string, string> _getInnerChaint = LazyIndexer.Init<string, string>((inner) =>
+        {
+            return inner.Replace('.', '_');
+        });
+
+
         public bool ContainsChain(string objectChain)
         {
             if (this.IsEmpty) return false;
@@ -216,7 +264,7 @@ namespace CodeArt.DomainDriven.DataAccess
         private static bool _IsEmpty(SqlDefinition def)
         {
             return def.Top.Length == 0
-                    && def.SelectFields.Length == 0
+                    && def.SelectFields.GetCount() == 0
                     && def.Condition.IsEmpty()
                     && def.Order.Length == 0;
         }
@@ -252,6 +300,7 @@ namespace CodeArt.DomainDriven.DataAccess
                         else if (IsOrder(exp)) define.Order = exp;
                         else if (IsSelect(exp)) define.SelectFields = GetFields(exp);
                         else if (IsKey(exp)) define.Key = GetKey(exp);
+                        else if(IsInner(exp)) define.Inners = GetInners(exp);
                         else
                         {
                             if (isEnabledMultiTenancy)
@@ -265,6 +314,17 @@ namespace CodeArt.DomainDriven.DataAccess
                             define.Condition = new SqlCondition(exp); //默认为条件
                         }
                     }
+
+                    if(define.Condition.IsEmpty())
+                    {
+                        //没有查询条件，并且是有多租户的，那么补充查询条件
+                        if (isEnabledMultiTenancy)
+                        {
+                            var exp = string.Format("@{0}<{0}=@{0}>", GeneratedField.TenantIdName);
+                            define.Condition = new SqlCondition(exp);
+                        }
+                    }
+
                     define.IsEmpty = _IsEmpty(define); //缓存结果，运行时不必再运算
                     define.Columns = GetColumns(define);
                 }
@@ -276,10 +336,28 @@ namespace CodeArt.DomainDriven.DataAccess
         private static SqlColumns GetColumns(SqlDefinition define)
         {
             var mockSql = string.Format("select {0} from tempTable {1} {2}",
-                                                                            string.IsNullOrEmpty(define.SelectFields) ? "*" : define.SelectFields,
+                                                                            GetSelectFields(define),
                                                                             define.Condition.IsEmpty() ? string.Empty : string.Format("where {0}", define.Condition.ProbeCode),
                                                                             define.Order);
             return SqlParser.Parse(mockSql);
+        }
+
+        private static string GetSelectFields(SqlDefinition define)
+        {
+            if (define.SelectFields.Count() == 0) return "*";
+
+            string selectFields = string.Empty;
+            using(var pool = StringPool.Borrow())
+            {
+                var sql = pool.Item;
+                foreach(var field in define.SelectFields)
+                {
+                    sql.AppendFormat("{0},",SqlStatement.Qualifier(field));
+                }
+                if (sql.Length > 0) sql.Length--;
+                selectFields = sql.ToString();
+            }
+            return selectFields;
         }
 
         /// <summary>
@@ -308,6 +386,11 @@ namespace CodeArt.DomainDriven.DataAccess
             return expression.StartsWith("key ", StringComparison.OrdinalIgnoreCase);
         }
 
+        private static bool IsInner(string expression)
+        {
+            return expression.StartsWith("inner ", StringComparison.OrdinalIgnoreCase);
+        }
+
         /// <summary>
         /// 使用select 指定需要查询的字段名称
         /// </summary>
@@ -320,10 +403,15 @@ namespace CodeArt.DomainDriven.DataAccess
 
         private static int _selectLength = "select ".Length;
 
-        private static string GetFields(string expression)
+        private static IEnumerable<string> GetFields(string expression)
         {
             int startIndex = _selectLength;
-            return expression.Substring(startIndex).Trim();
+            var exp = expression.Substring(startIndex).Trim();
+            if (string.IsNullOrEmpty(exp)) return Array.Empty<string>();
+            return exp.Split(',').Select((field) =>
+            {
+                return field.Trim();
+            });
         }
 
         private static int _keyLength = "key ".Length;
@@ -337,6 +425,14 @@ namespace CodeArt.DomainDriven.DataAccess
         private static bool IsOrder(string expression)
         {
             return expression.StartsWith("order by", StringComparison.OrdinalIgnoreCase);
+        }
+
+        private static int _innerLength = "inner ".Length;
+        private static IEnumerable<string> GetInners(string expression)
+        {
+            int startIndex = _innerLength;
+            var temp = expression.Substring(startIndex).Trim();
+            return temp.Split(',');
         }
 
         #region 子表达式
@@ -398,7 +494,6 @@ namespace CodeArt.DomainDriven.DataAccess
         }
 
         #endregion
-
 
         #region 处理命令文本
 

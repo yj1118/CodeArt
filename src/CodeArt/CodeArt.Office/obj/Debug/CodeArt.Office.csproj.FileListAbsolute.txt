@@ -1,21 +1,2 @@
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Office\bin\Debug\NLog.config
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Office\bin\Debug\CodeArt.Office.dll
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Office\bin\Debug\CodeArt.Office.pdb
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Office\bin\Debug\CodeArt.dll
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Office\bin\Debug\NLog.dll
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Office\bin\Debug\CodeArt.pdb
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Office\bin\Debug\NLog.xml
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Office\bin\Debug\zh-CN\CodeArt.resources.dll
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Office\obj\Debug\CodeArt.Office.csproj.CoreCompileInputs.cache
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Office\obj\Debug\CodeArt.Office.dll
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Office\obj\Debug\CodeArt.Office.pdb
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Office\obj\Debug\CodeArt.Office.csproj.CopyComplete
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Office\obj\Debug\CodeArt.Office.csprojAssemblyReference.cache
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Office\bin\Debug\CodeArt.Drawing.dll
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Office\bin\Debug\CodeArt.Drawing.pdb
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Office\bin\Debug\Microsoft.Office.Interop.PowerPoint.dll
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Office\bin\Debug\Microsoft.Office.Interop.Word.dll
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Office\bin\Debug\Microsoft.Vbe.Interop.dll
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Office\bin\Debug\CodeArt.WPF.dll
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Office\bin\Debug\CodeArt.WPF.pdb
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Office\bin\Debug\zh-CN\CodeArt.WPF.resources.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.Office\obj\Debug\CodeArt.Office.csproj.AssemblyReference.cache
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.Office\obj\Debug\CodeArt.Office.csproj.CoreCompileInputs.cache

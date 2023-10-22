@@ -83,6 +83,23 @@ namespace CodeArt.Web.XamlControls.Metronic
             }
         }
 
+        /// <summary>
+        /// 设置值，但是不触发changed事件
+        /// </summary>
+        /// <param name="value"></param>
+        public void SetValueWithNotChanged(object value)
+        {
+            using (var temp = StringPool.Borrow())
+            {
+                var code = temp.Item;
+
+                code.AppendFormat("{0}.proxy().set({1},true);", this.Id, JSON.GetCode(value));
+
+                this.View.WriteCode(code.ToString());
+            }
+        }
+
+
         public void Help(string message)
         {
             this.View.WriteCode(string.Format("{0}.proxy().help({1});", this.Id, JSON.GetCode(message)));

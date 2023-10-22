@@ -173,10 +173,16 @@ namespace CodeArt.Data.MSSql
 
         #endregion
 
-        private static string GetConnectionString(string connName)
+        public static string GetConnectionString(string connName)
         {
             var provider = SqlContext.GetConnectionProvider();
             return provider.GetConnectionString(connName);
+        }
+
+        public static bool ExistConnection(string connName)
+        {
+            var provider = SqlContext.GetConnectionProvider();
+            return provider.ExistConnectionString(connName);
         }
 
         private static SqlData Execute(string connName, string commandText, CommandType cmdType, params SqlParameter[] prms)

@@ -10,11 +10,18 @@ using CodeArt.AOP;
 namespace CodeArt.Web.WebPages.Xaml
 {
     [AspectRemove(typeof(WebPageInitializer))]
-    [Aspect(typeof(WebCrossDomain))]
+    //[Aspect(typeof(WebCrossDomain))]
     public abstract class FilePage : PageProxy
     {
+        protected virtual void PreLoad()
+        {
+
+        }
+
         protected override void ProcessGET()
         {
+            PreLoad();
+
             var range = HttpRequestRange.New(this.Request);
             if (!range.IsEmpty())
             {

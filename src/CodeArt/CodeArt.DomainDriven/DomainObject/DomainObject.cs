@@ -30,6 +30,8 @@ namespace CodeArt.DomainDriven
     ///   实体对象集合的成员（数量或者成员被替换了）发生了变化，那么属性被改变，因为集合代表的是引用对象和多个被引用对象之间的关系，集合成员变化了，代表引用关系也变化了
     /// </para>
     /// </summary>
+    [MergeDomain]
+    [FrameworkDomain]
     public abstract class DomainObject : System.Dynamic.DynamicObject, IDomainObject, INullProxy
     {
         /// <summary>
@@ -62,6 +64,19 @@ namespace CodeArt.DomainDriven
         {
             get;
             private set;
+        }
+
+        /// <summary>
+        /// 是否追踪属性变化的情况，该值为true，会记录属性更改前的值，这会消耗一部分内存
+        /// </summary>
+        public virtual bool TrackPropertyChange
+        {
+            get
+            {
+                //默认算法是，该对象需要写入日志，我们就追踪
+                //程序员也可以根据需要，改变该属性的算法
+                return ObjectLogableAttribute.GetTip(this.ObjectType) != null;
+            }
         }
 
         public DomainObject()
@@ -120,6 +135,18 @@ namespace CodeArt.DomainDriven
             }
         }
 
+        /// <summary>
+        /// 对象是否为无效的，对象无效的原因可能有很多（比如：是个快照对象，或者其成员属性是快照，导致自身无效化了）
+        /// 默认情况下，快照对象就是一个无效对象，可以通过重写该属性的算法，针对某些业务判定对象是无效的
+        /// 无效的对象只能被删除，不能新增和修改
+        /// </summary>
+        public virtual bool Invalid
+        {
+            get
+            {
+                return this.IsSnapshot;
+            }
+        }
 
         #endregion
 
@@ -257,14 +284,14 @@ namespace CodeArt.DomainDriven
         /// <param name="newValue"></param>
         /// <param name="propertyName"></param>
         /// <returns></returns>
-        private bool SetPropertyChanged<T>(DomainProperty property, T oldValue, T newValue)
-        {
-            //要用Equals判断
-            if (object.Equals(oldValue, newValue)) return false;
-            _machine.SetPropertyChanged(property.Name);
-            DuplicateMachineSetPropertyChanged(property.Name);
-            return true;
-        }
+        //private bool SetPropertyChanged<T>(DomainProperty property, T oldValue, T newValue)
+        //{
+        //    //要用Equals判断
+        //    if (object.Equals(oldValue, newValue)) return false;
+        //    _machine.SetPropertyChanged(property.Name);
+        //    DuplicateMachineSetPropertyChanged(property.Name);
+        //    return true;
+        //}
 
         /// <summary>
         /// 强制设置属性已被更改
@@ -280,7 +307,7 @@ namespace CodeArt.DomainDriven
         /// 清除属性被改变的状态
         /// </summary>
         /// <param name="property"></param>
-        internal void ClearPropertyChanged(DomainProperty property)
+        protected void ClearPropertyChanged(DomainProperty property)
         {
             _machine.ClearPropertyChanged(property.Name);
             DuplicateMachineClearPropertyChanged(property.Name);
@@ -291,7 +318,7 @@ namespace CodeArt.DomainDriven
         /// 1.如果属性为普通类型（int、string等基础类型）,根据值是否发生了改变来判定属性是否改变
         /// 2.如果属性为值对象类型（ValueObject）,根据ValueObject的值是否发生了改变来判定属性是否改变
         /// 3.如果属性为实体对象类型（EntityObject,EntityObjectPro,Aggregate）,只要赋值，属性就会发生改变；
-        ///   实体对象内部的属性发生改变，不影响外部属性的变化，因为他们的引用关系并没有被改变；
+        ///   实体对象内部的属性发生改变，虽然引用关系没有变，但是我们认为属性还是发生变化了；
         /// 4.如果属性为实体对象类型的集合（ObjectCollection(EntityObject),ObjectCollection(EntityObjectPro),ObjectCollection(Aggregate)）,只要赋值，属性就会发生改变；
         ///   单个实体对象内部的属性发生改变，不影响外部属性的变化，因为他们的引用关系并没有被改变；
         ///   实体对象集合的成员发生了变化，那么属性被改变，因为集合代表的是引用对象和多个被对象之间的关系，集合成员变化了，代表引用关系也变化了
@@ -483,7 +510,6 @@ namespace CodeArt.DomainDriven
             this.DataProxy.SyncVersion();
         }
 
-
         #endregion
 
         #region 固定规则
@@ -608,18 +634,26 @@ namespace CodeArt.DomainDriven
             var oldValue = this.DataProxy.Load(property);
             bool isChanged = false;
 
-            if (property.ChangedMode == PropertyChangedMode.Compare)
+
+            if (property.IsChanged(oldValue, value))
             {
-                if (this.SetPropertyChanged(property, oldValue, value))
-                {
-                    isChanged = true;
-                }
-            }
-            else if (property.ChangedMode == PropertyChangedMode.Definite)
-            {
-                this.SetPropertyChanged(property);
                 isChanged = true;
+                this.SetPropertyChanged(property);
             }
+
+
+            //if (property.ChangedMode == PropertyChangedMode.Compare)
+            //{
+            //    if (this.SetPropertyChanged(property, oldValue, value))
+            //    {
+            //        isChanged = true;
+            //    }
+            //}
+            //else if (property.ChangedMode == PropertyChangedMode.Definite)
+            //{
+            //    this.SetPropertyChanged(property);
+            //    isChanged = true;
+            //}
 
             if (isChanged)
             {
@@ -627,7 +661,10 @@ namespace CodeArt.DomainDriven
                 if (collection != null)
                     collection.Parent = this;
 
-                this.DataProxy.Save(property, value);
+                this.DataProxy.Save(property, value, oldValue);
+
+                Logable.Write(property, value, oldValue);
+
                 HandlePropertyChanged(property, value, oldValue);
             }
         }
@@ -652,7 +689,6 @@ namespace CodeArt.DomainDriven
             //}
             return (T)value;
         }
-
 
         /// <summary>
         /// 当属性的值已经被加载，就获取数据，否则不获取
@@ -681,6 +717,16 @@ namespace CodeArt.DomainDriven
         {
             var ctx = GetRunContextFromAppSession(property.RuntimeGetId); //从当前应用程序会话中获取运行上下文，确保Get操作不会引起并发冲突
             return property.GetChain.Invoke(this, ctx);
+        }
+
+        /// <summary>
+        /// 获得属性最后一次被更改前的值
+        /// </summary>
+        /// <param name="property"></param>
+        /// <returns></returns>
+        public object GetOldValue(DomainProperty property)
+        {
+            return this.DataProxy.LoadOld(property);
         }
 
         internal object GetValueLastStep(DomainProperty property)
@@ -750,6 +796,26 @@ namespace CodeArt.DomainDriven
 
         public event DomainPropertyChangedEventHandler PropertyChanged;
 
+        /// <summary>
+        /// 得到被更改了的领域属性的信息
+        /// </summary>
+        public IEnumerable<(DomainProperty Property,object newValue,object oldValue)> GetChangedProperties()
+        {
+            var properties = DomainProperty.GetProperties(this.ObjectType);
+            List<(DomainProperty Property, object newValue, object oldValue)> items = new List<(DomainProperty Property, object newValue, object oldValue)>();
+            foreach (var property in properties)
+            {
+                if (this.IsPropertyChanged(property))
+                {
+                    var newValue = this.GetValue(property);
+                    var oldValue = this.GetOldValue(property);
+                    items.Add((property, newValue, oldValue));
+                }
+            }
+            return items;
+        }
+
+
         #endregion
 
         #region 构造
@@ -807,13 +873,18 @@ namespace CodeArt.DomainDriven
             if (this.IsConstructing) return;//构造时，不触发任何事件
             if (this.IsEmpty()) return;//空对象，不触发任何事件
 
+            OnChanged();
+            //执行边界事件
+            StatusEvent.Execute(this.ObjectType, StatusEventType.Changed, this);
+        }
+
+        protected virtual void OnChanged()
+        {
             if (this.Changed != null)
             {
                 var args = new DomainObjectChangedEventArgs(this);
                 this.Changed(this, args);
             }
-            //执行边界事件
-            StatusEvent.Execute(this.ObjectType, StatusEventType.Changed, this);
         }
 
         #region 辅助
@@ -893,13 +964,18 @@ namespace CodeArt.DomainDriven
         }
 
 
-        public static bool IsFrameworkDomainObjectType(Type objectType)
+        public static bool IsFrameworkDomainType(Type objectType)
         {
             if (IsDynamicObject(objectType)) return true;
 
             //因为框架提供的基类没有标记ObjectRepositoryAttribute
             return IsDomainObject(objectType) &&
-                  !objectType.IsDefined(typeof(ObjectRepositoryAttribute), true);
+                  objectType.IsDefined(typeof(FrameworkDomainAttribute), false);
+        }
+
+        public static bool IsMergeDomainType(Type objectType)
+        {
+            return objectType.IsDefined(typeof(MergeDomainAttribute), false);
         }
 
         /// <summary>
@@ -951,8 +1027,15 @@ namespace CodeArt.DomainDriven
             List<Type> doTypes = new List<Type>();
             foreach (var type in types)
             {
-                if (!IsFrameworkDomainObjectType(type))
+                if (!IsMergeDomainType(type))
                 {
+                    var exists = doTypes.FirstOrDefault((t) =>
+                    {
+                        return t.Name == type.Name;
+                    });
+
+                    if (exists != null)
+                        throw new DomainDrivenException(string.Format("领域对象 {0} 和 {1} 重名", type.FullName, exists.FullName));
                     doTypes.Add(type);
                 }
             }
@@ -1022,6 +1105,9 @@ namespace CodeArt.DomainDriven
             //执行远程能力特性的初始化，收集相关数据
             RemotableAttribute.Initialize();
 
+            //执行日志能力特性的初始化，收集相关数据
+            ObjectLogableAttribute.Initialize();
+
             //触发没有派生类的领域对象的静态构造
             foreach (var objectType in TypeIndex)
             {
@@ -1040,7 +1126,14 @@ namespace CodeArt.DomainDriven
 
             //领域事件宿主的初始化
             EventHost.Initialize();
+        }
 
+        /// <summary>
+        /// 初始化之后
+        /// </summary>
+        internal static void Initialized()
+        {
+            EventHost.Initialized();
         }
 
         internal static void Cleanup()

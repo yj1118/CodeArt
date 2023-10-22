@@ -30,13 +30,8 @@ namespace CodeArt.ServiceModel.MQ
             var services = ServiceAttribute.GetServics();
             foreach(var service in services)
             {
-                RPCServer.Open(service, MQServiceHandler.Instance);
+                RPCServer.Initialize(service, MQServiceHandler.Instance);
             }
         }
-
-
-
-
-
     }
 }

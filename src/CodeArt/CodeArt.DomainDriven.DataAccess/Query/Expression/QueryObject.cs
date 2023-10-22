@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using CodeArt.AppSetting;
 using CodeArt.DomainDriven;
 using CodeArt.Util;
 
@@ -41,10 +41,18 @@ namespace CodeArt.DomainDriven.DataAccess
 
         public static QueryObject Create(DataTable target, string expression, QueryLevel level)
         {
-            return _cache.GetInstance(target, expression, level);
+            if(target.IsSessionEnabledMultiTenancy) 
+                return _cache.GetInstance(target, expression, level);
+
+            return _cache_session_no_tenant.GetInstance(target, expression, level);
         }
 
         private static ExpressionCache<QueryObject> _cache = new ExpressionCache<QueryObject>((target, expression, level) =>
+        {
+            return new QueryObject(target, expression, level);
+        });
+
+        private static ExpressionCache<QueryObject> _cache_session_no_tenant = new ExpressionCache<QueryObject>((target, expression, level) =>
         {
             return new QueryObject(target, expression, level);
         });

@@ -14,4 +14,16 @@ namespace CodeArt.DomainDriven
         {
         }
     }
+
+
+    /// <summary>
+    /// 表示这个领域参数是传递给调用方的
+    /// </summary>
+    public class EventReturnAttribute : EventArgAttribute
+    {
+        public EventReturnAttribute()
+        {
+
+        }
+    }
 }

@@ -8,6 +8,7 @@ using System.IO;
 using CodeArt.IO;
 using CodeArt.Util;
 using CodeArt.Runtime;
+using CodeArt.Log;
 
 namespace CodeArt.Web.WebPages.Xaml
 {
@@ -59,7 +60,7 @@ namespace CodeArt.Web.WebPages.Xaml
             catch(Exception ex)
             {
                 //写日志即可，有时候同一时间访问一个文件，有可能冲突，但是在发布模式下不会遇到该问题，所以只用写日志
-                Log.LogWrapper.Default.Fatal(ex);
+                Logger.Fatal(ex);
             }
             
         }

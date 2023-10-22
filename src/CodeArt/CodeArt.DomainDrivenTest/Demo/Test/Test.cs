@@ -196,7 +196,7 @@ namespace CodeArt.DomainDrivenTest.Demo
 
             {
                 //假设其他线程已经更改了分类信息
-                DataPortal.Direct<BookCategory>((conn) =>
+                DataPortal.Direct<Book>((conn) =>
                 {
                     string sql = "update bookCategory set name=@name,dataVersion=dataVersion+1 where id=@id";
                     conn.Execute(sql, new { name = "修改后的名称", id = book.Category.Id });
@@ -440,7 +440,7 @@ namespace CodeArt.DomainDrivenTest.Demo
 
         #region 断言封面
 
-        private static void AssertBookCover(Book book, BookCover cover, IDbConnection conn)
+        private static void AssertBookCover(Book book, BookCover cover, DataConnection conn)
         {
             var data = conn.QueryFirstOrDefault("select * from BookCover where RootId=@RootId and id=@id", new { RootId = book.Id, Id = cover.Id });
             if (cover.IsEmpty())
@@ -469,7 +469,7 @@ namespace CodeArt.DomainDrivenTest.Demo
             }
         }
 
-        private static void AssertBookCovers(Book book, IEnumerable<dynamic> datas, IEnumerable<BookCover> covers, IDbConnection conn)
+        private static void AssertBookCovers(Book book, IEnumerable<dynamic> datas, IEnumerable<BookCover> covers, DataConnection conn)
         {
             Assert.AreEqual(datas.Count(), covers.Count());
             foreach (dynamic temp in datas)
@@ -485,7 +485,7 @@ namespace CodeArt.DomainDrivenTest.Demo
 
         #endregion
 
-        private static void AssertAuthor(Book book, Author obj, IDbConnection conn)
+        private static void AssertAuthor(Book book, Author obj, DataConnection conn)
         {
             var data = conn.QuerySingle("select * from dbo.Author where RootId=@RootId and id=@id", new { RootId = book.Id, Id = obj.Id });
             Assert.AreEqual(data.Name, obj.Name);
@@ -494,7 +494,7 @@ namespace CodeArt.DomainDrivenTest.Demo
             AssertPersion(obj.Person, conn);
         }
 
-        private static void AssertPersion(Person person, IDbConnection conn)
+        private static void AssertPersion(Person person, DataConnection conn)
         {
             var data = conn.QueryFirstOrDefault("select * from Person where id=@id", new { Id = person.Id });
             if (person.IsEmpty())
@@ -507,7 +507,7 @@ namespace CodeArt.DomainDrivenTest.Demo
 
         #region 断言书签
 
-        private static void AssertBookmark(Book book, Bookmark obj, IDbConnection conn)
+        private static void AssertBookmark(Book book, Bookmark obj, DataConnection conn)
         {
             var data = conn.QuerySingle("select * from Bookmark where RootId=@RootId and id=@id", new { RootId = book.Id, Id = obj.Id });
             Assert.AreEqual(data.PageIndex, obj.PageIndex);
@@ -537,7 +537,7 @@ namespace CodeArt.DomainDrivenTest.Demo
             AssertBookCovers(book, coversData, obj.Covers, conn);
         }
 
-        private static void AssertBookmarks(Book book, IEnumerable<dynamic> datas, IEnumerable<Bookmark> bookmarks, IDbConnection conn)
+        private static void AssertBookmarks(Book book, IEnumerable<dynamic> datas, IEnumerable<Bookmark> bookmarks, DataConnection conn)
         {
             Assert.AreEqual(datas.Count(), bookmarks.Count());
             foreach (dynamic temp in datas)
@@ -553,7 +553,7 @@ namespace CodeArt.DomainDrivenTest.Demo
 
         #endregion
 
-        private static void AssertBookReader(Book book, BookReader obj, IDbConnection conn)
+        private static void AssertBookReader(Book book, BookReader obj, DataConnection conn)
         {
             var data = conn.QueryFirstOrDefault("select * from BookReader where  RootId=@RootId and id=@id", new { RootId = book.Id, Id = obj.Id });
             if (obj.IsEmpty())
@@ -565,7 +565,7 @@ namespace CodeArt.DomainDrivenTest.Demo
             Assert.AreEqual(data.Sex, (byte)obj.Sex);
         }
 
-        private static void AssertBookmarkCategory(BookmarkCategory obj, IDbConnection conn)
+        private static void AssertBookmarkCategory(BookmarkCategory obj, DataConnection conn)
         {
             var data = conn.QueryFirstOrDefault("select * from BookmarkCategory where id=@id", new { Id = obj.Id });
             if (obj.IsEmpty())
@@ -578,7 +578,7 @@ namespace CodeArt.DomainDrivenTest.Demo
 
         #region 书的海报
 
-        private static void AssertBookPosters(Book book, IEnumerable<dynamic> datas, IEnumerable<BookPoster> posters, IDbConnection conn)
+        private static void AssertBookPosters(Book book, IEnumerable<dynamic> datas, IEnumerable<BookPoster> posters, DataConnection conn)
         {
             Assert.AreEqual(datas.Count(), posters.Count());
             foreach (dynamic temp in datas)
@@ -592,7 +592,7 @@ namespace CodeArt.DomainDrivenTest.Demo
             }
         }
 
-        private static void AssertBookPoster(Book book, BookPoster poster, IDbConnection conn)
+        private static void AssertBookPoster(Book book, BookPoster poster, DataConnection conn)
         {
             var data = conn.QueryFirstOrDefault("select * from BookPoster where RootId=@RootId and id=@id", new { RootId = book.Id, Id = poster.Id });
             if (poster.IsEmpty())
@@ -608,7 +608,7 @@ namespace CodeArt.DomainDrivenTest.Demo
 
         #region 书的分类
 
-        private static void AssertBookCategories(IEnumerable<dynamic> datas, IEnumerable<BookCategory> objs, IDbConnection conn)
+        private static void AssertBookCategories(IEnumerable<dynamic> datas, IEnumerable<BookCategory> objs, DataConnection conn)
         {
             Assert.AreEqual(datas.Count(), objs.Count());
             foreach (dynamic temp in datas)
@@ -622,7 +622,7 @@ namespace CodeArt.DomainDrivenTest.Demo
             }
         }
 
-        private static void AssertBookCategory(BookCategory obj, IDbConnection conn)
+        private static void AssertBookCategory(BookCategory obj, DataConnection conn)
         {
             var data = conn.QueryFirstOrDefault("select * from BookCategory where id=@id", new { Id = obj.Id });
             if (obj.IsEmpty())
@@ -638,7 +638,7 @@ namespace CodeArt.DomainDrivenTest.Demo
 
         #region 书的地址
 
-        private static void AssertBookAddress(Book book, BookAddress obj, IDbConnection conn)
+        private static void AssertBookAddress(Book book, BookAddress obj, DataConnection conn)
         {
             var data = conn.QueryFirstOrDefault("select * from BookAddress where  RootId=@RootId and id=@id", new { RootId = book.Id, Id = obj.Id });
             if (obj.IsEmpty())
@@ -658,7 +658,7 @@ namespace CodeArt.DomainDrivenTest.Demo
             AssertBookCovers(book, photoDatas, obj.Photos, conn);
         }
 
-        private static void AssertBookAddresses(Book book, IEnumerable<dynamic> datas, IEnumerable<BookAddress> addresses, IDbConnection conn)
+        private static void AssertBookAddresses(Book book, IEnumerable<dynamic> datas, IEnumerable<BookAddress> addresses, DataConnection conn)
         {
             Assert.AreEqual(datas.Count(), addresses.Count());
             foreach (dynamic temp in datas)

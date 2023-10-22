@@ -24,7 +24,7 @@ namespace CodeArt.DomainDriven
             if (string.IsNullOrEmpty(propertyValue)) return; //是否能为空的验证由别的验证器处理
 
             if (!IsMatch(propertyValue))
-                result.AddError(property.Name, "Email", string.Format(Strings.IncorrectEmailFormat, property.Name));
+                result.AddError(property.Name, "Email", string.Format(Strings.IncorrectEmailFormat, property.Call));
         }
 
         private static RegexPool _regex = new RegexPool(@"^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", RegexOptions.IgnoreCase);

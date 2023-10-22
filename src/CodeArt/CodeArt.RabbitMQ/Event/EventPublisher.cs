@@ -11,6 +11,7 @@ using CodeArt.Util;
 
 using RabbitMQ.Client;
 using CodeArt.EasyMQ;
+using CodeArt.AppSetting;
 
 namespace CodeArt.RabbitMQ
 {
@@ -27,7 +28,7 @@ namespace CodeArt.RabbitMQ
                 var bus = temp.Item;
                 bus.ExchangeDeclare(Event.Exchange, ExchangeType.Topic);
                 var routingKey = eventName;
-                bus.Publish(Event.Exchange, routingKey, new TransferData(arg));
+                bus.Publish(Event.Exchange, routingKey, new TransferData(AppSession.Language, arg));
             }
         }
 

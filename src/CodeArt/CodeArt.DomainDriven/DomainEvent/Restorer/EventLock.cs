@@ -1,61 +1,45 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
+using Dapper;
 
 namespace CodeArt.DomainDriven
 {
     /// <summary>
     /// 事件锁
     /// </summary>
-    [ObjectRepository(typeof(IEventLockRepository), CloseMultiTenancy = true)]
-    public class EventLock : AggregateRoot<EventLock, Guid>
+    public class EventLock : DataObject<Guid>
     {
-        [PropertyRepository()]
-        private static readonly DomainProperty CreateTimeProperty = DomainProperty.Register<DateTime, EventLock>("CreateTime", (owner) => { return DateTime.Now; });
-
         /// <summary>
         /// 创建的时间
         /// </summary>
         public DateTime CreateTime
         {
-            get
-            {
-                return GetValue<DateTime>(CreateTimeProperty);
-            }
-            private set
-            {
-                SetValue(CreateTimeProperty, value);
-            }
+            get;
+            private set;
         }
 
-        [ConstructorRepository()]
+        public EventLock()
+            : base(Guid.Empty)
+        {
+        }
+
         public EventLock(Guid id)
             : base(id)
         {
-            this.OnConstructed();
+            this.CreateTime = DateTime.Now;
         }
 
-        #region 空对象
-
-        private class EventLockEmpty : EventLock
+        protected override void LoadImpl(IDataReader reader)
         {
-            public EventLockEmpty()
-                : base(Guid.Empty)
-            {
-                this.OnConstructed();
-            }
-
-            public override bool IsEmpty()
-            {
-                return true;
-            }
+            this.Id = reader.GetGuid("Id");
+            this.CreateTime = reader.GetDateTime("CreateTime");
         }
-
-        public static readonly EventLock Empty = new EventLockEmpty();
-
-        #endregion
 
         #region 静态成员
 
@@ -66,7 +50,6 @@ namespace CodeArt.DomainDriven
         /// <returns></returns>
         internal static EventLock GetOrCreate(Guid queueId)
         {
-            //先尝试创建队列
             DataContext.NewScope(() =>
             {
                 var @lock = Find(queueId, QueryLevel.HoldSingle);
@@ -74,14 +57,13 @@ namespace CodeArt.DomainDriven
                 {
                     Create(queueId);
                 }
-            }, true);
-
+            });
             return Find(queueId, QueryLevel.Single);
         }
 
         internal static EventLock Create(Guid queueId)
         {
-            var repository = Repository.Create<IEventLockRepository>();
+            var repository = EventLockRepository.Instance;
             var @lock = new EventLock(queueId);
             repository.Add(@lock);
             return @lock;
@@ -89,15 +71,13 @@ namespace CodeArt.DomainDriven
 
         internal static EventLock Find(Guid queueId, QueryLevel level)
         {
-            var repository = Repository.Create<IEventLockRepository>();
-            return repository.Find(queueId, level);
+            return EventLockRepository.Instance.Find(queueId, level);
         }
-
 
         internal static void Delete(EventLock @lock)
         {
-            var repository = Repository.Create<IEventLockRepository>();
-            repository.Delete(@lock);
+            var repository = EventLockRepository.Instance;
+            repository.Delete(@lock.Id);
         }
 
         #endregion

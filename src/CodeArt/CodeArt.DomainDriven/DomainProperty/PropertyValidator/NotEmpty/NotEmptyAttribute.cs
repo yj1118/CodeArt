@@ -10,13 +10,25 @@ namespace CodeArt.DomainDriven
 {
     public class NotEmptyAttribute : PropertyValidatorAttribute
     {
+        public bool Trim
+        {
+            get;
+            set;
+        }
+
         public NotEmptyAttribute()
         {
+            this.Trim = true;
+        }
+
+        public NotEmptyAttribute(bool trim)
+        {
+            this.Trim = true;
         }
 
         public override IPropertyValidator CreateValidator()
         {
-            return NotEmptyValidator.Instance;
+            return new NotEmptyValidator(this.Trim);
         }
 
     }

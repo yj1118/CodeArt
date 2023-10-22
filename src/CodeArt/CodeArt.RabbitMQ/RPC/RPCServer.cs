@@ -27,16 +27,26 @@ namespace CodeArt.RabbitMQ
         private IRPCHandler _handler;
         private string _queue;
 
+        public string Name
+        {
+            get;
+            private set;
+        }
+
         public RPCServer(string method)
         {
+            this.Name = method;
             _hostItem = RabbitBus.Borrow(RPC.Policy);
             _queue = RPC.GetServerQueue(method);
         }
 
-        public void Open(IRPCHandler handler)
+        public void Initialize(IRPCHandler handler)
         {
             _handler = handler;
+        }
 
+        public void Open()
+        {
             var host = _hostItem.Item;
             host.QueueDeclare(_queue);
             host.Consume(_queue, this);
@@ -51,6 +61,8 @@ namespace CodeArt.RabbitMQ
             {
                 try
                 {
+                    AppSession.Language = message.Language;
+
                     var content = message.Content;
                     var info = content.Info;
                     var method = info.GetValue<string>("method");
@@ -66,7 +78,7 @@ namespace CodeArt.RabbitMQ
                 }
                 catch (Exception ex)
                 {
-                    LogWrapper.Default.Fatal(ex);
+                    Logger.Fatal(ex);
 
                     var arg = new RPCEvents.ServerErrorArgs(ex);
                     RPCEvents.RaiseServerError(this, arg);
@@ -93,10 +105,10 @@ namespace CodeArt.RabbitMQ
             }
             catch (Exception ex)
             {
-                LogWrapper.Default.Fatal(ex);
+                Logger.Fatal(ex);
                 info["status"] = "fail";
                 info["message"] = ex.Message;
-                result = new TransferData(info);
+                result = new TransferData(AppSession.Language, info);
             }
             return result;
         }

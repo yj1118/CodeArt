@@ -9,6 +9,8 @@ using CodeArt.Util;
 
 namespace CodeArt.DomainDriven
 {
+    [MergeDomain]
+    [FrameworkDomain]
     public abstract class ValueObject : DomainObject, IValueObject
     {
         public ValueObject()
@@ -95,7 +97,8 @@ namespace CodeArt.DomainDriven
 
     }
 
-
+    [MergeDomain]
+    [FrameworkDomain]
     public abstract class ValueObject<TObject, TObjectEmpty> : ValueObject
         where TObject : ValueObject<TObject, TObjectEmpty>
         where TObjectEmpty : TObject, new()

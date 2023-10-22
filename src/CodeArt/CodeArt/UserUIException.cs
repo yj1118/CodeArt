@@ -6,11 +6,14 @@ using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Text;
 
+using CodeArt.Log;
+
 namespace CodeArt
 {
     /// <summary>
     /// 代表错误会呈现给用户看
     /// </summary>
+    [NonLog]
     public class UserUIException : Exception
     {
         public UserUIException()

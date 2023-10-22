@@ -35,11 +35,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Dapper, Version=1.50.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Dapper.1.50.5\lib\net451\Dapper.dll</HintPath>
+    <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.2.0.123\lib\net461\Dapper.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.SqlServer.TransactSql.ScriptDom, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.TransactSql.ScriptDom.14.0.3811.1\lib\net40\Microsoft.SqlServer.TransactSql.ScriptDom.dll</HintPath>
+    <Reference Include="Microsoft.SqlServer.TransactSql.ScriptDom, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.TransactSql.ScriptDom.15.0.4200.1\lib\net40\Microsoft.SqlServer.TransactSql.ScriptDom.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -56,6 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\DataConnectionExtensions.cs" />
     <Compile Include="Common\DataContextExtensions.cs" />
     <Compile Include="Common\PreApplicationStart.cs" />
     <Compile Include="Common\QueryAdapter.cs" />
@@ -73,8 +74,7 @@
     <Compile Include="DataMapper\Fields\BooleanField.cs" />
     <Compile Include="DataMapper\Fields\GuidField.cs" />
     <Compile Include="DataModel\RootIsSlaveIndex.cs" />
-    <Compile Include="DomainEvent\SqlEventLockRepository.cs" />
-    <Compile Include="DomainEvent\SqlEventMonitorRepository.cs" />
+    <Compile Include="DataModel\Table\Keep.cs" />
     <Compile Include="MapperNotImplementedException.cs" />
     <Compile Include="DataMapper\DataMapperAttribute.cs" />
     <Compile Include="DataMapper\DataMapperFactory.cs" />
@@ -114,9 +114,6 @@
     <Compile Include="DataPortal\DataPortal.cs" />
     <Compile Include="DataPortal\DataPortalException.cs" />
     <Compile Include="DataProxyPro.cs" />
-    <Compile Include="DomainEvent\SqlEventLogEntryRepository.cs" />
-    <Compile Include="DomainEvent\SqlEventLogRepository.cs" />
-    <Compile Include="DomainEvent\SqlEventQueueRepository.cs" />
     <Compile Include="NotSupportDatabaseException.cs" />
     <Compile Include="DataAccessException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -127,7 +124,9 @@
     <Compile Include="Query\Direct\CUD\InsertTable.cs" />
     <Compile Include="Query\Direct\CUD\UpdateDataVersion.cs" />
     <Compile Include="Query\Direct\CUD\UpdateTable.cs" />
+    <Compile Include="Query\Direct\GetSerialNumber.cs" />
     <Compile Include="Query\Direct\GetPrimitiveValues.cs" />
+    <Compile Include="Query\Direct\Life\ClearTable.cs" />
     <Compile Include="Query\Direct\SingleLock.cs" />
     <Compile Include="Query\Direct\GetIdentity.cs" />
     <Compile Include="Query\Direct\Life\CreateTable.cs" />
@@ -183,9 +182,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Strings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Strings.zh-CN.resx" />
+    <EmbeddedResource Include="Strings.zh-CN.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

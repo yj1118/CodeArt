@@ -46,7 +46,7 @@ namespace CodeArt.DomainDriven
             {
                 if (!_regex.IsMatch(propertyValue))
                 {
-                    result.AddError(property.Name, StringFormatError, string.Format(Strings.DoesNotMeetRule, property.Name, _pattern));
+                    result.AddError(property.Name, StringFormatError, string.Format(Strings.DoesNotMeetRule, property.Call, _pattern));
                 }
             }
             else
@@ -85,7 +85,7 @@ namespace CodeArt.DomainDriven
 
                 if (reg != null && !reg.IsMatch(value))
                 {
-                    result.AddError(property.Name, StringFormatError, string.Format(Strings.CanOnlyInclude, property.Name, message));
+                    result.AddError(property.Name, StringFormatError, string.Format(Strings.CanOnlyInclude, property.Call, message));
                 }
             }
         }

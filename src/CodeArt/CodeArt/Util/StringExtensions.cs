@@ -148,9 +148,10 @@ namespace CodeArt.Util
 
         public static string Substr(this string str, int startIndex, int count, string suffix)
         {
+            if (startIndex == 0 && str.Length <= count) return str;
             var length = count - startIndex;
             var actualLength = str.Length - startIndex;
-            return length > actualLength ? str.Substring(startIndex, actualLength) : string.Format("{0}{1}", str.Substring(startIndex, length), suffix);
+            return length >= actualLength ? str.Substring(startIndex, actualLength) : string.Format("{0}{1}", str.Substring(startIndex, length), suffix);
         }
 
         public static string Substr(this string str, int startIndex, int count)
@@ -225,7 +226,7 @@ namespace CodeArt.Util
         /// </summary>  
         /// <param   name="value">待检测字符串</param>  
         /// <returns>是汉字返回true</returns>  
-        public static bool IsChinese(string value)
+        public static bool IsChinese(this string value)
         {
             return Regex.IsMatch(value, "[\u4e00-\u9fa5]");
         }

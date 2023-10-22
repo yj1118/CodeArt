@@ -31,7 +31,7 @@ namespace CodeArt.Web.WebPages.Xaml.Controls
         {
             get
             {
-                return GetValue(ContentProperty) as string;
+                return XamlUtil.GetStringValue(this, ContentProperty);
             }
             set
             {

@@ -20,25 +20,25 @@ namespace CodeArt.Web.WebPages
         /// </summary>
         /// <param name="context"></param>
         /// <returns>true:缓存已过期;false:缓存未过期</returns>
-        public override bool IsExpired(WebPageContext context, ICacheStorage storage)
+        public override bool IsExpired(ResolveRequestCache controller, ICacheStorage storage)
         {
             DateTime cacheTime = DateTime.Now;
-            if (TryGetCacheTime(context, out cacheTime, storage)
-                    && IsCaching(cacheTime, GetCacheMinutes(context)))
+            if (TryGetCacheTime(controller, out cacheTime, storage)
+                    && IsCaching(cacheTime, GetCacheMinutes(controller)))
             {
                 return false;
             }
             return true;
         }
 
-        private int GetCacheMinutes(WebPageContext context)
+        private int GetCacheMinutes(ResolveRequestCache controller)
         {
-            return context.GetConfigValue<int>("Page", "delay", 0);
+            return controller.Context.GetConfigValue<int>("Page", "delay", 0);
         }
 
-        protected bool TryGetCacheTime(WebPageContext context, out DateTime cacheTime, ICacheStorage storage)
+        protected bool TryGetCacheTime(ResolveRequestCache controller, out DateTime cacheTime, ICacheStorage storage)
         {
-            var variable = new CacheVariable(GetUrl(context), context.CompressionType, context.Device);
+            var variable = new CacheVariable(controller.PageKey, controller.CompressionType, controller.Device);
             return storage.TryGetLastModified(variable, out cacheTime);
         }
 
@@ -51,9 +51,9 @@ namespace CodeArt.Web.WebPages
         /// 读取缓存区中的流信息
         /// </summary>
         /// <returns></returns>
-        public override Stream Read(WebPageContext context, ICacheStorage storage)
+        public override Stream Read(ResolveRequestCache controller, ICacheStorage storage)
         {
-            var variable = new CacheVariable(GetUrl(context), context.CompressionType, context.Device);
+            var variable = new CacheVariable(controller.PageKey, controller.CompressionType, controller.Device);
             return storage.Read(variable);
         }
 
@@ -61,9 +61,9 @@ namespace CodeArt.Web.WebPages
         /// 向缓存区中写入信息
         /// </summary>
         /// <param name="content"></param>
-        public override void Write(WebPageContext context, Stream content, ICacheStorage storage)
+        public override void Write(ResolveRequestCache controller, Stream content, ICacheStorage storage)
         {
-            var variable = new CacheVariable(GetUrl(context), context.CompressionType, context.Device);
+            var variable = new CacheVariable(controller.PageKey, controller.CompressionType, controller.Device);
             storage.Update(variable, content);
         }
     }

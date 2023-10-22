@@ -23,7 +23,7 @@ namespace CodeArt.DomainDriven.DataAccess
             : base(null)
         {
             _sql = GetSql(tableName);
-            _name = string.Format("create {0}", tableName);
+            _name = string.Format("drop {0}", tableName);
         }
 
         private string GetSql(string tableName)

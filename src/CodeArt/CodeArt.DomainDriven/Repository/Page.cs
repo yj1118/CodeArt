@@ -45,6 +45,10 @@ namespace CodeArt.DomainDriven
             return count;
         }
 
+        public Page<S> Select<S>(Func<T, S> selector)
+        {
+            return new Page<S>(this.PageIndex, this.PageSize, this.Objects.Select(selector), this.DataCount);
+        }
 
         public Page(int pageIndex, int pageSize, IEnumerable<T> objects, int dataCount)
         {

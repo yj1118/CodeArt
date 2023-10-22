@@ -16,18 +16,18 @@ namespace CodeArt.Web.WebPages
         /// </summary>
         /// <param name="context"></param>
         /// <returns>true:缓存已过期;false:缓存未过期</returns>
-        bool IsExpired(WebPageContext context, ICacheStorage storage);
+        bool IsExpired(ResolveRequestCache controller, ICacheStorage storage);
 
         /// <summary>
         /// 读取缓存区中的流信息
         /// </summary>
         /// <returns></returns>
-        Stream Read(WebPageContext context, ICacheStorage storage);
+        Stream Read(ResolveRequestCache controller, ICacheStorage storage);
 
         /// <summary>
         /// 向缓存区中写入信息
         /// </summary>
         /// <param name="content"></param>
-        void Write(WebPageContext context, Stream content, ICacheStorage storage);
+        void Write(ResolveRequestCache controller, Stream content, ICacheStorage storage);
     }
 }

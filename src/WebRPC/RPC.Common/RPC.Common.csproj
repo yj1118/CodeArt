@@ -1,0 +1,263 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A8D0E7AB-46B0-42FC-8777-9599CF525D9A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RPC.Common</RootNamespace>
+    <AssemblyName>RPC.Common</AssemblyName>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Crc32.NET, Version=1.0.0.0, Culture=neutral, PublicKeyToken=dc0b95cf99bf4e99, processorArchitecture=MSIL">
+      <HintPath>..\..\..\EasyView\EasyViewRPC\packages\Crc32.NET.1.2.0\lib\net20\Crc32.NET.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.11.23.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.11.23\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="Minio, Version=4.0.0.0, Culture=neutral, PublicKeyToken=348239ebd7debb4c, processorArchitecture=MSIL">
+      <HintPath>..\..\..\EnterprisePortal\EnterprisePortalRPC\packages\Minio.4.0.0\lib\net46\Minio.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\..\EnterprisePortal\EnterprisePortalRPC\packages\Newtonsoft.Json.13.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\EasyView\EasyViewRPC\packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http, Version=4.1.1.3, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\EnterprisePortal\EnterprisePortalRPC\packages\System.Net.Http.4.3.4\lib\net46\System.Net.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Reactive, Version=4.0.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <HintPath>..\..\..\EasyView\EasyViewRPC\packages\System.Reactive.4.0.0\lib\net46\System.Reactive.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Linq, Version=3.0.3000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <HintPath>..\..\..\EasyView\EasyViewRPC\packages\System.Reactive.Linq.4.0.0\lib\net46\System.Reactive.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\EasyView\EasyViewRPC\packages\System.Runtime.4.3.0\lib\net462\System.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\EasyView\EasyViewRPC\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net463\System.Security.Cryptography.Algorithms.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\EasyView\EasyViewRPC\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\EasyView\EasyViewRPC\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\EasyView\EasyViewRPC\packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encodings.Web, Version=4.0.3.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\..\EnterprisePortal\EnterprisePortalRPC\packages\System.Text.Encodings.Web.4.5.1\lib\netstandard2.0\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\..\EasyView\EasyViewRPC\packages\System.ValueTuple.4.4.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TencentCloud, Version=3.0.816.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\EnterprisePortal\EnterprisePortalRPC\packages\TencentCloudSDK.3.0.816\lib\net45\TencentCloud.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Application\PreApplicationStartCode.cs" />
+    <Compile Include="Application\PreAppSessionStartCode.cs" />
+    <Compile Include="Auth\AuthFeature\AddAuthFeature.cs" />
+    <Compile Include="Auth\AuthFeature\DeleteAuthFeature.cs" />
+    <Compile Include="Auth\AuthFeature\GetAuthFeature.cs" />
+    <Compile Include="Auth\AuthFeature\GetAuthFeatureConfig.cs" />
+    <Compile Include="Auth\AuthFeature\GetAuthFeatures.cs" />
+    <Compile Include="Auth\AuthFeature\SortAuthFeatures.cs" />
+    <Compile Include="Auth\AuthFeature\UpdateAuthFeature.cs" />
+    <Compile Include="Auth\AuthFilter.cs" />
+    <Compile Include="Auth\AuthModule\AddAuthModule.cs" />
+    <Compile Include="Auth\AuthModule\DeleteAuthModule.cs" />
+    <Compile Include="Auth\AuthModule\GetAuthModule.cs" />
+    <Compile Include="Auth\AuthModule\GetAuthModules.cs" />
+    <Compile Include="Auth\AuthModule\GetPermissionCodes.cs" />
+    <Compile Include="Auth\AuthModule\SortAuthModules.cs" />
+    <Compile Include="Auth\AuthModule\UpdateAuthModule.cs" />
+    <Compile Include="Auth\AuthScope\AddAuthScope.cs" />
+    <Compile Include="Auth\AuthScope\DeleteAuthScope.cs" />
+    <Compile Include="Auth\AuthScope\GetAuthScope.cs" />
+    <Compile Include="Auth\AuthScope\GetAuthScopes.cs" />
+    <Compile Include="Auth\AuthScope\SortAuthScopes.cs" />
+    <Compile Include="Auth\AuthScope\UpdateAuthScope.cs" />
+    <Compile Include="Auth\AuthPlatform\AddAuthPlatform.cs" />
+    <Compile Include="Auth\AuthPlatform\DeleteAuthPlatform.cs" />
+    <Compile Include="Auth\AuthPlatform\GetAuthPlatform.cs" />
+    <Compile Include="Auth\AuthPlatform\GetAuthPlatforms.cs" />
+    <Compile Include="Auth\AuthPlatform\SortAuthPlatforms.cs" />
+    <Compile Include="Auth\AuthPlatform\UpdateAuthPlatform.cs" />
+    <Compile Include="Auth\AuthUtil.cs" />
+    <Compile Include="Auth\Captcha.cs" />
+    <Compile Include="Auth\CheckVerificationCode.cs" />
+    <Compile Include="Auth\DarkFilter.cs" />
+    <Compile Include="Auth\GetVerificationCode.cs" />
+    <Compile Include="Auth\GetVerificationCodeForForgeter.cs" />
+    <Compile Include="Auth\GetVerificationCodeForInit.cs" />
+    <Compile Include="Auth\GetVerificationCodeForRegister.cs" />
+    <Compile Include="Auth\GetVerificationCodeForUpdater.cs" />
+    <Compile Include="Auth\InitSA.cs" />
+    <Compile Include="Auth\PermissionCodes.cs" />
+    <Compile Include="Auth\Permission\AddPermission.cs" />
+    <Compile Include="Auth\Permission\DeletePermission.cs" />
+    <Compile Include="Auth\Permission\GetPermission.cs" />
+    <Compile Include="Auth\Permission\GetPermissionContent.cs" />
+    <Compile Include="Auth\Permission\GetPermissions.cs" />
+    <Compile Include="Auth\Permission\SortPermissions.cs" />
+    <Compile Include="Auth\Permission\UpdatePermission.cs" />
+    <Compile Include="Auth\RoleCodes.cs" />
+    <Compile Include="Auth\Role\AddRole.cs" />
+    <Compile Include="Auth\Role\DeleteRole.cs" />
+    <Compile Include="Auth\Role\GetRole.cs" />
+    <Compile Include="Auth\Role\GetRoleCodes.cs" />
+    <Compile Include="Auth\Role\GetRoles.cs" />
+    <Compile Include="Auth\Role\UpdateRole.cs" />
+    <Compile Include="Auth\SignInCaptcha.cs" />
+    <Compile Include="Auth\SignInOrRegister.cs" />
+    <Compile Include="Auth\SignIn.cs" />
+    <Compile Include="Auth\SignOut.cs" />
+    <Compile Include="Auth\UpdatePasswordByMobileNumber.cs" />
+    <Compile Include="Auth\User\DeleteUsers.cs" />
+    <Compile Include="Auth\User\GetAccount.cs" />
+    <Compile Include="Auth\User\GetUsers.cs" />
+    <Compile Include="Auth\User\GetUserPage.cs" />
+    <Compile Include="Auth\User\AddUser.cs" />
+    <Compile Include="Auth\User\UpdateAccount.cs" />
+    <Compile Include="Auth\User\UpdateUser.cs" />
+    <Compile Include="DomainUtil.cs" />
+    <Compile Include="File\CreateDirectory.cs" />
+    <Compile Include="File\DeleteExplorerItems.cs" />
+    <Compile Include="File\FileServiceUtil.cs" />
+    <Compile Include="File\GetExplorerItems.cs" />
+    <Compile Include="File\GetRootDirectory.cs" />
+    <Compile Include="File\GetVirtualDirectory.cs" />
+    <Compile Include="File\MoveFiles.cs" />
+    <Compile Include="File\RenameExplorerItem.cs" />
+    <Compile Include="Helper.cs" />
+    <Compile Include="ImageSize.cs" />
+    <Compile Include="ImageUtil.cs" />
+    <Compile Include="LogExtractor.cs" />
+    <Compile Include="Minio\GetImageUrl.cs" />
+    <Compile Include="Minio\Store.cs" />
+    <Compile Include="Plugin\PluginManager\SetPlugIn.cs" />
+    <Compile Include="Plugin\PluginTag\AddPluginTag.cs" />
+    <Compile Include="Plugin\PluginTag\DeletePluginTag.cs" />
+    <Compile Include="Plugin\PluginTag\GetPluginTags.cs" />
+    <Compile Include="Plugin\PluginTag\GetPluginTag.cs" />
+    <Compile Include="Plugin\PluginTag\GetPluginTagPage.cs" />
+    <Compile Include="Plugin\PluginTag\SortPluginTags.cs" />
+    <Compile Include="Plugin\PluginTag\UpdatePluginTag.cs" />
+    <Compile Include="Plugin\PluginCategory\AddPluginCategory.cs" />
+    <Compile Include="Plugin\PluginCategory\DeletePluginCategory.cs" />
+    <Compile Include="Plugin\PluginCategory\GetPluginCategories.cs" />
+    <Compile Include="Plugin\PluginCategory\GetPluginCategory.cs" />
+    <Compile Include="Plugin\PluginCategory\GetPluginCategoryPage.cs" />
+    <Compile Include="Plugin\PluginCategory\SortPluginCategories.cs" />
+    <Compile Include="Plugin\PluginCategory\UpdatePluginCategory.cs" />
+    <Compile Include="Plugin\PluginManager\GetPluginManager.cs" />
+    <Compile Include="Plugin\PluginManager\SetPlugIns.cs" />
+    <Compile Include="Plugin\GetPlugin.cs" />
+    <Compile Include="Plugin\ImportPlugin.cs" />
+    <Compile Include="Plugin\GetPluginPage.cs" />
+    <Compile Include="Plugin\DeletePlugin.cs" />
+    <Compile Include="Plugin\UpdatePlugin.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tag\DeleteTag.cs" />
+    <Compile Include="Tag\DeleteTags..cs" />
+    <Compile Include="Tag\UpdateTag.cs" />
+    <Compile Include="Tag\AddTag.cs" />
+    <Compile Include="Tag\Category\AddTagCategory.cs" />
+    <Compile Include="Tag\Category\DeleteTagCategory..cs" />
+    <Compile Include="Tag\Category\GetTagCategory.cs" />
+    <Compile Include="Tag\Category\GetTagCategories.cs" />
+    <Compile Include="Tag\Category\UpdateTagCategory.cs" />
+    <Compile Include="Tag\GetTag.cs" />
+    <Compile Include="Tag\GetTags.cs" />
+    <Compile Include="Tenant\Auth\Member\AddTenancyMember.cs" />
+    <Compile Include="Tenant\Auth\Member\DeleteTenancyMember.cs" />
+    <Compile Include="Tenant\Auth\Member\GetTenantMember.cs" />
+    <Compile Include="Tenant\Auth\Member\GetTenantMemberPage.cs" />
+    <Compile Include="Tenant\Auth\Member\SetTenancyMemberRoles.cs" />
+    <Compile Include="Tenant\Auth\Role\AddTenantRole.cs" />
+    <Compile Include="Tenant\Auth\Role\DeleteTenancyRole.cs" />
+    <Compile Include="Tenant\Auth\Role\GetTenancyRole.cs" />
+    <Compile Include="Tenant\Auth\Role\GetTenantRoles.cs" />
+    <Compile Include="Tenant\Auth\Role\UpdateTenancyRole.cs" />
+    <Compile Include="Tenant\TenantUtil.cs" />
+    <Compile Include="TinymceUtil.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\CodeArt\CodeArt.ServiceModel\CodeArt.ServiceModel.csproj">
+      <Project>{ea6365f1-c027-416b-b4cc-a94572b5fc19}</Project>
+      <Name>CodeArt.ServiceModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeArt\CodeArt.Web.RPC\CodeArt.Web.RPC.csproj">
+      <Project>{21fc3d57-ec6a-4c8e-8998-c9681cc6a291}</Project>
+      <Name>CodeArt.Web.RPC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeArt\CodeArt.Web.WebPages\CodeArt.Web.WebPages.csproj">
+      <Project>{1d237e7f-2e78-400a-bdb2-a3223ef26c0d}</Project>
+      <Name>CodeArt.Web.WebPages</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeArt\CodeArt.Web\CodeArt.Web.csproj">
+      <Project>{fc477f23-2bcc-4917-841e-691726eb0894}</Project>
+      <Name>CodeArt.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeArt\CodeArt.WeChat\CodeArt.WeChat.csproj">
+      <Project>{7a8e9ed4-12fd-4bf0-a37e-58ea5a38b471}</Project>
+      <Name>CodeArt.WeChat</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeArt\CodeArt\CodeArt.csproj">
+      <Project>{d2c9f430-6b47-482a-a49c-a2478d75f95f}</Project>
+      <Name>CodeArt</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

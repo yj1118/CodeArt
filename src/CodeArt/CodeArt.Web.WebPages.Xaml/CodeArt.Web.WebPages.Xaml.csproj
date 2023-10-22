@@ -34,8 +34,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="HtmlAgilityPack, Version=1.8.5.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
-      <HintPath>..\packages\HtmlAgilityPack.1.8.5\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    <Reference Include="HtmlAgilityPack, Version=1.11.23.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.11.23\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -68,12 +68,14 @@
     <Compile Include="Asset\RawCodeLoader.cs" />
     <Compile Include="Asset\StyleCode.cs" />
     <Compile Include="Asset\ScriptCode.cs" />
+    <Compile Include="Component\Dropload\Dropload.cs" />
     <Compile Include="Controls\Comment\Comment.cs" />
     <Compile Include="Controls\Comment\CommentLoader.cs" />
     <Compile Include="Controls\ContentControl.cs" />
     <Compile Include="Controls\AttributesPresenter.cs" />
     <Compile Include="Controls\CollectionPresenter.cs" />
     <Compile Include="Controls\ContentPresenter.cs" />
+    <Compile Include="Controls\Title.cs" />
     <Compile Include="Controls\Control.cs" />
     <Compile Include="Controls\HtmlElement\HtmlElement.cs" />
     <Compile Include="Controls\HtmlElement\HtmlElementLoader.cs" />
@@ -224,6 +226,12 @@
     <Compile Include="UIElement\UIUtil.cs" />
     <Compile Include="UIElement\VisibilityConverter.cs" />
     <Compile Include="UIElement\Visibility.cs" />
+    <Compile Include="Util\TextareaConverter.cs" />
+    <Compile Include="Util\ZeroDecimalCollapsedConverter.cs" />
+    <Compile Include="Util\ZeroCollapsedConverter.cs" />
+    <Compile Include="Util\ListCount1CollapsedConverter.cs" />
+    <Compile Include="Util\NullCollapsedConverter.cs" />
+    <Compile Include="Util\DecimalValueConverter.cs" />
     <Compile Include="Util\PrependValueConverter.cs" />
     <Compile Include="Util\BackgroundImageConverter.cs" />
     <Compile Include="Util\AppendClassConverter.cs" />
@@ -285,8 +293,7 @@
   <ItemGroup>
     <EmbeddedResource Include="assets.xml" />
     <EmbeddedResource Include="Controls\Page\Template.html" />
-    <EmbeddedResource Include="Controls\Repeater\ItemTemplate.html" />
-    <Content Include="Controls\Repeater\Template.html" />
+    <EmbeddedResource Include="Controls\Repeater\Template.html" />
     <EmbeddedResource Include="framework\codeart\core\codeArt.component.js" />
     <EmbeddedResource Include="framework\codeart\core\codeArt.css" />
     <EmbeddedResource Include="framework\codeart\core\codeArt.js" />
@@ -301,7 +308,27 @@
     <EmbeddedResource Include="Strings.zh-CN.resx" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
+    <EmbeddedResource Include="framework\mescroll\mescroll.vue" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="framework\jquery.cookie.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Component\Dropload\Template.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="framework\mescroll\mescroll.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="framework\mescroll\mescroll.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="framework\mescroll\mescroll.min.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="framework\mescroll\mescroll.min.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

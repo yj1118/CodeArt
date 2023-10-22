@@ -190,7 +190,7 @@
     <value>类型{0}错误，直接持久化的对象类型必须为IAggregateRoot或IEntityObjectPro</value>
   </data>
   <data name="PropertyValueRepeated" xml:space="preserve">
-    <value>属性 {0} 的值 {1} 重复</value>
+    <value>{0}{1}重复</value>
   </data>
   <data name="QueryExpressionMalformed" xml:space="preserve">
     <value>查询表达式 '{0}' 格式错误</value>

@@ -1,21 +1,49 @@
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\bin\Debug\NLog.config
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\bin\Debug\CodeArt.DomainDriven.dll
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\bin\Debug\CodeArt.DomainDriven.pdb
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\bin\Debug\zh-CN\CodeArt.DomainDriven.resources.dll
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\bin\Debug\CodeArt.dll
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\bin\Debug\CodeArt.EasyMQ.dll
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\bin\Debug\NLog.dll
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\bin\Debug\CodeArt.EasyMQ.pdb
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\bin\Debug\CodeArt.pdb
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\bin\Debug\NLog.xml
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\bin\Debug\zh-CN\CodeArt.EasyMQ.resources.dll
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\bin\Debug\zh-CN\CodeArt.resources.dll
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\obj\Debug\CodeArt.DomainDriven.Strings.resources
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\obj\Debug\CodeArt.DomainDriven.Strings.zh-CN.resources
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\obj\Debug\CodeArt.DomainDriven.csproj.GenerateResource.cache
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\obj\Debug\CodeArt.DomainDriven.csproj.CoreCompileInputs.cache
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\obj\Debug\zh-CN\CodeArt.DomainDriven.resources.dll
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\obj\Debug\CodeArt.DomainDriven.csproj.CopyComplete
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\obj\Debug\CodeArt.DomainDriven.dll
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\obj\Debug\CodeArt.DomainDriven.pdb
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.DomainDriven\obj\Debug\CodeArt.DomainDriven.csprojAssemblyReference.cache
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.DomainDriven\bin\Debug\NLog.config
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.DomainDriven\bin\Debug\CodeArt.DomainDriven.dll.config
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.DomainDriven\bin\Debug\CodeArt.DomainDriven.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.DomainDriven\bin\Debug\CodeArt.DomainDriven.pdb
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.DomainDriven\bin\Debug\zh-CN\CodeArt.DomainDriven.resources.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.DomainDriven\bin\Debug\CodeArt.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.DomainDriven\bin\Debug\CodeArt.EasyMQ.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.DomainDriven\bin\Debug\Dapper.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.DomainDriven\bin\Debug\Newtonsoft.Json.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.DomainDriven\bin\Debug\JWT.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.DomainDriven\bin\Debug\NLog.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.DomainDriven\bin\Debug\StackExchange.Redis.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.DomainDriven\bin\Debug\System.IO.Compression.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.DomainDriven\bin\Debug\System.Memory.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.DomainDriven\bin\Debug\System.Threading.Channels.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.DomainDriven\bin\Debug\System.Threading.Tasks.Extensions.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.DomainDriven\bin\Debug\Pipelines.Sockets.Unofficial.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.DomainDriven\bin\Debug\System.IO.Pipelines.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.DomainDriven\bin\Debug\System.Runtime.InteropServices.RuntimeInformation.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.DomainDriven\bin\Debug\netstandard.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.DomainDriven\bin\Debug\System.Numerics.Vectors.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.DomainDriven\bin\Debug\System.Net.Sockets.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.DomainDriven\bin\Debug\CodeArt.EasyMQ.pdb
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.DomainDriven\bin\Debug\CodeArt.EasyMQ.dll.config
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.DomainDriven\bin\Debug\CodeArt.pdb
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.DomainDriven\bin\Debug\CodeArt.dll.config
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.DomainDriven\bin\Debug\Dapper.xml
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.DomainDriven\bin\Debug\Newtonsoft.Json.xml
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.DomainDriven\bin\Debug\JWT.pdb
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.DomainDriven\bin\Debug\JWT.xml
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.DomainDriven\bin\Debug\NLog.xml
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.DomainDriven\bin\Debug\StackExchange.Redis.xml
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.DomainDriven\bin\Debug\System.Memory.xml
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.DomainDriven\bin\Debug\System.Threading.Channels.xml
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.DomainDriven\bin\Debug\System.Threading.Tasks.Extensions.xml
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.DomainDriven\bin\Debug\Pipelines.Sockets.Unofficial.xml
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.DomainDriven\bin\Debug\System.IO.Pipelines.xml
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.DomainDriven\bin\Debug\System.Numerics.Vectors.xml
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.DomainDriven\bin\Debug\zh-CN\CodeArt.EasyMQ.resources.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.DomainDriven\bin\Debug\zh-CN\CodeArt.resources.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.DomainDriven\obj\Debug\CodeArt.DomainDriven.csproj.AssemblyReference.cache
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.DomainDriven\obj\Debug\CodeArt.DomainDriven.Strings.resources
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.DomainDriven\obj\Debug\CodeArt.DomainDriven.Strings.zh-CN.resources
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.DomainDriven\obj\Debug\CodeArt.DomainDriven.csproj.GenerateResource.cache
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.DomainDriven\obj\Debug\CodeArt.DomainDriven.csproj.CoreCompileInputs.cache
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.DomainDriven\obj\Debug\zh-CN\CodeArt.DomainDriven.resources.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.DomainDriven\obj\Debug\CodeArt.DomainDriven.csproj.CopyComplete
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.DomainDriven\obj\Debug\CodeArt.DomainDriven.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.DomainDriven\obj\Debug\CodeArt.DomainDriven.pdb

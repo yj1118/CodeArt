@@ -116,6 +116,14 @@ namespace CodeArt.Util
             }
         }
 
+        public IEnumerable<TKey> Keys
+        {
+            get
+            {
+                return _data.Keys;
+            }
+        }
+
         public bool ContainsKey(TKey key)
         {
             return _data.ContainsKey(key);

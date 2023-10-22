@@ -21,7 +21,7 @@ namespace CodeArt.DomainDriven.DataAccess
                 DataContext.UseTransactionScope(() =>
                 {
                     var sql = CreateTable.Create(this).Build(null, this);
-                    SqlHelper.Execute(this.ConnectionName, sql);
+                    SqlHelper.Execute(sql);
                 });
             });
             AddRuntimeIndex(this);
@@ -54,7 +54,7 @@ namespace CodeArt.DomainDriven.DataAccess
                     IfUnBuilt(index.Name, () =>
                     {
                         var sql = CreateTable.Create(index).Build(null, index);
-                        SqlHelper.Execute(index.ConnectionName, sql);
+                        SqlHelper.Execute(sql);
                     });
                 }
             });
@@ -75,6 +75,21 @@ namespace CodeArt.DomainDriven.DataAccess
                 }
             });
             _built.Clear();
+        }
+
+        /// <summary>
+        /// 清空数据
+        /// </summary>
+        internal static void ClearUp()
+        {
+            DataContext.UseTransactionScope(() =>
+            {
+                foreach (var tableName in _indexs)
+                {
+                    var sql = ClearTable.Create(tableName).Build(null, null);
+                    SqlHelper.Execute(tableName, sql);
+                }
+            });
         }
 
         /// <summary>
@@ -112,7 +127,7 @@ namespace CodeArt.DomainDriven.DataAccess
             tables.Add(string.Format("{0}_{1}", Snapshot, tableName));
         }
 
-        const string Snapshot = "Snapshot";
+        public const string Snapshot = "Snapshot";
 
 
         #region 运行时表索引
@@ -128,6 +143,16 @@ namespace CodeArt.DomainDriven.DataAccess
             {
                 return _runtimeIndexs;
             }
+        }
+
+        public static DataTable GetTable<T>() where T :DomainObject
+        {
+            var objectType = typeof(T);
+            foreach(var table in _runtimeIndexs)
+            {
+                if (table.ObjectType == objectType) return table;
+            }
+            return null;
         }
 
 

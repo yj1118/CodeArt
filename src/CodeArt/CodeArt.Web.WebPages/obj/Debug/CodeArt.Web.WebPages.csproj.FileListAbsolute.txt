@@ -1,22 +1,48 @@
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Web.WebPages\bin\Debug\NLog.config
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Web.WebPages\bin\Debug\CodeArt.Web.WebPages.dll
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Web.WebPages\bin\Debug\CodeArt.Web.WebPages.pdb
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Web.WebPages\bin\Debug\zh-CN\CodeArt.Web.WebPages.resources.dll
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Web.WebPages\bin\Debug\CodeArt.dll
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Web.WebPages\bin\Debug\CodeArt.Web.dll
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Web.WebPages\bin\Debug\Microsoft.Web.Infrastructure.dll
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Web.WebPages\bin\Debug\NLog.dll
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Web.WebPages\bin\Debug\CodeArt.Web.pdb
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Web.WebPages\bin\Debug\CodeArt.pdb
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Web.WebPages\bin\Debug\NLog.xml
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Web.WebPages\bin\Debug\zh-CN\CodeArt.Web.resources.dll
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Web.WebPages\bin\Debug\zh-CN\CodeArt.resources.dll
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Web.WebPages\obj\Debug\CodeArt.Web.WebPages.csprojAssemblyReference.cache
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Web.WebPages\obj\Debug\CodeArt.Web.WebPages.Strings.resources
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Web.WebPages\obj\Debug\CodeArt.Web.WebPages.Strings.zh-CN.resources
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Web.WebPages\obj\Debug\CodeArt.Web.WebPages.csproj.GenerateResource.cache
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Web.WebPages\obj\Debug\CodeArt.Web.WebPages.csproj.CoreCompileInputs.cache
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Web.WebPages\obj\Debug\zh-CN\CodeArt.Web.WebPages.resources.dll
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Web.WebPages\obj\Debug\CodeArt.Web.WebPages.csproj.CopyComplete
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Web.WebPages\obj\Debug\CodeArt.Web.WebPages.dll
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Web.WebPages\obj\Debug\CodeArt.Web.WebPages.pdb
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.Web.WebPages\bin\Debug\NLog.config
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.Web.WebPages\bin\Debug\CodeArt.Web.WebPages.dll.config
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.Web.WebPages\bin\Debug\CodeArt.Web.WebPages.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.Web.WebPages\bin\Debug\CodeArt.Web.WebPages.pdb
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.Web.WebPages\bin\Debug\zh-CN\CodeArt.Web.WebPages.resources.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.Web.WebPages\bin\Debug\CodeArt.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.Web.WebPages\bin\Debug\CodeArt.Web.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.Web.WebPages\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.Web.WebPages\bin\Debug\Newtonsoft.Json.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.Web.WebPages\bin\Debug\JWT.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.Web.WebPages\bin\Debug\NLog.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.Web.WebPages\bin\Debug\StackExchange.Redis.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.Web.WebPages\bin\Debug\System.IO.Compression.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.Web.WebPages\bin\Debug\System.Memory.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.Web.WebPages\bin\Debug\System.Threading.Channels.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.Web.WebPages\bin\Debug\System.Threading.Tasks.Extensions.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.Web.WebPages\bin\Debug\Pipelines.Sockets.Unofficial.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.Web.WebPages\bin\Debug\System.IO.Pipelines.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.Web.WebPages\bin\Debug\System.Runtime.InteropServices.RuntimeInformation.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.Web.WebPages\bin\Debug\netstandard.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.Web.WebPages\bin\Debug\System.Numerics.Vectors.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.Web.WebPages\bin\Debug\System.Net.Sockets.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.Web.WebPages\bin\Debug\CodeArt.Web.pdb
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.Web.WebPages\bin\Debug\CodeArt.Web.dll.config
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.Web.WebPages\bin\Debug\CodeArt.pdb
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.Web.WebPages\bin\Debug\CodeArt.dll.config
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.Web.WebPages\bin\Debug\Newtonsoft.Json.xml
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.Web.WebPages\bin\Debug\JWT.pdb
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.Web.WebPages\bin\Debug\JWT.xml
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.Web.WebPages\bin\Debug\NLog.xml
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.Web.WebPages\bin\Debug\StackExchange.Redis.xml
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.Web.WebPages\bin\Debug\System.Memory.xml
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.Web.WebPages\bin\Debug\System.Threading.Channels.xml
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.Web.WebPages\bin\Debug\System.Threading.Tasks.Extensions.xml
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.Web.WebPages\bin\Debug\Pipelines.Sockets.Unofficial.xml
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.Web.WebPages\bin\Debug\System.IO.Pipelines.xml
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.Web.WebPages\bin\Debug\System.Numerics.Vectors.xml
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.Web.WebPages\bin\Debug\zh-CN\CodeArt.Web.resources.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.Web.WebPages\bin\Debug\zh-CN\CodeArt.resources.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.Web.WebPages\obj\Debug\CodeArt.Web.WebPages.csproj.AssemblyReference.cache
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.Web.WebPages\obj\Debug\CodeArt.Web.WebPages.Strings.resources
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.Web.WebPages\obj\Debug\CodeArt.Web.WebPages.Strings.zh-CN.resources
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.Web.WebPages\obj\Debug\CodeArt.Web.WebPages.csproj.GenerateResource.cache
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.Web.WebPages\obj\Debug\CodeArt.Web.WebPages.csproj.CoreCompileInputs.cache
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.Web.WebPages\obj\Debug\zh-CN\CodeArt.Web.WebPages.resources.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.Web.WebPages\obj\Debug\CodeArt.Web.WebPages.csproj.CopyComplete
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.Web.WebPages\obj\Debug\CodeArt.Web.WebPages.dll
+D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.Web.WebPages\obj\Debug\CodeArt.Web.WebPages.pdb

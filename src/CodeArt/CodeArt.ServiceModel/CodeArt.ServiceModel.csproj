@@ -49,8 +49,15 @@
     <Compile Include="Configuration\ClientConfig.cs" />
     <Compile Include="Configuration\ServerConfig.cs" />
     <Compile Include="Configuration\ServiceModelConfiguration.cs" />
+    <Compile Include="PreApplicationEnd.cs" />
+    <Compile Include="PreApplicationStart.cs" />
+    <Compile Include="ProApplicationStarted.cs" />
+    <Compile Include="Security\AllowAuthFilter.cs" />
+    <Compile Include="Security\AuthProvider.cs" />
+    <Compile Include="Security\IdentityAuthorizer.cs" />
+    <Compile Include="Security\IAuthFilter.cs" />
+    <Compile Include="Security\AuthScopeFactory.cs" />
     <Compile Include="ServiceContext\Protocol\BinaryResponse.cs" />
-    <Compile Include="ServiceHost\ServiceHostLanguageProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceContext\DataAnalyzer.cs" />
     <Compile Include="ServiceContext\IServiceProxy.cs" />
@@ -67,6 +74,11 @@
     <Compile Include="ServiceProvider\ServiceAttribute.cs" />
     <Compile Include="ServiceProvider\ServiceProvider.cs" />
     <Compile Include="ServiceProvider\ServiceProviderFactory.cs" />
+    <Compile Include="ServiceRecorder\EmptyRecorderFactory.cs" />
+    <Compile Include="ServiceRecorder\EmptyRecorder.cs" />
+    <Compile Include="ServiceRecorder\IServiceRecorderFactory.cs" />
+    <Compile Include="ServiceRecorder\ServiceRecorderFactory.cs" />
+    <Compile Include="ServiceRecorder\IServiceRecorder.cs" />
     <Compile Include="Strings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -78,13 +90,22 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Strings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Strings.zh-CN.resx" />
+    <EmbeddedResource Include="Strings.zh-CN.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CodeArt.EasyMQ\CodeArt.EasyMQ.csproj">
+      <Project>{afb15952-0dfa-4919-9d4b-46c2737654ec}</Project>
+      <Name>CodeArt.EasyMQ</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CodeArt\CodeArt.csproj">
       <Project>{d2c9f430-6b47-482a-a49c-a2478d75f95f}</Project>
       <Name>CodeArt</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

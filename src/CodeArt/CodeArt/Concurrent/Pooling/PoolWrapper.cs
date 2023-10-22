@@ -64,6 +64,8 @@ namespace CodeArt.Concurrent
 
         public void Return(T item)
         {
+            if (item == null) return;
+
             IPoolItem<WrapperItem<T>> poolItem = null;
             if (!_map.TryGetValue(item, out poolItem))
                 throw new PoolingException(string.Format(Strings.NotFoundPoolItem, item.ToString()));

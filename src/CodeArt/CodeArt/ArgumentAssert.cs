@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace CodeArt
@@ -26,6 +27,13 @@ namespace CodeArt
             if (value == null) throw new ArgumentNullException(parameterName);
             if (value.Count == 0) throw new ArgumentException(parameterName + " 不能为empty", parameterName);
         }
+
+        public static void IsNotNullOrEmpty<T>(IEnumerable<T> value, string parameterName)
+        {
+            if (value == null) throw new ArgumentNullException(parameterName);
+            if (value.Count() == 0) throw new ArgumentException(parameterName + " 不能为empty", parameterName);
+        }
+
 
         /// <summary>
         /// 当value是null时候，抛出ArgumentNullException

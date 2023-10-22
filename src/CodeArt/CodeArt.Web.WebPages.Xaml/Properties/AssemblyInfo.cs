@@ -38,3 +38,4 @@ using System.Runtime.InteropServices;
 [assembly: XmlnsDefinition("http://schemas.codeart.cn/web/xaml", "CodeArt.Web.WebPages.Xaml.Controls", "CodeArt.Web.WebPages.Xaml")]
 [assembly: XmlnsDefinition("http://schemas.codeart.cn/web/xaml", "CodeArt.Web.WebPages.Xaml", "CodeArt.Web.WebPages.Xaml")]
 [assembly: XmlnsDefinition("http://schemas.codeart.cn/web/xaml", "CodeArt.Web.WebPages.Xaml.Markup", "CodeArt.Web.WebPages.Xaml")]
+[assembly: XmlnsDefinition("http://schemas.codeart.cn/web/xaml", "CodeArt.Web.WebPages.Xaml.Component", "CodeArt.Web.WebPages.Xaml")]

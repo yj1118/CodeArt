@@ -7,7 +7,6 @@ using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using CodeArt.Runtime;
-using CodeArt.TestTools;
 
 namespace CodeArtTest.Runtime
 {
@@ -15,7 +14,7 @@ namespace CodeArtTest.Runtime
 
 
     [TestClass]
-    public class RuntimeUtilTest : UnitTest
+    public class RuntimeUtilTest
     {
         [TestMethod]
         public void PropertyValue()

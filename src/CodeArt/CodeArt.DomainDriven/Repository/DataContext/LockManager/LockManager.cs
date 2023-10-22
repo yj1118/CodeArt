@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace CodeArt.DomainDriven
@@ -9,6 +10,8 @@ namespace CodeArt.DomainDriven
     {
         public static void Lock(IEnumerable<IAggregateRoot> roots)
         {
+            if(roots.Count()== 0) return;
+
             if (_manager == null)
                 throw new DomainDrivenException(Strings.NotExistLockManager);
             _manager.Lock(roots);

@@ -159,7 +159,7 @@ namespace CodeArt.DomainDriven.DataAccess
 
         public static bool IsFrameworkDomainObjectType(this Type domainObjectType)
         {
-            return DomainObject.IsFrameworkDomainObjectType(domainObjectType);
+            return DomainObject.IsFrameworkDomainType(domainObjectType);
         }
 
         

@@ -12,5 +12,7 @@ namespace CodeArt.EasyMQ.RPC
     public interface IServerFactory
     {
         IServer Create(string method);
+
+        IEnumerable<IServer> GetAll();
     }
 }

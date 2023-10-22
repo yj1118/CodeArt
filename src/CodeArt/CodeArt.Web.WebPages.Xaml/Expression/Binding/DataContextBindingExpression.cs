@@ -65,17 +65,28 @@ namespace CodeArt.Web.WebPages.Xaml
             {
                 //当没有指定path时，以源作为value
                 value = source;
+
+                var dtoValue = value as DTObject;
+                if(dtoValue != null && dtoValue.IsSingleValue)
+                {
+                    value = dtoValue.GetValue();
+                }
             }
             else
             {
                 var dtoSource = source as DTObject;
                 if (dtoSource != null)
                 {
-                    value = dtoSource.GetValue(this.Path);
+                    value = dtoSource.GetValue(this.Path, null);
                 }
                 else
                 {
-                    value = RuntimeUtil.GetPropertyValue(source, this.Path);
+                    //在初始化阶段，DataContext还不存在，所以有可能从属性里加载，这里就要对属性进行判断
+                    var pi = source.GetType().ResolveProperty(this.Path);
+                    if(pi != null)
+                    {
+                        value = RuntimeUtil.GetPropertyValue(source, this.Path);
+                    }
                 }
             }
 

@@ -13,6 +13,8 @@ using CodeArt.Runtime;
 using CodeArt.Util;
 using CodeArt.Concurrent;
 using CodeArt.AppSetting;
+using System.Xml.Linq;
+using System.Reflection.Emit;
 
 namespace CodeArt.DomainDriven.DataAccess
 {
@@ -182,22 +184,25 @@ namespace CodeArt.DomainDriven.DataAccess
         {
             DomainObject obj = null;
 
-            if (this.IsDynamic)
+            DataContext.Using(()=>
             {
-                if (data.IsEmpty()) obj = (DomainObject)DomainObject.GetEmpty(this.ObjectType);
+                if (this.IsDynamic)
+                {
+                    if (data.IsEmpty()) obj = (DomainObject)DomainObject.GetEmpty(this.ObjectType);
+                    else
+                    {
+                        obj = CreateObjectImpl(this.DynamicType, this.DynamicType.ObjectType, data, level);
+                    }
+                }
                 else
                 {
-                    obj = CreateObjectImpl(this.DynamicType, this.DynamicType.ObjectType, data, level);
+                    if (data.IsEmpty()) obj = (DomainObject)DomainObject.GetEmpty(objectType);
+                    else
+                    {
+                        obj = CreateObjectImpl(objectType, objectType, data, level);
+                    }
                 }
-            }
-            else
-            {
-                if (data.IsEmpty()) obj = (DomainObject)DomainObject.GetEmpty(objectType);
-                else
-                {
-                    obj = CreateObjectImpl(objectType, objectType, data, level);
-                }
-            }
+            });
             return obj;
         }
 
@@ -305,11 +310,23 @@ namespace CodeArt.DomainDriven.DataAccess
             {
                 //只有是可以公开设置的属性和不是延迟加载的属性我们才会主动赋值
                 //有些属性是私有设置的，这种属性有可能是仅获取外部的数据而不需要赋值的
-                if (propertyTip.IsPublicSet && !propertyTip.Lazy)
+                //如果做了inner处理，那么立即加载
+                if ((propertyTip.IsPublicSet && !propertyTip.Lazy) || ContainsObjectData(propertyTip, data))
                 {
                     var value = ReadPropertyValue(obj, propertyTip, null, data, level); //已不是构造，所以不需要prmTip参数
                     if (value == null)
-                        throw new DataAccessException(string.Format(Strings.LoadPropertyError, propertyTip.Path));
+                    {
+                        if(obj.IsSnapshot && !propertyTip.Snapshot)
+                        {
+                            //对象是镜像，并且属性没有标记为镜像，那么当加载不到对应数据时，赋予默认值
+                            value = propertyTip.Property.GetDefaultValue(obj, propertyTip.Property);
+                        }
+                        else
+                        {
+                            throw new DataAccessException(string.Format(Strings.LoadPropertyError, propertyTip.Path));
+                        }
+                    }
+                        
                     obj.SetValue(propertyTip.Property, value);
                 }
             }
@@ -491,16 +508,130 @@ namespace CodeArt.DomainDriven.DataAccess
             return masterLevel == QueryLevel.Mirroring ? QueryLevel.Mirroring : QueryLevel.None;
         }
 
+        /// <summary>
+        /// 获得子对象的数据
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        private bool TryGetObjectData(DynamicData data, PropertyRepositoryAttribute tip, out DynamicData value)
+        {
+            value = null;
+
+            //以前缀来最大化收集，因为会出现类似Good_Unit_Name 这种字段，不是默认字段，但是也要收集，是通过inner good.unit的语法来的
+            var prefix = $"{tip.PropertyName}_";
+
+            foreach(var p in data)
+            {
+                if (p.Key.StartsWith(prefix))
+                {
+                    if(value == null) value = new DynamicData();
+
+                    value[p.Key.Substring(prefix.Length)] = p.Value;
+                }
+            }
+
+            return value != null;
+
+            //var fields = model.Root.DefaultQueryFields;
+            //foreach (var field in fields)
+            //{
+            //    var name = $"{model.Root.Name}_{field.Name}";
+            //    if (!data.ContainsKey(name))
+            //    {
+            //        value = null;
+            //        return false;
+            //    }
+            //}
+
+            //value = new DynamicData();
+
+            //foreach (var field in fields)
+            //{
+            //    var name = $"{model.Root.Name}_{field.Name}";
+            //    value[field.Name] = data[name];
+            //}
+
+            //return true;
+        }
+
+        private bool ContainsObjectData(PropertyRepositoryAttribute tip,DynamicData data)
+        {
+            DataTable table = null;
+
+            switch (tip.DomainPropertyType)
+            {
+                case DomainPropertyType.AggregateRoot:
+                    {
+                        var model = DataModel.Create(tip.PropertyType);
+                        table = model.Root;
+                        break;
+                    }
+                case DomainPropertyType.EntityObject:
+                case DomainPropertyType.ValueObject:
+                    {
+                        table = GetChildTableByRuntime(this, tip);
+                        break;
+                    }
+                default: 
+                    return false;
+            }
+
+            //以默认字段来验证
+            var fields = table.DefaultQueryFields;
+
+            foreach(var field in fields)
+            {
+                var name = $"{tip.PropertyName}_{field.Name}";
+                if (!data.ContainsKey(name)) return false;
+            }
+            return true;
+
+
+            //var prefix = $"{tip.PropertyName}_";
+
+            //foreach (var p in data)
+            //{
+            //    if (p.Key.StartsWith(prefix)) return true;
+            //}
+            //return false;
+        }
+
         private object ReadAggregateRoot(PropertyRepositoryAttribute tip, DynamicData data, QueryLevel level)
         {
+            var model = DataModel.Create(tip.PropertyType);
+
+            if (TryGetObjectData(data, tip, out var item))
+            {
+                DynamicData entry = item as DynamicData;
+                var obj = model.Root.CreateObject(tip.PropertyType, entry, QueryLevel.None); //从数据中直接加载的根对象信息，一定是不带锁的
+
+                //数据填充的对象，不加载镜像（为了提高性能）
+                //if (((IDomainObject)obj).IsEmpty() && model.ObjectTip.Snapshot)
+                //{
+                //    //加载快照
+                //    obj = model.Snapshot.QuerySingle(id, QueryLevel.None);
+                //}
+
+                return obj;
+            }
+
+
             var dataKey = _getIdName(tip.PropertyName);
 
             object id = null;
             if (data.TryGetValue(dataKey, out id))
             {
-                var model = DataModel.Create(tip.PropertyType);
                 var queryLevel = GetQueryAggreateRootLevel(level);
-                return model.Root.QuerySingle(id, queryLevel);
+                var obj = model.Root.QuerySingle(id, queryLevel);
+
+                if (((IDomainObject)obj).IsEmpty() && model.ObjectTip.Snapshot)
+                {
+                    //加载快照
+                    obj = model.Snapshot.QuerySingle(id, QueryLevel.None);
+                }
+
+                return obj;
             }
             return null;
         }
@@ -701,7 +832,7 @@ namespace CodeArt.DomainDriven.DataAccess
                 param.Add(EntityObject.IdPropertyName, id);
 
                 var sql = query.Build(param, this);
-                return SqlHelper.ExecuteScalar(this.ConnectionName, sql, param);
+                return SqlHelper.ExecuteScalar(sql, param);
             }
         }
 
@@ -729,7 +860,7 @@ namespace CodeArt.DomainDriven.DataAccess
                 AddToTenant(param);
 
                 var sql = query.Build(param, this);
-                SqlHelper.Query(this.ConnectionName, sql, param, datas);
+                SqlHelper.Query(sql, param, datas);
             }
         }
 
@@ -752,13 +883,13 @@ namespace CodeArt.DomainDriven.DataAccess
                     param.Add(GeneratedField.MasterIdName, masterId);
                 }
 
-                if (this.IsEnabledMultiTenancy)
+                if (this.IsSessionEnabledMultiTenancy)
                 {
                     param.Add(GeneratedField.TenantIdName, AppSession.TenantId);
                 }
 
                 var sql = query.Build(param, this);
-                SqlHelper.Query(this.ConnectionName, sql, param, datas);
+                SqlHelper.Query(sql, param, datas);
             }
         }
 

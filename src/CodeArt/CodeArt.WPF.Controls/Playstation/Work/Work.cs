@@ -95,6 +95,17 @@ namespace CodeArt.WPF.Controls.Playstation
             set { SetValue(ShowCloseProperty, value); }
         }
 
+        public static readonly DependencyProperty ShowMinProperty = DependencyProperty.Register("ShowMin", typeof(bool), typeof(Work), new PropertyMetadata(true));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool ShowMin
+        {
+            get { return (bool)GetValue(ShowMinProperty); }
+            set { SetValue(ShowMinProperty, value); }
+        }
+
         public static readonly DependencyProperty ShowKeyboardProperty = DependencyProperty.Register("ShowKeyboard", typeof(bool), typeof(Work), new PropertyMetadata(false));
 
         /// <summary>

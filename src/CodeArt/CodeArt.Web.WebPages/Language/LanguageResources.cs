@@ -24,7 +24,7 @@ namespace CodeArt.Web.WebPages
         /// <returns></returns>
         public static string Get(string name)
         {
-            return GetStringsResource(Language.Current.Name,name);
+            return GetStringsResource(AppSession.Language,name);
         }
 
         /// <summary>

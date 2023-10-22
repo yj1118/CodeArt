@@ -21,6 +21,7 @@ namespace CodeArt.DomainDriven
         private static void Initialize()
         {
             DomainObject.Initialize();
+            LogableAttribute.Initialize();
         }
     }
 }

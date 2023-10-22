@@ -37,5 +37,10 @@ namespace CodeArt.Web.WebPages
         /// <param name="variable"></param>
         /// <param name="content"></param>
         void Delete(CacheVariable variable);
+
+        /// <summary>
+        /// 删除全部缓存
+        /// </summary>
+        void DeleteAll();
     }
 }

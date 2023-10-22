@@ -25,10 +25,10 @@ namespace CodeArt.Web.WebPages
             {
                 _module.Process(app);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 _module.End(app);
-                throw ex;
+                throw;
             }
         }
 
@@ -40,9 +40,9 @@ namespace CodeArt.Web.WebPages
             {
                 _module.End(app);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
 

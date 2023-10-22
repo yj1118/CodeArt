@@ -1,0 +1,49 @@
+﻿<ControlTemplate xmlns="http://schemas.codeart.cn/web/xaml"
+                 xmlns:m="http://schemas.codeart.cn/web/xaml/metronic"
+                 xmlns:local="http://schemas.codeart.cn/web/xaml/local">
+<m:Modal id="questionsDialog" size="xl">
+    <m:DataTable id="questionsTable" name="questionsTable">
+        <m:DataTable.Header>
+            <m:DataTableQuery SearchAction="OnQuestionsSearch">
+                <m:TextBox layout="cell" placeholder="内容" query-field="content" />
+                <m:Select layout="cell" label="类型" query-field="type" placeholder="类型" valueType="number">
+                    <m:Select.Options>
+                        <m:option value="" text="全部"></m:option>
+                        <m:option value="1" text="单选题"></m:option>
+                        <m:option value="2" text="多选题"></m:option>
+                        <m:option value="3" text="陈述题"></m:option>
+                    </m:Select.Options>
+                </m:Select>
+                <m:Select layout="cell" label="标签" query-field="tag" modal="tagsDialog" placeholder="标签" />
+            </m:DataTableQuery>
+        </m:DataTable.Header>
+        <m:DataTable.Columns>
+            <m:DataTableColumn field="Id" selector="true"></m:DataTableColumn>
+            <m:DataTableColumn field="Content" textField="true" title="问题" sortable="false" textAlign="left"></m:DataTableColumn>
+            <m:DataTableColumn field="Tags" title="标签" sortable="false" textAlign="center" width="500" getTemplate="tagsTemplate"></m:DataTableColumn>
+        </m:DataTable.Columns>
+    </m:DataTable>
+    <m:Modal.Footer>
+        <!-- 标记了 data-select-ok 那么select组件就会在按钮点击时，将table中对应的value和text提取到select中 -->
+        <m:button color="primary" icon="flaticon-plus" text="确定选择" data-select-ok="{value:'id',text:'content'}"></m:button>
+        <m:button color="secondary" text="关闭" data-dismiss="modal"></m:button>
+    </m:Modal.Footer>
+</m:Modal>
+
+<local:TagsModal />
+
+<RawCode Origin="Bottom">
+    <script>
+        function tagsTemplate(row, index, datatable) {
+            var tags = row.Tags;
+            if (!tags) return '';
+            var l = [];
+            tags.each(function () {
+                l.push(this.Name);
+            });
+            return l.join(",");
+        }
+    </script>
+</RawCode>
+
+</ControlTemplate>

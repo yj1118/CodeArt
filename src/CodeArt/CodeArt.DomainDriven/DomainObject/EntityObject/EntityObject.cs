@@ -5,6 +5,8 @@ using System.Text;
 
 namespace CodeArt.DomainDriven
 {
+    [MergeDomain]
+    [FrameworkDomain]
     public abstract class EntityObject : DomainObject, IEntityObject
     {
         /// <summary>
@@ -52,6 +54,8 @@ namespace CodeArt.DomainDriven
     /// </summary>
     /// <typeparam name="OT">对象类型</typeparam>
     /// <typeparam name="KT">识别对象的唯一编号的类型</typeparam>
+    [MergeDomain]
+    [FrameworkDomain]
     public abstract class EntityObject<TObject, TIdentity> : EntityObject
         where TObject : EntityObject<TObject, TIdentity>
         where TIdentity : struct
@@ -125,9 +129,10 @@ namespace CodeArt.DomainDriven
         }
     }
 
-
+    [MergeDomain]
+    [FrameworkDomain]
     public abstract class EntityObject<TObject, TIdentity, TObjectEmpty> : EntityObject<TObject, TIdentity>
-            where TObject : AggregateRoot<TObject, TIdentity>
+            where TObject : EntityObject<TObject, TIdentity>
             where TIdentity : struct
             where TObjectEmpty : TObject, new()
     {

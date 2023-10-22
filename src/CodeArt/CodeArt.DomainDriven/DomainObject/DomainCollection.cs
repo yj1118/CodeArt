@@ -54,9 +54,50 @@ namespace CodeArt.DomainDriven
         /// <param name="e"></param>
         private void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
+            MarkChanged();
+            SetMembersEvent(e);//执行该代码后，成员对象发生改变，也会引起所在集合所在的属性发生改变的事件
+        }
+
+        private void MarkChanged()
+        {
             if (this.Parent == null) return;
             if (this.Parent.IsConstructing) return; //构造时不用标记
             this.Parent.MarkPropertyChanged(this.PropertyInParent);
+        }
+
+        private void SetMembersEvent(NotifyCollectionChangedEventArgs e)
+        {
+            var oldItems = e.OldItems;
+            if (oldItems != null)
+            {
+                foreach (var item in oldItems)
+                {
+                    var obj = item as DomainObject;
+                    if (obj != null)
+                    {
+                        obj.Changed -= OnMemberChanged;
+                    }
+                }
+            }
+
+            var newItems = e.NewItems;
+            if (newItems != null)
+            {
+                foreach (var item in newItems)
+                {
+                    var obj = item as DomainObject;
+                    if (obj != null)
+                    {
+                        obj.Changed -= OnMemberChanged;
+                        obj.Changed += OnMemberChanged;
+                    }
+                }
+            }
+        }
+
+        private void OnMemberChanged(object sender, DomainObjectChangedEventArgs e)
+        {
+            MarkChanged();
         }
     }
 }

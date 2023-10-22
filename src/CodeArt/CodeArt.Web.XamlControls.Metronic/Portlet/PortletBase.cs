@@ -42,6 +42,20 @@ namespace CodeArt.Web.XamlControls.Metronic
             }
         }
 
+        public static readonly DependencyProperty BackgroundColorProperty = DependencyProperty.Register<string, PortletBase>("BackgroundColor", () => { return "#f2f3f8"; });
+
+        public string BackgroundColor
+        {
+            get
+            {
+                return (string)GetValue(BackgroundColorProperty);
+            }
+            set
+            {
+                SetValue(BackgroundColorProperty, value);
+            }
+        }
+
         public static readonly DependencyProperty DescriptionProperty = DependencyProperty.Register<UIElementCollection, PortletBase>("Description", () => { return new UIElementCollection(); });
         public UIElementCollection Description
         {

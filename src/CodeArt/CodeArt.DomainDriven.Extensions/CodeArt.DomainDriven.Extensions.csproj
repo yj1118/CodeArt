@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.2.0.123\lib\net461\Dapper.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -46,8 +49,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API.cs" />
+    <Compile Include="Application\PreApplicationEnd.cs" />
+    <Compile Include="Application\ProApplicationStarted.cs" />
+    <Compile Include="Application\PreApplicationStart.cs" />
     <Compile Include="Common\ExpandedProperty\ExpandedProperty.cs" />
     <Compile Include="Common\TimeRange.cs" />
+    <Compile Include="DomainMessage\DomainMessage.cs" />
+    <Compile Include="DomainMessage\DomainMessageHandler.cs" />
+    <Compile Include="DomainMessage\DomainMessageRepository.cs" />
+    <Compile Include="DomainMessage\DomainMessageSpecification.cs" />
+    <Compile Include="DomainMessage\DomainMessageWrapper.cs" />
     <Compile Include="DTObjectPro.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Strings.Designer.cs">
@@ -57,6 +69,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CodeArt.DomainDriven.DataAccess\CodeArt.DomainDriven.DataAccess.csproj">
+      <Project>{c0bac0eb-7068-42af-acac-09df677cf980}</Project>
+      <Name>CodeArt.DomainDriven.DataAccess</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CodeArt.DomainDriven\CodeArt.DomainDriven.csproj">
       <Project>{f62d7792-f4ee-4924-898e-c56309e6dfc2}</Project>
       <Name>CodeArt.DomainDriven</Name>
@@ -77,8 +93,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Strings.zh-CN.resx" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Common\MultilingualString\" />
+    <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

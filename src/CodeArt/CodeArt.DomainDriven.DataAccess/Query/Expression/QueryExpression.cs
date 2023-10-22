@@ -66,7 +66,7 @@ namespace CodeArt.DomainDriven.DataAccess
         {
             this.Target = target;
             this.Expression = expression;
-            this.Definition = SqlDefinition.Create(this.Expression, target.IsEnabledMultiTenancy);
+            this.Definition = SqlDefinition.Create(this.Expression, target.IsSessionEnabledMultiTenancy);
             this.Level = level;
         }
 
@@ -175,7 +175,7 @@ namespace CodeArt.DomainDriven.DataAccess
                                                     SqlStatement.Qualifier(field.Name));
             }
 
-            if(current.IsEnabledMultiTenancy)
+            if(current.IsSessionEnabledMultiTenancy)
             {
                 if (tableType != TableType.Derived)
                 {
@@ -238,6 +238,7 @@ namespace CodeArt.DomainDriven.DataAccess
             if (!ContainsTable(chainRoot, exp, current)) return;
 
             var chain = current.GetChainCode(chainRoot);
+            bool containsInner = exp.ContainsInner(chain);
 
             sql.AppendLine();
 
@@ -254,14 +255,15 @@ namespace CodeArt.DomainDriven.DataAccess
 
                 var fieldName = string.Format("{0}_{1}", chain, field.Name);
 
-                if (!ContainsField(fieldName, exp)) continue;
+                if (!containsInner &&
+                        !ContainsField(fieldName, exp)) continue;
 
                 sql.AppendFormat("{0}.{1} as {2},", SqlStatement.Qualifier(chain),
                                                     SqlStatement.Qualifier(field.Name),
                                                     SqlStatement.Qualifier(fieldName));
             }
 
-            if (current.IsEnabledMultiTenancy)
+            if (current.IsSessionEnabledMultiTenancy)
             {
                 if (tableType != TableType.Derived)
                 {
@@ -408,7 +410,7 @@ namespace CodeArt.DomainDriven.DataAccess
             var chain = current.GetChainCode(chainRoot);
             string masterTableName = string.IsNullOrEmpty(masterChain) ? master.Name : masterChain;
 
-            string currentTenantSql = current.IsEnabledMultiTenancy ? string.Format("and {0}.{1}=@{2}", SqlStatement.Qualifier(chain),
+            string currentTenantSql = current.IsSessionEnabledMultiTenancy ? string.Format("and {0}.{1}=@{2}", SqlStatement.Qualifier(chain),
                                                                 SqlStatement.Qualifier(GeneratedField.TenantIdName),
                                                                 GeneratedField.TenantIdName) : string.Empty;
 
@@ -418,7 +420,7 @@ namespace CodeArt.DomainDriven.DataAccess
                 var middle = current.Middle;
                 var masterIdName = middle.Root == middle.Master ? GeneratedField.RootIdName : GeneratedField.MasterIdName;
 
-                string middleTenantSql = middle.IsEnabledMultiTenancy ? string.Format("and {0}.{1}=@{2}", SqlStatement.Qualifier(middle.Name),
+                string middleTenantSql = middle.IsSessionEnabledMultiTenancy ? string.Format("and {0}.{1}=@{2}", SqlStatement.Qualifier(middle.Name),
                         SqlStatement.Qualifier(GeneratedField.TenantIdName),
                         GeneratedField.TenantIdName) : string.Empty;
 
@@ -469,7 +471,9 @@ namespace CodeArt.DomainDriven.DataAccess
                 {
                     if(chainRoot.Type == DataTableType.AggregateRoot)
                     {
-                        string rootTableName = chainRoot.Name;
+                        var chainRootMemberPropertyTip = current.ChainRoot.MemberPropertyTip;
+                        //string rootTableName = chainRoot.Name;
+                        string rootTableName = chainRootMemberPropertyTip == null ? chainRoot.Name : chainRootMemberPropertyTip.PropertyName;
                         var tip = current.MemberPropertyTip;
                         sql.AppendFormat(" left join {0} as {1}{4} on {2}.{3}Id={1}.Id and {1}.{5}={6}.Id {7}",
                         SqlStatement.Qualifier(current.Name),
@@ -536,7 +540,7 @@ namespace CodeArt.DomainDriven.DataAccess
             sql.AppendFormat(" from {0}{1}", SqlStatement.Qualifier(inheritedRoot.Name), GetLockCode(level));
             foreach (var derived in table.Deriveds)
             {
-                string derivedTenantSql = derived.IsEnabledMultiTenancy ? string.Format("and {0}.{1}=@{2}", SqlStatement.Qualifier(derived.Name),
+                string derivedTenantSql = derived.IsSessionEnabledMultiTenancy ? string.Format("and {0}.{1}=@{2}", SqlStatement.Qualifier(derived.Name),
                                                                 SqlStatement.Qualifier(GeneratedField.TenantIdName),
                                                                 GeneratedField.TenantIdName) : string.Empty;
 
@@ -606,9 +610,14 @@ namespace CodeArt.DomainDriven.DataAccess
 
         private static bool ContainsTable(DataTable root, SqlDefinition exp, DataTable target)
         {
+            var path = target.GetChainCode(root);
+            bool containsInner = exp.ContainsInner(path);
+
+            if (containsInner) return true;
+
+
             if (target.IsMultiple)
             {
-                var path = target.GetChainCode(root);
                 return exp.ContainsChain(path);
             }
             var tip = target.MemberPropertyTip;
@@ -616,14 +625,12 @@ namespace CodeArt.DomainDriven.DataAccess
             if (exp.IsSpecifiedField)
             {
                 //指定了加载字段，那么就看表是否提供了相关的字段
-                var path = target.GetChainCode(root);
                 return exp.ContainsChain(path);
             }
             else
             {
                 if (target.Type == DataTableType.AggregateRoot || tip.Lazy)
                 {
-                    var path = target.GetChainCode(root);
                     if (!exp.ContainsChain(path))
                     {
                         return false; //默认情况下外部的内聚根、懒惰加载不连带查询
@@ -638,13 +645,28 @@ namespace CodeArt.DomainDriven.DataAccess
         private string GetFinallyObjectSql(string tableSql, DataTable table)
         {
             string sql = null;
-            if (this.Definition.Condition.IsEmpty())
+
+            if(this.Definition.HasInner)
             {
-                sql = string.Format("select distinct {2} from ({0}) as {1}", tableSql, SqlStatement.Qualifier(table.Name), this.Definition.GetFieldsSql());
+                if (this.Definition.Condition.IsEmpty())
+                {
+                    sql = string.Format("select distinct * from ({0}) as {1}", tableSql, SqlStatement.Qualifier(table.Name));
+                }
+                else
+                {
+                    sql = string.Format("select distinct * from ({0}) as {1} where {2}", tableSql, SqlStatement.Qualifier(table.Name), this.Definition.Condition.Code);
+                }
             }
             else
             {
-                sql = string.Format("select distinct {3} from ({0}) as {1} where {2}", tableSql, SqlStatement.Qualifier(table.Name), this.Definition.Condition.Code, this.Definition.GetFieldsSql());
+                if (this.Definition.Condition.IsEmpty())
+                {
+                    sql = string.Format("select distinct {2} from ({0}) as {1}", tableSql, SqlStatement.Qualifier(table.Name), this.Definition.GetFieldsSql());
+                }
+                else
+                {
+                    sql = string.Format("select distinct {3} from ({0}) as {1} where {2}", tableSql, SqlStatement.Qualifier(table.Name), this.Definition.Condition.Code, this.Definition.GetFieldsSql());
+                }
             }
 
             return string.Format("({0}) as {1}", sql, SqlStatement.Qualifier(table.Name));

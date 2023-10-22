@@ -34,5 +34,16 @@ namespace Module.WebUI.Xaml
             if (key == null) return base.GetExtension(context);
             return PathUtil.GetExtension(key);
         }
+
+        protected override bool IsDownload(WebPageContext context)
+        {
+            return false;
+        }
+
+        protected override string GetFileName(WebPageContext context)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }

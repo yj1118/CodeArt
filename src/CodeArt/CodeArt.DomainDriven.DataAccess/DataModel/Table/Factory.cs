@@ -11,7 +11,7 @@ using CodeArt.DomainDriven;
 using CodeArt.Runtime;
 using CodeArt.Util;
 using CodeArt.Concurrent;
-
+using CodeArt.AppSetting;
 
 namespace CodeArt.DomainDriven.DataAccess
 {
@@ -162,11 +162,11 @@ namespace CodeArt.DomainDriven.DataAccess
         }
 
 
-        public string ConnectionName
-        {
-            get;
-            private set;
-        }
+        //public string ConnectionName
+        //{
+        //    get;
+        //    private set;
+        //}
 
         /// <summary>
         /// 所属主表
@@ -232,15 +232,29 @@ namespace CodeArt.DomainDriven.DataAccess
             private set;
         }
 
-        public bool IsEnabledMultiTenancy
+        public bool IsSessionEnabledMultiTenancy
         {
             get
             {
                 if(this.ObjectTip == null)
                 {
                     //中间表是没有ObjectTip的
+                    return this.Root.IsSessionEnabledMultiTenancy;
+                }
+                return IsEnabledMultiTenancy && AppSession.TenantEnabled;
+            }
+        }
+
+        public bool IsEnabledMultiTenancy
+        {
+            get
+            {
+                if (this.ObjectTip == null)
+                {
+                    //中间表是没有ObjectTip的
                     return this.Root.IsEnabledMultiTenancy;
                 }
+                if (this.IsDynamic) return false; //动态类型是远程对象，远程对象不加租户编号
                 return !this.ObjectTip.CloseMultiTenancy && DomainDrivenConfiguration.Current.MultiTenancyConfig.IsEnabled;
             }
         }
@@ -249,6 +263,18 @@ namespace CodeArt.DomainDriven.DataAccess
         {
             get;
             private set;
+        }
+
+
+        /// <summary>
+        /// 默认查询的字段
+        /// </summary>
+        public IEnumerable<IDataField> DefaultQueryFields
+        {
+            get
+            {
+                return this.Fields.Where(field => !field.IsAdditional && !field.Tip.Lazy);
+            }
         }
 
         public IEnumerable<IDataField> ObjectFields
@@ -413,7 +439,7 @@ namespace CodeArt.DomainDriven.DataAccess
             this.ObjectFields = objectFields;
             this.PropertyTips = GetPropertyTips();
             InitDerived();
-            InitConnectionName();
+            //InitConnectionName();
             InitTableIdName();
             InitChilds();
             InitDynamic();
@@ -464,7 +490,7 @@ namespace CodeArt.DomainDriven.DataAccess
         {
             Stack<DataTable> inheriteds = new Stack<DataTable>();
             var baseType = this.ObjectType.BaseType;
-            while (baseType != null && !DomainObject.IsFrameworkDomainObjectType(baseType))
+            while (baseType != null && !DomainObject.IsMergeDomainType(baseType))
             {
                 DataTable table = CreateInheritedTable(baseType);
                 inheriteds.Push(table);
@@ -521,18 +547,18 @@ namespace CodeArt.DomainDriven.DataAccess
         }
 
 
-        private void InitConnectionName()
-        {
-            if (this.IsMultiple)
-            {
-                this.ConnectionName = this.Root.ConnectionName;
-            }
-            else
-            {
-                //自身为根表，就取表名为连接字符串的名称
-                this.ConnectionName = this.Type == DataTableType.AggregateRoot ? this.Name :this.Root.Name;
-            }
-        }
+        //private void InitConnectionName()
+        //{
+        //    if (this.IsMultiple)
+        //    {
+        //        this.ConnectionName = this.Root.ConnectionName;
+        //    }
+        //    else
+        //    {
+        //        //自身为根表，就取表名为连接字符串的名称
+        //        this.ConnectionName = this.Type == DataTableType.AggregateRoot ? this.Name :this.Root.Name;
+        //    }
+        //}
 
         private void InitObjectType(Type objectType,PropertyRepositoryAttribute tip)
         {

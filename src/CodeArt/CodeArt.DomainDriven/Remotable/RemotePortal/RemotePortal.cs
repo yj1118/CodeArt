@@ -23,10 +23,10 @@ namespace CodeArt.DomainDriven
         /// <param name="define">远程对象的定义</param>
         /// <param name="id">远程对象的数据编号</param>
         /// <returns></returns>
-        internal static DynamicRoot GetObject(AggregateRootDefine define, object id)
+        internal static DynamicRoot GetObject(AggregateRootDefine define, object id, QueryLevel level)
         {
             var repository = Repository.Create<IDynamicRepository>();
-            var root = repository.Find(define, id, QueryLevel.None);
+            var root = repository.Find(define, id, level);
             if (!root.IsEmpty()) return root;//注释这句话就可以测试paper提交引起的死锁问题，该问题目前已解决
 
             //从远程获取聚合根对象
@@ -104,7 +104,6 @@ namespace CodeArt.DomainDriven
                 var local = repository.Find(define, id, QueryLevel.HoldSingle);
                 if (local.IsEmpty()) return; //本地没有数据，不需要更新
 
-                //System.Threading.Thread.Sleep(3000);  取消注释就可以测试paper提交引起的死锁问题，该问题目前已解决
                 var root = GetRootByRemote(define, id);
                 if (root.IsEmpty())
                 {
@@ -130,10 +129,21 @@ namespace CodeArt.DomainDriven
         internal static void DeleteObject(AggregateRootDefine define, object id)
         {
             var repository = Repository.Create<IDynamicRepository>();
-            var root = repository.Find(define, id, QueryLevel.None); //删除数据不需要锁定
+            var root = repository.Find(define, id, QueryLevel.Single);
             if (!root.IsEmpty())
             {
-                repository.Delete(define, root);
+                if (define.KeepSnapshot)
+                {
+                    //保留快照
+                    root.MarkSnapshot();
+                    repository.Update(define, root);
+                }
+                else
+                {
+                    //同步删除
+                    repository.Delete(define, root);
+                }
+                
             }
         }
 

@@ -16,10 +16,10 @@ namespace CodeArt.DomainDriven.DataAccess
     {
         private string _sql;
 
-        private UpdateDataVersion(DataTable target)
+        private UpdateDataVersion(DataTable target,bool isEnabledMultiTenancy)
             : base(target)
         {
-            _sql = GetSql();
+            _sql = GetSql(isEnabledMultiTenancy);
         }
 
         protected override string GetName()
@@ -32,18 +32,21 @@ namespace CodeArt.DomainDriven.DataAccess
             return _sql;
         }
 
-        public static UpdateDataVersion Create(DataTable target)
+        public static UpdateDataVersion Create(DataTable target,bool isEnabledMultiTenancy)
         {
-            return _getInstance(target);
+            return _getInstance(target)(isEnabledMultiTenancy);
         }
 
-        private static Func<DataTable, UpdateDataVersion> _getInstance = LazyIndexer.Init<DataTable, UpdateDataVersion>((target) =>
+        private static Func<DataTable, Func<bool, UpdateDataVersion>> _getInstance = LazyIndexer.Init<DataTable, Func<bool, UpdateDataVersion>>((target) =>
         {
-            return new UpdateDataVersion(target);
+            return LazyIndexer.Init<bool, UpdateDataVersion>((isEnabledMultiTenancy) =>
+            {
+                return new UpdateDataVersion(target, isEnabledMultiTenancy);
+            });
         });
 
 
-        private string GetSql()
+        private string GetSql(bool isEnabledMultiTenancy)
         {
             var table = this.Target;
             var sql = new SqlUpdateBuilder();
@@ -56,7 +59,7 @@ namespace CodeArt.DomainDriven.DataAccess
                 sql.Where(field.Name);
             }
 
-            if (table.IsEnabledMultiTenancy)
+            if (isEnabledMultiTenancy)
             {
                 sql.Where(GeneratedField.TenantIdName);
             }

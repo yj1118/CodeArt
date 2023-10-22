@@ -19,7 +19,8 @@ namespace CodeArt.DomainDriven
         public static Type GetRepositoryType(Type repositoryInterfaceType)
         {
             var repository = GetRepositoryTypeImpl(repositoryInterfaceType);
-            if (repository == null) throw new DomainDrivenException(string.Format(Strings.NotFoundRepository, repositoryInterfaceType.FullName));
+            if (repository == null)
+                throw new DomainDrivenException(string.Format(Strings.NotFoundRepository, repositoryInterfaceType.FullName));
             return repository;
         }
 
@@ -61,10 +62,11 @@ namespace CodeArt.DomainDriven
             where TRepository : class, IRepository
         {
             var repositoryInterfaceType = typeof(TRepository);
-            object repository = _cache.GetOrCreate(repositoryInterfaceType, (t) =>
+            object repository = _cache.Get(repositoryInterfaceType, (t) =>
             {
                 repository = CreateRepositoryImpl<TRepository>();
-                if (repository == null) throw new DomainDrivenException(string.Format(Strings.NotFoundRepository, repositoryInterfaceType.FullName));
+                if (repository == null)
+                    throw new DomainDrivenException(string.Format(Strings.NotFoundRepository, repositoryInterfaceType.FullName));
                 return repository;
             });
             return (TRepository)repository;
@@ -72,7 +74,7 @@ namespace CodeArt.DomainDriven
 
         public static IRepository Create(Type repositoryInterfaceType)
         {
-            object repository = _cache.GetOrCreate(repositoryInterfaceType, (t) =>
+            object repository = _cache.Get(repositoryInterfaceType, (t) =>
             {
                 var repositoryType = GetRepositoryType(repositoryInterfaceType);
                 return SafeAccessAttribute.CreateSingleton(repositoryType);

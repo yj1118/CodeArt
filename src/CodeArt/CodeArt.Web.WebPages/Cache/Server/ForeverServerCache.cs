@@ -20,7 +20,7 @@ namespace CodeArt.Web.WebPages
         /// </summary>
         /// <param name="context"></param>
         /// <returns>true:缓存已过期;false:缓存未过期</returns>
-        public override bool IsExpired(WebPageContext context, ICacheStorage storage)
+        public override bool IsExpired(ResolveRequestCache controller, ICacheStorage storage)
         {
             return false;
         }
@@ -29,9 +29,9 @@ namespace CodeArt.Web.WebPages
         /// 读取缓存区中的流信息
         /// </summary>
         /// <returns></returns>
-        public override Stream Read(WebPageContext context, ICacheStorage storage)
+        public override Stream Read(ResolveRequestCache controller, ICacheStorage storage)
         {
-            var variable = new CacheVariable(GetUrl(context), context.CompressionType, context.Device);
+            var variable = new CacheVariable(controller.PageKey, controller.CompressionType, controller.Device);
             return storage.Read(variable);
         }
 
@@ -39,9 +39,9 @@ namespace CodeArt.Web.WebPages
         /// 向缓存区中写入信息
         /// </summary>
         /// <param name="content"></param>
-        public override void Write(WebPageContext context, Stream content, ICacheStorage storage)
+        public override void Write(ResolveRequestCache controller, Stream content, ICacheStorage storage)
         {
-            var variable = new CacheVariable(GetUrl(context), context.CompressionType, context.Device);
+            var variable = new CacheVariable(controller.PageKey, controller.CompressionType, controller.Device);
             storage.Update(variable, content);
         }
     }

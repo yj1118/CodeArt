@@ -21,6 +21,27 @@ namespace CodeArt.DomainDriven.DataAccess
     public partial class DataTable
     {
         /// <summary>
+        /// 获得不带任何引用链的、独立、干净的表信息
+        /// </summary>
+        /// <returns></returns>
+        public DataTable GetAbsolute()
+        {
+            switch(this.Type)
+            {
+                case DataTableType.AggregateRoot:
+                    {
+                        return DataModel.Create(this.ObjectType).Root;
+                    }
+                case DataTableType.EntityObject:
+                case DataTableType.ValueObject:
+                    {
+                        return this; //对于成员类型，直接返回，因为没有干净的
+                    }
+            }
+            throw new DataAccessException("未知的异常");
+        }
+
+        /// <summary>
         /// 获取基元类型的属性值
         /// </summary>
         /// <returns></returns>
@@ -38,15 +59,35 @@ namespace CodeArt.DomainDriven.DataAccess
             var query = GetIncrementIdentity.Create(this);
             var sql = query.Build(null, this);
 
-            if(this.IsEnabledMultiTenancy)
+            //所有的租户在某个根对象上，获取自增的序列是一样的，这样方便聚合根的ID是全局唯一的
+            return SqlHelper.ExecuteScalar<long>(sql);
+
+            //if (this.IsEnabledMultiTenancy)
+            //{
+            //    var param = new DynamicData();
+            //    param.Add(GeneratedField.TenantIdName, AppSession.TenantId);
+            //    return SqlHelper.ExecuteScalar<long>(sql, param);
+            //}
+            //else
+            //{
+            //    return SqlHelper.ExecuteScalar<long>(sql);
+            //}
+        }
+
+        internal long GetSerialNumber()
+        {
+            var query = CodeArt.DomainDriven.DataAccess.GetSerialNumber.Create(this);
+            var sql = query.Build(null, this);
+
+            if (this.IsSessionEnabledMultiTenancy)
             {
                 var param = new DynamicData();
                 param.Add(GeneratedField.TenantIdName, AppSession.TenantId);
-                return SqlHelper.ExecuteScalar<long>(this.ConnectionName, sql, param);
+                return SqlHelper.ExecuteScalar<long>(sql, param);
             }
             else
             {
-                return SqlHelper.ExecuteScalar<long>(this.ConnectionName, sql);
+                return SqlHelper.ExecuteScalar<long>(sql);
             }
         }
 
@@ -113,7 +154,6 @@ namespace CodeArt.DomainDriven.DataAccess
             return string.Format("{0}{1}", name, EntityObject.IdPropertyName);
         });
 
-
         private static object GetObjectId(object obj)
         {
             var eo = obj as IEntityObject;
@@ -121,6 +161,9 @@ namespace CodeArt.DomainDriven.DataAccess
 
             var vo = obj as IValueObject;
             if (vo != null) return vo.Id; //生成的编号
+
+            var dto = obj as DTObject; //测试时经常会用dto模拟对象
+            if (dto != null) return dto.GetValue("Id");
 
             throw new DataAccessException(string.Format(Strings.UnableGetId, obj.GetType().ResolveName()));
         }
@@ -262,10 +305,22 @@ namespace CodeArt.DomainDriven.DataAccess
             lock(_typeTables)
             {
                 if (!_typeTables.ContainsKey(typeKey))
-                    _typeTables.Add(typeKey, table);
+                {
+                    var absoluteTable = table.GetAbsolute();
+                    if (!_typeTables.ContainsKey(typeKey)) //防止 table.GetAbsolute方法操作了_typeTables，这里再次判断下重复
+                    {
+                        _typeTables.Add(typeKey, absoluteTable);
+                    }
+                }
+                    
             }
         }
 
+        /// <summary>
+        /// 该方法可以找到动态类型对应的表
+        /// </summary>
+        /// <param name="typeKey"></param>
+        /// <returns></returns>
         private static DataTable GetDataTable(string typeKey)
         {
             DataTable value = null;
@@ -295,9 +350,9 @@ namespace CodeArt.DomainDriven.DataAccess
                 var data = temp.Item;
                 data.Add(GeneratedField.RootIdName, rootId);
                 data.Add(EntityObject.IdPropertyName, id);
-                if (this.IsEnabledMultiTenancy)
+                if (this.IsSessionEnabledMultiTenancy)
                     data.Add(GeneratedField.TenantIdName, AppSession.TenantId);
-                SqlHelper.Execute(this.ConnectionName, sql, data);
+                SqlHelper.Execute(sql, data);
             }
         }
 
@@ -319,7 +374,7 @@ namespace CodeArt.DomainDriven.DataAccess
                 var data = temp.Item;
                 data.Add(GeneratedField.RootIdName, rootId);
                 data.Add(EntityObject.IdPropertyName, id);
-                return SqlHelper.ExecuteScalar<int>(this.ConnectionName, this.SqlSelectAssociated, data);
+                return SqlHelper.ExecuteScalar<int>(this.SqlSelectAssociated, data);
             }
         }
 

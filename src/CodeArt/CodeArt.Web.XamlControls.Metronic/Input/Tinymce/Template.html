@@ -1,0 +1,99 @@
+﻿<ControlTemplate xmlns="http://schemas.codeart.cn/web/xaml"
+                 xmlns:m="http://schemas.codeart.cn/web/xaml/metronic">
+    <ControlTemplate.Directories>
+        <AssetDirectory AssemblyName="CodeArt.Web.XamlControls.Metronic">
+            <AssetPackage Path="/assets"></AssetPackage>
+        </AssetDirectory>
+    </ControlTemplate.Directories>
+    <div Visibility="{TemplateBinding Layout,Converter={Static m:LayoutCollapsedConverter.Instance},ConverterParameter=Inline}"
+         class="{TemplateBinding Class,Converter={Static AppendClassConverter.Instance},ConverterParameter=form-group m-form__group row}"
+         data-proxy="{give:new $$metronic.tinymce()}"
+         data-rule="{Binding Converter={Static m:TextBoxRuleCodeConverter.Instance}}"
+         id="{TemplateBinding Id}"
+         data-field="{TemplateBinding Field}"
+         data-height="{TemplateBinding Height}"
+         data-disabled="{TemplateBinding Disabled}">
+        <AttributesPresenter />
+        <label class="col-form-label col-xl-2 col-sm-12 offset-xl-1">
+            <run content="{Binding Converter={Static m:LabelConverter.Instance}}" />
+        </label>
+        <div data-core="true" data-core-container="true" class="col-xl-8 col-sm-12">
+            <textarea></textarea>
+            <span class="m-form__help" Visibility="{TemplateBinding Help,Converter={Static StringCollapsedConverter.Instance}}">
+                <run content="{TemplateBinding Help}" />
+            </span>
+        </div>
+    </div>
+    <div Visibility="{TemplateBinding Layout,Converter={Static m:LayoutCollapsedConverter.Instance},ConverterParameter=Wrap}"
+         class="{TemplateBinding Class,Converter={Static AppendClassConverter.Instance},ConverterParameter=form-group m-form__group}"
+         data-proxy="{give:new $$metronic.tinymce()}"
+         data-rule="{Binding Converter={Static m:TextBoxRuleCodeConverter.Instance}}"
+         id="{TemplateBinding Id}"
+         data-field="{TemplateBinding Field}"
+         data-height="{TemplateBinding Height}"
+         data-disabled="{TemplateBinding Disabled}">
+        <AttributesPresenter />
+        <label class="col-form-label col-sm-12">
+            <run content="{Binding Converter={Static m:LabelConverter.Instance}}" />
+        </label>
+        <div data-core="true" data-core-container="true" class="col-sm-12">
+            <textarea></textarea>
+            <span class="m-form__help" Visibility="{TemplateBinding Help,Converter={Static StringCollapsedConverter.Instance}}">
+                <run content="{TemplateBinding Help}" />
+            </span>
+        </div>
+    </div>
+    <div Visibility="{TemplateBinding Layout,Converter={Static m:LayoutCollapsedConverter.Instance},ConverterParameter=Cell}"
+         class="{TemplateBinding Class,Converter={Static AppendClassConverter.Instance},ConverterParameter=form-group no-gutters form-cell}"
+         data-proxy="{give:new $$metronic.tinymce()}"
+         data-rule="{Binding Converter={Static m:TextBoxRuleCodeConverter.Instance}}"
+         id="{TemplateBinding Id}"
+         data-field="{TemplateBinding Field}"
+         data-height="{TemplateBinding Height}"
+         data-disabled="{TemplateBinding Disabled}">
+        <AttributesPresenter />
+        <div data-core="true" data-core-container="true" class="col-sm-12">
+            <textarea></textarea>
+        </div>
+    </div>
+    <LinkCode Key="/assets/custom/tinymce/tinymce.min.js" Origin="Bottom" />
+    <LinkCode Key="/assets/custom/tinymce.js" Origin="Bottom" />
+    <DynamicCode Origin="Bottom">
+        <m:Modal id="tinymceImageDialog" size="lg" title="插入/编辑图片">
+            <m:form view="tinymceImageForm" id="tinymceImageForm">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <m:Dropzone xamlStyle="{StaticResource upload}" layout="Cell" call="图片" field="image" headers="{TemplateBinding DropzoneHeaders}"
+                                    maxFileSize="5" maxFiles="1" acceptedFiles="image/*" help="图片的体积请在2M以内，每次最多上传1张照片">
+                        </m:Dropzone>
+                    </div>
+                </div>
+                <div class="row m--margin-top-20 m--padding-0">
+                    <div class="col-sm-6">
+                        <m:InputMask class="width"  layout="Wrap" type="float" label="实际宽度" field="width" placeholder="图片自身的宽度" />
+                    </div>
+                    <div class="col-sm-6">
+                        <m:InputMask class="height" layout="Wrap" type="float" label="实际高度" field="height" placeholder="图片自身的高度" />
+                    </div>
+                </div>
+                <div class="row m--margin-top-10 m--padding-0">
+                    <div class="col-sm-6">
+                        <m:InputMask layout="Wrap" type="number" label="图片质量" field="quality" placeholder="1-100的数值" help="质量越高越清晰，但是体积越大" />
+                    </div>
+                </div>
+                <div class="row m--margin-top-10 m--padding-0">
+                    <div class="col-sm-6">
+                        <m:InputMask class="displayWidth" layout="Wrap" type="float" label="显示宽度" field="displayWidth" placeholder="0或不填表示占据100%的页面宽度" help="图片在页面上显示的宽度" />
+                    </div>
+                    <div class="col-sm-6">
+                        <m:InputMask class="displayHeight" layout="Wrap" type="float" label="显示高度" field="displayHeight" placeholder="0或不填表示根据宽高比自动伸展" help="图片在页面上显示的高度" />
+                    </div>
+                </div>
+            </m:form>
+            <m:Modal.Footer>
+                <m:button class="tinymceOK" color="primary" text="确定"></m:button>
+                <m:button color="secondary" text="关闭" data-dismiss="modal"></m:button>
+            </m:Modal.Footer>
+        </m:Modal>
+    </DynamicCode>
+</ControlTemplate>

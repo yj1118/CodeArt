@@ -15,11 +15,11 @@ namespace CodeArt.Web.WebPages
         /// </summary>
         /// <param name="context"></param>
         /// <returns>true:缓存已过期;false:缓存未过期</returns>
-        bool IsExpired(WebPageContext context);
+        bool IsExpired(ResolveRequestCache controller);
 
         /// <summary>
         /// 设置缓存
         /// </summary>
-        void SetCache(WebPageContext context);
+        void SetCache(ResolveRequestCache controller);
     }
 }

@@ -217,7 +217,7 @@
     <value>类型{0}不满足要求，非静态领域属性行为必须定义在领域对象类的成员上</value>
   </data>
   <data name="PropertyValueRepeated" xml:space="preserve">
-    <value>属性 {0} 的值重复</value>
+    <value>{0}重复</value>
   </data>
   <data name="RepeatedDeclareProperty" xml:space="preserve">
     <value>类型 {0} 重复定义了属性 {1}</value>

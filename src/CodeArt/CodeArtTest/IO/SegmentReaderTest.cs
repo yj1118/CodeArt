@@ -8,6 +8,8 @@ using CodeArt.TestTools;
 using CodeArt.IO;
 using System.Text;
 
+using Assert = CodeArt.TestTools.Assert;
+
 namespace CodeArtTest.IO
 {
     [TestClass]

@@ -9,6 +9,7 @@ using System.Web;
 using CodeArt.Util;
 
 using HtmlAgilityPack;
+using CodeArt.Concurrent;
 
 namespace CodeArt.HtmlWrapper
 {
@@ -40,7 +41,8 @@ namespace CodeArt.HtmlWrapper
             var items = node.SelectNodesEx("//br");
             foreach (var item in items)
             {
-                item.ParentNode.ReplaceChild(HtmlNode.CreateNode("\r\n"), item);
+                if (item.ParentNode == null) item.Remove();
+                else item.ParentNode.ReplaceChild(HtmlNode.CreateNode("\r\n"), item);
             }
         }
 
@@ -73,23 +75,28 @@ namespace CodeArt.HtmlWrapper
         }
 
 
+        private static readonly RegexPool _lineBreakRegex = new RegexPool("\r\n|\n", RegexOptions.IgnoreCase);
+
         /// <summary>
         /// 将纯文本字符串，转义为html格式
         /// </summary>
         public static string FormatHtml(string text)
         {
             if (string.IsNullOrEmpty(text)) return string.Empty;
-            Regex reg = new Regex("\r\n|\n");
-            string[] segs = reg.Split(text);
-            int lastIndex = segs.Length - 1;
-            StringBuilder html = new StringBuilder();
-            for (var i = 0; i < segs.Length; i++)
+            using (var temp = _lineBreakRegex.Borrow())
             {
-                var seg = segs[i];
-                html.AppendFormat("<p>{0}</p>", HttpUtility.HtmlEncode(seg));
-                if (i < lastIndex) html.AppendLine();
+                var reg = temp.Item;
+                string[] segs = reg.Split(text);
+                int lastIndex = segs.Length - 1;
+                StringBuilder html = new StringBuilder();
+                for (var i = 0; i < segs.Length; i++)
+                {
+                    var seg = segs[i];
+                    html.AppendFormat("<p>{0}</p>", HttpUtility.HtmlEncode(seg));
+                    if (i < lastIndex) html.AppendLine();
+                }
+                return html.ToString();
             }
-            return html.ToString();
         }
     }
 }

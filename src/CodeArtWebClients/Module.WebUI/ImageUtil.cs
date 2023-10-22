@@ -7,7 +7,6 @@ using System.IO;
 
 using System.Text.RegularExpressions;
 
-using CodeArt.Web.WebPages.Xaml;
 using CodeArt.ServiceModel;
 using CodeArt.Web;
 
@@ -32,9 +31,9 @@ namespace Module.WebUI
             }
         }
 
-        public static string GetDynamicUrl(string category, string storeKey, int width = 122, int height = 91, int cutType = 1)
+        public static string GetDynamicUrl(string category, string storeKey, int width = 122, int height = 91, int cutType = 1,int quality = 30)
         {
-            if (!string.IsNullOrEmpty(storeKey)) return GetUrl("thumbnailUrl", string.Format("/image.htm?w={0}&h={1}&c={2}&key={3}", width, height, cutType, storeKey));
+            if (!string.IsNullOrEmpty(storeKey)) return GetUrl("thumbnailUrl", string.Format("/image.htm?w={0}&h={1}&c={2}&key={3}&q={4}", width, height, cutType, storeKey, quality));
             else
             {
                 return GetUrl("thumbnailUrl", string.Format("/images/default/{0}-{1}-{2}.jpg", category, width, height));
@@ -123,7 +122,8 @@ namespace Module.WebUI
 
         public static string GetDomain(string domainKey, bool throwError = true)
         {
-            var domain = Application.Current.FindResource(domainKey, false) as string;
+            //var domain = Application.Current.FindResource(domainKey, false) as string;
+            var domain = string.Empty;
             if (string.IsNullOrEmpty(domain)) domain = System.Configuration.ConfigurationManager.AppSettings[domainKey];
             if (string.IsNullOrEmpty(domain) && throwError) throw new WebException("没有找到" + domainKey + "的资源配置");
             return domain;

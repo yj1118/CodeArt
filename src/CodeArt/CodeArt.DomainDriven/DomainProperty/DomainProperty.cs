@@ -8,6 +8,7 @@ using System.Reflection;
 using CodeArt.Util;
 using CodeArt.Runtime;
 using CodeArt.DTO;
+using System.Resources;
 
 namespace CodeArt.DomainDriven
 {
@@ -105,6 +106,20 @@ namespace CodeArt.DomainDriven
             private set;
         }
 
+        public PropertyLabelAttribute Label
+        {
+            get;
+            private set;
+        }
+
+        public string Call
+        {
+            get
+            {
+                return this.Label == null ? this.Name : this.Label.Value;
+            }
+        }
+
         internal DomainPropertyType DomainPropertyType { get; private set; }
 
         /// <summary>
@@ -142,10 +157,12 @@ namespace CodeArt.DomainDriven
         /// </summary>
         public Type OwnerType { get; protected set; }
 
-        /// <summary>
-        /// 属性更改模式
-        /// </summary>
-        public PropertyChangedMode ChangedMode { get; private set; }
+        ///// <summary>
+        ///// 属性更改模式
+        ///// </summary>
+        //public PropertyChangedMode ChangedMode { get; private set; }
+
+        public Func<object,object, bool> Compare { get; private set; }
 
 
         /// <summary>
@@ -153,7 +170,6 @@ namespace CodeArt.DomainDriven
         /// </summary>
         /// <returns></returns>
         public Func<DomainObject, DomainProperty, object> GetDefaultValue { get; private set; }
-
 
         /// <summary>
         /// 设置属性值的行为链
@@ -190,6 +206,27 @@ namespace CodeArt.DomainDriven
                 return this.ChangedChain.MethodsCount > 0; 
             }
         }
+
+        #region  比较
+
+        internal bool IsChanged(object oldValue, object newValue)
+        {
+            if (this.Compare == null)
+            {
+                //默认比较
+                var propertyType = this.PropertyType;
+                //属性如果是集合、实体对象（引用对象），那么不用判断值，直接认为是被改变了
+                if (propertyType.IsList()
+                    || propertyType.IsImplementOrEquals(typeof(IEntityObject)))
+                    return true;
+
+                //普通类型就用常规比较
+                return object.Equals(oldValue, newValue) ? false : true;
+            }
+            return this.Compare(oldValue, newValue);
+        }
+
+        #endregion
 
         #region 唯一性
 
@@ -232,6 +269,16 @@ namespace CodeArt.DomainDriven
         #region 属性仓储的定义
 
         internal PropertyRepositoryAttribute RepositoryTip
+        {
+            get;
+            private set;
+        }
+
+        #endregion
+
+        #region 日志的定义
+
+        internal PropertyLogableAttribute LogableTip
         {
             get;
             private set;
@@ -308,10 +355,10 @@ namespace CodeArt.DomainDriven
         #region 完整构造
 
         public static DomainProperty Register(string name, 
-                                            Type propertyType, 
+                                            Type propertyType,
                                             Type ownerType, 
                                             Func<DomainObject, DomainProperty, object> getDefaultValue,
-                                            PropertyChangedMode changedMode,
+                                            Func<object,object,bool> compare,
                                             Type dynamicType = null)
         {
             lock (_properties)
@@ -325,6 +372,8 @@ namespace CodeArt.DomainDriven
 
                 var validators = PropertyValidatorAttribute.GetValidators(ownerType, name);
                 var repositoryTip = GetAttribute<PropertyRepositoryAttribute>(ownerType, name);
+                var logableTip = GetAttribute<PropertyLogableAttribute>(ownerType, name);
+                var labelTip = GetAttribute<PropertyLabelAttribute>(ownerType, name);
 
                 var property = new DomainProperty()
                 {
@@ -333,11 +382,13 @@ namespace CodeArt.DomainDriven
                     PropertyType = propertyType,
                     OwnerType = ownerType,
                     GetDefaultValue = getDefaultValue,
-                    ChangedMode = changedMode,
+                    Compare = compare,
                     Validators = validators,
                     RepositoryTip = repositoryTip,
+                    LogableTip = logableTip,
                     PropertyInfo = ownerType.ResolveProperty(name),
-                    DynamicType = dynamicType
+                    DynamicType = dynamicType,
+                    Label = labelTip
                 };
 
                 if(repositoryTip != null)
@@ -407,14 +458,23 @@ namespace CodeArt.DomainDriven
         }
 
 
-        public static DomainProperty Register<PT, OT>(string name, Func<DomainObject, DomainProperty, object> getDefaultValue, PropertyChangedMode changedMode)
+        public static DomainProperty Register<PT, OT>(string name, Func<DomainObject, DomainProperty, object> getDefaultValue, Func<object, object, bool> compare)
         {
-            return Register(name, typeof(PT), typeof(OT), getDefaultValue, changedMode);
+            return Register(name, typeof(PT), typeof(OT), getDefaultValue, compare);
         }
 
         #endregion
 
         #region 直接设置默认值的注册属性的方法
+
+        public static DomainProperty Register<PT, OT>(string name, Func<object, object, bool> compare)
+            where OT : DomainObject
+        {
+            return Register<PT, OT>(name, (o, p) =>
+            {
+                return DetectDefaultValue<PT>(); //此处不能在Register<PT, OT>(name, (o, p) => 之前执行DetectDefaultValue<PT>(),因为在领域对象的代码里，有可能注册属性放在空对象的定义之前，导致空对象是null，具体可见菜单示例
+            }, compare);
+        }
 
         public static DomainProperty Register<PT, OT>(string name)
             where OT : DomainObject
@@ -422,7 +482,7 @@ namespace CodeArt.DomainDriven
             return Register<PT, OT>(name, (o, p) =>
             {
                 return DetectDefaultValue<PT>(); //此处不能在Register<PT, OT>(name, (o, p) => 之前执行DetectDefaultValue<PT>(),因为在领域对象的代码里，有可能注册属性放在空对象的定义之前，导致空对象是null，具体可见菜单示例
-            }, DetectPropertyChangedMode<PT>());
+            }, null);
         }
 
         private static object DetectDefaultValue<PT>()
@@ -475,7 +535,18 @@ namespace CodeArt.DomainDriven
                 var collection = new DomainCollection<MemberType>(property);
                 collection.Parent = owner;
                 return collection;
-            }, PropertyChangedMode.Definite);
+            }, null);
+        }
+
+        public static DomainProperty RegisterCollection<MemberType, OT>(string propertyName, Func<object, object, bool> compare)
+           where OT : DomainObject
+        {
+            return Register(propertyName, typeof(DomainCollection<MemberType>), typeof(OT), (owner, property) =>
+            {
+                var collection = new DomainCollection<MemberType>(property);
+                collection.Parent = owner;
+                return collection;
+            }, compare);
         }
 
         #endregion
@@ -489,7 +560,7 @@ namespace CodeArt.DomainDriven
         /// <typeparam name="OT"></typeparam>
         /// <param name="name"></param>
         /// <returns></returns>
-        public static DomainProperty RegisterDynamic<TD, OT>(string name)
+        public static DomainProperty RegisterDynamic<TD, OT>(string name, Func<object, object, bool> compare)
             where TD : TypeDefine
             where OT : DomainObject
         {
@@ -497,9 +568,16 @@ namespace CodeArt.DomainDriven
             var define = TypeDefine.GetDefine<TD>();
 
             var propertyType = define.MetadataType;
-            var result = Register(name, propertyType, ownerType, (o, p) => { return define.EmptyInstance; }, PropertyChangedMode.Definite, define.MetadataType);
+            var result = Register(name, propertyType, ownerType, (o, p) => { return define.EmptyInstance; }, compare, define.MetadataType);
             define.SetBelongProperty(result);
             return result;
+        }
+
+        public static DomainProperty RegisterDynamic<TD, OT>(string name)
+           where TD : TypeDefine
+           where OT : DomainObject
+        {
+            return RegisterDynamic<TD, OT>(name, null);
         }
 
         /// <summary>
@@ -509,7 +587,7 @@ namespace CodeArt.DomainDriven
         /// <typeparam name="OT"></typeparam>
         /// <param name="propertyName"></param>
         /// <returns></returns>
-        public static DomainProperty RegisterDynamicCollection<TD, OT>(string propertyName)
+        public static DomainProperty RegisterDynamicCollection<TD, OT>(string propertyName, Func<object, object, bool> compare)
             where TD : TypeDefine
             where OT : DomainObject
         {
@@ -521,21 +599,28 @@ namespace CodeArt.DomainDriven
                 var collection = new DomainCollection<dynamic>(property);
                 collection.Parent = owner;
                 return collection;
-            }, PropertyChangedMode.Definite, elementType);
+            }, compare, elementType);
+        }
+
+        public static DomainProperty RegisterDynamicCollection<TD, OT>(string propertyName)
+            where TD : TypeDefine
+            where OT : DomainObject
+        {
+            return RegisterDynamicCollection<TD, OT>(propertyName, null);
         }
 
         #endregion
 
-        private static PropertyChangedMode DetectPropertyChangedMode<PT>()
-        {
-            var propertyType = typeof(PT);
-            //属性如果是集合、实体对象（引用对象），那么不用判断值，直接认为是被改变了
-            if (typeof(PT).IsList()
-                || propertyType.IsImplementOrEquals(typeof(IEntityObject)))
-                return PropertyChangedMode.Definite;
+        //private static PropertyChangedMode DetectPropertyChangedMode<PT>()
+        //{
+        //    var propertyType = typeof(PT);
+        //    //属性如果是集合、实体对象（引用对象），那么不用判断值，直接认为是被改变了
+        //    if (typeof(PT).IsList()
+        //        || propertyType.IsImplementOrEquals(typeof(IEntityObject)))
+        //        return PropertyChangedMode.Definite;
 
-            return PropertyChangedMode.Compare;
-        }
+        //    return PropertyChangedMode.Compare;
+        //}
 
         /// <summary>
         /// 
@@ -551,16 +636,16 @@ namespace CodeArt.DomainDriven
             return Register(name, typeof(PT), typeof(OT), (owner, property) =>
             {
                 return getDefaultValue((OT)owner);
-            }, DetectPropertyChangedMode<PT>());
+            }, null);
         }
 
-        public static DomainProperty Register<PT, OT>(string name, Func<OT, PT> getDefaultValue, PropertyChangedMode propertyChangedMode)
+        public static DomainProperty Register<PT, OT>(string name, Func<OT, PT> getDefaultValue, Func<object, object, bool> compare)
             where OT : DomainObject
         {
             return Register(name, typeof(PT), typeof(OT), (owner, property) =>
             {
                 return getDefaultValue((OT)owner);
-            }, propertyChangedMode);
+            }, compare);
         }
 
         #endregion

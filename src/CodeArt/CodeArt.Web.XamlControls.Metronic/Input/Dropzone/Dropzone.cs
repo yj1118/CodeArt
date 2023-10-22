@@ -32,9 +32,9 @@ namespace CodeArt.Web.XamlControls.Metronic
             }
         }
 
-        public static readonly DependencyProperty MaxFileSizeProperty = DependencyProperty.Register<int, Dropzone>("MaxFileSize", () => { return 1; });
+        public static readonly DependencyProperty MaxFileSizeProperty = DependencyProperty.Register<int, Dropzone>("MaxFileSize", () => { return 5; });
         /// <summary>
-        ///  文件最大的体积，单位M，默认1M
+        ///  文件最大的体积，单位M，默认5M
         /// </summary>
         public int MaxFileSize
         {

@@ -6,6 +6,7 @@ using System.Web;
 using System.Text;
 using System.Linq;
 using System.Diagnostics;
+using CodeArt.Concurrent;
 
 namespace CodeArt.DTO
 {
@@ -16,6 +17,7 @@ namespace CodeArt.DTO
 
         public DTObjects()
         {
+            _list = new List<DTObject>();
         }
 
         public DTObjects(IList<DTObject> items)
@@ -62,6 +64,11 @@ namespace CodeArt.DTO
         public int IndexOf(DTObject item)
         {
             return _list.IndexOf(item);
+        }
+
+        public void Remove(DTObject item)
+        {
+            _list.Remove(item);
         }
 
         public bool IsReadOnly
@@ -132,18 +139,22 @@ namespace CodeArt.DTO
             });
         }
 
+
         public string GetCode(bool sequential)
         {
-            StringBuilder code = new StringBuilder();
-            code.Append("[");
-            foreach (DTObject item in _list)
+            using(var temp = StringPool.Borrow())
             {
-                code.Append(item.GetCode(sequential, false));
-                code.Append(",");
+                var code = temp.Item;
+                code.Append("[");
+                foreach (DTObject item in _list)
+                {
+                    code.Append(item.GetCode(sequential, false));
+                    code.Append(",");
+                }
+                if (_list.Count > 0) code.Length--;
+                code.Append("]");
+                return code.ToString();
             }
-            if (_list.Count > 0) code.Length--;
-            code.Append("]");
-            return code.ToString();
         }
 
         #endregion

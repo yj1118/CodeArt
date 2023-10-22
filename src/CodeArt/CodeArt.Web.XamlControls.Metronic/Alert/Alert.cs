@@ -20,7 +20,7 @@ namespace CodeArt.Web.XamlControls.Metronic
         /// <summary>
         /// 形状，有2个值：空（默认的形状）,square(直角矩形)
         /// </summary>
-        public string Shape
+        public string Shape 
         {
             get
             {

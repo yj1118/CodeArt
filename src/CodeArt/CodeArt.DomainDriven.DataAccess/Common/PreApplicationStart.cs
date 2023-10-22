@@ -20,13 +20,6 @@ namespace CodeArt.DomainDriven.DataAccess
             //注入动态仓储的支持
             Repository.Register<IDynamicRepository>(SqlDynamicRepository.Instance);
 
-            //注入领域事件的支持
-            Repository.Register<IEventQueueRepository>(SqlEventQueueRepository.Instance);
-            Repository.Register<IEventLogRepository>(SqlEventLogRepository.Instance);
-            Repository.Register<IEventLogEntryRepository>(SqlEventLogEntryRepository.Instance);
-            Repository.Register<IEventMonitorRepository>(SqlEventMonitorRepository.Instance);
-            Repository.Register<IEventLockRepository>(SqlEventLockRepository.Instance);
-
             CodeArt.DomainDriven.LockManager.Register(LockManager.Instance);
         }
 

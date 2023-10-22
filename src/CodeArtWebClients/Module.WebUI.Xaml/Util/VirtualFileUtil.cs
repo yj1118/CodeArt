@@ -29,7 +29,7 @@ namespace Module.WebUI.Xaml
             var id = Principal.Id;
             var result = (dynamic)ServiceContext.Invoke("GetRootDirectory", (arg) =>
             {
-                arg["diskId"] = id;
+                arg["UserId"] = id;
             });
             return result;
         }

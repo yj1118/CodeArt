@@ -223,19 +223,28 @@ namespace CodeArt.Net.Anycast
 
         private Message CreateMessage(string eventName, byte[] data, Action<DTObject> setMessageHeader)
         {
-            return CreateMessage(this.Name, eventName, data, setMessageHeader);
+            var messageHeader = DTObject.Create();
+            messageHeader.SetValue(FieldRtpCapabilityName, this.Name);
+            messageHeader.SetValue(FieldRtpEventName, eventName);
+            messageHeader.SetValue(MessageField.MessageType, (byte)MessageType.Distribute);
+            setMessageHeader(messageHeader);
+
+            return new Message(messageHeader, data);
         }
 
-        public static Message CreateMessage(string capabilityName, string eventName, byte[] data, Action<DTObject> setMessageHeader = null)
+        public static Message CreateMessage(string capabilityName, string eventName, Participant participant, DTObject header, byte[] body, Action<DTObject> setMessageHeader = null)
         {
-            var header = DTObject.Create();
-            header.SetValue(FieldRtpCapabilityName, capabilityName);
-            header.SetValue(FieldRtpEventName, eventName);
-            header.SetValue(MessageField.MessageType, (byte)MessageType.Distribute);
-            if(setMessageHeader != null)
-                setMessageHeader(header);
+            var rtpData = new RtpData(participant, header, body);
+            var data = RtpDataAnalyzer.Serialize(rtpData);
 
-            return new Message(header, data);
+            var msgHeader = DTObject.Create();
+            msgHeader.SetValue(FieldRtpCapabilityName, capabilityName);
+            msgHeader.SetValue(FieldRtpEventName, eventName);
+            msgHeader.SetValue(MessageField.MessageType, (byte)MessageType.Distribute);
+            if(setMessageHeader != null)
+                setMessageHeader(msgHeader);
+
+            return new Message(msgHeader, data);
         }
 
         #endregion

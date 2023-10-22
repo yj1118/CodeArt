@@ -2,6 +2,7 @@
 using System.IO;
 
 using CodeArt.IO;
+using CodeArt.Log;
 
 namespace CodeArt.Web.WebPages
 {
@@ -28,21 +29,30 @@ namespace CodeArt.Web.WebPages
 
         public RepositoryBodyWriter(IUploadRepository repository, string clientFileName)
         {
-            if (repository == null) throw new ArgumentNullException("repository");
-            _repository = repository;
-            this.ClientFileName = clientFileName;
-            this.TempKey = _repository.Begin(IOUtil.GetExtension(clientFileName));
+            Safe(() =>
+            {
+                if (repository == null) throw new ArgumentNullException("repository");
+                _repository = repository;
+                this.ClientFileName = clientFileName;
+                this.TempKey = _repository.Begin(IOUtil.GetExtension(clientFileName));
+            });
         }
 
         public override void Close()
         {
-            this.ServerKey = _repository.Close(this.TempKey);
+            Safe(() =>
+            {
+                this.ServerKey = _repository.Close(this.TempKey);
+            });
         }
 
         public override void Write(byte[] buffer, int index, int count)
         {
-            _repository.Write(this.TempKey, buffer, index, count);
-            base._size += count;
+            Safe(()=>
+            {
+                _repository.Write(this.TempKey, buffer, index, count);
+                base._size += count;
+            });
         }
 
         public override string Content
@@ -52,5 +62,20 @@ namespace CodeArt.Web.WebPages
                 return null;
             }
         }
+
+
+        private void Safe(Action aciton)
+        {
+            try
+            {
+                aciton();
+            }
+            catch(Exception ex)
+            {
+                Logger.Fatal(ex);
+            }
+
+        }
+
     }
 }

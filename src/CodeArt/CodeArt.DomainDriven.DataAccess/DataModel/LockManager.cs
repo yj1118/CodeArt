@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using CodeArt.AppSetting;
 using CodeArt.Concurrent;
 
 namespace CodeArt.DomainDriven.DataAccess
@@ -58,14 +58,19 @@ namespace CodeArt.DomainDriven.DataAccess
                 var type = types[i];
                 var id = ids[i];
 
+                bool multiTenancy = DomainDrivenConfiguration.Current.MultiTenancyConfig.IsEnabled;
+
                 using (var temp = SqlHelper.BorrowData())
                 {
                     var arg = temp.Item;
                     arg.Add(EntityObject.IdPropertyName, id);
+                    if (multiTenancy)
+                        arg.Add(GeneratedField.TenantIdName, AppSession.TenantId);
 
                     var table = DataModel.Create(type).Root;
                     var sql = SingleLock.Create(table).Build(null, table);
-                    SqlHelper.Execute(table.ConnectionName, sql, arg);
+                    //DataContext.Current.Connection.Execute(sql, arg);
+                    SqlHelper.Execute(sql, arg);
                 }
             }
         }

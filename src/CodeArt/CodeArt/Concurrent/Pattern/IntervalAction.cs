@@ -43,7 +43,7 @@ namespace CodeArt.Concurrent.Pattern
         public IntervalAction(int intervalMilliseconds, Action<IntervalAction> action)
             : this(intervalMilliseconds, action, (e) =>
             {
-                LogWrapper.Default.Fatal(e);
+                Logger.Fatal(e);
             })
         {
 

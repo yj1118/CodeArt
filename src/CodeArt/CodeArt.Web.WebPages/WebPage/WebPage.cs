@@ -127,12 +127,12 @@ namespace CodeArt.Web.WebPages
             {
                 //TargetInvocationException一般是由动态调用某个反射方法导致的错误的包装错误，所以需要脱去包装
                 var e = ex.InnerException ?? ex;
-                LogWrapper.Default.Fatal(e);
+                Logger.Fatal(e, context.Request.ToDTO());
                 ProcessError(e);
             }
             catch (Exception ex)
             {
-                LogWrapper.Default.Fatal(ex);
+                Logger.Fatal(ex, context.Request.ToDTO());
                 ProcessError(ex);
             }
         }

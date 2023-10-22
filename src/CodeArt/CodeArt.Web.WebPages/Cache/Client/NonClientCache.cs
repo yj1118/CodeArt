@@ -12,12 +12,12 @@ namespace CodeArt.Web.WebPages
     {
         private NonClientCache() { }
 
-        public bool IsExpired(WebPageContext context)
+        public bool IsExpired(ResolveRequestCache controller)
         {
             return true;
         }
 
-        public void SetCache(WebPageContext context)
+        public void SetCache(ResolveRequestCache controller)
         {
         }
 

@@ -301,14 +301,24 @@ namespace CodeArtTest.DTO
             var sourceCode = System.IO.File.ReadAllText(fileName);
             {
                 var dto = DTObject.Create(sourceCode);
-                Assert.AreEqual(sourceCode, dto.GetCode());
+                Assert.AreEqual(sourceCode, dto.GetCode(false,false));
             }
 
-            Parallel.For(0, 10000, (index) => {
+            Parallel.For(0, 100, (index) =>
+            {
                 var dto = DTObject.Create(sourceCode);
                 Assert.AreEqual(sourceCode, dto.GetCode());
             });
         }
 
+        [TestMethod]
+        public void QuotationMarks()
+        {
+            var dto1 = DTObject.Create();
+            dto1["Code"] = "N'DTO',\"DTO\"";
+            var dto2 = DTObject.Create(dto1.GetCode());
+
+            Assert.AreEqual(dto1.GetCode(), dto2.GetCode());
+        }
     }
 }

@@ -21,6 +21,8 @@ namespace CodeArt.DomainDriven
     /// </summary>
     internal abstract class RemoteObjectHandler : IEventHandler
     {
+        public EventPriority Priority => EventPriority.High;
+
         public void Handle(string eventName, TransferData data)
         {
             var arg = data.Info;

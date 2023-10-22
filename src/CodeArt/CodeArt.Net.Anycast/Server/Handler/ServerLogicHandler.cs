@@ -39,14 +39,14 @@ namespace CodeArt.Net.Anycast
                     {
                         var ctx = temp.Item;
                         if (sender.IsActive)
-                            this.Server.StartProcess(sender, msg, ctx);
+                            this.Server.StartProcess(this.Server, sender, msg, ctx);
 
                         if (!ctx.IsCompleted && sender.IsActive)
                             Process(sender, msg, ctx);
 
                         //使用服务器扩展的handler处理
                         if (sender.IsActive)
-                            this.Server.EndProcess(sender, msg, ctx);
+                            this.Server.EndProcess(this.Server, sender, msg, ctx);
                     }
                 }
             }, context);

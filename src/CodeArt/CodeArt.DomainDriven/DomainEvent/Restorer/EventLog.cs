@@ -8,54 +8,33 @@ using System.Diagnostics;
 using CodeArt.DomainDriven;
 using CodeArt.DTO;
 using CodeArt.AppSetting;
+using System.Data;
 
 namespace CodeArt.DomainDriven
 {
     [DebuggerDisplay("Status:{Status},EntryCount:{EntryCount}")]
-    [ObjectRepository(typeof(IEventLogRepository), CloseMultiTenancy = true)]
-    public class EventLog : AggregateRoot<EventLog, Guid>
+    public class EventLog : DataObject<Guid>
     {
         /// <summary>
         /// 触发该事件队列时系统使用的语言
         /// </summary>
-        private static readonly DomainProperty LanguageProperty = DomainProperty.Register<string, EventLog>("Language");
-
-        [PropertyRepository()]
-        [ASCIIString()]
-        [StringLength(Min = 0, Max = 50)]
         public string Language
         {
-            get
-            {
-                return GetValue<string>(LanguageProperty);
-            }
-            private set
-            {
-                SetValue(LanguageProperty, value);
-            }
+            get;
+            private set;
         }
+
 
         /// <summary>
         /// 触发该事件队列时系统使用的语言
         /// </summary>
-        private static readonly DomainProperty TenantIdProperty = DomainProperty.Register<string, EventLog>("TenantId");
-
-        [PropertyRepository()]
-        [ASCIIString()]
-        [StringLength(Min = 0, Max = 50)]
-        public string TenantId
+        public long TenantId
         {
-            get
-            {
-                return GetValue<string>(TenantIdProperty);
-            }
-            private set
-            {
-                SetValue(TenantIdProperty, value);
-            }
+            get;
+            private set;
         }
 
-        public new DTObject GetIdentity()
+        public DTObject GetIdentity()
         {
             var identity = DTObject.Create();
             identity["language"] = this.Language;
@@ -63,23 +42,22 @@ namespace CodeArt.DomainDriven
             return identity;
         }
 
-        [PropertyRepository()]
-        public static readonly DomainProperty StatusProperty = DomainProperty.Register<EventLogStatus, EventLog>("Status", EventLogStatus.Normal);
+        private EventLogStatus _status;
 
         public EventLogStatus Status
         {
             get
             {
-                return GetValue<EventLogStatus>(StatusProperty);
+                return _status;
             }
             set
             {
-                SetValue(StatusProperty, value);
+                _status = value;
+                this.MarkDirty();
             }
         }
 
-        [PropertyRepository()]
-        public static readonly DomainProperty EntryCountProperty = DomainProperty.Register<int, EventLog>("EntryCount");
+        private int _entryCount;
 
         /// <summary>
         /// 该日志拥有的条目总数
@@ -88,42 +66,38 @@ namespace CodeArt.DomainDriven
         {
             get
             {
-                return GetValue<int>(EntryCountProperty);
+                return _entryCount;
             }
             set
             {
-                SetValue(EntryCountProperty, value);
+                _entryCount = value;
+                this.MarkDirty();
             }
         }
 
-        [ConstructorRepository()]
-        public EventLog(Guid id, string language,string tenantId)
+        public EventLog()
+            : base(Guid.Empty)
+        {
+
+        }
+
+
+        public EventLog(Guid id, string language, long tenantId)
             : base(id)
         {
+            this.Status = EventLogStatus.Normal;
             this.Language = language;
             this.TenantId = tenantId;
-            this.OnConstructed();
         }
 
-        #region 空对象
-
-        private class EventLogEmpty : EventLog
+        protected override void LoadImpl(IDataReader reader)
         {
-            public EventLogEmpty()
-                : base(Guid.Empty,string.Empty,string.Empty)
-            {
-                this.OnConstructed();
-            }
-
-            public override bool IsEmpty()
-            {
-                return true;
-            }
+            this.Id = reader.GetGuid("Id");
+            this.Status = (EventLogStatus)reader.GetByte("Status");
+            this.Language = reader.GetString("Language");
+            this.TenantId = reader.GetInt64("TenantId");
+            this.EntryCount = reader.GetInt32("EntryCount");
         }
-
-        public static readonly EventLog Empty = new EventLogEmpty();
-
-        #endregion
 
         #region 写入日志
 
@@ -138,7 +112,7 @@ namespace CodeArt.DomainDriven
             //写入日志
             var content = DTObject.Create();
             content["entryId"] = entry.Id;
-            EventLog.WriteAndFlush(logId, EventOperation.Raise, content);
+            EventLog.FlushWrite(logId, EventOperation.Raise, content);
         }
 
         /// <summary>
@@ -150,7 +124,7 @@ namespace CodeArt.DomainDriven
         {
             var logId = queueId;
             //写入日志
-            EventLog.WriteAndFlush(logId, EventOperation.End, DTObject.Empty);
+            EventLog.FlushWrite(logId, EventOperation.End, DTObject.Empty);
         }
 
 
@@ -162,22 +136,35 @@ namespace CodeArt.DomainDriven
         public static void Create(EventQueue queue)
         {
             var log = new EventLog(queue.Id, queue.Language, queue.TenantId);
-            var repository = Repository.Create<IEventLogRepository>();
+            var repository = EventLogRepository.Instance;
             repository.Add(log);
 
             //日志创建好后，立即追加一条日志内容
             Write(log, EventOperation.Start, DTObject.Empty);
         }
 
-        private static EventLog GetLog(Guid logId)
+        /// <summary>
+        /// 查找日志，同一时间只有一个线程可以操作一个队列，所以可以不用锁
+        /// </summary>
+        /// <param name="logId"></param>
+        /// <returns></returns>
+        public static EventLog Find(Guid logId)
         {
-            var repository = Repository.Create<IEventLogRepository>();
-            return repository.Find(logId, QueryLevel.Single);
+            var repository = EventLogRepository.Instance;
+            return repository.Find(logId, QueryLevel.None);
         }
 
-        private static void UpdateLog(EventLog log)
+        public static void FlushUpdate(EventLog log)
         {
-            var repository = Repository.Create<IEventLogRepository>();
+            DataContext.NewScope(() =>
+            {
+                Update(log);
+            });
+        }
+
+        public static void Update(EventLog log)
+        {
+            var repository = EventLogRepository.Instance;
             repository.Update(log);
         }
 
@@ -187,13 +174,13 @@ namespace CodeArt.DomainDriven
         /// <param name="logId">日志编号，同一个日志可以写多份内容，可以根据这些内容执行恢复操作</param>
         /// <param name="name">内容名称</param>
         /// <param name="content">内容</param>
-        private static void WriteAndFlush(Guid logId, EventOperation operation, DTObject content)
+        private static void FlushWrite(Guid logId, EventOperation operation, DTObject content)
         {
             DataContext.NewScope(() =>
             {
-                var log = GetLog(logId);
+                var log = Find(logId);
                 Write(log, operation, content);
-            }, true);
+            });
         }
 
         private static void Write(EventLog log, EventOperation operation, DTObject content)
@@ -201,57 +188,22 @@ namespace CodeArt.DomainDriven
             //写入日志条目
             var index = log.EntryCount;
             var contentCode = content.IsEmpty() ? "{}" : content.GetCode();
-            var entry = new EventLogEntry(log, operation, contentCode, index);
-            var repository = Repository.Create<IEventLogEntryRepository>();
+            var entry = new EventLogEntry(log.Id, operation, contentCode, index);
+            var repository = EventLogEntryRepository.Instance;
             repository.Add(entry);
 
             log.EntryCount++;
-            UpdateLog(log);
+            Update(log);
         }
 
         #endregion
 
         #region 静态成员
 
-        /// <summary>
-        /// 根据写入的日志执行恢复操作
-        /// </summary>
-        /// <param name="logId"></param>
-        /// <param name="process"></param>
-        internal static void Restore(Guid logId, Action<EventLog, EventLogEntry> process)
-        {
-            DataContext.NewScope(() =>
-            {
-                var log = GetLog(logId);
-                if (log.IsEmpty() || log.Status == EventLogStatus.Reversed) return; //表示已经回逆了
-
-                AppSession.Identity = log.GetIdentity(); //初始化会话身份
-
-                var repository = Repository.Create<IEventLogEntryRepository>();
-                var entries = repository.FindByReverseOrder(logId);
-
-                foreach (var entry in entries)
-                {
-                    if (entry.IsReversed) continue;
-                    //为日志条目的回逆创建独立的事务
-                    DataContext.NewScope(() =>
-                    {
-                        process(log, entry);
-                        entry.IsReversed = true;
-                        EventLogEntry.Update(entry);
-                    }, true);
-                }
-
-                log.Status = EventLogStatus.Reversed;
-                UpdateLog(log);
-            }, true);
-        }
-
         internal static void Delete(Guid queueId)
         {
-            var repository = Repository.Create<IEventLogRepository>();
-            var log = repository.Find(queueId, QueryLevel.None);
-            if (!log.IsEmpty()) repository.Delete(log);
+            var repository = EventLogRepository.Instance;
+            repository.Delete(queueId);
         }
 
         #endregion

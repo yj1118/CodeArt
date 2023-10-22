@@ -18,7 +18,7 @@ namespace CodeArt.Web.XamlControls.Metronic
             var index = 0;
             foreach(WizardStep step in content)
             {
-                brush.DrawFormat("<div class=\"m-wizard__step {0}\" data-wizard-target=\"#wizard_{1}_{2}\">",
+                brush.DrawFormat("<div class=\"m-wizard__step {0}\" m-wizard-target=\"wizard_{1}_{2}\">",
                     index == 0 ? "m-wizard__step--current" : string.Empty, wizard.Group, index);
                 brush.DrawLine();
                 brush.DrawFormat("<a href=\"javascript:undefined;\" class=\"m-wizard__step-number\"><span><i class=\"{0}\"></i></span></a>", step.Icon);

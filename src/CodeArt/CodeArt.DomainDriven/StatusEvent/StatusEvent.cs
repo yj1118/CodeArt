@@ -36,7 +36,12 @@ namespace CodeArt.DomainDriven
         /// <param name="action"></param>
         public static void Register(Type objectType, StatusEventType eventType, StatusEventHandler handler)
         {
-            string eventName = GetEventName(objectType, eventType);
+            Register(objectType.Name, eventType, handler);
+        }
+
+        public static void Register(string objectTypeName, StatusEventType eventType, StatusEventHandler handler)
+        {
+            string eventName = GetEventName(objectTypeName, eventType);
             RegisterEvent(eventName, handler);
         }
 
@@ -47,7 +52,7 @@ namespace CodeArt.DomainDriven
         /// <param name="action"></param>
         public static void Register(StatusEventType eventType, StatusEventHandler handler)
         {
-            string eventName = GetEventName(typeof(IDomainObject), eventType);
+            string eventName = GetEventName(typeof(IDomainObject).Name, eventType);
             RegisterEvent(eventName, handler);
         }
 
@@ -64,14 +69,14 @@ namespace CodeArt.DomainDriven
             {
                 //先触发类型级别的事件
                 var args = GetEventArgs(objectType);
-                var eventName = GetEventName(objectType, eventType);
+                var eventName = GetEventName(objectType.Name, eventType);
                 DispatchEvent(eventName, obj, args);
             }
 
             {
                 //触发全局事件
                 var args = GetEventArgs<IDomainObject>();
-                var eventName = GetEventName(typeof(IDomainObject), eventType);
+                var eventName = GetEventName(typeof(IDomainObject).Name, eventType);
                 DispatchEvent(eventName, obj, args);
             }
         }
@@ -100,7 +105,7 @@ namespace CodeArt.DomainDriven
         /// <returns></returns>
         private static StatusEventArgs GetEventArgs(Type objectType)
         {
-            string eventName = GetEventName(objectType, StatusEventType.Any); //通一会话中，同一个对象类型的状态事件的参数只有一个，不需要通过事件类型再来划分，因为这样用起来不灵活
+            string eventName = GetEventName(objectType.Name, StatusEventType.Any); //通一会话中，同一个对象类型的状态事件的参数只有一个，不需要通过事件类型再来划分，因为这样用起来不灵活
             string argsName = _getStatusEventArgsName(eventName);
             return AppSession.GetOrAddItem<StatusEventArgs>(argsName, () =>
             {
@@ -111,17 +116,17 @@ namespace CodeArt.DomainDriven
         #endregion
 
 
-        private static string GetEventName(Type objectType, StatusEventType eventType = StatusEventType.Any)
+        private static string GetEventName(string objectTypeName, StatusEventType eventType = StatusEventType.Any)
         {
-            return _getStatusEventName(objectType)(eventType);
+            return _getStatusEventName(objectTypeName)(eventType);
         }
 
-        private static Func<Type, Func<StatusEventType, string>> _getStatusEventName =
-                    LazyIndexer.Init<Type, Func<StatusEventType, string>>((objectType) =>
+        private static Func<string, Func<StatusEventType, string>> _getStatusEventName =
+                    LazyIndexer.Init<string, Func<StatusEventType, string>>((objectTypeName) =>
                     {
                         return LazyIndexer.Init<StatusEventType, string>((eventType) =>
                         {
-                            return string.Format("StatusEvent_{0}_{1}", objectType.FullName, (byte)eventType);
+                            return string.Format("StatusEvent_{0}_{1}", objectTypeName, (byte)eventType);
                         });
                     });
 

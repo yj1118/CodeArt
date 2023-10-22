@@ -48,6 +48,11 @@ namespace CodeArt.DomainDriven.DataAccess.SQLServer
                 _orderBy = string.Format("{0},{1} asc", _orderBy, EntityObject.IdPropertyName);
         }
 
+        public void OrderBy(string orderBy)
+        {
+            _orderBy = string.Format("order by {0}", orderBy);
+        }
+
         private string _groupBy = string.Empty;
         public void GroupBy(string format, params object[] args)
         {

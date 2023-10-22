@@ -98,7 +98,7 @@
                                 </m:FormSection>
                                 <m:FormSectionRow>
                                     <m:Dropzone xamlStyle="{StaticResource upload}" layout="Inline" label="{Static ui:Strings.Photo}" field="photo"
-                                                maxFileSize="2" maxFiles="1" acceptedFiles="image/*" help="{Static ui:Strings.PhotoRequirements}">
+                                                maxFileSize="5" maxFiles="1" acceptedFiles="image/*" help="{Static ui:Strings.PhotoRequirements}">
                                         <m:Dropzone.Headers>
                                             <m:DropzoneHeader Key="directoryId" Value="{Binding DirectoryId}"></m:DropzoneHeader>
                                         </m:Dropzone.Headers>
@@ -115,7 +115,7 @@
                                     </m:FormSectionRow>
                                 </m:FormSection>
                                 <m:form.Actions>
-                                    <m:button class="offset-xl-3" text="{Static ui:Strings.ConfirmSubmission}" name="baseSubmit" color="primary" air="true" icon="flaticon-interface" Click="OnBaseSubmit" view="base"></m:button>
+                                    <m:button class="offset-xl-3" text="{Static ui:Strings.ConfirmSubmission}" name="baseSubmit" color="primary" air="true" icon="flaticon-interface-10" Click="OnBaseSubmit" view="base"></m:button>
                                 </m:form.Actions>
                             </m:form>
                         </div>
@@ -138,7 +138,7 @@
                                     </m:FormSectionRow>
                                 </m:FormSection>
                                 <m:form.Actions>
-                                    <m:button class="offset-xl-3" text="{Static ui:Strings.ConfirmSubmission}" name="accountSubmit" color="primary" air="true" icon="flaticon-interface" Click="OnAccountSubmit" view="account"></m:button>
+                                    <m:button class="offset-xl-3" text="{Static ui:Strings.ConfirmSubmission}" name="accountSubmit" color="primary" air="true" icon="flaticon-interface-10" Click="OnAccountSubmit" view="account"></m:button>
                                 </m:form.Actions>
                             </m:form>
                         </div>

@@ -3,6 +3,8 @@
   <directories>
   </directories>
   <files>
+    <add name="jquery.cookie.js" />
+    
     <add name="codeArt.component.input.editor.js" />
     <add name="codeArt.component.input.js" />
     <add name="codeArt.component.input.thumbnails.js" />
@@ -19,5 +21,8 @@
     <add name="codeArt.min.js" />
     <add name="codeArt.mobile.min.js" />
     <add name="codeArt.xaml.min.js" />
+
+    <add name="mescroll.min.css" />
+    <add name="mescroll.min.js" />
   </files>
 </config>

@@ -61,15 +61,53 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="JWT, Version=6.0.0.0, Culture=neutral, PublicKeyToken=6f98bca0f40f2ecf, processorArchitecture=MSIL">
+      <HintPath>..\packages\JWT.6.1.0\lib\net46\JWT.dll</HintPath>
+    </Reference>
+    <Reference Include="netstandard, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" />
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>..\packages\NLog.4.5.6\lib\net45\NLog.dll</HintPath>
     </Reference>
+    <Reference Include="Pipelines.Sockets.Unofficial, Version=1.0.0.0, Culture=neutral, PublicKeyToken=42ea0a778e13fbe2, processorArchitecture=MSIL">
+      <HintPath>..\packages\Pipelines.Sockets.Unofficial.2.0.22\lib\net461\Pipelines.Sockets.Unofficial.dll</HintPath>
+    </Reference>
+    <Reference Include="StackExchange.Redis, Version=2.0.0.0, Culture=neutral, PublicKeyToken=c219ff1ca8c2ce46, processorArchitecture=MSIL">
+      <HintPath>..\packages\StackExchange.Redis.2.0.601\lib\net461\StackExchange.Redis.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\..\EarlyWarning\EarlyWarningRPC\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Diagnostics.PerformanceCounter, Version=4.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.PerformanceCounter.4.5.0\lib\net461\System.Diagnostics.PerformanceCounter.dll</HintPath>
+    </Reference>
     <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Pipelines, Version=4.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Pipelines.4.5.1\lib\netstandard2.0\System.IO.Pipelines.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.1\lib\netstandard2.0\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.4.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\EarlyWarning\EarlyWarningServices\EarlyWarningService\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Threading.Channels, Version=4.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Channels.4.5.0\lib\netstandard2.0\System.Threading.Channels.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.1\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -85,7 +123,17 @@
     <Compile Include="AOP\Aspect\AspectRemoveAttribute.cs" />
     <Compile Include="AOP\Aspect\IAspect.cs" />
     <Compile Include="AppContext\AppContext.cs" />
+    <Compile Include="AppSetting\AppDark\AppDark.cs" />
+    <Compile Include="Caching\Disk\DiskCacheTenant.cs" />
+    <Compile Include="Caching\Disk\DiskCache.cs" />
+    <Compile Include="Log\NLog\LogFactory\NLogFactory.cs" />
+    <Compile Include="Log\NLog\LogFactory\NLogger.cs" />
+    <Compile Include="Security\AllowAuthorizer.cs" />
+    <Compile Include="Security\AuthorizerFactory.cs" />
+    <Compile Include="Security\DarkAttribute.cs" />
+    <Compile Include="AppSetting\AppDark\IAppDarkFilter.cs" />
     <Compile Include="AppSetting\AppInitializer\PreApplicationEndAttribute.cs" />
+    <Compile Include="AppSetting\AppInitializer\ProApplicationStartedAttribute.cs" />
     <Compile Include="AppSetting\AppSession\AppSession.cs" />
     <Compile Include="AppSetting\AppSession\ContentEntries.cs" />
     <Compile Include="AppSetting\AppSession\IAppSession.cs" />
@@ -103,12 +151,11 @@
     <Compile Include="AppSetting\Symbiosis\SymbioticCollection.cs" />
     <Compile Include="AppSetting\InterfaceMapper\InterfaceImplementer.cs" />
     <Compile Include="ArgumentAssert.cs" />
+    <Compile Include="Caching\Redis\CacheConfig.cs" />
+    <Compile Include="Caching\Redis\CachePortal.cs" />
     <Compile Include="Concurrent\Pattern\NotRepeatDelayAction.cs" />
     <Compile Include="Concurrent\Pattern\AccumulateAction.cs" />
-    <Compile Include="Concurrent\Pattern\ActionPipelineSlim.cs" />
     <Compile Include="Concurrent\Pooling\Util\DictionaryPool.cs" />
-    <Compile Include="Concurrent\Pattern\ActionPipeline.cs" />
-    <Compile Include="Concurrent\Timer\Timeout\TimeoutMonitor.cs" />
     <Compile Include="AppContext\Configuration.cs" />
     <Compile Include="Concurrent\Extensions.cs" />
     <Compile Include="Concurrent\Future\Future.cs" />
@@ -118,33 +165,9 @@
     <Compile Include="Concurrent\Pooling\Util\RegexPool.cs" />
     <Compile Include="Concurrent\Pooling\Util\ListPool.cs" />
     <Compile Include="Concurrent\Pooling\Util\ArgsPool.cs" />
-    <Compile Include="Concurrent\Timer\MediaDelayer.cs" />
-    <Compile Include="Concurrent\Timer\MediaTimerMode.cs" />
-    <Compile Include="Concurrent\Timer\MediaTimerBase.cs" />
-    <Compile Include="Concurrent\Timer\MediaTimer.cs" />
-    <Compile Include="Concurrent\Pattern\Eat\Compounds.cs" />
-    <Compile Include="Concurrent\Pattern\Eat\CompoundReplaceMode.cs" />
-    <Compile Include="Concurrent\Pattern\Eat\EatPattern.cs" />
-    <Compile Include="Concurrent\Pattern\Eat\Rubbish.cs" />
-    <Compile Include="Concurrent\Pattern\Eat\Hungry\HungryPattern.cs" />
-    <Compile Include="Concurrent\Pattern\Eat\Hungry\HungryPatternConfig.cs" />
-    <Compile Include="Concurrent\Pattern\Eat\EatPatternConfig.cs" />
-    <Compile Include="Concurrent\Pattern\IntervalAction.cs" />
     <Compile Include="Concurrent\Pattern\LockAction.cs" />
     <Compile Include="Concurrent\Pattern\MasterSlave.cs" />
-    <Compile Include="Concurrent\Pattern\Pipeline\AutoResetPipeline.cs" />
-    <Compile Include="Concurrent\Pattern\Pipeline\AutoResetPipelineBase.cs" />
-    <Compile Include="Concurrent\Pattern\Pipeline\AutoResetPipelineTask.cs" />
-    <Compile Include="Concurrent\Pattern\Pipeline\IPipelineAction.cs" />
-    <Compile Include="Concurrent\Pattern\Pipeline\OneByOnePipeline.cs" />
-    <Compile Include="Concurrent\Pattern\Pipeline\OneByOnePipelineBase.cs" />
-    <Compile Include="Concurrent\Pattern\Pipeline\OneByOnePipelineTask.cs" />
     <Compile Include="Concurrent\Pattern\QueueAction.cs" />
-    <Compile Include="Concurrent\Pattern\Eat\Satiety\SatietyPattern.cs" />
-    <Compile Include="Concurrent\Pattern\Eat\Satiety\SatietyPatternConfig.cs" />
-    <Compile Include="Concurrent\Pattern\SignalDetector\OneOffDetector.cs" />
-    <Compile Include="Concurrent\Pattern\SignalDetector\SignalDetector.cs" />
-    <Compile Include="Concurrent\Pattern\SignalDetector\RepeatedDetector.cs" />
     <Compile Include="Concurrent\Pooling\FifoContainer.cs" />
     <Compile Include="Concurrent\Pooling\IPoolContainer.cs" />
     <Compile Include="Concurrent\Pooling\IPoolItem.cs" />
@@ -160,12 +183,22 @@
     <Compile Include="AppSetting\InterfaceMapper\InterfaceMapper.cs" />
     <Compile Include="Concurrent\SafeAccess\SafeAccessAttribute.cs" />
     <Compile Include="Concurrent\SafeAccess\TypeUnsafeAccessException.cs" />
+    <Compile Include="Concurrent\Timer\Timeout\TimeoutMonitor.cs" />
     <Compile Include="Data\ISqlConnectionProvider.cs" />
     <Compile Include="Data\MSSql\SqlHelper.cs" />
     <Compile Include="Data\MSSql\SqlLockLevel.cs" />
     <Compile Include="Data\SqlConnectionProvider.cs" />
     <Compile Include="Data\SqlContext.cs" />
     <Compile Include="Data\SqlData.cs" />
+    <Compile Include="Diagnostics\ConcurrentDetector.cs" />
+    <Compile Include="Diagnostics\DiagnosticsException.cs" />
+    <Compile Include="Diagnostics\LogicAssert.cs" />
+    <Compile Include="Diagnostics\TimeMonitor\ActionItem.cs" />
+    <Compile Include="Diagnostics\TimeMonitor\ActionProcedure.cs" />
+    <Compile Include="Diagnostics\TimeMonitor\OverseeData.cs" />
+    <Compile Include="Diagnostics\TimeMonitor\OverseeTime.cs" />
+    <Compile Include="Diagnostics\TimeMonitor\TimeMonitor.cs" />
+    <Compile Include="Diagnostics\WorkMachine.cs" />
     <Compile Include="DTO\Deserializer\CodeFormatErrorException.cs" />
     <Compile Include="DTO\Deserializer\CodeTreeNode.cs" />
     <Compile Include="DTO\Deserializer\CodeType.cs" />
@@ -228,13 +261,24 @@
     <Compile Include="DTO\Serialization\Markup\TypeMakupInfo.cs" />
     <Compile Include="INullProxy.cs" />
     <Compile Include="IO\IOUtil.cs" />
-    <Compile Include="Language\DefaultLanguageProvider.cs" />
-    <Compile Include="Language\ILanguageProvider.cs" />
-    <Compile Include="Language\LanguageProvider.cs" />
-    <Compile Include="Language\Language.cs" />
+    <Compile Include="Language\LanguageAttribute.cs" />
+    <Compile Include="Log\LogConfig.cs" />
+    <Compile Include="Log\ILogFactory.cs" />
+    <Compile Include="Log\Logger.cs" />
+    <Compile Include="Log\LogFactory.cs" />
+    <Compile Include="Log\ILog.cs" />
     <Compile Include="Net\HttpCommunicator.cs" />
+    <Compile Include="Security\IdentityAttribute.cs" />
+    <Compile Include="Security\IAuthorizer.cs" />
+    <Compile Include="Security\AuthException.cs" />
+    <Compile Include="Security\AuthAttribute.cs" />
+    <Compile Include="Security\SecurityConfig.cs" />
+    <Compile Include="Security\IdentityToken.cs" />
+    <Compile Include="Security\Token.cs" />
     <Compile Include="UserUIException.cs" />
     <Compile Include="Language\LanguageUtil.cs" />
+    <Compile Include="Util\GuidComparer.cs" />
+    <Compile Include="Util\Indexer\TimeIndexer.cs" />
     <Compile Include="Util\ObservableObject.cs" />
     <Compile Include="Runtime\AssemblyResource.cs" />
     <Compile Include="Runtime\AssemblyUtil.cs" />
@@ -282,9 +326,6 @@
     <Compile Include="Util\EqualsHelper.cs" />
     <Compile Include="Util\HashCoder.cs" />
     <Compile Include="Util\MultiDictionary.cs" />
-    <Compile Include="Event\ValidEvent\ValidEventArgs.cs" />
-    <Compile Include="Event\ValidEvent\ValidEventHandler.cs" />
-    <Compile Include="Event\ValidEvent\ValidEventTrigger.cs" />
     <Compile Include="Util\PathUtil.cs" />
     <Compile Include="Util\StringSegment.cs" />
     <Compile Include="DTO\DTObject.cs" />
@@ -311,9 +352,9 @@
     <Compile Include="IO\ByteBuffer\ByteBuffer.cs" />
     <Compile Include="IO\SegmentSize.cs" />
     <Compile Include="IO\Extensions.cs" />
-    <Compile Include="Log\ITracker.cs" />
-    <Compile Include="Log\LogWrapper.cs" />
-    <Compile Include="Log\NonLogAttribute.cs" />
+    <Compile Include="Log\NLog\ITracker.cs" />
+    <Compile Include="Log\NLog\LogWrapper.cs" />
+    <Compile Include="Log\NLog\NonLogAttribute.cs" />
     <Compile Include="Strings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -321,7 +362,7 @@
     </Compile>
     <Compile Include="TypeMismatchException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Util\LazyIndexer.cs" />
+    <Compile Include="Util\Indexer\LazyIndexer.cs" />
     <Compile Include="Runtime\AttributeUtil.cs" />
     <Compile Include="Runtime\ObjectSerializer.cs" />
   </ItemGroup>
@@ -333,6 +374,7 @@
     <EmbeddedResource Include="Strings.zh-CN.resx" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="Concurrent\Pooling\PoolConfig.xsd">
       <SubType>Designer</SubType>
     </None>

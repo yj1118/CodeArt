@@ -5,15 +5,37 @@ using System.Text;
 
 namespace CodeArt.DomainDriven
 {
+    /// <summary>
+    /// 为了方便实际使用中重构代码，新的版本中提供了非泛型版的CUD操作接口
+    /// </summary>
     public interface IRepository
     {
         /// <summary>
-        /// ���ݱ�Ų��Ҷ���
+        /// 根据编号查找对象
         /// </summary>
         /// <param name="id"></param>
         /// <param name="level"></param>
         /// <returns></returns>
         IAggregateRoot Find(object id, QueryLevel level);
+
+
+        /// <summary>
+        /// 将对象添加到仓储
+        /// </summary>
+        /// <param name="obj"></param>
+        void Add(IAggregateRoot obj);
+
+        /// <summary>
+        /// 修改对象在仓储中的信息
+        /// </summary>
+        /// <param name="obj"></param>
+        void Update(IAggregateRoot obj);
+
+        /// <summary>
+        /// 从仓储中删除对象
+        /// </summary>
+        /// <param name="obj"></param>
+        void Delete(IAggregateRoot obj);
     }
 
 
@@ -22,25 +44,25 @@ namespace CodeArt.DomainDriven
         where TRoot : class, IAggregateRoot
     {
         /// <summary>
-        /// ���������ӵ��ִ�
+        /// 将对象添加到仓储
         /// </summary>
         /// <param name="obj"></param>
         void Add(TRoot obj);
 
         /// <summary>
-        /// �޸Ķ����ڲִ��е���Ϣ
+        /// 修改对象在仓储中的信息
         /// </summary>
         /// <param name="obj"></param>
         void Update(TRoot obj);
 
         /// <summary>
-        /// �Ӳִ���ɾ������
+        /// 从仓储中删除对象
         /// </summary>
         /// <param name="obj"></param>
         void Delete(TRoot obj);
 
         /// <summary>
-        /// ���ݱ�Ų��Ҷ���
+        /// 根据编号查找对象
         /// </summary>
         /// <param name="id"></param>
         /// <param name="level"></param>

@@ -1,0 +1,217 @@
+﻿<ControlTemplate xmlns="http://schemas.codeart.cn/web/xaml"
+                 xmlns:m="http://schemas.codeart.cn/web/xaml/metronic"
+                 xmlns:ui="http://schemas.codeart.cn/web/xaml/ui"
+                 xmlns:qa="http://schemas.codeart.cn/web/xaml/qa">
+    <div data-proxy="{TemplateBinding ProxyCode}" id="{TemplateBinding Id}" name="{TemplateBinding Name}">
+        <AttributesPresenter />
+        <div class="row">
+            <div class="m--padding-15  col-sm-12">
+                <m:button text="新增问题" proxyCode="{binds:{value:'metadataId'},simple:true}" name="questionAdd" color="focus" air="true" icon="flaticon-plus" Click="OnQuestionAdd"></m:button>
+            </div>
+        </div>
+
+        <div class="row" data-proxy="{binds:{value:'Id'},onbind:_questions.onDataBind}">
+            <div class="col-lg-12">
+                <div class="m-portlet m-portlet--bordered m-portlet--unair paper">
+                    <div class="m-portlet__head">
+                        <div class="m-portlet__head-caption">
+                            <div class="m-portlet__head-title">
+                                <span class="m-portlet__head-icon">
+                                    <i class="flaticon-signs-1"></i>
+                                </span>
+                                <h3 class="m-portlet__head-text">问题列表</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="m-portlet__body">
+                        <div class="row">
+                            <div class="col-lg-6" data-proxy="{loops:'rows',onbind:_questions.onQuestionBind,display:''}">
+                                <div class="m-portlet m-portlet--bordered m-portlet--bordered-semi m-portlet--rounded question paperItem">
+                                    <div class="m-portlet__head">
+                                        <div class="m-portlet__head-caption">
+                                            <div class="m-portlet__head-title">
+                                                <span class="m-portlet__head-icon">
+                                                    <i class="flaticon-questions-circular-button"></i>
+                                                </span>
+                                                <h3 class="m-portlet__head-text"></h3>
+                                            </div>
+                                        </div>
+                                        <div class="m-portlet__head-tools">
+                                            <ul class="m-portlet__nav">
+                                                <li class="m-portlet__nav-item">
+                                                    <a href="javascript:undefined;" class="m-portlet__nav-link btn btn-primary m-btn btn-sm m-btn--pill m-btn--air"
+                                                       data-proxy="{binds:{value:'Id',MetadataId:'MetadataId'},simple:true}" name="questionEdit" view="_self" Click="OnQuestionEdit">
+                                                        编辑
+                                                    </a>
+                                                </li>
+                                                <li class="m-portlet__nav-item">
+                                                    <a href="javascript:undefined;" class="m-portlet__nav-link btn btn-danger m-btn btn-sm m-btn--pill m-btn--air"
+                                                       data-proxy="{binds:{value:'Id',MetadataId:'MetadataId'},simple:true}" name="questionDelete" view="_self" Click="OnQuestionDelete">
+                                                        删除
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="m-portlet__body" data-proxy="{binds:{text:'Type'},onbind:_questions.onContentBind}"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h3 class="text-center m--margin-bottom-30 emptyTip" style="display:none;">
+                    暂无数据
+                </h3>
+            </div>
+        </div>
+
+    </div>
+    <m:Modal id="questionAddDialog" size="xl" title="新增问题">
+        <m:form view="questionAdd" id="formQuestionAdd">
+            <m:TextBox layout="Hidden" field="metadataId" ignoreRecord="true" />
+            <m:TextBox layout="Wrap" label="问题内容" required="true" minlength="1" maxlength="500" field="content" rows="3" />
+            <m:Select layout="Wrap" label="题型" field="type" required="true" id="questionType0">
+                <m:Select.Options>
+                    <m:option value="1" text="单选"></m:option>
+                    <m:option value="2" text="多选"></m:option>
+                    <m:option value="3" text="陈述题"></m:option>
+                </m:Select.Options>
+            </m:Select>
+            <m:Select layout="Wrap" label="必填" field="required" required="true">
+                <m:Select.Options>
+                    <m:option value="true" text="是"></m:option>
+                    <m:option value="false" text="否"></m:option>
+                </m:Select.Options>
+            </m:Select>
+            <m:List layout="Wrap" label="选项" field="options" length="3" minlength="1" maxlength="10">
+                <m:List.Columns>
+                    <m:ListColumn title="内容">
+                        <m:TextBox layout="cell" label="内容" field="content" maxlength="50" required="true" rows="2" />
+                    </m:ListColumn>
+                </m:List.Columns>
+            </m:List>
+        </m:form>
+        <m:Modal.Footer>
+            <m:button color="primary" name="submitAddQuestion" icon="flaticon-interface-10" text="{Static ui:Strings.ConfirmSubmission}" Click="OnSubmitQuestionAdd" view="questionAdd"></m:button>
+            <m:button color="secondary" text="关闭" data-dismiss="modal"></m:button>
+        </m:Modal.Footer>
+    </m:Modal>
+
+    <m:Modal id="questionEditDialog" size="xl" title="修改问题">
+        <m:form view="questionEdit" id="formQuestionEdit" record="true">
+            <m:TextBox layout="Hidden" field="id" ignoreRecord="true" />
+            <m:TextBox layout="Hidden" field="metadataId" ignoreRecord="true" />
+            <m:TextBox layout="Wrap" label="问题内容" required="true" minlength="1" maxlength="500" field="content" rows="3" />
+            <m:Select layout="Wrap" label="题型" field="type" required="true" id="questionType1">
+                <m:Select.Options>
+                    <m:option value="1" text="单选"></m:option>
+                    <m:option value="2" text="多选"></m:option>
+                    <m:option value="3" text="陈述题"></m:option>
+                </m:Select.Options>
+            </m:Select>
+            <m:Select layout="Wrap" label="必填" field="required" required="true">
+                <m:Select.Options>
+                    <m:option value="true" text="是"></m:option>
+                    <m:option value="false" text="否"></m:option>
+                </m:Select.Options>
+            </m:Select>
+            <m:List layout="Wrap" label="选项" field="options" length="3" minlength="1" maxlength="10">
+                <m:List.Columns>
+                    <m:ListColumn title="内容">
+                        <m:TextBox layout="cell" label="内容" field="content" required="true" rows="2" />
+                    </m:ListColumn>
+                </m:List.Columns>
+            </m:List>
+        </m:form>
+        <m:Modal.Footer>
+            <m:button color="primary" name="submitQuestionEdit" icon="flaticon-interface-10" text="确认提交" Click="OnSubmitQuestionEdit" view="questionEdit"></m:button>
+            <m:button color="secondary" text="关闭" data-dismiss="modal"></m:button>
+        </m:Modal.Footer>
+    </m:Modal>
+
+
+    <RawCode Origin="Bottom">
+        <script>
+
+            function Questions() {
+                var self = this;
+                this.onDataBind = function (o, d) {
+                    var oj = o.getJquery(), e = oj.find(".emptyTip"), p = oj.find(".paper");
+                    if (d.rows.length == 0) {
+                        e.show();
+                        p.hide();
+                    }
+                    else {
+                        e.hide();
+                        p.show();
+                    }
+
+                    initQuestionTypeChanged();
+                    self.questionsSync();
+                }
+
+                this.onQuestionBind = function (o, d, ctx) {
+                    var n = ctx.index + 1, oj = o.getJquery();
+                    oj.find(".m-portlet__head-text").text(n + "." + d.Content);
+                }
+
+                this.onContentBind = function (o, d, ctx) {
+                    var oj = o.getJquery();
+                    var l = [];
+                    l.push("<p>" + _typeTexts[d.Type] + requiredText(d.Required) + "</p>");
+                    if (d.Type != "3") {
+                        d.Options.each(function (i) {
+                            l.push("<p>选项" + (i + 1) + "：<strong>" + this.Content + "</strong></p>");
+                        });
+                    }
+                    oj.html(l.join(''));
+                }
+
+                var _typeTexts = ["", "单选", "多选", "陈述"];
+
+                function requiredText(d) {
+                    return d == true ? "<span>&nbsp&nbsp&nbsp</span><font color=\"red\">必填</font>" : "";
+                }
+
+                function initQuestionTypeChanged() {
+
+                    $$("#questionType0").changed = function () {
+                        typeChanged(this);
+                    }
+
+                    $$("#questionType1").changed = function () {
+                        typeChanged(this);
+                    }
+                }
+
+
+
+                function typeChanged(o) {
+                    var v = o.get(), oj = o.getJquery(), ops = oj.next().next();
+                    if (v == "3") {
+                        ops.proxy().reset();
+                        ops.hide();
+                    }
+                    else {
+                        ops.show();
+                    }
+                }
+
+                this.questionsSync = function () {
+                    $$tools.syncHeightInit({
+                        items: ".paper .paperItem",
+                        unity: true, //统一高度
+                        dynamic: ".paper"
+                    });
+                }
+
+            }
+
+           
+
+            var _questions = new Questions();
+
+        </script>
+    </RawCode>
+
+</ControlTemplate>

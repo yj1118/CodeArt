@@ -47,7 +47,7 @@ namespace CodeArt {
         }
         
         /// <summary>
-        ///   使用此强类型资源类，为所有资源查找
+        ///   重写当前线程的 CurrentUICulture 属性
         ///   重写当前线程的 CurrentUICulture 属性。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -264,6 +264,15 @@ namespace CodeArt {
         internal static string PreApplicationStartNoStatic {
             get {
                 return ResourceManager.GetString("PreApplicationStartNoStatic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 ProApplicationStartedAttribute call method {0}. {1} must be static 的本地化字符串。
+        /// </summary>
+        internal static string ProApplicationStartedNoStatic {
+            get {
+                return ResourceManager.GetString("ProApplicationStartedNoStatic", resourceCulture);
             }
         }
         

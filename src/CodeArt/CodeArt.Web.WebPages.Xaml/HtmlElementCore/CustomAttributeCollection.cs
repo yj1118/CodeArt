@@ -86,5 +86,12 @@ namespace CodeArt.Web.WebPages.Xaml
             }
             return attr;
         }
+
+        public string GetAttributeValue(string name,string defaultValue)
+        {
+            CustomAttribute attr = GetAttribute(name);
+            return attr == null ? defaultValue : attr.Value.ToString();
+        }
+
     }
 }

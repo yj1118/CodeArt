@@ -87,6 +87,13 @@ namespace CodeArt.WPF.Controls.Playstation
                         btn.content.FontSize = 25;
                     }
                     break;
+
+                case ButtonSize.sm:
+                    {
+                        btn.Height = 40;
+                        btn.content.FontSize = 22;
+                    }
+                    break;
             }
         }
 

@@ -21,7 +21,7 @@ namespace CodeArt.DomainDriven
             if (string.IsNullOrEmpty(propertyValue)) return; //是否能为空的验证由别的验证器处理
 
             if (!IsMatch(propertyValue))
-                result.AddError(property.Name, "MobileNumber", string.Format(Strings.IncorrectMobileNumberFormat, property.Name));
+                result.AddError(property.Name, "MobileNumber", string.Format(Strings.IncorrectMobileNumberFormat, property.Call));
         }
 
         private static RegexPool _regex = new RegexPool(@"^\d{3,}$", RegexOptions.IgnoreCase);

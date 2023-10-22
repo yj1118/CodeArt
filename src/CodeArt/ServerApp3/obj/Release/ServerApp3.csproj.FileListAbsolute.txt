@@ -7,16 +7,15 @@ D:\Workspace\Projects\CodeArt Framework\CodeArt\ServerApp3\bin\Release\CodeArt.E
 D:\Workspace\Projects\CodeArt Framework\CodeArt\ServerApp3\bin\Release\CodeArt.RabbitMQ.dll
 D:\Workspace\Projects\CodeArt Framework\CodeArt\ServerApp3\bin\Release\RabbitMQ.Client.dll
 D:\Workspace\Projects\CodeArt Framework\CodeArt\ServerApp3\bin\Release\NLog.dll
-D:\Workspace\Projects\CodeArt Framework\CodeArt\ServerApp3\bin\Release\Microsoft.Diagnostics.Tracing.EventSource.dll
 D:\Workspace\Projects\CodeArt Framework\CodeArt\ServerApp3\bin\Release\CodeArt.EasyMQ.pdb
 D:\Workspace\Projects\CodeArt Framework\CodeArt\ServerApp3\bin\Release\CodeArt.RabbitMQ.pdb
 D:\Workspace\Projects\CodeArt Framework\CodeArt\ServerApp3\bin\Release\CodeArt.pdb
 D:\Workspace\Projects\CodeArt Framework\CodeArt\ServerApp3\bin\Release\RabbitMQ.Client.xml
 D:\Workspace\Projects\CodeArt Framework\CodeArt\ServerApp3\bin\Release\NLog.xml
-D:\Workspace\Projects\CodeArt Framework\CodeArt\ServerApp3\bin\Release\Microsoft.Diagnostics.Tracing.EventSource.xml
 D:\Workspace\Projects\CodeArt Framework\CodeArt\ServerApp3\bin\Release\zh-CN\CodeArt.EasyMQ.resources.dll
 D:\Workspace\Projects\CodeArt Framework\CodeArt\ServerApp3\bin\Release\zh-CN\CodeArt.RabbitMQ.resources.dll
 D:\Workspace\Projects\CodeArt Framework\CodeArt\ServerApp3\bin\Release\zh-CN\CodeArt.resources.dll
 D:\Workspace\Projects\CodeArt Framework\CodeArt\ServerApp3\obj\Release\ServerApp3.csproj.CoreCompileInputs.cache
+D:\Workspace\Projects\CodeArt Framework\CodeArt\ServerApp3\obj\Release\ServerApp3.csproj.CopyComplete
 D:\Workspace\Projects\CodeArt Framework\CodeArt\ServerApp3\obj\Release\ServerApp3.exe
 D:\Workspace\Projects\CodeArt Framework\CodeArt\ServerApp3\obj\Release\ServerApp3.pdb

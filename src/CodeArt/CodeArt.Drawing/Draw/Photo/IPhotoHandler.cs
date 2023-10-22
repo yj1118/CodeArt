@@ -14,7 +14,7 @@ namespace CodeArt.Drawing
         /// <param name="width"></param>
         /// <param name="height"></param>
         /// <param name="highQuality"></param>
-        void ThumbByFill(Stream sourceStream, Stream ouputStream, int width, int height, bool highQuality);
+        void Fit(Stream sourceStream, Stream ouputStream, int width, int height, bool highQuality);
 
         /// <summary>
         /// 等比缩放图片（但是会导致图片多余的周边部分被裁剪掉）
@@ -24,7 +24,7 @@ namespace CodeArt.Drawing
         /// <param name="width"></param>
         /// <param name="height"></param>
         /// <param name="highQuality"></param>
-        void ThumbByCut(Stream sourceStream, Stream ouputStream, int width, int height, bool highQuality);
+        void Cover(Stream sourceStream, Stream ouputStream, int width, int height, bool highQuality);
 
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace CodeArt.Drawing
         /// <param name="width"></param>
         /// <param name="height"></param>
         /// <param name="highQuality"></param>
-        void ThumbByFull(Stream sourceStream, Stream ouputStream, int width, int height, bool highQuality);
+        void Stetch(Stream sourceStream, Stream ouputStream, int width, int height, bool highQuality);
 
 
         /// <summary>
@@ -46,6 +46,6 @@ namespace CodeArt.Drawing
         /// <param name="width"></param>
         /// <param name="height"></param>
         /// <param name="highQuality"></param>
-        void ThumbByPart(Stream sourceStream, Stream ouputStream, int width, int height, bool highQuality);
+        void Part(Stream sourceStream, Stream ouputStream, int width, int height, bool highQuality);
     }
 }

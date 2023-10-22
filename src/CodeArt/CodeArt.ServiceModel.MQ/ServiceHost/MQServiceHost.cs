@@ -18,9 +18,17 @@ namespace CodeArt.ServiceModel
 {
     public static class MQServiceHost
     {
+        internal static bool IsEnabled
+        {
+            get;
+            set;
+        }
+
 
         public static void Start(Action initialize = null)
         {
+            IsEnabled = false;
+
             RPCEvents.ServerOpened += OnServerOpened;
             RPCEvents.ServerError += OnServerError;
             RPCEvents.ServerClosed += OnServerClosed;
@@ -30,11 +38,17 @@ namespace CodeArt.ServiceModel
             if (initialize != null)
                 initialize();
 
+            AppInitializer.Initialized();
+
             Console.WriteLine(MQ.Strings.CloseServiceHost);
+
+            IsEnabled = true;
             Console.ReadLine();
 
 
             AppInitializer.Cleanup();
+
+            IsEnabled = false;
         }
 
         private static void OnServerError(object sender, RPCEvents.ServerErrorArgs arg)

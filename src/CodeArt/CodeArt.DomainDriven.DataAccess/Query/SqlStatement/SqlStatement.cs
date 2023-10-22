@@ -21,8 +21,16 @@ namespace CodeArt.DomainDriven.DataAccess
         {
             switch(SqlContext.GetDbType())
             {
-                case DatabaseType.SQLServer: return string.Format("[{0}]", name);
-                case DatabaseType.MySQL: return string.Format("`{0}`", name);
+                case DatabaseType.SQLServer:
+                    {
+                        if (name.StartsWith("[")) return name;
+                        return string.Format("[{0}]", name);
+                    }
+                case DatabaseType.MySQL:
+                    {
+                        if (name.StartsWith("`")) return name;
+                        return string.Format("`{0}`", name);
+                    }
             }
             return name;
         }

@@ -40,7 +40,7 @@ namespace CodeArt.Concurrent.Pattern
         public OneByOnePipelineBase(Action action)
             : this(action, (ex) =>
             {
-                LogWrapper.Default.Fatal(ex);
+                Logger.Fatal(ex);
             })
         {
         }
@@ -71,7 +71,7 @@ namespace CodeArt.Concurrent.Pattern
             }
             catch (Exception ex)
             {
-                LogWrapper.Default.Fatal(ex);
+                Logger.Fatal(ex);
             }
         }
 

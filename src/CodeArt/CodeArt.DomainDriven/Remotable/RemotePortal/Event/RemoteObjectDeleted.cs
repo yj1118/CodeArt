@@ -13,7 +13,7 @@ namespace CodeArt.DomainDriven
     {
         public static string GetEventName(RemoteType remoteType)
         {
-            return string.Format("{0}Deleted", remoteType.FullName);
+            return RemoteActionName.ObjectDeleted(remoteType);
         }
 
         public static void Subscribe(RemoteType remoteType)

@@ -521,6 +521,16 @@
             </summary>
             <remarks> PLEASE KEEP THIS MATCHING THE DOC ABOVE.</remarks>
         </member>
+        <member name="P:RabbitMQ.Client.ConnectionFactory.DefaultAmqpUriSslProtocols">
+            <summary>
+            The default AMQP URI SSL protocols.
+            </summary>
+        </member>
+        <member name="P:RabbitMQ.Client.ConnectionFactory.AmqpUriSslProtocols">
+            <summary>
+            The AMQP URI SSL protocols.
+            </summary>
+        </member>
         <member name="F:RabbitMQ.Client.ConnectionFactory.DefaultAuthMechanisms">
             <summary>
              Default SASL auth mechanisms to use.
@@ -2010,6 +2020,11 @@
         <member name="M:RabbitMQ.Client.IModel.ConfirmSelect">
             <summary>
             Enable publisher acknowledgements.
+            </summary>
+        </member>
+        <member name="M:RabbitMQ.Client.IModel.CreateBasicPublishBatch">
+            <summary>
+             Creates a BasicPublishBatch instance
             </summary>
         </member>
         <member name="M:RabbitMQ.Client.IModel.CreateBasicProperties">
@@ -4161,8 +4176,8 @@
             ConnectionFactory.CreateConnection attempt.</summary>
         </member>
         <member name="M:RabbitMQ.Client.Exceptions.BrokerUnreachableException.#ctor(System.Exception)">
-            <summary>Construct a BrokerUnreachableException. The inner exception is associated
-            with only one connection attempt.</summary>
+            <summary>Construct a BrokerUnreachableException. The inner exception is
+            an AggregateException holding the errors from multiple connection attempts.</summary>
         </member>
         <member name="T:RabbitMQ.Client.Exceptions.ChannelAllocationException">
             <summary> Thrown when a SessionManager cannot allocate a new
@@ -4183,8 +4198,8 @@
         <member name="P:RabbitMQ.Client.Exceptions.ChannelAllocationException.Channel">
             <summary>Retrieves the channel number concerned; will
             return -1 in the case where "no more free channels" is
-            being signalled, or a non-negative integer when "channel is
-            in use" is being signalled.</summary>
+            being signaled, or a non-negative integer when "channel is
+            in use" is being signaled.</summary>
         </member>
         <member name="T:RabbitMQ.Client.Exceptions.ConnectFailureException">
             <summary>Thrown when a connection to the broker fails</summary>
@@ -4258,6 +4273,18 @@
         </member>
         <member name="P:RabbitMQ.Client.Exceptions.ProtocolVersionMismatchException.ServerMinor">
             <summary>The peer's AMQP specification minor version.</summary>
+        </member>
+        <member name="M:RabbitMQ.Client.Exceptions.RabbitMQClientException.#ctor">
+            <summary>Initializes a new instance of the <see cref="T:RabbitMQ.Client.Exceptions.RabbitMQClientException" /> class.</summary>
+        </member>
+        <member name="M:RabbitMQ.Client.Exceptions.RabbitMQClientException.#ctor(System.String)">
+            <summary>Initializes a new instance of the <see cref="T:RabbitMQ.Client.Exceptions.RabbitMQClientException" /> class with a specified error message.</summary>
+            <param name="message">The message that describes the error. </param>
+        </member>
+        <member name="M:RabbitMQ.Client.Exceptions.RabbitMQClientException.#ctor(System.String,System.Exception)">
+            <summary>Initializes a new instance of the <see cref="T:RabbitMQ.Client.Exceptions.RabbitMQClientException" /> class with a specified error message and a reference to the inner exception that is the cause of this exception.</summary>
+            <param name="message">The error message that explains the reason for the exception. </param>
+            <param name="innerException">The exception that is the cause of the current exception, or a null reference (Nothing in Visual Basic) if no inner exception is specified. </param>
         </member>
         <member name="T:RabbitMQ.Client.Exceptions.UnexpectedMethodException">
             <summary>

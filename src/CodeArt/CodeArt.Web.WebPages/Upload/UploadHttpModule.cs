@@ -74,7 +74,11 @@
         {
             string contentType = request.ContentType;
             int index = contentType.IndexOf("boundary=");
-            return ((index > 0) ? request.ContentEncoding.GetBytes("--" + contentType.Substring(index + "boundary=".Length)) : null);
+            if (index < 0)
+            {
+                throw new UserUIException("上传的内容类型错误：" + contentType + "，没有包含boundary的数据");
+            }
+            return request.ContentEncoding.GetBytes("--" + contentType.Substring(index + "boundary=".Length));
         }
 
         private Type GetKnownWorkerRequestType(HttpWorkerRequest workerRequest)

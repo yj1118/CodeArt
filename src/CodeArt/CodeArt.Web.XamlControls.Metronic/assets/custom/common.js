@@ -2,9 +2,9 @@
 Dropzone.confirm = function (question, accepted, rejected) {
     $$metronic.sweetAlert.confirm(question, '', accepted, rejected);
 };
-var $$page = $$.page = { context: {}};//代表页面级别的命名空间
+var $$page = $$.page = { context: {} };//代表页面级别的命名空间
 (function () {
-    $$.page.setUserBadge = function(n) {
+    $$.page.setUserBadge = function (n) {
         var b = $("#user-photo-badge");
         if (n > 0) {
             b.show();
@@ -95,12 +95,12 @@ var $$page = $$.page = { context: {}};//代表页面级别的命名空间
         }
         if (!cont.type) cont.type = "info";
         if (cont.message)
-            toastr[cont.type](cont.message,cont.title);
+            toastr[cont.type](cont.message, cont.title);
         else
             toastr[cont.type](cont.title);
     }
 
-    mApp.scrollTo = function(target, offset) { //target可以为null
+    mApp.scrollTo = function (target, offset) { //target可以为null
         el = $(target);
         var pos = (el && el.length > 0) ? el.offset().top : 0;
         pos = pos + (offset ? offset : 0);
@@ -154,7 +154,6 @@ $$.page.ready(function () {
         this.error = function (msg) {
             swal($$strings.SystemAbnormal, msg, "error");
         }
-
     });
 });
 
@@ -168,7 +167,7 @@ $$.page.ready(function () {
         }
     };
 
-    menu.setBadge = function(id, n) {
+    menu.setBadge = function (id, n) {
         if (n > 0) {
             var o = $("#" + id + " span.m-menu__link-text").mapNull() || $("#" + id + " span.m-nav__link-text").mapNull();
             if (o) o.after("<span class=\"m-nav__link-badge\"><span class=\"m-badge m-badge--success\">" + n + "</span></span>");
@@ -278,7 +277,7 @@ $$.page.ready(function () {
             if (p > -1) u = u.substr(0, p);
             return _pathname == u || _address == u;
         }
-        
+
     }
 
     function haveChilds(d) {
@@ -297,12 +296,12 @@ $$.page.ready(function () {
         j.find("div").first().remove();
     }
 
-    function setIcon(o,d,defIcon) {
+    function setIcon(o, d, defIcon) {
         var icon = d.icon ? d.icon : defIcon;
         o.addClass(icon);
         var s = d.iconFontSize;
         if (s) {
-            o.css("font-size",s);
+            o.css("font-size", s);
         }
     }
 
@@ -310,11 +309,11 @@ $$.page.ready(function () {
         var j = o.getJquery(), hc = haveChilds(d);
         if (hc) {
             j.addClass("m-menu__item--submenu m-menu__item--expanded"); //追加了m-menu__item--expanded表示所有菜单可以同时展开，如果不加，那么同一时间只有一个节点可以展开
-            j.attr("m-menu-submenu-toggle","hover");
+            j.attr("m-menu-submenu-toggle", "hover");
             if (d.selected) {
                 j.addClass("m-menu__item--open");
                 //setSelect(j);
-            } else if (containsTag(d,"opened")) {
+            } else if (containsTag(d, "opened")) {
                 j.addClass("m-menu__item--open");
             }
             var a = j.find("a").first();
@@ -429,7 +428,7 @@ $$.page.ready(function () {
         var o = j.proxy();
         var d = { childs: mv.data.childs || mv.data };
         var t = []; //t就是快捷项的集合
-        fillTagData(t, d,"shortcut");
+        fillTagData(t, d, "shortcut");
         if (t.length == 0) {
             j.remove(); //没有快捷项，移除快捷方式的dom
             return;
@@ -438,7 +437,7 @@ $$.page.ready(function () {
         var sd = { group: [] };
         t.each(function (i) {
             var n = $$strings.ShortcutGroup + (i + 1);
-            sd.group.push({ name:n, items: this });
+            sd.group.push({ name: n, items: this });
         });
         var c = $$("#shortcutContent"), cj = c.getJquery();
         cj.css("width", (sd.group.length * 250) + "px"); //每个分组占250px的宽
@@ -458,12 +457,12 @@ $$.page.ready(function () {
     }
 
 
-    function fillTagData(l, d,tag) {
-        if (containsTag(d,tag)) {
-            var c = { name: d.name, icon: d.icon||'',code:d.code||'' };
+    function fillTagData(l, d, tag) {
+        if (containsTag(d, tag)) {
+            var c = { name: d.name, icon: d.icon || '', code: d.code || '' };
             l.push(c);
         }
-        $(d.childs).each(function (){
+        $(d.childs).each(function () {
             fillTagData(l, this, tag);
         });
     }
@@ -495,14 +494,12 @@ $$.page.ready(function () {
         else
             a.removeClass("active");
     }
-
-
 })();
 
 /*路径导航*/
 (function () {
     var bar = $$.page.bar = {};
-    bar.items = [];//附加项
+    bar.items = [];
     bar.init = function () {
         var j = $("#sitePath").mapNull();
         if (!j) return;
@@ -517,12 +514,13 @@ $$.page.ready(function () {
             return;
         }
         var text = items.last()[0].text;
-        items = items.concat(bar.items);
+        //items = items.concat(bar.items);
         items.last()[0].last = true;
-        b.bind({ text: text,items: items });
+        b.bind({ text: text, items: items });
+        bar.items = items;
     }
 
-    bar.title = function (t) {sitePath
+    bar.title = function (t) {
         var j = $("#sitePath").mapNull();
         if (!j) return;
         var title = j.children("h3").first();
@@ -530,6 +528,20 @@ $$.page.ready(function () {
         title.text(t);
         j.children("ul").first().hide();
         j.show();
+    }
+
+    bar.addItems = function (items) {
+        var j = $("#sitePath").mapNull();
+        if (!j) return;
+        var b = j.proxy();
+
+        var exists = bar.items;
+        exists.last()[0].last = false;
+        items = exists.concat(items);
+        var text = items.last()[0].text;
+        items.last()[0].last = true;
+        b.bind({ text: text, items: items });
+        bar.items = items;
     }
 
     function fillItems(items, d) {
@@ -545,6 +557,10 @@ $$.page.ready(function () {
     }
 
     $$.page.bar.onbind = function (o, d) {
+        var j = o.getJquery();
+        var next = j.next();
+        if (next.hasClass("m-nav__separator")) next.remove();
+
         if (d.last) return;
         var j = o.getJquery();
         j.after("<li class=\"m-nav__separator\">&nbsp;-&nbsp;</li >");
@@ -659,11 +675,12 @@ $$.createModule("metronic", function (api, module) {
         sa.success = function (title, text, ok) {
             swal(title, text, "success", ok);
         }
-        sa.confirm = function (title, text, ok, cancel) {
+        sa.confirm = function (title, text, ok, cancel, type) {
+            if (!type) type = "warning";
             swal({
                 title: title,
                 text: text,
-                type: 'warning',
+                type: type,
                 allowOutsideClick: false,
                 showCancelButton: true,
                 confirmButtonText: $$strings.OK,
@@ -711,7 +728,7 @@ $$.createModule("metronic", function (api, module) {
                     if (d.closeTime > 0) {
                         setTimeout(function () {
                             my.hide();
-                        }, d.closeTime); 
+                        }, d.closeTime);
                     }
                 }
 
@@ -856,7 +873,7 @@ $$.createModule("metronic", function (api, module) {
                 return _errors;
             }
 
-            this.getErrorsMessage = function() {
+            this.getErrorsMessage = function () {
                 return _errors.join(';');
             }
         }
@@ -1031,18 +1048,34 @@ $$.createModule("metronic", function (api, module) {
                 }
 
                 o.get = function (n) {
-                    var v = {};
-                    _inputs.each(function (i, e) {
-                        exec($$(e), "get", function (p) {
-                            if (p.ignoreForm) return; //忽略form，那么不参表单行为
-                            var pv = p.get();
-                            if (pv == null) return; //如果返回的值显示指明了为null，那么不提交该值
-                            if (equalsRecord(p, pv)) return; //如果值等于记录中的数据，那么不提交，这表示值没有改变过，不用提交修改
-                            v[p.name] = pv;
+                    if (n) {
+                        var l = util.type(n) == "array" ? n : n.split(',');
+                        var v = {};
+                        _inputs.each(function (i, e) {
+                            if (l.indexOf($$(e).name) == -1) return;
+                            fillValues(v, e);
                         });
-                    });
-                    return v;
+                        return v;
+                    }
+                    else {
+                        var v = {};
+                        _inputs.each(function (i, e) {
+                            fillValues(v, e);
+                        });
+                        return v;
+                    }
                 }
+
+                function fillValues(v,e) {
+                    exec($$(e), "get", function (p) {
+                        if (p.ignoreForm) return; //忽略form，那么不参表单行为
+                        var pv = p.get();
+                        if (pv == null) return; //如果返回的值显示指明了为null，那么不提交该值
+                        if (equalsRecord(p, pv)) return; //如果值等于记录中的数据，那么不提交，这表示值没有改变过，不用提交修改
+                        v[p.name] = pv;
+                    });
+                }
+
 
                 o.disable = function (b) {
                     _inputs.each(function (i, e) {
@@ -1057,7 +1090,7 @@ $$.createModule("metronic", function (api, module) {
                     var a = this.findAlert();
                     if (!a) return;
                     a.show(d);
-                    if ($$.metronic.modal.get(this)) return; //如果在窗口里面的表单，那么不移动滚动条
+                    //if ($$.metronic.modal.get(this)) return; //如果在窗口里面的表单，那么不移动滚动条(该规则取消，因为如果窗口中的表单过大，主窗口会有滚动条，这时候不滚动提示，用户不知道是否被成功提交了)
                     $$.page.scrollTo(a.getJquery(), -200);
                 }
 
@@ -1189,7 +1222,7 @@ $$.createModule("metronic", function (api, module) {
                     rules[n] = r.rules;
                     messages[n] = r.messages;
                 });
-                var validator = new metro.validator(o,{
+                var validator = new metro.validator(o, {
                     rules: rules,
                     messages: messages,
                     invalidHandler: function (validator) {
@@ -1205,7 +1238,7 @@ $$.createModule("metronic", function (api, module) {
                 if (!empty(_formName)) append(o, external(o, target, document.body, _formName)); //定义了表单名称，还要收集外部控件
             }
 
-            function append(o,l) {//追加输入组件
+            function append(o, l) {//追加输入组件
                 var my = o;
                 if (type(l) != "array") l = [l];
                 var ps = _inputs;
@@ -1225,7 +1258,7 @@ $$.createModule("metronic", function (api, module) {
                 });
             }
 
-            function internal(o,c, n, ps) {//n:表单名称
+            function internal(o, c, n, ps) {//n:表单名称
                 ps = ps || [];
                 var l = $(c).children();
                 l.each(function () {
@@ -1243,7 +1276,7 @@ $$.createModule("metronic", function (api, module) {
                 return ps;
             }
 
-            function external(o,fe, c, n, ps) {//f:表单实体,n:表单名称
+            function external(o, fe, c, n, ps) {//f:表单实体,n:表单名称
                 ps = ps || [];
                 if (fe == c) return ps;
                 var l = $(c).children();
@@ -1256,7 +1289,7 @@ $$.createModule("metronic", function (api, module) {
                             external(o, fe, e, n, ps);
                         }
                     }
-                    else external(o,fe, e, n, ps);
+                    else external(o, fe, e, n, ps);
                 });
                 return ps;
             }
@@ -1277,7 +1310,7 @@ $$.createModule("metronic", function (api, module) {
                 }
                 if (empty(p.name))
                     p.name = getName(p);
-            }           
+            }
         }
 
         function getRule(o) {
@@ -1330,17 +1363,30 @@ $$.createModule("metronic", function (api, module) {
                     //return this.getJquery().mPortlet();
                 }
 
-                o.cover = function (b) { //将整个屏幕盖住，这是指对象原本是隐藏的，后来遮盖了整个屏幕，当缩小后，对象又隐藏了
+                o.cover = function (b, arg) { //将整个屏幕盖住，这是指对象原本是隐藏的，后来遮盖了整个屏幕，当缩小后，对象又隐藏了
+                    if (util.type(b) == "object") {
+                        arg = b;
+                        b = true;
+                    } else {
+                        if (!arg) arg = {};
+                    }
+
                     var oj = this.getJquery();
                     var p = this.mPortlet();
                     if (b === false) {
                         p.unFullscreen();
                     }
                     else {
+                        if (arg.opened) {
+                            p.one("afterFullscreenOn", function () {
+                                arg.opened();
+                            });
+                        }
                         oj.show();
                         p.fullscreen();
                         p.one("afterFullscreenOff", function () {
                             oj.hide();
+                            if (arg.closed) arg.closed();
                         });
                     }
                 }
@@ -1375,7 +1421,12 @@ $$.createModule("metronic", function (api, module) {
                 })
 
                 oj.on('hidden.bs.modal', function () { //窗口完全退出（动画效果完毕）
-                    
+                    var cbs = o._modalCallback;
+                    cbs.each(function () {
+                        this();
+                    });
+                    o._modalCallback = [];
+                    if (o.closed) o.closed();
                 })
 
                 o.open = function (cb) {
@@ -1384,7 +1435,10 @@ $$.createModule("metronic", function (api, module) {
                     }
                     this.getJquery().modal('show');
                 }
-                o.close = function () {
+                o.close = function (cb) {
+                    if (cb) {
+                        this._modalCallback.push(cb);
+                    }
                     this.getJquery().modal('hide');
                 }
                 o.title = function (v) {
@@ -1449,7 +1503,7 @@ $$.createModule("metronic", function (api, module) {
     })();
 
 
-    function _help(o,v) {
+    function _help(o, v) {
         var oj = o.getJquery(), h = oj.find(".m-form__help").mapNull();
         if (!empty(v)) {
             if (h) h.html(v);
@@ -1514,10 +1568,10 @@ $$.createModule("metronic", function (api, module) {
                 }
 
                 o.set = function (vl, ignoreChanged) {
-                    if (type(vl)!='array') {
+                    if (type(vl) != 'array') {
                         vl = [vl]; //传递进来的值不是数组，所以要转换一下
                     }
-                    if (this.modalMode() || this.options().length==0) {
+                    if (this.modalMode() || this.options().length == 0) {
                         var items = vl; //modal模式下赋予选项的完整信息，包括value和text
                         this.options(items);
                         vl = items.select((t) => { return t.value || t; }); //支持传递对象数组进来，会自动转换
@@ -1567,7 +1621,7 @@ $$.createModule("metronic", function (api, module) {
                     return s.prop('disabled');
                 }
 
-                o.more = function (modal,cb) {
+                o.more = function (modal, cb) {
                     var o = this;
                     var table = modal.find("[data-datatable='true']").proxy();
                     if (table.inited) {
@@ -1593,10 +1647,11 @@ $$.createModule("metronic", function (api, module) {
                         var b = $(this);
                         var table = modal.find("[data-datatable='true']").proxy();
                         var items = table.selectedItems().clone();
-                        if (cb) {
-                            cb(items);
-                        }
-                        modal.close();
+                        modal.close(function () {
+                            if (cb) {
+                                cb(items);
+                            }
+                        });
                     });
                 }
 
@@ -1617,6 +1672,10 @@ $$.createModule("metronic", function (api, module) {
                 }
                 s.removeAttr("data-multiple");
                 if (s.attr("data-max-options") == "0") s.removeAttr("data-max-options");
+
+                var width = o.attr("width") || o.attr("data-width");
+                if (width) s.attr("data-width", width);
+
                 s.selectpicker({
                     noneSelectedText: "",
                     selectAllText: $$strings.SelectAll,
@@ -1702,7 +1761,7 @@ $$.createModule("metronic", function (api, module) {
                 o.placeholder = function (v) {
                     var c = getCore(this);
                     if (!empty(v)) {
-                        c.attr("placeholder",v);
+                        c.attr("placeholder", v);
                     }
                     return c.attr("placeholder");
                 }
@@ -1802,6 +1861,9 @@ $$.createModule("metronic", function (api, module) {
                 });
                 setMask(o);
                 setChanged(o);
+
+                var ds = o.attr("data-disabled").toLower() == "true";
+                o.disable(ds);
             }
 
             function getCore(o) {
@@ -1887,19 +1949,21 @@ $$.createModule("metronic", function (api, module) {
 
     (function () {
         var s = $$strings;
-        $.fn.datepicker.dates[$$language] = {
-            days: [s.Sunday, s.Monday, s.Tuesday, s.Wednesday, s.Thursday, s.Friday, s.Saturday],
-            daysShort: [s.Sun, s.Mon, s.Tue, s.Wed, s.Thu, s.Fri, s.Sat],
-            daysMin: [s.Su, s.Mo, s.Tu, s.We, s.Th, s.Fr, s.Sa],
-            months: [s.January, s.February, s.March, s.April, s.May, s.June, s.July, s.August, s.September, s.October, s.November, s.December],
-            monthsShort: [s.Jan, s.Feb, s.Mar, s.Apr, s.May, s.Jun, s.Jul, s.Aug, s.Sep, s.Oct, s.Nov, s.Dec],
-            today: s.Today,
-            monthsTitle: s.SelectMonth,
-            clear: s.Clear,
-            format: "yyyy-mm-dd",
-            titleFormat: s.DateTitleFormat,
-            weekStart: 1
-        };
+        if ($.fn.datepicker.dates) { //在引用了jquery-ui后，$.fn.datepicker被重写了，$.fn.datepicker.dates就无效了，所以会报错，因此需要加上额外的判断
+            $.fn.datepicker.dates[$$language] = {
+                days: [s.Sunday, s.Monday, s.Tuesday, s.Wednesday, s.Thursday, s.Friday, s.Saturday],
+                daysShort: [s.Sun, s.Mon, s.Tue, s.Wed, s.Thu, s.Fri, s.Sat],
+                daysMin: [s.Su, s.Mo, s.Tu, s.We, s.Th, s.Fr, s.Sa],
+                months: [s.January, s.February, s.March, s.April, s.May, s.June, s.July, s.August, s.September, s.October, s.November, s.December],
+                monthsShort: [s.Jan, s.Feb, s.Mar, s.Apr, s.May, s.Jun, s.Jul, s.Aug, s.Sep, s.Oct, s.Nov, s.Dec],
+                today: s.Today,
+                monthsTitle: s.SelectMonth,
+                clear: s.Clear,
+                format: "yyyy-mm-dd",
+                titleFormat: s.DateTitleFormat,
+                weekStart: 1
+            };
+        }
     })();
 
     //date
@@ -1960,7 +2024,7 @@ $$.createModule("metronic", function (api, module) {
                     var v = core.val();
                     if (v) {
                         var p = core.data('daterangepicker');
-                        if(this.attr("data-string"))
+                        if (this.attr("data-string"))
                             return { start: p.startDate._d.format("y/M/d h:m"), end: p.endDate._d.format("y/M/d h:m") };
                         else
                             return { start: p.startDate._d, end: p.endDate._d };
@@ -2028,7 +2092,6 @@ $$.createModule("metronic", function (api, module) {
 
     })();
 
-
     //dropzone
     (function () {
         var dropzone = metro.dropzone = function () {
@@ -2058,10 +2121,19 @@ $$.createModule("metronic", function (api, module) {
                     this._dz.removeAllFiles();
                 }
 
+                o.label = function (v) {
+                    var label = o.getJquery().find("label");
+                    if (v) {
+                        label.text(v);
+                    } else {
+                        return label.text();
+                    }
+                }
+
                 o.disable = function (b) {
                     var core = this.find("[data-core-container]");
                     var dz = this.find(".m-dropzone");
-                    
+
                     if (b) {
                         var clone = $(dz.clone());
                         dz.hide();
@@ -2073,6 +2145,19 @@ $$.createModule("metronic", function (api, module) {
                         core.find(".dz-disabled").remove();
                         dz.show();
                     }
+                }
+
+                o.headers = function () {
+                    var dz = this._dz;
+                    return dz.options.headers;
+                }
+
+                o.setHeader = function (n, v) {
+                    this.headers()[n] = v;
+                }
+
+                o.addFile = function (f) {
+                    addFile(o, f);
                 }
 
                 function addFile(o, f) {
@@ -2124,7 +2209,7 @@ $$.createModule("metronic", function (api, module) {
                 var headers = o.attr("data-headers") || "{}";
                 eval("headers=" + headers + ";");
 
-                var dz = new Dropzone(c[0],{
+                var dz = new Dropzone(c[0], {
                     url: uploadUrl,
                     paramName: "file", // The name that will be used to transfer the file
                     maxFiles: max,
@@ -2154,6 +2239,8 @@ $$.createModule("metronic", function (api, module) {
                                 if (info) { //如果是取消上传，info为空
                                     eval("info=" + info + ";");
                                     file.info = info;
+                                    if (o.uploaded)
+                                        o.uploaded(file);
                                 }
                                 else {
                                     dz.removeFile(file);
@@ -2405,6 +2492,29 @@ $$.createModule("metronic", function (api, module) {
         }
     })();
 
+    //公共方法，用于组件获取查询条件
+    function fillQuery(oj, paras) {
+        var q = oj.attr("query") || oj.attr("data-query");
+        var qs = [oj];
+        if (q) {
+            q = q.split(',');
+            q.each(function () { //可以引入外部元素
+                qs.push($(this.toString()));
+            });
+        }
+
+        qs.each(function () { //可以引入外部元素
+            var c = this;
+            var l = c.find("[query-field]");
+            l.each(function () {
+                var t = $(this), field = t.attr("query-field");
+                var p = t.proxy(), v = p.get();
+                if (!empty(v)) paras[field] = v;
+                else delete paras[field];
+            });
+        });
+    }
+
     //datatable
     (function () {
         var dt = metro.datatable = function (p) {
@@ -2478,7 +2588,7 @@ $$.createModule("metronic", function (api, module) {
             //    cell.empty(); //清理资源
             //}
 
-            function loadDetail(row, cell, info, force,callback) {
+            function loadDetail(row, cell, info, force, callback) {
                 var data = row.data().obj, cs = cell.children();
                 if (cs.length > 0 && !force) return; //如果已加载过，并且不是强制加载，那么保留数据
 
@@ -2487,7 +2597,7 @@ $$.createModule("metronic", function (api, module) {
                     info = detailColumn.detail;
                     info.accept = setDetailData;
                 }
-               
+
                 var obj = null;
                 if (cs.length == 0) {
                     var code = info.template(), oj = row.closest("[data-datatable]"), o = $$(oj);
@@ -2501,11 +2611,11 @@ $$.createModule("metronic", function (api, module) {
                     if (o.detailLoad) obj.onbind = o.detailLoad; //直接赋予函数的形式
                     cell.empty().append(obj.getJquery()); //先加入，再绑定数据
                 } else obj = $$(cs[0]);
-                
+
                 info.accept(obj, data, callback);
             }
 
-            function setDetailData(obj, localData,callback) {
+            function setDetailData(obj, localData, callback) {
                 if (this.action) {
                     //从服务器获取数据
                     var sender = {
@@ -2583,7 +2693,7 @@ $$.createModule("metronic", function (api, module) {
                     }
                     return vl;
                 }
-                o.selectedItems = function (items) { 
+                o.selectedItems = function (items) {
                     if (items) {
                         this.selectedItemsImpl = items; //为table赋予一组值，当列表加载或者翻页时，含有该值就会被勾选
                         drawSelected(this);
@@ -2615,7 +2725,7 @@ $$.createModule("metronic", function (api, module) {
                     expand(tr);
                 }
 
-                o.reloadDetail = function (value,cb) {  //重新加载对应value的行的详细信息
+                o.reloadDetail = function (value, cb) {  //重新加载对应value的行的详细信息
                     var tr = this.findRow(value);
                     if (!tr) return;
                     var detail = tr.next();
@@ -2640,7 +2750,7 @@ $$.createModule("metronic", function (api, module) {
                     }
                 }
 
-                o.reloadRow = function (data, reloadDetail,cb) { //reloadDetail是否重新加载详细信息
+                o.reloadRow = function (data, reloadDetail, cb) { //reloadDetail是否重新加载详细信息
                     var value = data[this.valueField];
                     var target = this.findRow(value);
                     if (!target) return;
@@ -2668,7 +2778,7 @@ $$.createModule("metronic", function (api, module) {
                     }
                 }
 
-                function generateRow(o,data) {
+                function generateRow(o, data) {
                     var p = config, arg = {
                         columns: p.columns,
                         rows: {
@@ -2830,29 +2940,19 @@ $$.createModule("metronic", function (api, module) {
                 return true;
             }
 
-            function updateQuery(oj,dt) {
+            function updateQuery(oj, dt) {
                 var query = dt.getDataSourceParam("query");
                 fillQuery(oj, query);
                 dt.setDataSourceParam("query", query);
             }
 
-            function fillQuery(oj, query) {
-                var l = oj.find("[query-field]");
-                l.each(function () {
-                    var t = $(this), field = t.attr("query-field");
-                    var p = t.proxy(), v = p.get();
-                    if (!empty(v)) query[field] = v;
-                    else delete query[field];
-                });
-            }
-
-            function resetPagination(oj,dt,page) {
+            function resetPagination(oj, dt, page) {
                 var p = dt.getDataSourceParam("pagination");
                 p.page = page || 1;
                 dt.setDataSourceParam("pagination", p);
             }
 
-            function setRemoteInvoke(o,d) {//赋予具有远程调用的能力
+            function setRemoteInvoke(o, d) {//赋予具有远程调用的能力
                 var l = row.find("[data-proxy]");
                 l.each(function () {
                     var p = $(this).proxy();
@@ -2888,14 +2988,14 @@ $$.createModule("metronic", function (api, module) {
                 if (af) {
                     var func;
                     eval("func=" + af + ";");
-                    func(row, data,index);
+                    func(row, data, index);
                 }
 
                 //调整宽度
                 fixedRowWidth(row.children("td"));
             }
 
-            function fixedRowWidth(tds,isHeader) {
+            function fixedRowWidth(tds, isHeader) {
                 var cols = arg.columns;
                 for (var i = 0; i < cols.length; i++) {
                     var col = cols[i], td = $(tds[i]);
@@ -2909,7 +3009,7 @@ $$.createModule("metronic", function (api, module) {
             function fixedWidth(o) {
                 var oj = o.getJquery();
                 var row = oj.find(".m-datatable__table > .m-datatable__head > .m-datatable__row");
-                fixedRowWidth(row.children("th"),true);
+                fixedRowWidth(row.children("th"), true);
             }
 
             function _reload(o) {
@@ -2985,7 +3085,7 @@ $$.createModule("metronic", function (api, module) {
             a.on("click.selected", function () {
                 var li = $(this).closest("li");
                 var data = li.proxy().data;
-                removeSelectedItems(owner,[data.value]);
+                removeSelectedItems(owner, [data.value]);
                 drawSelected(owner);
             });
         }
@@ -3018,9 +3118,11 @@ $$.createModule("metronic", function (api, module) {
         function init(o) {
             var oj = o.getJquery(), step = parseInt(oj.attr("data-step"));
             var id = oj.attr("id");
-            wizard = new mWizard(id,{
+            var wizard = new mWizard(id, {
                 startStep: step
             });
+
+            wizard.goTo(step);
 
             //== Validation before going to next page
             wizard.on('beforeNext', function (wizard) {
@@ -3040,7 +3142,6 @@ $$.createModule("metronic", function (api, module) {
         }
 
     })();
-
 
     //tags
     (function () {
@@ -3384,10 +3485,10 @@ $$.createModule("metronic", function (api, module) {
     (function () {
         var rs = metro.rangeSlider = function () {
             this.give = function (o) {
-                
+
                 o.get = function () {
                     var c = getCore(this);
-                    return this.type == "single" ? c.prop("value") : { from: c.data("from"), to:c.data("to") };
+                    return this.type == "single" ? c.prop("value") : { from: c.data("from"), to: c.data("to") };
                 }
 
                 o.set = function (v) {
@@ -3395,7 +3496,7 @@ $$.createModule("metronic", function (api, module) {
                     var slider = c.data("ionRangeSlider");
                     if (this.type == "single") {
                         slider.update({
-                            from:v
+                            from: v
                         });
                     } else {
                         slider.update({
@@ -3482,7 +3583,7 @@ $$.createModule("metronic", function (api, module) {
     (function () {
         metro.listView = function (g) {
             this.give = function (o) {
-                o.listViewArg= g;
+                o.listViewArg = g;
                 o.load = function (callback) {
                     if (this.loading) return;
                     this.loading = true;
@@ -3495,10 +3596,6 @@ $$.createModule("metronic", function (api, module) {
                     if (this.loading) return;
                     this.loading = true;
                     _reload(this);
-                }
-
-                o.reloadRow = function () {
-                    //todo
                 }
 
                 o.reloadItem = function (t, data) { //重新加载某一行中的某一项，需要ListViewItem组件才行
@@ -3529,7 +3626,7 @@ $$.createModule("metronic", function (api, module) {
                 o.pagination = { pageIndex: 1, pageSize: g.pageSize, enable: g.pagination };
             }
 
-            
+
 
         }
 
@@ -3543,8 +3640,8 @@ $$.createModule("metronic", function (api, module) {
 
         function _reload(o) {
             var oj = o.getJquery(), g = o.listViewArg, p = o.pagination;
-            var data = { pageIndex: p.pageIndex, pageSize: p.pageSize};
-            fillQuery(oj, data);
+            var data = { pageIndex: p.pageIndex, pageSize: p.pageSize, paras: {} };
+            fillQuery(oj, data.paras);
 
             //从服务器获取数据
             var sender = {
@@ -3560,6 +3657,7 @@ $$.createModule("metronic", function (api, module) {
             //}
 
             view.success = function (r) {
+                if (!r.rows) r.rows = [r]; //如果服务端传来的是单条数据，那么转变为集合再输出
                 callback(o, r);
             }
 
@@ -3586,18 +3684,6 @@ $$.createModule("metronic", function (api, module) {
             oj.find(".c--listView-content").show();
             oj.find(".c--listView-empty").hide();
             //oj.find(".c--listView-loading").hide();
-        }
-
-        function fillQuery(oj, data) {
-            var l = oj.find("[query-field]");
-            var paras = {};
-            l.each(function () {
-                var t = $(this), field = t.attr("query-field");
-                var p = t.proxy(), v = p.get();
-                if (!empty(v)) paras[field] = v;
-                else delete paras[field];
-            });
-            data.paras = paras;
         }
 
         function resetPagination(o, pageIndex) {
@@ -3689,7 +3775,7 @@ $$.createModule("metronic", function (api, module) {
             view.submit({ action: action });
         }
 
-        function bindItem(item,rowData,itemData) {
+        function bindItem(item, rowData, itemData) {
             var tj = item.getJquery(), obj = $$(tj.find(".c--listView-detail")[0]);
             itemData.rowData = rowData;
             if (obj.bind)
@@ -3715,7 +3801,7 @@ $$.createModule("metronic", function (api, module) {
                     drawHeader(oj, g);
                 }
 
-                function drawHeader(oj,g) {
+                function drawHeader(oj, g) {
                     var l = [];
                     g.columns.each(function () {
                         var col = this;
@@ -3726,8 +3812,8 @@ $$.createModule("metronic", function (api, module) {
                         }
                         l.push("\"");
                         var w = empty(col.width) ? "auto" : col.width;
-                        l.push("style=\"width:" + w + "\"");
-                        l.push(">");
+                        l.push("style=\"width:" + w + ";vertical-align:" + col.textVerticalAlign + "\"");
+                        l.push("\">");
                         l.push(col.title);
                         l.push("</span>");
                     });
@@ -3736,14 +3822,14 @@ $$.createModule("metronic", function (api, module) {
             }
         }
 
-        metro.listSlim.onRowBind = function (o, d) {
+        metro.listSlim.onRowBind = function (o, d, ctx) {
             var list = $$(o.getJquery().closest(".c--listSlim").mapNull());
             var g = list._listSlimConfig, oj = o.getJquery();
-            drawRow(list, oj, g, d);
+            drawRow(list, oj, g, d, ctx.index);
             $$.init(oj.children());
         }
 
-        function drawRow(list,oj, g, d) {
+        function drawRow(list, oj, g, d,index) {
             var l = [];
             g.columns.each(function (i) {
                 var col = this;
@@ -3754,12 +3840,12 @@ $$.createModule("metronic", function (api, module) {
                 }
                 l.push("\"");
                 var w = empty(col.width) ? "auto" : col.width;
-                l.push("style=\"width:" + w + "\"");
+                l.push("style=\"width:" + w + ";vertical-align:" + col.textVerticalAlign + "\"");
                 l.push(">");
 
                 var code;
                 if (col.template) {
-                    code = col.template(d, i, list);
+                    code = col.template(d, index, list);
                 } else {
                     code = col.field ? d[col.field] : '';
                 }
@@ -3782,6 +3868,235 @@ $$.createModule("metronic", function (api, module) {
         }
     })();
 
+    //pageTurn
+    (function () {
+        metro.pageTurn = function (g) {
+            this.give = function (o) {
+                o.pageTurnArg = g;
+                o.load = function (callback) {
+                    if (this.loading) return;
+                    this.loading = true;
+                    if (callback) this.loadCallback = callback; //本次加载完毕后，回调方法callback
+                    resetPagination(this); //每次加载都从第一页开始，因为如果翻页到第5页，这时候更改了查询条件，就必须从第一页开始
+                    _reload(this);
+                }
+
+                o.reload = function () {
+                    if (this.loading) return;
+                    this.loading = true;
+                    _reload(this);
+                }
+
+                o.reloadRow = function (t, data) { //重新加载某一行
+                    if (type(t) == "string") t = $("#" + t);
+                    var tj = t.getJquery(), row = $$(tj.closest(".c--pageTurn-row").mapNull());
+                    var content = row.getJquery().closest(".c--pageTurn-content").proxy();
+                    content.update(row, data);
+                }
+
+                o.pagination = { pageIndex: 1, pageSize: g.pageSize, enable: g.pagination };
+            }
+        }
+
+        function _reload(o) {
+            var oj = o.getJquery(), g = o.pageTurnArg, p = o.pagination;
+            var data = { pageIndex: p.pageIndex, pageSize: p.pageSize, paras: {} };
+            fillQuery(oj, data.paras);
+
+            //从服务器获取数据
+            var sender = {
+                metadata: data
+            }
+
+            var view = new $$view(sender);
+
+            //屏蔽了empty代码，是因为防抖动，真要做好，就要empty区域以透明层的方式覆盖现有的数据区域，这样就不会让
+            //用户有抖动的感觉，目前没时间做这么复杂，就用整体loading效果
+            //view.beforeSend = function () {
+            //    showLoading(o);
+            //}
+
+            view.success = function (r) {
+                if (!r.rows) r.rows = [r]; //如果服务端传来的是单条数据，那么转变为集合再输出
+                callback(o, r);
+            }
+
+            var component = oj.attr("name") || oj.attr("id") || '';
+            view.submit({ component: component, action: "Load", scene: oj });
+        }
+
+        //function showLoading(o) {
+        //    var oj = o.getJquery();
+        //    oj.find(".c--listView-content").hide();
+        //    oj.find(".c--listView-empty").hide();
+        //    oj.find(".c--listView-loading").show();
+        //}
+
+        function showEmpty(o) {
+            var oj = o.getJquery();
+            oj.find(".c--pageTurn-content").hide();
+            oj.find(".c--pageTurn-empty").show();
+            //oj.find(".c--listView-loading").hide();
+        }
+
+        function showContent(o) {
+            var oj = o.getJquery();
+            oj.find(".c--pageTurn-content").show();
+            oj.find(".c--pageTurn-empty").hide();
+            //oj.find(".c--listView-loading").hide();
+        }
+
+        function resetPagination(o, pageIndex) {
+            var p = o.pagination;
+            p.pageIndex = pageIndex || 1;
+        }
+
+        function callback(o, r) {
+            var g = o.pageTurnArg;
+            showContent(o);
+
+            var cont = $$(o.find(".c--pageTurn-content").first().mapNull());
+            cont.bind(r);
+
+            var p = o.pagination;
+            var ele = o.find(".c--pageTurn-page").mapNull();
+
+            //加载完毕
+            if (r.dataCount == 0) {
+                if (p.enable && p.pageIndex > 1) {
+                    //当数据返回为空，数据的页码又大于1时，很大程度是因为服务器端删除了数据导致的，我们要重新查询小一个页码
+                    resetPagination(o, p.pageIndex - 1);
+                    o.reload();
+                    return;
+                }
+                else {
+                    showEmpty(o);
+                }
+            }
+
+            if (p.enable) {
+                layui.use('laypage', function () {
+                    var laypage = layui.laypage;
+                    laypage.render({
+                        elem: ele, //注意，这里的 test1 是 ID，不用加 # 号
+                        layout: g.pageLayout,
+                        prev: $$strings.PreviousPage,
+                        next: $$strings.NextPage,
+                        last: $$strings.LastPage,
+                        first: $$strings.FirstPage,
+                        limit: p.pageSize,
+                        curr: p.pageIndex,
+                        limits: [10, 20, 30, 50, 100],
+                        count: r.dataCount, //数据总数，从服务端得到
+                        theme: "#716aca",
+                        jump: function (obj, first) {
+                            if (first) return;  //首次不执行
+                            var p = o.pagination;
+                            p.pageIndex = obj.curr;
+                            p.pageSize = obj.limit;
+                            o.reload();
+                        }
+                    });
+                });
+
+                if (r.pageCount == 1) {
+                    ele.hide();
+                }
+                else
+                    ele.show();
+            }
+            else {
+                ele.hide();
+            }
+
+            o.rows = r.rows;
+            if (o.loadCallback) {
+                o.loadCallback();
+                o.loadCallback = null; //加载的回调方法只用执行一次
+            }
+            o.loading = false;
+            if (o.onload) o.onload();
+        }
+    })();
+
+    //sortable
+    (function () {
+        metro.sortable = function (g) {
+            this.give = function (o) {
+                o.open = function (p) {//可以通过{paras:{}}来传递查询参数
+                    var my = this, oj = this.getJquery();
+                    my._success = p.success;
+                    //从服务器获取数据
+                    var sender = {
+                        metadata: { paras: p.paras || {} }
+                    };
+
+                    var view = new $$view(sender);
+
+                    view.success = function (r) {
+                        var c = $$(oj.find(".c-sortable-content").first().mapNull());
+                        c.bind(r);
+
+                        oj.sortable({
+                            items: ".c-sortable-row",
+                            opacity: .8,
+                            revert: 250,
+                            update: function (e, t) {
+                                my._changed = true;
+                                //var current = t.item;
+                                //t.item.prev().hasClass("m-portlet--sortable-empty") && t.item.prev().before(t.item)
+                            }
+                        });
+
+                        my.title(p.title || "排序");
+                        my.cover();
+                    }
+
+                    var component = oj.attr("name") || oj.attr("id") || '';
+                    view.submit({ component: component, action: "Load", scene: oj });
+                }
+
+                init(o);
+
+                function init(o) {
+                    var oj = o.getJquery();
+                    oj.find(".c-sortable-submit").on("click.sortable", { o: o }, function (e) {
+                        var o = e.data.o, oj = o.getJquery(), rows = oj.find(".c-sortable-row");
+                        var l = [];
+                        rows.each(function () {//这里可以优化下算法，把位置没有改动的元素的数据不提交，todo...
+                            var d = $$(this).data;
+                            l.push({ value: d.value, index: l.length });
+                        });
+
+                        var sender = {
+                            metadata: { data: { rows: l } }
+                        }
+                        var view = new $$view(sender);
+                        view.success = function (r) {
+                            o._changed = false; //改变标记重置
+                            $$.page.notice({ type: "success", message: "已更新排序" });
+                            if (o._success) o._success();
+                        }
+
+                        var component = oj.attr("name") || oj.attr("id") || '';
+                        view.submit({ component: component, action: "Sort", scene: oj });
+                    });
+
+                    oj.find(".c-sortable-close").on("click.sortable", { o: o }, function (e) {
+                        var o = e.data.o;
+                        if (o._changed) {
+                            metro.sweetAlert.confirm("即将离开", "更改的排序信息尚未保存，确定退出吗？", function () {
+                                o._changed = false;
+                                o.cover(false);
+                            });
+                        }
+                        else
+                            o.cover(false);
+                    });
+                }
+            }
+        }
+    })();
 
     metro.scrollable = function () {
         this.give = function (o) {
@@ -3834,10 +4149,29 @@ $$.createModule("metronic", function (api, module) {
                 exec(o);
                 clearTimeout(timer);
             }, 200);
-            
+
         });
     }
-    
+
+    ////tinymce
+    //(function () {
+    //    metro.tinymce = function () {
+
+    //        this.give = function (o) {
+    //            init(o);
+    //        }
+
+    //        function init(o) {
+    //            var core = getCore(o);
+    //            tinymce.init(core);
+    //        }
+
+    //        function getCore(o) {
+    //            var oj = o.getJquery();
+    //            return oj.find("textarea").first();
+    //        }
+    //        }
+    //})();
 
 });
 
@@ -3918,6 +4252,7 @@ $$.createModule("metronic.list", function (api, module) {
             }
 
             o.set = function (v) {
+                if (!v) v = [];
                 var o = this;
                 removeAll();
                 for (var i = 0; i < v.length; i++) {
@@ -3929,10 +4264,10 @@ $$.createModule("metronic.list", function (api, module) {
                 onchange(o, "set");
             }
 
-            o.order = function (field,type) {
+            o.order = function (field, type) {
                 var vl = this.get().order(function (t) {
                     return t[field];
-                },type);
+                }, type);
                 this.set(vl);
             }
 
@@ -3984,7 +4319,7 @@ $$.createModule("metronic.list", function (api, module) {
         function onchange(o, cmd, t) {
             var m = o.changed || o.onchange;
             if (m)
-                m.apply(o,[cmd, t]);
+                m.apply(o, [cmd, t]);
         }
 
         function removeAll() {
@@ -4031,7 +4366,7 @@ $$.createModule("metronic.list", function (api, module) {
             var form = new $form();
             form.give($(item).proxy());
 
-            item.on("click.list", "a[data-name='addItem']", function (e) {_o.addItem(e.target);});
+            item.on("click.list", "a[data-name='addItem']", function (e) { _o.addItem(e.target); });
             item.on("click.list", "a[data-name='prevItem']", function (e) { _o.moveUp(e.target); });
             item.on("click.list", "a[data-name='nextItem']", function (e) { _o.moveDown(e.target); });
             item.on("click.list", "a[data-name='resetItem']", function (e) { _o.resetItem(e.target); });
@@ -4081,7 +4416,7 @@ $$.createModule("metronic.list", function (api, module) {
         function tidyIndex() {
             var body = _o.find("tbody").first();
             body.find("th[scope='row']").each(function (i) {
-                $(this).text(i+1);
+                $(this).text(i + 1);
             });
         }
 
@@ -4092,7 +4427,7 @@ $$.createModule("metronic.list", function (api, module) {
         }
     }
 
-    $$.metronic.validator.addMethod("listItemsValidate", function (value, element,rules) {
+    $$.metronic.validator.addMethod("listItemsValidate", function (value, element, rules) {
         var o = element.proxy();
         var l = o.items(), result = true;
         l.each(function (i, e) {
@@ -4215,14 +4550,14 @@ var $$tools;
             return _table;
         }
 
-        this.tidy = function (o,tss,ts) {
+        this.tidy = function (o, tss, ts) {
             if (o) {//调整指定行的
-                tidyItemsHeight(o,tss,ts);
+                tidyItemsHeight(o, tss, ts);
             }
             else {
                 var os = $(osClass); //调整所有的
                 os.each(function () {
-                    tidyItemsHeight($(this),tss,ts);
+                    tidyItemsHeight($(this), tss, ts);
                 });
             }
         }
@@ -4246,7 +4581,7 @@ var $$tools;
             var func = table().detailLoad;
             if (func) {
                 table().detailLoad = function (o, d) {
-                    func(o,d);
+                    func(o, d);
                     sizeTidy(o, itemsClass, itemClass);
                 }
             }
@@ -4262,7 +4597,7 @@ var $$tools;
                 my.tidy($$(this), itemsClass, itemClass);
             });
 
-            my.tidy(o, itemsClass,itemClass);
+            my.tidy(o, itemsClass, itemClass);
         }
 
         //$(window).resize(function () {
@@ -4293,7 +4628,7 @@ var $$tools;
 
             var loadContent = _contextLoaded[p.url]; //如果加载过环境，不用重复加载，那么就意味着仅加载内容
             var url = p.url;
-            if (loadContent) url = url.setUrlParam("loadContent", 1); 
+            if (loadContent) url = url.setUrlParam("loadContent", 1);
             req.get({
                 url: url
             });
@@ -4385,7 +4720,7 @@ var $$tools;
 
     }
 
-    tools.lazy.elements = function(code) { //将代码转换成可以识别的元素,移除link style script等非dom元素
+    tools.lazy.elements = function (code) { //将代码转换成可以识别的元素,移除link style script等非dom元素
         var e = $(["<div>", code, "</div>"].join(''));
         e.find("script").remove();
         e.find("style").remove();

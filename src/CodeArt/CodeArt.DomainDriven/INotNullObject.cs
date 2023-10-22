@@ -8,7 +8,7 @@ namespace CodeArt.DomainDriven
     /// <summary>
     /// 对象不能null的接口
     /// </summary>
-    public interface INotNullObject
+    public interface INotNullObject : INullProxy
     {
         /// <summary>
         /// 对象是否为空

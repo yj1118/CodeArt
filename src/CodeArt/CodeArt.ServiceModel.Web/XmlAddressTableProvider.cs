@@ -17,7 +17,7 @@ namespace CodeArt.ServiceModel
     [SafeAccess()]
     public class XmlAddressTableProvider : ServiceProvider
     {
-        public override DTObject Invoke(DTObject arg)
+        protected override DTObject Invoke(DTObject arg)
         {
             var serviceNamespace = arg.GetValue<string>("namespace");
             return _getTable(serviceNamespace);

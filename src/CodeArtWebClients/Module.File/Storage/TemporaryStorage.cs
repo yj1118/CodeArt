@@ -3,6 +3,7 @@ using System.Configuration;
 using System.IO;
 
 using CodeArt.Util;
+using CodeArt.Drawing;
 
 namespace Module.File
 {
@@ -16,18 +17,19 @@ namespace Module.File
 
         private static string GetTempFile(string tempKey)
         {
-            const string configName = "fileStorage";
-            string folder = ConfigurationManager.AppSettings[configName];
-            if (folder == null) throw new ApplicationException(string.Format(Strings.CannotWriteTemporaryFile, configName));
-            folder = Path.Combine(folder, "temp");
+            return FileStorage.GetPath(tempKey, "temp");
+            //const string configName = "fileStorage";
+            //string folder = ConfigurationManager.AppSettings[configName];
+            //if (folder == null) throw new ApplicationException(string.Format(Strings.CannotWriteTemporaryFile, configName));
+            //folder = Path.Combine(folder, "temp");
 
-            string code = tempKey.MD5();
-            string balancedFolder = code.Substring(0, 8).Replace("-", "\\");
-            balancedFolder = Path.Combine(folder, balancedFolder);
-            balancedFolder = Path.Combine(balancedFolder, code);
+            //string code = tempKey.MD5();
+            //string balancedFolder = code.Substring(0, 8).Replace("-", "\\");
+            //balancedFolder = Path.Combine(folder, balancedFolder);
+            //balancedFolder = Path.Combine(balancedFolder, code);
 
-            if (!Directory.Exists(balancedFolder)) Directory.CreateDirectory(balancedFolder);
-            return Path.Combine(balancedFolder, tempKey);
+            //if (!Directory.Exists(balancedFolder)) Directory.CreateDirectory(balancedFolder);
+            //return Path.Combine(balancedFolder, tempKey);
         }
 
         public static string Begin(string extension)
@@ -64,7 +66,7 @@ namespace Module.File
         public static string End(string tempKey)
         {
             string tempFileName = GetTempFile(tempKey);
-            return FileStorage.Instance.Move(tempFileName);
+            return FileStorage.Instance.MoveAndCompress(tempFileName);
         }
 
         /// <summary>
@@ -75,7 +77,7 @@ namespace Module.File
         public static void End(string tempKey,string fileKey)
         {
             string tempFileName = GetTempFile(tempKey);
-            FileStorage.Instance.Move(tempFileName, fileKey);
+            FileStorage.Instance.MoveAndCompress(tempFileName, fileKey);
         }
       
         public static void Delete(string key)

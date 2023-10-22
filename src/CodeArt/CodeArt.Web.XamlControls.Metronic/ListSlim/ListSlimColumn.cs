@@ -72,6 +72,20 @@ namespace CodeArt.Web.XamlControls.Metronic
             }
         }
 
+        public static readonly DependencyProperty TextVerticalAlignProperty = DependencyProperty.Register<string, ListSlimColumn>("TextVerticalAlign", () => { return "top"; });
+
+        public string TextVerticalAlign
+        {
+            get
+            {
+                return GetValue(TextVerticalAlignProperty) as string;
+            }
+            set
+            {
+                SetValue(TextVerticalAlignProperty, value);
+            }
+        }
+
         public static readonly DependencyProperty GetTemplateProperty = DependencyProperty.Register<string, ListSlimColumn>("GetTemplate", () => { return string.Empty; });
 
         public string GetTemplate

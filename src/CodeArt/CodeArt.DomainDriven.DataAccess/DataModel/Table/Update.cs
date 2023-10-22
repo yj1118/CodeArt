@@ -73,13 +73,13 @@ namespace CodeArt.DomainDriven.DataAccess
                     //补充主键
                     data.Add(EntityObject.IdPropertyName, GetObjectId(obj));
 
-                    if(this.IsEnabledMultiTenancy)
+                    if(this.IsSessionEnabledMultiTenancy)
                     {
                         data.Add(GeneratedField.TenantIdName, AppSession.TenantId);
                     }
 
                     var sql = GetUpdateSql(data);
-                    SqlHelper.Execute(this.Name, sql, data);
+                    SqlHelper.Execute(sql, data);
 
                     //更新代理对象中的数据
                     (obj.DataProxy as DataProxyPro).OriginalData.Update(data);
@@ -124,13 +124,13 @@ namespace CodeArt.DomainDriven.DataAccess
 
                 data.Add(EntityObject.IdPropertyName, id);
 
-                if (this.IsEnabledMultiTenancy)
+                if (this.IsSessionEnabledMultiTenancy)
                 {
                     data.Add(GeneratedField.TenantIdName, AppSession.TenantId);
                 }
 
                 //更新版本号
-                SqlHelper.Execute(target.Name, target.SqlUpdateVersion, data);
+                SqlHelper.Execute(target.GetUpdateVersionSql(), data);
 
                 //更新代理对象的版本号
                 var dataVersion = target.Type == DataTableType.AggregateRoot
@@ -283,10 +283,12 @@ namespace CodeArt.DomainDriven.DataAccess
                     }
                     break;
                 case DomainPropertyType.ValueObjectList:
-                case DomainPropertyType.EntityObjectList:
                     {
                         if (current.IsPropertyChanged(tip.Property))
                         {
+                            //在删除数据之前，需要预读对象，确保子对象延迟加载的数据也被增加了，否则会引起数据丢失
+                            PreRead(current);
+
                             //引用关系发生了变化，删除重新追加
                             //这里要注意，需要删除的是数据库的数据，所以要重新读取
                             //删除原始数据
@@ -304,8 +306,100 @@ namespace CodeArt.DomainDriven.DataAccess
                         }
                     }
                     break;
+                case DomainPropertyType.EntityObjectList:
+                    {
+                        if (current.IsPropertyChanged(tip.Property))
+                        {
+                            var targets = current.GetValue(tip.Property) as IEnumerable<IDomainObject>;
+
+                            //加载原始数据
+                            var rawData = ((DataProxyPro)current.DataProxy).OriginalData;
+                            var raw = ReadMembers(current, tip, null, rawData, QueryLevel.None) as IEnumerable<IDomainObject>;
+                            //对比
+                            var diff = raw.Transform(targets);
+
+                            
+                            InsertMembers(root, parent, current, diff.Adds, tip);
+
+                            DeleteMembers(root, parent, current, diff.Removes, tip);
+
+                            UpdateMembers(root, parent, current, diff.Updates, tip);
+
+
+                            //以上3行代码会打乱成员顺序，所以要更新下排序
+                            UpdateOrderIndexs(root, parent, current, targets, tip);//更新排序
+
+                            return true;
+                        }
+                        else if (current.IsPropertyDirty(tip.Property))
+                        {
+                            //引用关系没变，只是数据脏了
+                            UpdateMembers(root, parent, current, tip);
+                            return true;
+                        }
+                    }
+                    break;
             }
             return false;
+        }
+
+        private static void PreRead(DomainObject obj)
+        {
+            Type objectType = obj.ObjectType;
+
+            var tips = Util.GetPropertyTips(objectType);
+            foreach (var tip in tips)
+            {
+                PreReadProperty(obj, tip);
+            }
+        }
+
+        private static object PreReadProperty(DomainObject current, PropertyRepositoryAttribute tip)
+        {
+            switch (tip.DomainPropertyType)
+            {
+                case DomainPropertyType.Primitive:
+                    {
+                        return GetPrimitivePropertyValue(current, tip);
+                    }
+                case DomainPropertyType.PrimitiveList:
+                    {
+                        return current.GetValue(tip.Property);
+                    }
+                case DomainPropertyType.ValueObject:
+                    {
+                        var obj = current.GetValue(tip.Property) as DomainObject;
+                        PreRead(obj);
+                        return obj;
+                    }
+                case DomainPropertyType.AggregateRoot:
+                    {
+                        //仅获得引用即可，不需要完整的预读
+                        return current.GetValue(tip.Property);
+                    }
+                case DomainPropertyType.EntityObject:
+                    {
+                        var obj = current.GetValue(tip.Property) as DomainObject;
+                        PreRead(obj);
+                        return obj;
+                    }
+                case DomainPropertyType.AggregateRootList:
+                    {
+                        //仅获得引用即可，不需要完整的预读
+                        return current.GetValue(tip.Property);
+                    }
+                case DomainPropertyType.ValueObjectList:
+                case DomainPropertyType.EntityObjectList:
+                    {
+                        var objs = current.GetValue(tip.Property) as IEnumerable;
+                        foreach(DomainObject obj in objs)
+                        {
+                            PreRead(obj);
+                        }
+                        return objs;
+                    }
+            }
+            return null;
         }
 
 
@@ -319,9 +413,14 @@ namespace CodeArt.DomainDriven.DataAccess
         private void UpdateMembers(DomainObject root, DomainObject parent, DomainObject current, PropertyRepositoryAttribute tip)
         {
             var objs = current.GetValue(tip.Property) as IEnumerable;
-            foreach (DomainObject obj in objs)
+            UpdateMembers(root, parent, current, objs, tip);
+        }
+
+        private void UpdateMembers(DomainObject root, DomainObject parent, DomainObject current, IEnumerable members, PropertyRepositoryAttribute tip)
+        {
+            foreach (DomainObject obj in members)
             {
-                if(!obj.IsEmpty())
+                if (!obj.IsEmpty())
                 {
                     var child = GetRuntimeTable(this, tip.PropertyName, obj.ObjectType);
                     //方法内部会检查是否为脏，为脏的才更新
@@ -331,28 +430,88 @@ namespace CodeArt.DomainDriven.DataAccess
         }
 
 
-        private string GetUpdateSql(DynamicData data)
+        private void UpdateOrderIndexs(DomainObject root, DomainObject parent, DomainObject current, IEnumerable members, PropertyRepositoryAttribute tip)
         {
-            var query = UpdateTable.Create(this);
-            return query.Build(data, this);
+            //先删除，再添加
+            var propertyName = tip.PropertyName;
+            DataTable child = null;
+            foreach (DomainObject obj in members)
+            {
+                if (obj.IsEmpty()) continue;
+                if(child == null) child = GetRuntimeTable(this, propertyName, obj.ObjectType);
+                //删除中间表
+                child.Middle.DeleteMiddle(root, current, obj);
+            }
+
+            //重新添加中间表
+            if(child != null)
+                child.Middle.InsertMiddle(root, current, members);
         }
 
-        private string _sqlUpdateVersion = null;
-        public string SqlUpdateVersion
+        //private void UpdateMiddle(IDomainObject root, IDomainObject master, IEnumerable slaves, PropertyRepositoryAttribute tip)
+        //{
+        //    this.DeleteMiddle()
+
+        //    var rootId = GetObjectId(root);
+        //    var rootIdName = GeneratedField.RootIdName;
+        //    var slaveIdName = GeneratedField.SlaveIdName;
+
+        //    if (master == null || this.Root.IsEqualsOrDerivedOrInherited(this.Master))
+        //    {
+        //        int index = 0;
+        //        foreach (var slave in slaves)
+        //        {
+        //            if (slave.IsNull()) continue;
+        //            var slaveId = GetObjectId(slave);
+        //            using (var temp = SqlHelper.BorrowData())
+        //            {
+        //                var data = temp.Item;
+        //                data.Add(rootIdName, rootId);
+        //                data.Add(slaveIdName, slaveId);
+        //                data.Add(GeneratedField.OrderIndexName, index);
+        //                if (this.IsEnabledMultiTenancy)
+        //                    data.Add(GeneratedField.TenantIdName, AppSession.TenantId);
+        //                SqlHelper.Execute(this.GetUpdateSql(data), data);
+        //                index++;
+        //            }
+        //        }
+        //    }
+        //    else
+        //    {
+        //        var masterIdName = GeneratedField.MasterIdName;
+        //        var masterId = GetObjectId(master);
+        //        int index = 0;
+        //        foreach (var slave in slaves)
+        //        {
+        //            if (slave.IsNull()) continue;
+        //            var slaveId = GetObjectId(slave);
+        //            using (var temp = SqlHelper.BorrowData())
+        //            {
+        //                var data = temp.Item;
+        //                data.Add(rootIdName, rootId);
+        //                data.Add(masterIdName, masterId);
+        //                data.Add(slaveIdName, slaveId);
+        //                data.Add(GeneratedField.OrderIndexName, index);
+        //                if (this.IsEnabledMultiTenancy)
+        //                    data.Add(GeneratedField.TenantIdName, AppSession.TenantId);
+        //                SqlHelper.Execute(this.GetUpdateSql(data), data);
+        //                index++;
+        //            }
+        //        }
+
+        //    }
+        //}
+
+
+        private string GetUpdateSql(DynamicData data)
         {
-            get
-            {
-                if (_sqlUpdateVersion == null)
-                {
-                    _sqlUpdateVersion = GetUpdateVersionSql();
-                }
-                return _sqlUpdateVersion;
-            }
+            var query = UpdateTable.Create(this, this.IsSessionEnabledMultiTenancy);
+            return query.Build(data, this);
         }
 
         private string GetUpdateVersionSql()
         {
-            var query = UpdateDataVersion.Create(this);
+            var query = UpdateDataVersion.Create(this, this.IsSessionEnabledMultiTenancy); //不能直接用table检索，因为环境不同，IsEnabledMultiTenancy会有变化
             return query.Build(null, this);
         }
     }

@@ -47,8 +47,9 @@ namespace CodeArt.RabbitMQ
 
         static RabbitMQConfiguration()
         {
-            Current = ConfigurationManager.GetSection("codeArt.rabbitMQ") as RabbitMQConfiguration;
-            if (Current == null) Current = new RabbitMQConfiguration();
+            Current = Configuration.GetSection("codeArt.rabbitMQ", () => new RabbitMQConfiguration()) as RabbitMQConfiguration;
+            if (Current == null)
+                Current = new RabbitMQConfiguration();
         }
 
         #endregion

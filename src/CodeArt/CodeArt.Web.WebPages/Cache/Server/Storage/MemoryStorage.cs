@@ -59,10 +59,15 @@ namespace CodeArt.Web.WebPages
             _modifiedData.TryRemove(uniqueCode, out lastModified);
         }
 
+        public void DeleteAll()
+        {
+            throw new NotImplementedException("暂未实现");
+        }
+
 
         public void Delete(CacheVariable variable)
         {
-            var host = new WebHost(variable.Url);
+            var host = new WebHost(variable.Key);
             var target = string.Format("{0}://{1}/cache/memory.htm?code={2}", host.Protocol, host.Host, HttpUtility.UrlEncode(variable.UniqueCode, Encoding.UTF8));
 
             using (WebClient client = new WebClient())

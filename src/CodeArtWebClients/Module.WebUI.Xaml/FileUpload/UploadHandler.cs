@@ -31,6 +31,14 @@ namespace Module.WebUI.Xaml.Pages
             var storeKey = file.ServerKey;
             var name = file.GetName();
             var extension = file.GetExtension();
+            int fileSize = GetFileSize(); //这是用来效验大小的，如果这个值比size高，那么证明文件被取消了
+
+            if(fileSize > 0 && size != fileSize)
+            {
+                //如果指定了fileSize效验长度，并且size与fileSize不同那么取消
+                Delete(storeKey);
+                return;
+            }
 
             try
             {
@@ -56,6 +64,7 @@ namespace Module.WebUI.Xaml.Pages
 
         private void Delete(string key)
         {
+            if (string.IsNullOrEmpty(key)) return;
             FileStorage.Instance.Delete(key);
 
             ServiceContext.Invoke("deleteFile", (arg) =>
@@ -69,6 +78,13 @@ namespace Module.WebUI.Xaml.Pages
             var directoryId = this.Request.Headers["directoryId"];
             if (directoryId == null) throw new WebException(Strings.UploadNoDirectory);
             return Guid.Parse(directoryId);
+        }
+
+        private int GetFileSize()
+        {
+            var fileSize = this.Request.Headers["fileSize"];
+            if (fileSize == null) return 0;
+            return int.Parse(fileSize);
         }
 
     }

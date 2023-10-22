@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 
 using CodeArt.AppSetting;
-using Microsoft.Build.Utilities;
 
 [assembly: PreApplicationStart(typeof(CodeArt.CI.PreApplicationStart),
                                 "Initialize",

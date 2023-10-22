@@ -89,9 +89,28 @@ namespace CodeArt.DomainDriven
             where T : AggregateRootDefine
         {
             var define =(AggregateRootDefine)TypeDefine.GetDefine<T>();
-            return RemotePortal.GetObject(define, id);
+            return RemotePortal.GetObject(define, id, QueryLevel.None);
         }
 
+        public static dynamic FindRemoteRootWithLock<T>(object id)
+            where T : AggregateRootDefine
+        {
+            var define = (AggregateRootDefine)TypeDefine.GetDefine<T>();
+            return RemotePortal.GetObject(define, id, QueryLevel.Single);
+        }
+
+
+        public static IEnumerable<dynamic> FindRemoteRoots<T>(IEnumerable<object> ids)
+            where T : AggregateRootDefine
+        {
+            var items = new List<dynamic>(ids.Count());
+            foreach (var id in ids)
+            {
+                var item = Repository.FindRemoteRoot<T>(id);
+                items.Add(item);
+            }
+            return items;
+        }
 
         #endregion
 

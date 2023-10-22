@@ -128,7 +128,7 @@ namespace CodeArt.Util
 
         public static Type GetPrimitiveType(string typeName)
         {
-            switch (typeName)
+            switch (typeName.ToLower())
             {
                 case "char": return typeof(char);
                 case "bool":

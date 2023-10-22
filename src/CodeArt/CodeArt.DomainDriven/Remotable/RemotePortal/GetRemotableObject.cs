@@ -29,7 +29,7 @@ namespace CodeArt.DomainDriven
             var obj = FindObject(tip, arg);
             var schemaCode = GetSchemaCode(tip, arg);
             var info = DTObject.Create(schemaCode, obj);
-            return new TransferData(info);
+            return new TransferData(AppSession.Language,info);
         }
 
         private void InitIdentity(DTObject arg)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -14,26 +15,23 @@ namespace CodeArt.DomainDriven
     /// 每一个事件条目的执行和回逆都需要满足幂等性
     /// </summary>
     [DebuggerDisplay("EventName:{EventName},EventId:{EventId}")]
-    [ObjectRepository(typeof(IEventQueueRepository), CloseMultiTenancy = true)]
-    public class EventEntry : EntityObject<EventEntry, int>
+    public class EventEntry : DataObject<Guid>
     {
+
+
+        internal Guid SourceId
+        {
+            get;
+            private set;
+        }
+
         /// <summary>
         /// 得到该事件条目的事件源
         /// </summary>
-        [NotEmpty]
-        [PropertyRepository(Lazy = true)]
-        internal static readonly DomainProperty SourceProperty = DomainProperty.Register<EventEntry, EventEntry>("Source");
-
         public EventEntry Source
         {
-            get
-            {
-                return GetValue<EventEntry>(SourceProperty);
-            }
-            private set
-            {
-                SetValue(SourceProperty, value);
-            }
+            get;
+            internal set;
         }
 
         /// <summary>
@@ -62,38 +60,20 @@ namespace CodeArt.DomainDriven
         /// <summary>
         /// 事件名称
         /// </summary>
-        [NotEmpty]
-        [PropertyRepository()]
-        internal static readonly DomainProperty EventNameProperty = DomainProperty.Register<string, EventEntry>("EventName");
-
         public string EventName
         {
-            get
-            {
-                return GetValue<string>(EventNameProperty);
-            }
-            private set
-            {
-                SetValue(EventNameProperty, value);
-            }
+            get;
+            private set;
         }
 
         /// <summary>
         /// 事件的实例编号
         /// </summary>
-        [NotEmpty]
-        [PropertyRepository()]
-        internal static readonly DomainProperty EventIdProperty = DomainProperty.Register<Guid, EventEntry>("EventId");
-
         public Guid EventId
         {
             get
             {
-                return GetValue<Guid>(EventIdProperty);
-            }
-            private set
-            {
-                SetValue(EventIdProperty, value);
+                return this.Id;
             }
         }
 
@@ -101,9 +81,22 @@ namespace CodeArt.DomainDriven
         {
             get
             {
-                return EventAttribute.GetTip(this.EventName, false) != null;
+                var tip = EventAttribute.GetTip(this.EventName, false);
+                if (tip == null) return false;
+                return !tip.IsMockRemote;
             }
         }
+
+        public bool IsMockRemote
+        {
+            get
+            {
+                var tip = EventAttribute.GetTip(this.EventName, false);
+                if (tip == null) return false;
+                return tip.IsMockRemote;
+            }
+        }
+
 
         /// <summary>
         /// 该条目是根事件源
@@ -116,45 +109,47 @@ namespace CodeArt.DomainDriven
             }
         }
 
+        private EventStatus _status;
 
         /// <summary>
         /// 事件状态
         /// </summary>
-        [NotEmpty]
-        [PropertyRepository()]
-        public static readonly DomainProperty StatusProperty = DomainProperty.Register<EventStatus, EventEntry>("Status");
-
         public EventStatus Status
         {
             get
             {
-                return GetValue<EventStatus>(StatusProperty);
+                return _status;
             }
             internal set
             {
-                SetValue(StatusProperty, value);
+                _status = value;
+                this.MarkDirty();
             }
         }
 
-        /// <summary>
-        /// 条目存储的参数，只有本地事件的条目才存储数据
-        /// </summary>
-        [PropertyRepository()]
-        private static readonly DomainProperty ArgsCodeProperty = DomainProperty.Register<string, EventEntry>("ArgsCode");
+        private string _argsCode;
 
         /// <summary>
+        /// 条目存储的参数，只有本地事件的条目才存储数据
         /// 队列存储的参数，该参数是基于事件源的，也就是事件源的数据
         /// </summary>
         public string ArgsCode
         {
             get
             {
-                return GetValue<string>(ArgsCodeProperty);
+                return _argsCode;
             }
             set
             {
-                SetValue(ArgsCodeProperty, value);
+                _argsCode = value;
+                this.MarkDirty();
             }
+        }
+
+        public int OrderIndex
+        {
+            get;
+            internal set;
         }
 
         /// <summary>
@@ -165,6 +160,7 @@ namespace CodeArt.DomainDriven
         {
             if (this.Source.IsEmpty())
             {
+                //源事件的源为空，所以这就是源事件对应的条目，直接使用argsCode
                 //根条目
                 return DTObject.Create(this.ArgsCode);
             }
@@ -212,6 +208,12 @@ namespace CodeArt.DomainDriven
             return new EventKey(eventId, eventName);
         }
 
+        public EventEntry()
+            : base(Guid.Empty)
+        {
+
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -220,45 +222,46 @@ namespace CodeArt.DomainDriven
         /// <param name="eventName"></param>
         /// <param name="source"></param>
         /// <param name="argsCode"></param>
-        internal EventEntry(EventEntry source, int id, string eventName, Guid eventId, string argsCode)
+        internal EventEntry(EventEntry source, Guid id, string eventName, string argsCode, int orderIndex)
             : base(id)
         {
             this.Source = source;
+            this.SourceId = source == null ? Guid.Empty : source.Id;
             this.ArgsCode = argsCode;
             this.EventName = eventName;
-            this.EventId = eventId;
+            this.OrderIndex = orderIndex;
             this.Status = EventStatus.Idle;
-            this.OnConstructed();
         }
 
-        [ConstructorRepository()]
-        internal EventEntry(int id, string eventName, Guid eventId)
-            : base(id)
+        protected override void LoadImpl(IDataReader reader)
         {
-            this.EventName = eventName;
-            this.EventId = eventId;
-            this.OnConstructed();
+            this.Id = reader.GetGuid("Id");
+            this.EventName = reader.GetString("EventName");
+            this.ArgsCode = reader.GetString("ArgsCode");
+            this.Status = (EventStatus)reader.GetByte("Status");
+            this.SourceId = reader.GetGuid("SourceId");
+            this.OrderIndex = reader.GetInt32("OrderIndex");
+            //事件源由外部加载
         }
 
-        #region 空对象
-
-        private class EventEntryEmpty : EventEntry
+        public override bool IsEmpty()
         {
-            public EventEntryEmpty()
-                : base(0, string.Empty, Guid.Empty)
-            {
-                this.OnConstructed();
-            }
-
-            public override bool IsEmpty()
-            {
-                return true;
-            }
+            return this.EventId == Guid.Empty || base.IsEmpty();
         }
 
-        public static readonly EventEntry Empty = new EventEntryEmpty();
+        public readonly static EventEntry Empty = new EventEntry(null, Guid.Empty, string.Empty, string.Empty, 0);
 
-        #endregion
+
+
+        /// <summary>
+        /// 专供测试用
+        /// </summary>
+        /// <param name="eventName"></param>
+        /// <returns></returns>
+        public static EventEntry CreateTest(string eventName)
+        {
+            return new EventEntry(null, Guid.Empty, eventName, string.Empty, -1);
+        }
 
     }
 }

@@ -22,9 +22,18 @@ namespace CodeArt.RabbitMQ
             return _getServer(method.ToLower());
         }
 
+        public IEnumerable<IServer> GetAll()
+        {
+            return _servers;
+        }
+
+        private static List<IServer> _servers = new List<IServer>();
+
         private static Func<string, IServer> _getServer = LazyIndexer.Init<string, IServer>((method) =>
         {
-            return new RPCServer(method);
+            var server = new RPCServer(method);
+            _servers.Add(server);
+            return server;
         });
 
         public static readonly RPCServerFactory Instance = new RPCServerFactory();

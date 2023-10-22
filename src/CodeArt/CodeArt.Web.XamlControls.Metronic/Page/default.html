@@ -1,4 +1,5 @@
 ﻿<ControlTemplate xmlns="http://schemas.codeart.cn/web/xaml"
+                 xmlns:x="http://schemas.codeart.cn/web/xaml"
                  xmlns:m="http://schemas.codeart.cn/web/xaml/metronic">
 <ControlTemplate.Directories>
     <AssetDirectory AssemblyName="CodeArt.Web.WebPages.Xaml">
@@ -12,7 +13,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title><run Content="{TemplateBinding Title}"></run></title>
+    <x:title><run Content="{TemplateBinding Title}"></run></x:title>
     <meta name="description" content="{TemplateBinding Description}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -264,10 +265,10 @@
             </button>
             <div id="m_aside_left" class="m-grid__item	m-aside-left  m-aside-left--skin-dark ">
                 <!-- BEGIN: Aside Menu -->
-                <div id="m_ver_menu" 
-                     class="m-aside-menu  m-aside-menu--skin-dark m-aside-menu--submenu-skin-dark " 
-                     m-menu-vertical="1" m-menu-scrollable="1" m-menu-dropdown-timeout="500" 
-                     style="position: relative;" 
+                <div id="m_ver_menu"
+                     class="m-aside-menu  m-aside-menu--skin-dark m-aside-menu--submenu-skin-dark "
+                     m-menu-vertical="1" m-menu-scrollable="1" m-menu-dropdown-timeout="500"
+                     style="position: relative;"
                      data-proxy="{give:new $$.databind()}">
                     <ul class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow ">
                         <li data-proxy="{loops:'childs',onbind:$$.page.menu.view.onbind}" class="m-menu__item " aria-haspopup="true">

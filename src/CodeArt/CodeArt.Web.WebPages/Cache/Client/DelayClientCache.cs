@@ -19,13 +19,13 @@ namespace CodeArt.Web.WebPages
             return context.GetConfigValue<int>("Page", "delay", 0);
         }
 
-        public override bool IsExpired(WebPageContext context)
+        public override bool IsExpired(ResolveRequestCache controller)
         {
             string modified = null;
-            if (TryGetModified(context.Request, out modified)
-                    && IsCaching(modified, GetCacheMinutes(context)))
+            if (TryGetModified(controller.Context.Request, out modified)
+                    && IsCaching(modified, GetCacheMinutes(controller.Context)))
             {
-                SetClientStatusCode(context.Response);
+                SetClientStatusCode(controller.Context.Response);
                 return false;
             }
             return true;
@@ -38,9 +38,9 @@ namespace CodeArt.Web.WebPages
             return cacheTime.AddMinutes(cacheMinutes) > DateTime.Now;
         }
 
-        public override void SetCache(WebPageContext context)
+        public override void SetCache(ResolveRequestCache controller)
         {
-            SetClientCache(context.Response, GetCacheMinutes(context));
+            SetClientCache(controller.Context.Response, GetCacheMinutes(controller.Context));
         }
     }
 }

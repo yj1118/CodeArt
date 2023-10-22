@@ -207,4 +207,7 @@
   <data name="NotFoundTenant" xml:space="preserve">
     <value>No information for tenant {0} was found</value>
   </data>
+  <data name="ProApplicationStartedNoStatic" xml:space="preserve">
+    <value>ProApplicationStartedAttribute call method {0}. {1} must be static</value>
+  </data>
 </root>

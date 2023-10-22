@@ -86,11 +86,17 @@ namespace Module.WebUI.Xaml.Pages
         {
             var sender = view.GetSender();
             var data = sender.Data;
+
+            var _data = ServiceContext.InvokeDynamic("getPermission", (arg) =>
+            {
+                arg.id = data.id;
+            });
+
             var form = view.GetElement<FormSE>("formEdit");
-            form.Set(data);
+            form.Set(_data);
 
             var modal = view.GetElement<ModalSE>("editDialog");
-            modal.SetTitle(string.Format(Strings.EditFunction, data.name));
+            modal.SetTitle(string.Format(Strings.EditFunction, _data.Dynamic.Name));
             modal.Open();
 
             return view;

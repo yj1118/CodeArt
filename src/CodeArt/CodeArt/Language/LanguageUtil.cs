@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Reflection;
+using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -26,6 +28,34 @@ namespace CodeArt
             var culture = new CultureInfo(language);
             return CultureInfo.ReadOnly(culture);
         });
+
+
+        private static Func<string, Func<string, string>> _getLanguageString = LazyIndexer.Init<string, Func<string, string>>((language) =>
+        {
+            return LazyIndexer.Init<string, string>((key) =>
+            {
+                var attrs = LanguageAttribute.GetAll();
+                var ci = LanguageUtil.GetCulture(language);
+                foreach (var attr in attrs)
+                {
+                    var assembly = attr.Assembly;
+                    var manager = new ResourceManager(string.Format("{0}.Strings", assembly.GetName().Name), assembly);
+                    var value = manager.GetString(key, ci);
+                    if (value != null) return value;
+                }
+                return string.Empty;
+            });
+        });
+
+        /// <summary>
+        /// 根据当前会话的语言设置，查找多语言文本
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public static string GetString(string language, string key)
+        {
+            return _getLanguageString(language)(key);
+        }
 
     }
 }

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Globalization;
 
 using CodeArt.Runtime;
+using CodeArt.AppSetting;
 
 namespace CodeArt.Web.WebPages.Xaml
 {
@@ -43,7 +44,7 @@ namespace CodeArt.Web.WebPages.Xaml
             if (_manager == null) //没有程序集信息，从站点资源目录中提取
                 return LanguageResources.Get(_resourceKey);
 
-            return _manager.GetString(_resourceKey, Language.Current);
+            return _manager.GetString(_resourceKey, LanguageUtil.GetCulture(AppSession.Language));
         }
 
 

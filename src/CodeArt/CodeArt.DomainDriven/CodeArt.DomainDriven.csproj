@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.2.0.123\lib\net461\Dapper.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -49,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Application\PreApplicationEnd.cs" />
+    <Compile Include="Application\ProApplicationStarted.cs" />
     <Compile Include="Command\CommandBase.cs" />
     <Compile Include="Command\CommandEventHandler.cs" />
     <Compile Include="Command\CommandEventArgs.cs" />
@@ -56,31 +60,51 @@
     <Compile Include="Command\CommandFailedEventHandler.cs" />
     <Compile Include="Command\EventCommand.cs" />
     <Compile Include="DomainEvent\AskedToReverseException.cs" />
+    <Compile Include="Data\DataConnection.cs" />
+    <Compile Include="DomainEvent\DataAccess\DataObject.cs" />
+    <Compile Include="DomainEvent\DataAccess\DataRepository.cs" />
+    <Compile Include="DomainEvent\DataAccess\IDataObject.cs" />
+    <Compile Include="DomainEvent\DataAccess\Repository\EventLogEntryRepository.cs" />
+    <Compile Include="DomainEvent\DataAccess\Repository\EventLogRepository.cs" />
+    <Compile Include="DomainEvent\DataAccess\Repository\EventQueueRepository.cs" />
+    <Compile Include="DomainEvent\DataAccess\Repository\EventMonitorRepository.cs" />
+    <Compile Include="DomainEvent\DataAccess\Repository\EventLockRepository.cs" />
+    <Compile Include="DomainEvent\DataAccess\DataExtensions.cs" />
     <Compile Include="DomainEvent\HardwareFailureException.cs" />
     <Compile Include="DomainEvent\RemoteEventFailedException.cs" />
     <Compile Include="DomainEvent\Restorer\EventErrorException.cs" />
     <Compile Include="DomainEvent\Restorer\EventLock.cs" />
     <Compile Include="DomainEvent\Restorer\EventMonitor.cs" />
     <Compile Include="DomainEvent\Restorer\EventOperation.cs" />
-    <Compile Include="DomainEvent\Restorer\IEventLockRepository.cs" />
-    <Compile Include="DomainEvent\Restorer\IEventMonitorRepository.cs" />
     <Compile Include="DomainEvent\Restorer\EventFailedException.cs" />
     <Compile Include="DomainEvent\Trigger\EventCallback.cs" />
     <Compile Include="DomainEvent\Trigger\EventKey.cs" />
     <Compile Include="DomainEvent\Trigger\EventListener.cs" />
     <Compile Include="DomainEvent\Trigger\TimeoutManager.cs" />
+    <Compile Include="DomainMessage\DomainMessageProvider.cs" />
+    <Compile Include="DomainMessage\DomainMessage.cs" />
+    <Compile Include="DomainProperty\PropertyLabelAttribute.cs" />
     <Compile Include="DomainProperty\PropertyValidator\ByteRange\ByteEmptyableRangeValidator.cs" />
     <Compile Include="DomainProperty\PropertyValidator\ByteRange\ByteEmptyableRangeAttribute.cs" />
+    <Compile Include="DomainProperty\PropertyValidator\DecimalRange\DecimalRangeAttribute.cs" />
+    <Compile Include="DomainProperty\PropertyValidator\DecimalRange\DecimalRangeValidator.cs" />
     <Compile Include="DomainProperty\PropertyValidator\FloatRange\FloatRangeAttribute.cs" />
     <Compile Include="DomainProperty\PropertyValidator\FloatRange\FloatRangeValidator.cs" />
     <Compile Include="DomainProperty\PropertyValidator\ByteRange\ByteRangeAttribute.cs" />
     <Compile Include="DomainProperty\PropertyValidator\ByteRange\ByteRangeValidator.cs" />
+    <Compile Include="DomainProperty\PropertyValidator\FloatRange\FloatEmptyableRangeAttribute.cs" />
+    <Compile Include="DomainProperty\PropertyValidator\FloatRange\FloatEmptyableRangeValidator.cs" />
     <Compile Include="DomainProperty\PropertyValidator\IntRange\IntEmptyableRangeAttribute.cs" />
     <Compile Include="DomainProperty\PropertyValidator\IntRange\IntEmptyableRangeValidator.cs" />
     <Compile Include="DomainProperty\PropertyValidator\LongRang\LongEmptyableRangeAttribute.cs" />
     <Compile Include="DomainProperty\PropertyValidator\LongRang\LongEmptyableRangeValidator.cs" />
     <Compile Include="DomainProperty\PropertyValidator\MobileNumber\MobileNumberAttribute.cs" />
     <Compile Include="DomainProperty\PropertyValidator\MobileNumber\MobileNumberValidator.cs" />
+    <Compile Include="Logable\Logable.cs" />
+    <Compile Include="Logable\ObjectLogableAttribute.cs" />
+    <Compile Include="Logable\PropertyLogableAttribute.cs" />
+    <Compile Include="Logable\LogableAttribute.cs" />
+    <Compile Include="MergeDomainAttribute.cs" />
     <Compile Include="MultiTenancy\MultiTenancyConfig.cs" />
     <Compile Include="NotFoundObjectException.cs" />
     <Compile Include="DomainBuffer\BufferConfig.cs" />
@@ -95,11 +119,9 @@
     <Compile Include="DomainEvent\EventFactory.cs" />
     <Compile Include="DomainEvent\Host\ReverseEventHandler.cs" />
     <Compile Include="DomainEvent\Restorer\EventRestoreException.cs" />
-    <Compile Include="DomainEvent\Restorer\EventRestorer.cs" />
+    <Compile Include="DomainEvent\Restorer\EventProtector.cs" />
     <Compile Include="DomainEvent\EventUtil.cs" />
     <Compile Include="DomainEvent\Restorer\LogStatus.cs" />
-    <Compile Include="DomainEvent\Restorer\IEventLogEntryRepository.cs" />
-    <Compile Include="DomainEvent\Restorer\IEventLogRepository.cs" />
     <Compile Include="DomainEvent\Restorer\EventLogEntry.cs" />
     <Compile Include="DomainEvent\DomainEvent.cs" />
     <Compile Include="DomainEvent\EventArgAttribute.cs" />
@@ -110,7 +132,6 @@
     <Compile Include="DomainEvent\Trigger\EventEntry.cs" />
     <Compile Include="DomainEvent\Trigger\EventQueue.cs" />
     <Compile Include="DomainEvent\Trigger\EventTrigger.cs" />
-    <Compile Include="DomainEvent\Trigger\IEventQueueRepository.cs" />
     <Compile Include="DomainEvent\Trigger\EventStatus.cs" />
     <Compile Include="DomainEvent\Restorer\EventLog.cs" />
     <Compile Include="DomainEvent\Host\ReceiveResultEventHandler.cs" />
@@ -150,13 +171,14 @@
     <Compile Include="DynamicObject\RuntimeObjectType.cs" />
     <Compile Include="Application\PreApplicationStart.cs" />
     <Compile Include="DataVersionException.cs" />
+    <Compile Include="FrameworkDomainObjectAttribute.cs" />
     <Compile Include="Remotable\RemotePortal\Event\RemoteObjectDeleted.cs" />
     <Compile Include="Remotable\RemotePortal\Event\RemoteObjectHandler.cs" />
     <Compile Include="Remotable\RemotePortal\Event\RemoteObjectUpdated.cs" />
     <Compile Include="Remotable\RemotePortal\GetRemotableObject.cs" />
     <Compile Include="Remotable\RemotePortal\RemoteService.cs" />
     <Compile Include="Remotable\RemotableAttribute.cs" />
-    <Compile Include="Remotable\RemotePortal\RemoteServiceName.cs" />
+    <Compile Include="Remotable\RemotePortal\RemoteActionName.cs" />
     <Compile Include="Remotable\RemoteType\RemoteTypeAttribute.cs" />
     <Compile Include="Remotable\RemoteType\RemoteType.cs" />
     <Compile Include="Remotable\RemotePortal\RemotePortal.cs" />
@@ -216,7 +238,6 @@
     <Compile Include="DomainObject\ValueObject\ValueObject.cs" />
     <Compile Include="DomainProperty\DomainProperty.cs" />
     <Compile Include="DomainProperty\IDomainProperty.cs" />
-    <Compile Include="DomainProperty\PropertyChangedMode.cs" />
     <Compile Include="DomainProperty\PropertyChanged\DomainPropertyChangedEventArgs.cs" />
     <Compile Include="DomainProperty\PropertyChanged\DomainPropertyChangedEventHandler.cs" />
     <Compile Include="DomainProperty\PropertyChanged\IDomainPropertyChangedEventArgs.cs" />
@@ -287,10 +308,17 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Strings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Strings.zh-CN.resx" />
+    <EmbeddedResource Include="Strings.zh-CN.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="readme.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

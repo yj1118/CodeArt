@@ -3,7 +3,7 @@
                  xmlns:ui="http://schemas.codeart.cn/web/xaml/ui">
 <m:Page title="{TemplateBinding Title}"
         xamlStyle="{TemplateBinding XamlStyle}">
-    <m:Portlet title="{Static ui:Strings.ListOfExistingAccounts}" icon="flaticon-signs">
+    <m:Portlet title="{Static ui:Strings.ListOfExistingAccounts}" icon="flaticon-signs-1">
         <m:DataTable id="list" name="list" view="deletes">
             <m:DataTable.Header>
                 <m:DataTableQuery>
@@ -54,7 +54,7 @@
             </m:Radio>
         </m:form>
         <m:Modal.Footer>
-            <m:button color="primary" name="submitAdd" icon="flaticon-interface" text="{Static ui:Strings.ConfirmSubmission}" Click="OnSubmitAdd" view="add"></m:button>
+            <m:button color="primary" name="submitAdd" icon="flaticon-interface-10" text="{Static ui:Strings.ConfirmSubmission}" Click="OnSubmitAdd" view="add"></m:button>
             <m:button color="secondary" text="{Static ui:Strings.Close}" data-dismiss="modal"></m:button>
         </m:Modal.Footer>
     </m:Modal>
@@ -72,7 +72,7 @@
             </m:Radio>
         </m:form>
         <m:Modal.Footer>
-            <m:button color="primary" name="submitEdit" icon="flaticon-interface" text="{Static ui:Strings.ConfirmSubmission}" Click="OnSubmitEdit" view="edit"></m:button>
+            <m:button color="primary" name="submitEdit" icon="flaticon-interface-10" text="{Static ui:Strings.ConfirmSubmission}" Click="OnSubmitEdit" view="edit"></m:button>
             <m:button color="secondary" text="{Static ui:Strings.Close}" data-dismiss="modal"></m:button>
         </m:Modal.Footer>
     </m:Modal>

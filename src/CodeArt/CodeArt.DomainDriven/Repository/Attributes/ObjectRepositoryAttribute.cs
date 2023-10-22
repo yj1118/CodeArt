@@ -36,20 +36,21 @@ namespace CodeArt.DomainDriven
         /// </summary>
         public bool Snapshot
         {
-            get
-            {
-                return this.SnapshotLifespan >= 0;
-            }
+            get;
+            set;
         }
 
 
         /// <summary>
         /// 快照的寿命，单位天，该值小于0则为不保存快照，等于0表示快照永久存在，大于0为快照的保存时间
+        /// 目前只支持不保存快照和永久保存
         /// </summary>
         public int SnapshotLifespan
         {
-            get;
-            set;
+            get
+            {
+                return this.Snapshot ? 0 : -1;
+            }
         }
 
         /// <summary>
@@ -72,7 +73,7 @@ namespace CodeArt.DomainDriven
         public ObjectRepositoryAttribute(Type repositoryInterfaceType)
         {
             this.RepositoryInterfaceType = repositoryInterfaceType;
-            this.SnapshotLifespan = -1;
+            this.Snapshot = false;
             this.CloseMultiTenancy = false;
         }
 

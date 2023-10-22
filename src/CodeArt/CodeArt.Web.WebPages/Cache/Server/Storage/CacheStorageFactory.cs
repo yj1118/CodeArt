@@ -50,7 +50,7 @@ namespace CodeArt.Web.WebPages
 
         static CacheStorageFactory()
         {
-            Register("memory", MemoryStorage.Instance);
+            //Register("memory", MemoryStorage.Instance);
         }
 
     }

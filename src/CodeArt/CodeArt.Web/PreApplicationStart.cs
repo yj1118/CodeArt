@@ -18,8 +18,9 @@ namespace CodeArt.Web
     {
         public static void Initialize()
         {
-            AppInitializer.Initialize();
             AppSession.Register(CombineAppSession.Instance);
+            AppInitializer.Initialize();
+            AppInitializer.Initialized();
         }
     }
 }

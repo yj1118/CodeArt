@@ -362,6 +362,22 @@ $$.createModule("Xaml.Component", function (api, module) {
         ctx.view.submit(ctx.target, p);
     }
 
+    $$view.call = function (p) {
+        var sender = {
+            data: p.data || {}
+        }
+
+        var view = new $$view(sender);
+        view.success = p.success;
+        if (p.error) view.error = p.error;
+        if (p.beforeSend) view.beforeSend = p.beforeSend;
+        if (p.complete) view.complete = p.complete;
+        var arg = {};
+        if (p.url) arg.url = p.url;
+        if (p.action) arg.action = p.action;
+        view.submit(arg);
+    }
+
     api.registerGod(new function () {
         this.give = function (p) {
             var k = p.invoke;//invoke:{events:[{client:'click',server:'save',option:{...}}]}

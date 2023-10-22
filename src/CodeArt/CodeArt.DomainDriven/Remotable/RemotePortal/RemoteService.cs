@@ -21,7 +21,7 @@ namespace CodeArt.DomainDriven
         public static DTObject GetObject(AggregateRootDefine define, object id)
         {
             var remoteType = define.RemoteType;
-            var methodName = RemoteServiceName.GetObject(remoteType);
+            var methodName = RemoteActionName.GetObject(remoteType);
             return RPCClient.Invoke(methodName, (arg) =>
             {
                 arg["id"] = id;
@@ -63,8 +63,8 @@ namespace CodeArt.DomainDriven
             var tips = RemotableAttribute.GetTips();
             foreach (var tip in tips)
             {
-                var methodName = RemoteServiceName.GetObject(tip.RemoteType);
-                RPCServer.Open(methodName, GetRemoteObject.Instance);
+                var methodName = RemoteActionName.GetObject(tip.RemoteType);
+                RPCServer.Initialize(methodName, GetRemoteObject.Instance);
             }
 
             //订阅事件
@@ -76,7 +76,7 @@ namespace CodeArt.DomainDriven
             var tips = RemotableAttribute.GetTips();
             foreach (var tip in tips)
             {
-                var methodName = RemoteServiceName.GetObject(tip.RemoteType);
+                var methodName = RemoteActionName.GetObject(tip.RemoteType);
                 RPCServer.Close(methodName);
             }
 

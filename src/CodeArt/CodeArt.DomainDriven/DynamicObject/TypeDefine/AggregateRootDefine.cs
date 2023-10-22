@@ -11,17 +11,38 @@ using CodeArt.Util;
 using CodeArt.Runtime;
 using CodeArt.Concurrent;
 using CodeArt.DTO;
+using CodeArt.EasyMQ;
+using CodeArt.EasyMQ.Event;
 
 namespace CodeArt.DomainDriven
 {
-    public class AggregateRootDefine : TypeDefine
+    public class AggregateRootDefine : TypeDefine,IEventHandler
     {
-        public AggregateRootDefine(string typeName, string metadataCode)
-           : this(typeName, metadataCode, false)
+        /// <summary>
+        /// 远程对象的原始对象被删除后，远程对象是否还保留快照信息
+        /// </summary>
+        public bool KeepSnapshot
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 最低优先级的处理，先让框架更新新的对象，再出发业务事件
+        /// </summary>
+        public EventPriority Priority => EventPriority.Low;
+
+        public AggregateRootDefine(string typeName, string metadataCode,bool closeMultiTenancy)
+           : this(typeName, metadataCode, closeMultiTenancy, false)
         {
         }
 
-        public AggregateRootDefine(string typeName, string metadataCode,bool closeMultiTenancy)
+        public AggregateRootDefine(string typeName, string metadataCode)
+           : this(typeName, metadataCode, false, false)
+        {
+        }
+
+        public AggregateRootDefine(string typeName, string metadataCode,bool closeMultiTenancy,bool keepSnapshot)
             : base(typeName, metadataCode, DomainObject.AggregateRootType, typeof(DynamicRoot), closeMultiTenancy)
         {
         }
@@ -47,6 +68,26 @@ namespace CodeArt.DomainDriven
         {
         }
 
+        protected virtual void OnDeleted(object id) { }
+
+        protected virtual void OnUpdated(object id) { }
+
+        public void Handle(string eventName, TransferData data)
+        {
+            if (eventName.EndsWith("Updated"))
+            {
+                object id = data.Info.Dynamic.Id;
+                OnUpdated(id);
+                return;
+            }
+
+            if (eventName.EndsWith("Deleted"))
+            {
+                object id = data.Info.Dynamic.Id;
+                OnDeleted(id);
+                return;
+            }
+        }
     }
     
 
@@ -72,7 +113,5 @@ namespace CodeArt.DomainDriven
                 return TypeDefine.GetDefine<T>().EmptyInstance;
             }
         }
-
     }
-
 }

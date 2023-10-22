@@ -6,7 +6,9 @@ D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Office\bin\Release\Aspos
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Office\bin\Release\Aspose.Slides.dll
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Office\bin\Release\Aspose.Words.dll
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Office\bin\Release\CodeArt.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Office\bin\Release\CodeArt.Drawing.dll
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Office\bin\Release\NLog.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Office\bin\Release\CodeArt.Drawing.pdb
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Office\bin\Release\CodeArt.pdb
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Office\bin\Release\Aspose.Cells.xml
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Office\bin\Release\Aspose.Pdf.xml
@@ -14,10 +16,8 @@ D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Office\bin\Release\Aspos
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Office\bin\Release\Aspose.Words.xml
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Office\bin\Release\NLog.xml
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Office\bin\Release\zh-CN\CodeArt.resources.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Office\obj\Release\CodeArt.Office.csprojAssemblyReference.cache
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Office\obj\Release\CodeArt.Office.csproj.CoreCompileInputs.cache
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Office\obj\Release\CodeArt.Office.csproj.CopyComplete
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Office\obj\Release\CodeArt.Office.dll
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Office\obj\Release\CodeArt.Office.pdb
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Office\bin\Release\CodeArt.Drawing.dll
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Office\bin\Release\CodeArt.Drawing.pdb
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Office\obj\Release\CodeArt.Office.csprojAssemblyReference.cache
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Office\obj\Release\CodeArt.Office.csproj.CopyComplete

@@ -48,7 +48,7 @@ namespace CodeArt.Concurrent.Pattern
         public AutoResetPipelineBase(Action action)
             : this(action, (ex) =>
             {
-                LogWrapper.Default.Fatal(ex);
+                Logger.Fatal(ex);
             },0)
         {
         }
@@ -56,7 +56,7 @@ namespace CodeArt.Concurrent.Pattern
         public AutoResetPipelineBase(Action action, long maxConcurrent)
             : this(action, (ex) =>
             {
-                LogWrapper.Default.Fatal(ex);
+                Logger.Fatal(ex);
             }, maxConcurrent)
         {
         }
@@ -95,7 +95,7 @@ namespace CodeArt.Concurrent.Pattern
             }
             catch (Exception ex)
             {
-                LogWrapper.Default.Fatal(ex);
+                Logger.Fatal(ex);
             }
         }
 

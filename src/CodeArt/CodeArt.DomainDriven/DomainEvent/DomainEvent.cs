@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using CodeArt.DTO;
 using CodeArt.EasyMQ.Event;
 using CodeArt.Util;
+using CodeArt.Runtime;
 
 namespace CodeArt.DomainDriven
 {
@@ -43,10 +44,13 @@ namespace CodeArt.DomainDriven
             args.Deserialize(this);
         }
 
-        #region 前置事件
+        #region 事件
 
         private IEnumerable<string> _preEvents;
 
+        /// <summary>
+        /// 前置事件
+        /// </summary>
         public IEnumerable<string> PreEvents
         {
             get
@@ -59,7 +63,38 @@ namespace CodeArt.DomainDriven
             }
         }
 
+        /// <summary>
+        /// 获得前置事件
+        /// </summary>
+        /// <returns></returns>
         protected virtual IEnumerable<string> GetPreEvents()
+        {
+            return Array.Empty<string>();
+        }
+
+
+        private IEnumerable<string> _proEvents;
+
+        /// <summary>
+        /// 后置事件
+        /// </summary>
+        public IEnumerable<string> ProEvents
+        {
+            get
+            {
+                if (_proEvents == null)
+                {
+                    _proEvents = GetProEvents();
+                }
+                return _proEvents;
+            }
+        }
+
+        /// <summary>
+        /// 获得后置事件
+        /// </summary>
+        /// <returns></returns>
+        protected virtual IEnumerable<string> GetProEvents()
         {
             return Array.Empty<string>();
         }
@@ -78,7 +113,21 @@ namespace CodeArt.DomainDriven
 
             var args = DTObject.Create();
             FillArgs(eventName, args);
+
+            UpdateCode();
+
             return args;
+        }
+
+        /// <summary>
+        /// 更新条目码
+        /// </summary>
+        private void UpdateCode()
+        {
+            if (this.Entry != null)
+            {
+                this.Entry.ArgsCode = this.GetArgs().GetCode();
+            }
         }
 
         /// <summary>
@@ -90,31 +139,43 @@ namespace CodeArt.DomainDriven
             set;
         }
 
+
+        /// <summary>
+        /// 当前事件对应的条目
+        /// </summary>
+        //internal EventEntrySlim Entry
+        //{
+        //    get;
+        //    set;
+        //}
+
         /// <summary>
         /// 接受一个事件调用完成后的结果
         /// </summary>
         /// <returns></returns>
-        internal void ApplyResult(string eventName, DTObject result)
+        internal void ApplyResult(EventEntry entry, DTObject result)
         {
+            var eventName = entry.EventName;
             if (eventName.EqualsIgnoreCase(this.EventName))
             {
                 //接受自身事件触发的结果
                 this.SetArgs(result);
             }
-            this.EventCompleted(eventName, result);
-            if(this.Entry != null)
+            else
             {
-                this.Entry.ArgsCode = this.GetArgs().GetCode();
+                entry.ArgsCode = result.GetCode();
             }
+            this.EventCompleted(eventName, result);
+            UpdateCode();
         }
 
 
         /// <summary>
-        /// 填充前置事件的参数
+        /// 填充事件的参数
         /// </summary>
-        /// <param name="preEventName"></param>
+        /// <param name="eventName"></param>
         /// <param name="args"></param>
-        protected virtual void FillArgs(string preEventName, DTObject args)
+        protected virtual void FillArgs(string eventName, DTObject args)
         {
 
         }
@@ -194,7 +255,38 @@ namespace CodeArt.DomainDriven
                 Error(queueId, ex);
         }
 
+        public static Exception OnErrorNoQueue(Guid eventId)
+        {
+            var ex = EventErrorException.CreateNoQueue(eventId);
+            OnError(Guid.Empty, ex);
+            return ex;
+        }
+
 
         #endregion
+
+        internal static void Initialize()
+        {
+            EventLockRepository.Instance.Initialize();
+            EventLogEntryRepository.Instance.Initialize();
+            EventLogRepository.Instance.Initialize();
+            EventMonitorRepository.Instance.Initialize();
+            EventQueueRepository.Instance.Initialize();
+        }
+
+
+        #region 测试支持
+
+        /// <summary>
+        /// 指定事件条目，在debug模式下会自动测试
+        /// </summary>
+        /// <returns></returns>
+        public virtual IEnumerable<EventEntry> TestGetEventEntries()
+        {
+            return null;
+        }
+
+        #endregion
+
     }
 }

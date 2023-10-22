@@ -12,7 +12,7 @@
                                      Title="{TemplateBinding Title}"
                                      Logo="{TemplateBinding Logo}"
                                      Visibility="{TemplateBinding ShowTitleBar,Converter={x:Static ps:BoolCollapsedConverter.Instance}}" 
-                                     ShowClose="{TemplateBinding ShowClose}" ShowKeyboard="{TemplateBinding ShowKeyboard}" ShowCloseClient="{TemplateBinding ShowCloseClient}"
+                                     ShowClose="{TemplateBinding ShowClose}" ShowKeyboard="{TemplateBinding ShowKeyboard}" ShowCloseClient="{TemplateBinding ShowCloseClient}" ShowMin="{TemplateBinding ShowMin}"
                                      VerticalAlignment="Top" HorizontalAlignment="Stretch"></ps:TitleBar>
                         <ps:DrawerTip Panel.ZIndex="20" x:Name="tip" ImageBackground="{TemplateBinding TipImageColor}" Visibility="Collapsed"></ps:DrawerTip>
                         <ps:DrawerLeft Panel.ZIndex="10" x:Name="left" Visibility="Collapsed"></ps:DrawerLeft>

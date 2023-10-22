@@ -6,7 +6,7 @@
         <m:Alert class="m--margin-bottom-30" air="true" icon="flaticon-exclamation m--font-primary">
             <run content="{Static ui:Strings.FDTip}" />
         </m:Alert>
-        <m:Portlet title="{Static ui:Strings.SiteFunctionList}" icon="flaticon-signs">
+        <m:Portlet title="{Static ui:Strings.SiteFunctionList}" icon="flaticon-signs-1">
             <m:DataTable id="list" name="list" view="deletes">
                 <m:DataTable.Header>
                     <m:DataTableQuery>
@@ -42,11 +42,11 @@
         <m:Modal id="addDialog" size="lg" title="{Static ui:Strings.AddFeatures}">
             <m:form view="add" id="formAdd">
                 <m:TextBox layout="Wrap" label="{Static ui:Strings.FunctionName}" required="true" minlength="2" maxlength="25" field="name" />
-                <m:TextBox layout="Wrap" label="{Static ui:Strings.IdentificationCode}" field="markedCode" maxlength="50" />
+                <m:TextBox layout="Wrap" label="{Static ui:Strings.IdentificationCode}" required="true" field="markedCode" minlength="1" maxlength="50" />
                 <m:TextBox layout="Wrap" label="{Static ui:Strings.Remark}" field="description" maxlength="200" rows="3" />
             </m:form>
             <m:Modal.Footer>
-                <m:button color="primary" name="submitAdd" icon="flaticon-interface" text="{Static ui:Strings.ConfirmSubmission}" Click="OnSubmitAdd" view="add"></m:button>
+                <m:button color="primary" name="submitAdd" icon="flaticon-interface-10" text="{Static ui:Strings.ConfirmSubmission}" Click="OnSubmitAdd" view="add"></m:button>
                 <m:button color="secondary" text="{Static ui:Strings.Close}" data-dismiss="modal"></m:button>
             </m:Modal.Footer>
         </m:Modal>
@@ -54,11 +54,11 @@
             <m:form view="edit" id="formEdit">
                 <m:TextBox layout="Hidden" field="id" />
                 <m:TextBox layout="Wrap" label="{Static ui:Strings.FunctionName}" required="true" minlength="2" maxlength="25" field="name" />
-                <m:TextBox layout="Wrap" label="{Static ui:Strings.IdentificationCode}" field="markedCode" maxlength="50" />
+                <m:TextBox layout="Wrap" label="{Static ui:Strings.IdentificationCode}" required="true" field="markedCode" minlength="1" maxlength="50" />
                 <m:TextBox layout="Wrap" label="{Static ui:Strings.Remark}" field="description" maxlength="200" rows="3" />
             </m:form>
             <m:Modal.Footer>
-                <m:button color="primary" name="submitEdit" icon="flaticon-interface" text="{Static ui:Strings.ConfirmSubmission}" Click="OnSubmitEdit" view="edit"></m:button>
+                <m:button color="primary" name="submitEdit" icon="flaticon-interface-10" text="{Static ui:Strings.ConfirmSubmission}" Click="OnSubmitEdit" view="edit"></m:button>
                 <m:button color="secondary" text="{Static ui:Strings.Close}" data-dismiss="modal"></m:button>
             </m:Modal.Footer>
         </m:Modal>

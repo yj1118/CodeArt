@@ -216,7 +216,16 @@ namespace CodeArt.DomainDriven
 
         #endregion
 
+        public virtual IEnumerable<(string Type, string Id)> GetObservers()
+        {
+            return Array.Empty<(string Type, string Id)>();
+        }
 
+        public static DynamicRoot CreateEmpty<RT>() where RT : TypeDefine
+        {
+            var type = TypeDefine.GetDefine<RT>();
+            return new DynamicRoot(type, true);
+        }
 
     }
 }

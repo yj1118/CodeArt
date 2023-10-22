@@ -36,6 +36,24 @@ namespace CodeArt.DomainDriven
         }
 
         /// <summary>
+        /// 用于测试：指示该事件是模拟远程服务的
+        /// </summary>
+        public bool IsMockRemote
+        {
+            get;
+            set;
+        }
+
+        public bool RequierdOpen
+        {
+            get
+            {
+                return this.IsEnabled && !this.IsMockRemote;
+            }
+        }
+
+
+        /// <summary>
         /// 事件名称
         /// </summary>
         /// <param name="name"></param>
@@ -92,9 +110,10 @@ namespace CodeArt.DomainDriven
 
         public static EventAttribute GetTip(string eventName, bool throwError)
         {
+            var _effectiveName = EventUtil.GetEffectiveName(eventName);
             EventAttribute tip = null;
-            if (_nameTips.TryGetValue(eventName, out tip)) return tip;
-            if (throwError) throw new DomainEventException(string.Format(Strings.NoEvent, eventName));
+            if (_nameTips.TryGetValue(_effectiveName, out tip)) return tip;
+            if (throwError) throw new DomainEventException(string.Format(Strings.NoEvent, _effectiveName));
             return null;
         }
     }

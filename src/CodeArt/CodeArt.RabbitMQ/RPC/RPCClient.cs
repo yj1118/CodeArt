@@ -14,6 +14,7 @@ using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using CodeArt.Log;
 using CodeArt.EasyMQ;
+using CodeArt.AppSetting;
 
 namespace CodeArt.RabbitMQ
 {
@@ -57,7 +58,7 @@ namespace CodeArt.RabbitMQ
             dto["method"] = method;
             dto["arg"] = arg;
 
-            var data = new TransferData(dto);
+            var data = new TransferData(AppSession.Language, dto);
             var routingKey = RPC.GetServerQueue(method.ToLower()); //将服务器端的方法名称作为路由键，统一转为小写表示不区分大小写
             bus.Publish(string.Empty, routingKey, data, (properties) =>
             {

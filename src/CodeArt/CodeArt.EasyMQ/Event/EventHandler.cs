@@ -17,5 +17,20 @@ namespace CodeArt.EasyMQ.Event
         public virtual void Handle(string eventName, TransferData arg)
         {
         }
+
+
+        public EventPriority Priority
+        {
+            get
+            {
+                return GetPriority();
+            }
+        }
+
+        protected virtual EventPriority GetPriority()
+        {
+            return EventPriority.Medium;
+        }
+
     }
 }

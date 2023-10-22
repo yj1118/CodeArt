@@ -150,6 +150,8 @@ namespace CodeArt.DTO
 
         Guid? ReadNullableGuid(string name);
 
+        decimal? ReadNullableDecimal(string name);
+
 
         /// <summary>
         /// 读取数组长度

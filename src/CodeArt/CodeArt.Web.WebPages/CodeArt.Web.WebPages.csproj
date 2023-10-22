@@ -170,6 +170,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
     <None Include="WebPage\WebPageConfig.xsd">
       <SubType>Designer</SubType>
     </None>

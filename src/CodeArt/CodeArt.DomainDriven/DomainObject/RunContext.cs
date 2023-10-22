@@ -13,6 +13,12 @@ namespace CodeArt.DomainDriven
     /// </summary>
     internal sealed class RunContext
     {
+#if DEBUG
+
+        public Guid Id { get; private set; }
+
+#endif
+
         /// <summary>
         /// 获取或设置是否运行在回调方法、事件方法中
         /// </summary>
@@ -22,6 +28,9 @@ namespace CodeArt.DomainDriven
 
         public RunContext()
         {
+#if DEBUG
+            this.Id = Guid.NewGuid();
+#endif
             this.InCallBack = false;
             this.MethodIndex = -1;
         }

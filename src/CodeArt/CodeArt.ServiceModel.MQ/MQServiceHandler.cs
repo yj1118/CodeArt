@@ -26,6 +26,8 @@ namespace CodeArt.ServiceModel
 
         public TransferData Process(string method, DTObject arg)
         {
+            if (!MQServiceHost.IsEnabled) throw new UserUIException("正在启动服务，请稍候");
+
             DTObject returnValue = null;
             DTObject status = null;
             int dataLength = 0;
@@ -52,14 +54,14 @@ namespace CodeArt.ServiceModel
             }
             catch (Exception ex)
             {
-                LogWrapper.Default.Fatal(ex);
+                Logger.Fatal(ex);
                 status = ServiceHostUtil.CreateFailed(ex);
             }
 
             var reponse = DTObject.Create();
             reponse["status"] = status;
             reponse["returnValue"] = returnValue;
-            return new TransferData(reponse, dataLength, content);
+            return new TransferData(AppSession.Language, reponse, dataLength, content);
         }
 
         private void InitIdentity(ServiceRequest request)

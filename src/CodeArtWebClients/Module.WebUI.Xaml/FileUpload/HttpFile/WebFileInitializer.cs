@@ -18,6 +18,16 @@ namespace Module.WebUI.Xaml
 {
     public class WebFileInitializer : WebFileInitializerBase
     {
+        protected override bool IsDownload(WebPageContext context)
+        {
+            return true;
+        }
+
+        protected override string GetFileName(WebPageContext context)
+        {
+            return context.Request.QueryString["name"] ?? context.Request.QueryString["key"];
+        }
+
         protected override string GetETag(WebPageContext context)
         {
             return context.Request.QueryString["key"].ToBase64(Encoding.UTF8);

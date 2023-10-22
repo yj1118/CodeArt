@@ -16,8 +16,18 @@ namespace CodeArt.Data
 
         public virtual string GetConnectionString(string connName)
         {
-            return _getConnectionString(connName);
+            var connectionString = _getConnectionString(connName);
+            if(string.IsNullOrEmpty(connectionString))
+                throw new DataException("没有找到名称为" + connName + "或 db-default 的连接配置");
+            return connectionString;
         }
+
+        public virtual bool ExistConnectionString(string connName)
+        {
+            var connectionString = _getConnectionString(connName);
+            return !string.IsNullOrEmpty(connectionString);
+        }
+
 
         private static Func<string, string> _getConnectionString = LazyIndexer.Init<string, string>((connName) =>
         {
@@ -26,7 +36,7 @@ namespace CodeArt.Data
             if (setting == null)
             {
                 setting = ConfigurationManager.ConnectionStrings["db-default"];
-                if (setting == null) throw new DataException("没有找到名称为" + connName + "或 db-default 的连接配置");
+                if (setting == null) return null;
             }
             return setting.ConnectionString;
         });

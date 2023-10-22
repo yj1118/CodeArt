@@ -27,7 +27,7 @@ namespace CodeArt.DomainDriven.DataAccess.SQLServer
             if (table.IsEnabledMultiTenancy)
             {
                 //如果是多租户，需要追加租户字段
-                sql.AppendLine("[TenantId] [varchar](50) NOT NULL,");
+                sql.AppendLine("[TenantId] [bigint] NOT NULL,");
             }
 
             foreach (var field in table.Fields)
@@ -154,19 +154,27 @@ namespace CodeArt.DomainDriven.DataAccess.SQLServer
             {
                 var maxLength = field.Tip.GetMaxLength();
                 var isASCII = field.Tip.IsASCIIString();
+                var max = isASCII ? 8000 : 4000;
                 return string.Format("[{0}] [{1}]({2}) {3} NULL,", field.Name,
                                                                    isASCII ? "varchar" : "nvarchar",
-                                                                   maxLength == 0 ? "max" : maxLength.ToString(),
+                                                                   (maxLength == 0 || maxLength > max) ? "max" : maxLength.ToString(),
                                                                    allowNull ? string.Empty : "NOT");
             }
             else if (field.DbType == DbType.AnsiString)
             {
                 var maxLength = field.Tip.GetMaxLength();
                 var isASCII = true;
+                var max = isASCII ? 8000 : 4000;
                 return string.Format("[{0}] [{1}]({2}) {3} NULL,", field.Name,
                                                                    isASCII ? "varchar" : "nvarchar",
-                                                                   maxLength == 0 ? "max" : maxLength.ToString(),
+                                                                   (maxLength == 0 || maxLength > max) ? "max" : maxLength.ToString(),
                                                                    allowNull ? string.Empty : "NOT");
+            }
+            else if (field.DbType == DbType.Decimal)
+            {
+                return string.Format("[{0}] [{1}](18, 2) {2} NULL,", field.Name,
+                                              Util.GetSqlDbTypeString(field.DbType),
+                                               allowNull ? string.Empty : "NOT");
             }
             else
             {
@@ -187,6 +195,18 @@ namespace CodeArt.DomainDriven.DataAccess.SQLServer
             sql.AppendLine();
             sql.AppendLine("begin");
             sql.AppendFormat("DROP TABLE [{0}]", tableName);
+            sql.AppendLine();
+            sql.Append("end");
+            return sql.ToString();
+        }
+
+        public static string GetClearTableSql(string tableName)
+        {
+            StringBuilder sql = new StringBuilder();
+            sql.AppendFormat("if ISNULL(object_id(N'[{0}]'),'') > 0", tableName);
+            sql.AppendLine();
+            sql.AppendLine("begin");
+            sql.AppendFormat("TRUNCATE TABLE [{0}]", tableName);
             sql.AppendLine();
             sql.Append("end");
             return sql.ToString();
@@ -440,23 +460,14 @@ namespace CodeArt.DomainDriven.DataAccess.SQLServer
 
         public static string GetLockCode(QueryLevel level)
         {
-            switch (level.Code)
-            {
-                case QueryLevel.ShareCode: return string.Empty;
-                case QueryLevel.SingleCode: return " with(xlock,rowlock)";
-                case QueryLevel.HoldSingleCode: return " with(xlock,holdlock)";
-                default:
-                    return " with(nolock)"; //None和Mirror 都是无锁模式
-            }
+            return level.GetMSSqlLockCode();
         }
 
         #endregion
 
-        public static string GetIncrementIdentitySql(DataTable table)
+        public static string GetIncrementIdentitySql(string tableName)
         {
-            if (table.IsEnabledMultiTenancy) return GetIncrementIdentityTenantSql(table);
-
-            string increment = string.Format("{0}Increment", table.Name);
+            string increment = string.Format("{0}Increment", tableName);
 
             StringBuilder sql = new StringBuilder();
             sql.AppendLine("begin transaction;");
@@ -482,29 +493,59 @@ namespace CodeArt.DomainDriven.DataAccess.SQLServer
             return sql.ToString();
         }
 
-
-        private static string GetIncrementIdentityTenantSql(DataTable table)
+        public static string GetSerialNumberSql(DataTable table)
         {
-            string increment = string.Format("{0}Increment", table.Name);
+            if (table.IsEnabledMultiTenancy) return GetSerialNumberTenantSql(table);
+
+            string sn = string.Format("{0}SerialNumber", table.Name);
 
             StringBuilder sql = new StringBuilder();
             sql.AppendLine("begin transaction;");
-            sql.AppendFormat("if(object_id('[{0}]') is null)", increment);
+            sql.AppendFormat("if(object_id('[{0}]') is null)", sn);
             sql.AppendLine("begin");
-            sql.AppendLine("	create table [" + increment + "]([tenantId] [varchar](50) NOT NULL,[value] [bigint] NOT NULL,CONSTRAINT [PK_" + increment + "] PRIMARY KEY CLUSTERED ([tenantId] ASC)WITH (IGNORE_DUP_KEY = OFF) ON [PRIMARY]) ON [PRIMARY];");
+            sql.AppendLine("	create table [" + sn + "]([value] [bigint] NOT NULL,CONSTRAINT [PK_" + sn + "] PRIMARY KEY CLUSTERED ([value] ASC)WITH (IGNORE_DUP_KEY = OFF) ON [PRIMARY]) ON [PRIMARY];");
             sql.AppendLine("end");
-            sql.AppendFormat("if(not exists(select 1 from [{0}] with(xlock,holdlock) where [tenantId]=@tenantId))", increment);
+            sql.AppendFormat("if(not exists(select 1 from [{0}] with(xlock,holdlock)))", sn);
             sql.AppendLine();
             sql.AppendLine("begin");
-            sql.AppendFormat(" insert into [{0}](tenantId,value) values(@tenantId,1);", increment);
+            sql.AppendFormat(" insert into [{0}](value) values(1);", sn);
             sql.AppendLine();
             sql.AppendLine(" select cast(1 as bigint) as value;");
             sql.AppendLine("end");
             sql.AppendLine("else");
             sql.AppendLine("begin");
-            sql.AppendFormat(" update [{0}] set [value]=[value]+1 where [tenantId]=@tenantId;", increment);
+            sql.AppendFormat(" update [{0}] set [value]=[value]+1;", sn);
             sql.AppendLine();
-            sql.AppendFormat("select value from [{0}] with(nolock) where  [tenantId]=@tenantId;", increment);
+            sql.AppendFormat("select value from [{0}] with(nolock);", sn);
+            sql.AppendLine();
+            sql.AppendLine("end");
+            sql.AppendLine("commit;");
+            return sql.ToString();
+        }
+
+
+        private static string GetSerialNumberTenantSql(DataTable table)
+        {
+            string sn = string.Format("{0}SerialNumber", table.Name);
+
+            StringBuilder sql = new StringBuilder();
+            sql.AppendLine("begin transaction;");
+            sql.AppendFormat("if(object_id('[{0}]') is null)", sn);
+            sql.AppendLine("begin");
+            sql.AppendLine("	create table [" + sn + "]([TenantId] [bigint] NOT NULL,[value] [bigint] NOT NULL,CONSTRAINT [PK_" + sn + "] PRIMARY KEY CLUSTERED ([tenantId] ASC)WITH (IGNORE_DUP_KEY = OFF) ON [PRIMARY]) ON [PRIMARY];");
+            sql.AppendLine("end");
+            sql.AppendFormat("if(not exists(select 1 from [{0}] with(xlock,holdlock) where [tenantId]=@tenantId))", sn);
+            sql.AppendLine();
+            sql.AppendLine("begin");
+            sql.AppendFormat(" insert into [{0}](tenantId,value) values(@tenantId,1);", sn);
+            sql.AppendLine();
+            sql.AppendLine(" select cast(1 as bigint) as value;");
+            sql.AppendLine("end");
+            sql.AppendLine("else");
+            sql.AppendLine("begin");
+            sql.AppendFormat(" update [{0}] set [value]=[value]+1 where [tenantId]=@tenantId;", sn);
+            sql.AppendLine();
+            sql.AppendFormat("select value from [{0}] with(nolock) where  [tenantId]=@tenantId;", sn);
             sql.AppendLine();
             sql.AppendLine("end");
             sql.AppendLine("commit;");

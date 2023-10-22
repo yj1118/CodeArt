@@ -19,6 +19,12 @@ p {
     word-break: break-all;
 }
 
+.c--seperator--dashed {
+    border-top: 1px dashed #ebedf2;
+    display: block;
+    height: 0;
+}
+
 .c--bold{
     font-weight:400;
 }
@@ -213,7 +219,7 @@ p {
 }
 
 .m-nav .m-nav__item > .m-nav__link .m-nav__link-icon{
-    font-size:1.6rem;
+    font-size:1.3rem;
 }
 
 /* 顶部菜单 */
@@ -348,6 +354,11 @@ p {
 .dropzone.dz-disabled {
     cursor: not-allowed;
 }
+
+.dropzone.dz-clickable .dz-message .m-dropzone__msg-title {
+    text-align:center;
+}
+
 /*调整表单在弹出窗口的样式*/
 .modal .m-form.m-form--fit .m-form__content, .m-form.m-form--fit .m-form__heading, .m-form.m-form--fit .m-form__group {
     padding-left: 0px;
@@ -969,10 +980,21 @@ p {
         min-width: 5px;
     }
 
-    .c--none-color {
-        background-color: transparent !important;
-        border-color: transparent !important;
-    }
+.c--badge-lg {
+    font-size: 1.2rem;
+    line-height: 30px;
+    min-height: 30px;
+    min-width: 30px;
+}
+
+.m-badge.c--badge-lg.m-badge--wide {
+    border-radius: 1rem;
+}
+
+.c--none-color {
+    background-color: transparent !important;
+    border-color: transparent !important;
+}
 
     .c--over-row:hover {
         background-color: #f7f6fa;
@@ -1067,6 +1089,9 @@ p {
         line-height: 2.3rem !important;
     }
 
+.c--line {
+    border-top: 1px solid #ebedf2;
+}
 
 .c--p-i {
     text-indent: 2.6rem;
@@ -1074,10 +1099,12 @@ p {
 
 .c--m-i {
     margin-left: 2.6rem;
+    margin-right: 2.6rem;
 }
 
 .c--m-2i {
     margin-left: 5.2rem;
+    margin-right: 5.2rem;
 }
 
 .c--p-i-i {
@@ -1374,7 +1401,7 @@ p {
 }
 
 
-.c--page .layui-laypage a, .c--listView-page .layui-laypage span {
+.c--page .layui-laypage a, .c--listView-page .layui-laypage span, .c--pageTurn-page .layui-laypage span {
     margin: 0px;
     margin-right: 5px;
     cursor: pointer;
@@ -1469,4 +1496,50 @@ p {
 
 .m-popover.popover .popover-body{
     font-size:1.2rem;
+}
+
+.table th, .table td{
+    vertical-align:middle;
+}
+
+.m-section p.m-section__sub {
+    font-size:1.2rem;
+}
+
+code {
+    font-size: 100%;
+}
+
+.m-accordion.m-accordion--default .m-accordion__item .m-accordion__item-head:hover{
+    background: #36a3f7 !important;
+}
+
+    .m-accordion .m-accordion__item .m-accordion__item-head:hover .m-accordion__item-title{
+        color: #fff;
+    }
+
+.m-accordion .m-accordion__item .m-accordion__item-head:hover .m-accordion__item-icon > i {
+    color: #fff;
+}
+
+.m-accordion.m-accordion--default .m-accordion__item .m-accordion__item-head.select {
+    background: #34bfa3 !important;
+}
+
+    .m-accordion.m-accordion--default .m-accordion__item .m-accordion__item-head.select .m-accordion__item-title {
+        color: #fff;
+    }
+
+.m-accordion .m-accordion__item .m-accordion__item-head.select .m-accordion__item-icon > i {
+    color: #fff;
+}
+
+
+.m-list-pics.m-list-pics--lg > a > img {
+    width: 4.2rem;
+}
+
+
+.m-list-pics.m-list-pics--lg > a {
+    margin-right: 0.8rem;
 }

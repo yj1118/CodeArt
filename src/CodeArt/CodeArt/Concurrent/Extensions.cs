@@ -27,7 +27,8 @@ namespace CodeArt.Concurrent
             }
             catch (Exception ex)
             {
-                LogWrapper.Default.Fatal(ex);
+                Logger.Fatal(ex);
+                throw ex;
             }
             finally
             {
@@ -44,7 +45,8 @@ namespace CodeArt.Concurrent
             }
             catch (Exception ex)
             {
-                LogWrapper.Default.Fatal(ex);
+                Logger.Fatal(ex);
+                throw ex;
             }
             finally
             {

@@ -83,11 +83,20 @@ namespace CodeArt.Web.WebPages.Xaml.Markup
                     if (dependencySource != null)
                     {
                         IList<DependencyPropertyChangedEventHandler> handlers = null;
-                        if (_events.TryGetValue(dependencySource, out handlers))
+                        if (_propertyEvents.TryGetValue(dependencySource, out handlers))
                         {
                             foreach (var handler in handlers)
                             {
                                 dependencySource.RemovePropertyChanged(_sourceProperty, handler);
+                            }
+                            _propertyEvents.Remove(dependencySource);
+                        }
+
+                        if (_events.TryGetValue(dependencySource, out handlers))
+                        {
+                            foreach (var handler in handlers)
+                            {
+                                dependencySource.PropertyChanged -= handler;
                             }
                             _events.Remove(dependencySource);
                         }
@@ -101,19 +110,46 @@ namespace CodeArt.Web.WebPages.Xaml.Markup
                     var dependencySource = _source as DependencyObject;
                     if (_source == null) return;
 
-                    _sourceProperty = DependencyProperty.GetProperty(dependencySource.ObjectType, this.PropertyName);
-                    if (_sourceProperty == null)
-                        throw new XamlException("在类型" + dependencySource.GetType() + "和其继承链上没有找到依赖属性" + this.Path + "的定义");
-                    DependencyPropertyChangedEventHandler handler = (sp, ep) =>
+                    if (!string.IsNullOrEmpty(this.PropertyName))
                     {
-                        _target.OnPropertyChanged(_targetProperty, ep.NewValue, ep.OldValue);
-                    };
-                    dependencySource.AddPropertyChanged(_sourceProperty, handler);
-                    _events.Add(dependencySource, handler);
+                        _sourceProperty = DependencyProperty.GetProperty(dependencySource.ObjectType, this.PropertyName);
+                        if (_sourceProperty == null)
+                            throw new XamlException("在类型" + dependencySource.GetType() + "和其继承链上没有找到依赖属性" + this.Path + "的定义");
 
-                    //由于改变了模板应用的对象，意味着_target的属性也被改变了，所以这里要主动触发一次
-                    var newValue = dependencySource.GetValue(_sourceProperty);
-                    _target.OnPropertyChanged(_targetProperty, newValue, null);
+                        DependencyPropertyChangedEventHandler handler = (sp, ep) =>
+                        {
+                            _target.OnPropertyChanged(_targetProperty, ep.NewValue, ep.OldValue);
+                        };
+                        dependencySource.AddPropertyChanged(_sourceProperty, handler);
+
+                        _propertyEvents.Add(dependencySource, handler);
+                    }
+                    else
+                    {
+                        _sourceProperty = null;
+
+                        DependencyPropertyChangedEventHandler handler = (sp, ep) =>
+                        {
+                            _target.OnPropertyChanged(_targetProperty, dependencySource, null);
+                        };
+
+                        dependencySource.PropertyChanged += handler;
+                        _events.Add(dependencySource, handler);
+                    }
+
+                    {
+                        //由于改变了模板应用的对象，意味着_target的属性也被改变了，所以这里要主动触发一次
+                        if(_sourceProperty != null)
+                        {
+                            //没有_sourceProperty就是绑定源自身
+                            var newValue = dependencySource.GetValue(_sourceProperty);
+                            _target.OnPropertyChanged(_targetProperty, newValue, null);
+                        }
+                        else
+                        {
+                            _target.OnPropertyChanged(_targetProperty, dependencySource, null);
+                        }
+                    }
                 }
 
             };
@@ -133,59 +169,61 @@ namespace CodeArt.Web.WebPages.Xaml.Markup
             //如果没有对应的dp，那么不需要通知触发属性变化事件
         }
 
+        private MultiDictionary<object, DependencyPropertyChangedEventHandler> _propertyEvents = new MultiDictionary<object, DependencyPropertyChangedEventHandler>(false);
+
         private MultiDictionary<object, DependencyPropertyChangedEventHandler> _events = new MultiDictionary<object, DependencyPropertyChangedEventHandler>(false);
 
-      //  private void OnAttach(DependencyObject target, string propertyName)
-       // {
-           // var templateCell = target as ITemplateCell;
-            //if (templateCell == null)
-              //  throw new XamlException("模板绑定表达式应用的对象必须是" + typeof(ITemplateCell).FullName);
+        //  private void OnAttach(DependencyObject target, string propertyName)
+        // {
+        // var templateCell = target as ITemplateCell;
+        //if (templateCell == null)
+        //  throw new XamlException("模板绑定表达式应用的对象必须是" + typeof(ITemplateCell).FullName);
 
-            //var template = templateCell.BelongTemplate; //得到应用绑定表达式对象所在的模板对象
-            //if (template == null)
-               // throw new XamlException("无法获取对象所在模板，不能应用模板绑定表达式" + target.GetType().FullName);
+        //var template = templateCell.BelongTemplate; //得到应用绑定表达式对象所在的模板对象
+        //if (template == null)
+        // throw new XamlException("无法获取对象所在模板，不能应用模板绑定表达式" + target.GetType().FullName);
 
-            //截获模板的应用对象被改变事件
-           // template.TemplateParentChanged += (s, e) =>
-            //{
-                //if (e.OldValue != null)
-                //{
-                //    //移除老对象上绑定的事件
-                //    var source = LocateSource(e.OldValue) as DependencyObject;
-                //    if (source != null)
-                //    {
-                //        var property = DependencyProperty.GetProperty(source.ObjectType, this.PropertyName);
-                //        IList<DependencyPropertyChangedEventHandler> handlers = null;
-                //        if (_events.TryGetValue(source, out handlers))
-                //        {
-                //            foreach (var handler in handlers)
-                //            {
-                //                source.RemovePropertyChanged(property, handler);
-                //            }
-                //            _events.Remove(source);
-                //        }
-                //    }
-                //}
+        //截获模板的应用对象被改变事件
+        // template.TemplateParentChanged += (s, e) =>
+        //{
+        //if (e.OldValue != null)
+        //{
+        //    //移除老对象上绑定的事件
+        //    var source = LocateSource(e.OldValue) as DependencyObject;
+        //    if (source != null)
+        //    {
+        //        var property = DependencyProperty.GetProperty(source.ObjectType, this.PropertyName);
+        //        IList<DependencyPropertyChangedEventHandler> handlers = null;
+        //        if (_events.TryGetValue(source, out handlers))
+        //        {
+        //            foreach (var handler in handlers)
+        //            {
+        //                source.RemovePropertyChanged(property, handler);
+        //            }
+        //            _events.Remove(source);
+        //        }
+        //    }
+        //}
 
-              
-                //{
-                //    //在新的应用对象上追加事件
-                //    var source = LocateSource(e.NewValue) as DependencyObject;
-                //    if (source == null) return;
 
-                //    var sourceProperty = DependencyProperty.GetProperty(source.ObjectType, this.PropertyName);
-                //    if (sourceProperty == null)
-                //        throw new XamlException("在类型" + source.GetType() + "和其继承链上没有找到依赖属性" + this.Path + "的定义");
-                //    DependencyPropertyChangedEventHandler handler = (sp, ep) =>
-                //    {
-                //        BindValue(target, propertyName, source, sourceProperty);
-                //    };
-                //    source.AddPropertyChanged(sourceProperty, handler);
-                //    _events.Add(source, handler);
+        //{
+        //    //在新的应用对象上追加事件
+        //    var source = LocateSource(e.NewValue) as DependencyObject;
+        //    if (source == null) return;
 
-                //    BindValue(target, propertyName, source, sourceProperty);
-                //}
-            //};
+        //    var sourceProperty = DependencyProperty.GetProperty(source.ObjectType, this.PropertyName);
+        //    if (sourceProperty == null)
+        //        throw new XamlException("在类型" + source.GetType() + "和其继承链上没有找到依赖属性" + this.Path + "的定义");
+        //    DependencyPropertyChangedEventHandler handler = (sp, ep) =>
+        //    {
+        //        BindValue(target, propertyName, source, sourceProperty);
+        //    };
+        //    source.AddPropertyChanged(sourceProperty, handler);
+        //    _events.Add(source, handler);
+
+        //    BindValue(target, propertyName, source, sourceProperty);
+        //}
+        //};
 
         //}
 
@@ -291,7 +329,7 @@ namespace CodeArt.Web.WebPages.Xaml.Markup
             var ui = _source as UIElement;
             if (ui != null)
             {
-                value = ui.GetValue(_sourceProperty);
+                value = _sourceProperty== null ? _source : ui.GetValue(_sourceProperty);
             }
             else
             {

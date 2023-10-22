@@ -17,5 +17,11 @@ namespace CodeArt.DTO
         /// <param name="owner"></param>
         /// <param name="name"></param>
         void Serialize(DTObject owner, string name);
+
+        /// <summary>
+        /// 获得对象的dto形式
+        /// </summary>
+        /// <returns></returns>
+        DTObject GetData();
     }
 }

@@ -34,13 +34,15 @@ namespace CodeArt.EasyMQ.Event
         /// <summary>
         /// 订阅远程事件
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="branch"></param>
-        public static void Subscribe(string eventName, IEventHandler handler)
+        /// <param name="eventName"></param>
+        /// <param name="handler"></param>
+        /// <param name="startUp">false:不立即启动订阅器，由全局方法StartUp统一调度，适用于程序初始化期间挂载订阅,true:立即启动订阅器</param>
+        public static void Subscribe(string eventName, IEventHandler handler, bool startUp = false)
         {
             var subscriber = CreateSubscriber(eventName);
             subscriber.AddHandler(handler);
-            subscriber.Accept();
+            if (startUp)
+                subscriber.Accept();
         }
 
         private static ISubscriber CreateSubscriber(string eventName)
@@ -50,11 +52,32 @@ namespace CodeArt.EasyMQ.Event
             return GetSubscriberFactory().Create(eventName, group);
         }
 
+        private static ISubscriber RemoveSubscriber(string eventName)
+        {
+            var config = EasyMQConfiguration.Current.EventConfig;
+            var group = config.SubscriberGroup;
+            return GetSubscriberFactory().Remove(eventName, group);
+        }
+
 
         public static void Cancel(string eventName)
         {
             var subscriber = CreateSubscriber(eventName);
             subscriber.Stop();
+        }
+
+
+        /// <summary>
+        /// 启动订阅器
+        /// </summary>
+        /// <param name="eventName"></param>
+        internal static void StartUp()
+        {
+            var subscribers = GetSubscriberFactory().GetAll();
+            foreach(var subscriber in subscribers)
+            {
+                subscriber.Accept();
+            }
         }
 
         /// <summary>
@@ -63,8 +86,9 @@ namespace CodeArt.EasyMQ.Event
         /// <param name="eventName"></param>
         public static void Cleanup(string eventName)
         {
-            var subscriber = CreateSubscriber(eventName);
-            subscriber.Cleanup();
+            var subscriber = RemoveSubscriber(eventName);
+            if(subscriber != null)
+                subscriber.Cleanup();
         }
 
         #region 获取和注册工厂
@@ -89,8 +113,6 @@ namespace CodeArt.EasyMQ.Event
         {
             _publisherSetting.Register(factory);
         }
-
-
 
         internal static ISubscriberFactory GetSubscriberFactory()
         {

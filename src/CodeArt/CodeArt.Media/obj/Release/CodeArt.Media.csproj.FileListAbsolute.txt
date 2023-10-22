@@ -1,3 +1,4 @@
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Media\bin\Release\NLog.config
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Media\bin\Release\_Media\ffmpeg.exe
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Media\bin\Release\_Media\Streamer\libcrypto.dll
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Media\bin\Release\_Media\Streamer\librtmp.dll
@@ -11,7 +12,6 @@ D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Media\bin\Release\avutil
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Media\bin\Release\postproc-54.dll
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Media\bin\Release\swresample-2.dll
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Media\bin\Release\swscale-4.dll
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Media\bin\Release\NLog.config
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Media\bin\Release\Accord.dll.config
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Media\bin\Release\CodeArt.Media.dll
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Media\bin\Release\CodeArt.Media.pdb
@@ -32,8 +32,8 @@ D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Media\bin\Release\log4ne
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Media\bin\Release\NReco.VideoConverter.xml
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Media\bin\Release\NLog.xml
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Media\bin\Release\zh-CN\CodeArt.resources.dll
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Media\obj\Release\CodeArt.Media.csprojAssemblyReference.cache
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Media\obj\Release\CodeArt.Media.csproj.CoreCompileInputs.cache
+D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Media\obj\Release\CodeArt.Media.csproj.CopyComplete
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Media\obj\Release\CodeArt.Media.dll
 D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Media\obj\Release\CodeArt.Media.pdb
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Media\obj\Release\CodeArt.Media.csprojAssemblyReference.cache
-D:\Workspace\Projects\CodeArt Framework\CodeArt\CodeArt.Media\obj\Release\CodeArt.Media.csproj.CopyComplete

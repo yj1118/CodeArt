@@ -250,6 +250,12 @@ namespace CodeArt.Web.WebPages.Xaml
             }
         }
 
+        internal static string GetStringValue(DependencyObject obj, DependencyProperty property)
+        {
+            var value = obj.GetValue(property);
+            return value == null ? null : value.ToString();
+        }
+
     }
 
 }

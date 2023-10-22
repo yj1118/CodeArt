@@ -10,6 +10,8 @@ using CodeArt.DTO;
 using CodeArt.ServiceModel;
 using CodeArt.Concurrent;
 
+using CodeArt.AppSetting;
+
 namespace Module.WebUI
 {
     [SafeAccess()]
@@ -19,10 +21,8 @@ namespace Module.WebUI
         protected override DTObject DynamicInvoke(dynamic arg)
         {
             var result = (dynamic)DTObject.Create();
-            result.MenuCode = MenuHelper.GetMenuCode(Language.Current.Name, arg.MarkedCode, arg.IsLocal);
+            result.MenuCode = MenuHelper.GetMenuCode(AppSession.Language, arg.MarkedCode, arg.IsLocal);
             return result;
         }
     }
-
-
 }

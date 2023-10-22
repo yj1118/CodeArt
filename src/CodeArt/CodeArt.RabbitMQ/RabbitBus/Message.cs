@@ -12,6 +12,14 @@ namespace CodeArt.RabbitMQ
 {
     public class Message
     {
+        public string Language
+        {
+            get
+            {
+                return this.Content.Language;
+            }
+        }
+
         /// <summary>
         /// 消息的内容
         /// </summary>

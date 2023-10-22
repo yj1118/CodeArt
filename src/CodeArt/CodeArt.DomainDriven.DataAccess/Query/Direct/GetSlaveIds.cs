@@ -78,7 +78,7 @@ namespace CodeArt.DomainDriven.DataAccess
             StringBuilder sql = new StringBuilder();
             if(root.IsEqualsOrDerivedOrInherited(master))
             {
-                if(middle.IsEnabledMultiTenancy)
+                if(middle.IsSessionEnabledMultiTenancy)
                 {
                     sql.AppendFormat("select [{1}] from [{2}] where [{2}].[{0}] = @{0} and [{2}].[{4}] = @{4} order by [{3}] asc",
                         rootId, slaveId, middle.Name, GeneratedField.OrderIndexName, GeneratedField.TenantIdName);
@@ -93,7 +93,7 @@ namespace CodeArt.DomainDriven.DataAccess
             {
                 var masterId = GeneratedField.MasterIdName;
 
-                if(middle.IsEnabledMultiTenancy)
+                if(middle.IsSessionEnabledMultiTenancy)
                 {
                     sql.AppendFormat("select [{1}] from {2} where [{2}].[{0}] = @{0} and [{2}].[{3}]=@{3} and [{2}].[{5}] = @{5} order by [{4}] asc",
                         rootId, slaveId, middle.Name, masterId, GeneratedField.OrderIndexName, GeneratedField.TenantIdName);

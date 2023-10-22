@@ -184,7 +184,7 @@ namespace CodeArt.DomainDriven
         /// 将对象<paramref name="target"/>的数据同步到当前对象中
         /// </summary>
         /// <param name="target"></param>
-        public void Sync(DynamicObject target)
+        internal void Sync(DynamicObject target)
         {
             var properties = this.Define.Properties;
             foreach (var property in properties)
@@ -192,6 +192,15 @@ namespace CodeArt.DomainDriven
                 var value = target.GetValue(property);
                 this.SetValue(property, value);
             }
+        }
+
+
+        /// <summary>
+        /// 标记为快照
+        /// </summary>
+        internal void MarkSnapshot()
+        {
+            this.SetValue(this.Define.SnapshotProperty, true);
         }
 
         #endregion

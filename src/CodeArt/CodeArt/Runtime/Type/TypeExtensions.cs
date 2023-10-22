@@ -130,6 +130,7 @@ namespace CodeArt.Runtime
             return key.GenericTypes.Length == 0 ? result : result.MakeGenericMethod(key.GenericTypes);
         }
 
+
         private static MethodInfo GetMethod(Type type, string methodName, Type[] genericTypes, MethodParameter[] prms, bool isGenericVersion)
         {
             ArgumentAssert.IsNotNull(type, "type");

@@ -84,5 +84,18 @@ namespace CodeArt.Web.WebPages.Xaml
                 target.SetValue(setter.Property, setter.GetActualValue(Setter.ValueProperty));
             }
         }
+
+        public object GetSetterValue(string propertyName)
+        {
+            var setters = this.Setters;
+            foreach (var item in setters)
+            {
+                var setter = item as Setter;
+                if (setter.Property.Name == propertyName)
+                    return setter.GetActualValue(Setter.ValueProperty);
+            }
+            return null;
+        }
+
     }
 }

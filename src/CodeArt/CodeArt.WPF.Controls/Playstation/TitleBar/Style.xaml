@@ -33,7 +33,7 @@
                                     <ps:ToolTipText Description="{x:Static ps:Strings.Keyboard}"></ps:ToolTipText>
                                 </Image.ToolTip>
                             </Image>
-                            <Image x:Name="min" Opacity="0.5" Width="57" Height="51" HorizontalAlignment="Left" Margin="0 0 0 0" Source="/CodeArt.WPF.Controls;component/Playstation/TitleBar/minimize.png">
+                            <Image x:Name="min" Visibility="{TemplateBinding ShowMin,Converter={x:Static ps:BoolCollapsedConverter.Instance}}" Opacity="0.5" Width="57" Height="51" HorizontalAlignment="Left" Margin="0 0 0 0" Source="/CodeArt.WPF.Controls;component/Playstation/TitleBar/minimize.png">
                                 <Image.ToolTip>
                                     <ps:ToolTipText Description="{x:Static ps:Strings.Minimize}"></ps:ToolTipText>
                                 </Image.ToolTip>

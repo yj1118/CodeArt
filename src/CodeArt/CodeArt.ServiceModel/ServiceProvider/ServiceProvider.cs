@@ -6,17 +6,46 @@ using CodeArt.DTO;
 using CodeArt.ServiceModel;
 using System.IO;
 using CodeArt.IO;
+using CodeArt.Concurrent;
+using CodeArt.EasyMQ.Event;
+using CodeArt.EasyMQ;
 
 namespace CodeArt.ServiceModel
 {
     public abstract class ServiceProvider : IServiceProvider
     {
-        public virtual DTObject Invoke(ServiceRequest request)
+        #region 录制
+
+        public static bool Record
         {
+            get;
+            set;
+        }
+
+        static ServiceProvider()
+        {
+            Record = ServiceModelConfiguration.Current.Server.Record;
+        }
+
+        #endregion
+
+        public DTObject Invoke(ServiceRequest request)
+        {
+#if DEBUG
+            //只有调式模式下才录制
+            if (Record)
+            {
+                var recorder = ServiceRecorderFactory.Create(request);
+                var input = request.Argument;
+                var output = Invoke(input);
+                recorder.Write(request.Name, input, output);
+                return output;
+            }
+#endif
             return Invoke(request.Argument);
         }
 
-        public virtual DTObject Invoke(DTObject arg)
+        protected virtual DTObject Invoke(DTObject arg)
         {
             return InvokeDynamic(arg);
         }
@@ -77,6 +106,56 @@ namespace CodeArt.ServiceModel
         {
             return default((DTObject info, Stream Stream));
         }
+
+        //public const string OpenServiceRecord = "OpenServiceRecord";
+
+        //public const string CloseServiceRecord = "CloseServiceRecord";
+
+        //#region 事件订阅
+
+        //public static void Subscribe()
+        //{
+        //    EventPortal.Subscribe(OpenServiceRecord, OpenServiceRecordHandler.Instance);
+        //    EventPortal.Subscribe(CloseServiceRecord, CloseServiceRecordHandler.Instance);
+        //}
+
+        ///// <summary>
+        ///// 取消订阅
+        ///// </summary>
+        //public static void Cancel()
+        //{
+        //    EventPortal.Cancel(OpenServiceRecord);
+        //    EventPortal.Cancel(CloseServiceRecord);
+        //}
+
+        //[SafeAccess]
+        //internal class OpenServiceRecordHandler : IEventHandler
+        //{
+        //    public void Handle(string eventName, TransferData data)
+        //    {
+        //        var arg = data.Info;
+        //        Record = true;
+        //    }
+
+
+        //    public static readonly OpenServiceRecordHandler Instance = new OpenServiceRecordHandler();
+        //}
+
+        //[SafeAccess]
+        //internal class CloseServiceRecordHandler : IEventHandler
+        //{
+        //    public void Handle(string eventName, TransferData data)
+        //    {
+        //        var arg = data.Info;
+        //        Record = false;
+        //    }
+
+
+        //    public static readonly CloseServiceRecordHandler Instance = new CloseServiceRecordHandler();
+        //}
+
+        //#endregion
+
 
     }
 }
