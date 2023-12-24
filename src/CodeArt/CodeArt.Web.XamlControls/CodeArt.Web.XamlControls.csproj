@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A13AE9FE-0246-4F9A-B992-67056ADF01EE}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CodeArt.Web.XamlControls</RootNamespace>
+    <AssemblyName>CodeArt.Web.XamlControls</AssemblyName>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="HtmlAgilityPack, Version=1.11.23.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.11.23\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Bootstrap\Bootbox.cs" />
+    <Compile Include="Bootstrap\BootForm\BootForm.cs" />
+    <Compile Include="Bootstrap\BootForm\BootFormLoader.cs" />
+    <Compile Include="Bootstrap\Column\Column.cs" />
+    <Compile Include="Bootstrap\Column\ColumnLoader.cs" />
+    <Compile Include="Bootstrap\Container\Container.cs" />
+    <Compile Include="Bootstrap\Container\ContainerLoader.cs" />
+    <Compile Include="Bootstrap\LayoutUtil.cs" />
+    <Compile Include="Bootstrap\Row\Row.cs" />
+    <Compile Include="Bootstrap\Row\RowClassAppender.cs" />
+    <Compile Include="ClassAppender.cs" />
+    <Compile Include="PageTurn\PageTurn.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScreenCarousel\ScreenCarousel.cs" />
+    <Compile Include="ScreenCarousel\ScreenCarouselCode.cs" />
+    <Compile Include="ScreenCarousel\Slide.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Bootstrap\BootForm\Template.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Bootstrap\Column\Template.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Bootstrap\Container\Template.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Bootstrap\Row\Template.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ScreenCarousel\ItemTemplate.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ScreenCarousel\Template.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CodeArt.ModuleNest\CodeArt.ModuleNest.csproj">
+      <Project>{b3e36145-c4ac-4fb2-9232-b31d11c42646}</Project>
+      <Name>CodeArt.ModuleNest</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CodeArt.Web.WebPages.Xaml\CodeArt.Web.WebPages.Xaml.csproj">
+      <Project>{68b7ebb5-5b78-4016-a34b-266523702d59}</Project>
+      <Name>CodeArt.Web.WebPages.Xaml</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CodeArt.Web.WebPages\CodeArt.Web.WebPages.csproj">
+      <Project>{1d237e7f-2e78-400a-bdb2-a3223ef26c0d}</Project>
+      <Name>CodeArt.Web.WebPages</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CodeArt.Web\CodeArt.Web.csproj">
+      <Project>{fc477f23-2bcc-4917-841e-691726eb0894}</Project>
+      <Name>CodeArt.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CodeArt\CodeArt.csproj">
+      <Project>{d2c9f430-6b47-482a-a49c-a2478d75f95f}</Project>
+      <Name>CodeArt</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

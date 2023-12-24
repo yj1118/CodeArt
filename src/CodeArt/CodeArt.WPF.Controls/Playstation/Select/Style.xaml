@@ -1,0 +1,141 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:c="clr-namespace:CodeArt.WPF.Controls"
+                    xmlns:ps="clr-namespace:CodeArt.WPF.Controls.Playstation"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <Style TargetType="{x:Type ps:Select}">
+        <Setter Property="Template">
+        <Setter.Value>
+            <ControlTemplate TargetType="{x:Type ps:Select}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"  />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Border Width="{TemplateBinding LabelWidth}" Height="{TemplateBinding MainHeight}" Grid.Column="0" Grid.Row="0" >
+                        <TextBlock Margin="0 0 30 0" HorizontalAlignment="Right" VerticalAlignment="Center" x:Name="label" FontSize="28" Foreground="#fff" Text="{TemplateBinding Label}"></TextBlock>
+                    </Border>
+                        <ps:Button x:Name="button" Grid.Row="0" Grid.Column="1" Text="{TemplateBinding Tip}" Width="{TemplateBinding MainWidth}" Height="{TemplateBinding MainHeight}"></ps:Button>
+                        <StackPanel Grid.Row="1" Grid.Column="1" >
+                            <TextBlock Margin="20 25 0 0" FontWeight="Light" Foreground="#fff" FontSize="25" 
+                                       Visibility="{Binding Text,RelativeSource={RelativeSource Mode=Self},Converter={x:Static ps:StringVisibilityConverter.Instance}}">
+                                <TextBlock.Text>
+                                    <MultiBinding Converter="{x:Static ps:SelectedCountTextConverter.Instance}">
+                                        <Binding Path="Count" RelativeSource="{RelativeSource AncestorType=ps:Select, Mode=FindAncestor}"/>
+                                        <Binding Path="CountFormat" RelativeSource="{RelativeSource AncestorType=ps:Select, Mode=FindAncestor}" />
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                            <ListBox x:Name="list" Margin="0 10 0 0">
+                                <ListBox.Template>
+                                    <ControlTemplate>
+                                        <WrapPanel IsItemsHost="True" Width="{Binding MainWidth, Mode=OneWay, RelativeSource={RelativeSource AncestorType=ps:Select, Mode=FindAncestor}}" 
+                                                   Orientation="Horizontal" 
+                                                   ItemWidth="{Binding MainWidth, Mode=OneWay, RelativeSource={RelativeSource AncestorType=ps:Select, Mode=FindAncestor},Converter={x:Static ps:DoubleDivision2Converter.Instance}}">
+                                        </WrapPanel>
+                                    </ControlTemplate>
+                                </ListBox.Template>
+                                <ListBox.ItemContainerStyle>
+                                    <Style TargetType="ListBoxItem">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="ListBoxItem">
+                                                    <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                 TextBlock.Foreground="{TemplateBinding Foreground}"/>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Setter Property="Padding" Value="0,0,0,0"></Setter>
+                                        <Setter Property="Margin" Value="20,0,0,0"></Setter>
+                                    </Style>
+                                </ListBox.ItemContainerStyle>
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <ps:ImagePro Height="40" Width="40" VerticalAlignment="Center" HorizontalAlignment="Left" Source="{Binding ItemImageSrc, Mode=OneWay, RelativeSource={RelativeSource AncestorType=ps:Select, Mode=FindAncestor}}" />
+                                            <TextBlock Text="{Binding Text, Mode=OneWay}" Margin="15 15 0 15" FontWeight="Light" Foreground="#fff" FontSize="25" ></TextBlock>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </StackPanel>
+                </Grid>
+            </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style TargetType="{x:Type ps:SelectItemsPage}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ps:SelectItemsPage}">
+                    <ps:Page Title="{TemplateBinding Title}" ContainerMargin="0">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <ps:Loading x:Name="loading" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"></ps:Loading>
+                            <ps:SelectItems x:Name="list" Grid.Row="0" Grid.Column="0"
+                                            Margin="0 20 0 20" 
+                                             VerticalAlignment="Center"
+                                             HorizontalAlignment="Center"
+                                             ItemContainerWidth="{TemplateBinding ItemContainerWidth}"
+                                             ItemWidth="{TemplateBinding ItemWidth}"
+                                             Visibility="{TemplateBinding Count,Converter={x:Static ps:CountCollapsedConverter.Instance}}">
+                                <ps:SelectItems.ItemTemplate>
+                                    <ControlTemplate>
+                                        <ContentPresenter Content="{Binding Content, Mode=OneWay, RelativeSource={RelativeSource AncestorType=ps:SelectItemsPage, Mode=FindAncestor},Converter={x:Static c:TemplateConverter.Instance}}"></ContentPresenter>
+                                    </ControlTemplate>
+                                </ps:SelectItems.ItemTemplate>
+                            </ps:SelectItems>
+                            <ps:Button x:Name="ok" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center"  VerticalAlignment="Center" SizeType="md" Text="{x:Static ps:Strings.OK}" Width="{Binding Converter={x:Static ps:BootstrapWidthConverter.Instance},ConverterParameter=xs:(*0.3)}" Margin="0 0 0 45" Visibility="{TemplateBinding Count,Converter={x:Static ps:CountCollapsedConverter.Instance}}"></ps:Button>
+                        </Grid>
+                    </ps:Page>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style TargetType="{x:Type ps:SelectItems}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ps:SelectItems}">
+                    <ps:List x:Name="list" NoDataText="{TemplateBinding NoDataText}"
+                            Width="{TemplateBinding ItemContainerWidth}"
+                            ItemWidth="{TemplateBinding ItemWidth}">
+                        <ps:List.ItemTemplate>
+                            <DataTemplate>
+                                <ps:SelectItem 
+                                    Owner="{Binding Mode=OneWay, RelativeSource={RelativeSource AncestorType=ps:SelectItems, Mode=FindAncestor}}"
+                                    Disabled="{Binding Disabled}" Margin="0 0 20 0">
+                                    <ContentPresenter Content="{Binding ItemTemplate, Mode=OneWay, RelativeSource={RelativeSource AncestorType=ps:SelectItems, Mode=FindAncestor},Converter={x:Static c:TemplateConverter.Instance}}"></ContentPresenter>
+                                </ps:SelectItem>
+                            </DataTemplate>
+                        </ps:List.ItemTemplate>
+                    </ps:List>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style TargetType="{x:Type ps:SelectSign}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ps:SelectSign}">
+                    <Grid Width="56" Height="56">
+                        <Border BorderThickness="2" x:Name="border" CornerRadius="{TemplateBinding IsRadio,Converter={x:Static ps:SelectSignCornerRadiusConverter.Instance}}">
+                            <Border.BorderBrush>
+                                <SolidColorBrush Color="#fff" Opacity="0.7"></SolidColorBrush>
+                            </Border.BorderBrush>
+                        </Border>
+                        <Border x:Name="background" Background="#fff" Opacity="0.15" CornerRadius="{TemplateBinding IsRadio,Converter={x:Static ps:SelectSignCornerRadiusConverter.Instance}}"></Border>
+                        <Image x:Name="image" Visibility="{TemplateBinding Selected,Converter={x:Static ps:BoolCollapsedConverter.Instance}}" Width="40" Height="40" Source="/CodeArt.WPF.Controls;component/Playstation/Select/Images/selected.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

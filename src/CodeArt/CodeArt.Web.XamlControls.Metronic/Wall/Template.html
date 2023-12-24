@@ -1,0 +1,12 @@
+﻿<ControlTemplate xmlns="http://schemas.codeart.cn/web/xaml"
+                 xmlns:m="http://schemas.codeart.cn/web/xaml/metronic">
+<m:PortletGroup id="{TemplateBinding Id}" title="{TemplateBinding Title}"
+                backgroundColor="{TemplateBinding BackgroundColor}"
+                data-proxy="{TemplateBinding ProxyCode}"
+                canToggle="false"
+                class="{TemplateBinding Class,Converter={Static AppendClassConverter.Instance},ConverterParameter=c-hide}"
+                data-wall="true">
+    <AttributesPresenter />
+    <ContentPresenter Content="{TemplateBinding Content}" />
+</m:PortletGroup>
+</ControlTemplate>

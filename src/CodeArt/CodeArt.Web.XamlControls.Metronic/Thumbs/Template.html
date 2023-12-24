@@ -1,0 +1,40 @@
+﻿<ControlTemplate xmlns="http://schemas.codeart.cn/web/xaml"
+                 xmlns:m="http://schemas.codeart.cn/web/xaml/metronic">
+<ControlTemplate.Directories>
+    <AssetDirectory AssemblyName="CodeArt.Web.XamlControls.Metronic">
+        <AssetPackage Path="/assets"></AssetPackage>
+    </AssetDirectory>
+</ControlTemplate.Directories>
+<m:PortletGroup id="{TemplateBinding Id}" title="上传缩略图"
+                data-proxy="{give:new $$metronic.thumbs()}"
+                canToggle="false"
+                class="{TemplateBinding Class,Converter={Static AppendClassConverter.Instance},ConverterParameter=m-portlet--info c--thumbs c-hide}"
+                data-thumbs="true">
+    <AttributesPresenter />
+    <!--<m:Alert air="true" icon="flaticon-questions-circular-button m--font-primary" class="m--margin-bottom-30">
+        <p class="c--p c--p-n-i">可以自定义缩略图。</p>
+    </m:Alert>-->
+    <!--<div class="row" style="margin-bottom:1rem;">
+        <div class="col-sm-12">
+            <m:button text="提交排序信息" color="focus" air="true" icon="flaticon-interface-10" class="c-sortable-submit"></m:button>
+            <m:button text="退出排序" color="danger" air="true" icon="flaticon-close" class="c-sortable-close m--margin-left-10"></m:button>
+        </div>
+    </div>-->
+    <div class="row">
+        <div class="col-sm-4">
+            <m:Dropzone xamlStyle="{StaticResource upload}" layout="Wrap" label="200x200" maxFileSize="5" maxFiles="1" acceptedFiles="image/*" help="照片的体积请在5M以内，最多上传1张照片">
+                <m:Dropzone.Headers>
+                    <m:DropzoneHeader Key="directoryId" Value="{Binding DirectoryId}"></m:DropzoneHeader>
+                    <m:DropzoneHeader Key="thumb" Value="200x200x2"></m:DropzoneHeader>
+                </m:Dropzone.Headers>
+            </m:Dropzone>
+        </div>
+    </div>
+    <!--<div class="row">
+        <div class="col-sm-12">
+            <m:button text="提交排序信息" color="focus" air="true" icon="flaticon-interface-10" class="c-sortable-submit"></m:button>
+            <m:button text="退出排序" color="danger" air="true" icon="flaticon-close" class="c-sortable-close m--margin-left-10"></m:button>
+        </div>
+    </div>-->
+</m:PortletGroup>
+</ControlTemplate>

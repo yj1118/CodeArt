@@ -1,0 +1,24 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:ps="clr-namespace:CodeArt.WPF.Controls.Playstation">
+    <Style TargetType="{x:Type ps:Header}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ps:Header">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="150"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{TemplateBinding Title}" Grid.Row="0" Grid.Column="0" Margin="{TemplateBinding TitleMargin}" FontSize="{TemplateBinding TitleFontSize}" FontWeight="Light" Foreground="#fff"></TextBlock>
+                        <ps:Line Height="2" Grid.Row="1" Grid.ColumnSpan="2"></ps:Line>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

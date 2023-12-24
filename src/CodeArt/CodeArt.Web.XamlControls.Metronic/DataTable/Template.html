@@ -1,0 +1,28 @@
+﻿<ControlTemplate xmlns="http://schemas.codeart.cn/web/xaml"
+                 xmlns:m="http://schemas.codeart.cn/web/xaml/metronic">
+<ControlTemplate.Directories>
+    <AssetDirectory AssemblyName="CodeArt.Web.XamlControls.Metronic">
+        <AssetString keys="NoRecords,DisplayingRecords,FirstPage,PreviousPage,NextPage,LastPage,SelectPageSize,MorePages,PageNumber"></AssetString>
+    </AssetDirectory>
+</ControlTemplate.Directories>
+<div data-proxy="{TemplateBinding ProxyCode}" 
+     id="{TemplateBinding Id}"
+     name="{TemplateBinding Name}"
+     data-datatable="true">
+    <AttributesPresenter />
+    <div class="ca-datatable-header"><ContentPresenter Content="{TemplateBinding Header}" /></div>
+    <div class="m_datatable"></div>
+    <div class="m-datatable-selectedItems" data-datatable-selectedarea="true" data-proxy="{give:new $$.databind()}">
+        <ul class="list-inline">
+            <li data-proxy="{loops:'items',onbind:$$metronic.datatable.selectedItemBind,display:''}">
+                <a href="javascript:;" class="btn btn-outline-primary m-btn m-btn--square m-btn--icon">
+                    <span>
+                        <i class="flaticon-cancel"></i>
+                        <span data-proxy="{binds:{text:'text'}}"></span>
+                    </span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+</ControlTemplate>

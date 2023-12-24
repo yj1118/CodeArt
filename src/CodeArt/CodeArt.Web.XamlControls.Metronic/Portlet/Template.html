@@ -1,0 +1,31 @@
+﻿<ControlTemplate xmlns="http://schemas.codeart.cn/web/xaml"
+                 xmlns:m="http://schemas.codeart.cn/web/xaml/metronic">
+<div class="{TemplateBinding Class,Converter={Static m:PortletClassConverter.Instance}}" 
+     id="{TemplateBinding Id}" 
+     data-proxy="{give:new $$metronic.portlet()}" m-portlet="true">
+	<div class="m-portlet__head" Visibility="{TemplateBinding Title,Converter={Static StringCollapsedConverter.Instance}}">
+		<div class="m-portlet__head-caption">
+			<div class="m-portlet__head-title">
+				<span class="m-portlet__head-icon" Visibility="{TemplateBinding Icon,Converter={Static StringCollapsedConverter.Instance}}">
+					<i class="{TemplateBinding Icon}"></i>
+				</span>
+				<h3 class="{TemplateBinding TitleClass,Converter={Static AppendClassConverter.Instance},ConverterParameter=m-portlet__head-text}" data-portlet-title="true">
+					<run content="{TemplateBinding Title}" />
+                    <small Visibility="{TemplateBinding Subtitle,Converter={Static StringCollapsedConverter.Instance}}">
+                        <run content="{TemplateBinding Subtitle}" />
+                    </small>
+				</h3>
+			</div>
+		</div>
+        <div class="m-portlet__head-tools">
+            <ContentPresenter Content="{TemplateBinding Tools}" />
+        </div>
+	</div>
+	<div class="m-portlet__body">
+        <ContentPresenter Content="{TemplateBinding Content}" />
+	</div>
+    <div class="m-portlet__foot" Visibility="{TemplateBinding Footer,Converter={Static ListCountCollapsedConverter.Instance}}">
+        <ContentPresenter Content="{TemplateBinding Footer}" />
+	</div>
+</div>
+</ControlTemplate>

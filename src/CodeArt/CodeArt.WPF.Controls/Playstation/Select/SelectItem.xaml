@@ -1,0 +1,25 @@
+﻿<ContentControl x:Class="CodeArt.WPF.Controls.Playstation.SelectItem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:ps="clr-namespace:CodeArt.WPF.Controls.Playstation">
+    <ContentControl.Template>
+        <ControlTemplate>
+            <ps:Range x:Name="range" Margin="0 5 0 5">
+                <Grid Background="Transparent" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Row="0" Grid.Column="0" Width="120" VerticalAlignment="Center">
+                        <ps:ImagePro x:Name="disabled" Visibility="Collapsed" Width="60" Height="60" Source="/Playstation/Select/Images/disabled.png" />
+                        <ps:SelectSign x:Name="sign" Margin="20" Selected="{Binding IsSelected}"></ps:SelectSign>
+                    </Grid>
+                    <ContentPresenter Grid.Row="0" Grid.Column="1" Content="{Binding Content, Mode=OneWay, RelativeSource={RelativeSource AncestorType=ps:SelectItem, Mode=FindAncestor}}"></ContentPresenter>
+                </Grid>
+            </ps:Range>
+        </ControlTemplate>
+    </ContentControl.Template>
+    
+</ContentControl>

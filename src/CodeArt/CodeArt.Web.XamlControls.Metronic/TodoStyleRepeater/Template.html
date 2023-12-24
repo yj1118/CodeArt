@@ -1,0 +1,14 @@
+﻿<ControlTemplate
+        xmlns="http://schemas.codeart.cn/web/xaml"
+        xmlns:m="http://schemas.codeart.cn/web/xaml/metronic">
+
+<div class="todo-tasklist" id="{TemplateBinding Id}" name="{TemplateBinding Name}" >
+    <div class="row">
+        <ContentPresenter Content="{TemplateBinding Items}" />
+    </div>
+</div>
+
+
+<LinkCode ExternalKey="metronic:todo.css" Origin="Header" />
+
+</ControlTemplate>

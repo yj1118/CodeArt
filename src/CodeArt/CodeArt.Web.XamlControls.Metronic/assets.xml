@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<config>
+  <directories>
+    <add name="ion-rangeslider"></add>
+    <add name="malihu-custom-scrollbar-plugin"></add>
+    <add name="font-awesome"></add>
+    <add name="line-awesome"></add>
+    <add name="jquery-ui"></add>
+  </directories>
+  <files>
+    <add name="scripts.bundle.js" />
+    <add name="style.bundle.css" />
+    <add name="vendors.bundle.css" />
+    <add name="vendors.bundle.js" />
+    <add name="flot.bundle.js" />
+    <add name="fullcalendar.bundle.css" />
+    <add name="fullcalendar.bundle.js" />
+    <add name="jquery-ui.bundle.css" />
+    <add name="jquery-ui.bundle.js" />
+    <add name="jqvmap.bundle.css" />
+    <add name="jqvmap.bundle.js" />
+    <add name="common.xaml.js" />
+    <add name="jquery.mousewheel.min.js" />
+    <add name="echarts.min.js" />
+    <add name="bootstrap-datepicker-en-CA.js" />
+    <add name="bootstrap-datepicker.zh-CN.js" />
+    <add name="bootstrap-datepicker.zh-TW.js" />
+
+    <add name="vis-graph3d.min.js" />
+    <add name="vis-network.min.css" />
+    <add name="vis-network.min.js" />
+    <add name="vis-timeline-graph2d.min.css" />
+    <add name="vis-timeline-graph2d.min.js" />
+    <add name="vis.js.map" />
+    <add name="vis.min.css" />
+    <add name="vis.min.js" />
+
+    <add name="layout-builder.js" />
+    <add name="my-script.js" />
+
+    <add name="jquery.ui.min.js" />
+
+
+    <add name="jquery.tinymce.min.js" />
+    <add name="tinymce.min.js" />
+    <add name="plugin.min.js" />
+    <add name="emojis.min.js" />
+    <add name="content.min.css" />
+    <add name="tinymce-mobile.woff" />
+    <add name="content.inline.css" />
+    <add name="content.inline.min.css" />
+    <add name="content.min.css" />
+    <add name="content.mobile.min.css" />
+    <add name="skin.min.css" />
+    <add name="skin.mobile.min.css" />
+    <add name="theme.min.js" />
+
+
+    <add name="layui.all.js" />
+    <add name="layui.mobile.css" />
+    <add name="icon-ext.png" />
+    <add name="loading-0.gif" />
+    <add name="loading-0.gif" />
+    <add name="loading-1.gif" />
+    <add name="loading-2.gif" />
+    
+  </files>
+</config>

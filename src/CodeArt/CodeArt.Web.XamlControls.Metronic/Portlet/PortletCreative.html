@@ -1,0 +1,29 @@
+﻿<ControlTemplate xmlns="http://schemas.codeart.cn/web/xaml"
+                 xmlns:m="http://schemas.codeart.cn/web/xaml/metronic">
+    <div class="{TemplateBinding Class,Converter={Static AppendClassConverter.Instance},ConverterParameter=m-portlet m-portlet--creative m-portlet--first m-portlet--bordered-semi m--margin-top-30}" id="{TemplateBinding Id}" m-portlet="true">
+        <AttributesPresenter />
+        <div class="m-portlet__head c--none-color">
+            <div class="m-portlet__head-caption">
+                <div class="m-portlet__head-title">
+                    <span class="m-portlet__head-icon m--hide">
+                        <i class="flaticon-statistics"></i>
+                    </span>
+                    <div><ContentPresenter Content="{TemplateBinding Description}" /></div>
+                    <h2 class="{TemplateBinding Color,Converter={Static m:PortletCreativeColorConverter.Instance},ConverterParameter=m-portlet__head-label}">
+                        <span>
+                            <run Content="{TemplateBinding Title}"></run>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            <div class="m-portlet__head-tools c--m-portlet-tools-top">
+                <ul class="m-portlet__nav">
+                    <CollectionPresenter Items="{TemplateBinding Tools}" ItemFormat="<li class='m-portlet__nav-item c--m-portlet__nav-item-top'>{0}</li>" />
+                </ul>
+            </div>
+        </div>
+        <div class="m-portlet__body">
+            <ContentPresenter Content="{TemplateBinding Content}" />
+        </div>
+    </div>
+</ControlTemplate>

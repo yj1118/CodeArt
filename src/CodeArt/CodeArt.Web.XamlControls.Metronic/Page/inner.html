@@ -1,0 +1,329 @@
+﻿<ControlTemplate xmlns="http://schemas.codeart.cn/web/xaml"
+                 xmlns:x="http://schemas.codeart.cn/web/xaml"
+                 xmlns:m="http://schemas.codeart.cn/web/xaml/metronic">
+<ControlTemplate.Directories>
+    <AssetDirectory AssemblyName="CodeArt.Web.WebPages.Xaml">
+        <AssetPackage Path="/framework"></AssetPackage>
+    </AssetDirectory>
+    <AssetDirectory AssemblyName="CodeArt.Web.XamlControls.Metronic">
+        <AssetPackage Path="/assets"></AssetPackage>
+        <AssetString keys="ShortcutGroup,PleaseWaitWithDots,SystemAbnormal,OK,Cancel"></AssetString>
+    </AssetDirectory>
+</ControlTemplate.Directories>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <x:title><run Content="{TemplateBinding Title}"></run></x:title>
+    <meta name="description" content="{TemplateBinding Description}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
+    <LinkCode Key="/assets/vendors/base/vendors.bundle.css" Origin="Current" />
+    <LinkCode Key="/assets/demo/demo2/base/style.bundle.css" Origin="Current" />
+    <LinkCode Key="/framework/codeart/release/codeArt.min.css" Origin="Current" />
+    <LinkCode Key="/assets/custom/common.css" Origin="Current" />
+    <link rel="shortcut icon" href="{TemplateBinding ShortcutIcon}" Visibility="{TemplateBinding Logo,Converter={Static StringCollapsedConverter.Instance}}" />
+    <style>
+        .body-mask {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            z-index: 9999;
+        }
+
+        ._blockPage {
+            z-index: 9000;
+            position: fixed;
+            padding: 0px;
+            margin: 0px;
+            width: auto;
+            top: 50%;
+            left: 50%;
+            text-align: center;
+            color: rgb(0, 0, 0);
+            border: 0px;
+            cursor: wait;
+        }
+
+            ._blockPage .m-loader.m-loader--lg:before {
+                width: 5rem;
+                height: 5rem;
+                margin-top: -1rem;
+                margin-left: -1rem;
+                border-top-width: 5px;
+                border-right-width: 5px;
+            }
+    </style>
+</head>
+<!-- end::Head -->
+<!-- end::Body -->
+<body class="m-page--wide m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default">
+    <div class="body-mask">
+        <div class="blockUI blockMsg blockPage _blockPage">
+            <div class="m-loader  m-loader--primary m-loader--lg"></div>
+        </div>
+    </div>
+    <!-- begin:: Page -->
+    <div class="m-grid m-grid--hor m-grid--root m-page">
+        <!-- begin::Header -->
+        <header id="m_header" class="m-grid__item m-header " m-minimize="minimize" m-minimize-offset="200" m-minimize-mobile-offset="200">
+            <div class="m-header__top">
+                <div class="m-container m-container--responsive m-container--xxl m-container--full-height m-page__container">
+                    <div class="m-stack m-stack--ver m-stack--desktop">
+
+                        <!-- begin::Brand -->
+                        <div class="m-stack__item m-brand">
+                            <div class="m-stack m-stack--ver m-stack--general m-stack--inline">
+                                <div class="m-stack__item m-stack__item--middle m-brand__logo" Visibility="{TemplateBinding Logo,Converter={Static StringCollapsedConverter.Instance}}">
+                                    <a href="/index.htm" class="m-brand__logo-wrapper">
+                                        <img src="{TemplateBinding Logo}" />
+                                    </a>
+                                </div>
+                                <div class="m-stack__item m-stack__item--middle m-brand__tools">
+
+                                    <a href="javascript:;" id="m_aside_left_offcanvas_toggle" class="m-brand__icon m-brand__toggler m-brand__toggler--left m--visible-tablet-and-mobile-inline-block">
+                                        <span></span>
+                                    </a>
+
+                                    <!-- begin::Responsive Header Menu Toggler-->
+                                    <a id="m_aside_header_menu_mobile_toggle" href="javascript:;" class="m-brand__icon m-brand__toggler m--visible-tablet-and-mobile-inline-block">
+                                        <span></span>
+                                    </a>
+
+                                    <!-- end::Responsive Header Menu Toggler-->
+                                    <!-- begin::Topbar Toggler-->
+                                    <a id="m_aside_header_topbar_mobile_toggle" href="javascript:;" class="m-brand__icon m--visible-tablet-and-mobile-inline-block">
+                                        <i class="flaticon-more"></i>
+                                    </a>
+
+                                    <!--end::Topbar Toggler-->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- end::Brand -->
+                        <!-- begin::Topbar -->
+                        <div class="m-stack__item m-stack__item--fluid m-header-head" id="m_header_nav">
+                            <div id="m_header_topbar" class="m-topbar  m-stack m-stack--ver m-stack--general">
+                                <div class="m-stack__item m-topbar__nav-wrapper">
+                                    <ul class="m-topbar__nav m-nav m-nav--inline">
+                                        <li class="m-nav__item m-topbar__user-profile m-topbar__user-profile_nologin m-topbar__user-profile--img  m-dropdown m-dropdown--medium m-dropdown--arrow m-dropdown--header-bg-fill m-dropdown--align-right m-dropdown--mobile-full-width m-dropdown--skin-light"
+                                            Visibility="{TemplateBinding PrincipalIsLogin,Converter={Static BoolCollapsedConverter.Instance}}"
+                                            m-dropdown-toggle="hover">
+                                            <a href="#" class="m-nav__link m-dropdown__toggle">
+                                                <span class="m-topbar__userpic m--padding-right-10">
+                                                    <img src="{TemplateBinding PrincipalPhoto,Converter={Static m:UserPhotoConverter.Instance}}" class="m--img-rounded m--marginless m--img-centered" />
+                                                    <span id="user-photo-badge" class="m-menu__link-badge"><span class="m-badge m-badge--danger"></span></span>
+                                                </span>
+                                                <span class="m-topbar__username">
+                                                    <run content="{TemplateBinding PrincipalName}" />
+                                                </span>
+                                            </a>
+                                            <div class="m-dropdown__wrapper">
+                                                <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
+                                                <div class="m-dropdown__inner">
+                                                    <!--<div class="m-dropdown__header m--align-center" style="background: url(assets/app/media/img/misc/user_profile_bg.jpg); background-size: cover;">
+                                                        <div class="m-card-user m-card-user--skin-dark">
+                                                            <div class="m-card-user__pic">
+                                                                <img src="assets/app/media/img/users/user4.jpg" class="m--img-rounded m--marginless" alt="" />
+                                                            </div>
+                                                            <div class="m-card-user__details">
+                                                                <span class="m-card-user__name m--font-weight-500">Mark Andre</span>
+                                                                <a href="" class="m-card-user__email m--font-weight-300 m-link">mark.andre@gmail.com</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>-->
+                                                    <div class="m-dropdown__body">
+                                                        <div class="m-dropdown__content">
+                                                            <ul class="m-nav m-nav--skin-light">
+                                                                <li class="m-nav__section m--hide">
+                                                                    <span class="m-nav__section-text">Section</span>
+                                                                </li>
+                                                                <m:TipMenuCode Position="After" />
+                                                                <li class="m-nav__item">
+                                                                    <a href="/logout.htm" class="btn m-btn--pill btn-secondary m-btn m-btn--custom m-btn--label-brand m-btn--bolder">退出</a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </li>
+                                        <li class="m-nav__item m-topbar__user-profile m-topbar__user-profile_nologin m-topbar__user-profile--img  m-dropdown m-dropdown--huge m-dropdown--arrow m-dropdown--header-bg-fill m-dropdown--align-right m-dropdown--mobile-full-width m-dropdown--skin-light"
+                                            Visibility="{TemplateBinding PrincipalIsLogin,Converter={Static BoolCollapsedConverter.Instance},ConverterParameter=1}"
+                                            m-dropdown-toggle="hover">
+                                            <a href="#" class="m-nav__link m-dropdown__toggle">
+                                                <span class="m-topbar__userpic m--padding-right-10">
+                                                    <img src="{TemplateBinding PrincipalPhoto,Converter={Static m:UserPhotoConverter.Instance}}" class="m--img-rounded m--marginless m--img-centered" />
+                                                </span>
+                                                <span class="m-topbar__username">登录</span>
+                                            </a>
+                                            <div class="m-dropdown__wrapper">
+                                                <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
+                                                <div class="m-dropdown__inner">
+                                                    <div class="m-dropdown__body">
+                                                        <div class="m-dropdown__content">
+                                                            <ul class="m-nav m-nav--skin-light">
+                                                                <li class="m-nav__section m--hide">
+                                                                    <span class="m-nav__section-text">Section</span>
+                                                                </li>
+                                                                <m:TipMenuCode Position="Before" />
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- end::Topbar -->
+                    </div>
+                </div>
+            </div>
+            <div class="m-header__bottom">
+                <div class="m-container m-container--responsive m-container--xxl m-container--full-height m-page__container">
+                    <div class="m-stack m-stack--ver m-stack--desktop">
+
+                        <!-- begin::Horizontal Menu -->
+                        <div class="m-stack__item m-stack__item--middle m-stack__item--fluid">
+                            <button class="m-aside-header-menu-mobile-close  m-aside-header-menu-mobile-close--skin-light " id="m_aside_header_menu_mobile_close_btn"><i class="la la-close"></i></button>
+                            <div id="m_header_menu" class="m-header-menu m-aside-header-menu-mobile m-aside-header-menu-mobile--offcanvas  m-header-menu--skin-dark m-header-menu--submenu-skin-light m-aside-header-menu-mobile--skin-light m-aside-header-menu-mobile--submenu-skin-light ">
+                                <ul class="m-menu__nav  m-menu__nav--submenu-arrow ">
+                                    <m:HeaderMenuCode />
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- end::Horizontal Menu -->
+                        <!--begin::Search-->
+                        <div class="m-stack__item m-stack__item--middle m-dropdown m-dropdown--arrow m-dropdown--large m-dropdown--mobile-full-width m-dropdown--align-right m-dropdown--skin-light m-header-search m-header-search--expandable m-header-search--skin-" id="m_quicksearch"
+                             m-quicksearch-mode="default">
+                            <!--begin::Search Form -->
+                            <form class="m-header-search__form">
+                                <div class="m-header-search__wrapper">
+                                    <span class="m-header-search__icon-search" id="m_quicksearch_search">
+                                        <i class="la la-search"></i>
+                                    </span>
+                                    <span class="m-header-search__input-wrapper">
+                                        <input autocomplete="off" type="text" name="q" class="m-header-search__input" value="" placeholder="Search..." id="m_quicksearch_input">
+                                    </span>
+                                    <span class="m-header-search__icon-close" id="m_quicksearch_close">
+                                        <i class="la la-remove"></i>
+                                    </span>
+                                    <span class="m-header-search__icon-cancel" id="m_quicksearch_cancel">
+                                        <i class="la la-remove"></i>
+                                    </span>
+                                </div>
+                            </form>
+
+                            <!--end::Search Form -->
+                            <!--begin::Search Results -->
+                            <div class="m-dropdown__wrapper">
+                                <div class="m-dropdown__arrow m-dropdown__arrow--center"></div>
+                                <div class="m-dropdown__inner">
+                                    <div class="m-dropdown__body">
+                                        <div class="m-dropdown__scrollable m-scrollable" data-scrollable="true" data-height="300" data-mobile-height="200">
+                                            <div class="m-dropdown__content m-list-search m-list-search--skin-light"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--end::Search Results -->
+                        </div>
+
+                        <!--end::Search-->
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- end::Header -->
+        <!-- begin::Body -->
+        <div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver-desktop m-grid--desktop 	m-container m-container--responsive m-container--xxl m-page__container m-body">
+            <!-- BEGIN: Left Aside -->
+            <button class="m-aside-left-close m-aside-left-close--skin-light" id="m_aside_left_close_btn"><i class="la la-close"></i></button>
+            <div id="m_aside_left" class="m-grid__item m-aside-left ">
+
+                <!-- BEGIN: Aside Menu -->
+                <div id="m_ver_menu" class="m-aside-menu  m-aside-menu--skin-light m-aside-menu--submenu-skin-light inner" data-menu-vertical="true" m-menu-scrollable="0" m-menu-dropdown-timeout="500">
+                    <ul class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow">
+                        <m:AsideMenuCode />
+                    </ul>
+                </div>
+
+                <!-- END: Aside Menu -->
+            </div>
+
+            <!-- END: Left Aside -->
+            <div class="m-grid__item m-grid__item--fluid m-wrapper">
+                <!-- BEGIN: Subheader -->
+                <div class="m-subheader ">
+                    <div class="d-flex align-items-center">
+                        <div class="mr-auto">
+                            <m:BreadcrumbCode />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- END: Subheader -->
+                <div class="m-content">
+                    <ContentPresenter Content="{TemplateBinding Body}" />
+                </div>
+            </div>
+            <!--</div>-->
+        </div>
+
+        <!-- end::Body -->
+        <!-- begin::Footer -->
+        <footer class="m-grid__item m-footer ">
+            <div class="m-container m-container--responsive m-container--xxl m-container--full-height m-page__container">
+                <div class="m-footer__wrapper">
+                    <div class="m-stack m-stack--flex-tablet-and-mobile m-stack--ver m-stack--desktop">
+                        <div class="m-stack__item m-stack__item--left m-stack__item--middle m-stack__item--last">
+                            <span class="m-footer__copyright">
+                                <run content="{TemplateBinding Copyright}" />
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <!-- end::Footer -->
+    </div>
+
+
+    <!-- end::Quick Sidebar -->
+    <!-- begin::Scroll Top -->
+    <div id="m_scroll_top" class="m-scroll-top">
+        <i class="la la-arrow-up"></i>
+    </div>
+
+    <!--begin::Base Scripts -->
+    <LinkCode Key="/assets/vendors/base/vendors.bundle.js" Origin="Current" />
+    <LinkCode Key="/assets/demo/demo2/base/scripts.bundle.js" Origin="Current" />
+    <LinkCode Key="/framework/codeart/release/codeArt.xaml.min.js" Origin="Current" />
+    <LinkCode Key="/assets/custom/common.js" Origin="Current" />
+    <LinkCode Key="/assets/custom/common.xaml.js" Origin="Current" />
+    <!--end::Base Scripts -->
+    <script>
+
+        $(document).ready(function () {
+            $$.init();
+            $$.page.menu.init();
+            $$.page.bar.init();
+
+            $$.page.closeMask(function () {
+                $$.page.onready();
+            });
+        });
+    </script>
+</body>
+<!-- end::Body -->
+</html>
+</ControlTemplate>

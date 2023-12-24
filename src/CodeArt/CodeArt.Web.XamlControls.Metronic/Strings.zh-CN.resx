@@ -1,0 +1,519 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Actions" xml:space="preserve">
+    <value>操作</value>
+  </data>
+  <data name="am" xml:space="preserve">
+    <value>上午</value>
+  </data>
+  <data name="Apr" xml:space="preserve">
+    <value>四月</value>
+  </data>
+  <data name="April" xml:space="preserve">
+    <value>四月</value>
+  </data>
+  <data name="AreYouSureDelete" xml:space="preserve">
+    <value>确定删除所选项吗?</value>
+  </data>
+  <data name="AtLeastTip" xml:space="preserve">
+    <value>至少填写{0}项{1}</value>
+  </data>
+  <data name="AtMostTip" xml:space="preserve">
+    <value>至多填写{0}项{1}</value>
+  </data>
+  <data name="Aug" xml:space="preserve">
+    <value>八月</value>
+  </data>
+  <data name="August" xml:space="preserve">
+    <value>八月</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>确认密码</value>
+  </data>
+  <data name="Dec" xml:space="preserve">
+    <value>十二月</value>
+  </data>
+  <data name="December" xml:space="preserve">
+    <value>十二月</value>
+  </data>
+  <data name="DeselectAll" xml:space="preserve">
+    <value>取消全选</value>
+  </data>
+  <data name="DisplayingRecords" xml:space="preserve">
+    <value>显示 {{start}} - {{end}} 共 {{total}} 条记录</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>邮箱</value>
+  </data>
+  <data name="EmailError" xml:space="preserve">
+    <value>邮箱格式不正确</value>
+  </data>
+  <data name="EnterConfirmationPassword" xml:space="preserve">
+    <value>请填写确认密码</value>
+  </data>
+  <data name="EnterDetailsCreateAccount" xml:space="preserve">
+    <value>输入您的详细信息以创建帐户：</value>
+  </data>
+  <data name="EnterEmail" xml:space="preserve">
+    <value>请填写邮箱</value>
+  </data>
+  <data name="EnterEmailResetPassword" xml:space="preserve">
+    <value>输入您的电子邮件以重置密码：</value>
+  </data>
+  <data name="EnterFollowingInformation" xml:space="preserve">
+    <value>请输入以下信息</value>
+  </data>
+  <data name="EnterPassword" xml:space="preserve">
+    <value>请填写密码</value>
+  </data>
+  <data name="EnterUsername" xml:space="preserve">
+    <value>请填写用户名</value>
+  </data>
+  <data name="Feb" xml:space="preserve">
+    <value>二月</value>
+  </data>
+  <data name="February" xml:space="preserve">
+    <value>二月</value>
+  </data>
+  <data name="FieldMaxLength" xml:space="preserve">
+    <value>{0}的字符数不能大于{1}个</value>
+  </data>
+  <data name="FieldMinLength" xml:space="preserve">
+    <value>{0}的字符数不能少于{1}个</value>
+  </data>
+  <data name="FieldRange" xml:space="preserve">
+    <value>{0}的长度必须介于 {1} 和 {2} 之间</value>
+  </data>
+  <data name="FieldRequired" xml:space="preserve">
+    <value>{0}必填</value>
+  </data>
+  <data name="FillLeastOne" xml:space="preserve">
+    <value>至少填写一项{0}</value>
+  </data>
+  <data name="FirstPage" xml:space="preserve">
+    <value>第一页</value>
+  </data>
+  <data name="ForgetPassword" xml:space="preserve">
+    <value>忘记密码？</value>
+  </data>
+  <data name="ForgottenPassword" xml:space="preserve">
+    <value>忘记密码？</value>
+  </data>
+  <data name="Fr" xml:space="preserve">
+    <value>五</value>
+  </data>
+  <data name="Fri" xml:space="preserve">
+    <value>周五</value>
+  </data>
+  <data name="Friday" xml:space="preserve">
+    <value>星期五</value>
+  </data>
+  <data name="Jan" xml:space="preserve">
+    <value>一月</value>
+  </data>
+  <data name="January" xml:space="preserve">
+    <value>一月</value>
+  </data>
+  <data name="Jul" xml:space="preserve">
+    <value>七月</value>
+  </data>
+  <data name="July" xml:space="preserve">
+    <value>七月</value>
+  </data>
+  <data name="Jun" xml:space="preserve">
+    <value>六月</value>
+  </data>
+  <data name="June" xml:space="preserve">
+    <value>六月</value>
+  </data>
+  <data name="LastPage" xml:space="preserve">
+    <value>末尾页</value>
+  </data>
+  <data name="ListBetweenNumber" xml:space="preserve">
+    <value>填写{0}的数量须要介于{1}和{2}之间</value>
+  </data>
+  <data name="ListItemsError" xml:space="preserve">
+    <value>{0}的输入项发生1个或多个错误</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>登录</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>注销</value>
+  </data>
+  <data name="Mar" xml:space="preserve">
+    <value>三月</value>
+  </data>
+  <data name="March" xml:space="preserve">
+    <value>三月</value>
+  </data>
+  <data name="MaxSelectedCountTip" xml:space="preserve">
+    <value>{0}的选项数不能大于{1}个</value>
+  </data>
+  <data name="May" xml:space="preserve">
+    <value>五月</value>
+  </data>
+  <data name="MinSelectedCountTip" xml:space="preserve">
+    <value>{0}的选项数不能少于{1}个</value>
+  </data>
+  <data name="Mo" xml:space="preserve">
+    <value>一</value>
+  </data>
+  <data name="Mon" xml:space="preserve">
+    <value>周一</value>
+  </data>
+  <data name="Monday" xml:space="preserve">
+    <value>星期一</value>
+  </data>
+  <data name="MorePages" xml:space="preserve">
+    <value>更多页</value>
+  </data>
+  <data name="MoveDown" xml:space="preserve">
+    <value>下移</value>
+  </data>
+  <data name="MoveUp" xml:space="preserve">
+    <value>上移</value>
+  </data>
+  <data name="NewRow" xml:space="preserve">
+    <value>新增项</value>
+  </data>
+  <data name="NextPage" xml:space="preserve">
+    <value>下一页</value>
+  </data>
+  <data name="NoHaveAccount" xml:space="preserve">
+    <value>还没有帐号？</value>
+  </data>
+  <data name="NoLoadDataMethod" xml:space="preserve">
+    <value>没有为 DataTable 设置LoadData方法，无法加载数据</value>
+  </data>
+  <data name="NoRecords" xml:space="preserve">
+    <value>没有找到记录</value>
+  </data>
+  <data name="NotImplementedSignUp" xml:space="preserve">
+    <value>未实现SignUp方法</value>
+  </data>
+  <data name="Nov" xml:space="preserve">
+    <value>十一月</value>
+  </data>
+  <data name="November" xml:space="preserve">
+    <value>十一月</value>
+  </data>
+  <data name="Oct" xml:space="preserve">
+    <value>十月</value>
+  </data>
+  <data name="October" xml:space="preserve">
+    <value>十月</value>
+  </data>
+  <data name="OnlySelectItems" xml:space="preserve">
+    <value>最多只能选择{0}项</value>
+  </data>
+  <data name="OperationSucceededPleaseLogin" xml:space="preserve">
+    <value>操作成功，请登录</value>
+  </data>
+  <data name="PageNumber" xml:space="preserve">
+    <value>页码</value>
+  </data>
+  <data name="PageSkinNotFound" xml:space="preserve">
+    <value>没有找到Page的 {0} 皮肤</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>密码</value>
+  </data>
+  <data name="PleaseEnterValidEmail" xml:space="preserve">
+    <value>请输入有效的邮箱地址</value>
+  </data>
+  <data name="PleaseSelect" xml:space="preserve">
+    <value>请选择{0}</value>
+  </data>
+  <data name="PleaseWaitWithDots" xml:space="preserve">
+    <value>请稍等...</value>
+  </data>
+  <data name="pm" xml:space="preserve">
+    <value>下午</value>
+  </data>
+  <data name="PreviousPage" xml:space="preserve">
+    <value>上一页</value>
+  </data>
+  <data name="RangeSelectedCount" xml:space="preserve">
+    <value>{0}的选项数必须介于 {1} 和 {2} 之间</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>移除</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>重置</value>
+  </data>
+  <data name="Sa" xml:space="preserve">
+    <value>六</value>
+  </data>
+  <data name="Sat" xml:space="preserve">
+    <value>周六</value>
+  </data>
+  <data name="Saturday" xml:space="preserve">
+    <value>星期六</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>搜索</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>全部选择</value>
+  </data>
+  <data name="SelectItemsToDelete" xml:space="preserve">
+    <value>请选择需要删除的项</value>
+  </data>
+  <data name="SelectPageSize" xml:space="preserve">
+    <value>选择每页显示记录的数量</value>
+  </data>
+  <data name="Sep" xml:space="preserve">
+    <value>九月</value>
+  </data>
+  <data name="September" xml:space="preserve">
+    <value>九月</value>
+  </data>
+  <data name="Shortcut" xml:space="preserve">
+    <value>快捷方式</value>
+  </data>
+  <data name="ShortcutGroup" xml:space="preserve">
+    <value>快捷分组</value>
+  </data>
+  <data name="SignUp" xml:space="preserve">
+    <value>注册</value>
+  </data>
+  <data name="Su" xml:space="preserve">
+    <value>日</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>提交</value>
+  </data>
+  <data name="Sun" xml:space="preserve">
+    <value>周日</value>
+  </data>
+  <data name="Sunday" xml:space="preserve">
+    <value>星期日</value>
+  </data>
+  <data name="SystemAbnormal" xml:space="preserve">
+    <value>系统异常</value>
+  </data>
+  <data name="Th" xml:space="preserve">
+    <value>四</value>
+  </data>
+  <data name="Thu" xml:space="preserve">
+    <value>周四</value>
+  </data>
+  <data name="Thursday" xml:space="preserve">
+    <value>星期四</value>
+  </data>
+  <data name="Tu" xml:space="preserve">
+    <value>二</value>
+  </data>
+  <data name="Tue" xml:space="preserve">
+    <value>周二</value>
+  </data>
+  <data name="Tuesday" xml:space="preserve">
+    <value>星期二</value>
+  </data>
+  <data name="TwicePasswordDifferent" xml:space="preserve">
+    <value>两次输入的密码不同</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>用户名</value>
+  </data>
+  <data name="We" xml:space="preserve">
+    <value>三</value>
+  </data>
+  <data name="Wed" xml:space="preserve">
+    <value>周三</value>
+  </data>
+  <data name="Wednesday" xml:space="preserve">
+    <value>星期三</value>
+  </data>
+  <data name="WrongUserNamePassword" xml:space="preserve">
+    <value>用户名或密码错误</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>清除</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>今天</value>
+  </data>
+  <data name="UploadTip" xml:space="preserve">
+    <value>在此处放置文件或点击上传</value>
+  </data>
+  <data name="DictFallbackMessage" xml:space="preserve">
+    <value>浏览器不受支持</value>
+  </data>
+  <data name="DictFileTooBig" xml:space="preserve">
+    <value>上传文件的大小不能超过{0}M</value>
+  </data>
+  <data name="DictInvalidFileType" xml:space="preserve">
+    <value>不能上传该类型的文件，文件类型只能是{0}</value>
+  </data>
+  <data name="DictMaxFilesExceeded" xml:space="preserve">
+    <value>最多只能上传{0}个文件</value>
+  </data>
+  <data name="DictResponseError" xml:space="preserve">
+    <value>上传文件失败</value>
+  </data>
+  <data name="DictCancelUpload" xml:space="preserve">
+    <value>取消上传</value>
+  </data>
+  <data name="DictRemoveFile" xml:space="preserve">
+    <value>移除文件</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>确定</value>
+  </data>
+  <data name="DictCancelUploadConfirmation" xml:space="preserve">
+    <value>您确定要取消上传吗？</value>
+  </data>
+  <data name="Last30Days" xml:space="preserve">
+    <value>最近30天</value>
+  </data>
+  <data name="Last7Days" xml:space="preserve">
+    <value>最近7天</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>昨天</value>
+  </data>
+  <data name="ThisMonth" xml:space="preserve">
+    <value>本月</value>
+  </data>
+  <data name="LastMonth" xml:space="preserve">
+    <value>上个月</value>
+  </data>
+  <data name="CustomRange" xml:space="preserve">
+    <value>自定义范围</value>
+  </data>
+  <data name="SelectMonth" xml:space="preserve">
+    <value>选择月份</value>
+  </data>
+  <data name="DateTitleFormat" xml:space="preserve">
+    <value>yyyy年mm月</value>
+  </data>
+  <data name="NodeManagement" xml:space="preserve">
+    <value>节点管理</value>
+  </data>
+  <data name="AddNodes" xml:space="preserve">
+    <value>新增节点</value>
+  </data>
+</root>

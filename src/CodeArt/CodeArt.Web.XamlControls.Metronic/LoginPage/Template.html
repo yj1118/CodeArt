@@ -1,0 +1,178 @@
+﻿<ControlTemplate
+        xmlns="http://schemas.codeart.cn/web/xaml"
+        xmlns:x="http://schemas.codeart.cn/web/xaml"
+        xmlns:m="http://schemas.codeart.cn/web/xaml/metronic">
+<ControlTemplate.Directories>
+    <AssetDirectory AssemblyName="CodeArt.Web.WebPages.Xaml">
+        <AssetPackage Path="/framework"></AssetPackage>
+    </AssetDirectory>
+    <AssetDirectory AssemblyName="CodeArt.Web.XamlControls.Metronic">
+        <AssetPackage Path="/assets"></AssetPackage>
+        <AssetFile Path="/LoginPage/login.js"></AssetFile>
+        <AssetString keys="EnterUsername,EnterPassword,EnterEmail,EmailError,EnterConfirmationPassword,TwicePasswordDifferent"></AssetString>
+    </AssetDirectory>
+</ControlTemplate.Directories>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <x:title><run Content="{TemplateBinding Title}"></run></x:title>
+    <meta name="description" content="{TemplateBinding Description}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <LinkCode Key="/assets/vendors/base/vendors.bundle.css" Origin="Current" />
+    <LinkCode Key="/assets/demo/default/base/style.bundle.css" Origin="Current" />
+    <link rel="shortcut icon" href="{TemplateBinding ShortcutIcon}" Visibility="{TemplateBinding Logo,Converter={Static StringCollapsedConverter.Instance}}" />
+    <style>
+        .m-login.m-login--2 .m-login__wrapper .m-login__container .m-login__form .m-form__group .form-control {
+            padding: 2rem 1.5rem;
+        }
+
+        .m-login.m-login--2 .m-login__wrapper .m-login__container .m-login__account .m-login__account-msg{
+            font-size:1.2rem;
+        }
+
+        .m-login.m-login--2 .m-login__wrapper .m-login__container .m-login__account .m-login__account-link {
+            font-size: 1.2rem;
+        }
+
+    </style>
+</head>
+<body class="m--skin- m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default">
+    <div class="m-grid m-grid--hor m-grid--root m-page">
+        <div class="m-grid__item m-grid__item--fluid m-grid m-grid--hor m-login m-login--signin m-login--2 m-login-2--skin-2" id="m_login" style="{TemplateBinding BackgroundImage,Converter={Static BackgroundImageConverter.Instance}}">
+            <div class="m-grid__item m-grid__item--fluid	m-login__wrapper">
+                <div class="m-login__container">
+                    <div class="m-login__logo" Visibility="{TemplateBinding Logo,Converter={Static StringCollapsedConverter.Instance}}" x:Name="logo">
+                        <a href="#">
+                            <img src="{TemplateBinding Logo}">
+                        </a>
+                    </div>
+                    <div class="m-login__signin">
+                        <div class="m-login__head">
+                            <h3 class="m-login__title">
+                                <run Content="{TemplateBinding LoginTitle}" />
+                            </h3>
+                        </div>
+                        <form class="m-login__form m-form" id="loginForm" data-proxy="{give:new $$.form(),view:'login'}">
+                            <div class="form-group m-form__group">
+                                <input class="form-control m-input" type="text" placeholder="用户名、邮箱或手机号" name="username" autocomplete="off" data-proxy="{form:''}">
+                            </div>
+                            <div class="form-group m-form__group">
+                                <input class="form-control m-input m-login__form-input--last" type="password" placeholder="{Static m:Strings.Password}" name="password" data-proxy="{form:''}">
+                            </div>
+                            <div class="row m-login__form-sub">
+                                <div class="col m--align-left m-login__form-left">
+                                    <label class="m-checkbox  m-checkbox--focus">
+                                        <input type="checkbox" name="remember">
+                                        保持登录状态
+                                        <span></span>
+                                    </label>
+                                </div>
+                                <div class="col m--align-right m-login__form-right">
+                                    <a href="javascript:;" id="m_login_forget_password" class="m-link">
+                                        <run Content="{Static m:Strings.ForgetPassword}"></run>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="m-login__form-action">
+                                <button id="m_login_signin_submit" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air m-login__btn m-login__btn--primary">
+                                    <run Content="{Static m:Strings.Login}"></run>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="m-login__signup">
+                        <div class="m-login__head">
+                            <h3 class="m-login__title">
+                                <run Content="{TemplateBinding RegisterTitle}"></run>
+                            </h3>
+                            <div class="m-login__desc">
+                                <run Content="{Static m:Strings.EnterDetailsCreateAccount}" />
+                            </div>
+                        </div>
+                        <form class="m-login__form m-form" id="registerForm" data-proxy="{give:new $$.form(),view:'register'}">
+                            <div class="form-group m-form__group">
+                                <input class="form-control m-input" type="text" placeholder="{Static m:Strings.Username}" name="username" data-proxy="{form:''}">
+                            </div>
+                            <div class="form-group m-form__group">
+                                <input class="form-control m-input" type="text" placeholder="{Static m:Strings.Email}" name="email" autocomplete="off" data-proxy="{form:''}">
+                            </div>
+                            <div class="form-group m-form__group">
+                                <input class="form-control m-input" type="password" placeholder="{Static m:Strings.Password}" name="password" id="register_password" data-proxy="{form:''}">
+                            </div>
+                            <div class="form-group m-form__group">
+                                <input class="form-control m-input m-login__form-input--last" type="password" placeholder="{Static m:Strings.ConfirmPassword}" name="rpassword" data-proxy="{form:''}">
+                            </div>
+                            <!--<div class="row form-group m-form__group m-login__form-sub">
+                                <div class="col m--align-left">
+                                    <label class="m-checkbox m-checkbox--focus">
+                                        <input type="checkbox" name="agree">
+                                        I Agree the
+                                        <a href="#" class="m-link m-link--focus">
+                                            terms and conditions
+                                        </a>
+                                        .
+                                        <span></span>
+                                    </label>
+                                    <span class="m-form__help"></span>
+                                </div>
+                            </div>-->
+                            <div class="m-login__form-action">
+                                <button id="m_login_signup_submit" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air  m-login__btn">
+                                    <run Content="{TemplateBinding RegisterButtonText}" />
+                                </button>
+                                &nbsp;&nbsp;
+                                <button id="m_login_signup_cancel" class="btn btn-outline-focus m-btn m-btn--pill m-btn--custom  m-login__btn">
+                                    <run Content="{Static m:Strings.Cancel}" />
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="m-login__forget-password">
+                        <div class="m-login__head">
+                            <h3 class="m-login__title">
+                                <run Content="{Static m:Strings.ForgottenPassword}" />
+                            </h3>
+                            <div class="m-login__desc">
+                                <run Content="{Static m:Strings.EnterEmailResetPassword}" />
+                            </div>
+                        </div>
+                        <form class="m-login__form m-form" action="">
+                            <div class="form-group m-form__group">
+                                <input class="form-control m-input" type="text" placeholder="{Static m:Strings.Email}" name="email" id="m_email" autocomplete="off">
+                            </div>
+                            <div class="m-login__form-action">
+                                <button id="m_login_forget_password_submit" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air  m-login__btn m-login__btn--primaryr">
+                                    <run Content="{Static m:Strings.Submit}" />
+                                </button>
+                                &nbsp;&nbsp;
+                                <button id="m_login_forget_password_cancel" class="btn btn-outline-focus m-btn m-btn--pill m-btn--custom m-login__btn">
+                                    <run Content="{Static m:Strings.Cancel}" />
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="m-login__account" Visibility="{TemplateBinding RegisterTitle,Converter={Static StringCollapsedConverter.Instance}}">
+                        <span class="m-login__account-msg">
+                            <run Content="{Static m:Strings.NoHaveAccount}" />
+                        </span>
+                        &nbsp;&nbsp;
+                        <a href="javascript:;" id="m_login_signup" class="m-link m-link--light m-login__account-link" Visibility="{TemplateBinding RegisterUrl,Converter={Static StringCollapsedConverter.Instance},ConverterParameter=1}">
+                            <run Content="{TemplateBinding RegisterTitle}" />
+                        </a>
+                        <a href="{TemplateBinding RegisterUrl}" class="m-link m-link--light m-login__account-link" Visibility="{TemplateBinding RegisterUrl,Converter={Static StringCollapsedConverter.Instance}}">
+                            <run Content="{TemplateBinding RegisterTitle}" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <LinkCode Key="/assets/vendors/base/vendors.bundle.js" Origin="Current" />
+    <LinkCode Key="/assets/custom/jquery.mousewheel.min.js" Origin="Current" />
+    <LinkCode Key="/assets/demo/default/base/scripts.bundle.js" Origin="Current" />
+    <LinkCode Key="/framework/codeart/release/codeArt.xaml.min.js" Origin="Current" />
+    <LinkCode Key="/LoginPage/login.js" Origin="Current" />
+</body>
+</html>
+</ControlTemplate>

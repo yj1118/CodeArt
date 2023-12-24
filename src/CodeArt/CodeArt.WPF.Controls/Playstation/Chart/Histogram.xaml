@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="CodeArt.WPF.Controls.Playstation.Histogram"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:ps="clr-namespace:CodeArt.WPF.Controls.Playstation" x:Name="root">
+    <Grid>
+        <ps:List x:Name="list">
+            <ps:List.ItemTemplate>
+                <DataTemplate>
+                    <Grid x:Name="container" Background="Transparent"
+                          Margin="0 20 15 20" 
+                          Width="{Binding ElementName=root,Path=ActualWidth,Converter={x:Static ps:SubtractionConverter.Instance},ConverterParameter=20}"
+                          MouseUp="OnSelectItem">
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition  Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                      
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding ValueText}" Style="{DynamicResource TextSM}" 
+                                   FontWeight="Light" HorizontalAlignment="Left" />
+                        <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Text}" Style="{DynamicResource TextSM}" 
+                                   FontWeight="Light" Margin="20 0 0 0" TextAlignment="Left" />
+                        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="0 10 0 0">
+                            <ps:ProgressBar x:Name="progress"  
+                                            HorizontalAlignment="Left"
+                                            BarSize="10"
+                                            ContainerBorderThickness="0"
+                                            Value="{Binding PercentageValue}"
+                                            Width="{Binding ElementName=container,Path=ActualWidth}"
+                                            ShowTip="False"
+                                            VerticalAlignment="Stretch" />
+                        </Grid>
+                    </Grid>
+                </DataTemplate>
+            </ps:List.ItemTemplate>
+        </ps:List>
+    </Grid>
+</UserControl>
