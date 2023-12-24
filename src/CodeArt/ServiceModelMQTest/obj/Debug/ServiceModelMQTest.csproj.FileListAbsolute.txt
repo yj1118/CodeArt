@@ -1,4 +1,0 @@
-D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTest\obj\Debug\ServiceModelMQTest.csproj.AssemblyReference.cache
-D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTest\obj\Debug\ServiceModelMQTest.csproj.SuggestedBindingRedirects.cache
-D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTest\obj\Debug\ServiceModelMQTest.exe.config
-D:\Workspace\Projects\CodeArtFramework\CodeArt\ServiceModelMQTest\obj\Debug\ServiceModelMQTest.csproj.CoreCompileInputs.cache

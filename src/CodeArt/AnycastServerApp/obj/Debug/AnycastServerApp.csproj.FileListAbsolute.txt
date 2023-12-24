@@ -1,4 +1,4 @@
-D:\Workspace\Projects\CodeArtFramework\CodeArt\AnycastServerApp\obj\Debug\AnycastServerApp.csproj.AssemblyReference.cache
-D:\Workspace\Projects\CodeArtFramework\CodeArt\AnycastServerApp\obj\Debug\AnycastServerApp.csproj.SuggestedBindingRedirects.cache
-D:\Workspace\Projects\CodeArtFramework\CodeArt\AnycastServerApp\obj\Debug\AnycastServerApp.exe.config
-D:\Workspace\Projects\CodeArtFramework\CodeArt\AnycastServerApp\obj\Debug\AnycastServerApp.csproj.CoreCompileInputs.cache
+D:\workspace\Projects\CodeArtFramework\CodeArt\AnycastServerApp\obj\Debug\AnycastServerApp.csprojAssemblyReference.cache
+D:\workspace\Projects\CodeArtFramework\CodeArt\AnycastServerApp\obj\Debug\AnycastServerApp.exe.config
+D:\workspace\Projects\CodeArtFramework\CodeArt\AnycastServerApp\obj\Debug\AnycastServerApp.csproj.CoreCompileInputs.cache
+D:\workspace\Projects\CodeArtFramework\CodeArt\AnycastServerApp\obj\Debug\AnycastServerApp.exe

@@ -1,4 +1,0 @@
-D:\Workspace\Projects\CodeArtFramework\CodeArt\ServerApp1\obj\Debug\ServerApp1.csproj.AssemblyReference.cache
-D:\Workspace\Projects\CodeArtFramework\CodeArt\ServerApp1\obj\Debug\ServerApp1.csproj.SuggestedBindingRedirects.cache
-D:\Workspace\Projects\CodeArtFramework\CodeArt\ServerApp1\obj\Debug\ServerApp1.exe.config
-D:\Workspace\Projects\CodeArtFramework\CodeArt\ServerApp1\obj\Debug\ServerApp1.csproj.CoreCompileInputs.cache

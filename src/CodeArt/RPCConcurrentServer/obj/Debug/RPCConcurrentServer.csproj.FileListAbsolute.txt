@@ -1,4 +1,0 @@
-D:\Workspace\Projects\CodeArtFramework\CodeArt\RPCConcurrentServer\obj\Debug\RPCConcurrentServer.csproj.AssemblyReference.cache
-D:\Workspace\Projects\CodeArtFramework\CodeArt\RPCConcurrentServer\obj\Debug\RPCConcurrentServer.csproj.SuggestedBindingRedirects.cache
-D:\Workspace\Projects\CodeArtFramework\CodeArt\RPCConcurrentServer\obj\Debug\RPCConcurrentServer.exe.config
-D:\Workspace\Projects\CodeArtFramework\CodeArt\RPCConcurrentServer\obj\Debug\RPCConcurrentServer.csproj.CoreCompileInputs.cache

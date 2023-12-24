@@ -1,2 +1,0 @@
-D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.TestTools.DomainDriven\obj\Debug\CodeArt.TestTools.DomainDriven.csproj.AssemblyReference.cache
-D:\Workspace\Projects\CodeArtFramework\CodeArt\CodeArt.TestTools.DomainDriven\obj\Debug\CodeArt.TestTools.DomainDriven.csproj.CoreCompileInputs.cache
